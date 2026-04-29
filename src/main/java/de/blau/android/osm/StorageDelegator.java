@@ -1024,18 +1024,18 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @return a list of list of ways with common nodes
      */
     @NonNull
-    private List<List<Way>> groupWays(@NonNull List<Way> ways) {
-        List<List<Way>> groups = new ArrayList<>();
+    private <W extends WayInterface> List<List<W>> groupWays(@NonNull List<W> ways) {
+        List<List<W>> groups = new ArrayList<>();
         int group = 0;
         int index = 0;
         int groupIndex = 1;
         groups.add(new ArrayList<>());
-        Way startWay = ways.get(index);
+        W startWay = ways.get(index);
         groups.get(group).add(startWay);
         do {
             do {
                 for (Node nd : startWay.getNodes()) {
-                    for (Way w : ways) {
+                    for (W w : ways) {
                         if (w.getNodes().contains(nd) && !groups.get(group).contains(w)) {
                             groups.get(group).add(w);
                         }
@@ -1050,9 +1050,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
 
             // find the next way that is not in a group and start a new one
             for (; index < ways.size(); index++) {
-                Way w = ways.get(index);
+                W w = ways.get(index);
                 boolean found = false;
-                for (List<Way> list : groups) {
+                for (List<W> list : groups) {
                     found = found || list.contains(w);
                 }
                 if (!found) {
@@ -1079,7 +1079,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param ways List of Way to square
      * @param threshold maximum difference to 90°/180° to process
      */
-    public void orthogonalizeWay(@NonNull List<Way> ways, final int threshold) {
+    public <W extends WayInterface> void orthogonalizeWay(@NonNull List<W> ways, final int threshold) {
         final double lowerThreshold = Math.cos((90 - threshold) * Math.PI / 180);
         final double upperThreshold = Math.cos(threshold * Math.PI / 180);
         final double epsilon = 1e-5;
@@ -1088,7 +1088,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         // save nodes for undo
         // adding to a Set first removes duplication
         Set<Node> save = new HashSet<>();
-        for (Way way : ways) {
+        for (W way : ways) {
             if (way.getNodes() != null) {
                 save.addAll(way.getNodes());
             }
@@ -1097,21 +1097,23 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             undo.save(nd);
         }
         invalidateWayBoundingBox(save);
-        List<List<Way>> groups = groupWays(ways);
+        List<List<W>> groups = groupWays(ways);
 
         List<Coordinates[]> coordsArray = new ArrayList<>();
 
-        for (List<Way> wayList : groups) {
+        for (List<W> wayList : groups) {
             coordsArray.clear();
 
             int totalNodes = 0;
-            for (Way w : wayList) {
+            for (W w : wayList) {
                 coordsArray.add(Coordinates.nodeListToMercatorCoordinateArray(w.getNodes()));
                 totalNodes += w.getNodes().size();
             }
-            int coordsArraySize = coordsArray.size();
+
             double lonOffset = coordsArray.get(0)[0].x;
             double latOffset = coordsArray.get(0)[0].y;
+
+            int coordsArraySize = coordsArray.size();
             for (int coordIndex = 0; coordIndex < coordsArraySize; coordIndex++) {
                 Coordinates[] coords = coordsArray.get(coordIndex);
                 for (Coordinates c : coords) {
