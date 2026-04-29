@@ -11,13 +11,13 @@ public final class MathUtil {
     private MathUtil() {
         // empty
     }
-    
+
     /**
-     * Floor modulus 
+     * Floor modulus
      * 
      * See Math.floorMod
      * 
-     * @param x dividend 
+     * @param x dividend
      * @param y dividor
      * @return the floor modulus of x and y
      */
@@ -27,5 +27,16 @@ public final class MathUtil {
             r--;
         }
         return x - r * y;
-    }    
+    }
+
+    /**
+     * Modulus that handles negative args properly
+     * 
+     * @param x the argument
+     * @param mod the modulus
+     * @return a mathematical correct modulus of x
+     */
+    public static int mod(int x, int mod) {
+        return ((x % mod) + mod) % mod;
+    }
 }

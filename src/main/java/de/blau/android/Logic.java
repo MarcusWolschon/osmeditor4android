@@ -119,6 +119,7 @@ import de.blau.android.osm.UndoStorage.Checkpoint;
 import de.blau.android.osm.UserDetails;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
+import de.blau.android.osm.WayInterface;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.resources.DataStyle;
@@ -2590,12 +2591,12 @@ public class Logic {
     }
 
     /**
-     * Orthogonalize a way (aka make angles 90°)
+     * Orthogonalize a way (aka make angles a integer multiple of 90°)
      * 
      * @param activity activity this was called from, if null no warnings will be displayed
      * @param way way to square
      */
-    public void performOrthogonalize(@Nullable FragmentActivity activity, @Nullable Way way) {
+    public <W extends WayInterface> void performOrthogonalize(@Nullable FragmentActivity activity, @Nullable W way) {
         if (way == null || way.getNodes().size() < 3) {
             Log.e(DEBUG_TAG, "performOrthogonalize way " + (way == null ? "is null" : " has " + way.nodeCount()) + " nodes");
             return;
@@ -2604,14 +2605,14 @@ public class Logic {
     }
 
     /**
-     * Orthogonalize multiple ways at once (aka make angles 90°)
+     * Orthogonalize multiple ways at once (aka make angles a integer multiple of 90°)
      * 
      * As this can take a noticeable amount of time, we execute async and display a toast when finished
      * 
      * @param activity activity this was called from, if null no warnings will be displayed
      * @param ways ways to square
      */
-    public void performOrthogonalize(@Nullable FragmentActivity activity, @Nullable List<Way> ways) {
+    public <W extends WayInterface> void performOrthogonalize(@Nullable FragmentActivity activity, @Nullable List<W> ways) {
         if (ways == null || ways.isEmpty()) {
             Log.e(DEBUG_TAG, "performOrthogonalize no ways");
             return;
@@ -2643,7 +2644,7 @@ public class Logic {
                 }
                 if (getFilter() != null && showAttachedObjectWarning()) {
                     Set<Node> nodes = new HashSet<>();
-                    for (Way w : ways) {
+                    for (W w : ways) {
                         nodes.addAll(w.getNodes());
                     }
                     displayAttachedObjectWarning(activity, nodes);

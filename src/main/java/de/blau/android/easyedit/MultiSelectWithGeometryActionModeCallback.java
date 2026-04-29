@@ -3,7 +3,9 @@ package de.blau.android.easyedit;
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import android.annotation.SuppressLint;
 import android.util.Log;
@@ -93,7 +95,7 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
         }));
         actionMap.put(main.getString(R.string.ACTION_UNDO), new Shortcuts.Action(R.string.action_undo, () -> undoListener.onClick(null)));
         actionMap.put(main.getString(R.string.ACTION_DELETE), new Shortcuts.Action(R.string.action_delete, () -> menuDelete(false)));
-        actionMap.put(main.getString(R.string.ACTION_SQUARE), new Shortcuts.Action(R.string.action_square, this::orthogonalizeWays));
+        actionMap.put(main.getString(R.string.ACTION_SQUARE), new Shortcuts.Action(R.string.action_square, this::orthogonalize));
         actionMap.put(main.getString(R.string.ACTION_MERGE), new Shortcuts.Action(R.string.action_merge, () -> {
             if (sortedWays != null) {
                 mergeWays();
@@ -149,7 +151,11 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
                 .setItemVisibility((count > 1 && sortedWays != null && !canMergePolygons) || (count == 2 && canMergePolygons), mergeItem, false);
 
         List<Way> selectedWays = logic.getSelectedWays();
-        updated |= ElementSelectionActionModeCallback.setItemVisibility(selectedWays != null && !selectedWays.isEmpty(), orthogonalizeItem, false);
+        List<Node> selectedNodes = logic.getSelectedNodes();
+
+        Set<Node> squarableNodes = new HashSet<>();
+        getSquarableNodes(logic, selectedNodes, null, squarableNodes);
+        updated |= ElementSelectionActionModeCallback.setItemVisibility(!Util.isEmpty(selectedWays) || !Util.isEmpty(squarableNodes), orthogonalizeItem, false);
 
         updated |= ElementSelectionActionModeCallback.setItemVisibility(intersect(selectedWays), intersectItem, false);
 
@@ -244,7 +250,7 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
             }, -1, R.string.select_relation_title, null, null, selection).show();
             break;
         case MENUITEM_ORTHOGONALIZE:
-            orthogonalizeWays();
+            orthogonalize();
             break;
         case MENUITEM_MERGE:
             if (canMergePolygons(selection)) {
@@ -364,13 +370,24 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
     }
 
     /**
-     * Orthogonalize any selected Ways
+     * Orthogonalize / square / straighten
      */
-    private void orthogonalizeWays() {
+    private void orthogonalize() {
         List<Way> selectedWays = logic.getSelectedWays();
-        if (selectedWays != null && !selectedWays.isEmpty()) {
-            logic.performOrthogonalize(main, selectedWays);
+        List<Node> selectedNodes = logic.getSelectedNodes();
+        if (Util.isEmpty(selectedWays) && !Util.isEmpty(selectedNodes)) {
+            Set<Way> ways = new HashSet<>();
+            Set<Node> nodes = new HashSet<>();
+            getSquarableNodes(logic, selectedNodes, ways, nodes);
+            orthogonalize(main, logic, new ArrayList<>(ways), new ArrayList<>(nodes));
+            return;
         }
+
+        if (Util.isEmpty(selectedNodes)) {
+            logic.performOrthogonalize(main, selectedWays);
+            return;
+        }
+        orthogonalize(main, logic, selectedWays, selectedNodes);
     }
 
     /**
