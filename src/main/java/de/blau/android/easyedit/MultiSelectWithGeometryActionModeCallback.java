@@ -28,6 +28,7 @@ import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
+import de.blau.android.osm.WaySegment;
 import de.blau.android.prefs.keyboard.Shortcuts;
 import de.blau.android.util.BentleyOttmannForOsm;
 import de.blau.android.util.Coordinates;
@@ -93,7 +94,7 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
         }));
         actionMap.put(main.getString(R.string.ACTION_UNDO), new Shortcuts.Action(R.string.action_undo, () -> undoListener.onClick(null)));
         actionMap.put(main.getString(R.string.ACTION_DELETE), new Shortcuts.Action(R.string.action_delete, () -> menuDelete(false)));
-        actionMap.put(main.getString(R.string.ACTION_SQUARE), new Shortcuts.Action(R.string.action_square, this::orthogonalizeWays));
+        actionMap.put(main.getString(R.string.ACTION_SQUARE), new Shortcuts.Action(R.string.action_square, this::orthogonalize));
         actionMap.put(main.getString(R.string.ACTION_MERGE), new Shortcuts.Action(R.string.action_merge, () -> {
             if (sortedWays != null) {
                 mergeWays();
@@ -244,7 +245,7 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
             }, -1, R.string.select_relation_title, null, null, selection).show();
             break;
         case MENUITEM_ORTHOGONALIZE:
-            orthogonalizeWays();
+            orthogonalize();
             break;
         case MENUITEM_MERGE:
             if (canMergePolygons(selection)) {
@@ -364,12 +365,32 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
     }
 
     /**
-     * Orthogonalize any selected Ways
+     * Orthogonalize / square / straighten
      */
-    private void orthogonalizeWays() {
+    private void orthogonalize() {
         List<Way> selectedWays = logic.getSelectedWays();
-        if (selectedWays != null && !selectedWays.isEmpty()) {
-            logic.performOrthogonalize(main, selectedWays);
+        if (!Util.isEmpty(selectedWays)) {
+            List<Node> selectedNodes = logic.getSelectedNodes();
+            if (Util.isEmpty(selectedNodes)) {
+                logic.performOrthogonalize(main, selectedWays);
+                return;
+            }
+            // generate way segments and orthonalize those
+            List<WaySegment> segments = new ArrayList<>();
+            for (Node n : selectedNodes) {
+                // find the way the node is a member of
+                for (Way w : selectedWays) {
+                    if (!w.hasNode(n)) {
+                        continue;
+                    }
+                    int pos = w.getNodes().indexOf(n);
+                    int nodeCount = w.nodeCount();
+                    segments.add(new WaySegment(w, (pos - 1) % nodeCount, (pos + 1) % nodeCount));
+                }
+            }
+            if (!segments.isEmpty()) {
+                logic.performOrthogonalize(main, segments);
+            }
         }
     }
 
