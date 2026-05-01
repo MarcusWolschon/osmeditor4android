@@ -46,6 +46,7 @@ import de.blau.android.util.GeoContext;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.SerializableState;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 import de.blau.android.util.collections.MultiHashMap;
 
 /**
@@ -422,7 +423,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
                 || (relationRelations != null && relationRelations.contains(element)))) {
             CharSequence message = new SpannableString(main.getString(R.string.duplicate_relation_member_message, element.getDescription(main, true)));
             List<PresetRole> roles = getRoles();
-            if (roles != null && !checkRole(roles, element)) {
+            if (!Util.isEmpty(roles) && !checkRole(roles, element)) {
                 SpannableString warning = new SpannableString(main.getString(R.string.relation_member_no_match_warning));
                 ThemeUtils.setSpanColor(main, warning, R.attr.error, R.color.material_red);
                 message = TextUtils.concat(message, warning);
@@ -444,7 +445,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
     public boolean handleElementLongClick(@NonNull OsmElement element, float x, float y) {
         super.handleElementLongClick(element, x, y);
         List<PresetRole> roles = getRoles();
-        if (roles != null && !checkRole(roles, element)) {
+        if (!Util.isEmpty(roles) && !checkRole(roles, element)) {
             CharSequence message = main.getString(R.string.remove_relation_member_message, element.getDescription(main, true));
             SpannableString warning = new SpannableString(main.getString(R.string.relation_member_no_match_warning));
             ThemeUtils.setSpanColor(main, warning, R.attr.error, R.color.material_red);
@@ -469,7 +470,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
     private void setClickableElements() {
         BoundingBox viewBox = main.getMap().getViewBox();
         List<PresetRole> roles = getRoles();
-        if (roles == null) {
+        if (Util.isEmpty(roles)) {
             // make everything selectable
             logic.setClickableElements(null);
             return;
@@ -634,8 +635,8 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
             main.startSupportActionMode(new RelationSelectionActionModeCallback(manager, relation));
         };
         if (!tags.isEmpty()) {
-            AlertDialog alertDialog = ThemeUtils.getAlertDialogBuilder(main).setTitle(R.string.move_outer_tags_title).setMessage(R.string.move_outer_tags_message)
-                    .setPositiveButton(R.string.move, (dialog, which) -> {
+            AlertDialog alertDialog = ThemeUtils.getAlertDialogBuilder(main).setTitle(R.string.move_outer_tags_title)
+                    .setMessage(R.string.move_outer_tags_message).setPositiveButton(R.string.move, (dialog, which) -> {
                         logic.createCheckpoint(main, R.string.undo_action_move_tags);
                         RelationUtils.moveOuterTags(App.getDelegator(), relation);
                     }).setNeutralButton(R.string.leave_as_is, null).create();
