@@ -61,6 +61,10 @@ Start creating a turn restriction with this node as "via" member. This action is
 
 If the node has a direction tag with a degree value, rotate the node by dragging the display roughly in a circle.
 
+### ![Orthogonalize](../images/menu_ortho.png) Square
+
+Available for non-end nodes of ways. Change angles that are near 90° or 180° to 90° or 180° respectively. The threshold over which angles are not changed can be set in the [Advanced preferences](Advanced%20preferences.md).
+
 ### ![Copy](../images/ic_menu_copy_holo_light.png) Copy
 
 Copy the node to the internal copy and paste buffer.

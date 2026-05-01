@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.SortedMap;
 
 import android.annotation.SuppressLint;
@@ -51,15 +52,16 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, NodeSelectionActionModeCallback.class.getSimpleName().length());
     private static final String DEBUG_TAG = NodeSelectionActionModeCallback.class.getSimpleName().substring(0, TAG_LEN);
 
-    private static final int MENUITEM_APPEND       = LAST_REGULAR_MENUITEM + 1;
-    private static final int MENUITEM_JOIN         = LAST_REGULAR_MENUITEM + 2;
-    private static final int MENUITEM_UNJOIN       = LAST_REGULAR_MENUITEM + 3;
-    private static final int MENUITEM_EXTRACT      = LAST_REGULAR_MENUITEM + 4;
-    private static final int MENUITEM_RESTRICTION  = LAST_REGULAR_MENUITEM + 5;
+    private static final int MENUITEM_APPEND        = LAST_REGULAR_MENUITEM + 1;
+    private static final int MENUITEM_JOIN          = LAST_REGULAR_MENUITEM + 2;
+    private static final int MENUITEM_UNJOIN        = LAST_REGULAR_MENUITEM + 3;
+    private static final int MENUITEM_EXTRACT       = LAST_REGULAR_MENUITEM + 4;
+    private static final int MENUITEM_RESTRICTION   = LAST_REGULAR_MENUITEM + 5;
     /** */
-    private static final int MENUITEM_SET_POSITION = LAST_REGULAR_MENUITEM + 6;
-    private static final int MENUITEM_ADDRESS      = LAST_REGULAR_MENUITEM + 7;
-    private static final int MENUITEM_ROTATE       = LAST_REGULAR_MENUITEM + 8;
+    private static final int MENUITEM_SET_POSITION  = LAST_REGULAR_MENUITEM + 6;
+    private static final int MENUITEM_ADDRESS       = LAST_REGULAR_MENUITEM + 7;
+    private static final int MENUITEM_ROTATE        = LAST_REGULAR_MENUITEM + 8;
+    private static final int MENUITEM_ORTHOGONALIZE = LAST_REGULAR_MENUITEM + 9;
 
     private final GeoContext geoContext;
     private List<OsmElement> joinableElements = null;
@@ -71,6 +73,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
     private MenuItem         extractItem;
     private MenuItem         restrictionItem;
     private MenuItem         rotateItem;
+    private MenuItem         orthogonalizeItem;
     private int              action;
     private Preset[]         presets;
 
@@ -133,6 +136,10 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_gps));
 
         rotateItem = menu.add(Menu.NONE, MENUITEM_ROTATE, Menu.NONE, R.string.menu_rotate).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_rotate));
+
+        orthogonalizeItem = menu.add(Menu.NONE, MENUITEM_ORTHOGONALIZE, Menu.NONE, R.string.menu_orthogonalize)
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_ortho));
+
         return true;
     }
 
@@ -162,6 +169,10 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
         updated |= setItemVisibility(Tags.getDirectionKey(
                 Preset.findBestMatch(main, presets, element.getTags(), geoContext != null ? geoContext.getIsoCodes(element) : null, element, false),
                 element) != null, rotateItem, false);
+
+        Set<Node> squarableNodes = new HashSet<>();
+        getSquarableNodes(logic, Util.wrapInList((Node) element), null, squarableNodes);
+        updated |= ElementSelectionActionModeCallback.setItemVisibility(!Util.isEmpty(squarableNodes), orthogonalizeItem, false);
 
         if (updated) {
             arrangeMenu(menu);
@@ -229,6 +240,12 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
             case MENUITEM_ROTATE:
                 deselect = false;
                 main.startSupportActionMode(new RotationActionModeCallback(manager));
+                break;
+            case MENUITEM_ORTHOGONALIZE:
+                Set<Way> ways = new HashSet<>();
+                Set<Node> nodes = new HashSet<>();
+                getSquarableNodes(logic, Util.wrapInList((Node) element), ways, nodes);
+                orthogonalize(main, logic, new ArrayList<>(ways), new ArrayList<>(nodes));
                 break;
             case MENUITEM_SHARE_POSITION:
                 double[] lonLat = new double[2];

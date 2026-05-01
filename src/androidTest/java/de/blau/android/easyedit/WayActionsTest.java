@@ -108,7 +108,7 @@ public class WayActionsTest {
     @Test
     public void square() {
         map.getDataLayer().setVisible(true);
-        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.zoomToLevel(device, main, 22);
         TestUtils.unlock(device);
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_way), true, false));

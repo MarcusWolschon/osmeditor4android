@@ -41,11 +41,14 @@ import de.blau.android.osm.RelationUtils;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
+import de.blau.android.osm.WaySegment;
 import de.blau.android.prefs.keyboard.Shortcuts;
+import de.blau.android.util.MathUtil;
 import de.blau.android.util.MenuUtil;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.SerializableState;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 
 /**
  * Base class for ActionMode callbacks inside {@link EasyEditManager}. Derived classes should call
@@ -607,6 +610,85 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
                 manager.finish();
             }
         };
+    }
+
+    /**
+     * From a List of candidate nodes get Nodes that could be squared and the associated Ways
+     * 
+     * @param logic Logic instance
+     * @param candidateNodes the candidate nodes
+     * @param ways the container for ways, can be null is not used
+     * @param nodes the squarable nodes
+     */
+    protected static void getSquarableNodes(@NonNull Logic logic, @Nullable List<Node> candidateNodes, @Nullable Set<Way> ways, @NonNull Set<Node> nodes) {
+        if (Util.isEmpty(candidateNodes)) {
+            return;
+        }
+        for (Node n : candidateNodes) {
+            List<Way> parents = logic.getWaysForNode(n);
+            for (Way parent : parents) {
+                if (!parent.isEndNode(n) || parent.isClosed()) {
+                    if (ways != null) {
+                        ways.add(parent);
+                    }
+                    nodes.add(n);
+                }
+            }
+        }
+    }
+
+    /**
+     * Given one or more ways and corner nodes, square the corners
+     * 
+     * @param main Main instance
+     * @param logic Logic instance
+     * @param ways the relevant Ways
+     * @param cornerNodes the corners
+     */
+    protected static void orthogonalize(@Nullable Main main, @NonNull Logic logic, @NonNull List<Way> ways, @NonNull List<Node> cornerNodes) {
+        // generate way segments and orthogonalize those
+        List<WaySegment> segments = new ArrayList<>();
+        for (Way w : ways) {
+            // sort the corners as they are in the way
+            List<Node> cornersToSquare = new ArrayList<>();
+            final List<Node> nodes = w.getNodes();
+            final int nodeCount = uniqueNodeCount(w);
+            for (int i = 0; i < nodeCount; i++) {
+                Node n = nodes.get(i);
+                if (cornerNodes.contains(n)) {
+                    cornersToSquare.add(n);
+                }
+            }
+            if (cornersToSquare.isEmpty()) {
+                continue;
+            }
+
+            int cornerCount = cornersToSquare.size();
+            for (int i = 0; i < cornerCount; i++) {
+                Node n = cornersToSquare.get(i);
+                int start = nodes.indexOf(n);
+                // check the next nodes
+                int end = start;
+                while (i < cornerCount - 1 && nodes.get(end + 1).equals(cornersToSquare.get(i + 1))) {
+                    end++;
+                    i++; // NOSONAR
+                }
+                segments.add(new WaySegment(w, MathUtil.mod(start - 1, nodeCount), (end + 1) % nodeCount));
+            }
+        }
+        if (!segments.isEmpty()) {
+            logic.performOrthogonalize(main, segments);
+        }
+    }
+
+    /**
+     * Get the node count of a way without any closing node
+     * 
+     * @param w the way
+     * @return the node count of a way without any closing node
+     */
+    private static int uniqueNodeCount(@NonNull Way w) {
+        return w.nodeCount() - (w.isClosed() ? 1 : 0);
     }
 
     /**

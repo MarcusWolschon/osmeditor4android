@@ -36,6 +36,10 @@ Remove the objects from the data.
 
 Merge multiple selected ways resulting in a single way. Ways will be reversed if necessary. This option will only be available if only ways with common start/end nodes are selected, or the selection is two closed ways (polygons), in the later case if the polygons do not have common nodes a multi-polygon relation will be created and the ways added as members. If post-merge tag conflicts are detected you will be alerted. 
 
+### ![Orthogonalize](../images/menu_ortho.png) Square
+
+Available for closed ways (polygons), individual non-end way nodes and specific selected ways with selected nodes. Change angles that are near 90° or 180° to 90° or 180° respectively. The threshold over which angles are not changed can be set in the [Advanced preferences](Advanced%20preferences.md).
+
 ### Extract segment
 
 If you have selected exactly two nodes on the same way, you can extract the segment of the way between the two nodes. If the way is closed the segment extracted will between the first and 2nd node selected in the winding direction (clockwise or counterclockwise) of the way.
