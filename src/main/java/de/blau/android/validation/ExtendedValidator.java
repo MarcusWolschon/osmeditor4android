@@ -19,6 +19,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetRole;
+import de.blau.android.util.Util;
 import de.blau.android.util.collections.LongHashSet;
 import de.blau.android.util.collections.LongOsmElementMap;
 
@@ -132,7 +133,7 @@ public class ExtendedValidator implements Validator {
         PresetItem pi = Preset.findBestMatch(base.getPresets(), relation.getTags(), base.getIsoCodes(relation), ElementType.RELATION, false, null);
         if (pi != null) {
             List<PresetRole> presetRoles = pi.getRoles();
-            if (presetRoles != null) {
+            if (!Util.isEmpty(presetRoles)) {
                 List<String> roles = new ArrayList<>();
                 for (PresetRole role : presetRoles) {
                     roles.add(role.getRole());
