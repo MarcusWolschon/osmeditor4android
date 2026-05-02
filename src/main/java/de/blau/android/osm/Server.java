@@ -1,5 +1,7 @@
 package de.blau.android.osm;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -78,8 +80,8 @@ import se.akerfeldt.okhttp.signpost.SigningInterceptor;
  * @author Simon
  */
 public class Server {
-
-    private static final String DEBUG_TAG = Server.class.getSimpleName().substring(0, Math.min(23, Server.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Server.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Server.class.getSimpleName().substring(0, TAG_LEN);
 
     /**
      * <a href="http://wiki.openstreetmap.org/wiki/API">API</a>-Version.
@@ -177,6 +179,11 @@ public class Server {
     private final boolean compressedUploads;
 
     /**
+     * Use authenticated reads
+     */
+    private final boolean authenticatedReads;
+
+    /**
      * display name of the user and other stuff
      */
     private UserDetails cachedUserDetails;
@@ -216,6 +223,33 @@ public class Server {
      */
     private static final String SERVER_NOTES_PATH = "notes/";
 
+    private interface AddInterceptor {
+        void add(@NonNull OkHttpClient.Builder builder);
+    }
+
+    /**
+     * Add an appropriate Interceptor for authentication
+     * 
+     * @param builder an OkHttpClient.Builder instance
+     */
+    private class AddAuthentication implements AddInterceptor {
+        public void add(@NonNull OkHttpClient.Builder builder) {
+            Log.d(DEBUG_TAG, "Adding interceptor for " + authentication);
+            switch (authentication) {
+            case OAUTH1A:
+                builder.addInterceptor(new SigningInterceptor(oAuthConsumer));
+                break;
+            case OAUTH2:
+                builder.addInterceptor(new OAuth2Interceptor(accesstoken));
+                break;
+            case BASIC:
+                builder.addInterceptor(new BasicAuthInterceptor(username, password));
+            }
+        }
+    }
+
+    private final AddAuthentication addAuthentication;
+
     /**
      * Constructor. Sets {@link #rootOpen} and {@link #createdByTag}.
      * 
@@ -241,6 +275,7 @@ public class Server {
         this.accesstokensecret = api.accesstokensecret;
         this.timeout = api.timeout;
         this.compressedUploads = api.compressedUploads;
+        this.authenticatedReads = api.authenticatedReads;
 
         if (authentication == Auth.OAUTH1A) {
             oAuthConsumer = new OAuth1aHelper().getOkHttpConsumer(context, name);
@@ -250,6 +285,8 @@ public class Server {
         } else {
             oAuthConsumer = null;
         }
+
+        addAuthentication = new AddAuthentication();
 
         Log.d(DEBUG_TAG, "API entry " + name + " with " + this.serverURL);
 
@@ -465,7 +502,7 @@ public class Server {
      */
     private Capabilities getCapabilities(@NonNull URL capabilitiesURL) {
         //
-        try (InputStream is = openConnection(null, capabilitiesURL, timeout, timeout)) {
+        try (InputStream is = openConnection(null, capabilitiesURL, useAuthenticatedReads(), timeout, timeout)) {
             Log.d(DEBUG_TAG, "getCapabilities using " + capabilitiesURL.toString());
             return Capabilities.parse(xmlParserFactory.newPullParser(), is);
         } catch (XmlPullParserException e) {
@@ -524,7 +561,17 @@ public class Server {
     public InputStream getStreamForBox(@Nullable final Context context, @NonNull final BoundingBox box) throws IOException {
         Log.d(DEBUG_TAG, "getStreamForBox");
         URL url = new URL(getReadOnlyUrl() + "map?bbox=" + box.toApiString());
-        return openConnection(context, url, timeout, timeout);
+        return openConnection(context, url, useAuthenticatedReads(), timeout, timeout);
+    }
+
+    /**
+     * Check if we need to and can use authenticated reads and return an AddInterceptor class if so
+     * 
+     * @return an AddInterceptor that will add an appropriate Interceptor
+     */
+    @Nullable
+    private AddInterceptor useAuthenticatedReads() {
+        return authenticatedReads && (isLoginSet() || !needOAuthHandshake()) ? addAuthentication : null;
     }
 
     /**
@@ -542,7 +589,7 @@ public class Server {
             throws IOException {
         Log.d(DEBUG_TAG, "getStreamForElement");
         URL url = new URL((hasMapSplitSource() ? getReadWriteUrl() : getReadOnlyUrl()) + type + "/" + id + (mode != null ? "/" + mode : ""));
-        return openConnection(context, url, timeout, timeout);
+        return openConnection(context, url, useAuthenticatedReads(), timeout, timeout);
     }
 
     /**
@@ -572,7 +619,7 @@ public class Server {
             }
         }
         URL url = new URL(urlString.toString());
-        return openConnection(context, url, timeout, timeout);
+        return openConnection(context, url, useAuthenticatedReads(), timeout, timeout);
     }
 
     /**
@@ -587,7 +634,7 @@ public class Server {
      */
     @NonNull
     public static InputStream openConnection(@Nullable final Context context, @NonNull URL url) throws IOException {
-        return openConnection(context, url, Server.DEFAULT_TIMEOUT, Server.DEFAULT_TIMEOUT);
+        return openConnection(context, url, null, Server.DEFAULT_TIMEOUT, Server.DEFAULT_TIMEOUT);
     }
 
     /**
@@ -595,6 +642,7 @@ public class Server {
      * 
      * @param context Android context
      * @param url the URL
+     * @param addInterceptor adds an interceptor if necessary
      * @param connectTimeout connection timeout in ms
      * @param readTimeout read timeout in ms
      * @return the InputStream
@@ -602,12 +650,16 @@ public class Server {
      * 
      */
     @NonNull
-    public static InputStream openConnection(@Nullable final Context context, @NonNull URL url, int connectTimeout, int readTimeout) throws IOException {
+    public static InputStream openConnection(@Nullable final Context context, @NonNull URL url, @Nullable AddInterceptor addInterceptor, int connectTimeout,
+            int readTimeout) throws IOException {
         Log.d(DEBUG_TAG, "get input stream for  " + url.toString());
         try {
             Request request = new Request.Builder().url(url).build();
             OkHttpClient.Builder builder = App.getHttpClient().newBuilder().connectTimeout(connectTimeout, TimeUnit.MILLISECONDS).readTimeout(readTimeout,
                     TimeUnit.MILLISECONDS);
+            if (addInterceptor != null) {
+                addInterceptor.add(builder);
+            }
             OkHttpClient client = builder.build();
             Call readCall = client.newCall(request);
             Response readCallResponse = readCall.execute();
@@ -710,16 +762,7 @@ public class Server {
 
         OkHttpClient.Builder builder = App.getHttpClient().newBuilder().connectTimeout(timeout, TimeUnit.MILLISECONDS).readTimeout(timeout,
                 TimeUnit.MILLISECONDS);
-        switch (authentication) {
-        case OAUTH1A:
-            builder.addInterceptor(new SigningInterceptor(oAuthConsumer));
-            break;
-        case OAUTH2:
-            builder.addInterceptor(new OAuth2Interceptor(accesstoken));
-            break;
-        case BASIC:
-            builder.addInterceptor(new BasicAuthInterceptor(username, password));
-        }
+        addAuthentication.add(builder);
         // if compressed uploads are supported and compression interceptor
         if ((HTTP_POST.equals(requestMethod) || HTTP_PUT.equals(requestMethod)) && compressedUploads) {
             builder.addInterceptor(new GzipRequestInterceptor());
@@ -1437,7 +1480,7 @@ public class Server {
     public Note getNote(long id) throws NumberFormatException, XmlPullParserException, IOException {
         // http://openstreetbugs.schokokeks.org/api/0.1/getGPX?b=48&t=49&l=11&r=12&limit=100
         Log.d(DEBUG_TAG, "getNote");
-        try (InputStream is = openConnection(null, getNoteUrl(Long.toString(id)), timeout, timeout)) {
+        try (InputStream is = openConnection(null, getNoteUrl(Long.toString(id)), useAuthenticatedReads(), timeout, timeout)) {
             XmlPullParser parser = xmlParserFactory.newPullParser();
             parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
             List<Note> result = Note.parseNotes(parser, null);
@@ -1457,7 +1500,7 @@ public class Server {
     public Collection<Note> getNotesForBox(@NonNull BoundingBox area, long limit) {
         // http://openstreetbugs.schokokeks.org/api/0.1/getGPX?b=48&t=49&l=11&r=12&limit=100
         Log.d(DEBUG_TAG, "getNotesForBox");
-        try (InputStream is = openConnection(null, getNotesForBox(limit, area), timeout, timeout)) {
+        try (InputStream is = openConnection(null, getNotesForBox(limit, area), useAuthenticatedReads(), timeout, timeout)) {
             XmlPullParser parser = xmlParserFactory.newPullParser();
             parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
             return Note.parseNotes(parser, null);

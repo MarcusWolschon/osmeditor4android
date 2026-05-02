@@ -266,7 +266,7 @@ public class PresetConfigurationEditorActivity extends AbstractConfigurationEdit
             boolean useTranslationsEnabled = useTranslations.isChecked();
             if (item == null) {
                 // new item
-                activity.finishCreateItem(new ListEditItem(name, url, null, null, useTranslationsEnabled, null));
+                activity.finishCreateItem(new ListEditItem(name, url, null, null, useTranslationsEnabled, false, null));
             } else {
                 item.name = name;
                 item.value = url;

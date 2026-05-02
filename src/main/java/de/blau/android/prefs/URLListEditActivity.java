@@ -410,15 +410,17 @@ public abstract class URLListEditActivity extends ListActivity
     /**
      * 
      * @author Jan
+     * @author Simon
      */
     public static class ListEditItem implements Serializable {
-        private static final long serialVersionUID = 7574708515164503468L;
+        private static final long serialVersionUID = 7574708515164503469L;
         final String              id;
         String                    name;
         String                    value;
         String                    value2;
         String                    value3;
         boolean                   boolean0;
+        boolean                   boolean1;
         boolean                   active;
         Serializable              object0;
 
@@ -429,7 +431,7 @@ public abstract class URLListEditActivity extends ListActivity
          * @param value the value
          */
         public ListEditItem(@NonNull String name, @NonNull String value) {
-            this(name, value, null, null, false, null);
+            this(name, value, null, null, false, false, null);
         }
 
         /**
@@ -440,9 +442,10 @@ public abstract class URLListEditActivity extends ListActivity
          * @param value2 further value 2
          * @param value3 further value 3
          * @param boolean0 a boolean
+         * @param boolean1 a 2nd boolean
          * @param object0 a Serializable object
          */
-        public ListEditItem(@NonNull String name, @NonNull String value, @Nullable String value2, @Nullable String value3, boolean boolean0,
+        public ListEditItem(@NonNull String name, @NonNull String value, @Nullable String value2, @Nullable String value3, boolean boolean0, boolean boolean1,
                 Serializable object0) {
             id = java.util.UUID.randomUUID().toString();
             this.value = value;
@@ -450,6 +453,7 @@ public abstract class URLListEditActivity extends ListActivity
             this.value3 = value3;
             this.name = name;
             this.boolean0 = boolean0;
+            this.boolean1 = boolean1;
             this.object0 = object0;
             this.active = false;
         }
@@ -500,13 +504,14 @@ public abstract class URLListEditActivity extends ListActivity
          * @param value3 further value 3
          * @param object0 a Serializable object
          * @param boolean0 a boolean
+         * @param boolean1 a 2nd boolean
          * @param active true if this entry should be active
          */
         public ListEditItem(@NonNull String id, @NonNull String name, @NonNull String value, @Nullable String value2, @Nullable String value3,
-                @NonNull Serializable object0, boolean boolean0, boolean active) {
+                @NonNull Serializable object0, boolean boolean0, boolean boolean1, boolean active) {
             this(id, name, value, value2, value3, boolean0, active);
             this.object0 = object0;
-
+            this.boolean1 = boolean1;
         }
 
         /**
@@ -528,6 +533,7 @@ public abstract class URLListEditActivity extends ListActivity
             this.value3 = value3;
             this.name = name;
             this.boolean0 = boolean0;
+            this.boolean1 = false;
             this.object0 = null;
             this.active = active;
         }
@@ -747,7 +753,7 @@ public abstract class URLListEditActivity extends ListActivity
             if (item == null || item.id == null) {
                 // new item
                 if (!"".equals(value)) {
-                    finishCreateItem(new ListEditItem(name, value, !"".equals(value2) ? value2 : null, null, false, null));
+                    finishCreateItem(new ListEditItem(name, value, !"".equals(value2) ? value2 : null, null, false, false, null));
                 }
             } else {
                 item.name = name;

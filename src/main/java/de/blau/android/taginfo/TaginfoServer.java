@@ -691,7 +691,7 @@ public final class TaginfoServer {
             @Nullable final PostAsyncActionHandler handler) {
         Log.d(DEBUG_TAG, "querying server for " + url);
         Object result = null;
-        try (InputStream is = Server.openConnection(context, new URL(url), 1000, 1000); JsonReader reader = new JsonReader(new InputStreamReader(is));) {
+        try (InputStream is = Server.openConnection(context, new URL(url), null, 1000, 1000); JsonReader reader = new JsonReader(new InputStreamReader(is));) {
             result = resultReader.read(reader);
             if (result != null && handler != null) {
                 handler.onSuccess();
