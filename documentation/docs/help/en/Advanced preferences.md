@@ -333,6 +333,9 @@ This lists all the configured OSM API instances, allows adding further ones and 
 
 Select _Edit_ from the overflow menu to configure the URLs including read-only sources and authentication method for a specific entry. Basic Authentication, OAuth 1.0a and OAuth 2 are supported, however the API instance on openstreetmap.org only supports OAuth 2 since June 2024. Additional entries can be added with the "+" button.
 
+Checking _Use authenticated reads_ will authenticate all read operations if the app on your device has been authorised. This will at least reduce the probability
+of issues with rate limiting on the standard OpenStreetMap API (code 509 errors).
+
 For API instances that support uploading compressed bodies in POST requests, _Support compressed uploads_ can be set. By default this is only enabled for the openstreetmap.org API instance. Note that OAuth support for entries that are not pre-configured requires adding corresponding client keys,  
 
 These preferences can also be accessed by selecting _Configure_ for the OpenStreetMap Data layer in the layers modal.
