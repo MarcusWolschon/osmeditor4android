@@ -46,8 +46,8 @@ public class ImportExportConfigurationTest {
         final Context ctx = ApplicationProvider.getApplicationContext();
         try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(ctx)) {
             API current = db.getCurrentAPI();
-            db.addAPI("test_1", "test_1", current.url, null, null, new AuthParams(current.auth, null, null, null, null), false);
-            db.addAPI("test_2", "test_2", current.url, null, null, new AuthParams(Auth.OAUTH1A, null, null, null, null), false);
+            db.addAPI("test_1", "test_1", current.url, null, null, new AuthParams(current.auth, null, null, null, null), false, false);
+            db.addAPI("test_2", "test_2", current.url, null, null, new AuthParams(Auth.OAUTH1A, null, null, null, null), false, false);
             db.selectAPI("test_2");
             db.setAPIAccessToken("12345", "67890");
         }

@@ -71,7 +71,7 @@ public class CompressionTest {
         main = Robolectric.buildActivity(Main.class).create().resume().get();
         prefDB = new AdvancedPrefDatabase(main);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, null, null, null, null), true);
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, null, null, null, null), true, false);
         prefDB.selectAPI("Test");
         System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR
         Logic logic = App.getLogic();

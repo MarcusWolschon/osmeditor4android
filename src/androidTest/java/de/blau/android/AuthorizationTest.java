@@ -68,7 +68,7 @@ public class AuthorizationTest {
 
         prefDB = new AdvancedPrefDatabase(context);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockApiBaseUrl.toString(), null, null, new AuthParams(API.Auth.OAUTH2, "user", "pass", null, null), false);
+        prefDB.addAPI("Test", "Test", mockApiBaseUrl.toString(), null, null, new AuthParams(API.Auth.OAUTH2, "user", "pass", null, null), false, false);
         prefDB.selectAPI("Test");
         prefDB.resetCurrentServer();
         Preferences prefs = new Preferences(context);

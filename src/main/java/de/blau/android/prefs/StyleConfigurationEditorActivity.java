@@ -251,7 +251,7 @@ public class StyleConfigurationEditorActivity extends AbstractConfigurationEdito
         void finishItem(@NonNull URLListEditActivity activity, @Nullable ListEditItem item, @NonNull String name, @NonNull String url) {
             if (item == null) {
                 // new item
-                activity.finishCreateItem(new ListEditItem(name, url, null, null, true, null));
+                activity.finishCreateItem(new ListEditItem(name, url, null, null, true, false, null));
             } else {
                 item.name = name;
                 item.value = url;
