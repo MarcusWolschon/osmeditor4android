@@ -1266,20 +1266,20 @@ public class Map extends SurfaceView implements IMapView {
     }
 
     /**
-     * Return a list of the names of the currently used (and visible) layers
+     * Return a list of the source of the currently used (and visible) layers
      * 
-     * @return a List containing the currently in use imagery names
+     * @return a List containing the currently in use imagery sources
      */
     @NonNull
-    public List<String> getImageryNames() {
-        List<String> result = new ArrayList<>();
+    public List<TileLayerSource> getImagerySources() {
+        List<TileLayerSource> result = new ArrayList<>();
         List<MapViewLayer> imageryLayers = getLayers();
         Collections.reverse(imageryLayers);
         for (MapViewLayer osmvo : imageryLayers) {
             if (osmvo instanceof MapTilesLayer && osmvo.isVisible()) {
                 TileLayerSource tileLayerConfiguration = ((MapTilesLayer<?>) osmvo).getTileLayerConfiguration();
                 if (tileLayerConfiguration != null) {
-                    result.add(tileLayerConfiguration.getName());
+                    result.add(tileLayerConfiguration);
                     if (!tileLayerConfiguration.isOverlay()) {
                         // not an overlay -> not transparent so nothing below it is visible
                         break;
