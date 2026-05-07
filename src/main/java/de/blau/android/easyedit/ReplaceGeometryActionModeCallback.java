@@ -36,7 +36,7 @@ import de.blau.android.util.ThemeUtils;
  * @author simon
  *
  */
-public class ReplaceGeometryActionModeCallback extends NonSimpleActionModeCallback {
+public class ReplaceGeometryActionModeCallback extends AbortableWayActionModeCallback {
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, ReplaceGeometryActionModeCallback.class.getSimpleName().length());
     private static final String DEBUG_TAG = ReplaceGeometryActionModeCallback.class.getSimpleName().substring(0, TAG_LEN);
