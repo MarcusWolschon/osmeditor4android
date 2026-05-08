@@ -366,6 +366,10 @@ android {
     androidResources {
         generateLocaleConfig false
     }
+    
+    // remove java resources from preset-utils that are not needed
+    packagingOptions.resources.excludes += "**/*.xslt"
+    packagingOptions.resources.excludes += "**/*.xlmns"
 }
 
 base {
