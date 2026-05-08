@@ -57,7 +57,7 @@ public final class FileUtil {
      * @throws IOException if we can't create the directory
      */
     public static @NonNull File getPublicDirectory() throws IOException {
-        return getPublicDirectory(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), Paths.DIRECTORY_PATH_VESPUCCI);
+        return getPublicDirectory(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), App.getAppName());
     }
 
     /**
@@ -66,7 +66,7 @@ public final class FileUtil {
      * @return true if the directory exists
      */
     public static boolean publicDirectoryExists() {
-        return new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), Paths.DIRECTORY_PATH_VESPUCCI).exists();
+        return new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), App.getAppName()).exists();
     }
 
     /**
@@ -76,7 +76,7 @@ public final class FileUtil {
      * @throws IOException if we can't create the directory
      */
     public static @NonNull File getLegacyPublicDirectory() throws IOException {
-        return getPublicDirectory(Environment.getExternalStorageDirectory(), Paths.DIRECTORY_PATH_VESPUCCI);
+        return getPublicDirectory(Environment.getExternalStorageDirectory(), App.getAppName());
     }
 
     /**

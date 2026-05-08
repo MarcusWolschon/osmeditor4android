@@ -82,14 +82,16 @@ public class App extends Application implements android.app.Application.Activity
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, App.class.getSimpleName().length());
     private static final String DEBUG_TAG = App.class.getSimpleName().substring(0, TAG_LEN);
 
-    private static final String     RHINO_LAZY_LOAD = "lazyLoad";
+    private static final String RHINO_LAZY_LOAD = "lazyLoad";
+
+    private static String           appName;
     private static App              currentInstance;
-    private static StorageDelegator delegator       = new StorageDelegator();
-    private static TaskStorage      taskStorage     = new TaskStorage();
+    private static StorageDelegator delegator      = new StorageDelegator();
+    private static TaskStorage      taskStorage    = new TaskStorage();
     private static OkHttpClient     httpClient;
-    private static final Object     httpClientLock  = new Object();
+    private static final Object     httpClientLock = new Object();
     private static String           userAgent;
-    private static final Random     random          = new Random();
+    private static final Random     random         = new Random();
 
     /**
      * The logic that manipulates the model. (non-UI)
@@ -215,6 +217,16 @@ public class App extends Application implements android.app.Application.Activity
 
     private static FSTConfiguration singletonConf;
 
+    /**
+     * Get the name of the app this is used besides for the name as the directory where we store public configuration
+     * and files
+     * 
+     * @return the name of the app
+     */
+    public static String getAppName() {
+        return appName;
+    }
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -253,7 +265,7 @@ public class App extends Application implements android.app.Application.Activity
      * Setup misc singletons
      */
     private static void setupMisc(@NonNull App app) {
-        String appName = app.getString(R.string.app_name);
+        appName = app.getString(R.string.app_name);
         String appVersion = app.getString(R.string.app_version);
         userAgent = appName + "/" + appVersion;
         currentInstance = app;

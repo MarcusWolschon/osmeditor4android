@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:installLocation="auto"
-    android:versionCode="3401"
     android:versionName="@string/app_version" >
 
     <uses-sdk tools:overrideLibrary="androidx.core.splashscreen" />
@@ -48,7 +47,7 @@
     </queries>
 
     <application
-        android:name="de.blau.android.App"
+        android:name=".App"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup"
         android:icon="@mipmap/ic_launcher"
@@ -134,7 +133,6 @@
         <activity
             android:name=".prefs.AdvancedPrefEditor"
             android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale|locale"
-            android:label="@string/app_name_version"
             android:theme="@style/Theme.AppCompatPrefs" />
         <activity
             android:name=".propertyeditor.PropertyEditorActivity"
@@ -181,7 +179,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="de.blau.android.GeoUrlActivity"
+            android:name=".GeoUrlActivity"
             android:exported="true"
             tools:ignore="ExportedActivity" >
             <intent-filter>
@@ -194,7 +192,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="de.blau.android.ShareOnOpenStreetMap"
+            android:name=".ShareOnOpenStreetMap"
             android:exported="true"
             android:icon="@drawable/osm_logo"
             android:label="@string/share_on_openstreetmap"
@@ -209,7 +207,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="de.blau.android.RemoteControlUrlActivity"
+            android:name=".RemoteControlUrlActivity"
             android:exported="true"
             tools:ignore="ExportedActivity" >
             <intent-filter>
@@ -239,7 +237,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="de.blau.android.OsmWebsiteUrlActivity"
+            android:name=".OsmWebsiteUrlActivity"
             android:exported="true"
             tools:ignore="ExportedActivity" >
             <intent-filter>
@@ -355,9 +353,9 @@
             android:launchMode="singleInstance"
             android:theme="@style/Theme.AppCompat" />
         <activity
-            android:name="de.blau.android.prefs.keyboard.ShortcutsActivity"
+            android:name=".prefs.keyboard.ShortcutsActivity"
             android:label="@string/config_keyboard_shortcuts_title"
-            android:parentActivityName="de.blau.android.prefs.PrefEditorActivity" 
+            android:parentActivityName=".prefs.PrefEditorActivity" 
             android:theme="@style/Theme.customActionBar" />
         <receiver
             android:name=".util.DownloadBroadcastReceiver"

@@ -21,7 +21,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:8.13.0'
         classpath 'ch.poole.gradle:markdown-gradle-plugin:0.2.6'
         classpath 'org.jacoco:org.jacoco.core:0.8.13'    
-        classpath "ch.poole:preset-utils:0.26.0"
+        classpath "ch.poole:preset-utils:0.44.0"
         classpath 'ch.poole.misc:gradle-eclipse-aar-plugin:0.1.0'
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:3.0.1'
         classpath 'com.google.protobuf:protobuf-gradle-plugin:0.9.1'
@@ -261,8 +261,9 @@ android {
  
     defaultConfig {
         applicationId "de.blau.android"
-        versionCode project.getVersionCode()
-        versionName "${project.getVersionName()}"
+        versionCode 3401
+        versionName "22.0.0.0"
+        resValue "string", "app_version", versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     
@@ -272,7 +273,6 @@ android {
         }
         release {
             minifyEnabled true       
-            // proguardFiles getDefaultProguardFile('proguard-android.txt'),'proguard-rules.pro'
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),'proguard-rules.pro'
         }
         fakeRelease {
@@ -286,16 +286,28 @@ android {
     compileSdkVersion 35
 
     // Specifies one flavor dimension.
-    flavorDimensions "api"
+    flavorDimensions = ['applicationId'] 
     productFlavors {
         current {
-            dimension "api"
+            dimension "applicationId"
             multiDexEnabled true
             minSdkVersion 21
             targetSdkVersion 35
             applicationIdSuffix ""
             versionNameSuffix ""
+            resValue "string", "app_name", "Vespucci"
             resValue "string", "content_provider", "de.blau.android.provider"
+        }
+        vespucciIo {
+            applicationId "io.vespucci"
+            dimension "applicationId"
+            multiDexEnabled true
+            minSdkVersion 21
+            targetSdkVersion 35
+            applicationIdSuffix ""
+            versionNameSuffix ""
+            resValue "string", "app_name", "vespucci.io"
+            resValue "string", "content_provider", "io.vespucci.provider"
         }
     }
 
@@ -354,6 +366,14 @@ android {
     androidResources {
         generateLocaleConfig false
     }
+    
+    // remove java resources from preset-utils that are not needed
+    packagingOptions.resources.excludes += "**/*.xslt"
+    packagingOptions.resources.excludes += "**/*.xlmns"
+}
+
+base {
+    archivesName = "${android.defaultConfig.applicationId}-${android.defaultConfig.versionName}"
 }
 
 ext {
@@ -557,55 +577,6 @@ afterEvaluate{
     tasks.named('marathonCurrentDebugAndroidTestGenerateMarathonfile') { 
         doNotTrackState('Gradle 8 compatability hack') 
     }
-
-    // these tasks needs to be created after the uninstall tasks
-
-    // hardwired single test, this is only needed during initial developement, once the whole test suite has been run
-    // any new test will be included automatically
-    // it would probably be better to somehow get the test name interactively from the user
-    android.productFlavors.all { flavor ->
-        task ("runSingleConnected${flavor.name.capitalize()}Test",
-        dependsOn: ["install${flavor.name.capitalize()}Debug", "install${flavor.name.capitalize()}DebugAndroidTest"],
-        type: Exec) {
-            group = 'vespucci'
-            description = "Run a single test method on device (configuration needs to be edited) for the ${flavor.name} flavor"
-            def toRun = "de.blau.android.services.MapTileProviderServiceTest"
-            // commandLine adb, 'shell', 'pm', 'list', 'instrumentation'
-            commandLine adb, 'shell', 'am', 'instrument', '-w', '-e', 'class',  toRun, "de.blau.android${flavor.applicationIdSuffix}.test/androidx.test.runner.AndroidJUnitRunner"
-            finalizedBy "uninstall${flavor.name.capitalize()}DebugAndroidTest","uninstall${flavor.name.capitalize()}Debug"
-        }
-    }
-
-    // this task will generate tasks for each test that was run in the last on device test
-    // it doesn't depend on it directly as that would require waiting for all the tests to execute first
-    // so the best strategy seems to simply refresh the build after the on device tests have been ran
-    // tests are split up over two categories depending if they failed or not
-    task generateTestTasks {
-        android.productFlavors.all { flavor ->
-            def flavorName = flavor.name.toUpperCase()
-            def fileRegex = "TEST.*-${flavorName}\\.xml"
-            def fileList = new File(projectDir.getPath() +"/build/outputs/androidTest-results/connected/flavors/${flavorName}/").listFiles().findAll { it.name ==~ /${fileRegex}/ }
-            if (!fileList.empty) {
-                def tests = (new XmlParser()).parse(fileList.get(0)) // assume all tests outputs are equivalent
-                tests.'testcase'.each { testcase ->
-                    def toRun = testcase.@classname + "#" + testcase.@name
-                    task ("run${flavor.name.capitalize()}${toRun.capitalize()}",
-                    dependsOn: ["install${flavor.name.capitalize()}Debug", "install${flavor.name.capitalize()}DebugAndroidTest"],
-                    type: Exec) {
-                        if (testcase.failure.size() == 0) {
-                            group = 'sucessful tests'
-                        } else {
-                            group = "failed tests"
-                        }
-                        description = "Run test " + toRun
-                        // commandLine adb, 'shell', 'pm', 'list', 'instrumentation'
-                        commandLine adb, 'shell', 'am', 'instrument', '-w', '-e', 'class',  toRun, "de.blau.android${flavor.applicationIdSuffix}.test/androidx.test.runner.AndroidJUnitRunner"
-                        finalizedBy "uninstall${flavor.name.capitalize()}DebugAndroidTest","uninstall${flavor.name.capitalize()}Debug"
-                    }
-                }
-            }
-        }
-    }
 }
 
 ext {
@@ -717,28 +688,6 @@ dependencies {
     }
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.3.0'
     androidTestImplementation "androidx.work:work-testing:$work_version"
-}
-
-int getVersionCode() {
-    def xml = getXmlFromFile("${android.sourceSets.main.manifest.srcFile}")
-    return xml.@'android:versionCode'.toInteger()
-}
-
-String getVersionName() {
-    def xml = getXmlFromFile("${android.sourceSets.main.res.srcDirs[0]}/values/appname.xml")
-    def versionName = xml.string.find { it.@name == 'app_version' }.toString()
-    if (versionName == null || versionName.length() == 0) {
-        throw new NullPointerException("Failure extracting version name.")
-    }
-    return versionName
-}
-
-def getXmlFromFile(String xmlFilePath) {
-    def xml = new XmlSlurper().parse(new File(xmlFilePath))
-    if (xml == null) {
-        throw new NullPointerException("Failure reading from " + xmlFilePath)
-    }
-    return xml;
 }
 
 def coverageSourceDirs = ['src/main/java']
