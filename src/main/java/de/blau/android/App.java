@@ -6,6 +6,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.security.Security;
 import java.util.Random;
 import java.util.TreeMap;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -16,6 +17,7 @@ import org.acra.annotation.AcraCore;
 import org.acra.annotation.AcraDialog;
 import org.acra.annotation.AcraHttpSender;
 import org.acra.sender.HttpSender;
+import org.conscrypt.Conscrypt;
 import org.mozilla.javascript.ImporterTopLevel;
 import org.mozilla.javascript.ScriptableObject;
 import org.nustaq.serialization.FSTConfiguration;
@@ -40,7 +42,7 @@ import androidx.multidex.MultiDex;
 import androidx.preference.PreferenceManager;
 import de.blau.android.contract.Paths;
 import de.blau.android.filter.PresetFilter;
-import de.blau.android.net.OkHttpTlsCompat;
+import de.blau.android.net.OkHttpCompat;
 import de.blau.android.net.UserAgentInterceptor;
 import de.blau.android.nsi.Names;
 import de.blau.android.nsi.Names.NameAndTags;
@@ -342,7 +344,11 @@ public class App extends Application implements android.app.Application.Activity
     public static OkHttpClient getHttpClient() {
         synchronized (httpClientLock) {
             if (httpClient == null) {
-                OkHttpClient.Builder builder = OkHttpTlsCompat.getBuilder(new OkHttpClient.Builder());
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                    // from Android 10 on google started updating Conscrypt via the play updates
+                    Security.insertProviderAt(Conscrypt.newProvider(), 1);
+                }
+                OkHttpClient.Builder builder = OkHttpCompat.getBuilder(new OkHttpClient.Builder());
                 builder.addNetworkInterceptor(new UserAgentInterceptor(userAgent));
                 httpClient = builder.build();
             }
