@@ -92,6 +92,24 @@ task downloadPresetIconsZipFile(type: Download) {
     dest new File(projectDir.getPath() + '/src/main/assets/images/icons/png', 'vespucci_icons.zip')
 }
 
+task downloadCerts(type: Download) {
+    acceptAnyCertificate true
+    src 'https://curl.se/ca/cacert.pem'
+    dest new File(projectDir.getPath() + '/build/tmp/src/cacert.pem')
+}
+
+task updateCerts(dependsOn: ["downloadCerts"], type: Exec) {
+    def input = projectDir.getPath() + '/build/tmp/src/cacert.pem'
+    def output = projectDir.getPath() + '/src/main/res/raw/cacert.pem'
+    if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+        commandLine 'cmd', '/c', 'openssl', 'storeutl',  '-certs',  '-out', output, input
+    } else {
+        commandLine 'openssl', 'storeutl',  '-certs',  '-out', output, input
+    }
+}
+updateCerts.group = 'vespucci'
+updateCerts.description = 'Update the certificate authority certs'
+
 task downloadPresetFile(type: Download) {
     acceptAnyCertificate true
     src 'https://github.com/simonpoole/beautified-JOSM-preset/releases/latest/download/vespucci_preset_build.xml'
@@ -620,6 +638,7 @@ dependencies {
     implementation 'com.google.openlocationcode:openlocationcode:1.0.4'
    
     // okhttp 
+    implementation 'org.conscrypt:conscrypt-android:2.5.3' 
     implementation 'se.akerfeldt:okhttp-signpost:1.1.0'
     implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
