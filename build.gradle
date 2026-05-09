@@ -92,6 +92,24 @@ task downloadPresetIconsZipFile(type: Download) {
     dest new File(projectDir.getPath() + '/src/main/assets/images/icons/png', 'vespucci_icons.zip')
 }
 
+task downloadCerts(type: Download) {
+    acceptAnyCertificate true
+    src 'https://curl.se/ca/cacert.pem'
+    dest new File(projectDir.getPath() + '/build/tmp/src/cacert.pem')
+}
+
+task updateCerts(dependsOn: ["downloadCerts"], type: Exec) {
+    def input = projectDir.getPath() + '/build/tmp/src/cacert.pem'
+    def output = projectDir.getPath() + '/src/main/res/raw/cacert.pem'
+    if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+        commandLine 'cmd', '/c', 'openssl', 'storeutl',  '-certs',  '-out', output, input
+    } else {
+        commandLine 'openssl', 'storeutl',  '-certs',  '-out', output, input
+    }
+}
+updateCerts.group = 'vespucci'
+updateCerts.description = 'Update the certificate authority certs'
+
 task downloadPresetFile(type: Download) {
     acceptAnyCertificate true
     src 'https://github.com/simonpoole/beautified-JOSM-preset/releases/latest/download/vespucci_preset_build.xml'
@@ -581,6 +599,7 @@ afterEvaluate{
 
 ext {
     okHttpVersion = "3.12.13" // don't change to higher than 3.12 as later versions break android 5 and earlier builds
+    conscryptUberVersion = "2.5.2" // org.conscrypt:conscrypt-openjdk-uber doesn't exist for 2.5.3
     signpostVersion = "2.1.1"
     acraVersion = "5.7.0"
     mapboxVersion = "5.8.0"
@@ -620,6 +639,7 @@ dependencies {
     implementation 'com.google.openlocationcode:openlocationcode:1.0.4'
    
     // okhttp 
+    implementation "org.conscrypt:conscrypt-android:$conscryptUberVersion" 
     implementation 'se.akerfeldt:okhttp-signpost:1.1.0'
     implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
@@ -676,6 +696,7 @@ dependencies {
         exclude group: 'org.yaml', module: 'snakeyaml'
     }
     testImplementation "androidx.work:work-testing:$work_version"
+    testImplementation "org.conscrypt:conscrypt-openjdk-uber:$conscryptUberVersion"
 
     // Instrumentation tests
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
