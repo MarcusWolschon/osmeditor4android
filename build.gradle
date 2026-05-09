@@ -599,6 +599,7 @@ afterEvaluate{
 
 ext {
     okHttpVersion = "3.12.13" // don't change to higher than 3.12 as later versions break android 5 and earlier builds
+    conscryptUberVersion = "2.5.2"
     signpostVersion = "2.1.1"
     acraVersion = "5.7.0"
     mapboxVersion = "5.8.0"
@@ -638,7 +639,7 @@ dependencies {
     implementation 'com.google.openlocationcode:openlocationcode:1.0.4'
    
     // okhttp 
-    implementation 'org.conscrypt:conscrypt-android:2.5.3' 
+    implementation "org.conscrypt:conscrypt-android:$conscryptUberVersion" 
     implementation 'se.akerfeldt:okhttp-signpost:1.1.0'
     implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
@@ -695,6 +696,7 @@ dependencies {
         exclude group: 'org.yaml', module: 'snakeyaml'
     }
     testImplementation "androidx.work:work-testing:$work_version"
+    testImplementation "org.conscrypt:conscrypt-openjdk-uber:$conscryptUberVersion"
 
     // Instrumentation tests
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
