@@ -25,6 +25,7 @@ public interface Validator {
     int MISSING_ROLE         = 0x00002000;
     int RELATION_LOOP        = 0x00004000;
     int WRONG_ELEMENT_TYPE   = 0x00008000;
+    int SELF_INTERSECTION    = 0x00010000;
 
     /**
      * Reset the state of the validator

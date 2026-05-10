@@ -901,6 +901,7 @@
     <string name="toast_panoramax_instance_list_error">Unable to retrieve panoramax instance list\n%1$s</string>
     <string name="toast_authorisation_successful">Authorisation successful!</string>
     <string name="toast_authorisation_failed">Authorisation failed\n%1$s</string>
+    <string name="toast_way_self_intersects">The way intersects with itself</string>
     <plurals name="toast_unglued_nodes">
         <item quantity="one">Unglued one node</item>
         <item quantity="other">Unglued %1$d nodes</item>

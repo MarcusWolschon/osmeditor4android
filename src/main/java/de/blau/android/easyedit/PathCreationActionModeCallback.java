@@ -44,12 +44,14 @@ import de.blau.android.prefs.keyboard.Shortcuts;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.resources.DataStyleManager;
+import de.blau.android.util.BentleyOttmannForOsm;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.MathUtil;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.SerializableState;
 import de.blau.android.util.Sound;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 
 /**
  * This callback handles path creation.
@@ -108,6 +110,8 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
 
     private final boolean areaMode;
     private FeatureStyle  closingLine;
+    private FeatureStyle  closingLineOk;
+    private FeatureStyle  closingLineError;
 
     /**
      * Private constructor tha mainly adds keyboard shortcuts
@@ -224,7 +228,9 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
             mode.setSubtitle(R.string.actionmode_createpath);
         }
         DataStyleManager styles = App.getDataStyleManager(main);
-        closingLine = styles.getInternal(DataStyle.AREA_CLOSING_LINE);
+        closingLineOk = styles.getInternal(DataStyle.AREA_CLOSING_LINE);
+        closingLineError = styles.getInternal(DataStyle.AREA_CLOSING_LINE_ERROR);
+        closingLine = closingLineOk;
 
         logic.createCheckpoint(main, R.string.undo_action_append);
         snap = logic.getPrefs().isWaySnapEnabled();
@@ -401,7 +407,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         for (int i = MathUtil.floorMod(posStart + inc, count); i != MathUtil.floorMod(posEnd + inc, count); i = MathUtil.floorMod(i + inc, count)) {
             final Node next = followNodes.get(i);
             // skip the closing node if there is one
-            if (!next.equals(startNode) && (result.isEmpty() || !result.get(result.size() - 1).equals(next))) {
+            if (!next.equals(startNode) && (result.isEmpty() || !Util.getLast(result).equals(next))) {
                 result.add(next);
             }
         }
@@ -419,15 +425,15 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         Way lastSelectedWay = logic.getSelectedWay();
         final boolean firstNode = addedNodes.isEmpty();
         Node clicked = logic.getClickedNode(x, y);
-        boolean closing = closing(lastSelectedWay, clicked);
+        boolean returnExisting = snap || closing(lastSelectedWay, clicked);
         if (appendTargetNode != null) {
-            logic.performAppendAppend(main, x, y, false, snap || closing);
+            logic.performAppendAppend(main, x, y, false, returnExisting);
             appendTargetNode = logic.getSelectedNode();
             if (firstNode) {
                 checkpointName = R.string.undo_action_append;
             }
         } else {
-            logic.performAdd(main, x, y, false, snap || closing);
+            logic.performAdd(main, x, y, false, returnExisting);
             if (firstNode) {
                 checkpointName = R.string.undo_action_add;
             }
@@ -460,8 +466,30 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
             mode.invalidate();
         }
 
+        checkSelfIntersection(lastSelectedWay);
+
         mode.setSubtitle(R.string.add_way_node_instruction);
         main.invalidateMap();
+    }
+
+    /**
+     * Check if the way self intersects and if yes make that visible
+     * 
+     * @param way the Way
+     */
+    private void checkSelfIntersection(@Nullable Way way) {
+        if (way == null) {
+            return;
+        }
+        boolean selfIntersects = BentleyOttmannForOsm.isSelfIntersecting(way.getNodes(), areaMode);
+        if (selfIntersects) {
+            if (!areaMode && !closingLine.equals(closingLineError)) {
+                ScreenMessage.toastTopWarning(main, R.string.toast_way_self_intersects);
+            }
+            closingLine = closingLineError;
+        } else {
+            closingLine = closingLineOk;
+        }
     }
 
     /**
@@ -636,20 +664,21 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         // undo any changes from creating and then removing nodes on ways
         if (deleteNode) {
             for (Way w : modifiedWays) {
-                if (!w.equals(createdWay)) {
-                    UndoStorage undo = logic.getUndo();
-                    List<UndoElement> undoWays = undo.getUndoElements(w);
-                    UndoElement undoWay = undoWays.get(undoWays.size() - 1);
-                    if (undoWay instanceof UndoWay) {
-                        if (undoWay.getState() == OsmElement.STATE_UNCHANGED && w.getNodes().equals(((UndoWay) undoWay).getNodes())) {
-                            undoWay.restore(); // this should just update the state
-                            undo.remove(w);
-                        } else {
-                            Log.w(DEBUG_TAG, "Not fixing up " + w);
-                        }
+                if (w.equals(createdWay)) {
+                    continue;
+                }
+                UndoStorage undo = logic.getUndo();
+                List<UndoElement> undoWays = undo.getUndoElements(w);
+                UndoElement undoWay = Util.getLast(undoWays);
+                if (undoWay instanceof UndoWay) {
+                    if (undoWay.getState() == OsmElement.STATE_UNCHANGED && w.getNodes().equals(((UndoWay) undoWay).getNodes())) {
+                        undoWay.restore(); // this should just update the state
+                        undo.remove(w);
                     } else {
-                        Log.e(DEBUG_TAG, "UndoElement should be an UndoWay " + undoWay.toString());
+                        Log.w(DEBUG_TAG, "Not fixing up " + w);
                     }
+                } else {
+                    Log.e(DEBUG_TAG, "UndoElement should be an UndoWay " + undoWay.toString());
                 }
             }
         }
@@ -678,6 +707,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         }
 
         createdWay = logic.getSelectedWay(); // will be null if way was deleted by undo
+        checkSelfIntersection(createdWay);
         main.invalidateMap();
     }
 
