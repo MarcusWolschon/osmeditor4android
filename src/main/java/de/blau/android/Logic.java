@@ -3084,7 +3084,7 @@ public class Logic {
     }
 
     /**
-     * Add an OsmElement to a "system" created todo list
+     * Add an OsmElement to a "system" created todo list //NOSONAR
      * 
      * @param ctx an Android context
      * @param listNameRes a resource id for the name of the list
