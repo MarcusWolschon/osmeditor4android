@@ -21,17 +21,20 @@ import java.util.TreeMap;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.xml.sax.SAXException;
 
-import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
 import de.blau.android.Logic;
+import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.ShadowWorkManager;
 import de.blau.android.UnitTestUtils;
 import de.blau.android.exception.DataConflictException;
 import de.blau.android.exception.OsmException;
@@ -45,9 +48,16 @@ import de.blau.android.util.Util;
 import de.blau.android.util.collections.MultiHashMap;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(sdk = 33)
+@Config(shadows = { ShadowWorkManager.class }, sdk=33)
 @LargeTest
 public class StorageDelegatorTest {
+    
+    private Main main;
+    
+    @Before
+    public void setup() {
+        main = Robolectric.buildActivity(Main.class).create().resume().get();
+    }
 
     /**
      * Test way rotation
@@ -127,7 +137,7 @@ public class StorageDelegatorTest {
     public void cutUndo() {
         StorageDelegator d = App.getDelegator();
         Logic logic = App.newLogic();
-        logic.setMap(new de.blau.android.Map(ApplicationProvider.getApplicationContext()), true);
+        logic.setMap(new de.blau.android.Map(main), true);
         Way w = DelegatorUtil.addWayToStorage(d, true);
         Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
         assertNotNull(temp);
@@ -1630,10 +1640,10 @@ public class StorageDelegatorTest {
     public void splitWithRouteRelationLimit() {
         App.newLogic();
         Logic logic = App.getLogic();
-        Preferences prefs = new Preferences(ApplicationProvider.getApplicationContext());
+        Preferences prefs = new Preferences(main);
         Server server = prefs.getServer();
-        DataStyleManager styles = App.getDataStyleManager(ApplicationProvider.getApplicationContext());
-        styles.getStylesFromFiles(ApplicationProvider.getApplicationContext());
+        DataStyleManager styles = App.getDataStyleManager(main);
+        styles.getStylesFromFiles(main);
         try {
             server.getCachedCapabilities().setMaxRelationMembers(1);
             logic.setPrefs(prefs);
@@ -1845,10 +1855,10 @@ public class StorageDelegatorTest {
     public void addMemberToRelationLimit() {
         App.newLogic();
         Logic logic = App.getLogic();
-        Preferences prefs = new Preferences(ApplicationProvider.getApplicationContext());
+        Preferences prefs = new Preferences(main);
         Server server = prefs.getServer();
-        DataStyleManager styles = App.getDataStyleManager(ApplicationProvider.getApplicationContext());
-        styles.getStylesFromFiles(ApplicationProvider.getApplicationContext());
+        DataStyleManager styles = App.getDataStyleManager(main);
+        styles.getStylesFromFiles(main);
         try {
             server.getCachedCapabilities().setMaxRelationMembers(1);
             logic.setPrefs(prefs);
@@ -1875,7 +1885,7 @@ public class StorageDelegatorTest {
     @Test
     public void createCircle() {
         Logic logic = App.newLogic();
-        logic.setMap(new de.blau.android.Map(ApplicationProvider.getApplicationContext()), true);
+        logic.setMap(new de.blau.android.Map(main), true);
         StorageDelegator d = new StorageDelegator();
         OsmElementFactory factory = d.getFactory();
         Node n1 = factory.createNodeWithNewId(toE7(48.7779677), toE7(9.1812482));
@@ -1900,7 +1910,7 @@ public class StorageDelegatorTest {
     @Test
     public void arrangeInCircle() {
         Logic logic = App.newLogic();
-        logic.setMap(new de.blau.android.Map(ApplicationProvider.getApplicationContext()), true);
+        logic.setMap(new de.blau.android.Map(main), true);
         StorageDelegator d = new StorageDelegator();
         OsmElementFactory factory = d.getFactory();
         Node n1 = factory.createNodeWithNewId(toE7(48.7779677), toE7(9.1812482));
@@ -1999,7 +2009,7 @@ public class StorageDelegatorTest {
         assertNotNull(newNode);
         List<OsmElement> toUpload = new ArrayList<>();
         toUpload.add(newNode);
-        sd.addRequiredElements(ApplicationProvider.getApplicationContext(), toUpload);
+        sd.addRequiredElements(main, toUpload);
         assertTrue(toUpload.contains(newNode));
         assertTrue(toUpload.contains(sd.getOsmElement(Way.NAME, 28075087L)));
     }
@@ -2015,7 +2025,7 @@ public class StorageDelegatorTest {
         List<OsmElement> toUpload = new ArrayList<>();
         toUpload.add(newNode);
         toUpload.add(sd.getOsmElement(Way.NAME, 28075087L));
-        sd.addRequiredElements(ApplicationProvider.getApplicationContext(), toUpload);
+        sd.addRequiredElements(main, toUpload);
         assertEquals(2, toUpload.size());
         assertTrue(toUpload.contains(newNode));
         assertTrue(toUpload.contains(sd.getOsmElement(Way.NAME, 28075087L)));
@@ -2031,7 +2041,7 @@ public class StorageDelegatorTest {
         assertNotNull(modifiedWay);
         List<OsmElement> toUpload = new ArrayList<>();
         toUpload.add(modifiedWay);
-        sd.addRequiredElements(ApplicationProvider.getApplicationContext(), toUpload);
+        sd.addRequiredElements(main, toUpload);
         assertTrue(toUpload.contains(modifiedWay));
         assertTrue(toUpload.contains(sd.getOsmElement(Node.NAME, -1L)));
     }
@@ -2046,7 +2056,7 @@ public class StorageDelegatorTest {
         assertNotNull(modifiedRelation);
         List<OsmElement> toUpload = new ArrayList<>();
         toUpload.add(modifiedRelation);
-        sd.addRequiredElements(ApplicationProvider.getApplicationContext(), toUpload);
+        sd.addRequiredElements(main, toUpload);
         assertTrue(toUpload.contains(modifiedRelation));
         assertTrue(toUpload.contains(sd.getOsmElement(Way.NAME, -1L)));
         assertTrue(toUpload.contains(sd.getOsmElement(Node.NAME, -2L)));
@@ -2067,7 +2077,7 @@ public class StorageDelegatorTest {
 
         List<OsmElement> toUpload = new ArrayList<>();
         toUpload.add(modifiedRelation);
-        sd.addRequiredElements(ApplicationProvider.getApplicationContext(), toUpload);
+        sd.addRequiredElements(main, toUpload);
         assertTrue(toUpload.contains(modifiedRelation));
         assertTrue(toUpload.contains(loop));
         assertTrue(toUpload.contains(sd.getOsmElement(Way.NAME, -1L)));
@@ -2147,11 +2157,11 @@ public class StorageDelegatorTest {
         undo.createCheckpoint("Test checkpoint", null);
         d.removeWay(w);
         assertEquals(OsmElement.STATE_DELETED, w.getState());
-        d.undoLast(ApplicationProvider.getApplicationContext(), w);
+        d.undoLast(main, w);
         assertEquals(OsmElement.STATE_CREATED, w.getState());
         List<Checkpoint> checkpoints = d.getUndo().getUndoCheckpoints(w);
         assertEquals(3, checkpoints.size());
         assertEquals("Test checkpoint", checkpoints.get(1).getName());
-        assertEquals(ApplicationProvider.getApplicationContext().getString(R.string.undo_action_fix_conflict), checkpoints.get(2).getName());
+        assertEquals(main.getString(R.string.undo_action_fix_conflict), checkpoints.get(2).getName());
     }
 }

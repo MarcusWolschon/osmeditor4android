@@ -11,11 +11,11 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import android.database.sqlite.SQLiteDatabase;
-import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.contract.Files;
 import de.blau.android.layer.LayerType;
@@ -26,10 +26,11 @@ import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerSource;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(sdk=33)
+@Config(shadows = { ShadowWorkManager.class }, sdk=33)
 @LargeTest
 public class MapTest {
 
+    private Main        main;
     private Preferences prefs;
 
     /**
@@ -37,16 +38,17 @@ public class MapTest {
      */
     @Before
     public void setup() {
-        prefs = new Preferences(ApplicationProvider.getApplicationContext());
+        main = Robolectric.buildActivity(Main.class).create().resume().get();
+        prefs = new Preferences(main);
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(ApplicationProvider.getApplicationContext());
+        try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(main);
                 InputStream is = loader.getResourceAsStream(Files.FILE_NAME_KEYS_V2)) {
             keyDatabase.keysFromStream(null, is);
         } catch (IOException e) {
             fail(e.getMessage());
         }
-        DataStyleManager styles = App.getDataStyleManager(ApplicationProvider.getApplicationContext());
-        styles.getStylesFromFiles(ApplicationProvider.getApplicationContext());
+        DataStyleManager styles = App.getDataStyleManager(main);
+        styles.getStylesFromFiles(main);
     }
 
     /**
@@ -54,28 +56,28 @@ public class MapTest {
      */
     @Test
     public void imageryNamesTest() {
-        TileLayerDatabase db = new TileLayerDatabase(ApplicationProvider.getApplicationContext());
+        TileLayerDatabase db = new TileLayerDatabase(main);
         try {
             SQLiteDatabase writableDatabase = db.getWritableDatabase();
             TileLayerDatabase.addSource(writableDatabase, TileLayerDatabase.SOURCE_ELI);
-            TileLayerSource.parseImageryFile(ApplicationProvider.getApplicationContext(), writableDatabase, TileLayerDatabase.SOURCE_ELI,
+            TileLayerSource.parseImageryFile(main, writableDatabase, TileLayerDatabase.SOURCE_ELI,
                     getClass().getResourceAsStream("/test_imagery_vespucci.geojson"), true);
         } catch (IOException e) {
             fail(e.getMessage());
         }
         db.close();
-        Map map = new Map(ApplicationProvider.getApplicationContext());
-        map.setPrefs(ApplicationProvider.getApplicationContext(), prefs);
+        Map map = new Map(main);
+        map.setPrefs(main, prefs);
         List<String> names = map.getImageryNames();
         assertEquals(1, names.size());
-        TileLayerSource mapnik = TileLayerSource.get(ApplicationProvider.getApplicationContext(), TileLayerSource.LAYER_MAPNIK, false);
+        TileLayerSource mapnik = TileLayerSource.get(main, TileLayerSource.LAYER_MAPNIK, false);
         assertNotNull(mapnik);
         assertEquals(mapnik.getName(), map.getImageryNames().get(0));
-        TileLayerSource mapillary = TileLayerSource.get(ApplicationProvider.getApplicationContext(),
+        TileLayerSource mapillary = TileLayerSource.get(main,
                 de.blau.android.layer.streetlevel.mapillary.MapillaryOverlay.MAPILLARY_TILES_ID, false);
         assertNotNull(mapillary);
-        de.blau.android.layer.Util.addLayer(ApplicationProvider.getApplicationContext(), LayerType.MAPILLARY);
-        map.setUpLayers(ApplicationProvider.getApplicationContext());
+        de.blau.android.layer.Util.addLayer(main, LayerType.MAPILLARY);
+        map.setUpLayers(main);
         names = map.getImageryNames();
         assertEquals(2, names.size());
         assertEquals(mapillary.getName(), map.getImageryNames().get(0));

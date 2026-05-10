@@ -184,6 +184,9 @@ public class Map extends SurfaceView implements IMapView {
     @SuppressLint("NewApi")
     public Map(@NonNull final Context context) {
         super(context);
+        if (!(context instanceof Main)) {
+            throw new IllegalArgumentException("Map requires Main as a context");
+        }
         this.context = context;
 
         canvasBounds = new Rect();
@@ -709,6 +712,7 @@ public class Map extends SurfaceView implements IMapView {
         }
 
         paintGpsPos(canvas);
+
         if (showCrosshairs && logic.isInEditZoomRange()) {
             paintCrosshairs(canvas);
         }
@@ -716,6 +720,8 @@ public class Map extends SurfaceView implements IMapView {
         if (imageryAlignMode) {
             paintZoomAndOffset(canvas);
         }
+
+        ((Main) context).getEasyEditManager().draw(this, canvas);
 
         if (showStats) {
             time = System.currentTimeMillis() - time;
@@ -1015,24 +1021,23 @@ public class Map extends SurfaceView implements IMapView {
                     nextNode = null;
                 }
                 x = -Float.MAX_VALUE; // misuse this as a flag
-                if (!interrupted && prevNode != null) {
-                    if (thisIntersects || nextIntersects || (!(nextNode != null && lastDrawnNode != null)
-                            || clipBox.isIntersectionPossible(nextNodeLon, nextNodeLat, lastDrawnNodeLon, lastDrawnNodeLat))) {
-                        x = GeoMath.lonE7ToX(w, box, nodeLon);
-                        y = GeoMath.latE7ToY(h, w, box, nodeLat);
-                        if (prevX == -Float.MAX_VALUE) { // last segment didn't intersect
-                            prevX = GeoMath.lonE7ToX(w, box, prevNode.getLon());
-                            prevY = GeoMath.latE7ToY(h, w, box, prevNode.getLat());
-                        }
-                        // Line segment needs to be drawn
-                        points.add(prevX);
-                        points.add(prevY);
-                        points.add(x);
-                        points.add(y);
-                        lastDrawnNode = node;
-                        lastDrawnNodeLat = nodeLat;
-                        lastDrawnNodeLon = nodeLon;
+                if (!interrupted && prevNode != null && (thisIntersects || nextIntersects || (!(nextNode != null && lastDrawnNode != null)
+                        || clipBox.isIntersectionPossible(nextNodeLon, nextNodeLat, lastDrawnNodeLon, lastDrawnNodeLat)))) {
+                    x = GeoMath.lonE7ToX(w, box, nodeLon);
+                    y = GeoMath.latE7ToY(h, w, box, nodeLat);
+                    if (prevX == -Float.MAX_VALUE) { // last segment didn't intersect
+                        prevX = GeoMath.lonE7ToX(w, box, prevNode.getLon());
+                        prevY = GeoMath.latE7ToY(h, w, box, prevNode.getLat());
                     }
+                    // Line segment needs to be drawn
+                    points.add(prevX);
+                    points.add(prevY);
+                    points.add(x);
+                    points.add(y);
+                    lastDrawnNode = node;
+                    lastDrawnNodeLat = nodeLat;
+                    lastDrawnNodeLon = nodeLon;
+
                 }
                 prevNode = node;
                 prevX = x;

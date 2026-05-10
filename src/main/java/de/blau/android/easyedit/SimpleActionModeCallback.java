@@ -84,7 +84,24 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
          * Add a way starting the normal path creation mode
          */
         WAY(R.string.menu_add_way, R.string.menu_add_way, R.string.add_way_start_instruction,
-                (main, manager, x, y) -> main.startSupportActionMode(new PathCreationActionModeCallback(manager, x, y))) {
+                (main, manager, x, y) -> main.startSupportActionMode(new PathCreationActionModeCallback(manager, x, y, false))) {
+            @Override
+            public boolean isEnabled() {
+                return App.getLogic().getMode().enabledSimpleActions().contains(this);
+            }
+
+            @Override
+            public void addMenuItems(EasyEditManager manager, Context ctx, Menu menu) {
+                boolean snap = App.getLogic().getPrefs().isWaySnapEnabled();
+                PathCreationActionModeCallback.addSnapCheckBox(ctx, menu, snap,
+                        (CompoundButton buttonView, boolean isChecked) -> App.getLogic().getPrefs().enableWaySnap(isChecked));
+            }
+        },
+        /**
+         * Add an area starting the normal path creation mode and closing when finished
+         */
+        AREA(R.string.menu_add_area, R.string.menu_add_area, R.string.add_way_start_instruction,
+                (main, manager, x, y) -> main.startSupportActionMode(new PathCreationActionModeCallback(manager, x, y, true))) {
             @Override
             public boolean isEnabled() {
                 return App.getLogic().getMode().enabledSimpleActions().contains(this);

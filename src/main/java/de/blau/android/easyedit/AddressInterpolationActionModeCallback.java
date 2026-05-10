@@ -35,7 +35,7 @@ public class AddressInterpolationActionModeCallback extends PathCreationActionMo
      * @param y screen y
      */
     public AddressInterpolationActionModeCallback(@NonNull EasyEditManager manager, float x, float y) {
-        super(manager, x, y);
+        super(manager, x, y, false);
         Tip.showDialog(main, R.string.tip_address_interpolation_key, R.string.tip_address_interpolation);
     }
 

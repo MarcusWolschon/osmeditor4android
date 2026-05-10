@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,8 +38,13 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.UndoStorage.UndoElement;
 import de.blau.android.osm.UndoStorage.UndoWay;
+import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.keyboard.Shortcuts;
+import de.blau.android.resources.DataStyle;
+import de.blau.android.resources.DataStyle.FeatureStyle;
+import de.blau.android.resources.DataStyleManager;
+import de.blau.android.util.GeoMath;
 import de.blau.android.util.MathUtil;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.SerializableState;
@@ -68,6 +74,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     private static final String CANDIDATES_FOR_FOLLOWING_IDS_KEY = "candidates for following ids";
     private static final String INITIAL_FOLLOW_NODE_ID_KEY       = "initial follow node id";
     private static final String WAY_TO_FOLLOW_ID_KEY             = "way to follow id";
+    private static final String AREA_MODE_KEY                    = "area mode";
 
     /** x coordinate of first node */
     private float   x;
@@ -99,9 +106,18 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     /** what the checkpoint is called **/
     private Integer checkpointName;
 
-    private PathCreationActionModeCallback(@NonNull EasyEditManager manager) {
-        super(manager);
+    private final boolean areaMode;
+    private FeatureStyle  closingLine;
 
+    /**
+     * Private constructor tha mainly adds keyboard shortcuts
+     * 
+     * @param manager manager the current EasyEditManager instance
+     * @param areaMode user Area mode or not
+     */
+    private PathCreationActionModeCallback(@NonNull EasyEditManager manager, boolean areaMode) {
+        super(manager);
+        this.areaMode = areaMode;
         actionMap.put(main.getString(R.string.ACTION_UNDO), new Shortcuts.Action(R.string.action_undo, this::handleUndo));
         actionMap.put(main.getString(R.string.ACTION_TAGEDIT), new Shortcuts.Action(R.string.action_tagedit, () -> handleTagEdit(MENUITEM_NEWWAY_PRESET)));
         actionMap.put(main.getString(R.string.ACTION_FOLLOW), new Shortcuts.Action(R.string.action_follow, this::handleFollow));
@@ -115,7 +131,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
      * @param state the saved state
      */
     public PathCreationActionModeCallback(@NonNull EasyEditManager manager, @NonNull SerializableState state) {
-        this(manager);
+        this(manager, state.getBoolean(AREA_MODE_KEY));
         StorageDelegator delegator = App.getDelegator();
         getElementsFromIds(state, delegator, NODE_IDS_KEY, addedNodes, Node.NAME);
         getElementsFromIds(state, delegator, EXISTING_NODE_IDS_KEY, existingNodes, Node.NAME);
@@ -142,7 +158,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     }
 
     /**
-     * File List list fith OsmElements from ids in state
+     * File List list with OsmElements from ids in state
      * 
      * @param <T> the OsmElement type
      * @param state the saved state
@@ -172,9 +188,10 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
      * @param manager the current EasyEditManager instance
      * @param x screen x
      * @param y screen y
+     * @param areaMode use area mode
      */
-    public PathCreationActionModeCallback(@NonNull EasyEditManager manager, float x, float y) {
-        this(manager);
+    public PathCreationActionModeCallback(@NonNull EasyEditManager manager, float x, float y, boolean areaMode) {
+        this(manager, areaMode);
         this.x = x;
         this.y = y;
         appendTargetNode = null;
@@ -189,7 +206,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
      * @param node the existing Node to add
      */
     public PathCreationActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way way, @NonNull Node node) {
-        this(manager);
+        this(manager, false);
         appendTargetNode = node;
         appendTargetWay = way;
     }
@@ -206,6 +223,9 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         } else {
             mode.setSubtitle(R.string.actionmode_createpath);
         }
+        DataStyleManager styles = App.getDataStyleManager(main);
+        closingLine = styles.getInternal(DataStyle.AREA_CLOSING_LINE);
+
         logic.createCheckpoint(main, R.string.undo_action_append);
         snap = logic.getPrefs().isWaySnapEnabled();
         logic.setSelectedWay(null);
@@ -399,14 +419,15 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         Way lastSelectedWay = logic.getSelectedWay();
         final boolean firstNode = addedNodes.isEmpty();
         Node clicked = logic.getClickedNode(x, y);
+        boolean closing = closing(lastSelectedWay, clicked);
         if (appendTargetNode != null) {
-            logic.performAppendAppend(main, x, y, false, snap);
+            logic.performAppendAppend(main, x, y, false, snap || closing);
             appendTargetNode = logic.getSelectedNode();
             if (firstNode) {
                 checkpointName = R.string.undo_action_append;
             }
         } else {
-            logic.performAdd(main, x, y, false, snap);
+            logic.performAdd(main, x, y, false, snap || closing);
             if (firstNode) {
                 checkpointName = R.string.undo_action_add;
             }
@@ -441,6 +462,17 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
 
         mode.setSubtitle(R.string.add_way_node_instruction);
         main.invalidateMap();
+    }
+
+    /**
+     * Check if we are closing the way, only returns true if area mode is active
+     * 
+     * @param way the Way
+     * @param node the Node
+     * @return if node is equal to the ways first node and area mode is active
+     */
+    private boolean closing(@Nullable Way way, @NonNull Node node) {
+        return areaMode && (way != null && way.getFirstNode().equals(node));
     }
 
     /**
@@ -502,15 +534,17 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
      */
     private void handleTagEdit(final int itemId) {
         Way lastSelectedWay = logic.getSelectedWay();
-        if (lastSelectedWay != null) {
-            dontTag = true;
-            main.startSupportActionMode(new WaySelectionActionModeCallback(manager, lastSelectedWay));
-            if (itemId == MENUITEM_ADDRESS && !lastSelectedWay.isClosed()) {
-                AddressInterpolationDialog.showDialog(main, lastSelectedWay);
-            } else {
-                // show preset screen
-                main.performTagEdit(lastSelectedWay, null, itemId == MENUITEM_ADDRESS, itemId == MENUITEM_NEWWAY_PRESET);
-            }
+        if (lastSelectedWay == null) {
+            return;
+        }
+        dontTag = true;
+        closeWay(lastSelectedWay); // will only close if we are in area mode
+        main.startSupportActionMode(new WaySelectionActionModeCallback(manager, lastSelectedWay));
+        if (itemId == MENUITEM_ADDRESS && !lastSelectedWay.isClosed()) {
+            AddressInterpolationDialog.showDialog(main, lastSelectedWay);
+        } else {
+            // show preset screen
+            main.performTagEdit(lastSelectedWay, null, itemId == MENUITEM_ADDRESS, itemId == MENUITEM_NEWWAY_PRESET);
         }
     }
 
@@ -691,9 +725,24 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     protected void finishPath(@Nullable final Way lastSelectedWay, @Nullable final Node lastSelectedNode) {
         manager.finish();
         removeCheckpoint();
-        if (!addedNodes.isEmpty() && !dontTag) {
-            tagApplicable(lastSelectedNode, lastSelectedWay, false);
-            delayedResetHasProblem(lastSelectedWay);
+        if (!addedNodes.isEmpty()) {
+            closeWay(lastSelectedWay);
+            if (!dontTag) {
+                tagApplicable(lastSelectedNode, lastSelectedWay, false);
+                delayedResetHasProblem(lastSelectedWay);
+            }
+        }
+    }
+
+    /**
+     * If areaMode is active close the way if it isn't already
+     * 
+     * @param way the Way
+     */
+    private void closeWay(final Way way) {
+        if (areaMode && !way.isClosed()) {
+            // close
+            App.getDelegator().addNodeToWay(way.getFirstNode(), way);
         }
     }
 
@@ -728,6 +777,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         if (wayToFollow != null) {
             state.putLong(WAY_TO_FOLLOW_ID_KEY, wayToFollow.getOsmId());
         }
+        state.putBoolean(AREA_MODE_KEY, areaMode);
     }
 
     @Override
@@ -769,5 +819,28 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
             }
             main.performTagEdit(possibleWay, null, false, false);
         }
+    }
+
+    @Override
+    public void draw(Map map, Canvas canvas) {
+        if (!areaMode) {
+            return;
+        }
+        // draw a closing line
+        Way way = logic.getSelectedWay();
+        if (way == null || way.nodeCount() < 3 || closingLine == null) {
+            return;
+        }
+        ViewBox box = map.getViewBox();
+        int w = map.getWidth();
+        int h = map.getHeight();
+        Node start = way.getFirstNode();
+        float x1 = GeoMath.lonE7ToX(w, box, start.getLon());
+        float y1 = GeoMath.latE7ToY(h, w, box, start.getLat());
+        Node end = way.getLastNode();
+        float x2 = GeoMath.lonE7ToX(w, box, end.getLon());
+        float y2 = GeoMath.latE7ToY(h, w, box, end.getLat());
+        // draw line from end to start
+        canvas.drawLine(x2, y2, x1, y1, closingLine.getPaint());
     }
 }
