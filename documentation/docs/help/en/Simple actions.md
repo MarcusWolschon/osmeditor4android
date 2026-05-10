@@ -41,6 +41,10 @@ If two consecutive nodes overlap with nodes of an existing way you can follow th
 
 Adds address tags with prediction. If the way is closed this will add the predicted address tags and start the [property editor](../en/Property%20editor.md). If the way is not closed an address interpolation is created and a dedicated editor is started.
 
+### Add area
+
+As _Add way_ but automatically closes ways and adds an indication of where the closing segment will be. If the closing segment would lead to the way sel-intersecting the closing line will be highlighted.
+
 ### Add map note
 
 Create a new OSM map note at the tapped position, starting the note editor. 
