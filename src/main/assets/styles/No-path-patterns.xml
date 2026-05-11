@@ -31,6 +31,8 @@
             <interval length="20.0" />
         </dash>
     </feature>
+    <feature type="area_closing_line" updateWidth="true" widthFactor="0.5" color="88fcfcfc" style="STROKE" cap="ROUND" join="ROUND" />
+    <feature type="area_closing_line_error" updateWidth="true" widthFactor="0.5" color="88ee0000" style="STROKE" cap="ROUND" join="ROUND" />
     <!-- Validation -->
     <feature type="problem_node" updateWidth="true" widthFactor="2.0" color="ffff00ff" style="FILL" cap="ROUND" join="MITER" />
     <feature type="problem_node_tagged" updateWidth="true" widthFactor="1.5" color="ffff00ff" style="FILL" cap="BUTT" join="MITER" />
