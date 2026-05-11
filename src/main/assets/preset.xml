@@ -1998,14 +1998,17 @@
     <chunk id="facility_visibility">
         <combo key="visibility" text="Visibility" values="house,street,area" display_values="House (up to 5m),Street (up to 20m),Area (more than 20m)"/>
     </chunk>
+    <chunk id="screen_additional">
+        <combo key="sides" text="Number of sides" length="3" values="1,2,3,4,5,6" values_sort="false" match="none" editable="true" value_type="integer"/>
+        <combo key="direction" text="Facing" values="N,E,S,W,0,90,180,270" display_values="North,East,South,West,0&#xB0;,90&#xB0;,180&#xB0;,270&#xB0;" values_sort="false" match="key" value_type="cardinal_direction"/>
+    </chunk>
     <chunk id="advertising_optional">
         <optional>
             <check key="lit" text="Lit" disable_off="true"/>
             <check key="luminous" text="Luminous" disable_off="true"/>
             <combo key="animated" text="Animation" values="no,yes,trivision_blades,winding_posters,revolving,screen,digital_messages,digital_prices,wind" display_values="No,Yes,Trivision blades,Winding posters,Revolving,Screen,Digital messages,Digital prices,Wind" values_context="advertising" values_searchable="true" match="key"/>
             <text key="height" text="Height (Meters)" value_type="dimension_vertical"/>
-            <combo key="sides" text="Number of sides" length="3" values="1,2,3,4,5,6" values_sort="false" match="none" editable="true" value_type="integer"/>
-            <combo key="direction" text="Facing" values="N,E,S,W,0,90,180,270" display_values="North,East,South,West,0&#xB0;,90&#xB0;,180&#xB0;,270&#xB0;" values_sort="false" match="key" value_type="cardinal_direction"/>
+            <reference ref="screen_additional"/>
             <combo key="orientation" text="Orientation" values="front,medium,parallel,opposite,multi" display_values="Front,Medium,Parallel,Opposite,Multi"/>
             <reference ref="facility_visibility"/>
             <reference ref="support"/>
@@ -9432,20 +9435,6 @@
             <space/>
             <reference ref="internet"/>
         </item> <!-- Internet Access -->
-        <item name="Clock" icon="icons/png/tourist_clock.png" type="node" preset_name_label="true">
-            <link wiki="Tag:amenity=clock"/>
-            <key key="amenity" value="clock"/>
-            <optional>
-                <combo key="display" text="Display" values="analog,digital,sundial,unorthodox" display_values="Analog,Digital,Sundial,Unorthodox" text_context="clock"/>
-                <reference ref="support"/>
-                <combo key="faces" text="Faces" text_context="clock" values="1,2,3,4" value_type="integer"/>
-                <reference ref="facility_visibility"/>
-                <check key="date" text="Shows current date" disable_off="true"/>
-                <check key="thermometer" text="Shows temperature" disable_off="true"/>
-                <check key="barometer" text="Shows barometric pressure" disable_off="true"/>
-                <check key="hygrometer" text="Shows humidity" disable_off="true"/>
-            </optional>
-        </item> <!-- Clock -->
         <item name="Photo booth" icon="icons/png/amenity_empty.png" type="node" preset_name_label="true">
             <link wiki="Tag:amenity=photo_booth"/>
             <space/>
@@ -9462,6 +9451,33 @@
             <check key="indoor" text="Located inside a building?" disable_off="true" match="none"/>
             <reference ref="level"/>
         </item> <!-- Trolley bay -->
+        <separator/>
+        <item name="Clock" icon="icons/png/tourist_clock.png" type="node" preset_name_label="true">
+            <link wiki="Tag:amenity=clock"/>
+            <key key="amenity" value="clock"/>
+            <optional>
+                <combo key="display" text="Display" values="analog,digital,sundial,unorthodox" display_values="Analog,Digital,Sundial,Unorthodox" text_context="clock"/>
+                <reference ref="support"/>
+                <combo key="faces" text="Faces" text_context="clock" values="1,2,3,4" value_type="integer"/>
+                <reference ref="facility_visibility"/>
+                <check key="date" text="Shows current date" disable_off="true"/>
+                <check key="thermometer" text="Shows temperature" disable_off="true"/>
+                <check key="barometer" text="Shows barometric pressure" disable_off="true"/>
+                <check key="hygrometer" text="Shows humidity" disable_off="true"/>
+            </optional>
+        </item> <!-- Clock -->
+        <item name="Video wall" icon="icons/png/man_made_video_wall.png" type="node,way" preset_name_label="true">
+            <link wiki="Tag:man_made=video_wall"/>
+            <space/>
+            <key key="man_made" value="video_wall"/>
+            <optional>
+                <text key="height" text="Height (Meters)" value_type="dimension_vertical"/>
+                <reference ref="screen_additional"/>
+                <reference ref="facility_visibility"/>
+                <reference ref="support"/>
+            </optional>
+            <preset_link preset_name="Screen" text="Similar but different tags:" alternative="true"/>
+        </item> <!-- Video wall -->
         <separator/>
         <item name="Bottle return" icon="icons/png/amenity_bottle_return.png" type="node" preset_name_label="true">
             <link wiki="Tag:vending=bottle_return"/>
@@ -9792,7 +9808,7 @@
             <reference ref="link_contact_address"/>
         </item> <!-- Give box -->
         </group> <!-- Facilities -->
-           <group name="Advertising" icon="icons/png/amenity_advertising_12451.png">
+        <group name="Advertising" icon="icons/png/amenity_advertising_12451.png">
             <item name="Advertising" icon="icons/png/amenity_advertising_12451.png" type="node,closedway" preset_name_label="true">
                 <link wiki="Key:advertising"/>
                 <space/>
@@ -9817,6 +9833,13 @@
                 <key key="advertising" value="poster_box"/>
                 <reference ref="advertising_optional"/>
             </item> <!-- Poster box -->
+            <item name="Screen" icon="icons/png/amenity_advertising_screen_12444.png" type="node,way" preset_name_label="true">
+                <link wiki="Tag:advertising=screen"/>
+                <space/>
+                <key key="advertising" value="screen"/>
+                <reference ref="advertising_optional"/>
+                <preset_link preset_name="Video wall" text="Similar but different tags:" alternative="true"/>
+            </item> <!-- Screen -->
             <item name="Totem" icon="icons/png/amenity_advertising_totem.png" type="node,way" preset_name_label="true">
                 <link wiki="Tag:advertising=totem"/>
                 <space/>
@@ -15172,6 +15195,7 @@
             <text key="contact:foursquare" text="Foursquare" match="key" text_context="social_network"/>
             <text key="contact:instagram" text="Instagram" match="key" text_context="social_network"/>
             <text key="contact:linkedin" text="Linkedin" match="key" text_context="social_network"/>
+            <text key="contact:mastodon" text="Mastodon" match="key" text_context="social_network"/>
             <text key="contact:ok" text="Ok" match="key" text_context="social_network"/>
             <text key="contact:pinterest" text="Pinterest" match="key" text_context="social_network"/>
             <text key="contact:skype" text="Skype" match="key" text_context="social_network"/>
