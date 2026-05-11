@@ -292,12 +292,15 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                             break;
                         case MimeTypes.TEXT_TYPE:
                             // this can't be a tile and is likely an error message
-                            throw new FileNotFoundException(mCtx.getString(R.string.tile_error_message, tileURLString, responseBody.string()));
+                            throw new FileNotFoundException(
+                                    mCtx.getString(R.string.tile_error_message, tileURLString, new String(MapTileProvider.unGZip(data), format.charset())));
                         case MimeTypes.APPLICATION_TYPE: // WMS errors, MVT tiles
                             switch (format.subtype().toLowerCase()) {
                             case MimeTypes.WMS_EXCEPTION_XML_SUBTYPE:
                             case MimeTypes.JSON_SUBTYPE:
-                                throw new FileNotFoundException(mCtx.getString(R.string.tile_error_message, tileURLString, responseBody.string()));
+                                MapTileProvider.unGZip(data);
+                                throw new FileNotFoundException(
+                                        mCtx.getString(R.string.tile_error_message, tileURLString, new String(MapTileProvider.unGZip(data), format.charset())));
                             case MimeTypes.MVT_SUBTYPE:
                             case MimeTypes.X_PROTOBUF_SUBTYPE:
                             case MimeTypes.OCTET_STREAM_SUBTYPE:
