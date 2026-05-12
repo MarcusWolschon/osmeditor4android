@@ -274,7 +274,6 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
      * @param selectedCount count
      */
     private void downloadSelected(final List<MemberEntry> selected, final int selectedCount) {
-        int i;
         Progress.showDialog(caller.getActivity(), Progress.PROGRESS_DOWNLOAD);
         PostAsyncActionHandler handler = () -> {
             if (currentAction != null) {
@@ -294,7 +293,7 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
         List<Long> nodes = new ArrayList<>();
         List<Long> ways = new ArrayList<>();
         List<Long> relations = new ArrayList<>();
-        for (i = 0; i < selectedCount; i++) {
+        for (int i = 0; i < selectedCount; i++) {
             MemberEntry row = selected.get(i);
             if (!row.downloaded()) {
                 final long ref = row.getRef();
@@ -321,8 +320,11 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
      * Update the connections and notify the adapter
      */
     private void update() {
-        for (int i = 0; i < members.size(); i++) {
-            members.get(i).setPosition(i);
+        final int size = members.size();
+        for (int i = 0; i < size; i++) {
+            final MemberEntry member = members.get(i);
+            member.setPosition(i);
+            member.update();
         }
         ((RelationMembersFragment) caller).setConnections();
         adapter.notifyDataSetChanged();
