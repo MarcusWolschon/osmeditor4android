@@ -1555,7 +1555,7 @@ public class PropertyEditorTest {
     }
 
     /**
-     * Select a relation move member up 2 positions and then down one
+     * Select a relation download member 
      */
     @Test
     public void relationMemberDownload() {
@@ -1587,6 +1587,8 @@ public class PropertyEditorTest {
         selectMember("#35479120");
         clickButtonOrOverflowMenu(main.getString(R.string.download));
 
+        assertTrue(TestUtils.findText(device, true, "highway=service #35479120", 10000, false));
+        
         // exit property editor
         TestUtils.clickUp(device);
         TestUtils.clickHome(device, false);
