@@ -1,5 +1,24 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+22.0.2:
+
+- Fix updating relation member label after download regression
+- Fix ungzip error messages from tile sources before trying to display them
+- Fix inherit functionality from AbortableWayActionModeCallback
+- Fix getRole use while editing relations
+- Fix correctly check if relation roles exist
+- Fix Panoramax instances list regression
+- Fix avoid creating tiny bounding boxes
+- Change check that all nodes are in a downloaded area before ungluing
+- Change unjoinWay behaviour to not clone nodes
+- Change use different colours for different types of boundaries
+- Change improve handling of root certificates on devices prior to Android 14
+- Update translations
+- Update default preset
+- Update imagery from ELI
+- Update tag2link
+- Update NSI
+
 22.0.1:
 
 - Fix catch and report exceptions from running conflict resolution actions
