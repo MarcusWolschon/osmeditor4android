@@ -69,11 +69,21 @@
     
     <!-- OSM way based features -->
     <feature type="way" updateWidth="true" widthFactor="1.0" color="80000000" style="STROKE" cap="BUTT" join="MITER" />
-    <feature type="way" tags="boundary" updateWidth="true" widthFactor="0.6" color="ffd3e03a" style="STROKE" cap="BUTT" join="MITER">
-    	<dash phase="1.0">
-    		<interval length="6.0" />
-    		<interval length="2.0" />
-    	</dash>
+    <feature type="way" tags="boundary" updateWidth="true" widthFactor="0.6" color="ffdddddd" style="STROKE" cap="BUTT" join="MITER">
+        <dash phase="1.0">
+            <interval length="6.0" />
+            <interval length="2.0" />
+        </dash>
+        <feature type="way" tags="boundary=administrative" widthFactor="0.6" color="ffd3e03a" />
+        <feature type="way" tags="boundary=protected_area" widthFactor="0.6" color="ff6ce03a" />
+        <feature type="way" tags="boundary=national_park" widthFactor="0.6" color="ff6ce03a" />
+        <feature type="way" tags="boundary=political" widthFactor="0.6" color="ffd3e03a" />
+        <feature type="way" tags="boundary=postal_code" widthFactor="0.6" color="ffe0b93a" />
+        <feature type="way" tags="boundary=place" widthFactor="0.6" color="ffe03a8d" />
+        <feature type="way" tags="boundary=historic" widthFactor="0.6" color="ffe09e3a"/>
+        <feature type="way" tags="boundary=maritime" widthFactor="0.6" color="ff3ac2e0" />
+        <feature type="way" tags="boundary=hazard" widthFactor="0.6" color="ffe03a3a" />
+        <feature type="way" tags="boundary=statistical" widthFactor="0.6" color="ffe03ab9" />
     </feature>
     <feature type="way" tags="route" updateWidth="true" widthFactor="0.6" color="880000AA" style="STROKE" cap="BUTT" join="MITER">
     	<dash phase="1.0">
