@@ -62,6 +62,18 @@
 "reklampelare",
 "Reklamtavla"
 ],
+"advertising/sign":[
+"butiksskylt",
+"skyltning",
+"annons",
+"reklamskylt",
+"reklam",
+"logotyp",
+"logga",
+"skylt",
+"fasadskylt",
+"Reklamskylt"
+],
 "advertising/totem":[
 "skyltpylon",
 "Skyltpylon",
@@ -985,9 +997,6 @@
 "lagbok",
 "domstol"
 ],
-"amenity/coworking_space":[
-"Dagkontor"
-],
 "amenity/crematorium":[
 "begravning",
 "krematorium",
@@ -1846,6 +1855,21 @@
 "Karaoke Box",
 "ktv",
 "karaoke lounge"
+],
+"amenity/kitchen":[
+"kök för gäster",
+"campingkök",
+"Gemensamt kök",
+"allmänt kök",
+"gemensamt kök",
+"kollektivkök",
+"vandrarhemskök",
+"självhushållskök",
+"delat kök",
+"gemensam köksyta",
+"lägerkök",
+"kök att dela",
+"kök för boende"
 ],
 "amenity/kneipp_water_cure":[
 "kneippism",
@@ -3743,6 +3767,17 @@
 "ålderdomshem",
 "demensboende",
 "äldreboende"
+],
+"amenity/social_facility/day_care":[
+"stödverksamhet",
+"social omsorg",
+"dagomsorg",
+"dagsverksamhet",
+"Dagverksamhet",
+"social dagverksamhet",
+"dagcenter",
+"dagverksamhet",
+"social service"
 ],
 "amenity/social_facility/food_bank":[
 "matbank",
@@ -6605,6 +6640,9 @@
 "frisbeegolftee",
 "discgolftee",
 "discgolfstart"
+],
+"disused/aeroway":[
+"Nedlagt flygobjekt"
 ],
 "disused/amenity":[
 "Oanvänd facilitet"
@@ -10240,6 +10278,24 @@
 "stadium",
 "arena"
 ],
+"leisure/summer_camp":[
+"ungdomsläger",
+"ferie",
+"ferieläger",
+"läger",
+"lovverksamhet",
+"Sommarläger",
+"ungdom",
+"lägergård",
+"lägeranläggning",
+"lov",
+"fritid",
+"barn",
+"sommarläger",
+"barnläger",
+"semester",
+"kollo"
+],
 "leisure/swimming_area":[
 "naturbad",
 "strand",
@@ -10763,6 +10819,18 @@
 "cistern",
 "stadsgas",
 "naturgas"
+],
+"man_made/geoglyph":[
+"landskapskonst",
+"hill figure",
+"earthwork",
+"landskapsfigur",
+"Geoglyf",
+"geoglyf",
+"markfigur",
+"markkonst",
+"jordkonst",
+"land art"
 ],
 "man_made/goods_conveyor":[
 "Transportband",
@@ -11647,6 +11715,23 @@
 "båge",
 "naturlig båge",
 "Naturlig båge"
+],
+"natural/arete":[
+"glacial rygg",
+"egg",
+"arête",
+"klippkant",
+"arete",
+"bergskam",
+"grat",
+"Bergskam",
+"rygg",
+"kam",
+"skarp bergsrygg",
+"vass bergsrygg",
+"glacial bergskam",
+"åsrygg",
+"bergsrygg"
 ],
 "natural/bare_rock":[
 "Kala klippor",
@@ -13164,7 +13249,21 @@
 "Mindre samhälle"
 ],
 "playground":[
-"Lekplatsutrustning"
+"klätterställning",
+"lekställning",
+"Lekplatsutrustning",
+"lekpark",
+"lekutrustning",
+"lekredskap på lekplats",
+"balansredskap",
+"lek",
+"lekplatsutrustning",
+"sandlåda",
+"lekplats",
+"lekområde",
+"lekredskap",
+"gunga",
+"rutschkana"
 ],
 "playground/activitypanel":[
 "memory",
@@ -13670,16 +13769,6 @@
 "vatten",
 "turbin"
 ],
-"power/plant/source/method/photovoltaic":[
-"ljuskraft",
-"solpark",
-"Solfarm",
-"solkraft",
-"solkraftverk",
-"ljuskraftverk",
-"solpanel",
-"solfarm"
-],
 "power/plant/source/nuclear":[
 "kärnkraftsverk",
 "atomkraft",
@@ -13705,6 +13794,20 @@
 "solkraftverk",
 "solkraft",
 "solpaneler"
+],
+"power/plant/source/solar/photovoltaic":[
+"solpanelspark",
+"storskalig solkraft",
+"Solkraftpark",
+"fotovoltaisk kraftstation",
+"solcellsfält",
+"solkraftpark",
+"solpaneler",
+"solkraft",
+"solcellsanläggning",
+"solenergipark",
+"solkraftanläggning",
+"solcellspark"
 ],
 "power/plant/source/waste":[
 "avfallsförbränningsanläggning",
@@ -16336,6 +16439,16 @@
 "fotoredigering",
 "kamera",
 "ram"
+],
+"shop/piercing":[
+"kroppspiercing",
+"piercingsmycken",
+"piercingverkstad",
+"piercingbutik",
+"kroppssmycken",
+"piercing",
+"Piercingstudio",
+"piercingstudio"
 ],
 "shop/pottery":[
 "keramikaffär",

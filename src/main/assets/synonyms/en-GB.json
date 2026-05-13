@@ -244,9 +244,6 @@
 "amenity/courthouse":[
 "Courthouse"
 ],
-"amenity/coworking_space":[
-"Coworking Space"
-],
 "amenity/crematorium":[
 "Crematorium"
 ],
@@ -3342,9 +3339,6 @@
 ],
 "power/plant/source/hydro":[
 "Hydroelectric Power Station"
-],
-"power/plant/source/method/photovoltaic":[
-"Solar Farm"
 ],
 "power/plant/source/nuclear":[
 "Nuclear Power Plant"

@@ -552,9 +552,6 @@
 "juĝejo",
 "juĝo"
 ],
-"amenity/coworking_space":[
-"Loko por samloka laborado (ang. coworking)"
-],
 "amenity/crematorium":[
 "kadavro-bruligejo",
 "kremaciejo",
@@ -6119,16 +6116,6 @@
 "centralo",
 "elektrejo",
 "akvobarilo"
-],
-"power/plant/source/method/photovoltaic":[
-"sunĉelo",
-"Sunenergia elektrocentralo",
-"sunpanelo",
-"centralo",
-"elektrejo",
-"suncentralo",
-"sunkolektroro",
-"fotovoltaiko"
 ],
 "power/plant/source/nuclear":[
 "atomkerna",

@@ -337,9 +337,6 @@
 "Jutjat",
 "palau de justícia"
 ],
-"amenity/coworking_space":[
-"Espai de coworking"
-],
 "amenity/crematorium":[
 "cementiri",
 "crematori",
@@ -4661,9 +4658,6 @@
 ],
 "power/plant/source/hydro":[
 "Central hidroelèctrica"
-],
-"power/plant/source/method/photovoltaic":[
-"Granja solar"
 ],
 "power/plant/source/nuclear":[
 "Central nuclear"

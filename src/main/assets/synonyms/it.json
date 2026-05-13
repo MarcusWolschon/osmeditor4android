@@ -179,9 +179,9 @@
 "aereo"
 ],
 "aeroway/apron":[
+"Parcheggio per aeromobili",
 "taxiway",
 "rampa",
-"Parcheggio Aeromobili",
 "parcheggio aeromobili",
 "asfalto",
 "linea di volo",
@@ -705,9 +705,6 @@
 "Tribunale",
 "palazzaccio",
 "tribunale"
-],
-"amenity/coworking_space":[
-"Spazio di coworking"
 ],
 "amenity/crematorium":[
 "cimitero",
@@ -2864,7 +2861,10 @@
 "Barriera antirumore"
 ],
 "barrier/wicket_gate":[
-"Porta Wicket"
+"cancellino",
+"Portoncino",
+"portoncino",
+"cancelletto"
 ],
 "barrier/yes":[
 "Barriera (Tipo non specificato)"
@@ -4688,6 +4688,12 @@
 "rotonda",
 "inversione",
 "Rotonda per inversione di marcia"
+],
+"highway/unclassified":[
+"Strada minore / non classificata",
+"non classificata",
+"extraurbana",
+"minore"
 ],
 "historic":[
 "luogo storico",
@@ -7302,9 +7308,6 @@
 "power/plant/source/hydro":[
 "Centrale idroelettrica"
 ],
-"power/plant/source/method/photovoltaic":[
-"Impianto solare"
-],
 "power/plant/source/nuclear":[
 "Centrale nucleare"
 ],
@@ -7537,7 +7540,7 @@
 "Punto di fermata del trasporto a fune"
 ],
 "public_transport/stop_position_bus":[
-"Fermata autobus"
+"Punto di fermata autobus"
 ],
 "public_transport/stop_position_ferry":[
 "Fermata battello"

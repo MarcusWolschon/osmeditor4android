@@ -505,9 +505,6 @@
 "paleis van justitie",
 "gerechtshof"
 ],
-"amenity/coworking_space":[
-"Coworking-kantoor"
-],
 "amenity/crematorium":[
 "verassingscentrum",
 "Crematorium",
@@ -6570,10 +6567,6 @@
 "power/plant/source/hydro":[
 "hydro-elektrische elektriciteitscentrale",
 "Hydro-elektrische centrale"
-],
-"power/plant/source/method/photovoltaic":[
-"zonnepaneelpark",
-"Zonnepark"
 ],
 "power/plant/source/nuclear":[
 "Nucleaire centrale",

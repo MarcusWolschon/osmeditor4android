@@ -32,7 +32,7 @@
 "Огласни тотем"
 ],
 "aerialway":[
-"Обележија жичаре"
+"Обележије жичаре"
 ],
 "aerialway/cable_car":[
 "Висећа жичара"
@@ -74,7 +74,7 @@
 "Зип-лајн"
 ],
 "aeroway":[
-"Ваздухопловство"
+"Обележије ваздушног саобраћаја"
 ],
 "aeroway/aerodrome":[
 "Аеродром"
@@ -152,7 +152,8 @@
 "amenity/bicycle_parking":[
 "паркинг за бицикле",
 "parking za bicikle",
-"Бициклистичко стајалиште",
+"бициклистичко стајалиште",
+"Паркиралиште за бицикле",
 "бициклистички паркинг"
 ],
 "amenity/bicycle_parking/building":[
@@ -168,6 +169,9 @@
 "amenity/bicycle_rental":[
 "Изнајмљивање бицикла"
 ],
+"amenity/bicycle_repair_station":[
+"Станица за поправку бицикала"
+],
 "amenity/bicycle_wash":[
 "Перионица за бицикле"
 ],
@@ -175,8 +179,8 @@
 "Пивска башта"
 ],
 "amenity/binoculars":[
+"Панорамски двоглед",
 "двоглед за осматрање",
-"Монтирани двоглед",
 "причвшћеви двоглед"
 ],
 "amenity/boat_rental":[
@@ -291,9 +295,6 @@
 ],
 "amenity/courthouse":[
 "Судница"
-],
-"amenity/coworking_space":[
-"Заједнички радни простор"
 ],
 "amenity/crematorium":[
 "Крематоријум"
@@ -882,6 +883,9 @@
 "amenity/vending_machine":[
 "Аутомат"
 ],
+"amenity/vending_machine/bicycle_tube":[
+"Аутомат за унутрашње гуме за бицикле"
+],
 "amenity/vending_machine/bottle_return":[
 "Аутомат за повратак флаша"
 ],
@@ -1302,6 +1306,9 @@
 "спаваоница",
 "Студентски дом"
 ],
+"building/entrance":[
+"Улаз/излаз"
+],
 "building/farm":[
 "Сеоска кућа"
 ],
@@ -1401,6 +1408,9 @@
 ],
 "building/retail":[
 "Малопродајна зграда"
+],
+"building/riding_hall":[
+"Затворени мањеж"
 ],
 "building/roof":[
 "Кров"
@@ -1652,6 +1662,9 @@
 ],
 "disc_golf/tee":[
 "Диск голф почетно подручје"
+],
+"disused/aeroway":[
+"Некоришћено обележије ваздушног саобраћаја"
 ],
 "disused/railway":[
 "Некоришћено железничко обележје"
@@ -1917,6 +1930,12 @@
 "highway/cycleway/moped_link-NL":[
 "Мопедска стаза"
 ],
+"highway/cycleway/traffic_island":[
+"Бициклистичко острво"
+],
+"highway/cycleway/traffic_island_shared":[
+"Пешачко и бициклистичко острво"
+],
 "highway/elevator":[
 "Лифт"
 ],
@@ -1960,7 +1979,7 @@
 "Тротоар"
 ],
 "highway/footway/traffic_island":[
-"Саобраћајно острво"
+"Пешачко острво"
 ],
 "highway/give_way":[
 "Знак уступања првенства пролаза"
@@ -1979,6 +1998,12 @@
 ],
 "highway/motorway":[
 "Аутопут"
+],
+"highway/motorway_junction":[
+"искључење са брзог пута",
+"излаз са мотопута",
+"искључење са брзе цесте",
+"Искључење са мотопута"
 ],
 "highway/motorway_link":[
 "укључење на аутопут",
@@ -2055,7 +2080,7 @@
 "колски прилаз"
 ],
 "highway/service/emergency_access":[
-"Приступ за хитне случајеве"
+"Приступ за хитне службе"
 ],
 "highway/service/parking_aisle":[
 "Пролаз кроз паркинг"
@@ -2477,7 +2502,7 @@
 "Хакерспејс"
 ],
 "leisure/horse_riding":[
-"Центар за јахање"
+"Коњички центар"
 ],
 "leisure/hot_tub":[
 "Ђакузи"
@@ -2578,7 +2603,9 @@
 "Крикет терен"
 ],
 "leisure/pitch/equestrian":[
-"Јахање / Родео Арена"
+"јахалиште / родео арена",
+"манеж / родео арена",
+"Мањеж / Родео арена"
 ],
 "leisure/pitch/field_hockey":[
 "Терен за хокеј на трави"
@@ -3272,7 +3299,13 @@
 "Природна шума"
 ],
 "noexit/yes":[
-"Без излаза"
+"забрањено искључење",
+"без искључења",
+"Без излаза",
+"без излаза",
+"забрањен излаз",
+"крај пута",
+"ћорсокак"
 ],
 "office":[
 "Канцеларија"
@@ -3637,6 +3670,9 @@
 "power/generator/method/photovoltaic":[
 "Соларна плоча"
 ],
+"power/generator/method/photovoltaic/building/roof":[
+"Надстрешница са соларним панелима"
+],
 "power/generator/method/photovoltaic/location/roof":[
 "Кровни соларни панели"
 ],
@@ -3672,9 +3708,6 @@
 ],
 "power/plant/source/hydro":[
 "Хидроелектрана"
-],
-"power/plant/source/method/photovoltaic":[
-"Фотонапонска електрана"
 ],
 "power/plant/source/nuclear":[
 "Нуклеарна електрана"

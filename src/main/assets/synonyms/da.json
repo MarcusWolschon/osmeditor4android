@@ -41,6 +41,9 @@
 "reklamestander",
 "reklameboks"
 ],
+"advertising/sign":[
+"Reklameskilt"
+],
 "advertising/totem":[
 "reklame",
 "plakat",
@@ -520,9 +523,6 @@
 "retsbygning",
 "domstol"
 ],
-"amenity/coworking_space":[
-"Kontorfællesskab"
-],
 "amenity/crematorium":[
 "ligbrænding",
 "krematorium",
@@ -799,6 +799,13 @@
 "karaoke box",
 "Karaokebar"
 ],
+"amenity/kitchen":[
+"centralkøkken",
+"storkøkken",
+"fælleskøkken",
+"kollegiekøkken",
+"Fælleskøkken"
+],
 "amenity/kneipp_water_cure":[
 "Kneipp-facilitet"
 ],
@@ -934,15 +941,17 @@
 "parkering"
 ],
 "amenity/parking_space":[
+"bås",
 "parkeringsplads",
 "parkeringsbås",
 "Parkeringsbås"
 ],
 "amenity/parking_space/disabled":[
+"Handicapparkeringsbås",
 "rullestol",
 "tilgængelig",
 "handicap",
-"Handikapparkering"
+"kørestol"
 ],
 "amenity/payment_centre":[
 "Betalingscenter"
@@ -1169,6 +1178,9 @@
 "amenity/restaurant/japanese":[
 "Japansk restaurant"
 ],
+"amenity/restaurant/korean":[
+"Koreansk restaurant"
+],
 "amenity/restaurant/mexican":[
 "Mexikansk restaurant"
 ],
@@ -1310,6 +1322,13 @@
 "plejebolig",
 "plejecenter",
 "plejehjem"
+],
+"amenity/social_facility/day_care":[
+"aktivitetscenter",
+"daghjem",
+"Dagcenter",
+"dagcenter",
+"dagtilbud"
 ],
 "amenity/social_facility/food_bank":[
 "Fødevarebank",
@@ -2467,7 +2486,18 @@
 ],
 "craft/plumber":[
 "Blikkenslager",
-"blikkenslager"
+"blikkenslager",
+"sanitet",
+"wc",
+"smed",
+"rør",
+"rørsmed",
+"vvs",
+"toilet",
+"varme",
+"vand",
+"rørlægger",
+"bliktud"
 ],
 "craft/pottery":[
 "Keramiker",
@@ -2572,7 +2602,21 @@
 "Lukket forretning"
 ],
 "education":[
-"Uddannelsesfacilitet"
+"sprogskole",
+"Uddannelsesfacilitet",
+"gymnasium",
+"køreskole",
+"skole",
+"gymnasie",
+"uddannelsesfacilitet",
+"kokkeskole",
+"højskole",
+"handelsskole",
+"musikskole",
+"universitet"
+],
+"education/college":[
+"Område med videregående uddannelse"
 ],
 "education/dancing_school":[
 "Danseskole"
@@ -2594,6 +2638,9 @@
 ],
 "education/university":[
 "Universitetsområde"
+],
+"education/yes":[
+"Uddannelsesfacilitet (Uspecificeret type)"
 ],
 "embankment":[
 "Forhøjning / vejdæmning"
@@ -2914,16 +2961,36 @@
 "Fodgængerovergang med lyssignal"
 ],
 "highway/crossing/uncontrolled":[
-"markeret fodgængerovergang",
-"Markeret overgang",
-"markeret overgang"
-],
-"highway/crossing/unmarked":[
+"gående",
+"Markeret fodgængerovergang",
+"felt",
+"fodgængerfelt",
+"fodgængeroverfelt",
+"markeret",
+"fodgængerovergang",
 "fodgænger",
 "overgang",
+"spadserende",
+"opmærket",
+"spadsere",
+"markering",
+"gå",
+"mærket"
+],
+"highway/crossing/unmarked":[
+"umarkeret",
+"umærket",
+"gående",
 "felt",
 "Umarkeret fodgængerovergang",
-"fodgængerfelt"
+"fodgængerfelt",
+"fodgængeroverfelt",
+"fodgængerovergang",
+"fodgænger",
+"overgang",
+"spadserende",
+"spadsere",
+"gå"
 ],
 "highway/cycleway":[
 "cykelsti",
@@ -2953,24 +3020,40 @@
 "cyklist"
 ],
 "highway/cycleway/crossing/traffic_signals":[
+"cykelovergang",
+"cykelkryds",
+"cykelfelt",
 "cykelkryds med trafiksignaler",
 "cykelfelt med trafiksignaler",
+"signal",
 "cykelovergang med trafiksignaler",
 "Cykelkryds med trafiksignaler"
 ],
 "highway/cycleway/crossing/uncontrolled":[
+"cykelovergang",
+"markeret",
 "markeret cykelfelt",
+"cykelkryds",
+"cykelfelt",
+"opmærket",
 "Markeret cykelkryds",
 "markeret cykelovergang",
-"markeret cykelkryds"
+"markeret cykelkryds",
+"markering",
+"mærket"
 ],
 "highway/cycleway/crossing/unmarked":[
 "umarkeret cykelovergang",
+"cykelovergang",
+"umarkeret",
+"umærket",
 "passage",
-"overgang",
-"cykel",
 "felt",
 "cyklist",
+"cykelkryds",
+"overgang",
+"cykel",
+"cykelfelt",
 "Umarkeret cykelkryds",
 "umarkeret cykelkryds"
 ],
@@ -3033,17 +3116,37 @@
 "Fodgængerovergang med lyssignal"
 ],
 "highway/footway/crossing/uncontrolled":[
-"fodgængerovergang",
-"Markeret overgang",
+"gående",
+"Markeret fodgængerovergang",
+"felt",
 "fodgængerfelt",
-"markeret overgang"
-],
-"highway/footway/crossing/unmarked":[
+"markeret overgang",
+"fodgængeroverfelt",
+"markeret",
+"fodgængerovergang",
 "fodgænger",
 "overgang",
+"spadserende",
+"opmærket",
+"spadsere",
+"markering",
+"gå",
+"mærket"
+],
+"highway/footway/crossing/unmarked":[
+"umarkeret",
+"umærket",
+"gående",
 "felt",
-"Umarkeret overgang",
-"fodgængerfelt"
+"Umarkeret fodgængerovergang",
+"fodgængerfelt",
+"fodgængeroverfelt",
+"fodgængerovergang",
+"fodgænger",
+"overgang",
+"spadserende",
+"spadsere",
+"gå"
 ],
 "highway/footway/informal":[
 "Trampesti"
@@ -3157,8 +3260,12 @@
 "villavej"
 ],
 "highway/rest_area":[
+"pitstop",
+"holdeplads",
+"rastested",
 "Rasteplads",
-"rasteplads"
+"rasteplads",
+"parkering"
 ],
 "highway/road":[
 "Ukendt vejtype",
@@ -3779,7 +3886,11 @@
 "lejrbål"
 ],
 "leisure/fishing":[
-"Fiskeplads"
+"fiskesø",
+"put and take",
+"fiskested",
+"Fiskeplads",
+"fiskeplads"
 ],
 "leisure/fitness_centre":[
 "fitnesscenter",
@@ -4157,6 +4268,15 @@
 "leisure/stadium":[
 "stadion",
 "Stadion"
+],
+"leisure/summer_camp":[
+"ferielejr",
+"børn",
+"koloni",
+"sommerlejr",
+"feriekoloni",
+"ungdomslejr",
+"Sommerlejr"
 ],
 "leisure/swimming_area":[
 "badning",
@@ -5609,20 +5729,6 @@
 "forbrænding",
 "naturgas"
 ],
-"power/plant/source/method/photovoltaic":[
-"sol",
-"fotovoltaik",
-"solcelleanlæg",
-"Solcellepark",
-"kraftværk",
-"el",
-"solkraft",
-"solpanel",
-"elektricitet",
-"panel",
-"solcellepark",
-"strøm"
-],
 "power/plant/source/nuclear":[
 "nuklear",
 "fission",
@@ -6461,14 +6567,13 @@
 "shop/interior_decoration":[
 "brugskunstbutik",
 "mode",
+"interiørbutik",
 "indendørsudsmykningsbutik",
+"Boligindretningsbutik",
+"boligindretningsbutik",
 "indendørs",
 "boligudstyr",
-"interiør",
-"indendørsudsmykning",
-"brugskunst",
 "keramik",
-"Brugskunstbutik",
 "kunst"
 ],
 "shop/jewelry":[
@@ -6885,8 +6990,11 @@
 "Bjerghytte"
 ],
 "tourism/apartment":[
-"Gæstelejlighed/Ejerlejlighed",
-"gæstelejlighed/ejerlejlighed"
+"ferielejlighed",
+"gæstelejlighed",
+"lejlighed",
+"Ferielejlighed",
+"airbnb"
 ],
 "tourism/aquarium":[
 "akvarium",
@@ -7048,6 +7156,13 @@
 ],
 "tourism/information/terminal":[
 "Informationsterminal"
+],
+"tourism/information/visitor_centre":[
+"Besøgscenter",
+"informationscenter",
+"besøgscenter",
+"museum",
+"udstilling"
 ],
 "tourism/motel":[
 "bilmotel",
@@ -7360,6 +7475,19 @@
 "type/waterway":[
 "Vandvej",
 "vandvej"
+],
+"waterway/access_point":[
+"kanoisætningssted",
+"isætningsplads",
+"kajakudtagning",
+"kajakisætningssted",
+"udtagning",
+"kanoudtagning",
+"isætningssted",
+"bådisætningssted",
+"portage",
+"landgang",
+"Isætningssted"
 ],
 "waterway/boatyard":[
 "Bådplads",

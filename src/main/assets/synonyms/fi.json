@@ -522,9 +522,6 @@
 "oikeustalo",
 "alioikeus"
 ],
-"amenity/coworking_space":[
-"Yhteisöllinen työtila"
-],
 "amenity/crematorium":[
 "Krematorio",
 "tuhka",
@@ -2481,6 +2478,27 @@
 ],
 "disused/shop":[
 "Lopettanut kauppa"
+],
+"education/college":[
+"Collegealue"
+],
+"education/dancing_school":[
+"Tanssikoulu"
+],
+"education/driving_school":[
+"Autokoulu"
+],
+"education/kindergarten":[
+"Esikoulualue"
+],
+"education/language_school":[
+"Kielikoulu"
+],
+"education/music_school":[
+"Musiikkikoulu"
+],
+"education/school":[
+"Koulualue"
 ],
 "embankment":[
 "Penger"
@@ -5289,12 +5307,6 @@
 "voimalaitos",
 "turbiini",
 "Vesivoimala"
-],
-"power/plant/source/method/photovoltaic":[
-"aurinkopuisto",
-"Aurinkopuisto",
-"voimalaitos",
-"aurinkopaneeli"
 ],
 "power/plant/source/nuclear":[
 "ydinvoima",

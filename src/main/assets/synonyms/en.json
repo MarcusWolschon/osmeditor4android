@@ -37,6 +37,9 @@
 "vertices",
 "Point"
 ],
+"playground":[
+"Playground Equipment"
+],
 "office":[
 "Office",
 "administration"
@@ -144,9 +147,6 @@
 ],
 "power":[
 "Power Feature"
-],
-"playground":[
-"Playground Equipment"
 ],
 "place":[
 "Place"
@@ -346,7 +346,9 @@
 ],
 "waterway/dock":[
 "Wet Dock / Dry Dock",
+"floating dry dock",
 "vessel",
+"floating dock",
 "ship",
 "boat",
 "marine"
@@ -502,6 +504,7 @@
 "Bicycle Route"
 ],
 "type/route/aerialway":[
+"aerialway",
 "Aerial Route"
 ],
 "type/restriction/only_u_turn":[
@@ -687,6 +690,7 @@
 "foundation",
 "history",
 "technology",
+"art museum",
 "archaeological",
 "cultural",
 "institution",
@@ -1040,6 +1044,7 @@
 "Travel Agency",
 "cruises",
 "holiday",
+"tours",
 "travel packages"
 ],
 "shop/trade":[
@@ -1079,6 +1084,7 @@
 "Tea Store"
 ],
 "shop/tattoo":[
+"piercing",
 "ink",
 "Tattoo Parlor"
 ],
@@ -1233,6 +1239,9 @@
 "pot",
 "Pottery Store",
 "vase"
+],
+"shop/piercing":[
+"Piercing Studio"
 ],
 "shop/photo":[
 "Photography Store",
@@ -1791,6 +1800,7 @@
 "E-Cigarette Shop"
 ],
 "shop/dry_cleaning":[
+"dry cleaning",
 "Dry Cleaner"
 ],
 "shop/doors":[
@@ -2069,7 +2079,8 @@
 "grill"
 ],
 "shop/bathroom_furnishing":[
-"Bathroom Furnishing Store"
+"Bathroom Furnishing Store",
+"bathroom fixtures"
 ],
 "shop/bakery":[
 "bread",
@@ -3101,7 +3112,7 @@
 "carbon",
 "coalfired"
 ],
-"power/plant/source/method/photovoltaic":[
+"power/plant/source/solar/photovoltaic":[
 "photovoltaic power station",
 "utility-scale solar",
 "Solar Farm",
@@ -4057,6 +4068,11 @@
 "rock",
 "Bare Rock"
 ],
+"natural/arete":[
+"Arête",
+"mountains",
+"ridge"
+],
 "natural/arch":[
 "natural bridge",
 "Natural Arch",
@@ -4479,6 +4495,7 @@
 "traffic counter",
 "seismology",
 "weather",
+"weather station",
 "bicycle counter",
 "earthquake",
 "measurement station",
@@ -4542,6 +4559,12 @@
 "belt conveyor",
 "conveyor belt",
 "chain conveyor"
+],
+"man_made/geoglyph":[
+"earthwork",
+"hill figure",
+"Geoglyph",
+"land art"
 ],
 "man_made/gasometer":[
 "Gasometer",
@@ -5023,6 +5046,14 @@
 "dive",
 "water",
 "Natural Swimming Area"
+],
+"leisure/summer_camp":[
+"holidays",
+"children",
+"vacations",
+"Summer Camp",
+"leisure",
+"youth"
 ],
 "leisure/stadium":[
 "Stadium"
@@ -6256,6 +6287,12 @@
 "Boundary Stone"
 ],
 "historic/archaeological_site":[
+"dig",
+"excavation",
+"archaeology",
+"crop mark",
+"remains",
+"cropmark",
 "Archaeological Site"
 ],
 "historic/aircraft":[
@@ -6993,6 +7030,7 @@
 "illness"
 ],
 "healthcare/counselling":[
+"sex therapist",
 "Counselling Center"
 ],
 "healthcare/blood_donation":[
@@ -7362,6 +7400,9 @@
 ],
 "disused/amenity":[
 "Disused Amenity"
+],
+"disused/aeroway":[
+"Disused Aeroway Feature"
 ],
 "disc_golf/tee":[
 "tee box",
@@ -7822,6 +7863,8 @@
 "Hangar Building"
 ],
 "building/greenhouse":[
+"glasshouse",
+"glass house",
 "Greenhouse"
 ],
 "building/grandstand":[
@@ -8016,6 +8059,7 @@
 "Motorcycle Barrier"
 ],
 "barrier/log":[
+"log",
 "Fallen Tree Obstruction",
 "downed tree"
 ],
@@ -8989,6 +9033,12 @@
 "kneipp hydrotherapy",
 "foot bath"
 ],
+"amenity/kitchen":[
+"Communal Kitchen",
+"public kitchen",
+"cooking",
+"shared kitchen"
+],
 "amenity/karaoke_box":[
 "karaoke club",
 "karaoke television",
@@ -9136,6 +9186,7 @@
 "amenity/fast_food":[
 "restaurant",
 "drive-through",
+"food truck",
 "Fast Food",
 "drive thru",
 "takeout",
@@ -9547,9 +9598,6 @@
 "amenity/embassy":[
 "Embassy"
 ],
-"amenity/coworking_space":[
-"Coworking Space"
-],
 "amenity/bus_station":[
 "Bus Station / Terminal"
 ],
@@ -9812,8 +9860,11 @@
 "living",
 "elderly",
 "old",
+"retirement home",
 "assisted living",
 "nursing",
+"retired",
+"retirement",
 "Nursing Home"
 ],
 "amenity/social_facility/homeless_shelter":[
@@ -9828,7 +9879,10 @@
 "living",
 "elderly",
 "old",
+"retirement home",
 "assisted living",
+"retired",
+"retirement",
 "Elderly Group Home"
 ],
 "amenity/social_facility/food_bank":[
@@ -9836,13 +9890,19 @@
 "soup kitchen",
 "Food Bank"
 ],
+"amenity/social_facility/day_care":[
+"Social Services Day Care / Day Center"
+],
 "amenity/social_facility/assisted_living":[
 "senior",
 "care home",
 "living",
 "elderly",
 "old",
+"retirement home",
 "assisted living",
+"retired",
+"retirement",
 "Senior Assisted Living Facility"
 ],
 "amenity/social_facility/ambulatory_care":[
@@ -10374,30 +10434,45 @@
 "shrine"
 ],
 "amenity/place_of_worship/christian":[
+"lutheran",
+"nondenominational",
+"tabernacle",
+"oratory",
+"pentecostal",
+"abbey",
+"christian",
+"parish",
+"basilica",
+"evangelical",
+"minster",
+"methodist",
+"orthodox",
+"sacellum",
+"bethel",
+"cathedral",
+"presbyterian",
 "chantry",
 "sanctuary",
-"tabernacle",
+"latter day saints",
 "roman catholic",
-"oratory",
 "house of god",
 "chapel",
+"episcopal",
+"mormon",
+"reformed",
+"baptist",
 "shrine",
-"abbey",
+"seventh day adventist",
 "fold",
 "mission",
 "chancel",
 "house of prayer",
 "house of worship",
 "Christian Church",
-"christian",
-"parish",
-"basilica",
-"minster",
 "temple",
+"lds",
 "anglican",
-"sacellum",
-"bethel",
-"cathedral"
+"protestant"
 ],
 "amenity/place_of_worship/buddhist":[
 "pagoda",
@@ -11123,6 +11198,7 @@
 "foefie slide",
 "gravity propelled aerial ropeslide",
 "zipline",
+"aerialway",
 "zip-line",
 "Zip Line"
 ],
@@ -11130,6 +11206,7 @@
 "surface cable",
 "drag lift",
 "skiing",
+"aerialway",
 "tbar",
 "T-Bar Lift"
 ],
@@ -11139,6 +11216,7 @@
 "bugel lift",
 "skiing",
 "snowboarding",
+"aerialway",
 "handle tow",
 "Rope Tow Lift"
 ],
@@ -11154,6 +11232,7 @@
 "drag lift",
 "skiing",
 "snowboarding",
+"aerialway",
 "Platter Lift",
 "poma lift",
 "disc lift",
@@ -11163,11 +11242,13 @@
 "skiing",
 "snowboarding",
 "Mixed Lift",
+"aerialway",
 "aerial cable"
 ],
 "aerialway/magic_carpet":[
 "skiing",
 "snowboarding",
+"aerialway",
 "surface lift",
 "Magic Carpet Lift",
 "conveyor belt"
@@ -11179,15 +11260,18 @@
 "drag lift",
 "skiing",
 "snowboarding",
+"aerialway",
 "jbar"
 ],
 "aerialway/goods":[
+"aerialway",
 "Goods Aerialway",
 "aerial cable"
 ],
 "aerialway/gondola":[
 "skiing",
 "snowboarding",
+"aerialway",
 "lift",
 "aerial cable",
 "Gondola Lift"
@@ -11196,12 +11280,14 @@
 "surface cable",
 "skiing",
 "snowboarding",
+"aerialway",
 "Drag Lift"
 ],
 "aerialway/chair_lift":[
 "skiing",
 "snowboarding",
 "Chair Lift",
+"aerialway",
 "aerial cable"
 ],
 "aerialway/cable_car":[
@@ -11210,6 +11296,7 @@
 "snowboarding",
 "Cable Car",
 "ropeway",
+"aerialway",
 "lift",
 "aerial cable"
 ],
@@ -11218,6 +11305,13 @@
 "Advertising Totem",
 "advertising",
 "spam"
+],
+"advertising/sign":[
+"Advertising Sign",
+"ad",
+"fascia",
+"logo",
+"storefront"
 ],
 "advertising/poster_box":[
 "Poster Box",

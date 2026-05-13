@@ -497,9 +497,6 @@
 "Rechtbank",
 "gerechtshof"
 ],
-"amenity/coworking_space":[
-"Gedeelde kantoorruimte"
-],
 "amenity/crematorium":[
 "verassingscentrum",
 "Crematorium",
@@ -6483,10 +6480,6 @@
 "power/plant/source/hydro":[
 "hydro-elektrische elektriciteitscentrale",
 "Hydro-elektrische centrale"
-],
-"power/plant/source/method/photovoltaic":[
-"zonnepaneelpark",
-"Zonnepark"
 ],
 "power/plant/source/nuclear":[
 "Nucleaire centrale",

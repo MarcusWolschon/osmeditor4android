@@ -204,7 +204,7 @@
 "záhon"
 ],
 "amenity":[
-"Občianska vybavenosť"
+"Prvok občianskej vybavenosti"
 ],
 "amenity/animal_boarding":[
 "starostlivosť",
@@ -603,9 +603,6 @@
 "sudny dvor",
 "Súd",
 "súdna sieň"
-],
-"amenity/coworking_space":[
-"Priestory pre coworking"
 ],
 "amenity/crematorium":[
 "krematorium",
@@ -1578,14 +1575,25 @@
 "amenity/shelter/lean_to":[
 "Hrubý prístrešok s otvorenou stenou",
 "prístrešok",
+"bivakový prístrešok",
+"otvorený prístrešok",
 "utulna",
+"otvoreny pristresok",
 "hruby pristresok s otvorenou stenou",
 "útulňa",
-"pristresok"
+"pristresok",
+"bivak",
+"bivakovy"
 ],
 "amenity/shelter/picnic_shelter":[
+"altánok",
+"turisticky pristresok",
+"turistický prístrešok",
 "Piknikový prístrešok",
-"piknikovy pristresok"
+"prístrešok",
+"piknikovy pristresok",
+"altanok",
+"pristresok"
 ],
 "amenity/shelter/public_transport":[
 "zastávka",
@@ -2137,6 +2145,9 @@
 "bump gate",
 "brana otvarana narazom",
 "Brána otváraná nárazom"
+],
+"barrier/bus_trap":[
+"Autobusová priehlbeň"
 ],
 "barrier/cable_barrier":[
 "drotena bariera",
@@ -3841,7 +3852,12 @@
 "obytna ulica"
 ],
 "highway/milestone":[
-"Kilometrovník"
+"Cestný kilometrovník",
+"kilometrovník",
+"cestny kilometrovnik",
+"diaľničný kilometrovnik",
+"kilometrovnik",
+"dialnicny kilometrovnik"
 ],
 "highway/mini_roundabout":[
 "maly kruhovy objazd",
@@ -7020,10 +7036,6 @@
 "vodná energia",
 "hydroelektraren"
 ],
-"power/plant/source/method/photovoltaic":[
-"fotovolticka elektraren",
-"Fotovoltická elektráreň"
-],
 "power/plant/source/nuclear":[
 "Jadrová elektráreň",
 "jadrova elektraren"
@@ -7539,6 +7551,14 @@
 ],
 "shop/beauty/tanning":[
 "Solárium"
+],
+"shop/bed":[
+"postele",
+"Obchod s posteľami / matracmi",
+"matrace",
+"obchod s postelami",
+"posteľ",
+"obchod s matracmi"
 ],
 "shop/beverages":[
 "kofola",
@@ -8139,10 +8159,17 @@
 "bielizeň"
 ],
 "shop/houseware":[
-"zeleziarstvo",
-"železiarstvo",
 "Obchod s domácimi potrebami",
-"domace potreby"
+"príbory",
+"pribory",
+"domace potreby",
+"kuchynské potreby",
+"domacnost",
+"taniere",
+"domácnosť",
+"kuchynske potreby potreby do domácnosti",
+"domáce potreby",
+"riad"
 ],
 "shop/hunting":[
 "obchod s polovnickymi potrebami",
@@ -8153,10 +8180,17 @@
 "polovnicke potreby"
 ],
 "shop/interior_decoration":[
-"intrierove dekoracie",
-"intriérové dekorácie",
-"obchod s bytovami dekoraciami",
-"Obchod s bytovými dekoráciami"
+"dekoracie",
+"interiérové dekorácie",
+"interierove dekoracie",
+"dizajn",
+"bytove doplnky",
+"bytové doplnky",
+"Obchod s bytovými dekoráciami",
+"bytové dekorácie",
+"bytove dekoracie",
+"dekorácie",
+"obchod s bytovymi dekoraciami"
 ],
 "shop/jewelry":[
 "nausnice",
@@ -8772,7 +8806,11 @@
 "Obchod (nešpecifikovaný typ)"
 ],
 "telecom/data_center":[
-"Dátové centrum"
+"serverovňa",
+"Dátové centrum",
+"serverovna",
+"datacentrum",
+"datove centrum"
 ],
 "telecom/exchange":[
 "Telefónna ústredňa"

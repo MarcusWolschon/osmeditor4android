@@ -479,9 +479,6 @@
 "ítélőszék",
 "törvényszék"
 ],
-"amenity/coworking_space":[
-"Közösségi iroda"
-],
 "amenity/crematorium":[
 "hamvasztás",
 "halotthamvasztó",
@@ -5251,9 +5248,6 @@
 ],
 "power/plant/source/hydro":[
 "Vízerőmű"
-],
-"power/plant/source/method/photovoltaic":[
-"Napelempark (fotoelektromos)"
 ],
 "power/plant/source/nuclear":[
 "Atomerőmű"

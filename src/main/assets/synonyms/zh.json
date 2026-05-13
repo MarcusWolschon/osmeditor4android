@@ -495,9 +495,6 @@
 "法院",
 "法庭"
 ],
-"amenity/coworking_space":[
-"共同工作空間,共用工作空間"
-],
 "amenity/crematorium":[
 "crematorium",
 "火葬場"
@@ -6145,10 +6142,6 @@
 "水力電廠",
 "水力發電廠",
 "水力发电厂"
-],
-"power/plant/source/method/photovoltaic":[
-"太陽能發電場",
-"太陽能板"
 ],
 "power/plant/source/nuclear":[
 "核能发电厂",
