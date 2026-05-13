@@ -223,14 +223,14 @@
   },
   {
     "key": "Key:contact:instagram",
-    "url": "https://www.instagram.com/$1/",
-    "source": "wikidata:P1630",
-    "rank": "preferred"
+    "url": "https://imginn.com/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
   },
   {
     "key": "Key:contact:instagram",
-    "url": "https://imginn.com/$1",
-    "source": "wikidata:P3303",
+    "url": "https://www.instagram.com/$1/",
+    "source": "wikidata:P1630",
     "rank": "normal"
   },
   {
@@ -380,13 +380,13 @@
   {
     "key": "Key:contact:tiktok",
     "url": "https://www.tiktok.com/@$1",
-    "source": "wikidata:P1630",
-    "rank": "preferred"
+    "source": "osmwiki:P8",
+    "rank": "normal"
   },
   {
     "key": "Key:contact:tiktok",
     "url": "https://www.tiktok.com/@$1",
-    "source": "osmwiki:P8",
+    "source": "wikidata:P1630",
     "rank": "normal"
   },
   {
@@ -1309,14 +1309,14 @@
   },
   {
     "key": "Key:instagram",
-    "url": "https://www.instagram.com/$1/",
-    "source": "wikidata:P1630",
-    "rank": "preferred"
+    "url": "https://imginn.com/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
   },
   {
     "key": "Key:instagram",
-    "url": "https://imginn.com/$1",
-    "source": "wikidata:P3303",
+    "url": "https://www.instagram.com/$1/",
+    "source": "wikidata:P1630",
     "rank": "normal"
   },
   {
@@ -1560,8 +1560,32 @@
     "rank": "normal"
   },
   {
+    "key": "Key:opening_hours:kitchen",
+    "url": "https://openingh.openstreetmap.de/evaluation_tool/?EXP=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:opening_hours:office",
+    "url": "https://openingh.openstreetmap.de/evaluation_tool/?EXP=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:opening_hours:reception",
+    "url": "https://openingh.openstreetmap.de/evaluation_tool/?EXP=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:opening_hours:url",
     "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:opening_hours:workshop",
+    "url": "https://openingh.openstreetmap.de/evaluation_tool/?EXP=$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
@@ -1604,6 +1628,12 @@
   {
     "key": "Key:operator:wikipedia",
     "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:owner:ref:CH:UID",
+    "url": "https://www.uid.admin.ch/Detail.aspx?uid_id=$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
@@ -1854,8 +1884,20 @@
     "rank": "normal"
   },
   {
+    "key": "Key:ref:CH:bafu.vec25-seen",
+    "url": "https://api3.geo.admin.ch/rest/services/ech/MapServer/ch.bafu.vec25-seen/$1/extendedHtmlPopup?lang=en",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:ref:CH:hls-dhs",
     "url": "https://hls-dhs-dss.ch/fr/articles/$1/",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:CH:kantonsnum",
+    "url": "https://wiki.openstreetmap.org/wiki/Key:ref:CH:kantonsnum#$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
@@ -2166,6 +2208,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:ref:FR:RNB",
+    "url": "https://rnb.beta.gouv.fr/carte?q=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:ref:FR:RTE",
     "url": "https://explore.data.gouv.fr/fr/datasets/5f2cd1de7f9793e46858be28/?Code%20poste__contains=$1#/resources/6ae890b8-383d-4ef3-b301-5af089c401a8",
     "source": "wikidata:P1630",
@@ -2198,6 +2246,12 @@
   {
     "key": "Key:ref:FR:SIREN",
     "url": "https://www.infogreffe.fr/entreprise/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:FR:SIREN",
+    "url": "https://www.societe.com/societe/-$1.html",
     "source": "wikidata:P3303",
     "rank": "normal"
   },
@@ -2319,6 +2373,12 @@
     "key": "Key:ref:gnbc",
     "url": "https://geonames.nrcan.gc.ca/search-place-names/unique/$1",
     "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:grillplatser.nu",
+    "url": "https://grillplatser.nu/Grillplats/Visa/$1",
+    "source": "osmwiki:P8",
     "rank": "normal"
   },
   {
@@ -2457,6 +2517,12 @@
     "key": "Key:ref:IL:inature",
     "url": "https://www.inature.info/wiki/$1",
     "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:inaturalist.org",
+    "url": "https://www.inaturalist.org/observations/$1",
+    "source": "wikidata:P1630",
     "rank": "normal"
   },
   {
@@ -2696,6 +2762,12 @@
   {
     "key": "Key:ref:mastr",
     "url": "https://www.marktstammdatenregister.de/MaStR/suche/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:mastr",
+    "url": "https://www.marktstammdatenregister.de/MaStR/suche/$1",
     "source": "wikidata:P1630",
     "rank": "normal"
   },
@@ -2745,6 +2817,12 @@
     "key": "Key:ref:natura2000",
     "url": "https://inpn.mnhn.fr/site/natura2000/$1",
     "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:nces",
+    "url": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=$1",
+    "source": "wikidata:P1630",
     "rank": "normal"
   },
   {
@@ -2910,10 +2988,10 @@
     "rank": "normal"
   },
   {
-    "key": "Key:ref:UAI",
-    "url": "https://data.education.gouv.fr/explore/dataset/fr-en-annuaire-education/map/?q=$1",
-    "source": "wikidata:P3303",
-    "rank": "preferred"
+    "key": "Key:ref:tesla",
+    "url": "https://www.tesla.com/findus/location/supercharger/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
   },
   {
     "key": "Key:ref:UAI",
@@ -3301,7 +3379,7 @@
   },
   {
     "key": "Key:swisstopo:KANTONSNUM",
-    "url": "https://wiki.openstreetmap.org/wiki/Key:swisstopo:KANTONSNUM#$1",
+    "url": "https://wiki.openstreetmap.org/wiki/Key:ref:CH:kantonsnum#$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
