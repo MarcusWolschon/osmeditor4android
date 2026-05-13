@@ -4,8 +4,10 @@
     <string name="help_app_description">Prohlížeč nápovědy Vespucci</string>
     <string name="help_title">Nápověda: %1$s</string>
     <string name="help_introduction">Úvod</string>
+    <string name="help_safe_mode">Nouzový režim</string>
     <string name="help_main">Hlavní obrazovka s mapou</string>
     <string name="help_simple_actions">Jednoduché akce</string>
+    <string name="help_addrelationmember">Upravit členy relace</string>
     <string name="help_multiselect">Vícenásobný výběr</string>
     <string name="help_longclick">Vytváření nových objektů</string>
     <string name="help_nodeselection">Uzel vybrán</string>
@@ -20,6 +22,7 @@
     <string name="help_custom_imagery">Vlastní snímky</string>
     <string name="help_presets">Předvolby</string>
     <string name="help_styles">Styly</string>
+    <string name="help_uploading">Nahrávání vašich změn</string>
     <string name="help_conflictresolution">Řešení konfliktů</string>
     <string name="help_gpssources">Zdroje GPS</string>
     <string name="help_keyboard">Klávesnice</string>
@@ -29,6 +32,14 @@
     <string name="help_newnoteselection">Nová poznámka vybrána</string>
     <string name="help_voice_commands">Hlasové povely</string>
     <string name="help_add_route_segment">Přidat segment cesty</string>
+    <string name="help_tag_only_mode">Režim pouze značky</string>
+    <string name="help_indoor_mode">Interierový režim</string>
+    <string name="help_address_mode">Adresní režim</string>
+    <string name="help_upgrade">22.0 Poznámky k vydání</string>
+    <string name="help_upgrade_212">21.2 Poznámky k vydání</string>
+    <string name="help_upgrade_211">21.1 Poznámky k vydání</string>
+    <string name="help_upgrade_210">21.0 Poznámky k vydání</string>
+    <string name="help_upgrade_202">20.2 Poznámky k vydání</string>
     <string name="help_upgrade_201">20.1 Poznámky k vydání</string>
     <string name="help_upgrade_200">20.0 Poznámky k vydání</string>
     <string name="help_upgrade_193">19.3 Poznámky k vydání</string>
