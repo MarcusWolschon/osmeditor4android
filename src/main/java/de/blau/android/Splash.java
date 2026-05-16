@@ -152,6 +152,10 @@ public class Splash extends AppCompatActivity {
                     Log.d(DEBUG_TAG, "Init tag2link");
                     App.getTag2Link(Splash.this);
                     Log.d(DEBUG_TAG, "Init tag2link finished");
+                    
+                    Log.d(DEBUG_TAG, "Init OkHttpClient ");
+                    App.getHttpClient();
+                    Log.d(DEBUG_TAG, "Init OkHttpClient  finished");
                     return null;
                 }
             }.execute();

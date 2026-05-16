@@ -81,6 +81,17 @@ public final class TestUtils {
      * @param device the UiDevice
      */
     public static void grantPermissons(@NonNull UiDevice device) {
+        // there's no good place to do this, but if we are not starting with Splash we want to get this 
+        // asap.
+        new ExecutorTask<Void, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(Void input) throws Exception {
+                App.getHttpClient();
+                return null;
+            }
+            
+        }.execute();
         clickText(device, false, "Wait", true, false, 5000);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             boolean notdone = true;
