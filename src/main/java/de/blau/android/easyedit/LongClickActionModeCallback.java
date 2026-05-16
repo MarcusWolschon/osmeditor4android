@@ -123,7 +123,7 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
      */
     @Override
     public boolean handleClick(float x, float y) {
-        PathCreationActionModeCallback pcamc = new PathCreationActionModeCallback(manager, logic.lonE7ToX(startLon), logic.latE7ToY(startLat));
+        PathCreationActionModeCallback pcamc = new PathCreationActionModeCallback(manager, logic.lonE7ToX(startLon), logic.latE7ToY(startLat), false);
         main.startSupportActionMode(pcamc);
         pcamc.handleClick(x, y);
         logic.hideCrosshairs();
@@ -198,7 +198,7 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
             }
             return true;
         case MENUITEM_NEWNODEWAY:
-            main.startSupportActionMode(new PathCreationActionModeCallback(manager, x, y));
+            main.startSupportActionMode(new PathCreationActionModeCallback(manager, x, y, false));
             logic.hideCrosshairs();
             return true;
         case MENUITEM_SPLITWAY:

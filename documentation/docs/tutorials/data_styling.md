@@ -1,5 +1,5 @@
 ## Vespucci Data Styling
-_Documentation for Vespucci 22.0 Style file format version 0.3.3_
+_Documentation for Vespucci 22.1 Style file format version 0.3.3_
 
 The data styling configuration is not a work of art, it was created ad hoc (in other words it is an awful hack) to allow slightly more flexible configuration of the rendering.
 
@@ -89,10 +89,10 @@ problem_node_thin             |
 problem_node_tagged           | 
 selected_node                 | Style for a selected node
 selected_node_thin            | 
-selected_node_tagged          | 
-selected_relation_node        | 
+selected_node_tagged          | Style for a selected tagged node
+selected_relation_node        | Style for relation member nodes when the relation is selected 
 selected_relation_node_thin   | 
-selected_relation_node_tagged | 
+selected_relation_node_tagged | Style for relation member tagged nodes when the relation is selected 
 hidden_node                   | Style for faint node rendering (used when filters are active)
 way_direction                 | 
 large_drag_area               | 
@@ -118,6 +118,8 @@ labeltext_background          |
 geojson_default               | Default style for the geojson layer
 bookmark_default              | Default style for the bookmark layer
 map_background                | Holds the map background colour (from 21.1 on)
+area_closing_line             | Line style used for closing line indicator when adding an area (from 22.1 on)
+area_closing_line_error       | As above but used to indicate self-intersection (from 22.1 on)
 
 ### Validation styling
 

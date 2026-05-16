@@ -137,7 +137,7 @@ public final class Util {
         while (true) {
             boolean found = false;
             for (OsmElement w : unconnected) {
-                if (!(w instanceof Way) || ((Way)w).getNodes().isEmpty()) {
+                if (!(w instanceof Way) || ((Way) w).getNodes().isEmpty()) {
                     return null; // not all are proper ways
                 }
                 // this is a bit complicated because we don't want to reverse ways just yet
@@ -981,18 +981,17 @@ public final class Util {
      * @param context an Andrpid context
      * @return true if desktop mode is enabled.
      */
-    public static boolean isDesktopModeEnabled(@NonNull Context context){
+    public static boolean isDesktopModeEnabled(@NonNull Context context) {
         Configuration config = context.getResources().getConfiguration();
         try {
             Class<? extends Configuration> configClass = config.getClass();
-            return configClass.getField("SEM_DESKTOP_MODE_ENABLED").getInt(configClass)
-                    == configClass.getField("semDesktopModeEnabled").getInt(config);
-        } catch (NoSuchFieldException | IllegalAccessException | IllegalArgumentException  e) {
-           Log.e(DEBUG_TAG, "isDesktopModeEnabled " + e.getMessage());
+            return configClass.getField("SEM_DESKTOP_MODE_ENABLED").getInt(configClass) == configClass.getField("semDesktopModeEnabled").getInt(config);
+        } catch (NoSuchFieldException | IllegalAccessException | IllegalArgumentException e) {
+            Log.e(DEBUG_TAG, "isDesktopModeEnabled " + e.getMessage());
         }
         return false;
     }
-    
+
     /**
      * Check for an url
      * 
@@ -1001,5 +1000,38 @@ public final class Util {
      */
     public static boolean isUrl(@Nullable String url) {
         return url != null && (url.startsWith(Schemes.HTTP + "://") || url.startsWith(Schemes.HTTPS + "://"));
+    }
+
+    /**
+     * Get the 1st element of a list
+     * 
+     * @param <T> element type
+     * @param list the list
+     * @return the 1st element
+     */
+    public static <T extends Object> T getFirst(@NonNull List<T> list) {
+        return list.get(0);
+    }
+
+    /**
+     * Get the last element of a list
+     * 
+     * @param <T> element type
+     * @param list the list
+     * @return the last element
+     */
+    public static <T extends Object> T getLast(@NonNull List<T> list) {
+        return list.get(list.size() - 1);
+    }
+
+    /**
+     * Check if the 1st and last element of a list are the equal
+     * 
+     * @param <T> element type
+     * @param list the list
+     * @return true if 1st and last element of a list are equal
+     */
+    public static <T extends Object> boolean isClosed(@NonNull List<T> list) {
+        return getFirst(list).equals(getLast(list));
     }
 }

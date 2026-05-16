@@ -100,13 +100,17 @@ public final class BentleyOttmannForOsm {
      * Check if the polygon defined by a list of nodes is self intersecting
      * 
      * @param nodes a List of Node
+     * @param close if the list of nodes is not closed, add a further closing segment to check
      * @return true if self intersecting
      */
     @NonNull
-    public static boolean isSelfIntersecting(@NonNull List<Node> nodes) {
+    public static boolean isSelfIntersecting(@NonNull List<Node> nodes, boolean close) {
         final BentleyOttmann bentleyOttmann = new BentleyOttmann(Coordinates::new);
         final List<ISegment> segments = new ArrayList<>();
         addSegmentsFromNodes(segments, nodes, getCoordinates(nodes.get(0)));
+        if (close && !Util.isClosed(nodes)) {
+            segments.add(new Segment(Util.getLast(segments).p2(), Util.getFirst(segments).p1()));
+        }
         bentleyOttmann.addSegments(segments);
         bentleyOttmann.findIntersections();
         return !bentleyOttmann.intersections().isEmpty();

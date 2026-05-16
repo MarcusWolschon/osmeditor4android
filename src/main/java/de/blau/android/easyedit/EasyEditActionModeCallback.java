@@ -13,6 +13,7 @@ import java.util.Set;
 import java.util.SortedMap;
 
 import android.content.DialogInterface;
+import android.graphics.Canvas;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -717,5 +718,15 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
     protected void unexpectedElement(@NonNull String debugTag, @NonNull OsmElement element) {
         Log.e(DEBUG_TAG, element.getName() + " clicked");
         ScreenMessage.toastTopError(main, main.getString(R.string.toast_unexpected_element, element.getDescription(true)));
+    }
+
+    /**
+     * Draw something
+     * 
+     * @param map the current Map instance
+     * @param canvas the Canvas
+     */
+    public void draw(@NonNull de.blau.android.Map map, @NonNull Canvas canvas) {
+        // default is a no op
     }
 }

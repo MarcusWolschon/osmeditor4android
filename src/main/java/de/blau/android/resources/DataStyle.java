@@ -116,6 +116,8 @@ public final class DataStyle extends DefaultHandler {
     public static final String MIN_HANDLE_LEN                = "min_handle_length";
     public static final String ICON_ZOOM_LIMIT               = "icon_zoom_limit";
     public static final String MAP_BACKGROUND                = "map_background";
+    public static final String AREA_CLOSING_LINE             = "area_closing_line";
+    public static final String AREA_CLOSING_LINE_ERROR       = "area_closing_line_error";
 
     // XML elements for the config files
     private static final String INTERVAL_ELEMENT      = "interval";
@@ -1024,6 +1026,16 @@ public final class DataStyle extends DefaultHandler {
         fp = new FeatureStyle(SELECTED_RELATION_WAY, internalStyles.get(SELECTED_WAY));
         fp.setColor(colorRelation);
         internalStyles.put(SELECTED_RELATION_WAY, fp);
+
+        fp = new FeatureStyle(AREA_CLOSING_LINE, baseWayStyle);
+        fp.setColor(ContextCompat.getColor(ctx, R.color.light_grey));
+        fp.setWidthFactor(0.5f);
+        internalStyles.put(AREA_CLOSING_LINE, fp);
+
+        fp = new FeatureStyle(AREA_CLOSING_LINE_ERROR, baseWayStyle);
+        fp.setColor(ContextCompat.getColor(ctx, R.color.material_red));
+        fp.setWidthFactor(0.5f);
+        internalStyles.put(AREA_CLOSING_LINE_ERROR, fp);
 
         fp = new FeatureStyle(NODE_TOLERANCE);
         fp.setColor(ContextCompat.getColor(ctx, R.color.ccc_ocher));

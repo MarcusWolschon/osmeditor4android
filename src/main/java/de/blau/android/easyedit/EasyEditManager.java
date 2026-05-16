@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import android.graphics.Canvas;
 import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
@@ -470,7 +471,7 @@ public class EasyEditManager {
         v.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
 
         if (getMain().startSupportActionMode(new LongClickActionModeCallback(this, x, y)) == null) {
-            getMain().startSupportActionMode(new PathCreationActionModeCallback(this, x, y));
+            getMain().startSupportActionMode(new PathCreationActionModeCallback(this, x, y, false));
         }
         return true;
     }
@@ -675,6 +676,20 @@ public class EasyEditManager {
                 finish();
             } else if (currentActionModeCallback instanceof MultiSelectWithGeometryActionModeCallback) {
                 ((MultiSelectWithGeometryActionModeCallback) currentActionModeCallback).updateSelection();
+            }
+        }
+    }
+
+    /**
+     * Called after all layers have been drawn, to call an actionmode to draw
+     * 
+     * @param map the current Map instance
+     * @param canvas the canvas
+     */
+    public void draw(@NonNull Map map, @NonNull Canvas canvas) {
+        synchronized (actionModeCallbackLock) {
+            if (currentActionModeCallback != null) {
+                currentActionModeCallback.draw(map, canvas);
             }
         }
     }

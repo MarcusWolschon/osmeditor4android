@@ -218,6 +218,40 @@ public class SimpleActionsTest {
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         TestUtils.clickUp(device);
     }
+    
+    /**
+     * Create a new area from menu and clicks at two more locations and finishing via home button
+     * This relies on the area being automatically closed.
+     */
+    // @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void newArea() {
+        map.getDataLayer().setVisible(true);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.unlock(device);
+        TestUtils.clickSimpleButton(device);
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_area), true, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_way_start_instruction)));
+        TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_way_node_instruction), 1000));
+        TestUtils.clickAtCoordinates(device, map, 8.3895763, 47.3901374, true);
+        TestUtils.sleep();
+        TestUtils.clickAtCoordinates(device, map, 8.3896274, 47.3902424, true);
+        TestUtils.sleep();
+        TestUtils.clickAtCoordinates(device, map, 8.3897000, 47.3903500, true);
+        TestUtils.sleep();
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_untagged_element)));
+        TestUtils.clickHome(device, true);
+        Way way = App.getLogic().getSelectedWay();
+        assertNotNull(way);
+        assertTrue(way.getOsmId() < 0);
+        assertEquals(5, way.nodeCount());
+        assertTrue(way.isClosed());
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        TestUtils.clickUp(device);
+    }
+
 
     /**
      * Create a new way from menu and with snapping turned off

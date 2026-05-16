@@ -18,7 +18,6 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import android.content.Context;
-import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
 import de.blau.android.Logic;
@@ -44,13 +43,15 @@ import de.blau.android.resources.DataStyleManager;
 @Config(shadows = { ShadowWorkManager.class }, sdk = 33)
 @LargeTest
 public class BaseValidatorTest {
+    
+    private Main main;
 
     /**
      * Pre-test setup
      */
     @Before
     public void setup() {
-        Robolectric.buildActivity(Main.class).create().resume();
+        main = Robolectric.buildActivity(Main.class).create().resume().get();
     }
 
     /**
@@ -58,7 +59,7 @@ public class BaseValidatorTest {
      */
     @Test
     public void relationTest() {
-        Validator v = App.getDefaultValidator(ApplicationProvider.getApplicationContext());
+        Validator v = App.getDefaultValidator(main);
         StorageDelegator d = new StorageDelegator();
         OsmElementFactory factory = d.getFactory();
         Relation r = factory.createRelationWithNewId();
@@ -83,13 +84,13 @@ public class BaseValidatorTest {
     public void suppressedMissingTest() {
         Logic logic = App.newLogic();
         // this needs a lot of setup as highway validation relies on a valid map object
-        DataStyleManager styles = App.getDataStyleManager(ApplicationProvider.getApplicationContext());
-        styles.getStylesFromFiles(ApplicationProvider.getApplicationContext());
-        de.blau.android.Map map = new de.blau.android.Map(ApplicationProvider.getApplicationContext());
+        DataStyleManager styles = App.getDataStyleManager(main);
+        styles.getStylesFromFiles(main);
+        de.blau.android.Map map = new de.blau.android.Map(main);
         logic.setMap(map, false);
-        map.setPrefs(ApplicationProvider.getApplicationContext(), new Preferences(ApplicationProvider.getApplicationContext()));
+        map.setPrefs(main, new Preferences(main));
         //
-        Validator v = App.getDefaultValidator(ApplicationProvider.getApplicationContext());
+        Validator v = App.getDefaultValidator(main);
         StorageDelegator d = App.getDelegator();
         OsmElementFactory factory = d.getFactory();
         Way w = factory.createWayWithNewId();
@@ -127,7 +128,7 @@ public class BaseValidatorTest {
      */
     @Test
     public void nonStandardTypeTest() {
-        final Context ctx = ApplicationProvider.getApplicationContext();
+        final Context ctx = main;
         Validator v = App.getDefaultValidator(ctx);
         StorageDelegator d = new StorageDelegator();
         OsmElementFactory factory = d.getFactory();
@@ -148,7 +149,7 @@ public class BaseValidatorTest {
      */
     @Test
     public void nonStandardTypeTest2() {
-        final Context ctx = ApplicationProvider.getApplicationContext();
+        final Context ctx = main;
         Validator v = App.getDefaultValidator(ctx);
         StorageDelegator d = new StorageDelegator();
         Way w = DelegatorUtil.addWayToStorage(d, true);

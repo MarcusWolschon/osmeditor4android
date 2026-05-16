@@ -70,7 +70,7 @@ public class ValidatorTest {
         main = Robolectric.buildActivity(Main.class).create().resume().get();
         Preferences prefs = new Preferences(ApplicationProvider.getApplicationContext());
         logic = App.getLogic();
-        logic.setMap(new Map(ApplicationProvider.getApplicationContext()), false);
+        logic.setMap(new Map(main), false);
         logic.getMap().setPrefs(main, prefs);
     }
 

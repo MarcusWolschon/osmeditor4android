@@ -33,7 +33,6 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.PbfTest;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.StorageDelegator;
-import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.presets.PresetGroup;
 import de.blau.android.presets.PresetItem;
@@ -46,18 +45,19 @@ public class WrapperTest {
 
     Wrapper          wrapper;
     StorageDelegator delegator;
+    private Main     main;
 
     /**
      * Pre test setup
      */
     @Before
     public void setup() {
-        Robolectric.buildActivity(Main.class).create().resume();
+        main = Robolectric.buildActivity(Main.class).create().resume().get();
         delegator = App.getDelegator();
         delegator.reset(true);
         delegator.setCurrentStorage(PbfTest.read());
         Logic logic = App.getLogic();
-        logic.setMap(new de.blau.android.Map(ApplicationProvider.getApplicationContext()), false);
+        logic.setMap(new de.blau.android.Map(main), false);
         logic.getViewBox().fitToBoundingBox(logic.getMap(), delegator.getLastBox());
         wrapper = new Wrapper(ApplicationProvider.getApplicationContext());
     }
@@ -510,7 +510,7 @@ public class WrapperTest {
         wrapper2.setSilent(true);
         assertTrue(wrapper2.around(wrapper2, "Zürich"));
     }
-    
+
     @Test
     public void displayValueTest() {
         Way way = (Way) delegator.getOsmElement(Way.NAME, 571087535L);

@@ -874,7 +874,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     public void circulizeWay(@NonNull final de.blau.android.Map map, int minNodes, double maxSegmentLength, double minSegmentLength, @NonNull final Way way) {
         undo.save(way);
         final List<Node> nodes = way.getNodes();
-        if (BentleyOttmannForOsm.isSelfIntersecting(nodes)) {
+        if (BentleyOttmannForOsm.isSelfIntersecting(nodes, false)) {
             throw new OsmIllegalOperationException("Input defines self intersecting polygon");
         }
         // Guarantee uniqueness by creating a set
