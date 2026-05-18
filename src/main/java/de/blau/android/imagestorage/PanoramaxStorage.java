@@ -5,6 +5,7 @@ import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ import com.google.gson.JsonObject;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -58,7 +60,7 @@ public class PanoramaxStorage implements ImageStorage {
     private static final String FILE                     = "file";
     private static final String ID                       = "id";
     private static final String FILES                    = "/files";
-    private static final String API_UPLOAD_SETS          = "/upload_sets";
+    private static final String API_UPLOAD_SETS          = "api/upload_sets";
     private static final String HREF                     = "href";
     private static final String LINKS                    = "links";
     private static final String JWT_TOKEN                = "jwt_token";
@@ -70,8 +72,9 @@ public class PanoramaxStorage implements ImageStorage {
     private static final String INSTANCES_JSON           = "instances";
     private static final String AUTH                     = "auth";
     private static final String URL                      = "url";
-    private static final String API_AUTH_TOKENS_GENERATE = "/auth/tokens/generate";
-    private static final String API_USERS_ME             = "/users/me";
+    private static final String API_AUTH_TOKENS_GENERATE = "api/auth/tokens/generate";
+    private static final String API_USERS_ME             = "api/users/me";
+    private static final String API                      = "api";
 
     private static final long TIMEOUT = 20000;
 
@@ -90,7 +93,7 @@ public class PanoramaxStorage implements ImageStorage {
 
             @Override
             protected Boolean doInBackground(Void nothing) throws XmlPullParserException, IOException {
-                URL url = new URL(configuration.url + API_AUTH_TOKENS_GENERATE);
+                URL url = getApiUrl(configuration.url, API_AUTH_TOKENS_GENERATE);
                 Request generateKeyRequest = new Request.Builder().url(url).post(RequestBody.create(null, "")).build();
                 try (Response generateKeyCallResponse = client.newCall(generateKeyRequest).execute()) {
                     if (!generateKeyCallResponse.isSuccessful()) {
@@ -156,7 +159,7 @@ public class PanoramaxStorage implements ImageStorage {
                 @Override
                 protected Boolean doInBackground(Void nothing) throws XmlPullParserException, IOException {
                     OkHttpClient authClient = client.newBuilder().addInterceptor(new OAuth2Interceptor(key)).build();
-                    URL url = new URL(configuration.url + API_USERS_ME);
+                    URL url = getApiUrl(configuration.url, API_USERS_ME);
                     Request meRequest = new Request.Builder().url(url).get().build();
                     try (Response meCallResponse = authClient.newCall(meRequest).execute()) {
                         Log.d(DEBUG_TAG, "Authorized " + meCallResponse.toString());
@@ -193,7 +196,7 @@ public class PanoramaxStorage implements ImageStorage {
             }
             OkHttpClient authClient = client.newBuilder().addInterceptor(new OAuth2Interceptor(getKey(context))).build();
 
-            URL url = new URL(configuration.url + API_UPLOAD_SETS);
+            URL url = getApiUrl(configuration.url, API_UPLOAD_SETS);
             Log.d(DEBUG_TAG, "uploadImageToPanoramax " + url.toString());
 
             RequestBody body = RequestBody.create(MediaType.parse(MimeTypes.JSON), UPLOAD_SET_BODY);
@@ -268,6 +271,12 @@ public class PanoramaxStorage implements ImageStorage {
         Util.addTagWithNumericSuffix(Tags.KEY_PANORAMAX, url, tags);
     }
 
+    /**
+     * Get a list of panoramax instances
+     * 
+     * @param context an Android Context
+     * @return a List of ImageStorageConfiguration
+     */
     @NonNull
     public static List<ImageStorageConfiguration> getInstances(@NonNull Context context) {
         final ExecutorTask<Void, Void, List<ImageStorageConfiguration>> getInstancesTask = new ExecutorTask<Void, Void, List<ImageStorageConfiguration>>() {
@@ -335,5 +344,33 @@ public class PanoramaxStorage implements ImageStorage {
             Log.d(DEBUG_TAG, "Unable to return instances " + e.getMessage());
         }
         return new ArrayList<>();
+    }
+
+    /**
+     * Get the url for a Panoramax API call
+     * 
+     * Works around some historical confusion if the api is included in the base url or not, see
+     * https://github.com/MarcusWolschon/osmeditor4android/issues/3238, a bit complicated as we maintain the original
+     * Url as far as possible
+     * 
+     * @param base the base instance url
+     * @param path the call specific path including "api"
+     * @return a valid Panoramax api url
+     * @throws MalformedURLException if we can't construct a valid Url
+     */
+    static URL getApiUrl(@NonNull String base, @NonNull String path) throws MalformedURLException {
+        // if the base value has a trailing "api" strip it
+        Uri uri = Uri.parse(base);
+        Uri.Builder builder = uri.buildUpon();
+        List<String> segments = uri.getPathSegments();
+        int lastSegment = segments.size() - 1;
+        if (!segments.isEmpty() && API.equals(segments.get(lastSegment))) {
+            builder.path("");
+            for (int i = 0; i < lastSegment; i++) {
+                builder.appendPath(segments.get(i));
+            }
+        }
+        builder.appendPath(""); // forces training slash
+        return new URL(builder.build() + path);
     }
 }
