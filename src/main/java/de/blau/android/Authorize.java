@@ -4,10 +4,12 @@ import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -21,6 +23,8 @@ import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.browser.customtabs.CustomTabsClient;
+import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.ViewGroupCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -86,38 +90,100 @@ public class Authorize extends WebViewActivity {
 
     private class OAuthWebViewClient extends UpdatedWebViewClient {
         private static final String MATOMO = "matomo";
+        private static final String AUTH_PROVIDER_PATH = "/auth/";
+        private static final String OAUTH_PROVIDER_HOST = "oauthprovider";
 
         Object         progressLock  = new Object();
         boolean        progressShown = false;
         Runnable       dismiss       = () -> Progress.dismissDialog(Authorize.this, Progress.PROGRESS_OAUTH);
         private String host;
+        private Uri    websiteBaseUri;
+        private String lastExternalUrl;
+        private long   lastExternalLaunch;
 
         /**
          * Create a new client
          * 
          * @param host the host we are trying to authorize
          */
-        OAuthWebViewClient(@NonNull String host) {
+        OAuthWebViewClient(@NonNull Uri websiteBaseUri) {
             super();
-            this.host = host;
+            this.websiteBaseUri = websiteBaseUri;
+            this.host = websiteBaseUri.getHost();
         }
 
         @Override
         public boolean handleLoading(WebView view, Uri uri) {
-            if (!Schemes.VESPUCCI.equals(uri.getScheme())) {
-                return false;
+            if (Schemes.VESPUCCI.equals(uri.getScheme())) {
+                if (OAUTH_PROVIDER_HOST.equalsIgnoreCase(uri.getHost())) {
+                    launchExternalProvider(uri.getQueryParameter("provider"), uri.getQueryParameter("referer"));
+                    return true;
+                }
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+                return true;
             }
-            // vespucci URL
-            // or the OSM signup page which we want to open in a normal browser
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            startActivity(intent);
-            return true;
+            if (isAuthProviderRedirect(uri)) {
+                launchExternal(uri);
+                return true;
+            }
+            return false;
+        }
+
+        private boolean isAuthProviderRedirect(@NonNull Uri uri) {
+            String path = uri.getPath();
+            String requestHost = uri.getHost();
+            return requestHost != null && host != null && requestHost.equalsIgnoreCase(host) && path != null && path.startsWith(AUTH_PROVIDER_PATH);
+        }
+
+        private void launchExternal(@NonNull Uri uri) {
+            Uri externalUri = toExternalAuthStartUri(uri);
+            String url = externalUri.toString();
+            long now = System.currentTimeMillis();
+            if (url.equals(lastExternalUrl) && now - lastExternalLaunch < 1500L) {
+                return;
+            }
+            lastExternalUrl = url;
+            lastExternalLaunch = now;
+            launchInCustomTabOrBrowser(externalUri);
+        }
+
+        private void launchExternalProvider(@Nullable String provider, @Nullable String referer) {
+            if (provider == null || provider.isEmpty()) {
+                return;
+            }
+            Uri.Builder builder = new Uri.Builder().scheme(websiteBaseUri.getScheme()).authority(websiteBaseUri.getAuthority()).path("/login")
+                    .appendQueryParameter("preferred_auth_provider", provider);
+            if (referer != null && !referer.isEmpty()) {
+                builder.appendQueryParameter("referer", referer);
+            }
+            launchExternal(builder.build());
+        }
+
+        @NonNull
+        private Uri toExternalAuthStartUri(@NonNull Uri uri) {
+            if (!isAuthProviderRedirect(uri)) {
+                return uri;
+            }
+            List<String> segments = uri.getPathSegments();
+            if (segments.size() < 2 || !"auth".equals(segments.get(0))) {
+                return uri;
+            }
+            String provider = segments.get(1);
+            Uri.Builder builder = new Uri.Builder().scheme(uri.getScheme()).authority(uri.getAuthority()).path("/login")
+                    .appendQueryParameter("preferred_auth_provider", provider);
+            String referer = uri.getQueryParameter("referer");
+            if (referer != null) {
+                builder.appendQueryParameter("referer", referer);
+            }
+            return builder.build();
         }
 
         @Override
         public WebResourceResponse handleIntercept(WebView view, Uri uri) {
             final String path = uri.getPath();
-            if (path != null && path.toLowerCase().contains(MATOMO)) {
+            final String requestHost = uri.getHost();
+            if ((path != null && path.toLowerCase().contains(MATOMO)) || (requestHost != null && requestHost.toLowerCase().contains(MATOMO))) {
                 return new WebResourceResponse(MimeTypes.TEXTPLAIN, "utf-8", new ByteArrayInputStream("".getBytes()));
             }
             return super.handleIntercept(view, uri);
@@ -136,6 +202,8 @@ public class Authorize extends WebViewActivity {
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
+            lastExternalUrl = null;
+            lastExternalLaunch = 0L;
             synchronized (progressLock) {
                 synchronized (webViewLock) {
                     if (progressShown && webView != null) {
@@ -146,17 +214,51 @@ public class Authorize extends WebViewActivity {
             }
 
             // Remove navigation and sign up tab from osm.org
-
             // @formatter:off
-            String script = "(function() {" 
-                    + "var navs = document.getElementsByTagName('nav');" 
-                    + "for (let nav of navs) {" 
-                    + "  nav.innerHTML = '';" 
+            String script = "(function() {"
+                    + "var navs = document.getElementsByTagName('nav');"
+                    + "for (var i = navs.length - 1; i >= 0; i--) {"
+                    + "  navs[i].remove();"
                     + "}"
-                    + "var tabs = document.getElementsByClassName('nav-item');" 
-                    + "for (let tab of tabs) {" 
-                    + "  tab.innerHTML = '';" 
-                    + "} })();";
+                    + "var signups = document.querySelectorAll('a[href*=\"/user/new\"], a[href*=\"signup\"]');"
+                    + "for (var j = 0; j < signups.length; j++) {"
+                    + "  var tab = signups[j].closest('li,div');"
+                    + "  if (tab) {"
+                    + "    tab.remove();"
+                    + "  } else {"
+                    + "    signups[j].style.display = 'none';"
+                    + "  }"
+                    + "}"
+                    + "var authButtons = document.querySelectorAll('a.auth_button[href*=\\\"/auth/\\\"]');"
+                    + "for (var k = 0; k < authButtons.length; k++) {"
+                    + "  var button = authButtons[k];"
+                    + "  if (button.dataset.vespucciHooked === '1') {"
+                    + "    continue;"
+                    + "  }"
+                    + "  button.dataset.vespucciHooked = '1';"
+                    + "  button.addEventListener('click', function(e) {"
+                    + "    e.preventDefault();"
+                    + "    e.stopPropagation();"
+                    + "    if (e.stopImmediatePropagation) {"
+                    + "      e.stopImmediatePropagation();"
+                    + "    }"
+                    + "    try {"
+                    + "      var href = new URL(this.href, window.location.origin);"
+                    + "      var match = href.pathname.match(/\\/auth\\/([^\\/?#]+)/);"
+                    + "      if (!match) {"
+                    + "        window.location.href = this.href;"
+                    + "        return;"
+                    + "      }"
+                    + "      var provider = match[1];"
+                    + "      var refererField = document.getElementById('referer');"
+                    + "      var referer = refererField ? refererField.value : (href.searchParams.get('referer') || '');"
+                    + "      window.location.href = 'vespucci://oauthprovider?provider=' + encodeURIComponent(provider) + '&referer=' + encodeURIComponent(referer);"
+                    + "    } catch (ex) {"
+                    + "      window.location.href = this.href;"
+                    + "    }"
+                    + "  }, true);"
+                    + "}"
+                    + "})();";
             // @formatter:on
             view.evaluateJavascript(script, null);
         }
@@ -185,7 +287,6 @@ public class Authorize extends WebViewActivity {
             openWebView(savedInstanceState, server, apiName, auth);
         } catch (NoOAuthConfigurationException nex) {
             try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(this)) {
-                // get list of possible configs
                 List<String> configNames = new ArrayList<>();
                 for (OAuthConfiguration configuration : KeyDatabaseHelper.getOAuthConfigurations(keyDatabase.getReadableDatabase(), auth)) {
                     configNames.add(configuration.getName());
@@ -249,16 +350,33 @@ public class Authorize extends WebViewActivity {
         if (authUrl == null) {
             throw new OsmException("authUrl is null");
         }
-        Log.d(DEBUG_TAG, "authURl " + authUrl);
+        Log.d(DEBUG_TAG, "authUrl " + authUrl);
         synchronized (webViewLock) {
             webView = new WebView(this);
             setContentView(webView);
             webView.getSettings().setJavaScriptEnabled(true);
             Uri uri = Uri.parse(server.getWebsiteBaseUrl());
-            webView.setWebViewClient(new OAuthWebViewClient(uri.getHost()));
+            webView.setWebViewClient(new OAuthWebViewClient(uri));
             loadUrlOrRestore(savedInstanceState, authUrl);
             ViewGroupCompat.installCompatInsetsDispatch(webView);
             ViewCompat.setOnApplyWindowInsetsListener(webView, onApplyWindowInsetslistener);
+        }
+    }
+
+    private void launchInCustomTabOrBrowser(@NonNull Uri authUri) {
+        String customTabsPackage = CustomTabsClient.getPackageName(this, Collections.emptyList());
+        try {
+            if (customTabsPackage != null) {
+                CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().build();
+                customTabsIntent.intent.setPackage(customTabsPackage);
+                customTabsIntent.launchUrl(this, authUri);
+            } else {
+                startActivity(new Intent(Intent.ACTION_VIEW, authUri));
+            }
+        } catch (ActivityNotFoundException e) {
+            Log.e(DEBUG_TAG, "No browser available for OAuth " + authUri + " " + e.getMessage());
+            ScreenMessage.barError(this, getString(R.string.toast_oauth_communication));
+            finish();
         }
     }
 
@@ -269,6 +387,16 @@ public class Authorize extends WebViewActivity {
             Log.d(DEBUG_TAG, "onNewIntent calling finishOAuth");
             exit();
         }
+    }
+
+    @Override
+    protected void exit() {
+        if (webView == null) {
+            setResult(RESULT_OK, new Intent());
+            finish();
+            return;
+        }
+        super.exit();
     }
 
     @Override
