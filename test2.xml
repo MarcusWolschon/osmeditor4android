@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<osm generator="Vespucci/21.1.0.1">
+    <note>The data included in this document is from
+        www.openstreetmap.org. The data is made available under ODbL.</note>
+    <meta osm_base="2025-07-19T06:20:58Z" />
+    <action type="modify">
+        <old>
+            <node id="1333890959" version="3" timestamp="2025-07-18T10:27:47Z" lat="47.3859189"
+                lon="8.3933378" changeset="160867381" uid="4430457" user="stillhart"/>
+        </old>
+        <new>
+            <node id="1333890959" version="3"
+                timestamp="2025-07-18T10:27:47Z" visible="true"
+                lat="47.3841483" lon="8.3927477" changeset="160867382" uid="4430457" user="stillhart" />
+        </new>
+    </action>
+</osm>

@@ -139,20 +139,52 @@ public class Way extends StyledOsmElement implements WayInterface, BoundedObject
      */
     private void toXml(@NonNull final XmlSerializer s, @Nullable Long changeSetId, boolean josm)
             throws IllegalArgumentException, IllegalStateException, IOException {
+        checkForNodes();
         s.startTag("", NAME);
         attributesToXml(s, changeSetId, josm);
-        if (nodes != null) {
-            for (Node node : nodes) {
-                s.startTag("", NODE);
-                s.attribute("", REF, Long.toString(node.getOsmId()));
-                s.endTag("", NODE);
-            }
-        } else {
-            Log.i(DEBUG_TAG, "Way without nodes");
-            throw new IllegalArgumentException("Way " + getOsmId() + " has no nodes");
+        for (Node node : nodes) {
+            s.startTag("", NODE);
+            s.attribute("", REF, Long.toString(node.getOsmId()));
+            s.endTag("", NODE);
         }
         tagsToXml(s);
         s.endTag("", NAME);
+    }
+
+    /**
+     * Check if we have nodes, else throw an exception
+     */
+    private void checkForNodes() {
+        if (nodes == null) {
+            Log.i(DEBUG_TAG, "Way without nodes");
+            throw new IllegalArgumentException("Way " + getOsmId() + " has no nodes");
+        }
+    }
+
+    @Override
+    public void toAugmentedXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
+        checkForNodes();
+        s.startTag("", NAME);
+        attributesToXml(s, null, false);
+        if (!isDeleted()) {
+            getBounds().toXml(s, null);
+            wayNodesToAugmentedXml(s);
+            tagsToXml(s);
+        }
+        s.endTag("", NAME);
+    }
+
+    /**
+     * @param s
+     * @throws IOException
+     */
+    public void wayNodesToAugmentedXml(XmlSerializer s) throws IOException {
+        for (Node node : nodes) {
+            s.startTag("", NODE);
+            s.attribute("", REF, Long.toString(node.getOsmId()));
+            Node.coordToXmlAttr(s, node.getLat(), node.getLon());
+            s.endTag("", NODE);
+        }
     }
 
     /**
