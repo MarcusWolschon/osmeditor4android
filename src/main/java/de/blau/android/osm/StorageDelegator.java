@@ -407,27 +407,28 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         // even just for a single long way.
         // This way of doing it collects all candidate ways
         // first and then invalidates each of them max. once.
-        if (!nodes.isEmpty()) {
-            Iterator<Node> it = nodes.iterator();
-            Node n = it.next();
-            ViewBox box = new ViewBox(n.lon, n.lat);
-            while (it.hasNext()) {
-                n = it.next();
-                box.union(n.lon, n.lat);
-            }
-            List<Way> ways = currentStorage.getWays(box);
-            for (Way w : ways) {
-                box.union(w.getBounds());
-            }
-            box.expand(BaseValidator.MAX_CONNECTION_TOLERANCE);
-            ways = currentStorage.getWays(box);
-            if (ways.size() == 1) { // optimize the common case
-                Way w = ways.get(0);
+        if (nodes.isEmpty()) {
+            return;
+        }
+        Iterator<Node> it = nodes.iterator();
+        Node n = it.next();
+        ViewBox box = new ViewBox(n.lon, n.lat);
+        while (it.hasNext()) {
+            n = it.next();
+            box.union(n.lon, n.lat);
+        }
+        List<Way> ways = currentStorage.getWays(box);
+        for (Way w : ways) {
+            box.union(w.getBounds());
+        }
+        box.expand(BaseValidator.MAX_CONNECTION_TOLERANCE);
+        ways = currentStorage.getWays(box);
+        if (ways.size() == 1) { // optimize the common case
+            Way w = ways.get(0);
+            invalidateWay(w);
+        } else {
+            for (Way w : new HashSet<>(ways)) {
                 invalidateWay(w);
-            } else {
-                for (Way w : new HashSet<>(ways)) {
-                    invalidateWay(w);
-                }
             }
         }
     }
@@ -439,10 +440,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     private void invalidateWay(@NonNull Way w) {
         w.invalidateBoundingBox();
-        if (w.hasTagKey(Tags.KEY_HIGHWAY) || w.hasTagKey(Tags.KEY_WATERWAY)) {
-            // we only validate way connections for highway and waterway elements currently
-            w.resetHasProblem();
-        }
+        w.resetHasProblem();
     }
 
     /**
@@ -1857,6 +1855,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     private Node replaceWayNode(@NonNull final Node node, @NonNull final Way way, boolean clone) {
         List<OsmElement> changedElements = new ArrayList<>();
         dirty = true;
+        invalidateWayBoundingBox(node);
         // create a new node that duplicates the given node
         Node newNode = factory.createNodeWithNewId(node.lat, node.lon);
         if (clone) {

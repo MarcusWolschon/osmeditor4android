@@ -1467,6 +1467,8 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
         boolean isClickable = tmpClickableElements != null && tmpClickableElements.contains(way);
 
         if (zoomLevel < style.getMinVisibleZoom() || (style.dontRender() && !(isSelected || isMemberOfSelectedRelation || isClickable))) {
+            // always validate
+            way.hasProblem(context, validator);
             return;
         }
 
