@@ -292,13 +292,10 @@ public abstract class AbstractReviewDialog extends MaxHeightDialogFragment {
             TextView textView = (TextView) holder.row.findViewById(R.id.text1);
             final ChangedElement clicked = elements[position];
             final OsmElement e = clicked.element;
+            boolean hasProblem = OsmElement.STATE_DELETED != e.getState() && e.hasProblem(null, validator) != Validator.OK;
             if (textView != null) {
                 textView.setText(clicked.description);
-                if (OsmElement.STATE_DELETED != e.getState() && e.hasProblem(null, validator) != Validator.OK) {
-                    setTintList(textView, colorStateList);
-                } else {
-                    setTintList(textView, null);
-                }
+                setTintList(textView, hasProblem ? colorStateList : null);
                 textView.setOnClickListener(view -> {
                     FragmentActivity activity = getActivity();
                     if (activity != null) {
@@ -316,6 +313,7 @@ public abstract class AbstractReviewDialog extends MaxHeightDialogFragment {
             }
             ImageButton info = (ImageButton) holder.row.findViewById(R.id.info1);
             if (info != null) {
+                DrawableCompat.setTintList(info.getDrawable(), hasProblem ? colorStateList : null);
                 info.setOnClickListener(view -> {
                     FragmentActivity activity = getActivity();
                     if (activity != null) {
