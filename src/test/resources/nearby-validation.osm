@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<osm generator="Vespucci/22.0.0.0" version="0.6" upload="true">
+    <bounds origin="" maxlon="8.3601221" maxlat="47.4333997"
+        minlon="8.3599359" minlat="47.4332157" />
+    <node id="-1" action="modify" version="1"
+        timestamp="2026-05-19T11:27:11Z" visible="true" lat="47.4333581"
+        lon="8.359968" />
+    <node id="-2" action="modify" version="1"
+        timestamp="2026-05-19T11:27:13Z" visible="true" lat="47.4333168"
+        lon="8.3600131" />
+    <node id="-3" action="modify" version="1"
+        timestamp="2026-05-19T11:27:16Z" visible="true" lat="47.4332763"
+        lon="8.3600543" />
+    <way id="-1" action="modify" version="1"
+        timestamp="2026-05-19T11:28:22Z" visible="true">
+        <nd ref="-1" />
+        <nd ref="-2" />
+        <tag k="highway" v="primary" />
+        <tag k="name" v="Test" />
+    </way>
+    <way id="-2" action="modify" version="1"
+        timestamp="2026-05-19T11:28:22Z" visible="true">
+        <nd ref="-2" />
+        <nd ref="-3" />
+        <tag k="highway" v="primary" />
+        <tag k="name" v="Test" />
+    </way>
+</osm>
