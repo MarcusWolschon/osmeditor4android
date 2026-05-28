@@ -143,7 +143,7 @@ public class WaySplittingActionModeCallback extends AbortableWayActionModeCallba
             splitAt(logic.addOnWay(main, Util.wrapInList(way), x, y, true));
             return true;
         }
-        if (way.isClosed()) {
+        if (way.isClosed() || way.isNew()) {
             ScreenMessage.toastTopWarning(main, R.string.toast_part_selection_not_supported);
         } else {
             main.startSupportActionMode(new WaySelectPartActionModeCallback(manager, way, (Node) element));
