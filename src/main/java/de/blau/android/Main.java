@@ -3748,17 +3748,17 @@ public class Main extends ConfigurationChangeAwareActivity
                 ScreenMessage.barWarningShort(Main.this, R.string.toast_not_in_edit_range);
                 return false;
             }
-            if (prefs.areSimpleActionsEnabled()) {
-                if (manager.usesLongClick()) {
-                    if (elementCount == 1 && manager.handleLongClick(v, clickedNodesAndWays.get(0), x, y)) {
-                        return true;
-                    }
-                    if (elementCount > 1) {
-                        longClick = true; // another ugly flag
-                        showDisambiguationMenu(manager, v, x, y);
-                        return true;
-                    }
-                } // fall through to beep
+            if (prefs.areSimpleActionsEnabled() || manager.usesLongClick()) {
+                // this works in both simple and legacy modes
+                if (elementCount == 1 && manager.handleLongClick(v, clickedNodesAndWays.get(0), x, y)) {
+                    return true;
+                }
+                if (elementCount > 1) {
+                    longClick = true; // another ugly flag
+                    showDisambiguationMenu(manager, v, x, y);
+                    return true;
+                }
+                // fall through to beep
             } else if (manager.handleLongClick(v, x, y)) {
                 // editing with the screen moving under you is a pain
                 setFollowGPS(false);
