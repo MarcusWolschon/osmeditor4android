@@ -86,7 +86,7 @@ public class WaySplittingActionModeCallback extends AbortableWayActionModeCallba
             Tip.showDialog(main, R.string.tip_closed_way_splitting_key, R.string.tip_closed_way_splitting);
         } else {
             mode.setTitle(R.string.actionmode_split_way);
-            mode.setSubtitle(R.string.actionmode_split_way_node_selection);
+            mode.setSubtitle(way.nodeCount() == 2 ? R.string.actionmode_split_way_long_click : R.string.actionmode_split_way_node_selection);
             Tip.showDialog(main, R.string.tip_way_splitting_key, R.string.tip_way_splitting);
         }
         Set<OsmElement> clickable = new HashSet<>(nodes);
