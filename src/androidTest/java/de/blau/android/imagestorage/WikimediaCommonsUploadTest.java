@@ -103,7 +103,7 @@ public class WikimediaCommonsUploadTest {
         try (KeyDatabaseHelper kdb = new KeyDatabaseHelper(main); SQLiteDatabase db = kdb.getWritableDatabase()) {
             KeyDatabaseHelper.replaceOrDeleteKey(db, WM_TEST, KeyDatabaseHelper.EntryType.WIKIMEDIA_COMMONS_KEY,
                     "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJhYTQ3ZWU5MTQyNWU2NDQ3OWQ0MGRkMmYwZjBlMGVmZiIsImp0aSI6IjhlMDQ2ZjMyYjk1NGY2MTRjYzg5ODkwODg2YmY5YzEwZDkzYmQwNTgyOWQ0ZWYwZWJhZDgyMmE1NjcwYTQ5NTNjNDk5YWVkNzFmZDJjZTMyIiwiaWF0IjoxNzU3ODQ2NDcwLjYwNDI1MywibmJmIjoxNzU3ODQ2NDcwLjYwNDI1NCwiZXhwIjozMzMxNDc1NTI3MC42MDE2NjUsInN1YiI6IjE3MjgyMDA2IiwiaXNzIjoiaHR0cHM6Ly9tZXRhLndpa2ltZWRpYS5vcmciLCJyYXRlbGltaXQiOnsicmVxdWVzdHNfcGVyX3VuaXQiOjUwMDAsInVuaXQiOiJIT1VSIn0sInNjb3BlcyI6WyJiYXNpYyIsImhpZ2h2b2x1bWUiLCJjcmVhdGVlZGl0bW92ZXBhZ2UiLCJ1cGxvYWRmaWxlIiwidXBsb2FkZWRpdG1vdmVmaWxlIl19.m5mpney7aPciGTrGEr1g667PPsaWTxwpLpLlGfy5XSRD3b-U9ikEWsKRI-WTp5E75WUsfFqSAokCRQg1Kgf5Re5Pj8-SOJ7Bwodkn74Ux2NrdOgIfutTaGRUVUSFiqyrbavoFie5vyYG5Ii7NG3ZUW1rXzEmIvZcy9CMGwgFgBpEaL5K-tD4XZKuBGWRtN1DkHuIZWh6M4SYjQzKmUijHrLaeCkt9PhjMQQD0z1rCrBqgQY0oSIJ3Kap36BHco4ZCNep5BKeJJBUO40igQ0AJeiFBeTseqiOyNkvE26XbZJMmpSh4NVaH2uELABnr2cvtYhE99EpW-sPc_xrVvSGyRPJ31vc8P7mNAKX9ddAejxqiqq31sgwXYwYocnHLbykpFb8ykI74zEGl9tDcm69MEv8qwih0peFgWucSaVAfFAlrCALpDjZ5rejJAW9PNKd0CXWrU4xD767jNNn2yV6Y2R2NsfHb86o69heEKh4R9cybh_MHEwyxNOj9Yfh1S-01A-DH0ny24HX2SJ2eLLWDR0ItRsZL-xTB57jBT3hstE2uilLE3d2vOckwcsdll14NNnZAGnb5_YhsF8F_j4oXWoBsUdCPwb-IsBM3fv2fIqFoJFX2T_9HoE5cfC5NvN5TAvuvB8AZAsNRn5N6Uz6oSKHB4mcoY8_b028EE70QCs",
-                    false, true, null, null);
+                    false, true, null, null, null);
 
         }
         map = main.getMap();

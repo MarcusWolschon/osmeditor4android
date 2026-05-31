@@ -22,6 +22,7 @@ import de.blau.android.contract.Files;
 import de.blau.android.net.OAuthHelper.OAuthConfiguration;
 import de.blau.android.prefs.API.Auth;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.Util;
 
 /**
  * Database helper for managing private keys
@@ -34,20 +35,22 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
     private static final int    TAG_LEN   = Math.min(23, KeyDatabaseHelper.class.getSimpleName().length());
     private static final String DEBUG_TAG = KeyDatabaseHelper.class.getSimpleName().substring(0, TAG_LEN);
 
-    public static final String  DATABASE_NAME    = "keys";
-    private static final int    DATABASE_VERSION = 4;
-    private static final int    FIELD_COUNT      = 4;
-    private static final String AND              = " AND ";
-    private static final String NAME_AND         = "=? AND ";
+    public static final String  DATABASE_NAME       = "keys";
+    private static final int    DATABASE_VERSION    = 5;
+    private static final int    MINIMUM_FIELD_COUNT = 4;
+    private static final String AND                 = " AND ";
+    private static final String NAME_AND            = "=? AND ";
 
     public static final String  KEYS_TABLE   = "keys";
     private static final String NAME_FIELD   = "name";
     private static final String TYPE_FIELD   = "type";
-    private static final String KEY_FIELD    = "key";
+    public static final String  KEY_FIELD    = "key";
     public static final String  CUSTOM_FIELD = "custom";
-    private static final String ADD1_FIELD   = "add1";
+    public static final String  ADD1_FIELD   = "add1";
     private static final String ADD2_FIELD   = "add2";
+    public static final String  ADD3_FIELD   = "add3";
     private static final String TRUE         = "true";
+    private static final String EMPTY_VALUE  = "empty";
 
     public enum EntryType {
         IMAGERY, API_KEY, API_OAUTH1_KEY, API_OAUTH2_KEY, PANORAMAX_KEY, WIKIMEDIA_COMMONS_KEY
@@ -67,7 +70,7 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
         Log.d(DEBUG_TAG, "Creating database");
         try {
             db.execSQL(
-                    "CREATE TABLE keys (name TEXT, type TEXT, key TEXT DEFAULT NULL, add1 TEXT DEFAULT NULL, add2 TEXT DEFAULT NULL, custom INTEGER DEFAULT 0)");
+                    "CREATE TABLE keys (name TEXT, type TEXT, key TEXT DEFAULT NULL, add1 TEXT DEFAULT NULL, add2 TEXT DEFAULT NULL, add3 TEXT DEFAULT NULL, custom INTEGER DEFAULT 0)");
             db.execSQL("CREATE UNIQUE INDEX idx_keys ON keys (name, type)");
         } catch (SQLException e) {
             Log.w(DEBUG_TAG, "Problem creating database", e);
@@ -85,6 +88,9 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
             db.execSQL("DROP INDEX idx_keys");
             db.execSQL("CREATE UNIQUE INDEX idx_keys ON keys (name, type)");
         }
+        if (oldVersion <= 4) {
+            db.execSQL("ALTER TABLE keys ADD COLUMN add3 TEXT DEFAULT NULL");
+        }
     }
 
     /**
@@ -98,30 +104,32 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
      * @param overwrite overwrite entry even if custom flag is set
      * @param add1 1st additional value to store
      * @param add2 2nd additional value to store
+     * @param add3 3rd additional value to store
      */
     public static void replaceOrDeleteKey(@NonNull SQLiteDatabase db, @NonNull String name, @NonNull EntryType type, @Nullable String key, boolean custom,
-            boolean overwrite, @Nullable String add1, @Nullable String add2) {
+            boolean overwrite, @Nullable String add1, @Nullable String add2, @Nullable String add3) {
         if ("".equals(key) && overwrite) {
             Log.i(DEBUG_TAG, "Deleting key " + name);
             deleteKey(db, name, type);
-        } else {
-            Log.i(DEBUG_TAG, "Updating key " + name);
-            ContentValues values = new ContentValues();
-            values.put(NAME_FIELD, name);
-            values.put(TYPE_FIELD, type.toString());
-            values.put(KEY_FIELD, key);
-            values.put(ADD1_FIELD, add1);
-            values.put(ADD2_FIELD, add2);
-            values.put(CUSTOM_FIELD, custom ? 1 : 0);
-            try {
-                int count = db.update(KEYS_TABLE, values, NAME_FIELD + NAME_AND + TYPE_FIELD + "=?" + (!overwrite ? AND + CUSTOM_FIELD + "=0" : ""),
-                        new String[] { name, type.toString() });
-                if (count == 0) {
-                    db.insert(KEYS_TABLE, null, values);
-                }
-            } catch (SQLException e) {
-                Log.e(DEBUG_TAG, "replaceOrDeleteKey " + e.getMessage());
+            return;
+        }
+        Log.i(DEBUG_TAG, "Updating key " + name);
+        ContentValues values = new ContentValues();
+        values.put(NAME_FIELD, name);
+        values.put(TYPE_FIELD, type.toString());
+        values.put(KEY_FIELD, key);
+        values.put(ADD1_FIELD, add1);
+        values.put(ADD2_FIELD, add2);
+        values.put(ADD3_FIELD, add3);
+        values.put(CUSTOM_FIELD, custom ? 1 : 0);
+        try {
+            int count = db.update(KEYS_TABLE, values, NAME_FIELD + NAME_AND + TYPE_FIELD + "=?" + (!overwrite ? AND + CUSTOM_FIELD + "=0" : ""),
+                    new String[] { name, type.toString() });
+            if (count == 0) {
+                db.insert(KEYS_TABLE, null, values);
             }
+        } catch (SQLException e) {
+            Log.e(DEBUG_TAG, "replaceOrDeleteKey " + e.getMessage());
         }
     }
 
@@ -134,6 +142,27 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
      */
     public static void deleteKey(@NonNull final SQLiteDatabase db, @NonNull String name, @NonNull EntryType type) {
         db.delete(KEYS_TABLE, NAME_FIELD + NAME_AND + TYPE_FIELD + "=?", new String[] { name, type.toString() });
+    }
+
+    /**
+     * Update a specific field
+     * 
+     * @param db writable database
+     * @param name name of the entry
+     * @param type type of the entry
+     * @param field the name of the field to update
+     * @param value the value to set the field to
+     */
+    public static void updateField(@NonNull SQLiteDatabase db, @NonNull String name, @NonNull EntryType type, @NonNull String field, @Nullable String value) {
+        Log.i(DEBUG_TAG, "Updating key " + name + " field " + field + " to " + value);
+        ContentValues values = new ContentValues();
+        values.put(field, value);
+        try {
+            int count = db.update(KEYS_TABLE, values, NAME_FIELD + NAME_AND + TYPE_FIELD + "=?", new String[] { name, type.toString() });
+            Log.i(DEBUG_TAG, ".. updated " + count);
+        } catch (SQLException e) {
+            Log.e(DEBUG_TAG, "updateField " + e.getMessage());
+        }
     }
 
     /**
@@ -168,12 +197,12 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
      */
     @Nullable
     public static void copyKey(@NonNull SQLiteDatabase db, @NonNull String name, @NonNull EntryType type, @NonNull String newName) {
-        try (Cursor dbresult = db.query(KEYS_TABLE, new String[] { KEY_FIELD, ADD1_FIELD, ADD2_FIELD }, NAME_FIELD + "=?  AND " + TYPE_FIELD + "=?",
+        try (Cursor dbresult = db.query(KEYS_TABLE, new String[] { KEY_FIELD, ADD1_FIELD, ADD2_FIELD, ADD3_FIELD }, NAME_FIELD + "=?  AND " + TYPE_FIELD + "=?",
                 new String[] { name, type.toString() }, null, null, null)) {
             if (dbresult.getCount() == 1) {
                 boolean haveEntry = dbresult.moveToFirst();
                 if (haveEntry) {
-                    replaceOrDeleteKey(db, newName, type, dbresult.getString(0), true, false, dbresult.getString(1), dbresult.getString(2));
+                    replaceOrDeleteKey(db, newName, type, dbresult.getString(0), true, false, dbresult.getString(1), dbresult.getString(2), null);
                     return;
                 }
             }
@@ -192,14 +221,14 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
     @Nullable
     public static OAuthConfiguration getOAuthConfiguration(@NonNull SQLiteDatabase db, @NonNull String name, @NonNull Auth auth) {
         final boolean oAuth1a = auth == Auth.OAUTH1A;
-        try (Cursor dbresult = db.query(KEYS_TABLE, new String[] { KEY_FIELD, ADD1_FIELD, ADD2_FIELD },
+        try (Cursor dbresult = db.query(KEYS_TABLE, new String[] { KEY_FIELD, ADD1_FIELD, ADD2_FIELD, ADD3_FIELD },
                 NAME_FIELD + NAME_AND + TYPE_FIELD + "='" + (oAuth1a ? EntryType.API_OAUTH1_KEY : EntryType.API_OAUTH2_KEY) + "'", new String[] { name }, null,
                 null, null)) {
             if (dbresult.getCount() == 1) {
                 boolean haveEntry = dbresult.moveToFirst();
                 if (haveEntry) {
                     try {
-                        return getOAuthConfigurationFromCursor(oAuth1a, dbresult, name);
+                        return getOAuthConfigurationFromCursor(dbresult, name);
                     } catch (IllegalArgumentException iaex) {
                         Log.e(DEBUG_TAG, "error in entry for " + name);
                     }
@@ -220,12 +249,12 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
     public static List<OAuthConfiguration> getOAuthConfigurations(@NonNull SQLiteDatabase db, @NonNull Auth auth) {
         final boolean oAuth1a = auth == Auth.OAUTH1A;
         List<OAuthConfiguration> configurations = new ArrayList<>();
-        try (Cursor dbresult = db.query(KEYS_TABLE, new String[] { NAME_FIELD, KEY_FIELD, ADD1_FIELD, ADD2_FIELD },
+        try (Cursor dbresult = db.query(KEYS_TABLE, new String[] { NAME_FIELD, KEY_FIELD, ADD1_FIELD, ADD2_FIELD, ADD3_FIELD },
                 TYPE_FIELD + "='" + (oAuth1a ? EntryType.API_OAUTH1_KEY : EntryType.API_OAUTH2_KEY) + "'", null, null, null, null)) {
             if (dbresult.getCount() >= 1) {
                 boolean haveEntry = dbresult.moveToFirst();
                 while (haveEntry) {
-                    configurations.add(getOAuthConfigurationFromCursor(oAuth1a, dbresult, dbresult.getString(dbresult.getColumnIndexOrThrow(NAME_FIELD))));
+                    configurations.add(getOAuthConfigurationFromCursor(dbresult, dbresult.getString(dbresult.getColumnIndexOrThrow(NAME_FIELD))));
                     haveEntry = dbresult.moveToNext();
                 }
             }
@@ -236,19 +265,21 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
     /**
      * Get an OAuthConfiguration from a Cursor
      * 
-     * @param oAuth1a true if it should be an OAuth1a config
      * @param dbresult the Cursor
      * @param name the name to use
+     * 
      * @return the config
      */
     @NonNull
-    private static OAuthConfiguration getOAuthConfigurationFromCursor(final boolean oAuth1a, @NonNull Cursor dbresult, @NonNull String name) {
+    private static OAuthConfiguration getOAuthConfigurationFromCursor(@NonNull Cursor dbresult, @NonNull String name) {
         OAuthConfiguration result = new OAuthConfiguration(name);
         result.setKey(dbresult.getString(dbresult.getColumnIndexOrThrow(KEY_FIELD)));
-        if (oAuth1a) {
-            result.setSecret(dbresult.getString(dbresult.getColumnIndexOrThrow(ADD1_FIELD)));
+        String secret = dbresult.getString(dbresult.getColumnIndexOrThrow(ADD1_FIELD));
+        if (!Util.isEmpty(secret) && !EMPTY_VALUE.equals(secret)) {
+            result.setSecret(secret);
         }
         result.setOauthUrl(dbresult.getString(dbresult.getColumnIndexOrThrow(ADD2_FIELD)));
+        result.setBearerToken(dbresult.getString(dbresult.getColumnIndexOrThrow(ADD3_FIELD)));
         return result;
     }
 
@@ -272,7 +303,7 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
                 for (int i = 0; i < k.length; i++) {
                     k[i] = k[i].trim();
                 }
-                if (k.length < FIELD_COUNT) {
+                if (k.length < MINIMUM_FIELD_COUNT) {
                     Log.e(DEBUG_TAG, "short key DB entry " + line);
                 } else {
                     processLine(db, k);
@@ -296,10 +327,12 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
     private void processLine(@NonNull SQLiteDatabase db, @NonNull String[] k) {
         boolean overwrite = TRUE.equalsIgnoreCase(k[3]);
         EntryType type = EntryType.valueOf(k[1].toUpperCase(Locale.US));
-        if (k.length == FIELD_COUNT) {
-            replaceOrDeleteKey(db, k[0], type, k[2], false, overwrite, null, null);
-        } else if (k.length == FIELD_COUNT + 2) {
-            replaceOrDeleteKey(db, k[0], type, k[2], false, overwrite, k[4], k[5]);
+        if (k.length == MINIMUM_FIELD_COUNT) {
+            replaceOrDeleteKey(db, k[0], type, k[2], false, overwrite, null, null, null);
+        } else if (k.length == MINIMUM_FIELD_COUNT + 2) {
+            replaceOrDeleteKey(db, k[0], type, k[2], false, overwrite, k[4], k[5], null);
+        } else if (k.length == MINIMUM_FIELD_COUNT + 3) {
+            replaceOrDeleteKey(db, k[0], type, k[2], false, overwrite, k[4], k[5], k[6]);
         } else {
             throw new IllegalArgumentException("invalid entry");
         }
@@ -331,7 +364,8 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
      */
     public static List<String> getAll(@NonNull SQLiteDatabase db) {
         List<String> result = new ArrayList<>();
-        try (Cursor dbresult = db.query(KEYS_TABLE, new String[] { NAME_FIELD, KEY_FIELD, TYPE_FIELD, ADD1_FIELD, ADD2_FIELD }, null, null, null, null, null)) {
+        try (Cursor dbresult = db.query(KEYS_TABLE, new String[] { NAME_FIELD, KEY_FIELD, TYPE_FIELD, ADD1_FIELD, ADD2_FIELD, ADD3_FIELD }, null, null, null,
+                null, null)) {
             boolean haveEntry = dbresult.moveToFirst();
             while (haveEntry) {
                 // @formatter:off
@@ -339,7 +373,8 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
                         + "\t" + dbresult.getString(dbresult.getColumnIndexOrThrow(KEY_FIELD))
                         + "\t" + dbresult.getString(dbresult.getColumnIndexOrThrow(TYPE_FIELD)) 
                         + "\t" + dbresult.getString(dbresult.getColumnIndexOrThrow(ADD1_FIELD)) 
-                        + "\t" + dbresult.getString(dbresult.getColumnIndexOrThrow(ADD2_FIELD)));
+                        + "\t" + dbresult.getString(dbresult.getColumnIndexOrThrow(ADD2_FIELD))
+                        + "\t" + dbresult.getString(dbresult.getColumnIndexOrThrow(ADD3_FIELD)));
                 // @formatter:on
                 haveEntry = dbresult.moveToNext();
             }

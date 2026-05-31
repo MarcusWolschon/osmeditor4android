@@ -90,7 +90,7 @@ public class WikimediaCommonsAuthorize extends WebViewActivity {
                     // this should only be set if auth was successful
                     try (KeyDatabaseHelper kdb = new KeyDatabaseHelper(WikimediaCommonsAuthorize.this); SQLiteDatabase db = kdb.getWritableDatabase()) {
                         KeyDatabaseHelper.replaceOrDeleteKey(db, configuration.id, KeyDatabaseHelper.EntryType.WIKIMEDIA_COMMONS_KEY, token, false, true, null,
-                                null);
+                                null, null);
                         Log.d(DEBUG_TAG, "Authorization successful");
                         ScreenMessage.toastTopInfo(WikimediaCommonsAuthorize.this, R.string.toast_authorisation_successful);
                         view.postDelayed(() -> exit(), 5000);
