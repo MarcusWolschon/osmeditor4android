@@ -443,7 +443,8 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
                             map.postInvalidate();
                         }, true, true);
                         final int code = result.getCode();
-                        if (PAUSE_AUTO_DOWNLOAD.contains(code)) {
+                        // only show the alert if we are still downloading
+                        if (PAUSE_AUTO_DOWNLOAD.contains(code) && prefs.getPanAndZoomAutoDownload()) {
                             prefs.setPanAndZoomAutoDownload(false);
                             setPrefs(prefs);
                             if (ctx instanceof FragmentActivity) {
