@@ -306,9 +306,9 @@ The full descriptions can be found here [Advanced preferences](Advanced%20prefer
 
 ## Reporting and Resolving Issues
 
-If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). The "Provide feedback" function from the main menu will open a new issue and include the relevant app and device information without extra typing.
+If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). The _[Provide feedback](Main%20map%20display.md#provide-feedback)_ function from the main menu will open a new issue and include the relevant app and device information without extra typing.
 
-If you are experiencing difficulties starting the app after a crash, you can try to start it in [_Safe_ mode](Safe%20mode.md) on devices that support short cuts: long press on the app icon and then select _Safe_ from the menu. 
+If you are experiencing difficulties starting the app after a crash, you can try to start it in _[Safe mode](Safe%20mode.md)_ on devices that support short cuts: long press on the app icon and then select _Safe_ from the menu. 
 
 If you want to discuss something related to Vespucci, you can start a discussion on the [OpenStreetMap forum](https://community.openstreetmap.org).
 
