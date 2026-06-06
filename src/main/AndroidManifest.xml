@@ -41,7 +41,9 @@
         <intent>
             <action android:name="android.intent.action.CREATE_DOCUMENT" />
         </intent>
-
+        <intent>
+            <action android:name="android.support.customtabs.action.CustomTabsService" />
+        </intent>
         <package android:name="de.westnordost.streetmeasure" />
         <package android:name="com.android.vending" />
     </queries>
@@ -261,7 +263,7 @@
         <activity
             android:name="Authorize"
             android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale|locale"
-            android:launchMode="singleInstance"
+            android:launchMode="singleTop"
             android:theme="@style/Theme.AppCompat" />
         <activity
             android:name="LicenseViewer"

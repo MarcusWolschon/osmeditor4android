@@ -1040,7 +1040,7 @@ public final class Util {
     }
 
     /**
-     * Launch a custom tab (aka a replacement for a WebView that google likes) 
+     * Launch a custom tab (aka a replacement for a WebView that google likes)
      * 
      * Falling back to a browser will likely break OAuth though
      * 

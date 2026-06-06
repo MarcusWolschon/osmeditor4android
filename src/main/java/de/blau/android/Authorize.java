@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -40,9 +41,11 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.resources.KeyDatabaseHelper.EntryType;
 import de.blau.android.util.ActivityResultHandler;
+import de.blau.android.util.ConfigurationChangeAwareActivity;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.UpdatedWebViewClient;
+import de.blau.android.util.Util;
 import de.blau.android.util.WebViewActivity;
 import oauth.signpost.exception.OAuthException;
 
@@ -52,7 +55,7 @@ import oauth.signpost.exception.OAuthException;
  * @author simon
  *
  */
-public class Authorize extends WebViewActivity {
+public class Authorize extends ConfigurationChangeAwareActivity {
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Authorize.class.getSimpleName().length());
     private static final String DEBUG_TAG = Authorize.class.getSimpleName().substring(0, TAG_LEN);
@@ -69,9 +72,9 @@ public class Authorize extends WebViewActivity {
      */
     public static void startForResult(@NonNull FragmentActivity activity, @Nullable ActivityResultHandler.Listener listener) {
         Log.d(DEBUG_TAG, "startForResult");
-        if (!hasWebView(activity)) {
-            return;
-        }
+//        if (!hasWebView(activity)) {
+//            return;
+//        }
         Log.d(DEBUG_TAG, "request code " + REQUEST_CODE);
         if (listener != null) {
             if (activity instanceof ActivityResultHandler) {
@@ -85,89 +88,7 @@ public class Authorize extends WebViewActivity {
         activity.startActivityForResult(intent, REQUEST_CODE);
     }
 
-    private class OAuthWebViewClient extends UpdatedWebViewClient {
-        private static final String MATOMO = "matomo";
-
-        Object         progressLock  = new Object();
-        boolean        progressShown = false;
-        Runnable       dismiss       = () -> Progress.dismissDialog(Authorize.this, Progress.PROGRESS_OAUTH);
-        private String host;
-
-        /**
-         * Create a new client
-         * 
-         * @param host the host we are trying to authorize
-         */
-        OAuthWebViewClient(@NonNull String host) {
-            super();
-            this.host = host;
-        }
-
-        @Override
-        public boolean handleLoading(WebView view, Uri uri) {
-            if (!Schemes.VESPUCCI.equals(uri.getScheme())) {
-                return false;
-            }
-            // vespucci URL
-            // or the OSM signup page which we want to open in a normal browser
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            startActivity(intent);
-            return true;
-        }
-
-        @Override
-        public WebResourceResponse handleIntercept(WebView view, Uri uri) {
-            final String path = uri.getPath();
-            if (path != null && path.toLowerCase().contains(MATOMO)) {
-                return new WebResourceResponse(MimeTypes.TEXTPLAIN, "utf-8", new ByteArrayInputStream("".getBytes()));
-            }
-            return super.handleIntercept(view, uri);
-        }
-
-        @Override
-        public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            synchronized (progressLock) {
-                if (!progressShown) {
-                    progressShown = true;
-                    Progress.showDialog(Authorize.this, Progress.PROGRESS_OAUTH, host, null);
-                }
-            }
-        }
-
-        @Override
-        public void onPageFinished(WebView view, String url) {
-            super.onPageFinished(view, url);
-            synchronized (progressLock) {
-                synchronized (webViewLock) {
-                    if (progressShown && webView != null) {
-                        webView.removeCallbacks(dismiss);
-                        webView.postDelayed(dismiss, 500);
-                    }
-                }
-            }
-
-            // Remove navigation and sign up tab from osm.org
-
-            // @formatter:off
-            String script = "(function() {" 
-                    + "var navs = document.getElementsByTagName('nav');" 
-                    + "for (let nav of navs) {" 
-                    + "  nav.innerHTML = '';" 
-                    + "}"
-                    + "var tabs = document.getElementsByClassName('nav-item');" 
-                    + "for (let tab of tabs) {" 
-                    + "  tab.innerHTML = '';" 
-                    + "} })();";
-            // @formatter:on
-            view.evaluateJavascript(script, null);
-        }
-
-        @Override
-        public void receivedError(WebView view, int errorCode, String description, String failingUrl) {
-            exit();
-            ScreenMessage.toastTopError(view.getContext(), description);
-        }
-    }
+ 
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -251,16 +172,17 @@ public class Authorize extends WebViewActivity {
             throw new OsmException("authUrl is null");
         }
         Log.d(DEBUG_TAG, "authURl " + authUrl);
-        synchronized (webViewLock) {
-            webView = new WebView(this);
-            setContentView(webView);
-            webView.getSettings().setJavaScriptEnabled(true);
-            Uri uri = Uri.parse(server.getWebsiteBaseUrl());
-            webView.setWebViewClient(new OAuthWebViewClient(uri.getHost()));
-            loadUrlOrRestore(savedInstanceState, authUrl);
-            ViewGroupCompat.installCompatInsetsDispatch(webView);
-            ViewCompat.setOnApplyWindowInsetsListener(webView, onApplyWindowInsetslistener);
-        }
+        Util.launchInCustomTabOrBrowser((Activity) this, Uri.parse(authUrl));
+//        synchronized (webViewLock) {
+//            webView = new WebView(this);
+//            setContentView(webView);
+//            webView.getSettings().setJavaScriptEnabled(true);
+//            Uri uri = Uri.parse(server.getWebsiteBaseUrl());
+//            webView.setWebViewClient(new OAuthWebViewClient(uri.getHost()));
+//            loadUrlOrRestore(savedInstanceState, authUrl);
+//            ViewGroupCompat.installCompatInsetsDispatch(webView);
+//            ViewCompat.setOnApplyWindowInsetsListener(webView, onApplyWindowInsetslistener);
+//        }
     }
 
     @Override
@@ -268,7 +190,8 @@ public class Authorize extends WebViewActivity {
         super.onNewIntent(intent);
         if (ACTION_FINISH_OAUTH.equals(intent.getAction())) {
             Log.d(DEBUG_TAG, "onNewIntent calling finishOAuth");
-            exit();
+            // FIXME exit();
+            finish();
         }
     }
 
