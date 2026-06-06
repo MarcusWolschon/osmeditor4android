@@ -125,8 +125,9 @@ public final class GeoMath {
     }
 
     /**
-     * Calculates a projected coordinate for a given latitude value. When lat is bigger than MAX_LAT, it will be clamped
-     * to MAX_LAT.
+     * Projects a latitude degree value to the Web Mercator projection.
+     * When lat is bigger than MAX_COMPAT_LAT, a large finite value (1000.0 or -1000.0) is returned.
+     * This avoids NaN propagation in further math while ensuring safe clipping by the Canvas.
      * 
      * NOTE: this is a degree, not a meter value
      * 
@@ -136,11 +137,13 @@ public final class GeoMath {
      * @see <a href="http://en.wikipedia.org/wiki/Mercator_projection#Mathematics_of_the_projection">Mathematics of the
      *      projection</a>
      */
-    // TODO clamping is likely to lead to issues for objects extending past +-MAX_LAT given that they will never be in a
-    // drawing box this should simple throw an exception and let the drawing code handle it
     public static double latToMercator(double lat) {
-        lat = Math.min(MAX_COMPAT_LAT, lat);
-        lat = Math.max(-MAX_COMPAT_LAT, lat);
+        if (lat > MAX_COMPAT_LAT) {
+            return 1000.0;
+        }
+        if (lat < -MAX_COMPAT_LAT) {
+            return -1000.0;
+        }
         return _180_PI * Math.log(Math.tan(lat * PI_360 + PI_4));
     }
 
