@@ -25,6 +25,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.ViewGroupCompat;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.contract.MimeTypes;
+import de.blau.android.contract.OpenStreetMap;
 import de.blau.android.contract.Schemes;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.exception.NoOAuthConfigurationException;
@@ -183,6 +184,7 @@ public class Authorize extends WebViewActivity {
         String errorMessage = null;
         try {
             openWebView(savedInstanceState, server, apiName, auth);
+            return;
         } catch (NoOAuthConfigurationException nex) {
             try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(this)) {
                 // get list of possible configs
@@ -207,7 +209,6 @@ public class Authorize extends WebViewActivity {
                         }).setNegativeButton(R.string.abort, (DialogInterface dialog, int which) -> finish()).create().show();
                 return;
             }
-
         } catch (OsmException oe) {
             errorMessage = getString(R.string.toast_no_oauth, apiName);
         } catch (OAuthException e) {
@@ -243,8 +244,8 @@ public class Authorize extends WebViewActivity {
             OAuth1aHelper oa = new OAuth1aHelper(this, apiName);
             authUrl = oa.getRequestToken();
         } else if (auth == Auth.OAUTH2) {
-            OAuth2Helper oa = new OAuth2Helper(this, apiName);
-            authUrl = oa.getAuthorisationUrl(this);
+            OAuth2Helper oa = new OAuth2Helper(this, apiName, OpenStreetMap.AUTHORIZE_PATH, OpenStreetMap.ACCESS_TOKEN_PATH, OpenStreetMap.OSM_REDIRECT_URI);
+            authUrl = oa.getAuthorisationUrl(this, OAuth2Helper.OSM_SCOPES);
         }
         if (authUrl == null) {
             throw new OsmException("authUrl is null");

@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -20,6 +21,7 @@ import org.xml.sax.XMLReader;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -49,6 +51,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.browser.customtabs.CustomTabsClient;
+import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.core.content.ContextCompat;
 import androidx.core.text.HtmlCompat;
 import androidx.core.widget.NestedScrollView;
@@ -1033,5 +1037,31 @@ public final class Util {
      */
     public static <T extends Object> boolean isClosed(@NonNull List<T> list) {
         return getFirst(list).equals(getLast(list));
+    }
+
+    /**
+     * Launch a custom tab (aka a replacement for a WebView that google likes) 
+     * 
+     * Falling back to a browser will likely break OAuth though
+     * 
+     * @param activity the calling activity
+     * @param uri the uri
+     */
+    public static void launchInCustomTabOrBrowser(@NonNull Activity activity, @NonNull Uri uri) {
+        String customTabsPackage = CustomTabsClient.getPackageName(activity, Collections.emptyList());
+        try {
+            if (customTabsPackage != null) {
+                CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().build();
+                customTabsIntent.intent.setPackage(customTabsPackage);
+                customTabsIntent.intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                customTabsIntent.launchUrl(activity, uri);
+            } else {
+                activity.startActivity(new Intent(Intent.ACTION_VIEW, uri));
+            }
+        } catch (ActivityNotFoundException e) {
+            Log.e(DEBUG_TAG, "No browser available for " + uri + " " + e.getMessage());
+            ScreenMessage.barError(activity, activity.getString(R.string.toast_oauth_communication));
+            activity.finish();
+        }
     }
 }

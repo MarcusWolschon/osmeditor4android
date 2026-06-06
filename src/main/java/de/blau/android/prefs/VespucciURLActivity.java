@@ -1,12 +1,16 @@
 package de.blau.android.prefs;
 
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+import static de.blau.android.contract.Github.OAUTH_GITHUB_PATH;
+import static de.blau.android.contract.OpenStreetMap.OAUTH1A_PATH;
+import static de.blau.android.contract.OpenStreetMap.OAUTH2_PATH;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,12 +29,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewGroupCompat;
 import de.blau.android.AsyncResult;
 import de.blau.android.Authorize;
-import de.blau.android.PostAsyncActionHandler;
+import de.blau.android.Feedback;
 import de.blau.android.R;
+import de.blau.android.contract.Github;
+import de.blau.android.contract.OpenStreetMap;
 import de.blau.android.exception.NoOAuthConfigurationException;
 import de.blau.android.net.OAuth1aHelper;
 import de.blau.android.net.OAuth2Helper;
 import de.blau.android.net.OAuthHelper;
+import de.blau.android.resources.KeyDatabaseHelper;
+import de.blau.android.resources.KeyDatabaseHelper.EntryType;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
 
@@ -48,14 +56,13 @@ public class VespucciURLActivity extends AppCompatActivity {
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, VespucciURLActivity.class.getSimpleName().length());
     private static final String DEBUG_TAG = VespucciURLActivity.class.getSimpleName().substring(0, TAG_LEN);
 
-    private static final String OAUTH1A_PATH         = "oauth";
-    static final String         OAUTH2_PATH          = "oauth2";
-    public static final String  PRESET_PATH          = "preset";
-    public static final String  PRESETNAME_PARAMETER = "presetname";
-    public static final String  PRESETURL_PARAMETER  = "preseturl";
-    public static final String  STYLE_PATH           = "style";
-    public static final String  STYLENAME_PARAMETER  = "stylename";
-    public static final String  STYLEURL_PARAMETER   = "styleurl";
+    public static final String PRESET_PATH          = "preset";
+    public static final String PRESETNAME_PARAMETER = "presetname";
+    public static final String PRESETURL_PARAMETER  = "preseturl";
+
+    public static final String STYLE_PATH          = "style";
+    public static final String STYLENAME_PARAMETER = "stylename";
+    public static final String STYLEURL_PARAMETER  = "styleurl";
 
     private String url;
     private String name;
@@ -66,19 +73,29 @@ public class VespucciURLActivity extends AppCompatActivity {
     private View                           mainView;
     private ActivityResultLauncher<Intent> startForResult;
 
-    private PostAsyncActionHandler oauthResultHandler = new PostAsyncActionHandler() {
+    private OAuthHelper.Callback oauthResultHandler = new OAuthHelper.Callback() {
 
         @Override
-        public void onSuccess() {
-            Intent intent = new Intent(VespucciURLActivity.this, Authorize.class);
-            intent.setAction(Authorize.ACTION_FINISH_OAUTH);
-            startActivity(intent);
+        public void onSuccess(@NonNull String accessToken) {
+            if (!Util.isEmpty(accessToken)) { // will be empty for OAuth 1
+                OAuthHelper.setAccessToken(VespucciURLActivity.this, accessToken, null);
+            }
+            finish();
         }
 
         @Override
         public void onError(AsyncResult result) {
             ScreenMessage.toastTopError(VespucciURLActivity.this, getString(R.string.toast_oauth_handshake_failed, result.getMessage()));
-            onSuccess();
+            finish();
+        }
+
+        /**
+         * Start the final activity
+         */
+        private void finish() {
+            Intent intent = new Intent(VespucciURLActivity.this, Authorize.class);
+            intent.setAction(Authorize.ACTION_FINISH_OAUTH);
+            startActivity(intent);
         }
 
     };
@@ -126,22 +143,14 @@ public class VespucciURLActivity extends AppCompatActivity {
         case OAUTH1A_PATH:
         case OAUTH2_PATH: // NOSONAR
             mainView.setVisibility(View.GONE);
-            final String apiName = data.getQueryParameter(OAuth2Helper.STATE_PARAM);
-            try {
-                OAuthHelper oa = OAUTH1A_PATH.equals(path) ? new OAuth1aHelper() : new OAuth2Helper(getBaseContext(), apiName);
-                oa.getAccessToken(getBaseContext(), data, oauthResultHandler);
-            } catch (ExecutionException e) {
-                ScreenMessage.toastTopError(this, getString(R.string.toast_oauth_communication));
-            } catch (TimeoutException e) {
-                ScreenMessage.toastTopError(this, getString(R.string.toast_oauth_timeout));
-            } catch (NoOAuthConfigurationException e) {
-                ScreenMessage.toastTopError(this, getString(R.string.toast_no_oauth, apiName));
-            } catch (IllegalArgumentException e) {
-                ScreenMessage.toastTopError(this, getString(R.string.toast_oauth_handshake_failed, e.getMessage()));
-            }
+            processOsmCallback(data, path);
         default: // NOSONAR fall through is intentional
             setResult(RESULT_OK);
             finish();
+            break;
+        case OAUTH_GITHUB_PATH:
+            mainView.setVisibility(View.GONE);
+            processGithubCallback(data);
             break;
         case PRESET_PATH:
             setupPresetUi(data);
@@ -151,6 +160,79 @@ public class VespucciURLActivity extends AppCompatActivity {
             break;
         }
         super.onResume();
+    }
+
+    /**
+     * Process a callback from OSM OAuth1a or OAuth2
+     * 
+     * @param data the intent data
+     * @param path the callback uri path
+     */
+    private void processOsmCallback(Uri data, String path) {
+        final String apiName = data.getQueryParameter(OAuth2Helper.STATE_PARAM);
+        try {
+            OAuthHelper oa = OAUTH1A_PATH.equals(path) ? new OAuth1aHelper()
+                    : new OAuth2Helper(getBaseContext(), apiName, OpenStreetMap.AUTHORIZE_PATH, OpenStreetMap.ACCESS_TOKEN_PATH,
+                            OpenStreetMap.OSM_REDIRECT_URI);
+            oa.getAccessToken(getBaseContext(), data, oauthResultHandler);
+        } catch (ExecutionException e) {
+            ScreenMessage.toastTopError(this, getString(R.string.toast_oauth_communication));
+        } catch (TimeoutException e) {
+            ScreenMessage.toastTopError(this, getString(R.string.toast_oauth_timeout));
+        } catch (NoOAuthConfigurationException e) {
+            ScreenMessage.toastTopError(this, getString(R.string.toast_no_oauth, apiName));
+        } catch (IllegalArgumentException e) {
+            ScreenMessage.toastTopError(this, getString(R.string.toast_oauth_handshake_failed, e.getMessage()));
+        }
+    }
+
+    /**
+     * Process a callback from Github OAuth2
+     * 
+     * @param data the intent data
+     */
+    private void processGithubCallback(@NonNull Uri data) {
+        try {
+            new OAuth2Helper(this, Feedback.REPO_KEY, Github.AUTHORIZE_PATH, Github.ACCESS_TOKEN_PATH, Github.WEB_FLOW_REDIRECT_URI).getAccessToken(this, data,
+                    new OAuthHelper.Callback() {
+                        @Override
+                        public void onSuccess(@NonNull String accessToken) {
+                            try (KeyDatabaseHelper keys = new KeyDatabaseHelper(VespucciURLActivity.this); SQLiteDatabase db = keys.getWritableDatabase()) {
+                                KeyDatabaseHelper.replaceOrDeleteKey(db, Feedback.GITHUB_BEARER_TOKEN, EntryType.API_KEY, accessToken, false, false, null, null,
+                                        null);
+                            }
+                            Log.d(DEBUG_TAG, "OAuth token saved successfully");
+                            finishHandshake();
+                        }
+
+                        @Override
+                        public void onError(AsyncResult result) {
+                            ScreenMessage.toastTopError(VespucciURLActivity.this, getString(R.string.toast_oauth_handshake_failed, result.getMessage()));
+                            finishHandshake();
+                        }
+
+                        /**
+                         * hand things back
+                         */
+                        private void finishHandshake() {
+                            Intent intent = new Intent(VespucciURLActivity.this, Feedback.class);
+                            intent.setAction(Authorize.ACTION_FINISH_OAUTH);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            setResult(RESULT_OK);
+                            finish();
+                        }
+
+                    });
+        } catch (ExecutionException e) {
+            ScreenMessage.toastTopError(this, getString(R.string.toast_oauth_communication));
+        } catch (TimeoutException e) {
+            ScreenMessage.toastTopError(this, getString(R.string.toast_oauth_timeout));
+        } catch (NoOAuthConfigurationException e) {
+            ScreenMessage.toastTopError(this, getString(R.string.toast_no_oauth, Feedback.REPO_KEY));
+        } catch (IllegalArgumentException e) {
+            ScreenMessage.toastTopError(this, getString(R.string.toast_oauth_handshake_failed, e.getMessage()));
+        }
     }
 
     /**

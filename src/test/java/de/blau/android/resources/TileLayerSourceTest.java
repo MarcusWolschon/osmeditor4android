@@ -1,5 +1,6 @@
 package de.blau.android.resources;
 
+import static de.blau.android.net.HttpHeaders.USER_AGENT_HEADER;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -28,7 +29,6 @@ import de.blau.android.JavaResources;
 import de.blau.android.Main;
 import de.blau.android.ShadowWorkManager;
 import de.blau.android.contract.Files;
-import de.blau.android.net.UserAgentInterceptor;
 import de.blau.android.resources.TileLayerSource.Header;
 import de.blau.android.resources.TileLayerSource.Provider.CoverageArea;
 import de.blau.android.services.util.MapTile;
@@ -37,7 +37,7 @@ import okhttp3.mockwebserver.MockResponse;
 import okio.Buffer;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = { ShadowWorkManager.class }, sdk=33)
+@Config(shadows = { ShadowWorkManager.class }, sdk = 33)
 @LargeTest
 public class TileLayerSourceTest {
     TileLayerDatabase db;
@@ -124,7 +124,7 @@ public class TileLayerSourceTest {
             List<Header> headers = b.getHeaders();
             assertNotNull(headers);
             assertEquals(1, headers.size());
-            assertEquals(UserAgentInterceptor.USER_AGENT_HEADER, headers.get(0).getName());
+            assertEquals(USER_AGENT_HEADER, headers.get(0).getName());
             assertEquals("Mozilla/5.0 (JOSM)", headers.get(0).getValue());
         } catch (IOException e) {
             fail(e.getMessage());
@@ -308,7 +308,7 @@ public class TileLayerSourceTest {
             }
         }
     }
-    
+
     /**
      * Translation support
      */

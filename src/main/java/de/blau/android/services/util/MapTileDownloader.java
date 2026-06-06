@@ -2,6 +2,7 @@
 package de.blau.android.services.util;
 
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+import static de.blau.android.net.HttpHeaders.ACCEPT_ENCODING_HEADER;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -120,8 +121,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
 
     private class TileLoader extends MapAsyncTileProvider.TileLoader {
 
-        private static final String HTTP_HEADER_ACCEPT_ENCODING = "Accept-Encoding";
-        private static final String GZIP                        = "gzip";
+        private static final String GZIP = "gzip";
 
         /**
          * Construct a new TileLoader
@@ -237,7 +237,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
          */
         private byte[] downloadTile(@NonNull TileLayerSource source, @NonNull MapTile mTile) throws IOException {
             final String tileURLString = buildURL(source, mTile);
-            Builder builder = new Request.Builder().url(tileURLString).header(HTTP_HEADER_ACCEPT_ENCODING, GZIP);
+            Builder builder = new Request.Builder().url(tileURLString).header(ACCEPT_ENCODING_HEADER, GZIP);
             setCustomHeaders(source, builder);
             Request request = builder.build();
             Call tileCall = client.newCall(request);

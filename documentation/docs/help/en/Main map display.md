@@ -284,6 +284,14 @@ Start the on device help browser.
 
 Some information on the licence of Vespucci itself, specific components and a list of all known contributors to the app.
 
+### Privacy
+
+Display the privacy policy.
+
+### Provide feedback
+
+Open an issue on the github software repository. If you don't login to github a semi-anonymous issue will be created, this is not ideal as you will not be notified of responses to the issue. See _[Provide preset feedback](Property%20editor.md#provide-preset-feedback)_ for the same function for the default preset.
+
 ### Debug
 
 Internal information on the app and a button to force submission of a crash dump.

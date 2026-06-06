@@ -176,7 +176,11 @@ Go to the top of the preset hierarchy.
 
 Go up one level.
 
-### ![Help](../images/menu_help.png) Help
+### Provide preset feedback
+
+Open an issue on the github software repository for the default preset. If you don't login to github a semi-anonymous issue will be created, this is not ideal as you will not be notified of responses to the issue. See _[Provide feedback](Main%20map%20display.md#provide-feedback)_ for the same function for the software.
+
+### ![Help](../images/menu_help.png) Preset help
 
 Start the on device help browser.
 

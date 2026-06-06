@@ -1,5 +1,6 @@
 package de.blau.android.services.util;
 
+import static de.blau.android.net.HttpHeaders.USER_AGENT_HEADER;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -26,7 +27,6 @@ import androidx.test.filters.LargeTest;
 import de.blau.android.MockTileServer;
 import de.blau.android.PMTilesDispatcher;
 import de.blau.android.layer.tiles.util.MapTileProviderCallback;
-import de.blau.android.net.UserAgentInterceptor;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.resources.TileLayerSource.Category;
@@ -37,7 +37,7 @@ import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = { ShadowSQLiteStatement.class, ShadowSQLiteProgram.class, ShadowSQLiteCloseable.class, ShadowSQLiteQuery.class }, sdk=33)
+@Config(shadows = { ShadowSQLiteStatement.class, ShadowSQLiteProgram.class, ShadowSQLiteCloseable.class, ShadowSQLiteQuery.class }, sdk = 33)
 @LargeTest
 public class MapTileFilesystemProviderTest {
 
@@ -248,7 +248,7 @@ public class MapTileFilesystemProviderTest {
     public void customHeaderTest(@NonNull MockWebServer tileServer, @NonNull String source, int zoom, int x, int y) {
         TileLayerSource layer = TileLayerSource.get(ApplicationProvider.getApplicationContext(), source, false);
         assertNotNull(layer);
-        layer.setHeaders(Util.wrapInList(new TileLayerSource.Header(UserAgentInterceptor.USER_AGENT_HEADER, "Mozilla/5.0 (JOSM)")));
+        layer.setHeaders(Util.wrapInList(new TileLayerSource.Header(USER_AGENT_HEADER, "Mozilla/5.0 (JOSM)")));
         // this should load from the server
         final CountDownLatch signal1 = new CountDownLatch(1);
         MapTile mockedTile = new MapTile(source, zoom, x, y); // not this needs to be a
@@ -278,7 +278,7 @@ public class MapTileFilesystemProviderTest {
 
         try {
             RecordedRequest request = tileServer.takeRequest(1, TimeUnit.SECONDS);
-            assertEquals("Mozilla/5.0 (JOSM)", request.getHeader(UserAgentInterceptor.USER_AGENT_HEADER));
+            assertEquals("Mozilla/5.0 (JOSM)", request.getHeader(USER_AGENT_HEADER));
         } catch (InterruptedException e1) {
             fail("no tileserver request found " + e1.getMessage());
         }

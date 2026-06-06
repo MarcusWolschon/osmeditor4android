@@ -1,5 +1,7 @@
 package de.blau.android.util;
 
+import static de.blau.android.net.HttpHeaders.AUTHORIZATION_HEADER;
+
 import java.io.IOException;
 
 import androidx.annotation.NonNull;
@@ -25,7 +27,7 @@ public class BasicAuthInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
-        Request authenticatedRequest = request.newBuilder().header("Authorization", credentials).build();
+        Request authenticatedRequest = request.newBuilder().header(AUTHORIZATION_HEADER, credentials).build();
         return chain.proceed(authenticatedRequest);
     }
 

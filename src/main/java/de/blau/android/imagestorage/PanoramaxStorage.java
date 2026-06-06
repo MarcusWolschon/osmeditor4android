@@ -105,7 +105,7 @@ public class PanoramaxStorage implements ImageStorage {
                     String key = root.get(JWT_TOKEN).getAsString();
                     // this should only be set if auth was successful
                     try (KeyDatabaseHelper kdb = new KeyDatabaseHelper(context); SQLiteDatabase db = kdb.getWritableDatabase()) {
-                        KeyDatabaseHelper.replaceOrDeleteKey(db, configuration.id, KeyDatabaseHelper.EntryType.PANORAMAX_KEY, key, false, true, null, null);
+                        KeyDatabaseHelper.replaceOrDeleteKey(db, configuration.id, KeyDatabaseHelper.EntryType.PANORAMAX_KEY, key, false, true, null, null, null);
                     }
                     JsonElement links = root.get(LINKS);
                     if (!links.isJsonArray() && ((JsonArray) links).size() < 1) {
