@@ -279,8 +279,8 @@ android {
  
     defaultConfig {
         applicationId "de.blau.android"
-        versionCode 3401
-        versionName "22.0.0.0"
+        versionCode 3500
+        versionName "22.1.0.0"
         resValue "string", "app_version", versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -301,7 +301,7 @@ android {
     }
 
     // this, unluckily, cannot be set per flavour
-    compileSdkVersion 35
+    compileSdkVersion 36
 
     // Specifies one flavor dimension.
     flavorDimensions = ['applicationId'] 
@@ -310,7 +310,7 @@ android {
             dimension "applicationId"
             multiDexEnabled true
             minSdkVersion 21
-            targetSdkVersion 35
+            targetSdkVersion 36
             applicationIdSuffix ""
             versionNameSuffix ""
             resValue "string", "app_name", "Vespucci"
@@ -321,7 +321,7 @@ android {
             dimension "applicationId"
             multiDexEnabled true
             minSdkVersion 21
-            targetSdkVersion 35
+            targetSdkVersion 36
             applicationIdSuffix ""
             versionNameSuffix ""
             resValue "string", "app_name", "vespucci.io"
