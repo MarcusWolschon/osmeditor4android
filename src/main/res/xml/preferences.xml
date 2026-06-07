@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:title="@string/menu_config">
     <PreferenceCategory
+        android:key="config_category_view"
         android:title="@string/config_category_view">
         <androidx.preference.Preference
             android:key="@string/config_mapProfile_key"
@@ -31,6 +32,7 @@
             android:defaultValue="false" />
     </PreferenceCategory>
     <PreferenceCategory
+        android:key="config_moreprefs"
         android:title="@string/config_moreprefs">
         <androidx.preference.Preference
             android:key="@string/config_presetbutton_key"

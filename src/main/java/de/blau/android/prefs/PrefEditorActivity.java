@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -16,8 +17,21 @@ import androidx.core.view.ViewGroupCompat;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceScreen;
+
+import de.KnollFrank.lib.settingssearch.client.SearchPreferenceFragments;
+import de.KnollFrank.lib.settingssearch.client.searchDatabaseConfig.SearchDatabaseConfig;
+import de.KnollFrank.lib.settingssearch.common.Locales;
+import de.KnollFrank.lib.settingssearch.db.preference.db.PreferencesDatabase;
+import de.KnollFrank.lib.settingssearch.db.preference.db.PreferencesDatabaseManager;
+import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
+import de.blau.android.prefs.search.Configuration;
+import de.blau.android.prefs.search.ConfigurationBundleConverter;
+import de.blau.android.prefs.search.ConfigurationProvider;
+import de.blau.android.prefs.search.PreferencesDatabaseConfigFactory;
+import de.blau.android.prefs.search.SearchDatabaseConfigFactory;
+import de.blau.android.prefs.search.SearchPreferenceFragmentsFactory;
 import de.blau.android.util.ConfigurationChangeAwareActivity;
 import de.blau.android.util.SelectFile;
 import de.blau.android.util.ThemeUtils;
@@ -65,7 +79,21 @@ public abstract class PrefEditorActivity extends ConfigurationChangeAwareActivit
         ViewGroupCompat.installCompatInsetsDispatch(content);
     }
 
-    /**
+	@Override
+	protected void onStart() {
+		super.onStart();
+		this
+				.getPreferencesDatabaseManager()
+				.initPreferencesDatabase(
+						PreferencesDatabaseConfigFactory.createPreferencesDatabaseConfigForCreationOfPrepackagedDatabaseAssetFile(),
+						ConfigurationProvider.getActualConfiguration(),
+						Locales.getCurrentLocale(getResources().getConfiguration().getLocales()),
+						SearchDatabaseConfigFactory.createSearchDatabaseConfig().treeProcessorFactory,
+						new ConfigurationBundleConverter(),
+						this);
+	}
+
+	/**
      * Set the title in the actionbar
      * 
      * @param title the title to set
@@ -82,10 +110,9 @@ public abstract class PrefEditorActivity extends ConfigurationChangeAwareActivit
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
 		menu
-                .add(0, MENUITEM_SEARCH, 0, R.string.menu_find)
-                .setIcon(ThemeUtils.getTintedDrawable(this, R.drawable.searchpreference_ic_search, android.R.attr.textColorPrimary))
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItem.SHOW_AS_ACTION_IF_ROOM);
-
+				.add(0, MENUITEM_SEARCH, 0, R.string.menu_find)
+				.setIcon(ThemeUtils.getTintedDrawable(this, R.drawable.searchpreference_ic_search, android.R.attr.textColorPrimary))
+				.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItem.SHOW_AS_ACTION_IF_ROOM);
         menu
                 .add(0, MENUITEM_HELP, 0, R.string.menu_help)
                 .setIcon(ThemeUtils.getResIdFromAttribute(this, R.attr.menu_help))
@@ -103,7 +130,7 @@ public abstract class PrefEditorActivity extends ConfigurationChangeAwareActivit
             }
             return true;
         case MENUITEM_SEARCH:
-            // FK-TODO implement search
+			showSearchPreferenceFragment();
             return true;
         case MENUITEM_HELP:
             HelpViewer.start(this, getHelpTopic());
@@ -155,4 +182,30 @@ public abstract class PrefEditorActivity extends ConfigurationChangeAwareActivit
      */
     abstract int getHelpTopic();
 
+	private void showSearchPreferenceFragment() {
+		this
+				.createSearchPreferenceFragments(
+						getPreferencesDatabaseManager().getPreferencesDatabase(),
+						ConfigurationProvider.getActualConfiguration(),
+						SearchDatabaseConfigFactory.createSearchDatabaseConfig())
+				.showSearchPreferenceFragment();
+	}
+
+	private SearchPreferenceFragments<Configuration> createSearchPreferenceFragments(
+			final PreferencesDatabase<Configuration> preferencesDatabase,
+			final Configuration configuration,
+			final SearchDatabaseConfig<Configuration> searchDatabaseConfig) {
+		return SearchPreferenceFragmentsFactory.createSearchPreferenceFragments(
+				R.id.pref_content,
+				this,
+				preferencesDatabase,
+				configuration,
+				searchDatabaseConfig);
+	}
+
+	private PreferencesDatabaseManager<Configuration> getPreferencesDatabaseManager() {
+		return App
+				.getInstanceFromContext(this)
+				.preferencesDatabaseManager;
+	}
 }

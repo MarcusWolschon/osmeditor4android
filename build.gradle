@@ -36,21 +36,30 @@ plugins {
     id "com.github.ben-manes.versions" version "0.39.0"
 }
 
+
 import com.android.ddmlib.AndroidDebugBridge
 import com.android.ddmlib.CollectingOutputReceiver
 import com.android.ddmlib.EmulatorConsole
 import com.android.ddmlib.IDevice
 import de.undercouch.gradle.tasks.download.Download
 import groovy.json.JsonGenerator
+import groovy.yaml.YamlSlurper
 
 // Project level build file starts here
 apply plugin: 'eclipse'
+apply plugin: 'idea'
 apply plugin: 'com.android.application'
 apply plugin: 'ch.poole.gradle.markdown'
 apply plugin: 'jacoco'
 apply plugin: 'com.getkeepsafe.dexcount'
 apply plugin: 'com.google.protobuf'
 apply plugin: 'com.malinskiy.marathon'
+
+idea {
+    module {
+        downloadSources = true
+    }
+}
 
 allprojects {
     repositories {
@@ -415,9 +424,6 @@ protobuf {
 ext {
     adb = android.getAdbExe().toString()
 }
-
-
-import groovy.yaml.YamlSlurper
 
 task enableFreeform() {
     doLast {
