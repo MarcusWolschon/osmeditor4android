@@ -35,6 +35,7 @@ public abstract class PrefEditorActivity extends ConfigurationChangeAwareActivit
     private static final String DEBUG_TAG = PrefEditorActivity.class.getSimpleName().substring(0, TAG_LEN);
 
     protected static final int MENUITEM_HELP = 1;
+    protected static final int MENUITEM_SEARCH = 2;
 
     private TextView titleView;
 
@@ -80,7 +81,14 @@ public abstract class PrefEditorActivity extends ConfigurationChangeAwareActivit
 
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
-        menu.add(0, MENUITEM_HELP, 0, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(this, R.attr.menu_help))
+		menu
+                .add(0, MENUITEM_SEARCH, 0, R.string.menu_find)
+                .setIcon(ThemeUtils.getTintedDrawable(this, R.drawable.searchpreference_ic_search, android.R.attr.textColorPrimary))
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+        menu
+                .add(0, MENUITEM_HELP, 0, R.string.menu_help)
+                .setIcon(ThemeUtils.getResIdFromAttribute(this, R.attr.menu_help))
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         return super.onCreateOptionsMenu(menu);
     }
@@ -93,6 +101,9 @@ public abstract class PrefEditorActivity extends ConfigurationChangeAwareActivit
             if (!getSupportFragmentManager().popBackStackImmediate()) {
                 finish();
             }
+            return true;
+        case MENUITEM_SEARCH:
+            // FK-TODO implement search
             return true;
         case MENUITEM_HELP:
             HelpViewer.start(this, getHelpTopic());
