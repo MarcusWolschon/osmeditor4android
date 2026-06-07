@@ -18,10 +18,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceScreen;
 
-import de.KnollFrank.lib.settingssearch.client.SearchPreferenceFragments;
-import de.KnollFrank.lib.settingssearch.client.searchDatabaseConfig.SearchDatabaseConfig;
 import de.KnollFrank.lib.settingssearch.common.Locales;
-import de.KnollFrank.lib.settingssearch.db.preference.db.PreferencesDatabase;
 import de.KnollFrank.lib.settingssearch.db.preference.db.PreferencesDatabaseManager;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
@@ -39,45 +36,45 @@ import de.blau.android.util.ThemeUtils;
 /**
  * The handling of PreferenceScreen is partially based on
  * https://stackoverflow.com/questions/32494548/how-to-move-back-from-preferences-subscreen-to-main-screen-in-preferencefragment/32713331#32713331
- * 
+ *
  * @author simon
  *
  */
 public abstract class PrefEditorActivity extends ConfigurationChangeAwareActivity implements PreferenceFragmentCompat.OnPreferenceStartScreenCallback {
 
-    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, PrefEditorActivity.class.getSimpleName().length());
-    private static final String DEBUG_TAG = PrefEditorActivity.class.getSimpleName().substring(0, TAG_LEN);
+	private static final int TAG_LEN = Math.min(LOG_TAG_LEN, PrefEditorActivity.class.getSimpleName().length());
+	private static final String DEBUG_TAG = PrefEditorActivity.class.getSimpleName().substring(0, TAG_LEN);
 
-    protected static final int MENUITEM_HELP = 1;
-    protected static final int MENUITEM_SEARCH = 2;
+	protected static final int MENUITEM_HELP = 1;
+	protected static final int MENUITEM_SEARCH = 2;
 
-    private TextView titleView;
+	private TextView titleView;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        Log.d(DEBUG_TAG, "onCreate");
-        Preferences prefs = new Preferences(this);
-        if (prefs.lightThemeEnabled()) {
-            setTheme(R.style.Theme_AppCompatPrefsLight);
-        }
-        super.onCreate(savedInstanceState);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setCustomView(R.layout.actionbar_title_layout);
-        titleView = findViewById(R.id.actionbar_title);
+	@Override
+	protected void onCreate(@Nullable Bundle savedInstanceState) {
+		Log.d(DEBUG_TAG, "onCreate");
+		Preferences prefs = new Preferences(this);
+		if (prefs.lightThemeEnabled()) {
+			setTheme(R.style.Theme_AppCompatPrefsLight);
+		}
+		super.onCreate(savedInstanceState);
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		actionBar.setDisplayShowCustomEnabled(true);
+		actionBar.setCustomView(R.layout.actionbar_title_layout);
+		titleView = findViewById(R.id.actionbar_title);
 
-        setContentView(R.layout.pref_activity);
-        ExtendedPreferenceFragment f = newEditorFragment();
+		setContentView(R.layout.pref_activity);
+		ExtendedPreferenceFragment f = newEditorFragment();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.pref_content, f).commit();
-        View content = findViewById(android.R.id.content);
-        if (content == null) {
-            Log.e(DEBUG_TAG, "Didn't find content view, not setting insets listener");
-            return;
-        }
-        ViewGroupCompat.installCompatInsetsDispatch(content);
-    }
+		getSupportFragmentManager().beginTransaction().replace(R.id.pref_content, f).commit();
+		View content = findViewById(android.R.id.content);
+		if (content == null) {
+			Log.e(DEBUG_TAG, "Didn't find content view, not setting insets listener");
+			return;
+		}
+		ViewGroupCompat.installCompatInsetsDispatch(content);
+	}
 
 	@Override
 	protected void onStart() {
@@ -94,113 +91,103 @@ public abstract class PrefEditorActivity extends ConfigurationChangeAwareActivit
 	}
 
 	/**
-     * Set the title in the actionbar
-     * 
-     * @param title the title to set
-     */
-    @Override
-    public void setTitle(@NonNull CharSequence title) {
-        if (titleView == null) {
-            Log.e(DEBUG_TAG, "TitleView is null");
-            return;
-        }
-        titleView.setText(title);
-    }
+	 * Set the title in the actionbar
+	 *
+	 * @param title the title to set
+	 */
+	@Override
+	public void setTitle(@NonNull CharSequence title) {
+		if (titleView == null) {
+			Log.e(DEBUG_TAG, "TitleView is null");
+			return;
+		}
+		titleView.setText(title);
+	}
 
-    @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
+	@Override
+	public boolean onCreateOptionsMenu(final Menu menu) {
 		menu
 				.add(0, MENUITEM_SEARCH, 0, R.string.menu_find)
 				.setIcon(ThemeUtils.getTintedDrawable(this, R.drawable.searchpreference_ic_search, android.R.attr.textColorPrimary))
 				.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        menu
-                .add(0, MENUITEM_HELP, 0, R.string.menu_help)
-                .setIcon(ThemeUtils.getResIdFromAttribute(this, R.attr.menu_help))
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        return super.onCreateOptionsMenu(menu);
-    }
+		menu
+				.add(0, MENUITEM_HELP, 0, R.string.menu_help)
+				.setIcon(ThemeUtils.getResIdFromAttribute(this, R.attr.menu_help))
+				.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		return super.onCreateOptionsMenu(menu);
+	}
 
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        Log.d(DEBUG_TAG, "onOptionsItemSelected");
-        switch (item.getItemId()) {
-        case android.R.id.home:
-            if (!getSupportFragmentManager().popBackStackImmediate()) {
-                finish();
-            }
-            return true;
-        case MENUITEM_SEARCH:
-			showSearchPreferenceFragment();
-            return true;
-        case MENUITEM_HELP:
-            HelpViewer.start(this, getHelpTopic());
-            return true;
-        default:
-            Log.w(DEBUG_TAG, "Unknown menu item " + item.getItemId());
-        }
-        return super.onOptionsItemSelected(item);
-    }
+	@Override
+	public boolean onOptionsItemSelected(final MenuItem item) {
+		Log.d(DEBUG_TAG, "onOptionsItemSelected");
+		switch (item.getItemId()) {
+			case android.R.id.home:
+				if (!getSupportFragmentManager().popBackStackImmediate()) {
+					finish();
+				}
+				return true;
+			case MENUITEM_SEARCH:
+				showSearchPreferenceFragment();
+				return true;
+			case MENUITEM_HELP:
+				HelpViewer.start(this, getHelpTopic());
+				return true;
+			default:
+				Log.w(DEBUG_TAG, "Unknown menu item " + item.getItemId());
+		}
+		return super.onOptionsItemSelected(item);
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
-        Log.d(DEBUG_TAG, "onActivityResult");
-        super.onActivityResult(requestCode, resultCode, data);
-        if ((requestCode == SelectFile.READ_FILE || requestCode == SelectFile.SAVE_FILE) && resultCode == RESULT_OK) {
-            SelectFile.handleResult(this, requestCode, data);
-        }
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+		Log.d(DEBUG_TAG, "onActivityResult");
+		super.onActivityResult(requestCode, resultCode, data);
+		if ((requestCode == SelectFile.READ_FILE || requestCode == SelectFile.SAVE_FILE) && resultCode == RESULT_OK) {
+			SelectFile.handleResult(this, requestCode, data);
+		}
+	}
 
-    @Override
-    public boolean onPreferenceStartScreen(PreferenceFragmentCompat preferenceFragmentCompat, PreferenceScreen preferenceScreen) {
-        Log.d(DEBUG_TAG, "callback called to attach the preference sub screen " + preferenceScreen.getKey());
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ExtendedPreferenceFragment fragment = newEditorFragment();
-        Bundle args = new Bundle();
-        // Defining the sub screen as new root for the subscreen
-        args.putString(PreferenceFragmentCompat.ARG_PREFERENCE_ROOT, preferenceScreen.getKey());
-        fragment.setArguments(args);
-        ft.replace(R.id.pref_content, fragment, preferenceScreen.getKey());
-        ft.addToBackStack(null);
-        ft.commit();
-        return true;
-    }
+	@Override
+	public boolean onPreferenceStartScreen(PreferenceFragmentCompat preferenceFragmentCompat, PreferenceScreen preferenceScreen) {
+		Log.d(DEBUG_TAG, "callback called to attach the preference sub screen " + preferenceScreen.getKey());
+		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+		ExtendedPreferenceFragment fragment = newEditorFragment();
+		Bundle args = new Bundle();
+		// Defining the sub screen as new root for the subscreen
+		args.putString(PreferenceFragmentCompat.ARG_PREFERENCE_ROOT, preferenceScreen.getKey());
+		fragment.setArguments(args);
+		ft.replace(R.id.pref_content, fragment, preferenceScreen.getKey());
+		ft.addToBackStack(null);
+		ft.commit();
+		return true;
+	}
 
-    /**
-     * Get and instance of the Fragment we actually want to show
-     * 
-     * @return an ExtendedPreferenceFragment instance
-     */
-    abstract ExtendedPreferenceFragment newEditorFragment();
+	/**
+	 * Get and instance of the Fragment we actually want to show
+	 *
+	 * @return an ExtendedPreferenceFragment instance
+	 */
+	abstract ExtendedPreferenceFragment newEditorFragment();
 
-    /**
-     * Get the help topic resource
-     * 
-     * @return a resource id for the help topic
-     */
-    abstract int getHelpTopic();
+	/**
+	 * Get the help topic resource
+	 *
+	 * @return a resource id for the help topic
+	 */
+	abstract int getHelpTopic();
 
 	private void showSearchPreferenceFragment() {
-		this
+		SearchPreferenceFragmentsFactory
 				.createSearchPreferenceFragments(
+						R.id.pref_content,
+						this,
 						getPreferencesDatabaseManager().getPreferencesDatabase(),
 						ConfigurationProvider.getActualConfiguration(),
 						SearchDatabaseConfigFactory.createSearchDatabaseConfig())
 				.showSearchPreferenceFragment();
-	}
-
-	private SearchPreferenceFragments<Configuration> createSearchPreferenceFragments(
-			final PreferencesDatabase<Configuration> preferencesDatabase,
-			final Configuration configuration,
-			final SearchDatabaseConfig<Configuration> searchDatabaseConfig) {
-		return SearchPreferenceFragmentsFactory.createSearchPreferenceFragments(
-				R.id.pref_content,
-				this,
-				preferencesDatabase,
-				configuration,
-				searchDatabaseConfig);
 	}
 
 	private PreferencesDatabaseManager<Configuration> getPreferencesDatabaseManager() {
