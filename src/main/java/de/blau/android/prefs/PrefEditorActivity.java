@@ -82,7 +82,7 @@ public abstract class PrefEditorActivity extends ConfigurationChangeAwareActivit
 		this
 				.getPreferencesDatabaseManager()
 				.initPreferencesDatabase(
-						PreferencesDatabaseConfigFactory.createPreferencesDatabaseConfigForCreationOfPrepackagedDatabaseAssetFile(),
+						PreferencesDatabaseConfigFactory.createPreferencesDatabaseConfig(),
 						ConfigurationProvider.getActualConfiguration(),
 						Locales.getCurrentLocale(getResources().getConfiguration().getLocales()),
 						SearchDatabaseConfigFactory.createSearchDatabaseConfig().treeProcessorFactory,

@@ -11,7 +11,7 @@ public class PreferencesDatabaseConfigFactory {
 	private PreferencesDatabaseConfigFactory() {
 	}
 
-	public static PreferencesDatabaseConfig<Configuration> createPreferencesDatabaseConfigForCreationOfPrepackagedDatabaseAssetFile() {
+	public static PreferencesDatabaseConfig<Configuration> createPreferencesDatabaseConfig() {
 		return new PreferencesDatabaseConfig<>(
 				SEARCHABLE_PREFERENCES_DB,
 				Optional.empty(),
