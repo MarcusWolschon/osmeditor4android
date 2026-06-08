@@ -685,7 +685,7 @@ dependencies {
     implementation 'ch.poole.misc:bentley-ottmann:0.1.3'
     implementation 'ch.poole.geo.pmtiles-reader:Reader:0.3.7'
     implementation 'ch.poole:preset-utils:0.44.0'
-    implementation 'com.github.KnollFrank:SettingsSearch:318d2d1520'
+    implementation 'com.github.KnollFrank:SettingsSearch:ea9c25468b'
     // https://mvnrepository.com/artifact/com.google.guava/guava
     implementation 'com.google.guava:guava:33.5.0-android'
     implementation 'com.codepoetics:ambivalence:0.2'

@@ -42,6 +42,7 @@ import java.util.TreeMap;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import de.KnollFrank.lib.settingssearch.common.uicontroller.CurrentActivityProvider;
 import de.KnollFrank.lib.settingssearch.db.preference.db.PreferencesDatabaseManager;
 import de.blau.android.contract.Paths;
 import de.blau.android.filter.PresetFilter;
@@ -270,6 +271,7 @@ public class App extends Application implements android.app.Application.Activity
         } else {
             registerReceiver(new DesktopModeReceiver(), desktopModeFilter);
         }
+        CurrentActivityProvider.initialize(this);
     }
 
     /**
