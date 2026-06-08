@@ -14,9 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.core.view.ViewGroupCompat;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.PreferenceScreen;
 
 import de.KnollFrank.lib.settingssearch.db.preference.db.PreferencesDatabaseManager;
 import de.blau.android.App;
@@ -37,7 +34,7 @@ import de.blau.android.util.ThemeUtils;
  * @author simon
  *
  */
-public abstract class PrefEditorActivity extends ConfigurationChangeAwareActivity implements PreferenceFragmentCompat.OnPreferenceStartScreenCallback {
+public abstract class PrefEditorActivity extends ConfigurationChangeAwareActivity {
 
 	private static final int TAG_LEN = Math.min(LOG_TAG_LEN, PrefEditorActivity.class.getSimpleName().length());
 	private static final String DEBUG_TAG = PrefEditorActivity.class.getSimpleName().substring(0, TAG_LEN);
@@ -131,21 +128,6 @@ public abstract class PrefEditorActivity extends ConfigurationChangeAwareActivit
 		if ((requestCode == SelectFile.READ_FILE || requestCode == SelectFile.SAVE_FILE) && resultCode == RESULT_OK) {
 			SelectFile.handleResult(this, requestCode, data);
 		}
-	}
-
-	@Override
-	public boolean onPreferenceStartScreen(PreferenceFragmentCompat preferenceFragmentCompat, PreferenceScreen preferenceScreen) {
-		Log.d(DEBUG_TAG, "callback called to attach the preference sub screen " + preferenceScreen.getKey());
-		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-		ExtendedPreferenceFragment fragment = newEditorFragment();
-		Bundle args = new Bundle();
-		// Defining the sub screen as new root for the subscreen
-		args.putString(PreferenceFragmentCompat.ARG_PREFERENCE_ROOT, preferenceScreen.getKey());
-		fragment.setArguments(args);
-		ft.replace(R.id.pref_content, fragment, preferenceScreen.getKey());
-		ft.addToBackStack(null);
-		ft.commit();
-		return true;
 	}
 
 	/**
