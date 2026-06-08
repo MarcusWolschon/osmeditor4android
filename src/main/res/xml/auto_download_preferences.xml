@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:title="@string/config_category_auto_download">
+    <ch.poole.android.numberpickerpreference.NumberPickerPreference
+        android:defaultValue="50"
+        android:dialogTitle="@string/config_extTriggeredDownloadRadius_title"
+        android:key="@string/config_extTriggeredDownloadRadius_key"
+        android:numeric="integer"
+        android:summary="@string/config_extTriggeredDownloadRadius_summary"
+        android:title="@string/config_extTriggeredDownloadRadius_title"
+        app:spt_maxValue="500" app:spt_minValue="0"
+        app:spt_increment="10"
+        app:spt_currentValueText="@string/config_downloadRadius_current"
+        app:spt_setWrapSelectorWheel="false" />
+    <ch.poole.android.numberpickerpreference.NumberPickerPreference
+        android:defaultValue="10"
+        android:dialogTitle="@string/config_maxDownloadSpeed_title"
+        android:key="@string/config_maxDownloadSpeed_key"
+        android:numeric="decimal"
+        android:summary="@string/config_maxDownloadSpeed_summary"
+        android:title="@string/config_maxDownloadSpeed_title"
+        app:spt_maxValue="200" app:spt_minValue="0"
+        app:spt_increment="5"
+        app:spt_currentValueText="@string/config_downloadSpeed_current"
+        app:spt_setWrapSelectorWheel="false" />
+    <androidx.preference.CheckBoxPreference
+        android:defaultValue="true"
+        android:key="@string/config_autoPrune_key"
+        android:summary="@string/config_autoPrune_summary"
+        android:title="@string/config_autoPrune_title" />
+    <ch.poole.android.numberpickerpreference.NumberPickerPreference
+        android:defaultValue="5000"
+        android:dialogTitle="@string/config_autoPruneNodeLimit_title"
+        android:key="@string/config_autoPruneNodeLimit_key"
+        android:numeric="integer"
+        android:summary="@string/config_autoPruneNodeLimit_summary"
+        android:title="@string/config_autoPruneNodeLimit_title"
+        app:spt_maxValue="50000" app:spt_minValue="0"
+        app:spt_increment="1000"
+        app:spt_currentValueText="@string/config_autoPruneNodeLimit_current"
+        app:spt_setWrapSelectorWheel="false" />
+    <ch.poole.android.numberpickerpreference.NumberPickerPreference
+        android:defaultValue="100"
+        android:dialogTitle="@string/config_autoPruneBoundingBoxLimit_title"
+        android:key="@string/config_autoPruneBoundingBoxLimit_key"
+        android:numeric="integer"
+        android:summary="@string/config_autoPruneBoundingBoxLimit_summary"
+        android:title="@string/config_autoPruneBoundingBoxLimit_title"
+        app:spt_maxValue="500" app:spt_minValue="50"
+        app:spt_increment="50"
+        app:spt_currentValueText="@string/config_autoPruneBoundingBoxLimit_current"
+        app:spt_setWrapSelectorWheel="false" />
+    <ch.poole.android.numberpickerpreference.NumberPickerPreference
+        android:defaultValue="17"
+        android:dialogTitle="@string/config_panAndZoomLimit_title"
+        android:key="@string/config_panAndZoomLimit_key"
+        android:numeric="integer"
+        android:summary="@string/config_panAndZoomLimit_summary"
+        android:title="@string/config_panAndZoomLimit_title"
+        app:spt_maxValue="20" app:spt_minValue="10"
+        app:spt_increment="1"
+        app:spt_currentValueText="@string/config_panAndZoomLimit_current"
+        app:spt_setWrapSelectorWheel="false" />
+    <ch.poole.android.numberpickerpreference.NumberPickerPreference
+        android:defaultValue="200"
+        android:dialogTitle="@string/config_bugDownloadRadius_title"
+        android:key="@string/config_bugDownloadRadius_key"
+        android:numeric="integer"
+        android:summary="@string/config_bugDownloadRadius_summary"
+        android:title="@string/config_bugDownloadRadius_title"
+        app:spt_maxValue="500" app:spt_minValue="0"
+        app:spt_increment="10"
+        app:spt_currentValueText="@string/config_downloadRadius_current"
+        app:spt_setWrapSelectorWheel="false" />
+    <ch.poole.android.numberpickerpreference.NumberPickerPreference
+        android:defaultValue="30"
+        android:dialogTitle="@string/config_maxBugDownloadSpeed_title"
+        android:key="@string/config_maxBugDownloadSpeed_key"
+        android:numeric="decimal"
+        android:summary="@string/config_maxBugDownloadSpeed_summary"
+        android:title="@string/config_maxBugDownloadSpeed_title"
+        app:spt_maxValue="200" app:spt_minValue="0"
+        app:spt_increment="5"
+        app:spt_currentValueText="@string/config_downloadSpeed_current"
+        app:spt_setWrapSelectorWheel="false" />
+    <ch.poole.android.numberpickerpreference.NumberPickerPreference
+        android:defaultValue="10000"
+        android:dialogTitle="@string/config_autoPruneTaskLimit_title"
+        android:key="@string/config_autoPruneTaskLimit_key"
+        android:numeric="integer"
+        android:summary="@string/config_autoPruneTaskLimit_summary"
+        android:title="@string/config_autoPruneTaskLimit_title"
+        app:spt_maxValue="50000" app:spt_minValue="0"
+        app:spt_increment="1000"
+        app:spt_currentValueText="@string/config_autoPruneTaskLimit_current"
+        app:spt_setWrapSelectorWheel="false" />
+</PreferenceScreen>

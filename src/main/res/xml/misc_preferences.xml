@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/config_category_misc">
+    <androidx.preference.CheckBoxPreference
+        android:defaultValue="true" android:key="acra.enable"
+        android:summaryOff="@string/pref_acra_disabled"
+        android:summaryOn="@string/pref_acra_enabled"
+        android:title="@string/pref_enable_acra" />
+    <androidx.preference.CheckBoxPreference
+        android:defaultValue="false"
+        android:key="@string/config_showStats_key"
+        android:summary="@string/config_showStats_summary"
+        android:title="@string/config_showStats_title" />
+</PreferenceScreen>

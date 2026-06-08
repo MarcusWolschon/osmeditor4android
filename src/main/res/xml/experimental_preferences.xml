@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/config_category_experimental">
+    <androidx.preference.CheckBoxPreference
+        android:defaultValue="false"
+        android:key="@string/config_js_console_key"
+        android:summary="@string/config_js_console_summary"
+        android:title="@string/config_js_console_title" />
+    <androidx.preference.CheckBoxPreference
+        android:defaultValue="false"
+        android:key="@string/config_voiceCommandsEnabled_key"
+        android:summary="@string/config_voiceCommandsEnabled_summary"
+        android:title="@string/config_voiceCommandsEnabled_title" />
+    <androidx.preference.CheckBoxPreference
+        android:defaultValue="false"
+        android:key="@string/config_splitWindowForPropertyEditor_key"
+        android:summary="@string/config_splitWindowForPropertyEditor_summary"
+        android:title="@string/config_splitWindowForPropertyEditor_title" />
+    <androidx.preference.CheckBoxPreference
+        android:defaultValue="false"
+        android:key="@string/config_splitWindowForReview_key"
+        android:summary="@string/config_splitWindowForReview_summary"
+        android:title="@string/config_splitWindowForReview_title" />
+    <androidx.preference.CheckBoxPreference
+        android:defaultValue="false"
+        android:key="@string/config_tabLayout_key"
+        android:summary="@string/config_tabLayout_summary"
+        android:title="@string/config_tabLayout_title" />
+    <androidx.preference.CheckBoxPreference
+        android:defaultValue="false"
+        android:key="@string/config_newTaskForPropertyEditor_key"
+        android:summary="@string/config_newTaskForPropertyEditor_summary"
+        android:title="@string/config_newTaskForPropertyEditor_title" />
+</PreferenceScreen>
