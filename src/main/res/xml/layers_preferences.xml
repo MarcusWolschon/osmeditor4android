@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:title="@string/config_category_layers">
+    <ch.poole.android.numberpickerpreference.NumberPickerPreference
+        android:defaultValue="4"
+        android:dialogTitle="@string/config_maxTileDownloadThreads_title"
+        android:key="@string/config_maxTileDownloadThreads_key"
+        android:numeric="integer"
+        android:summary="@string/config_maxTileDownloadThreads_summary"
+        android:title="@string/config_maxTileDownloadThreads_title"
+        app:spt_maxValue="16" app:spt_minValue="1"
+        app:spt_currentValueText="@string/config_downLoadThreads_current"
+        app:spt_setWrapSelectorWheel="false" />
+    <ch.poole.android.numberpickerpreference.NumberPickerPreference
+        android:defaultValue="100"
+        android:dialogTitle="@string/config_tileCacheSize_title"
+        android:key="@string/config_tileCacheSize_key"
+        android:numeric="integer"
+        android:summary="@string/config_tileCacheSize_summary"
+        android:title="@string/config_tileCacheSize_title"
+        app:spt_maxValue="1000" app:spt_minValue="10"
+        app:spt_increment="10"
+        app:spt_currentValueText="@string/config_tileCache_current"
+        app:spt_setWrapSelectorWheel="false" />
+    <androidx.preference.CheckBoxPreference
+        android:defaultValue="true"
+        android:key="@string/config_preferRemovableStorage_key"
+        android:summary="@string/config_preferRemovableStorage_summary"
+        android:title="@string/config_preferRemovableStorage_title" />
+    <ch.poole.android.numberpickerpreference.NumberPickerPreference
+        android:defaultValue="100"
+        android:dialogTitle="@string/config_mapillaryCacheSize_title"
+        android:key="@string/config_mapillaryCacheSize_key"
+        android:numeric="integer"
+        android:summary="@string/config_mapillaryCacheSize_summary"
+        android:title="@string/config_mapillaryCacheSize_title"
+        app:spt_maxValue="1000" app:spt_increment="10"
+        app:spt_minValue="10"
+        app:spt_currentValueText="@string/config_tileCache_current"
+        app:spt_setWrapSelectorWheel="false" />
+</PreferenceScreen>

@@ -2,26 +2,6 @@ package de.blau.android;
 
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-import java.util.concurrent.TimeUnit;
-
-import org.xmlpull.v1.XmlPullParserException;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.DownloadManager;
@@ -71,6 +51,7 @@ import android.view.ViewStub;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
+
 import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
@@ -88,7 +69,29 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.TimeUnit;
+
 import ch.poole.osm.josmfilterparser.Condition;
+import de.KnollFrank.lib.settingssearch.common.Locales;
 import de.blau.android.Logic.CursorPaddirection;
 import de.blau.android.RemoteControlUrlActivity.RemoteControlUrlData;
 import de.blau.android.Selection.Ids;
@@ -159,6 +162,10 @@ import de.blau.android.prefs.ImportExportConfiguration;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.prefs.keyboard.Shortcuts;
+import de.blau.android.prefs.search.ConfigurationBundleConverter;
+import de.blau.android.prefs.search.ConfigurationProvider;
+import de.blau.android.prefs.search.PreferencesDatabaseConfigFactory;
+import de.blau.android.prefs.search.SearchDatabaseConfigFactory;
 import de.blau.android.presets.PresetElementPath;
 import de.blau.android.propertyeditor.PropertyEditorActivity;
 import de.blau.android.propertyeditor.PropertyEditorData;
@@ -680,6 +687,21 @@ public class Main extends ConfigurationChangeAwareActivity
 
         TakePicture takePicture = new TakePicture(this, prefs);
         takePictureRequestLauncher = registerForActivityResult(takePicture, takePicture::processImage);
+
+        initPreferencesDatabase();
+    }
+
+    private void initPreferencesDatabase() {
+        App
+                .getInstanceFromContext(this)
+                .preferencesDatabaseManager
+                .initPreferencesDatabase(
+                        PreferencesDatabaseConfigFactory.createPreferencesDatabaseConfig(),
+                        ConfigurationProvider.getActualConfiguration(),
+                        Locales.getCurrentLocale(getResources().getConfiguration().getLocales()),
+                        SearchDatabaseConfigFactory.createSearchDatabaseConfig(getApplicationContext()).treeProcessorFactory,
+                        new ConfigurationBundleConverter(),
+                        this);
     }
 
     @Override

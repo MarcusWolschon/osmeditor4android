@@ -2,15 +2,24 @@ package de.blau.android;
 
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.security.Security;
-import java.util.Random;
-import java.util.TreeMap;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Build;
+import android.os.Bundle;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.multidex.MultiDex;
+import androidx.preference.PreferenceManager;
+
+import com.faendir.rhino_android.AndroidContextFactory;
+import com.faendir.rhino_android.RhinoAndroidHelper;
 
 import org.acra.ACRA;
 import org.acra.annotation.AcraCore;
@@ -23,23 +32,18 @@ import org.mozilla.javascript.ScriptableObject;
 import org.nustaq.serialization.FSTConfiguration;
 import org.nustaq.serialization.serializers.FSTMapSerializer;
 
-import com.faendir.rhino_android.AndroidContextFactory;
-import com.faendir.rhino_android.RhinoAndroidHelper;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.security.Security;
+import java.util.Random;
+import java.util.TreeMap;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
-import android.app.Activity;
-import android.app.Application;
-import android.content.Context;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.os.Build;
-import android.os.Bundle;
-import android.util.Log;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.multidex.MultiDex;
-import androidx.preference.PreferenceManager;
+import de.KnollFrank.lib.settingssearch.common.uicontroller.CurrentActivityProvider;
+import de.KnollFrank.lib.settingssearch.db.preference.db.PreferencesDatabaseManager;
 import de.blau.android.contract.Paths;
 import de.blau.android.filter.PresetFilter;
 import de.blau.android.net.OkHttpCompat;
@@ -229,6 +233,12 @@ public class App extends Application implements android.app.Application.Activity
         return appName;
     }
 
+    public final PreferencesDatabaseManager<de.blau.android.prefs.search.Configuration> preferencesDatabaseManager = new PreferencesDatabaseManager<>();
+
+    public static App getInstanceFromContext(final Context context) {
+        return (App) context.getApplicationContext();
+    }
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -261,6 +271,7 @@ public class App extends Application implements android.app.Application.Activity
         } else {
             registerReceiver(new DesktopModeReceiver(), desktopModeFilter);
         }
+        CurrentActivityProvider.initialize(this);
     }
 
     /**

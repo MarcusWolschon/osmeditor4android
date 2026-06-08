@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:title="@string/config_validatorprefs_title">
+    <androidx.preference.Preference
+        android:title="@string/config_validatorprefs_title"
+        android:key="@string/config_validatorprefs_key"
+        android:summary="@string/config_validatorprefs_summary" />
+    <ch.poole.android.numberpickerpreference.NumberPickerPreference
+        android:defaultValue="2"
+        android:dialogTitle="@string/config_connectedNodeTolerance_title"
+        android:key="@string/config_connectedNodeTolerance_key"
+        android:numeric="integer"
+        android:summary="@string/config_connectedNodeTolerance_summary"
+        android:title="@string/config_connectedNodeTolerance_title"
+        app:spt_maxValue="10"
+        app:spt_minValue="1"
+        app:spt_currentValueText="@string/config_maxAlertDistance_current"
+        app:spt_setWrapSelectorWheel="false" />
+    <androidx.preference.MultiSelectListPreference
+        android:key="@string/config_enabledValidations_key"
+        android:title="@string/config_enabledValidations_title"
+        android:summary="@string/config_enabledValidations_summary"
+        android:entries="@array/validations_entries"
+        android:entryValues="@array/validations_values"
+        android:defaultValue="@array/validations_values" />
+</PreferenceScreen>
