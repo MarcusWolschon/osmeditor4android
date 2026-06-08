@@ -18,15 +18,12 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceScreen;
 
-import de.KnollFrank.lib.settingssearch.common.Locales;
 import de.KnollFrank.lib.settingssearch.db.preference.db.PreferencesDatabaseManager;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.prefs.search.Configuration;
-import de.blau.android.prefs.search.ConfigurationBundleConverter;
 import de.blau.android.prefs.search.ConfigurationProvider;
-import de.blau.android.prefs.search.PreferencesDatabaseConfigFactory;
 import de.blau.android.prefs.search.SearchDatabaseConfigFactory;
 import de.blau.android.prefs.search.SearchPreferenceFragmentsFactory;
 import de.blau.android.util.ConfigurationChangeAwareActivity;
@@ -74,20 +71,6 @@ public abstract class PrefEditorActivity extends ConfigurationChangeAwareActivit
 			return;
 		}
 		ViewGroupCompat.installCompatInsetsDispatch(content);
-	}
-
-	@Override
-	protected void onStart() {
-		super.onStart();
-		this
-				.getPreferencesDatabaseManager()
-				.initPreferencesDatabase(
-						PreferencesDatabaseConfigFactory.createPreferencesDatabaseConfig(),
-						ConfigurationProvider.getActualConfiguration(),
-						Locales.getCurrentLocale(getResources().getConfiguration().getLocales()),
-						SearchDatabaseConfigFactory.createSearchDatabaseConfig(getApplicationContext()).treeProcessorFactory,
-						new ConfigurationBundleConverter(),
-						this);
 	}
 
 	/**
