@@ -1,10 +1,11 @@
 package de.blau.android.prefs.search;
 
+import static de.blau.android.prefs.search.ToInitialPreferenceScreenNavigator.navigateToInitialPreferenceScreen;
+
 import androidx.annotation.IdRes;
 import androidx.fragment.app.FragmentActivity;
 
 import de.KnollFrank.lib.settingssearch.client.SearchConfig;
-import de.KnollFrank.lib.settingssearch.common.Keyboard;
 
 class SearchConfigFactory {
 
@@ -19,13 +20,5 @@ class SearchConfigFactory {
 						fragmentActivity,
 						() -> navigateToInitialPreferenceScreen(fragmentActivity))
 				.build();
-	}
-
-	private static void navigateToInitialPreferenceScreen(final FragmentActivity fragmentActivity) {
-		fragmentActivity.runOnUiThread(() -> {
-			Keyboard.hideKeyboard(fragmentActivity);
-			// FK-TODO: vom PrefEditor (AdvancedPrefEditor) aus ein (zwei) mal onBackPressed() aufrufen?
-			fragmentActivity.getOnBackPressedDispatcher().onBackPressed();
-		});
 	}
 }
