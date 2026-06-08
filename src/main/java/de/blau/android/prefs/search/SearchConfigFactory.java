@@ -24,6 +24,7 @@ class SearchConfigFactory {
 	private static void navigateToInitialPreferenceScreen(final FragmentActivity fragmentActivity) {
 		fragmentActivity.runOnUiThread(() -> {
 			Keyboard.hideKeyboard(fragmentActivity);
+			// FK-TODO: vom PrefEditor (AdvancedPrefEditor) aus ein (zwei) mal onBackPressed() aufrufen?
 			fragmentActivity.getOnBackPressedDispatcher().onBackPressed();
 		});
 	}
