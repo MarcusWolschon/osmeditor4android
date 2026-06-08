@@ -6,14 +6,12 @@ import de.KnollFrank.lib.settingssearch.db.preference.db.PreferencesDatabaseConf
 
 public class PreferencesDatabaseConfigFactory {
 
-	private static final String SEARCHABLE_PREFERENCES_DB = "searchable_preferences.db";
-
 	private PreferencesDatabaseConfigFactory() {
 	}
 
 	public static PreferencesDatabaseConfig<Configuration> createPreferencesDatabaseConfig() {
 		return new PreferencesDatabaseConfig<>(
-				SEARCHABLE_PREFERENCES_DB,
+				"searchable_preferences.db",
 				Optional.empty(),
 				PreferencesDatabaseConfig.JournalMode.TRUNCATE);
 	}
