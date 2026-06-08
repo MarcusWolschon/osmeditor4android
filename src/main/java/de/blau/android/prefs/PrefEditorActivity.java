@@ -85,7 +85,7 @@ public abstract class PrefEditorActivity extends ConfigurationChangeAwareActivit
 						PreferencesDatabaseConfigFactory.createPreferencesDatabaseConfig(),
 						ConfigurationProvider.getActualConfiguration(),
 						Locales.getCurrentLocale(getResources().getConfiguration().getLocales()),
-						SearchDatabaseConfigFactory.createSearchDatabaseConfig().treeProcessorFactory,
+						SearchDatabaseConfigFactory.createSearchDatabaseConfig(getApplicationContext()).treeProcessorFactory,
 						new ConfigurationBundleConverter(),
 						this);
 	}
@@ -186,7 +186,7 @@ public abstract class PrefEditorActivity extends ConfigurationChangeAwareActivit
 						this,
 						getPreferencesDatabaseManager().getPreferencesDatabase(),
 						ConfigurationProvider.getActualConfiguration(),
-						SearchDatabaseConfigFactory.createSearchDatabaseConfig())
+						SearchDatabaseConfigFactory.createSearchDatabaseConfig(getApplicationContext()))
 				.showSearchPreferenceFragment();
 	}
 
