@@ -9,13 +9,11 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.preference.Preference;
-import androidx.preference.Preference.OnPreferenceChangeListener;
 import ch.poole.openinghoursfragment.templates.TemplateMangementDialog;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.resources.DataStyleManager;
 import de.blau.android.resources.TileLayerDatabaseView;
-import de.blau.android.validation.ValidatorRulesUI;
 
 /**
  * Simple class for Android's standard-Preference Activity
@@ -28,7 +26,6 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, PrefEditorFragment.class.getSimpleName().length());
     private static final String DEBUG_TAG = PrefEditorFragment.class.getSimpleName().substring(0, TAG_LEN);
 
-    private boolean    resetValidationFlag;
     private Preference stylePref;
 
     @Override
@@ -45,7 +42,7 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
         super.onResume();
         setTitle();
         if (stylePref != null) {
-            final FragmentActivity activity = getActivity();
+            final FragmentActivity activity = requireActivity();
             Preferences prefs = new Preferences(activity);
             final DataStyleManager styles = App.getDataStyleManager(activity);
             stylePref.setSummary(styles.translate(prefs.getDataStyle(styles)));
@@ -63,7 +60,7 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
         if (stylePref != null) {
             stylePref.setOnPreferenceClickListener(preference -> {
                 Log.d(DEBUG_TAG, "onPreferenceClick");
-                StyleConfigurationEditorActivity.start(getActivity());
+                StyleConfigurationEditorActivity.start(requireActivity());
                 return true;
             });
         }
@@ -72,7 +69,7 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
         if (customLayersPref != null) {
             customLayersPref.setOnPreferenceClickListener(preference -> {
                 Log.d(DEBUG_TAG, "onPreferenceClick custom layers");
-                TileLayerDatabaseView.showDialog(getActivity());
+                TileLayerDatabaseView.showDialog(requireActivity());
                 return true;
             });
         }
@@ -81,7 +78,7 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
         if (presetPref != null) {
             presetPref.setOnPreferenceClickListener(preference -> {
                 Log.d(DEBUG_TAG, "onPreferenceClick");
-                PresetConfigurationEditorActivity.start(getActivity());
+                PresetConfigurationEditorActivity.start(requireActivity());
                 return true;
             });
         }
@@ -97,37 +94,12 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
             });
         }
 
-        Preference validatorPref = getPreferenceScreen().findPreference(r.getString(R.string.config_validatorprefs_key));
-        if (validatorPref != null) {
-            validatorPref.setOnPreferenceClickListener(preference -> {
-                Log.d(DEBUG_TAG, "onPreferenceClick validator");
-                ValidatorRulesUI ui = new ValidatorRulesUI();
-                ui.manageRulesetContents(getContext());
-                return true;
-            });
-        }
-
-        Preference connectedPref = getPreferenceScreen().findPreference(r.getString(R.string.config_connectedNodeTolerance_key));
-        OnPreferenceChangeListener resetValidation = (preference, newValue) -> {
-            Log.d(DEBUG_TAG, "onPreferenceChange reset validation");
-            resetValidationFlag = true;
-            return true;
-        };
-        if (connectedPref != null) {
-            connectedPref.setOnPreferenceChangeListener(resetValidation);
-        }
-
-        Preference enabledValidationsPref = getPreferenceScreen().findPreference(r.getString(R.string.config_enabledValidations_key));
-        if (enabledValidationsPref != null) {
-            enabledValidationsPref.setOnPreferenceChangeListener(resetValidation);
-        }
-
         Preference openingHoursPref = getPreferenceScreen().findPreference(r.getString(R.string.config_opening_hours_key));
         if (openingHoursPref != null) {
             openingHoursPref.setOnPreferenceClickListener(preference -> {
                 Log.d(DEBUG_TAG, "onPreferenceClick opening hours");
                 TemplateMangementDialog.showDialog(PrefEditorFragment.this, true, null, null, null, "",
-                        App.getPreferences(getContext()).lightThemeEnabled() ? R.style.Theme_AlertDialogLight : R.style.Theme_AlertDialog);
+                        App.getPreferences(requireContext()).lightThemeEnabled() ? R.style.Theme_AlertDialogLight : R.style.Theme_AlertDialog);
                 return true;
             });
         }
@@ -136,9 +108,5 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
     @Override
     public void onStop() {
         super.onStop();
-        if (resetValidationFlag) { // we only want to this once, and when the preset have actually been changed
-            App.getDefaultValidator(getContext()).reset(getContext());
-            App.getDelegator().resetProblems();
-        }
     }
 }
