@@ -331,7 +331,8 @@ public final class FileUtil {
      * @return true if successful
      */
     public static boolean unpackZip(@NonNull String dir, @NonNull String zipname) {
-        try (InputStream is = new FileInputStream(dir + zipname); ZipInputStream zis = new ZipInputStream(new BufferedInputStream(is))) {
+        Log.d(DEBUG_TAG, "unpackZip dir: " + dir + " zip: " + zipname);
+        try (InputStream is = new FileInputStream(new File(dir, zipname)); ZipInputStream zis = new ZipInputStream(new BufferedInputStream(is))) {
             ZipEntry ze;
             byte[] buffer = new byte[1024];
             int count;
@@ -350,7 +351,7 @@ public final class FileUtil {
                         // directories in the file name that need to be created
                         createDirs(dir, canonicalBasePath, filename.substring(0, filename.lastIndexOf(PATH_DELIMITER_CHAR)));
                     }
-                    File output = new File(dir + filename);
+                    File output = new File(dir, filename);
                     if (!output.getCanonicalPath().startsWith(canonicalBasePath)) {
                         throw new IOException("Archive contains file that escapes target directory " + dir + " " + output.getCanonicalPath());
                     }
@@ -380,7 +381,7 @@ public final class FileUtil {
      * @throws IOException if dirPath escapes the base directory
      */
     private static void createDirs(@NonNull String base, @NonNull String canonicalBasePath, @NonNull String dirPath) throws IOException {
-        File fmd = new File(base + dirPath);
+        File fmd = new File(base, dirPath);
         if (!fmd.getCanonicalPath().startsWith(canonicalBasePath)) {
             throw new IOException("Archive creates directory that escapes target " + base + " " + fmd.getCanonicalPath());
         }
