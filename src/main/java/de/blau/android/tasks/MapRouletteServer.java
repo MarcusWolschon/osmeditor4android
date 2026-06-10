@@ -5,6 +5,8 @@ import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -59,15 +61,15 @@ final class MapRouletteServer {
     public static Collection<MapRouletteTask> getTasksForBox(@NonNull String server, @NonNull BoundingBox area, long limit) {
         try {
             Log.d(DEBUG_TAG, "getTasksForBox");
-            URL url = new URL(getServerURL(server) + "tasks/box/" + area.getLeft() / 1E7d + "/" + area.getBottom() / 1E7d + "/" + area.getRight() / 1E7d + "/"
-                    + area.getTop() / 1E7d + "?includeGeometries=true&limit=" + Long.toString(limit));
+            URL url = new URI(getServerURL(server) + "tasks/box/" + area.getLeft() / 1E7d + "/" + area.getBottom() / 1E7d + "/" + area.getRight() / 1E7d + "/"
+                    + area.getTop() / 1E7d + "?includeGeometries=true&limit=" + Long.toString(limit)).toURL();
             try (InputStream inputStream = getFromApi(url)) {
                 if (inputStream != null) {
                     return MapRouletteTask.parseTasks(inputStream);
                 }
                 return new ArrayList<>();
             }
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             Log.e(DEBUG_TAG, "getTasksForBox got exception " + e.getMessage());
         }
         return null;
@@ -109,7 +111,8 @@ final class MapRouletteServer {
     @NonNull
     public static UploadResult changeState(@NonNull Context context, @NonNull String server, @NonNull String apiKey, @NonNull MapRouletteTask task) {
         try {
-            URL url = new URL(getServerURL(server) + "task/" + task.getId() + "/" + MapRouletteFragment.state2pos(context.getResources(), task.getState()));
+            URL url = new URI(getServerURL(server) + "task/" + task.getId() + "/" + MapRouletteFragment.state2pos(context.getResources(), task.getState()))
+                    .toURL();
             Log.d(DEBUG_TAG, "changeState " + url.toString());
             Request request = new Request.Builder().url(url).put(RequestBody.create(null, "")).addHeader(API_KEY, apiKey).build();
             OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
@@ -132,7 +135,7 @@ final class MapRouletteServer {
             }
             task.setChanged(false);
             App.getTaskStorage().setDirty();
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             Log.e(DEBUG_TAG, "changeState got exception " + e.getMessage());
             UploadResult result = new UploadResult(ErrorCodes.UPLOAD_PROBLEM);
             result.setMessage(e.getMessage());
@@ -153,14 +156,14 @@ final class MapRouletteServer {
     public static MapRouletteChallenge getChallenge(@NonNull String server, long id) {
         try {
             Log.d(DEBUG_TAG, "getChallenge");
-            URL url = new URL(getServerURL(server) + "challenge/" + Long.toString(id));
+            URL url = new URI(getServerURL(server) + "challenge/" + Long.toString(id)).toURL();
             Log.d(DEBUG_TAG, "query: " + url.toString());
             try (InputStream inputStream = getFromApi(url)) {
                 if (inputStream != null) {
                     return MapRouletteChallenge.parseChallenge(inputStream);
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             Log.e(DEBUG_TAG, "getChallenge got exception " + e.getMessage());
         }
         return null;

@@ -7,7 +7,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -60,7 +61,7 @@ class MapillaryLoader extends NetworkImageLoader {
         return () -> {
             Log.d(DEBUG_TAG, "querying mapillary server for " + key);
             try {
-                Request request = new Request.Builder().url(new URL(String.format(imageUrl, key))).build();
+                Request request = new Request.Builder().url(new URI(String.format(imageUrl, key)).toURL()).build();
                 OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(20000, TimeUnit.MILLISECONDS).readTimeout(20000, TimeUnit.MILLISECONDS)
                         .build();
                 Call mapillaryCall = client.newCall(request);
@@ -80,7 +81,7 @@ class MapillaryLoader extends NetworkImageLoader {
                 }
                 setImage(view, imageFile);
                 pruneCache();
-            } catch (IOException e) {
+            } catch (IOException | URISyntaxException e) {
                 Log.e(DEBUG_TAG, e.getMessage());
             }
         };

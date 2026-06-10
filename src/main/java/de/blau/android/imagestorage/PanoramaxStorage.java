@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -92,7 +94,7 @@ public class PanoramaxStorage implements ImageStorage {
             String error = "";
 
             @Override
-            protected Boolean doInBackground(Void nothing) throws XmlPullParserException, IOException {
+            protected Boolean doInBackground(Void nothing) throws XmlPullParserException, IOException, URISyntaxException {
                 URL url = getApiUrl(configuration.url, API_AUTH_TOKENS_GENERATE);
                 Request generateKeyRequest = new Request.Builder().url(url).post(RequestBody.create(null, "")).build();
                 try (Response generateKeyCallResponse = client.newCall(generateKeyRequest).execute()) {
@@ -105,7 +107,8 @@ public class PanoramaxStorage implements ImageStorage {
                     String key = root.get(JWT_TOKEN).getAsString();
                     // this should only be set if auth was successful
                     try (KeyDatabaseHelper kdb = new KeyDatabaseHelper(context); SQLiteDatabase db = kdb.getWritableDatabase()) {
-                        KeyDatabaseHelper.replaceOrDeleteKey(db, configuration.id, KeyDatabaseHelper.EntryType.PANORAMAX_KEY, key, false, true, null, null, null);
+                        KeyDatabaseHelper.replaceOrDeleteKey(db, configuration.id, KeyDatabaseHelper.EntryType.PANORAMAX_KEY, key, false, true, null, null,
+                                null);
                     }
                     JsonElement links = root.get(LINKS);
                     if (!links.isJsonArray() && ((JsonArray) links).size() < 1) {
@@ -157,7 +160,7 @@ public class PanoramaxStorage implements ImageStorage {
         try {
             return new ExecutorTask<Void, Void, Boolean>() {
                 @Override
-                protected Boolean doInBackground(Void nothing) throws XmlPullParserException, IOException {
+                protected Boolean doInBackground(Void nothing) throws XmlPullParserException, IOException, URISyntaxException {
                     OkHttpClient authClient = client.newBuilder().addInterceptor(new OAuth2Interceptor(key)).build();
                     URL url = getApiUrl(configuration.url, API_USERS_ME);
                     Request meRequest = new Request.Builder().url(url).get().build();
@@ -218,7 +221,7 @@ public class PanoramaxStorage implements ImageStorage {
                 body = RequestBody.create(MediaType.parse(MimeTypes.JPEG), imageFile);
 
                 MultipartBody multipartBody = new MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart(FILE, imageFile.getName(), body).build();
-                final URL uploadSetUrl = new URL(url.toString() + "/" + uploadSetId.getAsString() + FILES);
+                final URL uploadSetUrl = new URI(url.toString() + "/" + uploadSetId.getAsString() + FILES).toURL();
                 Log.d(DEBUG_TAG, "Upload url " + uploadSetUrl);
                 Request uploadRequest = new Request.Builder().url(uploadSetUrl).post(multipartBody).build();
                 Log.d(DEBUG_TAG, "Uploading image");
@@ -283,10 +286,10 @@ public class PanoramaxStorage implements ImageStorage {
             String error = "";
 
             @Override
-            protected List<ImageStorageConfiguration> doInBackground(Void nothing) throws IOException {
+            protected List<ImageStorageConfiguration> doInBackground(Void nothing) throws IOException, URISyntaxException {
                 List<ImageStorageConfiguration> result = new ArrayList<>();
 
-                URL url = new URL(App.getPreferences(context).getPanoramaxInstancesUrl());
+                URL url = new URI(App.getPreferences(context).getPanoramaxInstancesUrl()).toURL();
                 Log.d(DEBUG_TAG, "Retrieving instances list from " + url.toString());
                 Request instancesRequest = new Request.Builder().url(url).get().build();
                 try (Response instancesResponse = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
@@ -357,8 +360,9 @@ public class PanoramaxStorage implements ImageStorage {
      * @param path the call specific path including "api"
      * @return a valid Panoramax api url
      * @throws MalformedURLException if we can't construct a valid Url
+     * @throws URISyntaxException
      */
-    static URL getApiUrl(@NonNull String base, @NonNull String path) throws MalformedURLException {
+    static URL getApiUrl(@NonNull String base, @NonNull String path) throws MalformedURLException, URISyntaxException {
         // if the base value has a trailing "api" strip it
         Uri uri = Uri.parse(base);
         Uri.Builder builder = uri.buildUpon();
@@ -371,6 +375,6 @@ public class PanoramaxStorage implements ImageStorage {
             }
         }
         builder.appendPath(""); // forces training slash
-        return new URL(builder.build() + path);
+        return new URI(builder.build() + path).toURL();
     }
 }

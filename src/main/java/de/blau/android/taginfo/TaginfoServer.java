@@ -3,7 +3,8 @@ package de.blau.android.taginfo;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -691,14 +692,15 @@ public final class TaginfoServer {
             @Nullable final PostAsyncActionHandler handler) {
         Log.d(DEBUG_TAG, "querying server for " + url);
         Object result = null;
-        try (InputStream is = Server.openConnection(context, new URL(url), null, 1000, 1000); JsonReader reader = new JsonReader(new InputStreamReader(is));) {
+        try (InputStream is = Server.openConnection(context, new URI(url).toURL(), null, 1000, 1000);
+                JsonReader reader = new JsonReader(new InputStreamReader(is));) {
             result = resultReader.read(reader);
             if (result != null && handler != null) {
                 handler.onSuccess();
             }
             Log.d(DEBUG_TAG, "returning " + (result instanceof List ? ((List) result).size() : "1") + " results");
             return result;
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             Log.e(DEBUG_TAG, "querySync got exception " + e.getMessage());
         }
         return null;

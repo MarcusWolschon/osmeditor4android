@@ -5,6 +5,8 @@ import static org.junit.Assert.fail;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.Arrays;
@@ -135,7 +137,7 @@ public class LayerSourceTest {
                 URL url = null;
                 try {
                     // remove query
-                    URL input = new URL(inputString);
+                    URL input = new URI(inputString).toURL();
                     url = new URL(input.getProtocol(), input.getHost(), input.getPort(), "");
                     Result cached = done.get(url);
                     if (cached != null) {
@@ -163,7 +165,7 @@ public class LayerSourceTest {
                     Result result = new Result(CheckStatus.DOESNTEXIST, inputString);
                     done.put(url, result);
                     return result;
-                } catch (IOException e) {
+                } catch (IOException | URISyntaxException e) {
                     if (e instanceof javax.net.ssl.SSLHandshakeException) {
                         Log.d(DEBUG_TAG, "Cause: " + ((javax.net.ssl.SSLHandshakeException) e).getCause());
                         Result result = new Result(CheckStatus.SSLERROR, inputString);

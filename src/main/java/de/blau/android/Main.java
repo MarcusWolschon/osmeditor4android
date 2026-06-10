@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Deque;
@@ -1224,7 +1225,7 @@ public class Main extends ConfigurationChangeAwareActivity
     private void displayNote(@NonNull final Context ctx, @NonNull final Logic logic, @NonNull final long id) {
         new ExecutorTask<Long, Void, Note>(logic.getExecutorService(), logic.getHandler()) {
             @Override
-            protected Note doInBackground(Long id) throws NumberFormatException, XmlPullParserException, IOException {
+            protected Note doInBackground(Long id) throws NumberFormatException, XmlPullParserException, IOException, URISyntaxException {
                 TaskStorage storage = App.getTaskStorage();
                 Note note = storage.getNote(id);
                 if (note == null) {
@@ -2320,7 +2321,7 @@ public class Main extends ConfigurationChangeAwareActivity
                     protected Void doInBackground(Void param) {
                         try {
                             server.closeChangeset();
-                        } catch (IOException e) {
+                        } catch (IOException | URISyntaxException e) {
                             // Never fail
                         }
                         return null;

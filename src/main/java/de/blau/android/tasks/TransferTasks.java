@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -324,7 +325,7 @@ public final class TransferTasks {
             Logic.mapErrorCode(errorCode, result);
         } catch (XmlPullParserException e) {
             result.setError(ErrorCodes.INVALID_DATA_RECEIVED);
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             result.setError(ErrorCodes.NO_CONNECTION);
         }
         return result;
@@ -417,9 +418,10 @@ public final class TransferTasks {
      * @throws NumberFormatException
      * @throws XmlPullParserException
      * @throws IOException
+     * @throws URISyntaxException 
      */
     @Nullable
-    public static Note downloadNote(@NonNull Server server, long id) throws NumberFormatException, XmlPullParserException, IOException {
+    public static Note downloadNote(@NonNull Server server, long id) throws NumberFormatException, XmlPullParserException, IOException, URISyntaxException {
         Note note = server.getNote(id);
         if (note != null) {
             App.getTaskStorage().add(note);
