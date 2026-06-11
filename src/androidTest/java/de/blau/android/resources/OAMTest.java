@@ -1,6 +1,7 @@
 package de.blau.android.resources;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import org.junit.After;
@@ -96,7 +97,7 @@ public class OAMTest {
         List<LayerEntry> list = null;
         try {
             list = catalog.getEntries(main, mockServerString, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D));
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             Assert.fail(e.getMessage());
         }
         Assert.assertNotNull(list);
@@ -121,7 +122,7 @@ public class OAMTest {
         List<LayerEntry> list = null;
         try {
             list = catalog.getEntries(main, mockServerString, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D));
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             Assert.fail(e.getMessage());
         }
         Assert.assertNotNull(list);

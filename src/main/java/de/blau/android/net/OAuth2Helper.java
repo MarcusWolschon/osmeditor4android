@@ -7,6 +7,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
@@ -173,14 +175,14 @@ public class OAuth2Helper extends OAuthHelper {
         String codeVerifier = createCodeVerifier(128);
         prefs.edit().putString(CODE_VERIFIER_PARAM, codeVerifier).apply();
         try {
-            URL base = new URL(configuration.getOauthUrl());
+            URL base = new URI(configuration.getOauthUrl()).toURL();
             return builderFromUrl(base).addPathSegment(authorisationPath).addQueryParameter(RESPONSE_TYPE_PARAM, CODE_PARAM)
                     .addQueryParameter(CLIENT_ID_PARAM, configuration.getKey()).addQueryParameter(SCOPE_PARAM, TextUtils.join(" ", scopes))
                     .addQueryParameter(REDIRECT_URI_PARAM, redirectUri).addQueryParameter(STATE_PARAM, apiName)
                     .addQueryParameter(CODE_CHALLENGE_METHOD_PARAM, METHOD_SHA_256_VALUE)
                     .addQueryParameter(CODE_CHALLENGE_PARAM, hashAndEncodeChallenge(codeVerifier)).addQueryParameter(ALLOW_SIGNUP_PARAM, "false").build().url()
                     .toString();
-        } catch (MalformedURLException | NoSuchAlgorithmException e) {
+        } catch (MalformedURLException | NoSuchAlgorithmException | URISyntaxException e) {
             throw new OsmException("Configuration error " + e.getMessage());
         }
     }
@@ -194,7 +196,7 @@ public class OAuth2Helper extends OAuthHelper {
         }
         return new ExecutorTask<Void, Void, AsyncResult>() {
             @Override
-            protected AsyncResult doInBackground(Void param) throws IOException {
+            protected AsyncResult doInBackground(Void param) throws IOException, URISyntaxException {
                 Log.d(DEBUG_TAG, "oAuthHandshake doInBackground");
                 try (AdvancedPrefDatabase prefDb = new AdvancedPrefDatabase(context)) {
                     String code = data.getQueryParameter(CODE_PARAM);
@@ -211,7 +213,7 @@ public class OAuth2Helper extends OAuthHelper {
                         bodyBuilder.add(CLIENT_SECRET_PARAM, clientSecret);
                     }
                     RequestBody requestBody = bodyBuilder.build();
-                    URL accessTokenUrl = builderFromUrl(new URL(configuration.getOauthUrl())).addPathSegments(tokenPath).build().url();
+                    URL accessTokenUrl = builderFromUrl(new URI(configuration.getOauthUrl()).toURL()).addPathSegments(tokenPath).build().url();
 
                     Request request = new Request.Builder().url(accessTokenUrl).post(requestBody).addHeader(ACCEPT_HEADER, MimeTypes.JSON).build();
                     OkHttpClient.Builder builder = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.SECONDS).readTimeout(TIMEOUT,

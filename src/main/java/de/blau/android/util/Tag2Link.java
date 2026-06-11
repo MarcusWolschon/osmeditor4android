@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -130,12 +132,12 @@ public class Tag2Link {
         try {
             try { // NOSONAR
                 @SuppressWarnings("unused")
-                URL url = new URL(value); // NOSONAR
+                URL url = new URI(value).toURL(); // NOSONAR
                 final String protocol = url.getProtocol();
                 if (PLACEHOLDER_1.equals(template) || Schemes.HTTP.equals(protocol) || Schemes.HTTPS.equals(protocol)) {
                     return value;
                 }
-            } catch (MalformedURLException e) {
+            } catch (MalformedURLException | URISyntaxException | IllegalArgumentException e) {
                 // not an URL, continue
             }
             return template.replace(PLACEHOLDER_1, URLEncoder.encode(value, OsmXml.UTF_8).replace("+", ENCODED_SPACE));

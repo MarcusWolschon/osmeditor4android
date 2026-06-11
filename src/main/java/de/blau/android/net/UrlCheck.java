@@ -3,6 +3,8 @@ package de.blau.android.net;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.concurrent.TimeUnit;
@@ -128,10 +130,10 @@ public class UrlCheck {
         try {
             String tempDomain = urlOrDomain;
             if (urlOrDomain.toLowerCase().startsWith(Schemes.HTTP)) { // strip protocol
-                URL temp = new URL(urlOrDomain);
+                URL temp = new URI(urlOrDomain).toURL();
                 tempDomain = temp.getHost() + (temp.getPort() != -1 ? ":" + temp.getPort() : "") + temp.getPath();
             }
-            URL url = new URL((https ? Tags.HTTPS_PREFIX : Tags.HTTP_PREFIX) + tempDomain);
+            URL url = new URI((https ? Tags.HTTPS_PREFIX : Tags.HTTP_PREFIX) + tempDomain).toURL();
 
             Log.d(DEBUG_TAG, "checking url for " + url.toString());
 
@@ -147,7 +149,7 @@ public class UrlCheck {
                 }
                 return new Result(CheckStatus.INVALID, url.toString(), code, readCallResponse.message());
             }
-        } catch (MalformedURLException | IllegalArgumentException e) {
+        } catch (MalformedURLException | URISyntaxException | IllegalArgumentException e) {
             return new Result(CheckStatus.MALFORMEDURL, urlOrDomain);
         } catch (UnknownHostException uhe) {
             return new Result(CheckStatus.DOESNTEXIST, urlOrDomain);

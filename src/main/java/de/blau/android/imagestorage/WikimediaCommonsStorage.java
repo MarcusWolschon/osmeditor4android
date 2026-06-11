@@ -4,6 +4,7 @@ import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -146,7 +147,7 @@ public class WikimediaCommonsStorage implements ImageStorage {
             OkHttpClient authClient = client.newBuilder().addInterceptor(new OAuth2Interceptor(getKey(context))).build();
 
             // get session key
-            URL url = new URL(configuration.url + W_API_PHP + "?" + ACTION_QUERY_META_TOKENS_FORMAT_JSON);
+            URL url = new URI(configuration.url + W_API_PHP + "?" + ACTION_QUERY_META_TOKENS_FORMAT_JSON).toURL();
 
             RequestBody body = RequestBody.create(MediaType.parse(MimeTypes.JSON), "");
 
@@ -184,7 +185,7 @@ public class WikimediaCommonsStorage implements ImageStorage {
                         .addFormDataPart(FILE, imageFile.getName(), body)
                         .build();
                 // @formatter:on
-                final URL uploadUrl = new URL(configuration.url + W_API_PHP);
+                final URL uploadUrl = new URI(configuration.url + W_API_PHP).toURL();
                 Log.d(DEBUG_TAG, "Upload url " + uploadUrl);
                 Request uploadRequest = new Request.Builder().url(uploadUrl).post(multipartBody).build();
                 Log.d(DEBUG_TAG, "Uploading image");

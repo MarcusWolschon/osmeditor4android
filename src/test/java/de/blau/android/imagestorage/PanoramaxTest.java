@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,7 +29,7 @@ public class PanoramaxTest {
         try {
             assertEquals("https://panoramax.openstreetmap.fr/api/auth/tokens/generate",
                     PanoramaxStorage.getApiUrl("https://panoramax.openstreetmap.fr/api", API_AUTH_TOKENS_GENERATE).toString());
-        } catch (MalformedURLException e) {
+        } catch (MalformedURLException | URISyntaxException e) {
             fail(e.getMessage());
         }
     }
@@ -38,7 +39,7 @@ public class PanoramaxTest {
         try {
             assertEquals("https://panoramax.openstreetmap.fr/api/auth/tokens/generate",
                     PanoramaxStorage.getApiUrl("https://panoramax.openstreetmap.fr/api/", API_AUTH_TOKENS_GENERATE).toString());
-        } catch (MalformedURLException e) {
+        } catch (MalformedURLException | URISyntaxException e) {
             fail(e.getMessage());
         }
     }
@@ -48,7 +49,7 @@ public class PanoramaxTest {
         try {
             assertEquals("https://panoramax.openstreetmap.fr/api/auth/tokens/generate",
                     PanoramaxStorage.getApiUrl("https://panoramax.openstreetmap.fr/", API_AUTH_TOKENS_GENERATE).toString());
-        } catch (MalformedURLException e) {
+        } catch (MalformedURLException | URISyntaxException e) {
             fail(e.getMessage());
         }
     }
@@ -58,7 +59,7 @@ public class PanoramaxTest {
         try {
             assertEquals("https://panoramax.openstreetmap.fr/test/api/auth/tokens/generate",
                     PanoramaxStorage.getApiUrl("https://panoramax.openstreetmap.fr/test", API_AUTH_TOKENS_GENERATE).toString());
-        } catch (MalformedURLException e) {
+        } catch (MalformedURLException | URISyntaxException e) {
             fail(e.getMessage());
         }
     }
@@ -68,7 +69,7 @@ public class PanoramaxTest {
         try {
             assertEquals("https://panoramax.openstreetmap.fr/test/api/auth/tokens/generate",
                     PanoramaxStorage.getApiUrl("https://panoramax.openstreetmap.fr/test/", API_AUTH_TOKENS_GENERATE).toString());
-        } catch (MalformedURLException e) {
+        } catch (MalformedURLException | URISyntaxException e) {
             fail(e.getMessage());
         }
     }

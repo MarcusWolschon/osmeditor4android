@@ -4,6 +4,8 @@ import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -312,7 +314,7 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
         }
 
         @Override
-        protected URL getIds(JsonElement root, ArrayList<String> ids) throws IOException {
+        protected URL getIds(JsonElement root, ArrayList<String> ids) throws IOException, URISyntaxException {
             JsonElement features = ((JsonObject) root).get(FEATURES_KEY);
             if (!(features instanceof JsonArray)) {
                 throw new IOException("features not a JsonArray");
@@ -330,7 +332,7 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
                     if (element instanceof JsonObject && ((JsonObject) element).has(REL_KEY)
                             && NEXT_VALUE.equals(((JsonObject) element).get(REL_KEY).getAsString())) {
                         Log.d(DEBUG_TAG, "get next page");
-                        return new URL(((JsonObject) element).get(HREF_KEY).getAsString());
+                        return new URI(((JsonObject) element).get(HREF_KEY).getAsString()).toURL();
                     }
                 }
             }

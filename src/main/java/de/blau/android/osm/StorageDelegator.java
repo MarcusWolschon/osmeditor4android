@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.ProtocolException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -3309,9 +3310,10 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param extraTags Additional tags to add
      * @param elements List of OsmElement to upload if null all changed elements will be uploaded
      * @throws IOException if the upload doesn't work
+     * @throws URISyntaxException if the uri can't be parsed
      */
     public void uploadToServer(@NonNull final Server server, @Nullable final String comment, @Nullable String source, boolean closeOpenChangeset,
-            boolean closeChangeset, @Nullable Map<String, String> extraTags, @Nullable final List<OsmElement> elements) throws IOException {
+            boolean closeChangeset, @Nullable Map<String, String> extraTags, @Nullable final List<OsmElement> elements) throws IOException, URISyntaxException {
 
         dirty = true; // storages will get modified as data is uploaded, these changes need to be saved to file
         removeUnchanged();

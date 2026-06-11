@@ -7,7 +7,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -355,12 +356,12 @@ public class Style implements Serializable {
                             return new Sprites(ctx, sheet, image);
                         }
                     } else {
-                        try (InputStream sheet = Server.openConnection(null, new URL(jsonUri.toString()));
-                                InputStream image = Server.openConnection(null, new URL(imageUri.toString()))) {
+                        try (InputStream sheet = Server.openConnection(null, new URI(jsonUri.toString()).toURL());
+                                InputStream image = Server.openConnection(null, new URI(imageUri.toString()).toURL())) {
                             return new Sprites(ctx, sheet, image);
                         }
                     }
-                } catch (IOException e) {
+                } catch (IOException | URISyntaxException e) {
                     Log.e(DEBUG_TAG, "getSprites " + e.getMessage());
                 }
                 return null;

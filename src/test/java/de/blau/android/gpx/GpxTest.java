@@ -16,6 +16,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import android.util.Log;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.JavaResources;
@@ -26,10 +27,14 @@ import de.blau.android.util.FileUtil;
 @LargeTest
 public class GpxTest {
 
+    private static final String DEBUG_TAG = GpxTest.class.getName();
+
     @Test
     public void parsingTest() {
         try {
             File zippedGpxFile = JavaResources.copyFileFromResources(ApplicationProvider.getApplicationContext(), "2011-06-08_13-21-55 OT.zip", null, "/");
+            assertTrue(zippedGpxFile.exists());
+            Log.d(DEBUG_TAG, "File path " + zippedGpxFile.getAbsolutePath());
             assertTrue(FileUtil.unpackZip(FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), "/").getAbsolutePath(), zippedGpxFile.getName()));
             Track track = new Track(ApplicationProvider.getApplicationContext(), false);
             try (InputStream is = new FileInputStream(

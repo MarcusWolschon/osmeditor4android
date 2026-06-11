@@ -7,6 +7,7 @@ import static org.robolectric.Shadows.shadowOf;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.util.concurrent.CountDownLatch;
 
 import org.junit.After;
@@ -164,7 +165,7 @@ public class ApiErrorTest {
         runLooper();
         SignalUtils.signalAwait(signal, TIMEOUT);
     }
-    
+
     /**
      * Simple bounding box data download error 503
      */
@@ -255,6 +256,8 @@ public class ApiErrorTest {
         } catch (OsmServerException e) {
             assertEquals(500, e.getHttpErrorCode());
         } catch (IOException e) {
+            fail(e.getMessage());
+        } catch (URISyntaxException e) {
             fail(e.getMessage());
         }
     }

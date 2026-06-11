@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,9 +72,10 @@ public class OsmGpxApi {
      * @param visibility privacy/visibility setting
      * 
      * @throws IOException on an IO error
+     * @throws URISyntaxException if the url can't be parsed
      */
     public static void uploadTrack(@NonNull Server server, @NonNull final Track track, @NonNull String description, @NonNull String tags,
-            @NonNull Visibility visibility) throws IOException {
+            @NonNull Visibility visibility) throws IOException, URISyntaxException {
         RequestBody gpxBody = new RequestBody() {
             @Override
             public MediaType contentType() {
@@ -137,7 +140,7 @@ public class OsmGpxApi {
                 StreamUtils.copy(body.byteStream(), fileStream);
             }
             return Uri.fromFile(output);
-        } catch (IOException | NumberFormatException e) {
+        } catch (IOException | NumberFormatException | URISyntaxException e) {
             Log.e(DEBUG_TAG, "Problem downloading GPX track ", e);
         }
         return null;
@@ -165,7 +168,7 @@ public class OsmGpxApi {
                 result = temp;
             }
             return result;
-        } catch (SAXException | ParserConfigurationException | IOException | NumberFormatException e) {
+        } catch (SAXException | ParserConfigurationException | IOException | NumberFormatException | URISyntaxException e) {
             Log.e(DEBUG_TAG, "Problem downloading GPX track ", e);
         }
         return new ArrayList<>();
@@ -177,10 +180,11 @@ public class OsmGpxApi {
      * @param server the Server object for the API instance to use
      * @return the url
      * @throws MalformedURLException if the url couldn't be constructed properly
+     * @throws URISyntaxException if the url can't be parsed
      */
     @NonNull
-    private static URL getUserGpxFilesUrl(@NonNull Server server) throws MalformedURLException {
-        return new URL(server.getReadWriteUrl() + "user/gpx_files");
+    private static URL getUserGpxFilesUrl(@NonNull Server server) throws MalformedURLException, URISyntaxException {
+        return new URI(server.getReadWriteUrl() + "user/gpx_files").toURL();
     }
 
     /**
@@ -189,10 +193,11 @@ public class OsmGpxApi {
      * @param server the Server object for the API instance to use
      * @return the url
      * @throws MalformedURLException if the url couldn't be constructed properly
+     * @throws URISyntaxException if the url can't be parsed
      */
     @NonNull
-    private static URL getUploadTrackUrl(@NonNull Server server) throws MalformedURLException {
-        return new URL(server.getReadWriteUrl() + "gpx/create");
+    private static URL getUploadTrackUrl(@NonNull Server server) throws MalformedURLException, URISyntaxException {
+        return new URI(server.getReadWriteUrl() + "gpx/create").toURL();
     }
 
     /**
@@ -202,9 +207,10 @@ public class OsmGpxApi {
      * @param id the track id
      * @return the url
      * @throws MalformedURLException if the url couldn't be constructed properly
+     * @throws URISyntaxException if the url can't be parsed
      */
     @NonNull
-    private static URL getDownloadTrackUrl(@NonNull Server server, long id) throws MalformedURLException {
-        return new URL(server.getReadWriteUrl() + "gpx/" + Long.toString(id) + "/data.gpx");
+    private static URL getDownloadTrackUrl(@NonNull Server server, long id) throws MalformedURLException, URISyntaxException {
+        return new URI(server.getReadWriteUrl() + "gpx/" + Long.toString(id) + "/data.gpx").toURL();
     }
 }

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Locale.Builder;
 import java.util.Map;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -814,44 +815,6 @@ public final class LocaleUtils {
         return loc.toLanguageTag();
     }
 
-    // The following code is
-    //
-    // Copyright 2014 The Chromium Authors. All rights reserved.
-    // Use of this source code is governed by a BSD-style license that can be
-    // found in the LICENSE file.
-    // https://chromium.googlesource.com/chromium/+/refs/heads/trunk/LICENSE
-
-    /**
-     * This function creates a Locale object from xx-XX style string where xx is language code and XX is a country code.
-     * This works for API level lower than 21.
-     * 
-     * @param languageTag the language code string
-     * @return the locale that best represents the language tag.
-     */
-    @NonNull
-    public static Locale forLanguageTagCompat(@NonNull String languageTag) {
-        String[] tag = languageTag.split("-");
-        if (tag.length == 0) {
-            return new Locale("");
-        }
-        String language = tag[0];
-        if ((language.length() != 2 && language.length() != 3)) {
-            return new Locale("");
-        }
-        if (tag.length == 1) {
-            return new Locale(language);
-        }
-        String country = tag[1];
-        if (country.length() != 2 && country.length() != 3) {
-            return new Locale(language);
-        }
-        if (tag.length == 2) {
-            return new Locale(language, country);
-        }
-        String variant = tag[2];
-        return new Locale(language, country, variant);
-    }
-
     /**
      * This function creates a Locale object from xx-XX style string where xx is language code and XX is a country code.
      * 
@@ -923,6 +886,6 @@ public final class LocaleUtils {
     @NonNull
     public static Locale localeFromAndroidLocaleTag(@NonNull String localeString) {
         String[] code = localeString.split(ANDROID_LOCALE_SEPARATOR);
-        return code.length == 1 ? new Locale(code[0]) : new Locale(code[0], code[1]);
+        return code.length == 1 ? Locale.forLanguageTag(code[0]) : new Builder().setLanguage(code[0]).setRegion(code[1]).build();
     }
 }

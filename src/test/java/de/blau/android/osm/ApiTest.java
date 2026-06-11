@@ -11,6 +11,7 @@ import static org.robolectric.Shadows.shadowOf;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -387,7 +388,7 @@ public class ApiTest {
         try {
             s.getCapabilities();
             App.getDelegator().uploadToServer(s, "TEST", "none", false, true, null, null);
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             fail(e.getMessage());
         }
         assertEquals(50000, s.getCachedCapabilities().getMaxElementsInChangeset());
@@ -434,7 +435,7 @@ public class ApiTest {
             RecordedRequest upload = mockServer.takeRequest();
             assertTrue(GzipRequestInterceptor.GZIP_ENCODING.equals(upload.getHeader(CONTENT_ENCODING_HEADER)));
 
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException | InterruptedException | URISyntaxException e) {
             fail(e.getMessage());
         }
     }
@@ -466,7 +467,7 @@ public class ApiTest {
         try {
             s.getCapabilities();
             App.getDelegator().uploadToServer(s, "TEST", "none", false, true, null, Util.wrapInList(n));
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             fail(e.getMessage());
         }
         assertEquals(50000, s.getCachedCapabilities().getMaxElementsInChangeset());
@@ -512,7 +513,7 @@ public class ApiTest {
         logic.upload(main, arguments, new FailOnErrorHandler(signal2));
         runLooper();
         SignalUtils.signalAwait(signal, TIMEOUT);
-    
+
         n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
         assertNotNull(n);
         assertEquals(OsmElement.STATE_UNCHANGED, n.getState());
@@ -550,7 +551,7 @@ public class ApiTest {
         try {
             s.getCapabilities();
             App.getDelegator().uploadToServer(s, "TEST", "none", false, true, null, null);
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             fail(e.getMessage());
         }
     }
@@ -600,7 +601,7 @@ public class ApiTest {
         try {
             s.getCapabilities();
             App.getDelegator().uploadToServer(s, "TEST", "none", false, false, null, null);
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             fail(e.getMessage());
         }
         assertEquals(11, s.getCachedCapabilities().getMaxElementsInChangeset());
@@ -632,12 +633,17 @@ public class ApiTest {
     public void getChangeset() {
         mockServer.enqueue(CHANGESET5_FIXTURE);
         final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
-        Changeset cs = s.getChangeset(1234567);
-        assertNotNull(cs);
-        assertEquals(120631739L, cs.getOsmId());
-        assertEquals(21, cs.getChanges());
-        assertNotNull(cs.getTags());
-        assertEquals("swisstopo SWISSIMAGE;Mapillary Images;KartaView Images", cs.getTags().get("imagery_used"));
+
+        try {
+            Changeset cs = s.getChangeset(1234567);
+            assertNotNull(cs);
+            assertEquals(120631739L, cs.getOsmId());
+            assertEquals(21, cs.getChanges());
+            assertNotNull(cs.getTags());
+            assertEquals("swisstopo SWISSIMAGE;Mapillary Images;KartaView Images", cs.getTags().get("imagery_used"));
+        } catch (URISyntaxException e) {
+            fail(e.getMessage());
+        }
     }
 
     /**
@@ -670,7 +676,7 @@ public class ApiTest {
         try {
             s.openChangeset(false, "ignored", "ignored", Util.wrapInList("ignored"), null);
             assertEquals(123456789, s.getOpenChangeset()); // still open
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             fail(e.getMessage());
         }
         try {
@@ -695,7 +701,7 @@ public class ApiTest {
         try {
             s.openChangeset(true, "ignored", "ignored", Util.wrapInList("ignored"), null);
             assertEquals(1234567, s.getOpenChangeset()); // new id
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             fail(e.getMessage());
         }
         try {

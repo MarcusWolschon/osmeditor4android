@@ -2,7 +2,8 @@ package de.blau.android.osm;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -56,7 +57,7 @@ public final class Wiki {
         // https://wiki.openstreetmap.org/w/api.php?action=query&titles=DE:Use_OpenStreetMap&prop=info&format=xml
         // see https://wiki.openstreetmap.org/w/api.php
         String wikiApiUrl = baseUrl + "w/api.php?action=query&prop=info&format=xml&titles=" + language.toUpperCase(Locale.US) + DOUBLE_COLON + page;
-        try (InputStream is = Server.openConnection(context, new URL(wikiApiUrl))) {
+        try (InputStream is = Server.openConnection(context, new URI(wikiApiUrl).toURL())) {
             parser.setInput(is, null);
             int eventType;
             while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
@@ -66,7 +67,7 @@ public final class Wiki {
                     return false;
                 }
             }
-        } catch (final IOException | XmlPullParserException iox) {
+        } catch (final IOException | XmlPullParserException | URISyntaxException iox) {
             Log.e(DEBUG_TAG, "Parse wiki api " + iox.getMessage());
             throw new IOException(iox.getMessage());
         }

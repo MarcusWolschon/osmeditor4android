@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
@@ -499,12 +501,12 @@ public class Feedback extends AppCompatActivity implements ActivityResultHandler
     @NonNull
     private static String getIssueLink(@NonNull String repoUser, @NonNull String repoName, @NonNull String url) {
         try {
-            URL issue = new URL(url);
+            URL issue = new URI(url).toURL();
             String[] segments = issue.getPath().split("/");
             if (segments.length > 0) {
                 return Github.getIssueUrl(repoUser, repoName, segments[segments.length - 1]);
             }
-        } catch (MalformedURLException e) {
+        } catch (MalformedURLException | URISyntaxException e) {
             // fall through
         }
         Log.e(DEBUG_TAG, "Unparseable issue response " + url);

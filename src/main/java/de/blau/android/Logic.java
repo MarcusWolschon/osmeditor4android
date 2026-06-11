@@ -13,6 +13,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.SocketTimeoutException;
+import java.net.URISyntaxException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -3714,7 +3715,7 @@ public class Logic {
             throw new OsmServerException(ErrorCodes.INVALID_DATA_RECEIVED, ex.getLocalizedMessage());
         } catch (OsmServerException ex) {
             throw ex;
-        } catch (IOException ex) {
+        } catch (IOException | URISyntaxException ex) {
             Log.e(DEBUG_TAG, "getElementWithDeleted no connection", ex);
             throw new OsmServerException(ErrorCodes.NO_CONNECTION, ex.getLocalizedMessage());
         }
@@ -3782,7 +3783,7 @@ public class Logic {
                     throw new OsmServerException(ErrorCodes.INVALID_DATA_RECEIVED, ex.getLocalizedMessage());
                 } catch (OsmServerException osex) {
                     throw osex;
-                } catch (IOException ex) {
+                } catch (IOException | URISyntaxException ex) {
                     Log.e(DEBUG_TAG, "getElementsWithDeleted no connection", ex);
                     throw new OsmServerException(ErrorCodes.NO_CONNECTION, ex.getLocalizedMessage());
                 } catch (Exception ex) {
@@ -3812,10 +3813,11 @@ public class Logic {
      * @throws SAXException parsing error
      * @throws IOException if we can't download the nodes
      * @throws ParserConfigurationException parsing error
+     * @throws URISyntaxException if the url couldn't be parsed
      */
     @NonNull
     private Storage multiFetch(@NonNull final Context ctx, @NonNull final Server server, @NonNull OsmParser osmParser, @NonNull String type,
-            @NonNull long[] ids) throws SAXException, IOException, ParserConfigurationException {
+            @NonNull long[] ids) throws SAXException, IOException, ParserConfigurationException, URISyntaxException {
         int end = 0;
         for (int start = 0; start < Math.min(start + Server.MULTI_FETCH_MAX_ELEMENTS, ids.length); start = end) {
             end = start + Math.min(Server.MULTI_FETCH_MAX_ELEMENTS, ids.length - start);
@@ -3837,9 +3839,10 @@ public class Logic {
      * @throws SAXException parsing error
      * @throws IOException if we can't download the nodes
      * @throws ParserConfigurationException parsing error
+     * @throws URISyntaxException if the url couldn't be parsed
      */
     private void downloadMissingWayNodes(@NonNull final Context ctx, @NonNull final Server server, @NonNull final OsmParser osmParser, @Nullable OsmElement way)
-            throws SAXException, IOException, ParserConfigurationException {
+            throws SAXException, IOException, ParserConfigurationException, URISyntaxException {
         // as the API doesn't return way nodes for this call we need to patch things up here
         if (way == null) {
             throw new OsmServerException(ErrorCodes.NOT_FOUND, "downloadMissingWayNodes null way");
@@ -3975,7 +3978,7 @@ public class Logic {
         } catch (OsmServerException e) {
             result = e.getHttpErrorCode();
             Log.e(DEBUG_TAG, "downloadElement problem downloading", e);
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             result = ErrorCodes.NO_CONNECTION;
             Log.e(DEBUG_TAG, "downloadElement no connection", e);
         }
@@ -4060,7 +4063,7 @@ public class Logic {
                     return new AsyncResult(ErrorCodes.UNKNOWN_ERROR, e.getMessageWithDescription());
                 } catch (DataConflictException dce) {
                     return new AsyncResult(ErrorCodes.DATA_CONFLICT);
-                } catch (IOException e) {
+                } catch (IOException | URISyntaxException e) {
                     Log.e(DEBUG_TAG, "downloadElements problem downloading", e);
                     return new AsyncResult(ErrorCodes.NO_CONNECTION);
                 }
@@ -4447,7 +4450,7 @@ public class Logic {
                         TransferTasks.merge(context, App.getTaskStorage(), notes);
                         TransferTasks.addBoundingBoxFromData(App.getTaskStorage(), notes);
                     }
-                } catch (UnsupportedFormatException | IOException | SAXException | ParserConfigurationException e) {
+                } catch (UnsupportedFormatException | IOException | SAXException | ParserConfigurationException | URISyntaxException e) {
                     Log.e(DEBUG_TAG, "Problem parsing OSC ", e);
                     return new AsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
                 } catch (IllegalStateException iex) {
@@ -4853,7 +4856,7 @@ public class Logic {
                     Log.e(DEBUG_TAG, METHOD_UPLOAD, e);
                     result.setError(ErrorCodes.UPLOAD_INCOMPLETE);
                     result.setMessage(e.getLocalizedMessage());
-                } catch (final IOException | NumberFormatException e) {
+                } catch (final IOException | NumberFormatException | URISyntaxException e) {
                     Log.e(DEBUG_TAG, METHOD_UPLOAD, e);
                     result.setError(ErrorCodes.UPLOAD_PROBLEM);
                     result.setMessage(e.getLocalizedMessage());
@@ -5038,7 +5041,7 @@ public class Logic {
                     result.setHttpError(errorCode);
                     result.setMessage(e.getMessage());
                     Logic.mapErrorCode(errorCode, result);
-                } catch (final IOException e) {
+                } catch (final IOException | URISyntaxException e) {
                     result.setError(ErrorCodes.NO_CONNECTION);
                     Log.e(DEBUG_TAG, "", e);
                 } catch (IllegalArgumentException | IllegalStateException | NullPointerException e) {

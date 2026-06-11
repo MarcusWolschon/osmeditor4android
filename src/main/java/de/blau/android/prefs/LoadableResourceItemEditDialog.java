@@ -3,6 +3,8 @@ package de.blau.android.prefs;
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 import android.app.Dialog;
@@ -123,8 +125,8 @@ public abstract class LoadableResourceItemEditDialog extends CancelableDialogFra
                 boolean validURL = Patterns.WEB_URL.matcher(itemURL).matches();
                 URL url = null;
                 try {
-                    url = new URL(itemURL);
-                } catch (MalformedURLException e) {
+                    url = new URI(itemURL).toURL();
+                } catch (MalformedURLException | URISyntaxException e) {
                     validURL = false;
                 }
 
