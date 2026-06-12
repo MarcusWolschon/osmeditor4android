@@ -298,27 +298,25 @@ public class StyleConfigurationEditorActivity extends AbstractConfigurationEdito
 		@Override
 		public void onCreatePreferences(@Nullable final Bundle savedInstanceState, @Nullable final String rootKey) {
 			final PreferenceScreen screen = getPreferenceManager().createPreferenceScreen(requireContext());
-			StyleConfigurationEditorProxy
-					.asPreferences(loadStylesAsItems(), requireContext())
-					.forEach(screen::addPreference);
+			loadStylesAsPreferences().forEach(screen::addPreference);
 			setPreferenceScreen(screen);
 		}
 
-		private List<ListEditItem> loadStylesAsItems() {
-			return StyleConfigurationEditorActivity.loadStylesAsItems(new AdvancedPrefDatabase(requireContext()));
+		private List<Preference> loadStylesAsPreferences() {
+			return asPreferences(
+					StyleConfigurationEditorActivity.loadStylesAsItems(
+							new AdvancedPrefDatabase(requireContext())));
 		}
 
-		private static List<Preference> asPreferences(final List<ListEditItem> items,
-		                                              final Context context) {
+		private List<Preference> asPreferences(final List<ListEditItem> items) {
 			return items
 					.stream()
-					.map(item -> asPreference(item, context))
+					.map(this::asPreference)
 					.toList();
 		}
 
-		private static Preference asPreference(final ListEditItem item,
-		                                       final Context context) {
-			final Preference preference = new Preference(context);
+		private Preference asPreference(final ListEditItem item) {
+			final Preference preference = new Preference(requireContext());
 			preference.setKey(item.id);
 			preference.setTitle(item.name);
 			preference.setSummary(item.value);
