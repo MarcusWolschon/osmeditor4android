@@ -19,7 +19,6 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
@@ -38,7 +37,6 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetElement;
 import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.PresetGroup;
-import de.blau.android.util.ConfigurationChangeAwareActivity;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -250,17 +248,14 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
         ft.addToBackStack(tag);
         ft.commit();
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(viewRes), (View v, WindowInsetsCompat windowInsets) -> {
-            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout() | WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.navigationBars() | WindowInsetsCompat.Type.ime());
-            ConfigurationChangeAwareActivity.setMarginsFromInsets(v, insets);
-            // return WindowInsetsCompat.CONSUMED;
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(viewRes), (View v, WindowInsetsCompat insets) -> {
             if (fragment != null) {
                 View fragmentView = fragment.getView();
                 if (fragmentView != null) {
-                    ViewCompat.dispatchApplyWindowInsets(fragmentView, windowInsets);
+                    ViewCompat.dispatchApplyWindowInsets(fragmentView, insets);
                 }
             }
-            return windowInsets;
+            return insets;
         });
     }
 

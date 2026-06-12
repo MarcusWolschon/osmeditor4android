@@ -38,7 +38,7 @@ public abstract class ConfigurationChangeAwareActivity extends AppCompatActivity
      * Standard insets listener
      */
     public static final OnApplyWindowInsetsListener onApplyWindowInsetslistener = (v, windowInsets) -> {
-        Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout() | WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.navigationBars() | WindowInsetsCompat.Type.ime());
+        Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.navigationBars() | WindowInsetsCompat.Type.ime());
         setMarginsFromInsets(v, insets);
         return WindowInsetsCompat.CONSUMED;
     };
@@ -49,7 +49,7 @@ public abstract class ConfigurationChangeAwareActivity extends AppCompatActivity
      * @param v the View
      * @param insets the Insets
      */
-    public static void setMarginsFromInsets(@NonNull View v, @NonNull Insets insets) {
+    private static void setMarginsFromInsets(@NonNull View v, @NonNull Insets insets) {
         MarginLayoutParams mlp = (MarginLayoutParams) v.getLayoutParams();
         mlp.leftMargin = insets.left;
         mlp.bottomMargin = insets.bottom;
