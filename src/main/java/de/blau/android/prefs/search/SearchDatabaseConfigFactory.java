@@ -27,6 +27,7 @@ import de.blau.android.prefs.AdvancedPrefEditor;
 import de.blau.android.prefs.AdvancedPrefEditorFragment;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.PrefEditorFragment;
+import de.blau.android.prefs.StyleConfigurationEditorActivity;
 
 public class SearchDatabaseConfigFactory {
 
@@ -55,6 +56,7 @@ public class SearchDatabaseConfigFactory {
 										.<Class<? extends Activity>, Class<? extends PreferenceFragmentCompat>>builder()
 										.put(PrefEditor.class, PrefEditorFragment.class)
 										.put(AdvancedPrefEditor.class, AdvancedPrefEditorFragment.class)
+										.put(StyleConfigurationEditorActivity.class, StyleConfigurationEditorActivity.StyleConfigurationEditorProxy.class)
 										.build(),
 								Set.of()))
 				.withPreferenceFragmentConnectedToPreferenceProvider(
@@ -64,9 +66,18 @@ public class SearchDatabaseConfigFactory {
 							public Optional<Class<? extends PreferenceFragmentCompat>> getPreferenceFragmentConnectedToPreference(
 									final Preference preference,
 									final PreferenceFragmentCompat hostOfPreference) {
-								return getConfigAdvancedPrefsKey().equals(preference.getKey()) ?
-										Optional.of(AdvancedPrefEditorFragment.class) :
-										Optional.empty();
+								// FK-TODO: refactor
+								if (getConfigMapProfileKey().equals(preference.getKey())) {
+									return Optional.of(StyleConfigurationEditorActivity.StyleConfigurationEditorProxy.class);
+								}
+								if (getConfigAdvancedPrefsKey().equals(preference.getKey())) {
+									return Optional.of(AdvancedPrefEditorFragment.class);
+								}
+								return Optional.empty();
+							}
+
+							private String getConfigMapProfileKey() {
+								return context.getString(R.string.config_mapProfile_key);
 							}
 
 							private String getConfigAdvancedPrefsKey() {
