@@ -25,6 +25,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;
 
+import de.KnollFrank.lib.settingssearch.db.preference.db.DatabaseResetter;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.resources.DataStyleManager;
@@ -163,6 +164,7 @@ public class StyleConfigurationEditorActivity extends AbstractConfigurationEdito
 			item.active = true;
 		}
 		db.addStyle(item.id, item.name, item.value, true, item.active);
+		resetPreferencesDatabase(this);
 		StyleConfiguration conf = db.getStyle(item.id);
 		if (conf == null) {
 			Log.e(DEBUG_TAG, "Style configuration not found for " + item.id);
@@ -185,6 +187,7 @@ public class StyleConfigurationEditorActivity extends AbstractConfigurationEdito
 			db.removeResourceDirectory(item.id);
 			manager.reset(this, true);
 		}
+		resetPreferencesDatabase(this);
 	}
 
 	@Override
@@ -197,6 +200,7 @@ public class StyleConfigurationEditorActivity extends AbstractConfigurationEdito
 					db.deleteStyle(item.id);
 					reloadItems();
 					manager.reset(this, true);
+					resetPreferencesDatabase(this);
 				}).setNegativeButton(R.string.cancel, null).show();
 	}
 
@@ -279,6 +283,14 @@ public class StyleConfigurationEditorActivity extends AbstractConfigurationEdito
 		boolean isDefault(@NonNull ListEditItem item) {
 			return !item.boolean0;
 		}
+	}
+
+	private static void resetPreferencesDatabase(final Context context) {
+		DatabaseResetter.resetDatabase(
+				App
+						.getInstanceFromContext(context)
+						.preferencesDatabaseManager
+						.getPreferencesDatabase());
 	}
 
 	public static class StyleConfigurationEditorProxy extends PreferenceFragmentCompat {
