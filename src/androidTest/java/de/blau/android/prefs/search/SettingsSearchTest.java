@@ -132,8 +132,8 @@ public class SettingsSearchTest {
 		onView(searchResultsView()).check(matches(recyclerViewHasItemCount(equalTo(0))));
 	}
 
-	private static void deleteStyle(final String styleName) {
-		onView(listItemMenu(styleName)).perform(click());
+	private static void deleteStyle(final String style) {
+		onView(listItemMenu(style)).perform(click());
 		onView(deleteButton()).perform(click());
 		onView(yesButton()).perform(scrollTo(), click());
 	}
