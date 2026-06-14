@@ -83,6 +83,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.MenuCompat;
+import androidx.core.view.ViewCompat;
 import androidx.core.view.ViewGroupCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -483,6 +484,7 @@ public class Main extends ConfigurationChangeAwareActivity
         LinearLayout ml = (LinearLayout) getLayoutInflater().inflate(layout, null);
 
         ViewGroupCompat.installCompatInsetsDispatch(ml);
+        ViewCompat.setOnApplyWindowInsetsListener(ml, onApplyWindowInsetslistener);
 
         mapLayout = (RelativeLayout) ml.findViewById(R.id.mainMap);
 

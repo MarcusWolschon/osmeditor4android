@@ -20,7 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.ViewGroupCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -37,6 +37,7 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetElement;
 import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.PresetGroup;
+import de.blau.android.util.ConfigurationChangeAwareActivity;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -148,6 +149,8 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
             postLoadData.onSuccess();
         }
         getOnBackPressedDispatcher().addCallback(this, onBackPressedCallback);
+        // fragment will not get readded on a configuration change so we need to change thins here
+        setInsets(android.R.id.content);
     }
 
     @Override
@@ -234,11 +237,11 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
         PropertyEditorFragment<M, L, T> existing = peekBackStack(fm);
 
         String tag = java.util.UUID.randomUUID().toString();
-        if (existing != null) {           
+        if (existing != null) {
             if (!existing.hasChanges() && attemptReplace) {
                 existing.finishActionMode();
                 fm.popBackStackImmediate();
-            } else {               
+            } else {
                 ft.hide(existing);
             }
         }
@@ -248,15 +251,18 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
         ft.addToBackStack(tag);
         ft.commit();
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(viewRes), (View v, WindowInsetsCompat insets) -> {
-            if (fragment != null) {
-                View fragmentView = fragment.getView();
-                if (fragmentView != null) {
-                    ViewCompat.dispatchApplyWindowInsets(fragmentView, insets);
-                }
-            }
-            return insets;
-        });
+        setInsets(viewRes);
+    }
+
+    /**
+     * Set the current Insets on the View with id viewRes
+     * 
+     * @param viewRes the view id
+     */
+    private void setInsets(int viewRes) {
+        View top = findViewById(viewRes);
+        ViewGroupCompat.installCompatInsetsDispatch(top);
+        ViewCompat.setOnApplyWindowInsetsListener(top, ConfigurationChangeAwareActivity.onApplyWindowInsetslistener);
     }
 
     /**
