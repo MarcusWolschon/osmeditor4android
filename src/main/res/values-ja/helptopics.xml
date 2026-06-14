@@ -5,7 +5,8 @@
     <string name="help_title">ヘルプ: %1$s</string>
     <string name="help_introduction">導入</string>
     <string name="help_safe_mode">セーフモード</string>
-    <string name="help_main">メインマップディスプレイ</string>
+    <string name="help_main">メインマップ画面</string>
+    <string name="help_addrelationmember">リレーションのメンバーを編集</string>
     <string name="help_multiselect">複数選択</string>
     <string name="help_longclick">新規オブジェクトを作成</string>
     <string name="help_nodeselection">選択されたノード</string>
