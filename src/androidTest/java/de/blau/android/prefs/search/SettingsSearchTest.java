@@ -12,13 +12,16 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withSubstring;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
 import static de.blau.android.prefs.search.ViewMatchers.childAtPosition;
 import static de.blau.android.prefs.search.ViewMatchers.recyclerViewHasItem;
+import static de.blau.android.prefs.search.ViewMatchers.recyclerViewHasItemCount;
 
 import android.app.Instrumentation;
 import android.view.View;
@@ -64,10 +67,11 @@ public class SettingsSearchTest {
 	}
 
 	@Test
-	public void test_search_style() {
+	public void shouldFindStyle() {
 		// Given
 		final String query = "Built-in (minimal)";
-		navigateToSearch();
+		onView(preferencesButton()).perform(click());
+		onView(searchButton()).perform(click());
 
 		// When
 		onView(searchEditText()).perform(replaceText(query), closeSoftKeyboard());
@@ -77,10 +81,12 @@ public class SettingsSearchTest {
 	}
 
 	@Test
-	public void test_search_newStyle() {
+	public void shouldFindNewStyle() {
 		// Given
-		final String newStyle = "some style";
+		final String newStyle = "new style";
+		onView(preferencesButton()).perform(click());
 		addNewStyle(newStyle);
+		onView(homeButton()).perform(click());
 		onView(searchButton()).perform(click());
 
 		// When
@@ -90,11 +96,53 @@ public class SettingsSearchTest {
 		onView(searchResultsView()).check(matches(hasSearchResultWithSubstring(newStyle)));
 	}
 
-	private static void addNewStyle(final String newStyle) {
+	@Test
+	public void shouldNotFindDeletedStyle() {
+		// Given
+		final String newStyle = "new style";
 		onView(preferencesButton()).perform(click());
+		addNewStyle(newStyle);
+		deleteNewStyle();
+		onView(homeButton()).perform(click());
+		onView(searchButton()).perform(click());
+
+		// When
+		onView(searchEditText()).perform(replaceText(newStyle), closeSoftKeyboard());
+
+		// Then
+		onView(searchResultsView()).check(matches(recyclerViewHasItemCount(equalTo(0))));
+	}
+
+	private static void deleteNewStyle() {
+		onView(listItemMenu()).perform(click());
+		onView(deleteButton()).perform(click());
+		onView(yesButton()).perform(scrollTo(), click());
+	}
+
+	private static Matcher<View> listItemMenu() {
+		return allOf(
+				withId(R.id.listItemMenu),
+				childAtPosition(
+						withParent(withId(android.R.id.list)),
+						2),
+				isDisplayed());
+	}
+
+	private static Matcher<View> deleteButton() {
+		return allOf(
+				withId(android.R.id.title),
+				withText("Delete"),
+				childAtPosition(
+						childAtPosition(
+								withId(android.R.id.content),
+								0),
+						0),
+				isDisplayed());
+	}
+
+	private static void addNewStyle(final String newStyle) {
 		onView(configMapProfilePreference()).perform(actionOnItemAtPosition(1, click()));
 		_addNewStyle(newStyle);
-		onView(homeButton()).perform(click());
 	}
 
 	private static Matcher<View> configMapProfilePreference() {
@@ -166,20 +214,23 @@ public class SettingsSearchTest {
 				isDisplayed());
 	}
 
+	private static Matcher<View> yesButton() {
+		return buttonWithText("Yes");
+	}
+
 	private static Matcher<View> okButton() {
+		return buttonWithText("OK");
+	}
+
+	private static Matcher<View> buttonWithText(final String text) {
 		return allOf(
 				withId(android.R.id.button1),
-				withText("OK"),
+				withText(text),
 				childAtPosition(
 						childAtPosition(
 								withId(com.google.android.material.R.id.buttonPanel),
 								0),
 						3));
-	}
-
-	private static void navigateToSearch() {
-		onView(preferencesButton()).perform(click());
-		onView(searchButton()).perform(click());
 	}
 
 	private static Matcher<View> preferencesButton() {
