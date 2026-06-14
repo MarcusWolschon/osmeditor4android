@@ -26,6 +26,7 @@ import static de.blau.android.prefs.search.ViewMatchers.recyclerViewHasItemCount
 import android.app.Instrumentation;
 import android.view.View;
 
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
@@ -188,6 +189,10 @@ public class SettingsSearchTest {
 		onView(addStyleButton()).perform(click());
 		enterNameAndValue(newStyle, "https://panoramax.ign.fr/api");
 		onView(okButton()).perform(scrollTo(), click());
+		TestUtils.textGone(
+				UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()),
+				ApplicationProvider.getApplicationContext().getString(R.string.progress_resource_download_message),
+				30000);
 	}
 
 	private static Matcher<View> addStyleButton() {
