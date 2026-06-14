@@ -8,11 +8,11 @@ import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
+import static androidx.test.espresso.matcher.ViewMatchers.hasSibling;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withSubstring;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
@@ -101,9 +101,10 @@ public class SettingsSearchTest {
 	public void shouldFindEditedStyle() {
 		// Given
 		onView(preferencesButton()).perform(click());
-		addNewStyle("new style");
+		final String newStyle = "new style";
+		addNewStyle(newStyle);
 		final String editedStyle = "new edited style";
-		editStyle(editedStyle);
+		editStyle(newStyle, editedStyle);
 		onView(homeButton()).perform(click());
 		onView(searchButton()).perform(click());
 
@@ -120,7 +121,7 @@ public class SettingsSearchTest {
 		final String newStyle = "new style";
 		onView(preferencesButton()).perform(click());
 		addNewStyle(newStyle);
-		deleteNewStyle();
+		deleteStyle(newStyle);
 		onView(homeButton()).perform(click());
 		onView(searchButton()).perform(click());
 
@@ -131,18 +132,16 @@ public class SettingsSearchTest {
 		onView(searchResultsView()).check(matches(recyclerViewHasItemCount(equalTo(0))));
 	}
 
-	private static void deleteNewStyle() {
-		onView(listItemMenu()).perform(click());
+	private static void deleteStyle(final String styleName) {
+		onView(listItemMenu(styleName)).perform(click());
 		onView(deleteButton()).perform(click());
 		onView(yesButton()).perform(scrollTo(), click());
 	}
 
-	private static Matcher<View> listItemMenu() {
+	private static Matcher<View> listItemMenu(final String styleName) {
 		return allOf(
 				withId(R.id.listItemMenu),
-				childAtPosition(
-						withParent(withId(android.R.id.list)),
-						2),
+				hasSibling(hasDescendant(withText(styleName))),
 				isDisplayed());
 	}
 
@@ -179,10 +178,11 @@ public class SettingsSearchTest {
 						0));
 	}
 
-	private static void editStyle(final String newStyle) {
-		onView(listItemMenu()).perform(click());
+	private static void editStyle(final String oldStyleName, final String newStyleName) {
+		onView(listItemMenu(oldStyleName)).perform(click());
 		onView(editButton()).perform(click());
-		onView(editName()).perform(replaceText(newStyle));
+		onView(editName()).perform(replaceText(newStyleName));
+		onView(okButton()).perform(click());
 	}
 
 	private static void _addNewStyle(final String newStyle) {
