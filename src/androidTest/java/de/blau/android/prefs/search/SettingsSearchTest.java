@@ -199,7 +199,7 @@ public class SettingsSearchTest {
 	private static Matcher<View> addStyleButton() {
 		return allOf(
 				withId(R.id.add),
-				withContentDescription("Add style…"),
+				withContentDescription(getString(R.string.urldialog_add_style)),
 				childAtPosition(
 						childAtPosition(
 								withId(R.id.coordinator),
