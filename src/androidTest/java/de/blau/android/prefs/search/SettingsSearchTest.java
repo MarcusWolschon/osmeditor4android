@@ -97,6 +97,23 @@ public class SettingsSearchTest {
 	}
 
 	@Test
+	public void shouldFindEditedStyle() {
+		// Given
+		onView(preferencesButton()).perform(click());
+		addNewStyle("new style");
+		final String editedStyle = "new edited style";
+		editStyle(editedStyle);
+		onView(homeButton()).perform(click());
+		onView(searchButton()).perform(click());
+
+		// When
+		onView(searchEditText()).perform(replaceText(editedStyle), closeSoftKeyboard());
+
+		// Then
+		onView(searchResultsView()).check(matches(hasSearchResultWithSubstring(editedStyle)));
+	}
+
+	@Test
 	public void shouldNotFindDeletedStyle() {
 		// Given
 		final String newStyle = "new style";
@@ -128,10 +145,18 @@ public class SettingsSearchTest {
 				isDisplayed());
 	}
 
+	private static Matcher<View> editButton() {
+		return menuButtonWithText("Edit…");
+	}
+
 	private static Matcher<View> deleteButton() {
+		return menuButtonWithText("Delete");
+	}
+
+	static Matcher<View> menuButtonWithText(final String text) {
 		return allOf(
 				withId(android.R.id.title),
-				withText("Delete"),
+				withText(text),
 				childAtPosition(
 						childAtPosition(
 								withId(android.R.id.content),
@@ -151,6 +176,12 @@ public class SettingsSearchTest {
 				childAtPosition(
 						withId(android.R.id.list_container),
 						0));
+	}
+
+	private static void editStyle(final String newStyle) {
+		onView(listItemMenu()).perform(click());
+		onView(editButton()).perform(click());
+		onView(editName()).perform(replaceText(newStyle));
 	}
 
 	private static void _addNewStyle(final String newStyle) {
