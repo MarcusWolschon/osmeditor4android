@@ -188,7 +188,6 @@ public class SettingsSearchTest {
 		onView(addStyleButton()).perform(click());
 		enterNameAndValue(newStyle, "https://panoramax.ign.fr/api");
 		onView(okButton()).perform(scrollTo(), click());
-		onView(okButton()).perform(scrollTo(), click());
 	}
 
 	private static Matcher<View> addStyleButton() {
