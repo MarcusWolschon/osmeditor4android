@@ -199,9 +199,15 @@
   },
   {
     "key": "Key:contact:foursquare",
-    "url": "https://foursquare.com/mapaction?id=$1&action=view",
+    "url": "https://app.foursquare.com/v/$1",
     "source": "wikidata:P1630",
     "rank": "preferred"
+  },
+  {
+    "key": "Key:contact:foursquare",
+    "url": "https://foursquare.com/mapaction?id=$1&action=view",
+    "source": "wikidata:P1630",
+    "rank": "normal"
   },
   {
     "key": "Key:contact:foursquare",
@@ -1374,6 +1380,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:kons:criteria",
+    "url": "http://aplikacija.kons.gov.ba/kons/public/nacionalnispomenici/show/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:kons:decision_number",
     "url": "http://aplikacija.kons.gov.ba/",
     "source": "osmwiki:P8",
@@ -1382,6 +1394,12 @@
   {
     "key": "Key:kons:inscription_date",
     "url": "http://aplikacija.kons.gov.ba/",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:kons:official_name",
+    "url": "http://aplikacija.kons.gov.ba/kons/public/nacionalnispomenici/show/$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
@@ -1472,6 +1490,12 @@
   {
     "key": "Key:name:etymology:wikidata",
     "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:name:etymology:wikimedia_commons",
+    "url": "https://commons.wikimedia.org/wiki/$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
@@ -2268,12 +2292,6 @@
     "rank": "normal"
   },
   {
-    "key": "Key:ref:FR:SIRET",
-    "url": "https://www.sirene.fr/sirene/public/recherche?recherche.sirenSiret=$1",
-    "source": "wikidata:P1630",
-    "rank": "normal"
-  },
-  {
     "key": "Key:ref:FR:STIF",
     "url": "https://jungle-bus.github.io/unroll/load.html?ref:FR:STIF=$1",
     "source": "osmwiki:P8",
@@ -2306,6 +2324,12 @@
   {
     "key": "Key:ref:GB:nhs_ods",
     "url": "https://www.odsdatasearchandexport.nhs.uk/?search=generalorg&query=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:GB:ukprn",
+    "url": "https://www.ukrlp.co.uk/ukrlp/ukrlp_provider.page_pls_provDetails?x=&pn_p_id=$1&pv_status=VERIFIED&pv_vis_code=L",
     "source": "wikidata:P1630",
     "rank": "normal"
   },
@@ -3254,6 +3278,12 @@
   {
     "key": "Key:royal_cypher:wikidata",
     "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:school:CH-GE",
+    "url": "https://wiki.openstreetmap.org/wiki/Key:school:CH-GE#$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
