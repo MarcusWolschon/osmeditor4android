@@ -86,7 +86,7 @@ public class SettingsSearchTest {
 		// Given
 		final String newStyle = "new style";
 		onView(preferencesButton()).perform(click());
-		addNewStyle(newStyle);
+		addStyle(newStyle);
 		onView(homeButton()).perform(click());
 		onView(searchButton()).perform(click());
 
@@ -101,10 +101,10 @@ public class SettingsSearchTest {
 	public void shouldFindEditedStyle() {
 		// Given
 		onView(preferencesButton()).perform(click());
-		final String newStyle = "new style";
-		addNewStyle(newStyle);
-		final String editedStyle = "new edited style";
-		editStyle(newStyle, editedStyle);
+		final String style = "some style";
+		addStyle(style);
+		final String editedStyle = "some edited style";
+		editStyle(style, editedStyle);
 		onView(homeButton()).perform(click());
 		onView(searchButton()).perform(click());
 
@@ -118,15 +118,15 @@ public class SettingsSearchTest {
 	@Test
 	public void shouldNotFindDeletedStyle() {
 		// Given
-		final String newStyle = "new style";
+		final String style = "some style";
 		onView(preferencesButton()).perform(click());
-		addNewStyle(newStyle);
-		deleteStyle(newStyle);
+		addStyle(style);
+		deleteStyle(style);
 		onView(homeButton()).perform(click());
 		onView(searchButton()).perform(click());
 
 		// When
-		onView(searchEditText()).perform(replaceText(newStyle), closeSoftKeyboard());
+		onView(searchEditText()).perform(replaceText(style), closeSoftKeyboard());
 
 		// Then
 		onView(searchResultsView()).check(matches(recyclerViewHasItemCount(equalTo(0))));
@@ -138,10 +138,10 @@ public class SettingsSearchTest {
 		onView(yesButton()).perform(scrollTo(), click());
 	}
 
-	private static Matcher<View> listItemMenu(final String styleName) {
+	private static Matcher<View> listItemMenu(final String style) {
 		return allOf(
 				withId(R.id.listItemMenu),
-				hasSibling(hasDescendant(withText(styleName))),
+				hasSibling(hasDescendant(withText(style))),
 				isDisplayed());
 	}
 
@@ -165,9 +165,9 @@ public class SettingsSearchTest {
 				isDisplayed());
 	}
 
-	private static void addNewStyle(final String newStyle) {
+	private static void addStyle(final String style) {
 		onView(configMapProfilePreference()).perform(actionOnItemAtPosition(1, click()));
-		_addNewStyle(newStyle);
+		_addStyle(style);
 	}
 
 	private static Matcher<View> configMapProfilePreference() {
@@ -178,16 +178,16 @@ public class SettingsSearchTest {
 						0));
 	}
 
-	private static void editStyle(final String oldStyleName, final String newStyleName) {
-		onView(listItemMenu(oldStyleName)).perform(click());
+	private static void editStyle(final String oldStyle, final String newStyle) {
+		onView(listItemMenu(oldStyle)).perform(click());
 		onView(editButton()).perform(click());
-		onView(editName()).perform(replaceText(newStyleName));
+		onView(editName()).perform(replaceText(newStyle));
 		onView(okButton()).perform(click());
 	}
 
-	private static void _addNewStyle(final String newStyle) {
+	private static void _addStyle(final String style) {
 		onView(addStyleButton()).perform(click());
-		enterNameAndValue(newStyle, "https://panoramax.ign.fr/api");
+		enterNameAndValue(style, "https://panoramax.ign.fr/api");
 		onView(okButton()).perform(scrollTo(), click());
 		TestUtils.textGone(
 				UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()),
