@@ -2,6 +2,7 @@
 
 22.0.3:
 
+- Fix use java 21 for CI and associated fixes
 - Fix don't ignore display cutout insets
 - Fix support long press way splitting in legacy mode
 - Fix for two node ways long click is the only split option
