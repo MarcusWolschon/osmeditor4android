@@ -1,5 +1,20 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+22.0.3:
+
+- Fix don't ignore display cutout insets
+- Fix support long press way splitting in legacy mode
+- Fix for two node ways long click is the only split option
+- Fix new ways don't have history so no need to select segment on splitting
+- Fix the prev version of conscrypt did support 16k pages on ARM
+- Fix handle panoramax instance configuration with and without trailing api
+- Fix get the http client as early as possible
+- Update translations
+- Update default preset
+- Update imagery from ELI 
+- Update tag2link
+- Update NSI
+
 22.0.2:
 
 - Fix updating relation member label after download regression
