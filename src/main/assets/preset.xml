@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.100.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,road_marking,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.103.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,road_marking,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop">
 <!--
     Icons have been derived from mainly from
   
@@ -58,6 +58,7 @@
     
     
      
+    
     
     
     
@@ -1922,6 +1923,20 @@
         <reference ref="additonal_aerialway_tags"/>
         <check key="aerialway:bubble" text="Has bubble?" disable_off="true"/>
     </chunk>
+    <chunk id="aerialway_usage">
+        <multiselect key="usage" text="Usage" values="industrial;freight;tourism" display_values="Freight;Industrial;Tourism" values_context="usage" values_searchable="true"/>
+    </chunk>
+    <chunk id="aerialway_access">
+        <combo text="Access" key="aerialway:access">
+            <list_entry value="entry" display_value="Entry"/><list_entry value="exit" display_value="Exit"/><list_entry value="both" display_value="Both entry and exit"/><list_entry value="no" display_value="No access"/>
+        </combo>
+        <combo text="Summer access" key="aerialway:summer:access">
+            <list_entry value="entry" display_value="Entry"/><list_entry value="exit" display_value="Exit"/><list_entry value="both" display_value="Both entry and exit"/><list_entry value="no" display_value="No access"/>
+        </combo>
+        <combo text="Winter access" key="aerialway:winter:access">
+            <list_entry value="entry" display_value="Entry"/><list_entry value="exit" display_value="Exit"/><list_entry value="both" display_value="Both entry and exit"/><list_entry value="no" display_value="No access"/>
+        </combo>
+    </chunk>
     <chunk id="playground_theme">
         <combo text="Theme" key="playground:theme" values="barrel,bee,bridge,castle,cat,cow,dog,dragon,helicopter,horse,locomotive,octopus,plane,rocket,ship,spiderweb,tiger,train" display_values="Barrel,Bee,Bridge,Castle,Cat,Cow,Dog,Dragon,Helicopter,Horse,Locomotive,Octopus,Plane,Rocket,Ship,Spiderweb,Tiger,Train"/>
     </chunk>
@@ -2319,9 +2334,6 @@
     </chunk>
     <chunk id="trail_visibility">
         <combo key="trail_visibility" text="Visibility" values="excellent,good,intermediate,bad,horrible,no" display_values="Excellent,Good,Intermediate,Bad,Horrible,Not visible" values_context="trail_visibility" values_sort="false"/>
-    </chunk>
-    <chunk id="aerialway_usage">
-        <multiselect key="usage" text="Usage" values="industrial;freight;tourism" display_values="Freight;Industrial;Tourism" values_context="usage" values_searchable="true"/>
     </chunk>
     <chunk id="map_base">
         <reference ref="optional_name_ref_operator"/>
@@ -5452,6 +5464,7 @@
                 <preset_link preset_name="No name"/>
                 <optional>
                     <reference ref="aerialway_usage"/>
+                     <reference ref="aerialway_access"/>
                 </optional>
             </item> <!-- Station -->
             <item name="Pylon" icon="icons/png/transport_aerialway_pylon_10009.png" type="node" preset_name_label="true">
@@ -8721,7 +8734,9 @@
             <link wiki="Tag:emergency=fire_extinguisher"/>
             <space/>
             <key key="emergency" value="fire_extinguisher"/>
-            <reference ref="ref_operator"/>
+            <optional>
+                <reference ref="ref_operator"/>
+            </optional>
             <reference ref="level"/>
             <check key="indoor" text="Located inside a building?" disable_off="true" match="none"/>
         </item> <!-- Fire Extinguisher -->
@@ -11186,7 +11201,7 @@
             <optional>
                 <reference ref="name_ref_operator"/>
                 <check key="building" value_on="storage_tank" text="Storage tank building" values_context="building" disable_off="true" values_searchable="true" match="keyvalue"/>
-                <combo key="content" text="Content" values="fuel,manure,oil,sewage,silage,slurry,water,wine" display_values="Fuel,Manure,Oil,Sewage,Silage,Slurry,Water,Wine" values_context="content"/>
+                <combo key="content" text="Content" values="beer,cement,drinking_water,fuel,gas,hot_water,manure,oil,salt,sewage,silage,slurry,wastewater,water,wine" display_values="Beer,Cement,Drinking water,Fuel,Gas,Hot water,Manure,Oil,Salt,Sewage,Silage,Slurry,Wastewater,Water,Wine" values_context="content"/>
                 <text key="height" text="Height (meters)" length="7" value_type="dimension_vertical"/>
                 <reference ref="additional_building_tags"/>
             </optional>
@@ -11203,6 +11218,7 @@
             <key key="man_made" value="bunker_silo"/>
             <optional>
                 <reference ref="name_ref_operator"/>
+                <combo key="content" text="Content" values="crop,grain,manure,salt,silage" display_values="Crops,Grain,Manure,Salt,Silage" values_context="content"/>
             </optional>
         </item> <!-- Bunker Silo -->
         <item name="Crane" icon="icons/png/poi_crane.png" type="node,way,closedway" preset_name_label="true">
