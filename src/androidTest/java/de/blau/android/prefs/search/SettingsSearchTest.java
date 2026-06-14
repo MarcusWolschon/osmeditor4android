@@ -101,7 +101,7 @@ public class SettingsSearchTest {
 	public void shouldFindEditedStyle() {
 		// Given
 		onView(preferencesButton()).perform(click());
-		final String style = "some style";
+		final String style = "some style to edit";
 		addStyle(style);
 		final String editedStyle = "some edited style";
 		editStyle(style, editedStyle);
@@ -118,7 +118,7 @@ public class SettingsSearchTest {
 	@Test
 	public void shouldNotFindDeletedStyle() {
 		// Given
-		final String style = "some style";
+		final String style = "some style to delete";
 		onView(preferencesButton()).perform(click());
 		addStyle(style);
 		deleteStyle(style);
