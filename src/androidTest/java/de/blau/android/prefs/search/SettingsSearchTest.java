@@ -4,13 +4,16 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.replaceText;
+import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withSubstring;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
 
@@ -61,16 +64,117 @@ public class SettingsSearchTest {
 	}
 
 	@Test
-	public void shouldSearchAndFindBuiltinStyle() {
+	public void test_search_style() {
 		// Given
-		navigateToSearch();
 		final String query = "Built-in (minimal)";
+		navigateToSearch();
 
 		// When
 		onView(searchEditText()).perform(replaceText(query), closeSoftKeyboard());
 
 		// Then
 		onView(searchResultsView()).check(matches(hasSearchResultWithSubstring(query)));
+	}
+
+	@Test
+	public void test_search_newStyle() {
+		// Given
+		final String newStyle = "some style";
+		addNewStyle(newStyle);
+		onView(searchButton()).perform(click());
+
+		// When
+		onView(searchEditText()).perform(replaceText(newStyle), closeSoftKeyboard());
+
+		// Then
+		onView(searchResultsView()).check(matches(hasSearchResultWithSubstring(newStyle)));
+	}
+
+	private static void addNewStyle(final String newStyle) {
+		onView(preferencesButton()).perform(click());
+		onView(configMapProfilePreference()).perform(actionOnItemAtPosition(1, click()));
+		_addNewStyle(newStyle);
+		onView(homeButton()).perform(click());
+	}
+
+	private static Matcher<View> configMapProfilePreference() {
+		return allOf(
+				withId(ch.poole.android.numberpickerpreference.R.id.recycler_view),
+				childAtPosition(
+						withId(android.R.id.list_container),
+						0));
+	}
+
+	private static void _addNewStyle(final String newStyle) {
+		onView(addStyleButton()).perform(click());
+		enterNameAndValue(newStyle, "https://panoramax.ign.fr/api");
+		onView(okButton()).perform(scrollTo(), click());
+		onView(okButton()).perform(scrollTo(), click());
+	}
+
+	private static Matcher<View> addStyleButton() {
+		return allOf(
+				withId(R.id.add),
+				withContentDescription("Add style…"),
+				childAtPosition(
+						childAtPosition(
+								withId(R.id.coordinator),
+								0),
+						1),
+				isDisplayed());
+	}
+
+	private static void enterNameAndValue(final String name, final String value) {
+		onView(editName()).perform(replaceText(name), closeSoftKeyboard());
+		onView(editValue()).perform(replaceText(value), closeSoftKeyboard());
+	}
+
+	private static Matcher<View> editName() {
+		return allOf(
+				withId(R.id.listedit_editName),
+				childAtPosition(
+						allOf(withId(R.id.LinearLayout1),
+								childAtPosition(
+										withId(com.google.android.material.R.id.custom),
+										0)),
+						1),
+				isDisplayed());
+	}
+
+	private static Matcher<View> editValue() {
+		return allOf(
+				withId(R.id.listedit_editValue),
+				childAtPosition(
+						allOf(withId(R.id.LinearLayout1),
+								childAtPosition(
+										withId(com.google.android.material.R.id.custom),
+										0)),
+						5),
+				isDisplayed());
+	}
+
+	private static Matcher<View> homeButton() {
+		return allOf(
+				withContentDescription("Navigate up"),
+				childAtPosition(
+						allOf(
+								withId(com.google.android.material.R.id.action_bar),
+								childAtPosition(
+										withId(com.google.android.material.R.id.action_bar_container),
+										0)),
+						1),
+				isDisplayed());
+	}
+
+	private static Matcher<View> okButton() {
+		return allOf(
+				withId(android.R.id.button1),
+				withText("OK"),
+				childAtPosition(
+						childAtPosition(
+								withId(com.google.android.material.R.id.buttonPanel),
+								0),
+						3));
 	}
 
 	private static void navigateToSearch() {
