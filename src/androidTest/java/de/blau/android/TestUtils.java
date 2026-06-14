@@ -4,19 +4,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-import java.util.regex.Pattern;
-
-import org.junit.Assert;
-
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -30,6 +17,7 @@ import android.os.Build;
 import android.os.SystemClock;
 import android.provider.DocumentsContract;
 import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
@@ -44,6 +32,20 @@ import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiScrollable;
 import androidx.test.uiautomator.UiSelector;
 import androidx.test.uiautomator.Until;
+
+import org.junit.Assert;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
+
 import de.blau.android.filter.Filter;
 import de.blau.android.gpx.TrackPoint;
 import de.blau.android.imageryoffset.Offset;
@@ -115,6 +117,7 @@ public final class TestUtils {
         if (findText(device, false, ctx.getResources().getString(R.string.welcome_title))) {
             clickText(device, true, ctx.getResources().getString(R.string.next), true, false);
             scrollToEnd(false);
+            sleep(1000);
             clickResource(device, false, device.getCurrentPackageName() + ":id/authorize", false);
             clickText(device, true, ctx.getResources().getString(R.string.welcome_start), true, false);
         }
