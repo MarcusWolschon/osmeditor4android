@@ -26,6 +26,7 @@ import static de.blau.android.prefs.search.ViewMatchers.recyclerViewHasItemCount
 import android.app.Instrumentation;
 import android.view.View;
 
+import androidx.annotation.IdRes;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -146,14 +147,14 @@ public class SettingsSearchTest {
 	}
 
 	private static Matcher<View> editButton() {
-		return menuButtonWithText("Edit…");
+		return menuButtonWithText(getString(R.string.menu_edit));
 	}
 
 	private static Matcher<View> deleteButton() {
-		return menuButtonWithText("Delete");
+		return menuButtonWithText(getString(R.string.delete));
 	}
 
-	static Matcher<View> menuButtonWithText(final String text) {
+	private static Matcher<View> menuButtonWithText(final String text) {
 		return allOf(
 				withId(android.R.id.title),
 				withText(text),
@@ -191,7 +192,7 @@ public class SettingsSearchTest {
 		onView(okButton()).perform(scrollTo(), click());
 		TestUtils.textGone(
 				UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()),
-				ApplicationProvider.getApplicationContext().getString(R.string.progress_resource_download_message),
+				getString(R.string.progress_resource_download_message),
 				30000);
 	}
 
@@ -316,5 +317,9 @@ public class SettingsSearchTest {
 
 	private static Matcher<View> hasSearchResultWithSubstring(final String substring) {
 		return recyclerViewHasItem(hasDescendant(withSubstring(substring)));
+	}
+
+	private static String getString(final @IdRes int resId) {
+		return ApplicationProvider.getApplicationContext().getString(resId);
 	}
 }
