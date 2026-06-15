@@ -133,6 +133,8 @@ public class SettingsSearchTest {
 		onView(searchResultsView()).check(matches(recyclerViewHasItemCount(equalTo(0))));
 	}
 
+	// FK-TODO: füge einen Test dazu, der irgendeine Preference aus dem AdvancedPrefEditorFragment sucht und findet, um sicherzustellen, dass das AdvancedPrefEditorFragment überhaupt mit in die Suche aufgenommen wurde.
+
 	private static void deleteStyle(final String style) {
 		onView(listItemMenu(style)).perform(click());
 		onView(deleteButton()).perform(click());
