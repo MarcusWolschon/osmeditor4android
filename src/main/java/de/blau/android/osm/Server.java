@@ -42,9 +42,7 @@ import android.net.Uri;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
-import de.blau.android.Authorize;
 import de.blau.android.ErrorCodes;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
@@ -64,6 +62,7 @@ import de.blau.android.services.util.MBTileProviderDataBase;
 import de.blau.android.services.util.StreamUtils;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.NoteComment;
+import de.blau.android.util.AuthorisationEnabledActivity;
 import de.blau.android.util.BasicAuthInterceptor;
 import de.blau.android.util.ScreenMessage;
 import okhttp3.Call;
@@ -1758,18 +1757,19 @@ public class Server {
      * @param restartAction the action to do when we've been successfully authenticated
      * @return true if login was already ok else false
      */
-    public static boolean checkOsmAuthentication(@NonNull final FragmentActivity activity, @NonNull final Server server,
+    public static boolean checkOsmAuthentication(@NonNull final AuthorisationEnabledActivity activity, @NonNull final Server server,
             @NonNull PostAsyncActionHandler restartAction) {
         if (server.isLoginSet()) {
             if (server.needOAuthHandshake()) {
-                activity.runOnUiThread(() -> Authorize.startForResult(activity, (resultCode, result) -> {
-                    if (Activity.RESULT_OK == resultCode) {
+                activity.setCallback(result -> {
+                    if (Activity.RESULT_OK == result.getResultCode()) {
                         restartAction.onSuccess();
                     } else {
-                        Log.w(DEBUG_TAG, "Authorized returned with " + resultCode);
+                        Log.w(DEBUG_TAG, "Authorized returned with " + result.getResultCode());
                         restartAction.onError(null);
                     }
-                }));
+                });
+                activity.runOnUiThread(activity::startAuthorisation);
                 if (server.getOAuth()) { // if still set
                     ScreenMessage.barError(activity, R.string.toast_oauth);
                 }

@@ -118,6 +118,7 @@ import de.blau.android.resources.WmsEndpointDatabaseView;
 import de.blau.android.tasks.TaskStorage;
 import de.blau.android.tasks.Todo;
 import de.blau.android.tasks.TransferTasks;
+import de.blau.android.util.AuthorisationEnabledActivity;
 import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.Density;
 import de.blau.android.util.ExecutorTask;
@@ -195,7 +196,10 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
         // right now
         final FloatingActionButton add = (FloatingActionButton) layout.findViewById(R.id.add);
         add.setOnClickListener(v -> {
-            final FragmentActivity activity = getActivity();
+            if (!(getActivity() instanceof AuthorisationEnabledActivity)) {
+                throw new IllegalArgumentException("Expected a AuthorisationEnabledActivity");
+            }
+            final AuthorisationEnabledActivity activity = (AuthorisationEnabledActivity) getActivity();
             final Preferences prefs = App.getLogic().getPrefs();
             PopupMenu popup = new InsetAwarePopupMenu(getActivity(), add);
             final Map map = App.getLogic().getMap();
@@ -348,7 +352,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
      * @param prefs the current Preferences
      * @param map the current map object
      */
-    private void downloadGpxTrack(@NonNull final FragmentActivity activity, @NonNull final Preferences prefs, @NonNull final Map map) {
+    private void downloadGpxTrack(@NonNull final AuthorisationEnabledActivity activity, @NonNull final Preferences prefs, @NonNull final Map map) {
         final Logic logic = App.getLogic();
         final Server server = prefs.getServer();
         ExecutorTask<Void, Void, List<GpxFile>> download = new ExecutorTask<Void, Void, List<GpxFile>>(logic.getExecutorService(), logic.getHandler()) {
@@ -927,7 +931,11 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
 
         @Override
         public void onClick(View arg0) {
-            final FragmentActivity activity = getActivity();
+            if (!(getActivity() instanceof AuthorisationEnabledActivity)) {
+                throw new IllegalArgumentException("Expected a AuthorisationEnabledActivity");
+            }
+            final AuthorisationEnabledActivity activity = (AuthorisationEnabledActivity) getActivity();
+
             PopupMenu popup = new InsetAwarePopupMenu(activity, button);
             Menu menu = popup.getMenu();
             final Map map = App.getLogic().getMap();

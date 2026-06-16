@@ -55,6 +55,7 @@ import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.propertyeditor.tagform.TextRow;
 import de.blau.android.util.ACRAHelper;
+import de.blau.android.util.AuthorisationEnabledActivity;
 import de.blau.android.util.FilterlessArrayAdapter;
 import de.blau.android.util.LocaleUtils;
 import de.blau.android.util.OnPageSelectedListener;
@@ -159,7 +160,10 @@ public class ReviewAndUpload extends AbstractReviewDialog {
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
         Log.d(DEBUG_TAG, "onCreateDialog");
-        FragmentActivity activity = getActivity();
+        if (!(getActivity() instanceof AuthorisationEnabledActivity)) {
+            throw new IllegalArgumentException("Expected a AuthorisationEnabledActivity");
+        }
+        AuthorisationEnabledActivity activity = (AuthorisationEnabledActivity) getActivity();
         Preferences prefs = App.getPreferences(activity);
 
         boolean requestReview = false;
