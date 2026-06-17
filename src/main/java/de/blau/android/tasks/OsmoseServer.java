@@ -29,6 +29,10 @@ import okhttp3.ResponseBody;
 
 final class OsmoseServer {
 
+    private static final String FALSE_STATE = "false";
+
+    private static final String DONE_STATE = "done";
+
     private static final String DEBUG_TAG = OsmoseServer.class.getSimpleName().substring(0, Math.min(23, OsmoseServer.class.getSimpleName().length()));
 
     private static final String API03PATH = "/api/0.3/"; // NOSONAR
@@ -44,6 +48,8 @@ final class OsmoseServer {
      * Timeout for connections in milliseconds.
      */
     private static final int TIMEOUT = 45 * 1000;
+
+    private static final String CHANGE_STATE = "%sissue/%s/%s";
 
     /**
      * Private constructor to stop instantiation
@@ -100,7 +106,8 @@ final class OsmoseServer {
             return new UploadResult(ErrorCodes.BAD_REQUEST);
         }
         try {
-            URL url = new URI(getServerURL(server) + "issue/" + bug.getId() + "/" + (bug.getState() == State.CLOSED ? "done" : "false")).toURL();
+            URL url = new URI(
+                    String.format(CHANGE_STATE, getServerURL(server), bug.getId(), (bug.getState() == State.CLOSED ? DONE_STATE : FALSE_STATE))).toURL();
             Log.d(DEBUG_TAG, "changeState " + url.toString());
             Request request = new Request.Builder().url(url).build();
             OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)

@@ -13,7 +13,6 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -80,8 +79,6 @@ public class OAuth2Helper extends OAuthHelper {
     private static final String ERROR_PARAM                 = "error";
     private static final String ALLOW_SIGNUP_PARAM          = "allow_signup";
     private static final String CLIENT_SECRET_PARAM         = "client_secret";
-
-    public static final List<String> OSM_SCOPES = Arrays.asList("read_prefs", "write_prefs", "write_api", "read_gpx", "write_gpx", "write_notes");
 
     private static final char[] PKCE_CHARS = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
             'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',

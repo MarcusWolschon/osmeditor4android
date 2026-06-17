@@ -61,7 +61,6 @@ public class PanoramaxStorage implements ImageStorage {
     private static final String UPLOAD_SETS              = "upload_sets";
     private static final String FILE                     = "file";
     private static final String ID                       = "id";
-    private static final String FILES                    = "/files";
     private static final String API_UPLOAD_SETS          = "api/upload_sets";
     private static final String HREF                     = "href";
     private static final String LINKS                    = "links";
@@ -77,6 +76,8 @@ public class PanoramaxStorage implements ImageStorage {
     private static final String API_AUTH_TOKENS_GENERATE = "api/auth/tokens/generate";
     private static final String API_USERS_ME             = "api/users/me";
     private static final String API                      = "api";
+
+    private static final String UPLOAD_SET = "%s/%s/files";
 
     private static final long TIMEOUT = 20000;
 
@@ -221,7 +222,7 @@ public class PanoramaxStorage implements ImageStorage {
                 body = RequestBody.create(MediaType.parse(MimeTypes.JPEG), imageFile);
 
                 MultipartBody multipartBody = new MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart(FILE, imageFile.getName(), body).build();
-                final URL uploadSetUrl = new URI(url.toString() + "/" + uploadSetId.getAsString() + FILES).toURL();
+                final URL uploadSetUrl = new URI(String.format(UPLOAD_SET, url.toString(), uploadSetId.getAsString())).toURL();
                 Log.d(DEBUG_TAG, "Upload url " + uploadSetUrl);
                 Request uploadRequest = new Request.Builder().url(uploadSetUrl).post(multipartBody).build();
                 Log.d(DEBUG_TAG, "Uploading image");
