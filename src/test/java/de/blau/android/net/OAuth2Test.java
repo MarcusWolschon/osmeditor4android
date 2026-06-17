@@ -97,7 +97,7 @@ public class OAuth2Test {
     public void authorisationUrl() {
         try {
             OAuth2Helper oa = new OAuth2Helper(ApplicationProvider.getApplicationContext(), "Test", OpenStreetMap.AUTHORIZE_PATH, OpenStreetMap.ACCESS_TOKEN_PATH, OpenStreetMap.OSM_REDIRECT_URI);
-            String authUrl = oa.getAuthorisationUrl(ApplicationProvider.getApplicationContext(), OAuth2Helper.OSM_SCOPES);
+            String authUrl = oa.getAuthorisationUrl(ApplicationProvider.getApplicationContext(), OpenStreetMap.getScopes());
             // http://127.0.0.1/oauth2/authorize?response_type=code&client_id=1212121212&scope=read_prefs%20write_prefs%20write_api%20read_gpx%20write_gpx%20write_notes&redirect_uri=vespucci%3A%2Foauth2%2F&state=Test&code_challenge_method=S256&code_challenge=WbUnPg5qbjrJYrAPux3iAm0w_SS9CDFb-nXCrzdgF0E
             Uri parsed = Uri.parse(authUrl);
             assertEquals("1212121212", parsed.getQueryParameter("client_id"));

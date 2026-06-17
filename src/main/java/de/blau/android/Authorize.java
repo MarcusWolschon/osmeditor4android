@@ -129,7 +129,7 @@ public class Authorize extends ConfigurationChangeAwareActivity {
             authUrl = oa.getRequestToken();
         } else if (auth == Auth.OAUTH2) {
             OAuth2Helper oa = new OAuth2Helper(this, apiName, OpenStreetMap.AUTHORIZE_PATH, OpenStreetMap.ACCESS_TOKEN_PATH, OpenStreetMap.OSM_REDIRECT_URI);
-            authUrl = oa.getAuthorisationUrl(this, OAuth2Helper.OSM_SCOPES);
+            authUrl = oa.getAuthorisationUrl(this, OpenStreetMap.getScopes());
         }
         if (authUrl == null) {
             throw new OsmException("authUrl is null");
