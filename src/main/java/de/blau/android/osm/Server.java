@@ -103,6 +103,9 @@ public class Server {
     private static final String NEW_ID_ATTR         = "new_id";
     private static final String DIFF_RESULT_ELEMENT = "diffResult";
 
+    private static final String GET_ELEMENT      = "%s%s/%d";
+    private static final String GET_ELEMENT_MODE = "/%s";
+
     private static final String HTTP_PUT    = "PUT";
     static final String         HTTP_POST   = "POST";
     static final String         HTTP_GET    = "GET";
@@ -591,7 +594,8 @@ public class Server {
     public InputStream getStreamForElement(@Nullable final Context context, @Nullable final String mode, @NonNull final String type, final long id)
             throws IOException, URISyntaxException {
         Log.d(DEBUG_TAG, "getStreamForElement");
-        URL url = new URI((hasMapSplitSource() ? getReadWriteUrl() : getReadOnlyUrl()) + type + "/" + id + (mode != null ? "/" + mode : "")).toURL();
+        URL url = new URI(String.format(GET_ELEMENT, hasMapSplitSource() ? getReadWriteUrl() : getReadOnlyUrl(), type, id)
+                + (mode != null ? String.format(GET_ELEMENT_MODE, mode) : "")).toURL();
         return openConnection(context, url, useAuthenticatedReads(), timeout, timeout);
     }
 

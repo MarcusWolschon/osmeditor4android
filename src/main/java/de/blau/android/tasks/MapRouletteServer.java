@@ -36,6 +36,9 @@ final class MapRouletteServer {
     private static final String APIPATH = "api/v2/";
     private static final String API_KEY = "apiKey";
 
+    private static final String TASKS_FOR_BOX     = "%stasks/box/%f/%f/%f/%f?includeGeometries=true&limit=%d";
+    private static final String CHANGE_TASK_STATE = "%stask/%d/%d";
+
     /**
      * Timeout for connections in milliseconds.
      */
@@ -61,8 +64,8 @@ final class MapRouletteServer {
     public static Collection<MapRouletteTask> getTasksForBox(@NonNull String server, @NonNull BoundingBox area, long limit) {
         try {
             Log.d(DEBUG_TAG, "getTasksForBox");
-            URL url = new URI(getServerURL(server) + "tasks/box/" + area.getLeft() / 1E7d + "/" + area.getBottom() / 1E7d + "/" + area.getRight() / 1E7d + "/"
-                    + area.getTop() / 1E7d + "?includeGeometries=true&limit=" + Long.toString(limit)).toURL();
+            URL url = new URI(String.format(TASKS_FOR_BOX, getServerURL(server), area.getLeft() / 1E7d, area.getBottom() / 1E7d, area.getRight() / 1E7d,
+                    area.getTop() / 1E7d, limit)).toURL();
             try (InputStream inputStream = getFromApi(url)) {
                 if (inputStream != null) {
                     return MapRouletteTask.parseTasks(inputStream);
@@ -111,8 +114,8 @@ final class MapRouletteServer {
     @NonNull
     public static UploadResult changeState(@NonNull Context context, @NonNull String server, @NonNull String apiKey, @NonNull MapRouletteTask task) {
         try {
-            URL url = new URI(getServerURL(server) + "task/" + task.getId() + "/" + MapRouletteFragment.state2pos(context.getResources(), task.getState()))
-                    .toURL();
+            URL url = new URI(String.format(CHANGE_TASK_STATE, getServerURL(server), task.getId(),
+                    MapRouletteFragment.state2pos(context.getResources(), task.getState()))).toURL();
             Log.d(DEBUG_TAG, "changeState " + url.toString());
             Request request = new Request.Builder().url(url).put(RequestBody.create(null, "")).addHeader(API_KEY, apiKey).build();
             OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
