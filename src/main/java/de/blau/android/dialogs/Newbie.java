@@ -17,7 +17,6 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
-import de.blau.android.Authorize;
 import de.blau.android.HelpViewer;
 import de.blau.android.Main;
 import de.blau.android.R;
@@ -26,7 +25,7 @@ import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.resources.TileLayerSource.Category;
-import de.blau.android.util.CancelableDialogFragment;
+import de.blau.android.util.AuthorisationEnabledDialogFragment;
 import de.blau.android.util.CustomAlertDialog;
 import de.blau.android.util.OnPageSelectedListener;
 import de.blau.android.util.ThemeUtils;
@@ -37,7 +36,7 @@ import de.blau.android.views.ExtendedViewPager;
  * Display a dialog giving new users minimal instructions
  *
  */
-public class Newbie extends CancelableDialogFragment {
+public class Newbie extends AuthorisationEnabledDialogFragment {
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Newbie.class.getSimpleName().length());
     private static final String DEBUG_TAG = Newbie.class.getSimpleName().substring(0, TAG_LEN);
@@ -163,7 +162,7 @@ public class Newbie extends CancelableDialogFragment {
                     dismiss();
 
                     if (authorize.isChecked()) {
-                        Authorize.startForResult(activity, null);
+                        startAuthorisation();
                     }
                 });
                 negative.setText(R.string.back);

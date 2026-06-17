@@ -187,8 +187,8 @@ import de.blau.android.tasks.TodoFragment;
 import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ActivityResultHandler;
+import de.blau.android.util.AuthorisationEnabledActivity;
 import de.blau.android.util.BadgeDrawable;
-import de.blau.android.util.ConfigurationChangeAwareActivity;
 import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.DownloadActivity;
 import de.blau.android.util.ExecutorTask;
@@ -221,7 +221,7 @@ import de.blau.android.views.ZoomControls;
  * @author mb
  * @author Simon Poole
  */
-public class Main extends ConfigurationChangeAwareActivity
+public class Main extends AuthorisationEnabledActivity
         implements ServiceConnection, TrackerLocationListener, UpdateViewListener, de.blau.android.geocode.SearchItemSelectedCallback, ActivityResultHandler {
 
     /**
@@ -487,7 +487,6 @@ public class Main extends ConfigurationChangeAwareActivity
         ViewGroupCompat.installCompatInsetsDispatch(ml);
         ViewCompat.setOnApplyWindowInsetsListener(ml, onApplyWindowInsetslistener);
 
-       
         mapLayout = (RelativeLayout) ml.findViewById(R.id.mainMap);
 
         Logic logic = App.getLogic(); // logic instance might still be around
@@ -2618,7 +2617,7 @@ public class Main extends ConfigurationChangeAwareActivity
         case R.id.menu_tools_oauth_authorisation: // immediately start
                                                   // authorization handshake
             if (server.getOAuth()) {
-                Authorize.startForResult(this, null);
+                startAuthorisation();
             } else {
                 ScreenMessage.barError(this, R.string.toast_oauth_not_enabled);
             }

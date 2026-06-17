@@ -46,7 +46,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -63,6 +62,7 @@ import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.resources.KeyDatabaseHelper.EntryType;
 import de.blau.android.util.ActivityResultHandler;
 import de.blau.android.util.AfterTextChangedWatcher;
+import de.blau.android.util.AuthorisationEnabledActivity;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
@@ -73,7 +73,7 @@ import okhttp3.Response;
 /**
  * Open an issue on github or Forgejo/Gitea. An anonymous submission requires the current OSM display name.
  */
-public class Feedback extends AppCompatActivity implements ActivityResultHandler {
+public class Feedback extends AuthorisationEnabledActivity implements ActivityResultHandler {
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Feedback.class.getSimpleName().length());
     private static final String DEBUG_TAG = Feedback.class.getSimpleName().substring(0, TAG_LEN);

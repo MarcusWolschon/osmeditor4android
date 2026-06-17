@@ -104,7 +104,7 @@ public class AuthorizationTest {
     @Test
     public void startAuthorization() {
         ActivityMonitor monitor = instrumentation.addMonitor(Authorize.class.getName(), null, false);
-
+        mockServer.enqueue("loaded");
         if (!TestUtils.clickMenuButton(device, main.getString(R.string.menu_tools), false, true)) {
             TestUtils.clickOverflowButton(device);
             TestUtils.clickText(device, false, main.getString(R.string.menu_tools), true, false);
@@ -113,7 +113,7 @@ public class AuthorizationTest {
         TestUtils.clickText(device, false, main.getString(R.string.menu_tools_oauth_authorisation), true, false);
         instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         instrumentation.removeMonitor(monitor);
-        mockServer.enqueue("loaded");
+        
         assertTrue(TestUtils.findText(device, false, "OpenStreetMap sandbox", 10000));
         assertTrue(TestUtils.clickText(device, false, "OpenStreetMap sandbox", true));
         assertTrue(TestUtils.findText(device, false, "Loaded", 10000));
