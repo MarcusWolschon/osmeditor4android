@@ -599,8 +599,8 @@ afterEvaluate{
 
 ext {
     okHttpVersion = "3.12.13" // don't change to higher than 3.12 as later versions break android 5 and earlier builds
-    conscryptVersion = "2.5.3"
-    conscryptUberVersion = "2.5.2" // org.conscrypt:conscrypt-openjdk-uber doesn't exist for 2.5.3
+    conscryptVersion = "2.6-alpha3"
+    conscryptUberVersion = "2.5.2" 
     signpostVersion = "2.1.1"
     acraVersion = "5.7.0"
     mapboxVersion = "5.8.0"
