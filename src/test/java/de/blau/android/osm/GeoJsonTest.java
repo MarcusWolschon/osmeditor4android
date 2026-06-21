@@ -383,7 +383,7 @@ public class GeoJsonTest {
      * @throws IOException if something goes wrong while readins
      */
     @NonNull
-    String inputStreamToString(@NonNull InputStream input) throws IOException {
+    public static String inputStreamToString(@NonNull InputStream input) throws IOException {
         return FileUtil.readToString(new BufferedReader(new InputStreamReader(input, StandardCharsets.UTF_8)));
     }
 }

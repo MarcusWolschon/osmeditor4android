@@ -70,7 +70,8 @@ public class Preferences {
     private int               mapillaryCacheSize;            // in MB
     private int               downloadRadius;                // in m
     private float             maxDownloadSpeed;              // in km/h
-    private final boolean     autoPrune;
+    private boolean           autoPruneData;
+    private boolean           autoPruneTasks;
     private final int         autoPruneBoundingBoxLimit;
     private final int         autoPruneNodeLimit;
     private final int         autoPruneTaskLimit;
@@ -201,7 +202,8 @@ public class Preferences {
 
         downloadRadius = getIntPref(R.string.config_extTriggeredDownloadRadius_key, de.blau.android.layer.data.MapOverlay.DEFAULT_AUTO_DOWNLOAD_RADIUS);
         maxDownloadSpeed = getIntPref(R.string.config_maxDownloadSpeed_key, 10);
-        autoPrune = prefs.getBoolean(r.getString(R.string.config_autoPrune_key), true);
+        autoPruneData = prefs.getBoolean(r.getString(R.string.config_autoPrune_key), true);
+        autoPruneTasks = prefs.getBoolean(r.getString(R.string.config_autoPruneTasks_key), true);
         autoPruneBoundingBoxLimit = getIntPref(R.string.config_autoPruneBoundingBoxLimit_key, de.blau.android.layer.data.MapOverlay.DEFAULT_DOWNLOADBOX_LIMIT);
         autoPruneNodeLimit = getIntPref(R.string.config_autoPruneNodeLimit_key, de.blau.android.layer.data.MapOverlay.DEFAULT_AUTOPRUNE_NODE_LIMIT);
         autoPruneTaskLimit = getIntPref(R.string.config_autoPruneTaskLimit_key, de.blau.android.layer.tasks.MapOverlay.DEFAULT_AUTOPRUNE_TASK_LIMIT);
@@ -715,12 +717,41 @@ public class Preferences {
     }
 
     /**
-     * Check if autoPrune is enabled
+     * Check if autoPrune of data is enabled
      * 
      * @return true if autoPrune is enabled
      */
-    public boolean autoPrune() {
-        return autoPrune;
+    public boolean autoPruneData() {
+        return autoPruneData;
+    }
+
+    /**
+     * Enable/disable data auto pruning
+     * 
+     * @param enabled if true auto pruning is enabled
+     */
+    public void setAutoPruneData(boolean enabled) {
+        autoPruneData = enabled;
+        prefs.edit().putBoolean(r.getString(R.string.config_autoPrune_key), enabled).commit();
+    }
+
+    /**
+     * Check if autoPrune of tasks is enabled
+     * 
+     * @return true if autoPrune is enabled
+     */
+    public boolean autoPruneTasks() {
+        return autoPruneTasks;
+    }
+
+    /**
+     * Enable/disable data auto pruning
+     * 
+     * @param enabled if true auto pruning is enabled
+     */
+    public void setAutoPruneTasks(boolean enabled) {
+        autoPruneTasks = enabled;
+        prefs.edit().putBoolean(r.getString(R.string.config_autoPruneTasks_key), enabled).commit();
     }
 
     /**
@@ -2213,6 +2244,78 @@ public class Preferences {
     public void setIgnoreSubAreas(boolean ignore) {
         ignoreSubareas = ignore;
         prefs.edit().putBoolean(r.getString(R.string.config_ignoreSubareas_key), ignore).commit();
+    }
+
+    /**
+     * Configuration for the download along functionality
+     * 
+     * @param on if true downloads data
+     */
+    public void setDownloadAlongData(boolean on) {
+        prefs.edit().putBoolean(r.getString(R.string.config_download_along_data_key), on).commit();
+    }
+
+    /**
+     * Configuration for the download along functionality
+     * 
+     * @return true if data should be downloaded
+     */
+    public boolean getDownloadAlongData() {
+        return prefs.getBoolean(r.getString(R.string.config_download_along_data_key), true);
+    }
+
+    /**
+     * Configuration for the download along functionality
+     * 
+     * @param on if true downloads tasks
+     */
+    public void setDownloadAlongTasks(boolean on) {
+        prefs.edit().putBoolean(r.getString(R.string.config_download_along_tasks_key), on).commit();
+    }
+
+    /**
+     * Configuration for the download along functionality
+     * 
+     * @return true if tasks should be downloaded
+     */
+    public boolean getDownloadAlongTasks() {
+        return prefs.getBoolean(r.getString(R.string.config_download_along_tasks_key), false);
+    }
+
+    /**
+     * Configuration for the download along functionality
+     * 
+     * @param buffer the buffer dimension
+     */
+    public void setDownloadAlongBuffer(int buffer) {
+        prefs.edit().putInt(r.getString(R.string.config_download_along_buffer_key), buffer).commit();
+    }
+
+    /**
+     * Configuration for the download along functionality
+     * 
+     * @return the buffer dimensions
+     */
+    public int getDownloadAlongBuffer() {
+        return prefs.getInt(r.getString(R.string.config_download_along_buffer_key), 20);
+    }
+
+    /**
+     * Configuration for the download along functionality
+     * 
+     * @param dim the max bounding box dimensions
+     */
+    public void setDownloadAlongMaxDimension(int dim) {
+        prefs.edit().putInt(r.getString(R.string.config_download_along_max_dimension_key), dim).commit();
+    }
+
+    /**
+     * Configuration for the download along functionality
+     * 
+     * @return the max bounding box dimensions
+     */
+    public int getDownloadAlongMaxDimension() {
+        return prefs.getInt(r.getString(R.string.config_download_along_max_dimension_key), 100);
     }
 
     /**

@@ -321,7 +321,8 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         updated |= setItemVisibility(hasTaskLayer && hasTodo, todoCloseAndNextItem, true);
         updated |= setItemVisibility(hasTaskLayer && hasTodo, todoSkipAndNextItem, true);
 
-        updated |= setItemVisibility(!element.isUnchanged(), uploadItem, true);
+        updated |= setItemVisibility(!element.isUnchanged(), uploadItem, false);
+        updated |= setItemVisibility(main.isConnected(), uploadItem, true);
         updated |= setItemVisibility(!App.getTagClipboard(main).isEmpty(), pasteItem, true);
         if (calibrateItem != null) {
             String ele = element.getTagWithKey(Tags.KEY_ELE);

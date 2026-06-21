@@ -132,6 +132,14 @@ Move the way to the internal copy and paste buffer removing it from the data.
 
 Set tags from the internal tag clipboard and start the property editor.
 
+### Download along way
+
+Download OSM data or tasks along the selected way. The list of areas (bounding boxes) to download is submitted to a separate service and you can continue editing while the downloads
+take place. The downloads can be paused or aborted by buttons in the notification entry for the service (in Android notification area).
+
+Note: using this functionality will disable [layer](Main%20map%20display.md#layer-control) for the relevant type data as leaving it
+enabled would potentially lead to the data you just downloaded to immediately being removed again.
+
 ### ![Delete](../images/tag_menu_delete.png) Delete
 
 Remove the object from the data.

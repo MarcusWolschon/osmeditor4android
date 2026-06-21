@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:numberpicker="http://schemas.android.com/apk/res-auto"
+    android:paddingLeft="?attr/dialogPreferredPadding"
+    android:paddingRight="?attr/dialogPreferredPadding"
+    android:paddingTop="@dimen/abc_dialog_padding_top_material"
+    android:paddingBottom="@dimen/abc_dialog_padding_top_material"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_marginTop="16dp">
+    <TextView
+        android:id="@+id/download_data_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="@string/download_data_label" />
+    <CheckBox
+        android:id="@+id/download_data_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:checked="true"
+        android:layout_alignBaseline="@id/download_data_label" />
+    <TextView
+        android:id="@+id/download_tasks_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="16dp"
+        android:layout_below="@id/download_data_label"
+        android:text="@string/download_tasks_label" />
+    <CheckBox
+        android:id="@+id/download_tasks_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:checked="true"
+        android:layout_alignBaseline="@id/download_tasks_label" />
+   <TextView
+        android:id="@+id/download_buffer_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="8dp"
+        android:paddingTop="8dp"
+        android:layout_below="@id/download_tasks_label"
+        android:text="@string/download_buffer_label"  />
+    <ch.poole.android.numberpicker.library.NumberPicker
+        android:id="@+id/download_buffer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@id/download_buffer_label"
+        numberpicker:min="10"
+        numberpicker:max="500"
+        numberpicker:unit="10"
+        numberpicker:repeat="1"
+        numberpicker:focusable="true"
+        numberpicker:custom_layout="@layout/number_picker_custom_small_layout" />
+    <TextView
+        android:id="@+id/download_max_dimension_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="8dp"
+        android:paddingTop="8dp"
+        android:layout_below="@id/download_buffer_label"
+        android:text="@string/download_max_dimension_label"/>
+   <ch.poole.android.numberpicker.library.NumberPicker
+        android:id="@+id/download_max_dimension"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@id/download_max_dimension_label"
+        numberpicker:min="50"
+        numberpicker:max="500"
+        numberpicker:unit="10"
+        numberpicker:repeat="1"
+        numberpicker:focusable="true"
+        numberpicker:custom_layout="@layout/number_picker_custom_small_layout" />
+</RelativeLayout>

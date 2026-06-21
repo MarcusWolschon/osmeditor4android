@@ -929,23 +929,7 @@ public class TrackerService extends Service {
                         if (MapOverlay.PAUSE_AUTO_DOWNLOAD.contains(code)) {
                             prefs.setAutoDownload(false);
                             stopAutoDownload();
-                            int messageRes = R.string.unknown_error_message;
-                            switch (code) {
-                            case ErrorCodes.CORRUPTED_DATA:
-                                messageRes = R.string.corrupted_data_message;
-                                break;
-                            case ErrorCodes.DATA_CONFLICT:
-                                messageRes = R.string.data_conflict_message;
-                                break;
-                            case ErrorCodes.OUT_OF_MEMORY:
-                                messageRes = R.string.out_of_memory_message;
-                                break;
-                            case ErrorCodes.DOWNLOAD_LIMIT_EXCEEDED:
-                                messageRes = R.string.download_limit_message;
-                                break;
-                            default:
-                                // do nothing
-                            }
+                            int messageRes = errorCodesToStringRes(code);
                             ScreenMessage.toastTopError(TrackerService.this, getString(messageRes), true);
                             ScreenMessage.toastTopError(TrackerService.this, getString(R.string.autodownload_has_been_paused), true);
                         }
@@ -1052,7 +1036,7 @@ public class TrackerService extends Service {
                     public void download(BoundingBox box) {
                         taskStorage.addBoundingBox(box); // will be filled once download is complete
                         TransferTasks.downloadBox(TrackerService.this, prefs.getServer(), box, true, TransferTasks.MAX_PER_REQUEST, null);
-                        if (prefs.autoPrune() && taskStorage.reachedPruneLimits(prefs.getAutoPruneNodeLimit(), prefs.getAutoPruneBoundingBoxLimit())) {
+                        if (prefs.autoPruneData() && taskStorage.reachedPruneLimits(prefs.getAutoPruneNodeLimit(), prefs.getAutoPruneBoundingBoxLimit())) {
                             ViewBox pruneBox = new ViewBox(App.getLogic().getViewBox());
                             pruneBox.scale(1.6);
                             taskStorage.prune(pruneBox);
@@ -1237,5 +1221,32 @@ public class TrackerService extends Service {
      */
     private double getGeoidOffset(double lon, double lat) {
         return egm.getOffset(lat, lon);
+    }
+
+    /**
+     * Get a string resources for an error code
+     * 
+     * @param code our internal error codes
+     * @return a string resource id
+     */
+    public static int errorCodesToStringRes(int code) {
+        int messageRes = R.string.unknown_error_message;
+        switch (code) {
+        case ErrorCodes.CORRUPTED_DATA:
+            messageRes = R.string.corrupted_data_message;
+            break;
+        case ErrorCodes.DATA_CONFLICT:
+            messageRes = R.string.data_conflict_message;
+            break;
+        case ErrorCodes.OUT_OF_MEMORY:
+            messageRes = R.string.out_of_memory_message;
+            break;
+        case ErrorCodes.DOWNLOAD_LIMIT_EXCEEDED:
+            messageRes = R.string.download_limit_message;
+            break;
+        default:
+            // do nothing
+        }
+        return messageRes;
     }
 }

@@ -1,5 +1,7 @@
 package de.blau.android.osm;
 
+import java.io.Serializable;
+
 import de.blau.android.gpx.TrackPoint;
 
 /**
@@ -9,7 +11,7 @@ import de.blau.android.gpx.TrackPoint;
  * @author Jan
  *
  */
-public interface GeoPoint {
+public interface GeoPoint extends Serializable {
 
     /** @return the latitude of this point in 1E7 format */
     int getLat();

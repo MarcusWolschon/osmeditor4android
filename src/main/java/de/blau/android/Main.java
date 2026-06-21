@@ -174,6 +174,8 @@ import de.blau.android.review.ReviewActivity;
 import de.blau.android.review.ReviewAndUpload;
 import de.blau.android.search.Search;
 import de.blau.android.sensors.CompassEventListener;
+import de.blau.android.services.DownloadService;
+import de.blau.android.services.DownloadService.DownloaderBinder;
 import de.blau.android.services.TrackerService;
 import de.blau.android.services.TrackerService.TrackerBinder;
 import de.blau.android.services.TrackerService.TrackerLocationListener;
@@ -376,6 +378,11 @@ public class Main extends AuthorisationEnabledActivity
      */
     private TrackerService tracker = null;
 
+    /**
+     * The current instance of the download service
+     */
+    private DownloadService downloader = null;
+
     private UndoListener undoListener;
 
     private MapTouchListener mapTouchListener;
@@ -464,6 +471,8 @@ public class Main extends AuthorisationEnabledActivity
         getIntentData();
         App.initGeoContext(this);
         updatePrefs(new Preferences(this));
+
+        bindService(new Intent(this, DownloadService.class), this, BIND_AUTO_CREATE);
 
         int layout = R.layout.main;
         if (prefs.lightThemeEnabled()) {
@@ -1477,6 +1486,9 @@ public class Main extends AuthorisationEnabledActivity
             getTracker().setListener(null);
             // the services onDestroy is not guaranteed to be called, so we do it here
             getTracker().onDestroy();
+        }
+        if (getDownloadService() != null) {
+            getDownloadService().onDestroy();
         }
         try {
             unbindService(this);
@@ -4347,10 +4359,15 @@ public class Main extends AuthorisationEnabledActivity
 
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
-        Log.i(DEBUG_TAG, "Service " + name.getClassName() + " connected");
-        if (TrackerService.class.getCanonicalName().equals(name.getClassName())) {
+        if (name == null) {
+            Log.w(DEBUG_TAG, "onServiceConnected null name");
+            return;
+        }
+        final String className = name.getClassName();
+        Log.i(DEBUG_TAG, "Service " + className + " connected");
+        if (TrackerService.class.getCanonicalName().equals(className)) {
             Log.i(DEBUG_TAG, "Setting up tracker");
-            setTracker((((TrackerBinder) service).getService()));
+            setTracker(((TrackerBinder) service).getService());
             map.setTracker(getTracker());
             de.blau.android.layer.gpx.MapOverlay layer = (de.blau.android.layer.gpx.MapOverlay) map.getLayer(LayerType.GPX,
                     getString(R.string.layer_gpx_recording));
@@ -4364,6 +4381,9 @@ public class Main extends AuthorisationEnabledActivity
             startStopBugAutoDownload();
             triggerMenuInvalidation();
         }
+        if (DownloadService.class.getCanonicalName().equals(className)) {
+            setDownloadService(((DownloaderBinder) service).getService());
+        }
     }
 
     @Override
@@ -4374,6 +4394,9 @@ public class Main extends AuthorisationEnabledActivity
             setTracker(null);
             map.setTracker(null);
             triggerMenuInvalidation();
+        }
+        if (DownloadService.class.getCanonicalName().equals(name.getClassName())) {
+            setDownloadService(null);
         }
     }
 
@@ -4442,6 +4465,21 @@ public class Main extends AuthorisationEnabledActivity
      */
     private void setTracker(@Nullable TrackerService tracker) {
         this.tracker = tracker;
+    }
+
+    /**
+     * @return the DownloadService
+     */
+    @Nullable
+    public DownloadService getDownloadService() {
+        return downloader;
+    }
+
+    /**
+     * @param downloader the DownloadService to set
+     */
+    private void setDownloadService(@Nullable DownloadService downloader) {
+        this.downloader = downloader;
     }
 
     /**

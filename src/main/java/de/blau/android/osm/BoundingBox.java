@@ -1,5 +1,7 @@
 package de.blau.android.osm;
 
+import static de.blau.android.util.GeoMath.OSM_SCALE;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -187,8 +189,8 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
      * @return a String, representing the bounding box. Format: "left,bottom,right,top" in decimal degrees.
      */
     public String toApiString() {
-        return Double.toString(left / 1E7D) + STRING_DELIMITER + Double.toString(bottom / 1E7D) + STRING_DELIMITER + Double.toString(right / 1E7D)
-                + STRING_DELIMITER + Double.toString(top / 1E7D);
+        return Double.toString(left / OSM_SCALE) + STRING_DELIMITER + Double.toString(bottom / OSM_SCALE) + STRING_DELIMITER
+                + Double.toString(right / OSM_SCALE) + STRING_DELIMITER + Double.toString(top / OSM_SCALE);
     }
 
     /**
@@ -389,7 +391,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
     /**
      * Calculates the dimensions width and height of this bounding box.
      */
-    protected void calcDimensions() {
+    public void calcDimensions() {
         int t;
         if (right < left) {
             t = right;
@@ -438,7 +440,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
      * @return true if the location is in the bounding box
      */
     public boolean contains(double longitude, double latitude) {
-        return contains((int) (longitude * 1E7D), (int) (latitude * 1E7D));
+        return contains((int) (longitude * OSM_SCALE), (int) (latitude * OSM_SCALE));
     }
 
     /**
@@ -480,6 +482,30 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
     }
 
     /**
+     * Return lat value of the vertical center of the bounding box
+     * 
+     * @return vertical center of the bounding box in degrees
+     */
+    public double getCenterLat() {
+        int mBottom = GeoMath.latE7ToMercatorE7(getBottom());
+        int mHeight = GeoMath.latE7ToMercatorE7(getTop()) - mBottom;
+        return GeoMath.mercatorToLat((mBottom + mHeight / 2D) / OSM_SCALE);
+    }
+
+    /**
+     * Get the center of a bounding box in WGS84 coords
+     * 
+     * @return an array with lon and lat value
+     */
+    @NonNull
+    public double[] getCenter() {
+        double[] result = new double[2];
+        result[0] = ((long) getRight() + (long) getLeft()) / (2 * OSM_SCALE);
+        result[1] = getCenterLat();
+        return result;
+    }
+
+    /**
      * Check if the box is valid
      * 
      * Allows degenerated boxes
@@ -498,7 +524,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
      * @return true, if the bbox is smaller than maxAreaDegrees
      */
     public boolean isValidForApi(@NonNull float maxAreaDegrees) {
-        return width / 1E7D * height / 1E7D < maxAreaDegrees;
+        return width / OSM_SCALE * height / OSM_SCALE < maxAreaDegrees;
     }
 
     /**
@@ -510,7 +536,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
         if (!isValidForApi(maxAreaDegrees)) {
             int centerX = (left / 2 + right / 2); // divide first to stay < 2^32
             int centerY = (top + bottom) / 2;
-            double d = Math.sqrt((width / 1E7D * height / 1E7D) / maxAreaDegrees);
+            double d = Math.sqrt((width / OSM_SCALE * height / OSM_SCALE) / maxAreaDegrees);
             final int newWidth = (int) (width / d) / 2;
             setLeft(centerX - newWidth);
             setRight(centerX + newWidth);

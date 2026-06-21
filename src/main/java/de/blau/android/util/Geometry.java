@@ -1,11 +1,21 @@
 package de.blau.android.util;
 
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+import static de.blau.android.util.GeoMath.OSM_SCALE;
 import static de.blau.android.util.Winding.COLINEAR;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+
+import com.github.micycle1.clipper2.core.Path64;
+import com.github.micycle1.clipper2.core.Paths64;
+import com.github.micycle1.clipper2.core.Point64;
+import com.github.micycle1.clipper2.offset.ClipperOffset;
+import com.github.micycle1.clipper2.offset.EndType;
+import com.github.micycle1.clipper2.offset.JoinType;
+import com.mapbox.geojson.Point;
+import com.mapbox.geojson.Polygon;
 
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -478,7 +488,8 @@ public final class Geometry {
     @NonNull
     public static Circle calculateCircle(@NonNull Coordinates[] coords) {
         Coordinates[] translated = new Coordinates[coords.length];
-        // the algorithm will fail for mercator coordinates due to loss of precision issues, so we translate to somewhere near 0,0
+        // the algorithm will fail for mercator coordinates due to loss of precision issues, so we translate to
+        // somewhere near 0,0
         for (int i = 0; i < coords.length; i++) {
             translated[i] = new Coordinates(coords[i].x - coords[0].x, coords[i].y - coords[0].y);
         }
@@ -590,5 +601,106 @@ public final class Geometry {
             result += op.calc(c);
         }
         return result;
+    }
+
+    /**
+     * Cover a Clipper2 Path64 with BoundingBoxes
+     * 
+     * This uses geojson based data structures internally to avoid running in to OSMs way max node limit.
+     *
+     * Bounding boxes can be constrained to minimum and maximum dimensions, resulting boxes are adjacent but do not
+     * overlap.
+     * 
+     * @param path the input Path64
+     * @param bufferMeters the buffer distance in meters
+     * @param minDimension minimum dimension in meters for each bounding box
+     * @param maxDimension maximum dimension in meters for each bounding box
+     * @param closed if true use EndType.Joined
+     * @return a List of BoundingBox objects covering path with the specified buffer and dimension constraints
+     */
+    @NonNull
+    public static List<BoundingBox> coverPath64(final Path64 path, double bufferMeters, double minDimension, double maxDimension, boolean closed) {
+        List<BoundingBox> result = new ArrayList<>();
+        // Convert buffer and dimensions from meters to E7 coordinates
+        int minDimE7 = GeoMath.convertMetersToGeoDistanceE7(minDimension);
+        int maxDimE7 = GeoMath.convertMetersToGeoDistanceE7(maxDimension);
+
+        int buffer = GeoMath.convertMetersToGeoDistanceE7(bufferMeters);
+        final ClipperOffset clipperOffset = new ClipperOffset();
+        clipperOffset.setMiterLimit(2.0); // this is the default
+        final Paths64 clipperOutput = new Paths64();
+
+        clipperOffset.addPath(path, JoinType.Miter, closed ? EndType.Joined : EndType.Square);
+        clipperOffset.execute(buffer * 2D, clipperOutput);
+
+        int outputCount = clipperOutput.size();
+        List<Point> bufferPoints = new ArrayList<>(outputCount / 2);
+        for (int p = 0; p < outputCount; p++) {
+            Path64 output = clipperOutput.get(p);
+            int s = output.size();
+            for (int i = 0; i < s; i++) {
+                Point64 pt = output.get(i);
+                // convert to unscaled WGS84
+                bufferPoints.add(Point.fromLngLat(pt.x / OSM_SCALE, GeoMath.mercatorToLat(pt.y / OSM_SCALE)));
+            }
+        }
+
+        List<List<Point>> rings = new ArrayList<>();
+        rings.add(bufferPoints);
+
+        Polygon bufferPolygon = Polygon.fromLngLats(rings);
+
+        coverPolygon(bufferPolygon, minDimE7, maxDimE7, result);
+        BoundingBox.consolidate(result, minDimE7);
+        return result;
+    }
+
+    /**
+     * Recursively generate a list of bounding boxes that covers the Polygon
+     * 
+     * @param polygon the polygon
+     * @param minDimE7 minimum dimension of a bounding box in WGS84*1E7 degrees
+     * @param maxDimE7 maximum dimension of a bounding box in WGS84*1E7 degrees
+     * @param boxes a list of bounding boxes
+     */
+    private static void coverPolygon(@NonNull Polygon polygon, int minDimE7, int maxDimE7, @NonNull List<BoundingBox> boxes) {
+        BoundingBox box = GeoJson.getBounds(polygon);
+        box.calcDimensions();
+        // bounding box is small enough we are done
+        if (box.getHeight() <= maxDimE7 && box.getWidth() <= maxDimE7) {
+            boxes.add(box);
+            return;
+        }
+        // chop polygon in half of the larger dimension
+        List<Polygon> polygons = splitPolygon(polygon, maxDimE7, box);
+        if (polygons.size() < 2) {
+            Log.e(DEBUG_TAG, "Unexpected polygon count " + polygons.size());
+            return;
+        }
+        for (Polygon p : polygons) {
+            if (polygon.equals(p)) {
+                continue;
+            }
+            coverPolygon(p, minDimE7, maxDimE7, boxes);
+        }
+    }
+
+    /**
+     * Split polygon at an appropriate location (half or at maxDimE7)
+     * 
+     * @param polygon the Polygon
+     * @param maxDimE7 maximum dimensions in WGS84*1E7 degrees
+     * @param box the bounding box of the Polygon
+     * @return a list of Polygons
+     */
+    @NonNull
+    private static List<Polygon> splitPolygon(@NonNull Polygon polygon, int maxDimE7, @NonNull final BoundingBox box) {
+        double hCenter = box.getLeft() + box.getWidth() / 2D;
+        double vCenter = box.getBottom() + box.getHeight() / 2D;
+        final int maxDim2 = maxDimE7 * 2;
+        if (box.getWidth() > box.getHeight()) {
+            return SimplePolygonSplitter.split(polygon, (box.getWidth() > maxDim2 ? box.getLeft() + maxDimE7 : hCenter) / 1E7D, true);
+        }
+        return SimplePolygonSplitter.split(polygon, (box.getHeight() > maxDim2 ? box.getBottom() + maxDimE7 : vCenter) / 1E7D, false);
     }
 }

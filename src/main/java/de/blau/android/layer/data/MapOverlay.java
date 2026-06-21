@@ -1844,7 +1844,7 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
         panAndZoomDownLoad = prefs.getPanAndZoomAutoDownload();
         minDownloadSize = prefs.getDownloadRadius() * 2;
         maxDownloadSpeed = prefs.getMaxBugDownloadSpeed() / 3.6f;
-        autoPruneEnabled = prefs.autoPrune();
+        autoPruneEnabled = prefs.autoPruneData();
         autoPruneNodeLimit = prefs.getAutoPruneNodeLimit();
         autoDownloadBoxLimit = prefs.getAutoPruneBoundingBoxLimit();
         panAndZoomLimit = prefs.getPanAndZoomLimit();

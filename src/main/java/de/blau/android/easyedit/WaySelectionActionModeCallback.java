@@ -17,6 +17,7 @@ import androidx.appcompat.view.ActionMode;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.R;
+import de.blau.android.dialogs.DownloadAlongDialog;
 import de.blau.android.dialogs.ElementIssueDialog;
 import de.blau.android.easyedit.route.RouteSegmentActionModeCallback;
 import de.blau.android.easyedit.turnrestriction.FromElementActionModeCallback;
@@ -28,6 +29,7 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
+import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.keyboard.Shortcuts;
 import de.blau.android.util.ACRAHelper;
@@ -41,24 +43,25 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, WaySelectionActionModeCallback.class.getSimpleName().length());
     private static final String DEBUG_TAG = WaySelectionActionModeCallback.class.getSimpleName().substring(0, TAG_LEN);
 
-    private static final int MENUITEM_SPLIT             = LAST_REGULAR_MENUITEM + 1;
-    private static final int MENUITEM_MERGE             = LAST_REGULAR_MENUITEM + 2;
-    private static final int MENUITEM_REVERSE           = LAST_REGULAR_MENUITEM + 3;
-    private static final int MENUITEM_APPEND            = LAST_REGULAR_MENUITEM + 4;
-    private static final int MENUITEM_RESTRICTION       = LAST_REGULAR_MENUITEM + 5;
-    private static final int MENUITEM_ROUTE             = LAST_REGULAR_MENUITEM + 6;
-    private static final int MENUITEM_ADD_TO_ROUTE      = LAST_REGULAR_MENUITEM + 7;
-    private static final int MENUITEM_ROTATE            = LAST_REGULAR_MENUITEM + 8;
-    private static final int MENUITEM_ORTHOGONALIZE     = LAST_REGULAR_MENUITEM + 9;
-    private static final int MENUITEM_CIRCULIZE         = LAST_REGULAR_MENUITEM + 10;
-    private static final int MENUITEM_SPLIT_POLYGON     = LAST_REGULAR_MENUITEM + 11;
-    private static final int MENUITEM_ADDRESS           = LAST_REGULAR_MENUITEM + 12;
-    private static final int MENUITEM_UNJOIN            = LAST_REGULAR_MENUITEM + 13;
-    private static final int MENUITEM_UNJOIN_DISSIMILAR = LAST_REGULAR_MENUITEM + 14;
-    private static final int MENUITEM_REMOVE_NODE       = LAST_REGULAR_MENUITEM + 15;
-    private static final int MENUITEM_EXTRACT_SEGMENT   = LAST_REGULAR_MENUITEM + 16;
-    private static final int MENUITEM_SELECT_WAY_NODES  = LAST_REGULAR_MENUITEM + 17;
-    private static final int MENUITEM_START_END_OF_WAY  = LAST_REGULAR_MENUITEM + 18;
+    private static final int MENUITEM_SPLIT              = LAST_REGULAR_MENUITEM + 1;
+    private static final int MENUITEM_MERGE              = LAST_REGULAR_MENUITEM + 2;
+    private static final int MENUITEM_REVERSE            = LAST_REGULAR_MENUITEM + 3;
+    private static final int MENUITEM_APPEND             = LAST_REGULAR_MENUITEM + 4;
+    private static final int MENUITEM_RESTRICTION        = LAST_REGULAR_MENUITEM + 5;
+    private static final int MENUITEM_ROUTE              = LAST_REGULAR_MENUITEM + 6;
+    private static final int MENUITEM_ADD_TO_ROUTE       = LAST_REGULAR_MENUITEM + 7;
+    private static final int MENUITEM_ROTATE             = LAST_REGULAR_MENUITEM + 8;
+    private static final int MENUITEM_ORTHOGONALIZE      = LAST_REGULAR_MENUITEM + 9;
+    private static final int MENUITEM_CIRCULIZE          = LAST_REGULAR_MENUITEM + 10;
+    private static final int MENUITEM_SPLIT_POLYGON      = LAST_REGULAR_MENUITEM + 11;
+    private static final int MENUITEM_ADDRESS            = LAST_REGULAR_MENUITEM + 12;
+    private static final int MENUITEM_UNJOIN             = LAST_REGULAR_MENUITEM + 13;
+    private static final int MENUITEM_UNJOIN_DISSIMILAR  = LAST_REGULAR_MENUITEM + 14;
+    private static final int MENUITEM_REMOVE_NODE        = LAST_REGULAR_MENUITEM + 15;
+    private static final int MENUITEM_EXTRACT_SEGMENT    = LAST_REGULAR_MENUITEM + 16;
+    private static final int MENUITEM_SELECT_WAY_NODES   = LAST_REGULAR_MENUITEM + 17;
+    private static final int MENUITEM_START_END_OF_WAY   = LAST_REGULAR_MENUITEM + 18;
+    private static final int MENUITEM_DOWNLOAD_ALONG_WAY = LAST_REGULAR_MENUITEM + 19;
 
     private Set<OsmElement> cachedMergeableWays;
     private Set<OsmElement> cachedAppendableNodes;
@@ -74,6 +77,7 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
     private MenuItem        unjoinItem;
     private MenuItem        unjoinDissimilarItem;
     private MenuItem        extractSegmentItem;
+    private MenuItem        downloadAlongWayItem;
     private String          orthogonalizeTitle;
 
     /**
@@ -164,6 +168,8 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
         menu.add(Menu.NONE, MENUITEM_SELECT_WAY_NODES, Menu.NONE, R.string.menu_select_way_nodes);
 
         menu.add(Menu.NONE, MENUITEM_START_END_OF_WAY, Menu.NONE, R.string.menu_start_end_way);
+
+        downloadAlongWayItem = menu.add(Menu.NONE, MENUITEM_DOWNLOAD_ALONG_WAY, Menu.CATEGORY_SECONDARY, R.string.menu_download_along_way);
         return true;
     }
 
@@ -212,6 +218,8 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
         updated |= setItemVisibility(joined, unjoinDissimilarItem, false);
 
         updated |= setItemVisibility(size >= 3, extractSegmentItem, false);
+
+        updated |= setItemVisibility(main.isConnected(), downloadAlongWayItem, true);
 
         if (updated) {
             arrangeMenu(menu);
@@ -324,12 +332,16 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
                 break;
             case MENUITEM_START_END_OF_WAY:
                 ThemeUtils.getAlertDialogBuilder(main).setMessage(R.string.start_end_way_description).setPositiveButton(R.string.end, (dialog, which) -> {
-                    main.zoomTo(way.getLastNode());
+                    final Node lastNode = way.getLastNode();
+                    main.zoomTo(lastNode);
                     main.invalidateMap();
                 }).setNegativeButton(R.string.start, (dialog, which) -> {
                     main.zoomTo(way.getFirstNode());
                     main.invalidateMap();
                 }).show();
+                break;
+            case MENUITEM_DOWNLOAD_ALONG_WAY:
+                DownloadAlongDialog.show(main, R.string.download_along_way_title, way, getWayNodeInView(way));
                 break;
             default:
                 return false;
@@ -338,6 +350,31 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
             // logic will have already toasted
         }
         return true;
+    }
+
+    /**
+     * Get a Node of the Way that is in view
+     * 
+     * @param way the Way
+     * @return a Node that is in view, or the first one if none are
+     */
+    @NonNull
+    private Node getWayNodeInView(@NonNull Way way) {
+        Node refPoint = way.getFirstNode();
+        final ViewBox viewBox = logic.getViewBox();
+        if (viewBox.contains(refPoint.getLon(), refPoint.getLat())) {
+            return refPoint;
+        }
+        final Node lastNode = way.getLastNode();
+        if (viewBox.contains(lastNode.getLon(), lastNode.getLat())) {
+            return lastNode;
+        }
+        for (Node n : way.getNodes()) {
+            if (viewBox.contains(n.getLon(), n.getLat())) {
+                refPoint = n;
+            }
+        }
+        return refPoint;
     }
 
     /**

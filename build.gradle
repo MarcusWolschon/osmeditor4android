@@ -666,6 +666,7 @@ dependencies {
     implementation 'com.caverock:androidsvg-aar:1.4'
     implementation 'com.github.kix2902:CompassView:master-SNAPSHOT'
     implementation ('com.opencsv:opencsv:5.9') { exclude group: 'commons-logging' }
+    implementation 'com.github.micycle1:Clipper2-java:2.0.1'
     
     implementation "ch.poole:PoParser:0.8.0"
     implementation "ch.poole:OpeningHoursParser:0.29.0"

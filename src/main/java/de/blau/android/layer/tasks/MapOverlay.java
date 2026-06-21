@@ -423,7 +423,7 @@ public class MapOverlay extends NonSerializeableLayer
         maxDownloadSpeed = prefs.getMaxBugDownloadSpeed() / 3.6f;
         panAndZoomLimit = prefs.getPanAndZoomLimit();
         filter = prefs.taskFilter();
-        autoPruneEnabled = prefs.autoPrune();
+        autoPruneEnabled = prefs.autoPruneData();
         autoPruneTaskLimit = prefs.getAutoPruneTaskLimit();
         autoDownloadBoxLimit = prefs.getAutoPruneBoundingBoxLimit();
         largeDragArea = prefs.largeDragArea();
