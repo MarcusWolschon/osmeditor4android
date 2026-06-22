@@ -1,5 +1,9 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+22.0.5:
+
+- Version bump only
+
 22.0.4:
 
 - Fix use Conscrypt 2.6-alpha3 instead of 2.5.3
