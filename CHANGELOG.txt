@@ -1,5 +1,9 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+22.0.6:
+
+- Version bump only
+
 22.0.5:
 
 - Version bump only
