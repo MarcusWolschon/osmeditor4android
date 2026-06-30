@@ -23,7 +23,6 @@
         android:layout_height="wrap_content"
        	android:minHeight="32dp"
         android:text="@string/digit_one"
-        android:textColor="@android:color/black"
         android:textAppearance="?android:attr/textAppearanceSmall" 
         android:focusable="false"
         android:inputType="number"
