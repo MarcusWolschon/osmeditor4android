@@ -1243,8 +1243,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                 }
             }
             if (layer instanceof de.blau.android.layer.geojson.MapOverlay) {
-                MenuItem item = menu.add(R.string.menu_layers_convert_geojson_todo);
-                item.setOnMenuItemClickListener(unused -> {
+                menu.add(R.string.menu_layers_convert_geojson_todo).setOnMenuItemClickListener(unused -> {
                     Builder builder = ThemeUtils.getAlertDialogBuilder(activity);
                     builder.setTitle(R.string.geojson_todo_title);
                     builder.setPositiveButton(R.string.geojson_todo_default_conversion,
@@ -1276,8 +1275,13 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
             }
 
             if (layer instanceof PruneableInterface) {
-                MenuItem item = menu.add(R.string.prune);
-                item.setOnMenuItemClickListener(unused -> {
+                menu.add(R.string.layer_auto_prune).setCheckable(true).setChecked(((PruneableInterface) layer).autoPrune()).setOnMenuItemClickListener(item -> {
+                    boolean newState = !item.isChecked();
+                    item.setChecked(newState);
+                    ((PruneableInterface) layer).setAutoPrune(newState);
+                    return true;
+                });
+                menu.add(R.string.prune).setOnMenuItemClickListener(unused -> {
                     if (layer != null) {
                         Logic logic = App.getLogic();
                         new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
@@ -1303,8 +1307,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
             }
 
             if (layer instanceof DiscardInterface) {
-                MenuItem item = menu.add(R.string.discard);
-                item.setOnMenuItemClickListener(unused -> {
+                menu.add(R.string.discard).setOnMenuItemClickListener(unused -> {
                     if (layer != null) {
                         try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(activity)) {
                             db.deleteLayer(layer.getIndex(), layer.getType());

@@ -113,6 +113,8 @@ public class MapOverlay extends NonSerializeableLayer
     private Paint   iconPaint;
     private boolean largeDragArea;
 
+    private Preferences prefs;
+
     /**
      * Construct a new task layer
      * 
@@ -121,7 +123,7 @@ public class MapOverlay extends NonSerializeableLayer
     public MapOverlay(@NonNull final Map map) {
         this.map = map;
         Context context = map.getContext();
-        Preferences prefs = map.getPrefs();
+        prefs = map.getPrefs();
         setPrefs(prefs);
         download = new TaskDownloader(prefs.getServer());
         // the following sets up the static icon caches
@@ -338,6 +340,16 @@ public class MapOverlay extends NonSerializeableLayer
         ViewBox pruneBox = new ViewBox(map.getViewBox());
         pruneBox.scale(1.6);
         tasks.prune(pruneBox);
+    }
+
+    @Override
+    public boolean autoPrune() {
+        return prefs.autoPruneTasks();
+    }
+
+    @Override
+    public void setAutoPrune(boolean enable) {
+        prefs.setAutoPruneTasks(enable);
     }
 
     @Override

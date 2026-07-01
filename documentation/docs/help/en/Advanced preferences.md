@@ -250,17 +250,13 @@ When auto-downloading, the radius of the area that is attempted to download arou
 
 Maximum speed up to which auto-download is attempted. Default: _10 km/h_.
 
-### Auto-prune
-
-Enable/disable automatically pruning in memory data and tasks. Default: _on_.
-
 ### Auto-prune limit
 
-Limit at, when reached, an automatic prune of the data in memory is attempted. Requires _Auto prune_ to be on. Default: _5000 Nodes_.
+Limit at, when reached, an automatic prune of the data in memory is attempted. Requires _Auto prune_ to be on for the [layer](Main%20map%20display.md#layer-control). Default: _5000 Nodes_.
 
 ### Auto-prune Bounding Boxes limit
 
-Number of Bounding Boxes in memory that when reached will trigger a prune. Requires _Auto prune_ to be on. Default: _100 Bounding boxes_.
+Number of Bounding Boxes in memory that when reached will trigger a prune. Requires _Auto prune_ to be on for the [layer](Main%20map%20display.md#layer-control). Default: _100 Bounding boxes_.
     
 ### Zoom limit
 
@@ -277,7 +273,7 @@ Maximum speed up to which auto-download of notes and bugs is attempted. Default:
 
 ### Task auto-prune limit
 
-Limit at, when reached, an automatic prune of the tasks in memory is attempted. Requires _Auto prune_ to be on. Default: _10000 Tasks_.
+Limit at, when reached, an automatic prune of the tasks in memory is attempted. Requires _Auto prune_ to be on for the [layer](Main%20map%20display.md#layer-control). Default: _10000 Tasks_.
 
 ## Location Settings
 

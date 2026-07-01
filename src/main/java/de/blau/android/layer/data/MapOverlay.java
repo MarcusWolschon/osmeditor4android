@@ -1975,6 +1975,16 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
     }
 
     @Override
+    public boolean autoPrune() {
+        return prefs.autoPruneData();
+    }
+
+    @Override
+    public void setAutoPrune(boolean enable) {
+       prefs.setAutoPruneData(enable);
+    }
+
+    @Override
     public LayerType getType() {
         return LayerType.OSMDATA;
     }
