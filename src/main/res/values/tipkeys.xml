@@ -28,4 +28,5 @@
     <string name="tip_empty_comment_warning_key">emptyCommentWarning</string>
     <string name="tip_wikimedia_filename_key">wikimediaFilename</string>
     <string name="tip_address_interpolation_key">addressInterpolation</string>
+    <string name="tip_download_along_key">downloadAlong</string>
 </resources>

@@ -1,5 +1,7 @@
 package de.blau.android.osm;
 
+import static de.blau.android.util.GeoMath.OSM_SCALE;
+
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -178,7 +180,7 @@ public class ViewBox extends BoundingBox {
      * @return the size of a pixel in WGS84°
      */
     public double getPixelRadius(int screenWidth) {
-        return screenWidth / (getWidth() / 1E7d);
+        return screenWidth / (getWidth() / OSM_SCALE);
     }
 
     /**
@@ -502,8 +504,8 @@ public class ViewBox extends BoundingBox {
      * Set current zoom level to a tile zoom level equivalent, powers of 2 assuming 256x256 tiles maintain center of
      * bounding box
      * 
-     * If one dimension of the screen would exceed the maximum allows bounds for mercator coordinates, it is clamped 
-     * and the other dimension adjusted.
+     * If one dimension of the screen would exceed the maximum allows bounds for mercator coordinates, it is clamped and
+     * the other dimension adjusted.
      * 
      * @param map the current Map instance
      * @param tileZoomLevel The TMS zoom level to zoom to (from 0 for the whole world to about 19 for small areas).
@@ -620,30 +622,6 @@ public class ViewBox extends BoundingBox {
     }
 
     /**
-     * Return lat value of the vertical center of the bounding box
-     * 
-     * @return vertical center of the bounding box in degrees
-     */
-    public double getCenterLat() {
-        int mBottom = GeoMath.latE7ToMercatorE7(getBottom());
-        int mHeight = GeoMath.latE7ToMercatorE7(getTop()) - mBottom;
-        return GeoMath.mercatorToLat((mBottom + mHeight / 2D) / 1E7D);
-    }
-
-    /**
-     * Get the center of a bounding box in WGS84 coords
-     * 
-     * @return an array with lon and lat value
-     */
-    @NonNull
-    public double[] getCenter() {
-        double[] result = new double[2];
-        result[0] = ((long) getRight() + (long) getLeft()) / 2E7D;
-        result[1] = getCenterLat();
-        return result;
-    }
-
-    /**
      * Change dimensions so that the given BoundingBox will fit preserving the aspect ratio
      * 
      * @param map the current Map instance
@@ -715,8 +693,8 @@ public class ViewBox extends BoundingBox {
         int deltaE7 = (int) (delta * 1E7);
         setTop(Math.min(GeoMath.MAX_COMPAT_LAT_E7, getTop() + deltaE7));
         setBottom(Math.max(-GeoMath.MAX_COMPAT_LAT_E7, getBottom() - deltaE7));
-        double maxAbsLat = Math.max(Math.abs(getTop() / 1E7D), Math.abs(getBottom() / 1E7D));
-        int deltaHE7 = (int) ((delta / Math.cos(Math.toRadians(maxAbsLat))) * 1E7D);
+        double maxAbsLat = Math.max(Math.abs(getTop() / OSM_SCALE), Math.abs(getBottom() / OSM_SCALE));
+        int deltaHE7 = (int) ((delta / Math.cos(Math.toRadians(maxAbsLat))) * OSM_SCALE);
         setLeft(Math.max(-GeoMath.MAX_LON_E7, getLeft() - deltaHE7));
         setRight(Math.min(GeoMath.MAX_LON_E7, getRight() + deltaHE7));
         calcDimensions();
@@ -736,8 +714,8 @@ public class ViewBox extends BoundingBox {
             setTop(Math.min(GeoMath.MAX_COMPAT_LAT_E7, getTop() + deltaE7));
             setBottom(Math.max(-GeoMath.MAX_COMPAT_LAT_E7, getBottom() - deltaE7));
         }
-        double maxAbsLat = Math.max(Math.abs(getTop() / 1E7D), Math.abs(getBottom() / 1E7D));
-        int minWE7 = (int) ((min / Math.cos(Math.toRadians(maxAbsLat))) * 1E7D);
+        double maxAbsLat = Math.max(Math.abs(getTop() / OSM_SCALE), Math.abs(getBottom() / OSM_SCALE));
+        int minWE7 = (int) ((min / Math.cos(Math.toRadians(maxAbsLat))) * OSM_SCALE);
         if (getWidth() < minWE7) {
             long deltaWE7 = (minWE7 - getWidth()) / 2;
             setLeft((int) Math.max(-GeoMath.MAX_LON_E7, getLeft() - deltaWE7));

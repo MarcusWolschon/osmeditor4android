@@ -194,6 +194,7 @@
     <string name="progress_determining_status_message">Determining status…</string>
     <string name="progress_updating_message">Updating…</string>
     <string name="progress_validation_title">Validating</string>
+    <string name="progress_calculating_message">Calculating…</string>
     <!-- Confirm upload dialog -->
     <string name="changes_deleted">"%1$s" deleted</string>
     <string name="changes_changed">"%1$s" changed</string>
@@ -570,6 +571,7 @@
     <string name="layer_toast_playback_finished">Playback finished</string>
     <string name="layer_toast_playback_paused">Playback paused</string>
     <string name="layer_toast_playback_resumed">Playback resumed</string>
+    <string name="layer_auto_prune">Auto-prune</string>
     <!--  Layer info dialog -->
     <string name="layer_info_min_zoom">Min zoom</string>
     <string name="layer_info_max_zoom">Max zoom</string>
@@ -684,6 +686,7 @@
     <string name="tip_empty_comment_warning">Vespucci always adds an automatically created summary of what you uploaded.&lt;p&gt;You should still consider adding a few words on why you are making the edits to provide more context for other mappers.</string>
     <string name="tip_wikimedia_filename">Always use a descriptive and unique filename, in particular not a camera generated one or else Wikimedia will reject the upload.</string>
     <string name="tip_address_interpolation">This tool is intended for adding address interpolations in Address mode. If you want to add a different object, switch to Normal mode and use the Add way tool.</string>
+    <string name="tip_download_along">This tool will generate a list of square areas covering the selected linear feature and then submit the list to a service for downloading.&lt;p&gt;You can adjust the amount of buffer on each side of the feature that will be downloaded, and the maximum dimensions the areas can have. Using this feature will disable auto-prune for the type of data you are downloading (OSM data or tasks) as this could remove data you had just downloaded.&lt;p&gt;To minimize the load on the target servers the areas are downloaded sequentially one at a time, even so there is potential for overload so please use this feature responsibly.</string>  
     <!--  NumberPicker -->
     <string name="plus_sign">+</string>
     <string name="minus_sign">-</string>
@@ -955,9 +958,12 @@
     <string name="check">Check</string>
     <string name="download">Download</string>
     <string name="abort">Abort</string>
+    <string name="pause">Pause</string>
+    <string name="resume">Resume</string>
     <string name="ignore">Ignore</string>
     <string name="select">Select</string>
     <string name="skip">Skip</string>
+    <string name="submit">Submit</string>
     <string name="deprecated">%1$s (deprecated)</string>
     <string name="more_information">More information</string>
     <string name="osm_tags">OSM Tags</string>
@@ -1105,6 +1111,7 @@
     <string name="menu_split">Split</string>
     <string name="menu_remove_node_from_way">Remove node from way</string>
     <string name="menu_start_end_way">Start/End of Way</string>
+    <string name="menu_download_along_way">Download along way…</string>
     <string name="menu_extract">Extract node</string>
     <string name="menu_append">Append</string>
     <string name="menu_create_route">Create route</string>
@@ -1254,6 +1261,14 @@
     <string name="geojson_todo_default_conversion">Default conversion</string>
     <string name="geojson_todo_custom_conversion">Custom conversion…</string>
     <string name="rhino_exception">&lt;br&gt;Error at line %1$d, column %2$d&lt;br&gt;&lt;br&gt;%3$s</string>
+    <!-- Download along dialog -->
+    <string name="download_along_way_title">Download along way</string>
+    <string name="download_data_label">Download OSM data</string>
+    <string name="download_tasks_label">Download tasks</string>
+    <string name="download_buffer_label">Buffer (meters)</string>
+    <string name="download_max_dimension_label">Max. area dimension (meters)</string>
+    <string name="download_completed_successfully">Download completed successfully</string>
+    <string name="download_paused">Download paused</string>
     <!--  -->
     <string name="menu_tools_apply_local_offset">Apply stored offset to imagery</string>
     <string name="menu_tools_background_contrast">Contrast</string>
@@ -1570,7 +1585,6 @@
     <string name="config_maxDownloadSpeed_title">Maximum auto-download speed</string>
     <string name="config_maxDownloadSpeed_summary">Limit (in km/h) above which auto-download is suspended.</string>
     <string name="config_downloadSpeed_current">%1$d km/h</string>
-    <string name="config_autoPrune_title">Auto-prune</string>
     <string name="config_autoPrune_summary">Enable/disable automatically pruning in memory data and tasks</string>           
     <string name="config_autoPruneNodeLimit_title">Auto-prune limit</string>
     <string name="config_autoPruneNodeLimit_summary">Number of Nodes in memory that when reached will trigger a prune.</string>
@@ -1773,12 +1787,17 @@
     <string name="undo">Undo</string>
     <string name="redo">Redo</string>
     <string name="undo_nothing">nothing to undo</string>
+    <!-- background / forground services -->
     <string name="tracking_active_title">Vespucci background service</string>
     <string name="tracking_active_title_short">Background service active</string>
     <string name="tracking_active_text">Recording a GPS track or auto-downloading</string>
     <string name="tracking_long_text">Vespucci is recording a GPX track or auto-downloading. To completely exit press the button below or the back button in the app.</string>
     <string name="gps_failure">Failed to enable GPS</string>
     <string name="gps_service_start_failure">Failed to start GPS service, try again.\n\nError: %1$s</string>
+    <string name="download_service_title">Background download service</string>
+    <string name="download_service_idle">Download completed, the service is currently idle</string>
+    <string name="download_service_downloaded">Downloaded %1$d of %2$d areas</string>
+    <string name="download_service_start_failure">Failed to start download service.\n\nError: %1$s</string>
     <!-- element description -->
     <string name="address_housenumber">Address %1$s</string>
     <string name="address_housenumber_street">Address %1$s %2$s</string>

@@ -89,7 +89,8 @@ The layer dialog supports the following actions on the layer entries:
     * Data layer:
         * __Configure...__ Select the API instance, configure the URLs including read-only sources and authentication method. See [OSM API URL](Advanced%20preferences.md#OSM-API-URL)
     * Data and Tasks layers:
-        * __Info__ Display some information on the contents.
+        * __Info__ Display some information on the contents.  
+        * __Auto-prune__ Enable/disable automatically pruning of in memory data. Default: _on_.
         * __Prune__ remove downloaded data from storage that is outside of the current screen and unmodified.
     * All layers:
         * __Discard__ Delete the layer including any saved state.

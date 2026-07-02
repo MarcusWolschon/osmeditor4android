@@ -113,6 +113,8 @@ public class MapOverlay extends NonSerializeableLayer
     private Paint   iconPaint;
     private boolean largeDragArea;
 
+    private Preferences prefs;
+
     /**
      * Construct a new task layer
      * 
@@ -121,7 +123,7 @@ public class MapOverlay extends NonSerializeableLayer
     public MapOverlay(@NonNull final Map map) {
         this.map = map;
         Context context = map.getContext();
-        Preferences prefs = map.getPrefs();
+        prefs = map.getPrefs();
         setPrefs(prefs);
         download = new TaskDownloader(prefs.getServer());
         // the following sets up the static icon caches
@@ -341,6 +343,16 @@ public class MapOverlay extends NonSerializeableLayer
     }
 
     @Override
+    public boolean autoPrune() {
+        return prefs.autoPruneTasks();
+    }
+
+    @Override
+    public void setAutoPrune(boolean enable) {
+        prefs.setAutoPruneTasks(enable);
+    }
+
+    @Override
     public void showInfo(FragmentActivity activity) {
         LayerInfo f = new TaskLayerInfo();
         f.setShowsDialog(true);
@@ -423,7 +435,7 @@ public class MapOverlay extends NonSerializeableLayer
         maxDownloadSpeed = prefs.getMaxBugDownloadSpeed() / 3.6f;
         panAndZoomLimit = prefs.getPanAndZoomLimit();
         filter = prefs.taskFilter();
-        autoPruneEnabled = prefs.autoPrune();
+        autoPruneEnabled = prefs.autoPruneData();
         autoPruneTaskLimit = prefs.getAutoPruneTaskLimit();
         autoDownloadBoxLimit = prefs.getAutoPruneBoundingBoxLimit();
         largeDragArea = prefs.largeDragArea();

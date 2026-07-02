@@ -1844,7 +1844,7 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
         panAndZoomDownLoad = prefs.getPanAndZoomAutoDownload();
         minDownloadSize = prefs.getDownloadRadius() * 2;
         maxDownloadSpeed = prefs.getMaxBugDownloadSpeed() / 3.6f;
-        autoPruneEnabled = prefs.autoPrune();
+        autoPruneEnabled = prefs.autoPruneData();
         autoPruneNodeLimit = prefs.getAutoPruneNodeLimit();
         autoDownloadBoxLimit = prefs.getAutoPruneBoundingBoxLimit();
         panAndZoomLimit = prefs.getPanAndZoomLimit();
@@ -1972,6 +1972,16 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
         ViewBox pruneBox = new ViewBox(viewBox);
         pruneBox.scale(1.6);
         delegator.prune(pruneBox);
+    }
+
+    @Override
+    public boolean autoPrune() {
+        return prefs.autoPruneData();
+    }
+
+    @Override
+    public void setAutoPrune(boolean enable) {
+       prefs.setAutoPruneData(enable);
     }
 
     @Override

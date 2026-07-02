@@ -45,6 +45,7 @@ public class Progress extends CancelableDialogFragment {
     public static final int PROGRESS_DOWNLOAD_SEQUENCE         = 18;
     public static final int PROGRESS_DETERMINING_STATUS        = 19;
     public static final int PROGRESS_UPDATING                  = 20;
+    public static final int PROGRESS_CALCULATING               = 21;
 
     private int    dialogType;
     private String messageArg;
@@ -145,6 +146,7 @@ public class Progress extends CancelableDialogFragment {
         dismissDialog(activity, PROGRESS_DOWNLOAD_SEQUENCE);
         dismissDialog(activity, PROGRESS_DETERMINING_STATUS);
         dismissDialog(activity, PROGRESS_UPDATING);
+        dismissDialog(activity, PROGRESS_CALCULATING);
     }
 
     /**
@@ -196,6 +198,8 @@ public class Progress extends CancelableDialogFragment {
             return "dialog_progress_determining_status";
         case PROGRESS_UPDATING:
             return "dialog_progress_updating";
+        case PROGRESS_CALCULATING:
+            return "dialog_progress_calculating";
         default:
             Log.w(DEBUG_TAG, "Unknown dialog type " + dialogType);
         }
