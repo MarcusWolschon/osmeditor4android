@@ -8,7 +8,6 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -25,6 +24,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDialog;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
 import de.blau.android.Main;
@@ -37,7 +37,7 @@ import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 public class ElementIssueDialog extends CancelableDialogFragment {
-    
+
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, ElementIssueDialog.class.getSimpleName().length());
     private static final String DEBUG_TAG = ElementIssueDialog.class.getSimpleName().substring(0, TAG_LEN);
 
@@ -90,9 +90,6 @@ public class ElementIssueDialog extends CancelableDialogFragment {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
-            if (activity instanceof Main) {
-                ((Main) activity).descheduleAutoLock();
-            }
             ElementIssueDialog elementIssueFragment = newInstance(titleRes, messageRes, tipKeyRes, tipRes, result);
             elementIssueFragment.show(fm, TAG);
         } catch (IllegalStateException isex) {
@@ -157,6 +154,11 @@ public class ElementIssueDialog extends CancelableDialogFragment {
             tipRes = args.getInt(TIP_KEY);
             result = Util.getSerializeableArrayList(getArguments(), RESULTS_KEY, Result.class);
         }
+        FragmentActivity activity = getActivity();
+        if (activity instanceof Main) {
+            ((Main) activity).descheduleAutoLock();
+            enableAutolockReschedule();
+        }
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());
         View layout = inflater.inflate(R.layout.tag_conflict, null);
         AlertDialog.Builder builder = ThemeUtils.getAlertDialogBuilder(getContext());
@@ -187,14 +189,6 @@ public class ElementIssueDialog extends CancelableDialogFragment {
         super.onStart();
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         Tip.showDialog(getActivity(), tipKeyRes, tipRes);
-    }
-
-    @Override
-    public void onDismiss(DialogInterface dialog) {
-        super.onDismiss(dialog);
-        if (getActivity() instanceof Main) {
-            ((Main) getActivity()).scheduleAutoLock();
-        }
     }
 
     @Override

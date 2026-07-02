@@ -1,6 +1,7 @@
 package de.blau.android.dialogs;
 
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+import static de.blau.android.dialogs.Util.hasState;
 import static de.blau.android.util.GeoMath.OSM_SCALE;
 
 import java.io.IOException;
@@ -8,7 +9,6 @@ import java.util.Collections;
 import java.util.List;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -136,6 +136,7 @@ public class DownloadAlongDialog extends CancelableDialogFragment {
         }
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(activity);
         ((Main) activity).descheduleAutoLock();
+        enableAutolockReschedule();
 
         final Preferences prefs = App.getPreferences(activity);
         View layout = inflater.inflate(R.layout.download_along, null);
@@ -218,30 +219,11 @@ public class DownloadAlongDialog extends CancelableDialogFragment {
         });
     }
 
-    /**
-     * Check if we have saved state for a key
-     * 
-     * @param savedState the Bundle holding state or null
-     * @param key the key
-     * @return true if there is state available
-     */
-    private boolean hasState(@Nullable Bundle savedState, @NonNull String key) {
-        return savedState != null && savedState.containsKey(key);
-    }
-
     @Override
     public void onStart() {
         super.onStart();
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         Tip.showDialog(getActivity(), R.string.tip_download_along_key, R.string.tip_download_along);
-    }
-
-    @Override
-    public void onDismiss(DialogInterface dialog) {
-        super.onDismiss(dialog);
-        if (getActivity() instanceof Main) {
-            ((Main) getActivity()).scheduleAutoLock();
-        }
     }
 
     @Override

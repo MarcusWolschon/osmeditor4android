@@ -86,9 +86,6 @@ public class AddressInterpolationDialog extends CancelableDialogFragment {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
-            if (activity instanceof Main) {
-                ((Main) activity).descheduleAutoLock();
-            }
             AddressInterpolationDialog interpolationFragment = newInstance(way);
             interpolationFragment.show(fm, TAG);
         } catch (IllegalStateException isex) {
@@ -131,11 +128,15 @@ public class AddressInterpolationDialog extends CancelableDialogFragment {
         } else {
             wayId = getArguments().getLong(WAY_ID_KEY);
         }
+        final FragmentActivity activity = getActivity();
+        if (activity instanceof Main) {
+            ((Main) activity).descheduleAutoLock();
+            enableAutolockReschedule();
+        }
         way = (Way) App.getDelegator().getOsmElement(Way.NAME, wayId);
         // We needed the themed context or else styling of the adapters will not work
         final Context context = ThemeUtils.getThemedContext(getContext(), R.style.Theme_DialogLight, R.style.Theme_DialogDark);
         final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final FragmentActivity activity = getActivity();
 
         RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.interpolation, null);
         EditText start = (EditText) layout.findViewById(R.id.start_edit);
@@ -288,14 +289,6 @@ public class AddressInterpolationDialog extends CancelableDialogFragment {
     public void onStart() {
         super.onStart();
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-    }
-
-    @Override
-    public void onDismiss(DialogInterface dialog) {
-        super.onDismiss(dialog);
-        if (getActivity() instanceof Main) {
-            ((Main) getActivity()).scheduleAutoLock();
-        }
     }
 
     @Override

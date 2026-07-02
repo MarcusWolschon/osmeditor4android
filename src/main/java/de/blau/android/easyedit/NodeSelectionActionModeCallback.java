@@ -29,6 +29,7 @@ import de.blau.android.App;
 import de.blau.android.DisambiguationMenu;
 import de.blau.android.R;
 import de.blau.android.dialogs.ElementIssueDialog;
+import de.blau.android.dialogs.PositionDialog;
 import de.blau.android.easyedit.turnrestriction.FromElementWithViaNodeActionModeCallback;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.StorageException;
@@ -232,7 +233,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
                 main.startSupportActionMode(new FromElementWithViaNodeActionModeCallback(manager, new HashSet<>(highways), (Node) element, null));
                 break;
             case MENUITEM_SET_POSITION:
-                setPosition();
+                PositionDialog.show(main, (Node) element);
                 break;
             case MENUITEM_ADDRESS:
                 main.performTagEdit(element, null, true, false);
@@ -374,61 +375,5 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
             mode.finish();
         }
         checkEmptyRelations(main, origParents);
-    }
-
-    /**
-     * Show a dialog to set the location of the selected Node
-     */
-    private void setPosition() {
-        if (element instanceof Node) {
-            // show dialog to set lon/lat
-            createSetPositionDialog(((Node) element).getLon(), ((Node) element).getLat()).show();
-        }
-    }
-
-    /**
-     * Build a dialog with the current coordinates
-     * 
-     * @param lonE7 longitude in 1E7 format
-     * @param latE7 latitude in 1E7 format
-     * @return the Dialog
-     */
-    @SuppressLint("InflateParams")
-    private AppCompatDialog createSetPositionDialog(int lonE7, int latE7) {
-        final LayoutInflater inflater = ThemeUtils.getLayoutInflater(main);
-        Builder builder = ThemeUtils.getAlertDialogBuilder(main);
-        builder.setTitle(R.string.menu_set_position);
-
-        View layout = inflater.inflate(R.layout.set_position, null);
-        builder.setView(layout);
-        // TODO add conversion to/from other datums
-        TextView datum = (TextView) layout.findViewById(R.id.set_position_datum);
-        datum.setText(R.string.WGS84);
-        final EditText lon = (EditText) layout.findViewById(R.id.set_position_lon);
-        lon.setText(String.format(Locale.US, "%.7f", lonE7 / 1E7d));
-        final EditText lat = (EditText) layout.findViewById(R.id.set_position_lat);
-        lat.setText(String.format(Locale.US, "%.7f", latE7 / 1E7d));
-        builder.setPositiveButton(R.string.set, null);
-        builder.setNegativeButton(R.string.cancel, null);
-        final AlertDialog dialog = builder.create();
-        dialog.setOnShowListener((DialogInterface dialogInterface) -> {
-            Button positive = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
-            positive.setOnClickListener((View v) -> {
-                try {
-                    double longitude = Double.parseDouble(lon.getText().toString());
-                    double latitude = Double.parseDouble(lat.getText().toString());
-                    if (GeoMath.coordinatesInCompatibleRange(longitude, latitude)) {
-                        logic.performSetPosition(main, (Node) element, longitude, latitude);
-                        dialog.dismiss();
-                        manager.invalidate();
-                    } else {
-                        ScreenMessage.toastTopWarning(main, R.string.coordinates_out_of_range);
-                    }
-                } catch (OsmIllegalOperationException | NumberFormatException | StorageException ex) {
-                    Log.w(DEBUG_TAG, ex.getMessage());
-                }
-            });
-        });
-        return dialog;
     }
 }
