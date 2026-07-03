@@ -29,4 +29,5 @@
     <string name="tip_wikimedia_filename_key">wikimediaFilename</string>
     <string name="tip_address_interpolation_key">addressInterpolation</string>
     <string name="tip_download_along_key">downloadAlong</string>
+    <string name="tip_set_position_key">setPosition</string>
 </resources>

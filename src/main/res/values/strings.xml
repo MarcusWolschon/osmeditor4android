@@ -304,8 +304,13 @@
     <string name="imagery_offset_zoom">Zoom</string>
     <string name="imagery_offset_distance">Distance</string>
     <string name="zoom_and_offsets">Zoom %1$d\nOffset\n%2$s°/%3$s°\n%4$sm/%5$sm</string>
+    <!--  Position modal -->
+    <string name="set_position_title">Set position</string>
     <string name="set_position_datum_label">Geodetic datum</string>
     <string name="WGS84">WGS84</string>
+    <string name="toast_coordinate_parsing_failed">Unable to parse %1$s</string>
+    <string name="set_position_swap">Swap longitude and latitude</string>
+    <!--  -->
     <string name="tag_editor_name_suggestion">Name suggestion</string>
     <!--  Search/Find dialog -->
     <string name="tag_editor_name_suggestion_overwrite_message">This suggestion can replace some tag values with more popular ones.</string>
@@ -687,6 +692,7 @@
     <string name="tip_wikimedia_filename">Always use a descriptive and unique filename, in particular not a camera generated one or else Wikimedia will reject the upload.</string>
     <string name="tip_address_interpolation">This tool is intended for adding address interpolations in Address mode. If you want to add a different object, switch to Normal mode and use the Add way tool.</string>
     <string name="tip_download_along">This tool will generate a list of square areas covering the selected linear feature and then submit the list to a service for downloading.&lt;p&gt;You can adjust the amount of buffer on each side of the feature that will be downloaded, and the maximum dimensions the areas can have. Using this feature will disable auto-prune for the type of data you are downloading (OSM data or tasks) as this could remove data you had just downloaded.&lt;p&gt;To minimize the load on the target servers the areas are downloaded sequentially one at a time, even so there is potential for overload so please use this feature responsibly.</string>  
+    <string name="tip_set_position">Enter new decimal coordinates for the element or paste them in to either of the fields. If the pasted text contains both longitude and latitude both fields will be filled, a single coordinate will just fill the target field. Supported formats include decimal and DMS, see the &lt;i&gt;Go to coordinates&lt;/i&gt; documentation for more information.</string> 
     <!--  NumberPicker -->
     <string name="plus_sign">+</string>
     <string name="minus_sign">-</string>
@@ -1107,7 +1113,7 @@
     <string name="menu_help">Help</string>
     <string name="menu_view">View…</string>
     <string name="menu_erase">Erase node</string>
-    <string name="menu_set_position">Position</string>
+    <string name="menu_set_position">Set position…</string>
     <string name="menu_split">Split</string>
     <string name="menu_remove_node_from_way">Remove node from way</string>
     <string name="menu_start_end_way">Start/End of Way</string>

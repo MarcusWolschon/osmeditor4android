@@ -147,4 +147,16 @@ public final class Util {
             return new ArrayList<>();
         }
     }
+    
+    
+    /**
+     * Check if we have saved state for a key
+     * 
+     * @param savedState the Bundle holding state or null
+     * @param key the key
+     * @return true if there is state available
+     */
+    public static boolean hasState(@Nullable Bundle savedState, @NonNull String key) {
+        return savedState != null && savedState.containsKey(key);
+    }
 }
