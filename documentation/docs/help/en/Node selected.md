@@ -97,9 +97,9 @@ Create a relation and add this object as the first element. The relation type ca
 
 Select a relation and add this object as a member. Further objects can be added until the check button is clicked, then the tag editor will be started on the relation. 
 
-### ![Position](../images/menu_gps.png) Position
+### ![Set position](../images/menu_gps.png) Set position
 
-Manually set longitude and latitude values for the coordinates of this node.
+Manually enter new decimal coordinates for the element or paste them in to either of the fields. If the pasted text contains both longitude and latitude both fields will be filled, a single coordinate will just fill the target field. Supported formats include decimal and DMS, see the [Go to coordinates](Main%20map%20display.md#location) documentation for more information. 
 
 ### ![Info](../images/tag_menu_mapfeatures.png) Info
 
