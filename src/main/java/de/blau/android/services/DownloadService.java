@@ -219,6 +219,13 @@ public class DownloadService extends Service {
         @Override
         protected Void doInBackground(List<BoundingBox> boxes) throws IOException {
             boxCount = boxes.size();
+            AsyncResult checkResult = logic.checkDataAvailable(server, null);
+            if (checkResult.getCode() != ErrorCodes.OK) {
+                handler.postDelayed(() -> ScreenMessage.toastTopError(DownloadService.this, R.string.api_offline_message), UPDATE_DELAY);
+                pause = true;
+                Log.d(DEBUG_TAG, "Download paused because API is not available");
+                return null;
+            }
             Log.d(DEBUG_TAG, "Download started " + boxCount + " data " + downloadData + " tasks " + downloadTasks);
             notificationUpdater = () -> {
                 if (notificationManager.areNotificationsEnabled() && !pause && !abort) {
@@ -242,12 +249,13 @@ public class DownloadService extends Service {
                     final BoundingBox box = getBox(position, boxes);
                     if (downloadData) {
                         AsyncResult result = logic.download(DownloadService.this, server, box, (OsmElement e) -> e.hasProblem(DownloadService.this, validator),
-                                null, true, false);
+                                null, true, true);
                         if (result.getCode() != ErrorCodes.OK) {
                             pause = true;
                             Log.d(DEBUG_TAG, "Pausing due to result " + result.getCode());
-                            ScreenMessage.toastTopError(DownloadService.this,
-                                    getString(R.string.toast_download_failed, TrackerService.errorCodesToStringRes(result.getCode()), result.getMessage()));
+                            handler.postDelayed(() -> ScreenMessage.toastTopError(DownloadService.this,
+                                    getString(R.string.toast_download_failed, TrackerService.errorCodesToStringRes(result.getCode()), result.getMessage())),
+                                    UPDATE_DELAY);
                             return null;
                         }
                     }
@@ -285,7 +293,7 @@ public class DownloadService extends Service {
 
         @Override
         protected void onPostExecute(Void result) {
-            boolean paused = position != 0 && boxCount > 0 && !abort;
+            boolean paused = pause && boxCount > 0 && !abort;
             if (notificationManager.areNotificationsEnabled()) {
                 Notification n = buildNotification(paused, boxCount, position).build();
                 handler.postDelayed(() -> notificationManager.notify(R.id.notification_download, n), UPDATE_DELAY);

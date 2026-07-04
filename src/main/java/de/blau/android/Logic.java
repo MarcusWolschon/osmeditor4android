@@ -3427,23 +3427,9 @@ public class Logic {
         AsyncResult result = new AsyncResult(ErrorCodes.OK);
         try {
             if (!background) {
-                if (server.hasReadOnly()) {
-                    if (server.hasMapSplitSource()) {
-                        if (!MapSplitSource.intersects(server.getMapSplitSource(), mapBox)) {
-                            return new AsyncResult(ErrorCodes.NO_DATA);
-                        }
-                    } else {
-                        server.getReadOnlyCapabilities();
-                        if (!(server.readOnlyApiAvailable() && server.readOnlyReadableDB())) {
-                            return new AsyncResult(ErrorCodes.API_OFFLINE);
-                        }
-                        server.getCapabilities();
-                    }
-                } else {
-                    server.getCapabilities();
-                    if (!(server.apiAvailable() && server.readableDB())) {
-                        return new AsyncResult(ErrorCodes.API_OFFLINE);
-                    }
+                AsyncResult checkResult = checkDataAvailable(server, mapBox);
+                if (ErrorCodes.OK != checkResult.getCode()) {
+                    return checkResult;
                 }
             }
 
@@ -3474,7 +3460,7 @@ public class Logic {
             // don't have to lock before we are here
             lock();
             if (!background) {
-                // Main maybe not available and by extension there may be no valid Map object
+                // Main maybe not be available and by extension there may be no valid Map object
                 Map currentMap = ctx instanceof Main ? ((Main) ctx).getMap() : null;
                 if (currentMap != null) {
                     // set to current or previous
@@ -3537,6 +3523,34 @@ public class Logic {
             Log.e(DEBUG_TAG, "downloadBox problem downloading " + result.getClass() + " " + result.getMessage());
         }
         return result;
+    }
+
+    /**
+     * Check if we can actually access data for download
+     * 
+     * @param server the target Server
+     * @param box the BoundingBox we want data for
+     */
+    @NonNull
+    public AsyncResult checkDataAvailable(@NonNull final Server server, @Nullable final BoundingBox box) {
+        if (server.hasReadOnly()) {
+            if (server.hasMapSplitSource()) {
+                if (box != null && !MapSplitSource.intersects(server.getMapSplitSource(), box)) {
+                    return new AsyncResult(ErrorCodes.NO_DATA);
+                }
+            } else {
+                server.getReadOnlyCapabilities();
+                if (!(server.readOnlyApiAvailable() && server.readOnlyReadableDB())) {
+                    return new AsyncResult(ErrorCodes.API_OFFLINE);
+                }
+            }
+        } else {
+            server.getCapabilities();
+            if (!(server.apiAvailable() && server.readableDB())) {
+                return new AsyncResult(ErrorCodes.API_OFFLINE);
+            }
+        }
+        return new AsyncResult(ErrorCodes.OK);
     }
 
     /**
