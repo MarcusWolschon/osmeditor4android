@@ -15,25 +15,22 @@ buildscript {
             }
         }
         
-        // see https://community.sonarsource.com/t/sonarqube-gradle-plugin-6-0-breaks-android-tasks/130863
-        classpath 'org.bouncycastle:bcutil-jdk18on:1.79'
-        
         classpath 'com.android.tools.build:gradle:8.13.0'
         classpath 'ch.poole.gradle:markdown-gradle-plugin:0.2.6'
-        classpath 'org.jacoco:org.jacoco.core:0.8.13'    
-        classpath "ch.poole:preset-utils:0.44.0"
+        classpath 'org.jacoco:org.jacoco.core:0.8.15'    
+        classpath "ch.poole:preset-utils:0.45.0"
         classpath 'ch.poole.misc:gradle-eclipse-aar-plugin:0.1.0'
-        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:3.0.1'
-        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.9.1'
-        classpath 'com.malinskiy.marathon:marathon-gradle-plugin:0.10.1'
-        classpath 'org.apache.groovy:groovy-yaml:5.0.0-alpha-3'
+        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:4.0.0'
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.10.0'
+        classpath 'com.malinskiy.marathon:marathon-gradle-plugin:0.10.4'
+        classpath 'org.apache.groovy:groovy-yaml:6.0.0-alpha-2'
     }
 }
 
 plugins {
-    id "de.undercouch.download" version "4.1.2"
-    id "org.sonarqube" version "6.2.0.5505"
-    id "com.github.ben-manes.versions" version "0.39.0"
+    id "de.undercouch.download" version "5.7.0"
+    id "org.sonarqube" version "7.3.1.8318"
+    id "com.github.ben-manes.versions" version "0.54.0"
 }
 import de.undercouch.gradle.tasks.download.Download
 import groovy.json.*
@@ -599,12 +596,12 @@ afterEvaluate{
 
 ext {
     okHttpVersion = "3.12.13" // don't change to higher than 3.12 as later versions break android 5 and earlier builds
-    conscryptVersion = "2.6-alpha3"
-    conscryptUberVersion = "2.5.2" 
+    conscryptVersion = "2.6-alpha5"
+    conscryptUberVersion = "2.6-alpha5" 
     signpostVersion = "2.1.1"
     acraVersion = "5.7.0"
     mapboxVersion = "5.8.0"
-    work_version = "2.9.0"
+    work_version = "2.10.0"                                             // 2.11 and later require min-sdk 23
 }
 
 dependencies {
@@ -614,29 +611,28 @@ dependencies {
     implementation "ch.acra:acra-dialog:$acraVersion"
     
     // android support 
-    implementation "androidx.activity:activity:1.8.2"
-    implementation "androidx.fragment:fragment:1.3.6"
-    implementation "androidx.appcompat:appcompat:1.7.0"
-    implementation "androidx.appcompat:appcompat-resources:1.7.0"
-    implementation "androidx.recyclerview:recyclerview:1.1.0"
+    implementation "androidx.activity:activity:1.11.0"                  // 1.12 and later requires min-sdk 23
+    implementation "androidx.fragment:fragment:1.8.9"
+    implementation "androidx.appcompat:appcompat:1.7.1"                 // 1.8 and later requires min-sdk 23
+    implementation "androidx.appcompat:appcompat-resources:1.7.1"       // 1.8 and later requires min-sdk 23
+    implementation "androidx.recyclerview:recyclerview:1.4.0"
     implementation "androidx.preference:preference:1.2.1"
     implementation "com.google.android.material:material:1.8.0"
-    implementation "androidx.annotation:annotation:1.1.0"
-    implementation "androidx.core:core:1.16.0"
-    implementation "androidx.exifinterface:exifinterface:1.3.6"
+    implementation "androidx.annotation:annotation:1.10.0"
+    implementation "androidx.core:core:1.17.0"                          // 1.18 and later requires min-sdk 23
+    implementation "androidx.exifinterface:exifinterface:1.4.2"
     implementation "androidx.legacy:legacy-preference-v14:1.0.0"
     implementation "androidx.work:work-runtime:$work_version"
-    implementation "androidx.window:window:1.2.0"
-    implementation 'androidx.core:core-splashscreen:1.0.1'
+    implementation "androidx.window:window:1.4.0"                       // 1.5.0 and later requires min-sdk 23
+    implementation 'androidx.core:core-splashscreen:1.2.0'
     implementation "androidx.multidex:multidex:2.0.1"
     implementation "androidx.cardview:cardview:1.0.0"
-    implementation "androidx.viewpager:viewpager:1.1.0-alpha01"
+    implementation "androidx.viewpager:viewpager:1.1.0"
     implementation "androidx.coordinatorlayout:coordinatorlayout:1.3.0"
-    implementation "androidx.browser:browser:1.8.0"
+    implementation "androidx.browser:browser:1.9.0"                     // 1.10 and later requires min-sdk 23
     
     //non-Android google 
-    implementation 'com.google.protobuf:protobuf-java:3.12.2'
-    implementation "com.google.code.gson:gson:2.10.1"
+    implementation "com.google.code.gson:gson:2.14.0"
     implementation "com.google.protobuf:protobuf-java:$googleProtobufVersion"
     implementation 'com.google.openlocationcode:openlocationcode:1.0.4'
    
@@ -648,29 +644,28 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp-tls:$okHttpVersion"
     
     // other 3rd party dependencies
-    implementation 'com.github.AAkira:ExpandableLayout:v1.4.3'
     implementation "oauth.signpost:signpost-core:$signpostVersion"
     implementation ('com.faendir.rhino:rhino-android:1.6.0') { exclude group: 'org.mozilla' }
-    implementation "org.mozilla:rhino:1.7.13"
+    implementation "org.mozilla:rhino:1.8.1" // 1.9 and later require min-sdk 26
     implementation "com.mapbox.mapboxsdk:mapbox-sdk-geojson:$mapboxVersion"
     implementation "com.mapbox.mapboxsdk:mapbox-sdk-turf:$mapboxVersion"
     implementation 'com.github.Kunzisoft:AndroidClearChroma:2.6'
     implementation 'de.westnordost:countryboundaries:2.1'
     implementation 'de.ruedigermoeller:fst:2.57'
     implementation 'org.openstreetmap.osmosis:osmosis-osm-binary:0.48.3'
-    implementation 'com.zaxxer:SparseBitSet:1.2'
+    implementation 'com.zaxxer:SparseBitSet:1.3'
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
-    implementation 'io.michaelrocks:libphonenumber-android:8.12.39'
+    implementation 'io.michaelrocks:libphonenumber-android:9.0.32'
     implementation 'io.noties.markwon:core:4.6.2'
     implementation 'com.github.zedlabs:ElementHistoryDialog:1.1.3'
     implementation 'com.caverock:androidsvg-aar:1.4'
     implementation 'com.github.kix2902:CompassView:master-SNAPSHOT'
-    implementation ('com.opencsv:opencsv:5.9') { exclude group: 'commons-logging' }
+    implementation ('com.opencsv:opencsv:5.12.0') { exclude group: 'commons-logging' }
     implementation 'com.github.micycle1:Clipper2-java:2.0.1'
     
     implementation "ch.poole:PoParser:0.8.0"
     implementation "ch.poole:OpeningHoursParser:0.29.0"
-    implementation "ch.poole:ConditionalRestrictionParser:0.3.3"
+    implementation "ch.poole:ConditionalRestrictionParser:0.3.4"
     implementation "ch.poole:OpeningHoursFragment:0.18.0"
     implementation 'ch.poole.android:numberpicker:1.0.10'
     implementation 'ch.poole.android:numberpickerpreference:2.0.1'
@@ -680,18 +675,18 @@ dependencies {
     implementation 'ch.poole.android:indeterminate-checkbox:1.1.0@aar'
     implementation 'ch.poole.misc:bentley-ottmann:0.1.3'
     implementation 'ch.poole.geo.pmtiles-reader:Reader:0.3.7'
-    implementation 'ch.poole:preset-utils:0.44.0'
+    implementation 'ch.poole:preset-utils:0.45.0'
     
     // for temp stuff during dev
     // implementation(name:'alibrary', ext:'jar')
 
     // Unit tests
     testImplementation "junit:junit:4.13.2"
-    testImplementation 'xmlpull:xmlpull:1.1.3.1'
+    testImplementation 'xmlpull:xmlpull:1.1.3.4a'
     testImplementation 'net.sf.kxml:kxml2:2.3.0'
     testImplementation "org.robolectric:robolectric:4.16.1"
     testImplementation 'androidx.test.ext:junit:1.3.0'
-    testImplementation 'androidx.test:rules:1.6.1'
+    testImplementation 'androidx.test:rules:1.7.0'
     testImplementation "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
     testImplementation "pl.droidsonroids.yaml:snakeyaml:1.18-android"
     testImplementation ("com.orhanobut:mockwebserverplus:1.0.0") {
@@ -701,15 +696,15 @@ dependencies {
     testImplementation "org.conscrypt:conscrypt-openjdk-uber:$conscryptUberVersion"
 
     // Instrumentation tests
-    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
-    androidTestImplementation 'androidx.test:rules:1.6.1'
-    androidTestImplementation "org.hamcrest:hamcrest-library:2.2"
+    androidTestImplementation 'androidx.test.ext:junit:1.3.0'
+    androidTestImplementation 'androidx.test:rules:1.7.0'
+    androidTestImplementation "org.hamcrest:hamcrest-library:3.0"
     androidTestImplementation "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
     androidTestImplementation "pl.droidsonroids.yaml:snakeyaml:1.18-android"
     androidTestImplementation ("com.orhanobut:mockwebserverplus:1.0.0") {
         exclude group: 'org.yaml', module: 'snakeyaml'
     }
-    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.3.0'
+    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.4.0'
     androidTestImplementation "androidx.work:work-testing:$work_version"
 }
 
