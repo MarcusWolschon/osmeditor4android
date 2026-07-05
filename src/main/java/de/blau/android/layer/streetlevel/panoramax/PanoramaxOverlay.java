@@ -370,7 +370,6 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
                 return;
             }
             urls.put(idString, href.getAsString());
-
         }
     }
 

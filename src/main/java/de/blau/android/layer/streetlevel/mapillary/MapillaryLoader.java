@@ -7,8 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -33,6 +32,7 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 class MapillaryLoader extends NetworkImageLoader {
+
     private static final long serialVersionUID = 2L;
 
     private static final int      TAG_LEN   = Math.min(LOG_TAG_LEN, MapillaryLoader.class.getSimpleName().length());
@@ -43,6 +43,7 @@ class MapillaryLoader extends NetworkImageLoader {
     private static final String COMPUTED_COMPASS_ANGLE_FIELD = "computed_compass_angle";
     private static final String CAPTURED_AT_FIELD            = "captured_at";
     private static final String THUMB_2048_URL_FIELD         = "thumb_2048_url";
+    private static final int    TIMEOUT                      = 20000;
 
     /**
      * Construct a new loader
@@ -61,8 +62,8 @@ class MapillaryLoader extends NetworkImageLoader {
         return () -> {
             Log.d(DEBUG_TAG, "querying mapillary server for " + key);
             try {
-                Request request = new Request.Builder().url(new URI(String.format(imageUrl, key)).toURL()).build();
-                OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(20000, TimeUnit.MILLISECONDS).readTimeout(20000, TimeUnit.MILLISECONDS)
+                Request request = new Request.Builder().url(new URL(String.format(imageUrl, key))).build();
+                OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(20000, TimeUnit.MILLISECONDS)
                         .build();
                 Call mapillaryCall = client.newCall(request);
                 Response mapillaryCallResponse = mapillaryCall.execute();
@@ -81,7 +82,7 @@ class MapillaryLoader extends NetworkImageLoader {
                 }
                 setImage(view, imageFile);
                 pruneCache();
-            } catch (IOException | URISyntaxException e) {
+            } catch (IOException e) {
                 Log.e(DEBUG_TAG, e.getMessage());
             }
         };

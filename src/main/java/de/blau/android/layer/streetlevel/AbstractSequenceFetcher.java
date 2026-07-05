@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -19,6 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.contract.MimeTypes;
+import de.blau.android.osm.OsmXml;
 import okhttp3.Call;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -53,7 +55,7 @@ public abstract class AbstractSequenceFetcher implements Runnable {
     @Override
     public void run() {
         try {
-            URL url = new URI(String.format(urlTemplate, sequenceId, apiKey)).toURL();
+            URL url = new URI(String.format(urlTemplate, sequenceId, apiKey != null ? URLEncoder.encode(apiKey, OsmXml.UTF_8) : null)).toURL();
             ArrayList<String> ids = new ArrayList<>();
             do {
                 Log.d(DEBUG_TAG, "query sequence: " + url.toString());
