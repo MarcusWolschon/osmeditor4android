@@ -20,7 +20,7 @@ The created Node is not automatically merged with nearby objects.
 
 Start a new OSM Way at the tapped position, tapping a further position will create the next node and so on. Behaviour is similar as described in [creating new objects](../en/Creating%20new%20objects.md). __Way Nodes will be merged with nearby objects.__
 
-Besides tapping the "check mark" button to directly start the [property editor](../en/Property%20editor.md), you can
+Besides tapping the "check mark" button to directly start the [property editor](../en/Property%20editor.md), you can select
 
 #### ![Snap](../images/snap_on.png)  ![Snap](../images/snap_off.png) Snap
 
@@ -33,7 +33,7 @@ Note: when the checkbox is not checked you need to manually close closed ways, f
 
 Create the current new object, launch the [property editor](../en/Property%20editor.md) and immediately display the preset tab. In multi-pane mode this will simply start the property editor.
 
-### ![Follow](../images/follow.png) Follow way
+#### ![Follow](../images/follow.png) Follow way
 
 If two consecutive nodes overlap with nodes of an existing way you can follow the existing way to one of its nodes after clicking the button.
 
@@ -43,7 +43,7 @@ Adds address tags with prediction. If the way is closed this will add the predic
 
 ### Add area
 
-As _Add way_ but automatically closes ways and adds an indication of where the closing segment will be. If the closing segment would lead to the way sel-intersecting the closing line will be highlighted.
+As _Add way_ but automatically closes ways and adds an indication of where the closing segment will be. If the closing segment would lead to the way self-intersecting the closing line will be highlighted.
 
 ### Add map note
 
