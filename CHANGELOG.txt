@@ -1,5 +1,57 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+22.1.0-1:
+
+- Fix protect against JsonNull
+- Fix Panoramax image symbol highlight missing
+- Fix broken NumberPicker styling
+- Fix replace use of a Webview for authorization with a custom tab
+- Fix don't ignore display cutout insets
+- Fix replace IssueReporter library
+- Fix only show the pausing alert if we are still downloading
+- Fix for two node ways long click is the only split option
+- Fix new ways don't have history so no need to select segment on splitting
+- Fix colour info button in review modal too
+- Fix handle panoramax instance configuration with and without trailing ".api" 
+- Fix updating relation member label after download regression
+- Fix ungzip error messages from tile sources before trying to display them
+- Fix improve handling of root certificates on devices prior to Android 14
+- Fix getRole use while editing relations
+- Fix avoid creating tiny bounding boxes
+- Fix Check that all nodes are in a downloaded area before ungluing
+- Fix minimal replacement for googles AlertDialog that is less buggy
+- Fix catch and report exceptions from running conflict resolution actions
+- Fix icon URL in for taginfo
+- Fix reset adapter filter after selection
+- Fix run rebuilding of data style structures after import of data style
+- Fix if no presets are selected, select the default preset
+- Fix table meta data wasn't generated correctly with original sql 
+- Fix regression that stopped panoramax instances being added from instance list
+- Fix update download plugin configration for synonyms
+- Change move auto-prune configuration to layer control
+- Change bump target SDK to 36
+- Change use Java 21 for CI
+- Change re-factor applicationId and app name handling
+- Change use relative names for activities
+- Change unjoinWay behaviour to not clone nodes
+- Change removed duplication in contributing text, added AI/LLM usage guideline
+- Add support for removing just the tiles in view from the tile cache
+- Add support pasting coordinates to the coordinate fields in "Set position"
+- Add download data along a Way
+- Add support long press way splitting in legacy mode
+- Add support for detecting nearby connection for boundary ways and relations
+- Add support for detecting self-intersection while drawing anarea
+- Add "Add area" option that automatically closes the new way
+- Add support for authenticated reads
+- Add support squaring individual corners of a selected way
+- Add note on configuration import not being backwards compatible
+- Update root certificates 
+- Update translations
+- Update imagery from ELI
+- Update tag2link
+- Update NSI
+- Update synonyms
+
 22.0.0:
 
 - Fix refactor AbstractReviewDialog to use a RecyclerView (fixes performance issues with lots of edits)
