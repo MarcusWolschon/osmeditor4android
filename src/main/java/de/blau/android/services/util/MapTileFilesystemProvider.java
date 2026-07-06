@@ -163,6 +163,27 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider implements M
         }
     }
 
+    /**
+     * Flush a range of tiles from the cache
+     * 
+     * @param rendererId the provider to flush
+     * @param zoom zoom level
+     * @param minX minimum tile X
+     * @param minY minimum tile Y
+     * @param maxX maximum tile X
+     * @param maxY maximum tile Y
+     */
+    public void flushCache(@NonNull final String sourceId, int zoom, int minX, int minY, int maxX, int maxY) {
+        try {
+            tileCache.flushCache(sourceId, zoom, minX, minY, maxX, maxY);
+            mCurrentCacheByteSize = tileCache.getCurrentFSCacheByteSize();
+        } catch (EmptyCacheException e) {
+            if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
+                Log.d(DEBUG_TAG, "Flushing tile cache failed for " + sourceId, e);
+            }
+        }
+    }
+
     @Override
     public void flushQueue(@NonNull String rendererId, int zoom) {
         // don't bother flushing our queue
@@ -363,8 +384,8 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider implements M
         File mountPoint = null;
 
         for (File dir : ctx.getExternalFilesDirs(null)) { // iterate over the directories
-                                                                         // preferring a removable one if
-                                                                         // required
+                                                          // preferring a removable one if
+                                                          // required
             if (dir == null || !dir.canWrite()) {
                 Log.d(DEBUG_TAG, "storage dir null or not writable ");
                 continue;

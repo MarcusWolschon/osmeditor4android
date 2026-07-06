@@ -51,6 +51,7 @@ The layer dialog supports the following actions on the layer entries:
 * Menu button.
     * Tile based layers: 
         * __Select imagery__ Show a imagery selection dialog, if multiple layers have been used, a most-recently-used list will be displayed above this menu entry, allowing quick layer switching. 
+        * __Update tiles in view__ remove the tiles that are being displayed from the cache allowing them to be updated. Note: overzooming, that is viewing tiles at a higher zoom level then their nominal zoom value, will lead to tiles from a lower zoom level being removed. For example Mapbox Vector tiles typically have a maximum zoom of 14, but you will nearly always be viewing them at a higher zoom.  
         * __Flush tile cache__ Flush the on device cache for this layer.
         * __Background properties__ Set contrast of layer.
         * __Info__ Display information on the currently selected imagery.

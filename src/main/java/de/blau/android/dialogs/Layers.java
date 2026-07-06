@@ -1085,13 +1085,20 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                     return true;
                 });
             }
+            // these items are less important, show them at the bottom of the menu
+            if (layer instanceof MapTilesLayer) {
+                MenuItem item = menu.add(R.string.layer_update_tiles_in_view);
+                item.setOnMenuItemClickListener(unused -> {
+                    if (layer != null) {
+                        ((MapTilesLayer<?>) layer).flushTilesInViewCache(activity);
+                    }
+                    return true;
+                });
 
-            if (layer instanceof MapTilesLayer) { // these items are less important, show them at the bottom of the menu
-                MenuItem item = menu.add(R.string.layer_flush_tile_cache);
+                item = menu.add(R.string.layer_flush_tile_cache);
                 item.setOnMenuItemClickListener(unused -> {
                     if (layer != null) {
                         ((MapTilesLayer<?>) layer).flushTileCache(activity, true);
-                        layer.invalidate();
                     }
                     return true;
                 });
