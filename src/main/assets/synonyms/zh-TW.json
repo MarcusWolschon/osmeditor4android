@@ -24,6 +24,9 @@
 "advertising/poster_box":[
 "廣告燈箱"
 ],
+"advertising/sign":[
+"廣告標誌"
+],
 "advertising/totem":[
 "廣告立牌"
 ],
@@ -375,9 +378,6 @@
 "法院",
 "法庭"
 ],
-"amenity/coworking_space":[
-"共同工作空間,共用工作空間"
-],
 "amenity/crematorium":[
 "火葬場"
 ],
@@ -397,6 +397,7 @@
 "診所",
 "醫療所",
 "診療所",
+"私人診所",
 "醫務所"
 ],
 "amenity/doctors/allergology":[
@@ -661,6 +662,10 @@
 "ktv",
 "卡拉 OK 店",
 "卡拉 ok 店"
+],
+"amenity/kitchen":[
+"社區廚房",
+"公共廚房"
 ],
 "amenity/kneipp_water_cure":[
 "水療設施"
@@ -1077,6 +1082,9 @@
 "遮雨棚",
 "亭子"
 ],
+"amenity/shelter/field_shelter":[
+"放牧棚舍"
+],
 "amenity/shelter/gazebo":[
 "涼亭"
 ],
@@ -1113,6 +1121,10 @@
 ],
 "amenity/social_facility/assisted_living":[
 "老人個人安養設施"
+],
+"amenity/social_facility/day_care":[
+"社服全日服務",
+"社工服務全日照護 / 全日照護"
 ],
 "amenity/social_facility/food_bank":[
 "食物庫"
@@ -2097,6 +2109,9 @@
 "disc_golf/tee":[
 "飛盤高爾夫開始區"
 ],
+"disused/aeroway":[
+"廢棄航空設施"
+],
 "disused/amenity":[
 "停用設施"
 ],
@@ -2508,6 +2523,9 @@
 "讓行標誌",
 "讓路標誌",
 "讓車標誌"
+],
+"highway/hitchhiking":[
+"順風車招呼站"
 ],
 "highway/ladder":[
 "梯子",
@@ -3401,6 +3419,9 @@
 "leisure/stadium":[
 "體育館"
 ],
+"leisure/summer_camp":[
+"夏令營"
+],
 "leisure/swimming_area":[
 "活水游泳區",
 "天然水源游泳區"
@@ -3587,6 +3608,9 @@
 "man_made/gasometer":[
 "儲氣鼓",
 "儲氣筒"
+],
+"man_made/geoglyph":[
+"地畫"
 ],
 "man_made/goods_conveyor":[
 "貨物輸送帶"
@@ -3849,6 +3873,9 @@
 ],
 "natural/arch":[
 "天然拱門"
+],
+"natural/arete":[
+"刃脊"
 ],
 "natural/bare_rock":[
 "裸岩"
@@ -4563,10 +4590,6 @@
 "水力電廠",
 "水力發電廠"
 ],
-"power/plant/source/method/photovoltaic":[
-"太陽能發電場",
-"太陽能板"
-],
 "power/plant/source/nuclear":[
 "核能電廠",
 "核能發電廠"
@@ -4576,6 +4599,10 @@
 "燃油發電廠"
 ],
 "power/plant/source/solar":[
+"太陽能發電廠",
+"太陽能電廠"
+],
+"power/plant/source/solar/photovoltaic":[
 "太陽能發電廠",
 "太陽能電廠"
 ],
@@ -5415,6 +5442,9 @@
 "shop/photo":[
 "攝影用品店",
 "照相館"
+],
+"shop/piercing":[
+"穿孔店"
 ],
 "shop/pottery":[
 "陶瓷器店",

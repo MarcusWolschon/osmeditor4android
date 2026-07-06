@@ -295,9 +295,7 @@
 "footpath"
 ],
 "highway/give_way":[
-"Give Way Sign",
-"yield",
-"sign"
+"Give Way Sign"
 ],
 "highway/street_lamp":[
 "Street Light"
@@ -359,6 +357,9 @@
 "natural/wetland/mangrove":[
 "Mangroves",
 "mangrove"
+],
+"office/association":[
+"Nonprofit Organisation Office"
 ],
 "office/employment_agency":[
 "vocation",

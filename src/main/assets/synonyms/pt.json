@@ -773,9 +773,6 @@
 "casa da justiça",
 "Tribunal"
 ],
-"amenity/coworking_space":[
-"Espaço de trabalho partilhado"
-],
 "amenity/crematorium":[
 "crematorium",
 "cremado",
@@ -11823,19 +11820,6 @@
 "eletricidade",
 "central de energia",
 "estação de produção energética",
-"elétrica"
-],
-"power/plant/source/method/photovoltaic":[
-"painéis",
-"fotovoltaica",
-"energia",
-"fotovoltaico",
-"solares",
-"eletricidade",
-"painel",
-"parque",
-"estação de produção energética",
-"Central solar fotovoltaica",
 "elétrica"
 ],
 "power/plant/source/nuclear":[

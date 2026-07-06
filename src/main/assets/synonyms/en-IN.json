@@ -1,5 +1,8 @@
 {
 "amenity/theatre/type/amphi":[
 "Amphitheatre"
+],
+"highway/give_way":[
+"Give Way Sign"
 ]
 }

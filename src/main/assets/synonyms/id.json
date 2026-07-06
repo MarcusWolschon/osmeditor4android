@@ -6,6 +6,14 @@
 "advertising/board":[
 "Papan Informasi"
 ],
+"advertising/sign":[
+"reklame",
+"spanduk",
+"baliho",
+"videotron",
+"billboard",
+"Papan Iklan"
+],
 "aerialway/cable_car":[
 "Kereta Gantung"
 ],
@@ -324,6 +332,9 @@
 "amenity/internet_cafe":[
 "Warung Internet",
 "warnet"
+],
+"amenity/kitchen":[
+"Dapur Umum"
 ],
 "amenity/library":[
 "Perpustakaan",
@@ -1262,6 +1273,9 @@
 "highway/bus_stop":[
 "Halte Bus"
 ],
+"highway/busway":[
+"Jalur Bis Terpisah"
+],
 "highway/construction":[
 "Jalan dalam Pembangunan"
 ],
@@ -1355,14 +1369,17 @@
 "jalan bebas hambatan",
 "Jalan Tol"
 ],
+"highway/motorway_junction":[
+"Jalan Keluar Tol (out ramp)"
+],
 "highway/motorway_link":[
-"Jalan Penghubung Tol",
+"Jalan Penghubung Tol (ramp)",
 "jalan penghubung bebas hambatan"
 ],
 "highway/path":[
 "trail",
 "trek",
-"Jalur (umum)",
+"Jalur Setapak",
 "hiking",
 "single track",
 "mendaki",
@@ -1394,12 +1411,12 @@
 "jalan square"
 ],
 "highway/primary":[
-"Jalan Provinsi",
 "jalan primer",
-"jalan utama"
+"jalan utama",
+"Jalan Primer"
 ],
 "highway/primary_link":[
-"Jalan Penghubung Primer",
+"Jalan Primer Penghubung",
 "jalan penghubung primer"
 ],
 "highway/raceway":[
@@ -1414,7 +1431,7 @@
 "highway/residential":[
 "jalan permukiman",
 "jalan perumahan",
-"Jalan Permukiman / Lokal"
+"Jalan Lokal / Permukiman"
 ],
 "highway/rest_area":[
 "Tempat Peristirahatan",
@@ -1425,12 +1442,12 @@
 "Jalan Tak Diketahui"
 ],
 "highway/secondary":[
-"jalan sekunder",
-"Jalan Kabupaten"
+"Jalan Sekunder",
+"jalan sekunder"
 ],
 "highway/secondary_link":[
 "jalan penghubung sekunder",
-"Jalan Penghubung Sekunder"
+"Jalan Sekunder Penghubung"
 ],
 "highway/service":[
 "Jalan Layanan",
@@ -1444,8 +1461,8 @@
 "highway/service/drive-through":[
 "layanan tanpa turun",
 "pelayanan kendaraan",
-"pelayanan mobil",
-"Layanan Tanpa Turun"
+"Layanan Tanpa Turun / Lantatur",
+"pelayanan mobil"
 ],
 "highway/service/driveway":[
 "Jalan Masuk",
@@ -1478,7 +1495,7 @@
 "anak tangga"
 ],
 "highway/steps/conveying":[
-"Eskalator"
+"Eskalator / Lift"
 ],
 "highway/stop":[
 "tanda stop",
@@ -1488,12 +1505,12 @@
 "Lampu Jalan"
 ],
 "highway/tertiary":[
-"Jalan Kota",
-"jalan tersier"
+"jalan tersier",
+"Jalan Tersier"
 ],
 "highway/tertiary_link":[
 "jalan penghubung tersier",
-"Jalan Penghubung Tersier"
+"Jalan Tersier Penghubung"
 ],
 "highway/track":[
 "Jalur / Jalan Akses Lahan"
@@ -1503,7 +1520,7 @@
 "Lampu Lalu lintas"
 ],
 "highway/trunk":[
-"Jalan Nasional",
+"Jalan Strategis Nasional",
 "jalan raya"
 ],
 "highway/trunk_link":[
@@ -1639,6 +1656,7 @@
 "dinding dalam ruangan"
 ],
 "junction":[
+"simpang",
 "Persimpangan",
 "pertigaan",
 "perempatan"
@@ -2080,8 +2098,14 @@
 "man_made/flagpole":[
 "Tiang Bendera"
 ],
+"man_made/geoglyph":[
+"Geoglif"
+],
 "man_made/lighthouse":[
 "Mercusuar"
+],
+"man_made/manhole/drain":[
+"Lubang Drainase"
 ],
 "man_made/monitoring_station":[
 "Stasiun Pemantauan",
@@ -2732,11 +2756,6 @@
 "power/plant/source/hydro":[
 "PLTA"
 ],
-"power/plant/source/method/photovoltaic":[
-"surya",
-"pembangkit listrik",
-"PLTS"
-],
 "power/plant/source/nuclear":[
 "PLTN",
 "pembangkit listrik"
@@ -2749,6 +2768,9 @@
 "panel surya",
 "sel surya",
 "PLTS"
+],
+"power/plant/source/solar/photovoltaic":[
+"Kawasan PLTS"
 ],
 "power/plant/source/waste":[
 "pembangkit listrik",
@@ -3004,6 +3026,9 @@
 ],
 "shop/clothes":[
 "Toko Baju"
+],
+"shop/coffee":[
+"Toko Biji Kopi"
 ],
 "shop/collector":[
 "Toko Barang Koleksi"
@@ -3611,16 +3636,26 @@
 "Fitur Jalur Air"
 ],
 "waterway/canal":[
-"Kanal"
+"saluran",
+"banjir besar",
+"Kanal / Irigasi Besar"
 ],
 "waterway/dam":[
 "Bendungan / Waduk"
 ],
 "waterway/ditch":[
-"Selokan"
+"Parit",
+"irigasi",
+"selokan"
 ],
 "waterway/drain":[
-"Saluran / Irigasi"
+"saluran",
+"u-ditch",
+"drainage",
+"Selokan / Drainase",
+"got",
+"selokan",
+"u ditch"
 ],
 "waterway/lock_gate":[
 "Pintu Air"

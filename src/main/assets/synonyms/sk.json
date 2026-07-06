@@ -204,7 +204,7 @@
 "záhon"
 ],
 "amenity":[
-"Občianska vybavenosť"
+"Prvok občianskej vybavenosti"
 ],
 "amenity/animal_boarding":[
 "starostlivosť",
@@ -296,7 +296,9 @@
 "stojan na bicykle"
 ],
 "amenity/bicycle_parking/building":[
-"Garáž na parkovanie bicyklov"
+"garáž pre bicykle",
+"Garáž na parkovanie bicyklov",
+"garaz pre bicykle"
 ],
 "amenity/bicycle_parking/lockers":[
 "skrinky na bicykle",
@@ -305,8 +307,8 @@
 "amenity/bicycle_parking/shed":[
 "pristresok pre bicykle",
 "prístrešok pre bicykle",
-"Uzamykateľný prístrešok pre bicykle",
-"uzamykatelny pristresok pre bicykle"
+"uzamykatelny pristresok pre bicykle",
+"Uzatvárateľný prístrešok pre bicykle"
 ],
 "amenity/bicycle_rental":[
 "stanoviste zdielanych bicyklov",
@@ -603,9 +605,6 @@
 "sudny dvor",
 "Súd",
 "súdna sieň"
-],
-"amenity/coworking_space":[
-"Priestory pre coworking"
 ],
 "amenity/crematorium":[
 "krematorium",
@@ -1104,10 +1103,10 @@
 "Dom ošetrovateľskej starostlivosti"
 ],
 "amenity/parcel_locker":[
+"vydajny box",
 "balikobox",
+"výdajný box",
 "balíkomat",
-"alzabox",
-"z-box",
 "Schránka na balíky",
 "schranka na baliky",
 "schránka pre balíky",
@@ -1578,14 +1577,25 @@
 "amenity/shelter/lean_to":[
 "Hrubý prístrešok s otvorenou stenou",
 "prístrešok",
+"bivakový prístrešok",
+"otvorený prístrešok",
 "utulna",
+"otvoreny pristresok",
 "hruby pristresok s otvorenou stenou",
 "útulňa",
-"pristresok"
+"pristresok",
+"bivak",
+"bivakovy"
 ],
 "amenity/shelter/picnic_shelter":[
+"altánok",
+"turisticky pristresok",
+"turistický prístrešok",
 "Piknikový prístrešok",
-"piknikovy pristresok"
+"prístrešok",
+"piknikovy pristresok",
+"altanok",
+"pristresok"
 ],
 "amenity/shelter/public_transport":[
 "zastávka",
@@ -2138,6 +2148,9 @@
 "brana otvarana narazom",
 "Brána otváraná nárazom"
 ],
+"barrier/bus_trap":[
+"Autobusová priehlbeň"
+],
 "barrier/cable_barrier":[
 "drotena bariera",
 "kablova bariera",
@@ -2447,8 +2460,11 @@
 "buda"
 ],
 "building/carport":[
+"zastrešené státie",
 "pristresok pre auto",
-"Prístrešok pre auto"
+"zastresene statie",
+"carport",
+"Prístrešok pre auto (carport)"
 ],
 "building/cathedral":[
 "katedrála",
@@ -2545,10 +2561,11 @@
 ],
 "building/garages":[
 "garáže",
-"Budova súkromných garáží",
-"garaz",
+"Blok garáží",
+"blok garazi",
 "garaze",
-"garáž"
+"blok s garazami",
+"blok s garážami"
 ],
 "building/ger":[
 "Jurta"
@@ -3841,7 +3858,12 @@
 "obytna ulica"
 ],
 "highway/milestone":[
-"Kilometrovník"
+"Cestný kilometrovník",
+"kilometrovník",
+"cestny kilometrovnik",
+"diaľničný kilometrovnik",
+"kilometrovnik",
+"dialnicny kilometrovnik"
 ],
 "highway/mini_roundabout":[
 "maly kruhovy objazd",
@@ -4499,7 +4521,10 @@
 "landuse/garages":[
 "Oblasť súkromných garáží",
 "garáže",
-"garaze"
+"sukromne garaze",
+"garaze",
+"súkromné garáže",
+"oblast sukromnych garazi"
 ],
 "landuse/grass":[
 "zeleň",
@@ -5734,10 +5759,17 @@
 "pristavisko"
 ],
 "man_made/reservoir_covered":[
+"vodojem",
 "podzemna nadrz",
+"nadrz",
+"vodný zdroj",
 "kryta nadrz",
-"Krytá nádrž",
-"podzemná nádrž"
+"nádrž",
+"krytá nádrž",
+"vodny zdroj",
+"Podzemný vodojem",
+"podzemná nádrž",
+"podzemny vodojem"
 ],
 "man_made/satellite_dish":[
 "Parabolická anténa"
@@ -5924,9 +5956,9 @@
 "studna"
 ],
 "man_made/water_works":[
-"Vodáreň",
 "upravna vody",
-"úpravňa vody",
+"Úpravňa vody",
+"vodáreň",
 "vodaren"
 ],
 "man_made/watermill":[
@@ -7020,10 +7052,6 @@
 "vodná energia",
 "hydroelektraren"
 ],
-"power/plant/source/method/photovoltaic":[
-"fotovolticka elektraren",
-"Fotovoltická elektráreň"
-],
 "power/plant/source/nuclear":[
 "Jadrová elektráreň",
 "jadrova elektraren"
@@ -7539,6 +7567,14 @@
 ],
 "shop/beauty/tanning":[
 "Solárium"
+],
+"shop/bed":[
+"postele",
+"Obchod s posteľami / matracmi",
+"matrace",
+"obchod s postelami",
+"posteľ",
+"obchod s matracmi"
 ],
 "shop/beverages":[
 "kofola",
@@ -8139,10 +8175,17 @@
 "bielizeň"
 ],
 "shop/houseware":[
-"zeleziarstvo",
-"železiarstvo",
 "Obchod s domácimi potrebami",
-"domace potreby"
+"príbory",
+"pribory",
+"domace potreby",
+"kuchynské potreby",
+"domacnost",
+"taniere",
+"domácnosť",
+"kuchynske potreby potreby do domácnosti",
+"domáce potreby",
+"riad"
 ],
 "shop/hunting":[
 "obchod s polovnickymi potrebami",
@@ -8153,10 +8196,17 @@
 "polovnicke potreby"
 ],
 "shop/interior_decoration":[
-"intrierove dekoracie",
-"intriérové dekorácie",
-"obchod s bytovami dekoraciami",
-"Obchod s bytovými dekoráciami"
+"dekoracie",
+"interiérové dekorácie",
+"interierove dekoracie",
+"dizajn",
+"bytove doplnky",
+"bytové doplnky",
+"Obchod s bytovými dekoráciami",
+"bytové dekorácie",
+"bytove dekoracie",
+"dekorácie",
+"obchod s bytovymi dekoraciami"
 ],
 "shop/jewelry":[
 "nausnice",
@@ -8772,7 +8822,11 @@
 "Obchod (nešpecifikovaný typ)"
 ],
 "telecom/data_center":[
-"Dátové centrum"
+"serverovňa",
+"Dátové centrum",
+"serverovna",
+"datacentrum",
+"datove centrum"
 ],
 "telecom/exchange":[
 "Telefónna ústredňa"

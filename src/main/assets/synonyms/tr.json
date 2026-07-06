@@ -310,9 +310,6 @@
 "adalet sarayı",
 "mahkeme"
 ],
-"amenity/coworking_space":[
-"Ortak Çalışma Alanı"
-],
 "amenity/crematorium":[
 "Cesed Yakma Yeri",
 "cesed yakma yeri"
@@ -408,6 +405,10 @@
 ],
 "amenity/doctors/urology":[
 "Urologist"
+],
+"amenity/dog_toilet":[
+"i̇t tuvaleti",
+"Köpek Tuvaleti"
 ],
 "amenity/dojo":[
 "dövüş sanatları akademisi",
@@ -1335,9 +1336,6 @@
 "barrier/wicket_gate":[
 "Wicket Gate"
 ],
-"barrier/yes":[
-"Barrier (Unspecified Type)"
-],
 "boundary":[
 "Sınır"
 ],
@@ -1424,6 +1422,9 @@
 "building/dormitory":[
 "Yurt",
 "öğrenci yurdu"
+],
+"building/entrance":[
+"Giriş / Çıkış"
 ],
 "building/farm":[
 "Çiftlik"
@@ -1608,6 +1609,13 @@
 ],
 "cemetery/sector":[
 "Cemetery Section"
+],
+"climbing/route":[
+"tırmanış yolu",
+"tırmanma güzergâhı",
+"tırmanma rotası",
+"tırmanma yolu",
+"Tırmanış Rotası"
 ],
 "club":[
 "bar",
@@ -1996,6 +2004,12 @@
 "entrance/main":[
 "Ana Giriş"
 ],
+"entrance/shop":[
+"market girişi",
+"dükkân girişi",
+"Mağaza Girişi",
+"bakkal girişi"
+],
 "entrance/staircase":[
 "Staircase Entrance"
 ],
@@ -2139,9 +2153,6 @@
 "konuşma uzmanı",
 "Konuşma Terapisti"
 ],
-"healthcare/yes":[
-"Healthcare Facility (Unspecified Type)"
-],
 "highway":[
 "Karayolu Özelliği"
 ],
@@ -2275,6 +2286,12 @@
 "yol ver i̇şareti",
 "Yol Ver İşareti",
 "yol ver levhası"
+],
+"highway/ladder":[
+"merdiven",
+"tırmanma",
+"Dikey Merdiven",
+"çıkmak"
 ],
 "highway/living_street":[
 "Yaya Öncelikli Yol",
@@ -2473,6 +2490,12 @@
 "dönüş yeri",
 "Dönüş Yeri",
 "dönüş adası"
+],
+"highway/unclassified":[
+"küçük yol",
+"Tali / Sınıflandırılmamış Yol",
+"uzak yol",
+"şehir dışı yol"
 ],
 "historic":[
 "Tarihi Yer",
@@ -3469,9 +3492,6 @@ beşe beş futbol"
 "man_made/works/brewery":[
 "Industrial Brewery"
 ],
-"man_made/yes":[
-"Man-Made Feature (Unspecified Type)"
-],
 "marker":[
 "İşaretleyici"
 ],
@@ -3915,9 +3935,6 @@ beşe beş futbol"
 "Su Müdürlüğü",
 "su ve kanalizasyon müdürlüğü"
 ],
-"office/yes":[
-"Office (Unspecified Type)"
-],
 "pipeline":[
 "Pipeline Feature"
 ],
@@ -4173,12 +4190,6 @@ beşe beş futbol"
 ],
 "power/plant/source/hydro":[
 "Hidroelektrik Güç İstasyonu"
-],
-"power/plant/source/method/photovoltaic":[
-"fotovoltaik güneş enerjisi santrali",
-"ges",
-"Güneş Enerjisi Santrali",
-"güneş enerjisi santrali"
 ],
 "power/plant/source/nuclear":[
 "Nükleer Güç Santrali"
@@ -4816,6 +4827,12 @@ beşe beş futbol"
 "kuaför",
 "berber"
 ],
+"shop/hairdresser/barber":[
+"berberci",
+"Berber",
+"berber dükkânı",
+"tıraş mekânı"
+],
 "shop/hairdresser_supply":[
 "Kuaför Malzemeleri Mağazası"
 ],
@@ -4970,6 +4987,13 @@ beşe beş futbol"
 "shop/party":[
 "Parti Malzemeleri Mağazası"
 ],
+"shop/pasta":[
+"makarna marketi",
+"kelebek",
+"Makarna Dükkânı",
+"makarna mağazası",
+"burgu"
+],
 "shop/pastry":[
 "Pastane",
 "pastane"
@@ -5015,6 +5039,14 @@ beşe beş futbol"
 ],
 "shop/repair":[
 "Tamir Dükkanı"
+],
+"shop/rice":[
+"pilav marketi",
+"pilav mağazası",
+"Pirinç Dükkânı",
+"pirinç mağazası",
+"pilav dükkânı",
+"pirinç marketi"
 ],
 "shop/scuba_diving":[
 "Tüple Dalış Mağazası",
@@ -5156,9 +5188,6 @@ beşe beş futbol"
 "shop/wine":[
 "şarap mağazası",
 "Şarap Mağazası"
-],
-"shop/yes":[
-"Shop (Unspecified Type)"
 ],
 "telecom":[
 "Telekom Özelliği"
@@ -5358,9 +5387,6 @@ beşe beş futbol"
 ],
 "traffic_calming/table":[
 "Hız Tabelası"
-],
-"traffic_calming/yes":[
-"Traffic Calming (Unspecified Type)"
 ],
 "traffic_sign":[
 "Trafik Tabelası"

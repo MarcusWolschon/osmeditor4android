@@ -56,6 +56,9 @@
 "pubblicità",
 "spam"
 ],
+"advertising/sign":[
+"Cartellone pubblicitario"
+],
 "advertising/totem":[
 "Totem pubblicitario",
 "totem",
@@ -179,9 +182,9 @@
 "aereo"
 ],
 "aeroway/apron":[
+"Parcheggio per aeromobili",
 "taxiway",
 "rampa",
-"Parcheggio Aeromobili",
 "parcheggio aeromobili",
 "asfalto",
 "linea di volo",
@@ -706,9 +709,6 @@
 "palazzaccio",
 "tribunale"
 ],
-"amenity/coworking_space":[
-"Spazio di coworking"
-],
 "amenity/crematorium":[
 "cimitero",
 "cremazione",
@@ -722,6 +722,9 @@
 "odontoiatra",
 "dentista",
 "odontotecnico"
+],
+"amenity/device_charging_station":[
+"Stazione di ricarica dispositivi"
 ],
 "amenity/dive_centre":[
 "apnea",
@@ -927,6 +930,9 @@
 ],
 "amenity/doctors/urology":[
 "Urologo"
+],
+"amenity/dog_toilet":[
+"Tolettatura per cani"
 ],
 "amenity/dojo":[
 "karate",
@@ -1238,6 +1244,9 @@
 ],
 "amenity/karaoke_box":[
 "Karaoke"
+],
+"amenity/kitchen":[
+"Cucina comune"
 ],
 "amenity/lavoir":[
 "pulizia",
@@ -1966,6 +1975,9 @@
 "bivacco",
 "ricovero",
 "Riparo"
+],
+"amenity/shelter/field_shelter":[
+"Riparo da campo"
 ],
 "amenity/shelter/gazebo":[
 "Gazebo",
@@ -2864,7 +2876,10 @@
 "Barriera antirumore"
 ],
 "barrier/wicket_gate":[
-"Porta Wicket"
+"cancellino",
+"Portoncino",
+"portoncino",
+"cancelletto"
 ],
 "barrier/yes":[
 "Barriera (Tipo non specificato)"
@@ -3024,6 +3039,9 @@
 "Dormitorio",
 "dormitorio",
 "struttura sociale"
+],
+"building/entrance":[
+"Entrata / Uscita"
 ],
 "building/farm":[
 "casa colonica",
@@ -3332,6 +3350,12 @@
 "tomba",
 "sepoltura",
 "campo"
+],
+"climbing/route":[
+"Percorso di arrampicata"
+],
+"climbing/route_bottom":[
+"Inizio percorso di arrampicata"
 ],
 "club":[
 "centro sociale",
@@ -4624,15 +4648,18 @@
 "highway/track":[
 "strada di campagna",
 "strada ad uso agricolo",
-"strada agricola",
-"Strada agricola o forestale",
+"mulattiera",
 "strada carrareccia",
 "strada ad uso forestale",
 "carrareccia",
-"track",
 "forestale",
 "agricola",
-"strada forestale"
+"strada forestale",
+"strada agricola",
+"trazzera",
+"Strada agricola o forestale",
+"track",
+"pista forestale"
 ],
 "highway/traffic_mirror":[
 "curvo",
@@ -4681,6 +4708,8 @@
 "marcia",
 "Slargo per inversione di marcia",
 "inversione",
+"cul de sac",
+"cul",
 "slargo"
 ],
 "highway/turning_loop":[
@@ -4688,6 +4717,12 @@
 "rotonda",
 "inversione",
 "Rotonda per inversione di marcia"
+],
+"highway/unclassified":[
+"Strada minore / non classificata",
+"non classificata",
+"extraurbana",
+"minore"
 ],
 "historic":[
 "luogo storico",
@@ -5029,6 +5064,12 @@
 ],
 "landuse/meadow_orchard/orchard":[
 "Frutteto su Coltivazione Erbacea"
+],
+"landuse/olive_grove":[
+"Oliveto",
+"olivi",
+"ulivi",
+"uliveto"
 ],
 "landuse/orchard":[
 "frutteto",
@@ -5611,6 +5652,9 @@
 "stadio",
 "Stadio"
 ],
+"leisure/summer_camp":[
+"Campo estivo"
+],
 "leisure/swimming_area":[
 "nuotatori",
 "Area riservata ai bagnanti",
@@ -5914,8 +5958,13 @@
 ],
 "man_made/manhole/drain":[
 "tombino",
-"caditoia",
-"Caditoia, Tombino"
+"botola",
+"drenaggio",
+"pozzetto",
+"griglia",
+"bocca di lupo",
+"apertura grigliata",
+"Caditoia"
 ],
 "man_made/manhole/gas":[
 "tombino",
@@ -6473,6 +6522,9 @@
 "arbusto",
 "cespuglio"
 ],
+"natural/sinkhole":[
+"Dolina"
+],
 "natural/spring":[
 "Sorgente",
 "sorgente"
@@ -6913,6 +6965,9 @@
 "office/private_investigator":[
 "Ufficio agenzia investigativa privata"
 ],
+"office/property_management":[
+"Ufficio di gestione immobiliare / locazione"
+],
 "office/quango":[
 "Ufficio di una simil ONG"
 ],
@@ -6995,6 +7050,9 @@
 ],
 "piste/piste":[
 "Pista sport su neve (tipo non specificato)"
+],
+"piste/ski_jump":[
+"Pista di salto con gli sci"
 ],
 "piste/skitour":[
 "sci di fondo",
@@ -7302,9 +7360,6 @@
 "power/plant/source/hydro":[
 "Centrale idroelettrica"
 ],
-"power/plant/source/method/photovoltaic":[
-"Impianto solare"
-],
 "power/plant/source/nuclear":[
 "Centrale nucleare"
 ],
@@ -7312,6 +7367,9 @@
 "Centrale ad olio combustibile"
 ],
 "power/plant/source/solar":[
+"Centrale solare"
+],
+"power/plant/source/solar/photovoltaic":[
 "Centrale solare"
 ],
 "power/plant/source/waste":[
@@ -7537,7 +7595,7 @@
 "Punto di fermata del trasporto a fune"
 ],
 "public_transport/stop_position_bus":[
-"Fermata autobus"
+"Punto di fermata autobus"
 ],
 "public_transport/stop_position_ferry":[
 "Fermata battello"
@@ -7669,6 +7727,9 @@
 "luci",
 "semaforo"
 ],
+"railway/signal_box":[
+"Cabina di segnalazione"
+],
 "railway/station":[
 "Stazione ferroviaria"
 ],
@@ -7713,6 +7774,9 @@
 "relation":[
 "relazione",
 "Relazione"
+],
+"roller_coaster/station":[
+"Stazione delle montagne russe"
 ],
 "roller_coaster/track":[
 "Pista montagne russe"
@@ -8276,6 +8340,9 @@
 "Parrucchiere",
 "parrucchiere"
 ],
+"shop/hairdresser/barber":[
+"Barbiere"
+],
 "shop/hairdresser_supply":[
 "barbiere",
 "shampoo",
@@ -8727,6 +8794,9 @@
 "Negozio di aspirapolveri",
 "aspirapolvere"
 ],
+"shop/variety_store":[
+"Discount"
+],
 "shop/video":[
 "Videoteca",
 "videoteca"
@@ -8977,11 +9047,17 @@
 "Cartina",
 "turismo"
 ],
+"tourism/information/office":[
+"Ufficio informazioni turistiche"
+],
 "tourism/information/route_marker":[
 "Segnavia"
 ],
 "tourism/information/terminal":[
 "Terminale informazioni"
+],
+"tourism/information/visitor_centre":[
+"Centro visitatori"
 ],
 "tourism/motel":[
 "Motel",
@@ -9082,6 +9158,9 @@
 ],
 "traffic_calming/hump":[
 "Dosso lungo (Inghilterra)"
+],
+"traffic_calming/island":[
+"Isola spartitraffico"
 ],
 "traffic_calming/mini_bumps":[
 "Limite minimo di velocità"
@@ -9236,6 +9315,9 @@
 "linea",
 "rotta"
 ],
+"type/route/climbing":[
+"via di arrampicata"
+],
 "type/route/detour":[
 "Deviazione",
 "itinerario di deviazione"
@@ -9346,6 +9428,12 @@
 "sito",
 "Luogo"
 ],
+"type/site/climbing/area":[
+"Area di arrampicata"
+],
+"type/site/climbing/crag":[
+"Parete da arrampicata"
+],
 "type/waterway":[
 "canale",
 "Corso d'acqua",
@@ -9355,6 +9443,9 @@
 ],
 "waterway":[
 "Elemento di un corso d'acqua"
+],
+"waterway/access_point":[
+"Punto di accesso al corso d'acqua"
 ],
 "waterway/boatyard":[
 "bache",

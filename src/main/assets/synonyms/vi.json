@@ -833,9 +833,6 @@
 "toà án",
 "toa an"
 ],
-"amenity/coworking_space":[
-"Văn phòng Làm việc Chung"
-],
 "amenity/crematorium":[
 "lò hoả táng",
 "lò thiêu",
@@ -10505,17 +10502,6 @@
 "nha may thuy dien",
 "Nhà máy Thủy điện"
 ],
-"power/plant/source/method/photovoltaic":[
-"tấm quang năng",
-"trai quang nang",
-"trang trại điện mặt trời",
-"trang trai dien mat troi",
-"trang trai dien nang luong mat troi",
-"trại quang năng",
-"trang trại điện năng lượng mặt trời",
-"tam quang nang",
-"Trang trại Điện Mặt trời"
-],
 "power/plant/source/nuclear":[
 "Nhà máy Điện Hạt nhân",
 "nha may dien hat nhan",
@@ -14256,11 +14242,13 @@
 "hinh da giac chia nhanh",
 "tổ hợp đa giác",
 "hinh da giac re doi",
-"Tổ hợp Đa giác",
+"đa đa giác",
 "hình đa giác rẽ đôi",
+"da da giac",
 "to hop da giac",
 "hình đa giác chia nhánh",
-"hình đa giác có lỗ"
+"hình đa giác có lỗ",
+"Đa đa giác"
 ],
 "type/public_transport/stop_area_group":[
 "cụm khu vực đón khách giao thông công cộng",

@@ -1,5 +1,8 @@
 {
 "amenity/theatre/type/amphi":[
 "Amphitheatre"
+],
+"telecom/data_center":[
+"Data Centre"
 ]
 }

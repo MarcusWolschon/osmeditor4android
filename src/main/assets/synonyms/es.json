@@ -48,6 +48,12 @@
 "caja",
 "soporte"
 ],
+"advertising/sign":[
+"Señal publicitaria",
+"cartel publicitario",
+"anuncio publicitario",
+"señal publicitaria"
+],
 "advertising/totem":[
 "totem",
 "publicidad",
@@ -789,9 +795,6 @@
 "audiencia",
 "Juzgado"
 ],
-"amenity/coworking_space":[
-"Espacio de trabajo compartido"
-],
 "amenity/crematorium":[
 "cementerio",
 "horno",
@@ -1514,6 +1517,12 @@
 "sala de karaoke",
 "Karaoke Box",
 "ktv"
+],
+"amenity/kitchen":[
+"cocina comunitaria",
+"Cocina comunitaria",
+"cocina compartida",
+"cocina común"
 ],
 "amenity/kneipp_water_cure":[
 "Instalación Kneipp",
@@ -2610,6 +2619,12 @@
 "picnic",
 "cobertizo"
 ],
+"amenity/shelter/field_shelter":[
+"cobertizo rural",
+"Refugio de campo",
+"refugio de campo",
+"refugio agrícola"
+],
 "amenity/shelter/gazebo":[
 "gazebo",
 "tienda",
@@ -2685,6 +2700,15 @@
 "tercera edad",
 "centro de vida asistida",
 "residencia de ancianos"
+],
+"amenity/social_facility/day_care":[
+"centro de día",
+"centro de cuidado diurno",
+"centro de atención diurna",
+"Centro de día / Centro asistencial de servicios sociales",
+"guardería comunitaria",
+"guardería de servicios sociales",
+"centro asistencial"
 ],
 "amenity/social_facility/food_bank":[
 "Banco de alimentos",
@@ -5079,6 +5103,9 @@
 "punto de salida",
 "tee"
 ],
+"disused/aeroway":[
+"Elemento de aerovía en desuso"
+],
 "disused/amenity":[
 "Servicio en desuso"
 ],
@@ -6120,6 +6147,12 @@
 "señal",
 "ceder el paso",
 "Señal de ceda el paso"
+],
+"highway/hitchhiking":[
+"zona señalizada para autostop",
+"punto de autostop señalizado",
+"Lugar señalizado para hacer dedo",
+"lugar señalizado para hacer dedo"
 ],
 "highway/ladder":[
 "Escalera",
@@ -8273,6 +8306,12 @@
 "cancha",
 "estadio"
 ],
+"leisure/summer_camp":[
+"campamento estival",
+"colonia de verano",
+"Campamento de verano",
+"campamento de verano"
+],
 "leisure/swimming_area":[
 "buceo",
 "Área de natación natural",
@@ -8614,6 +8653,12 @@
 "tanque",
 "Gasómetro",
 "gasómetro"
+],
+"man_made/geoglyph":[
+"figura en la tierra",
+"diseño en el terreno",
+"geoglifo",
+"Geoglifo"
 ],
 "man_made/goods_conveyor":[
 "cadena transportadora",
@@ -9290,6 +9335,12 @@
 "arco natural",
 "puente de roca",
 "Arco natural"
+],
+"natural/arete":[
+"arista",
+"filo",
+"Arista",
+"cresta"
 ],
 "natural/bare_rock":[
 "roca desnuda",
@@ -10500,7 +10551,10 @@
 "población"
 ],
 "playground":[
-"Equipo del patio de juegos"
+"juegos de plaza",
+"equipo de juegos infantiles",
+"Equipo del patio de juegos",
+"equipamiento de parque infantil"
 ],
 "playground/activitypanel":[
 "Panel de actividades para jugar",
@@ -10898,14 +10952,6 @@
 "central electrica",
 "presa"
 ],
-"power/plant/source/method/photovoltaic":[
-"Granja solar",
-"solar a gran escala",
-"paneles solares",
-"central fotovoltaica",
-"granja solar",
-"parque solar"
-],
 "power/plant/source/nuclear":[
 "Planta de energía nuclear",
 "fision",
@@ -10928,6 +10974,12 @@
 "solar",
 "energía",
 "Planta de energía solar"
+],
+"power/plant/source/solar/photovoltaic":[
+"planta solar",
+"Parque solar",
+"granja solar",
+"parque solar"
 ],
 "power/plant/source/waste":[
 "incinerador de basura",
@@ -12976,6 +13028,12 @@
 "film",
 "fotos",
 "Tienda de fotografía"
+],
+"shop/piercing":[
+"estudio de perforaciones",
+"Estudio de piercings",
+"estudio de piercings",
+"local de piercings"
 ],
 "shop/pottery":[
 "vasija",

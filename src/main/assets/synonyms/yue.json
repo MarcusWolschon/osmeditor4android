@@ -588,9 +588,6 @@
 "臬署",
 "courthouse"
 ],
-"amenity/coworking_space":[
-"共用工作場所"
-],
 "amenity/crematorium":[
 "crematorium",
 "火葬場"
@@ -968,6 +965,9 @@
 "自助伴唱舖",
 "ktv",
 "卡拉 ok 店"
+],
+"amenity/kitchen":[
+"公用廚房"
 ],
 "amenity/kneipp_water_cure":[
 "kneipp facility",
@@ -2672,6 +2672,9 @@
 "dormitory",
 "學寮"
 ],
+"building/entrance":[
+"出入口"
+],
 "building/farm":[
 "farm house",
 "農家",
@@ -3232,6 +3235,9 @@
 "disc golf tee",
 "飛盤高爾夫開始區",
 "飛盤高夫開始區"
+],
+"disused/aeroway":[
+"廢棄機場地貌"
 ],
 "disused/amenity":[
 "廢設施"
@@ -4358,6 +4364,9 @@
 "turning loop (island)",
 "環形迴車道",
 "環形迴轉道"
+],
+"highway/unclassified":[
+"道仔無類道"
 ],
 "historic":[
 "歷史遺跡",
@@ -5786,6 +5795,9 @@
 "man_made/carpet_hanger":[
 "carpet hanger",
 "地毯掛架"
+],
+"man_made/ceremonial_gate/paifang":[
+"牌坊"
 ],
 "man_made/charge_point":[
 "ev charging point'",
@@ -7328,11 +7340,6 @@
 "水力電廠",
 "hydroelectric power station",
 "水力發電廠"
-],
-"power/plant/source/method/photovoltaic":[
-"solar farm",
-"太陽能發電場",
-"太陽能板"
 ],
 "power/plant/source/nuclear":[
 "nuclear power plant",
@@ -9008,6 +9015,9 @@
 "位置圖",
 "map"
 ],
+"tourism/information/office":[
+"遊客資訊處"
+],
 "tourism/information/route_marker":[
 "路線標記",
 "路線標誌",
@@ -9019,6 +9029,9 @@
 "information terminal",
 "公共資訊站",
 "資訊終端機"
+],
+"tourism/information/visitor_centre":[
+"訪客中心"
 ],
 "tourism/motel":[
 "汽車旅館",

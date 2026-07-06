@@ -218,9 +218,6 @@
 "amenity/courthouse":[
 "Tinghus"
 ],
-"amenity/coworking_space":[
-"Rom for medarbeider"
-],
 "amenity/crematorium":[
 "Krematorium"
 ],
@@ -2615,9 +2612,6 @@
 ],
 "power/plant/source/hydro":[
 "Vannkraftverk"
-],
-"power/plant/source/method/photovoltaic":[
-"Solcellepark"
 ],
 "power/plant/source/nuclear":[
 "Atomkraftverk"

@@ -244,9 +244,6 @@
 "amenity/courthouse":[
 "Courthouse"
 ],
-"amenity/coworking_space":[
-"Coworking Space"
-],
 "amenity/crematorium":[
 "Crematorium"
 ],
@@ -278,7 +275,7 @@
 "General Practitioner"
 ],
 "amenity/doctors/paediatrics":[
-"Pediatrician"
+"Paediatrician"
 ],
 "amenity/doctors/pathology":[
 "Pathologist"
@@ -1290,10 +1287,10 @@
 "Row of terraced houses"
 ],
 "building/train_station":[
-"Train Station Building"
+"Railway Station Building"
 ],
 "building/transportation":[
-"Transportation Building"
+"Transport Building"
 ],
 "building/university":[
 "University Building"
@@ -3005,7 +3002,7 @@
 "Architect Office"
 ],
 "office/association":[
-"Nonprofit Organization Office"
+"Nonprofit Organisation Office"
 ],
 "office/charity":[
 "Charity Office"
@@ -3343,9 +3340,6 @@
 "power/plant/source/hydro":[
 "Hydroelectric Power Station"
 ],
-"power/plant/source/method/photovoltaic":[
-"Solar Farm"
-],
 "power/plant/source/nuclear":[
 "Nuclear Power Plant"
 ],
@@ -3466,10 +3460,10 @@
 "Subway Station"
 ],
 "public_transport/station_train":[
-"Train Station"
+"Railway Station"
 ],
 "public_transport/station_train_halt":[
-"Train Station (Halt / Request)"
+"Railway Station (Halt / Request)"
 ],
 "public_transport/station_tram":[
 "Tram Station"
@@ -3535,7 +3529,7 @@
 "Funicular Track"
 ],
 "railway/halt":[
-"Train Station (Halt / Request)"
+"Railway Station (Halt / Request)"
 ],
 "railway/level_crossing":[
 "Railway-Road Crossing"

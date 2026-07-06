@@ -20,6 +20,9 @@
 "advertising/poster_box":[
 "Плакатна кутија"
 ],
+"advertising/sign":[
+"Рекламен знак"
+],
 "advertising/totem":[
 "Рекламен столб"
 ],
@@ -278,9 +281,6 @@
 "amenity/courthouse":[
 "Суд"
 ],
-"amenity/coworking_space":[
-"Споделен работен простор"
-],
 "amenity/crematorium":[
 "Крематориум"
 ],
@@ -508,6 +508,9 @@
 ],
 "amenity/karaoke_box":[
 "Просторија за караоке"
+],
+"amenity/kitchen":[
+"Заедничка кујна"
 ],
 "amenity/kneipp_water_cure":[
 "Кнајпова хидротерапија"
@@ -799,6 +802,9 @@
 "amenity/shelter":[
 "Засолниште"
 ],
+"amenity/shelter/field_shelter":[
+"Полска стреа"
+],
 "amenity/shelter/gazebo":[
 "Излетничка куќарка"
 ],
@@ -828,6 +834,9 @@
 ],
 "amenity/social_facility/assisted_living":[
 "Старечки дом за потпомогнато живеење"
+],
+"amenity/social_facility/day_care":[
+"Дневен престој"
 ],
 "amenity/social_facility/food_bank":[
 "Банка на храна"
@@ -1641,6 +1650,9 @@
 "disc_golf/tee":[
 "Подметка за диск-голф"
 ],
+"disused/aeroway":[
+"Неупотребуван воздухопловен елемент"
+],
 "disused/amenity":[
 "Услужна постројка вон употреба"
 ],
@@ -2013,6 +2025,9 @@
 ],
 "highway/give_way":[
 "Знак за предност"
+],
+"highway/hitchhiking":[
+"Означено автостоперско место"
 ],
 "highway/ladder":[
 "Скала"
@@ -2759,6 +2774,9 @@
 "leisure/stadium":[
 "Стадион"
 ],
+"leisure/summer_camp":[
+"Летен камп"
+],
 "leisure/swimming_area":[
 "Природно пливалиште"
 ],
@@ -2914,6 +2932,9 @@
 ],
 "man_made/gasometer":[
 "Гасомер"
+],
+"man_made/geoglyph":[
+"Геоглиф"
 ],
 "man_made/goods_conveyor":[
 "Превозна лента за стоки"
@@ -3145,6 +3166,9 @@
 ],
 "natural/arch":[
 "Природен лак"
+],
+"natural/arete":[
+"Гребенска карпа"
 ],
 "natural/bare_rock":[
 "Гола карпа"
@@ -3752,9 +3776,6 @@
 "power/plant/source/hydro":[
 "Хидроелектрана"
 ],
-"power/plant/source/method/photovoltaic":[
-"Сончева фарма"
-],
 "power/plant/source/nuclear":[
 "Нуклеарна електрана"
 ],
@@ -3763,6 +3784,9 @@
 ],
 "power/plant/source/solar":[
 "Сончева електрана"
+],
+"power/plant/source/solar/photovoltaic":[
+"Сончева фарма"
 ],
 "power/plant/source/waste":[
 "Погон за горење отпад"
@@ -4468,6 +4492,9 @@
 ],
 "shop/photo":[
 "Фотографски дуќан"
+],
+"shop/piercing":[
+"Студио за пирсинг"
 ],
 "shop/pottery":[
 "Продавница за грнчарија"

@@ -543,9 +543,6 @@
 "xustiza",
 "audiencia"
 ],
-"amenity/coworking_space":[
-"Espacio de cotraballo"
-],
 "amenity/crematorium":[
 "crematorio",
 "funeraria",
@@ -6100,9 +6097,6 @@
 ],
 "power/plant/source/gas":[
 "Planta de enerxía a gas"
-],
-"power/plant/source/method/photovoltaic":[
-"Planta de enerxía solar"
 ],
 "power/plant/source/nuclear":[
 "Planta de enerxía nuclear"

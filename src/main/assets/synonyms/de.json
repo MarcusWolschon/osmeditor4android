@@ -42,6 +42,18 @@
 "Plakatbox",
 "city-light"
 ],
+"advertising/sign":[
+"werbung",
+"Werbeschild",
+"schild",
+"reklameschild",
+"banner",
+"logo",
+"werbeschild",
+"werbelogo",
+"werbetafel",
+"ladenfront"
+],
 "advertising/totem":[
 "Werbemast",
 "werbemasten"
@@ -654,9 +666,6 @@
 "amtsgericht",
 "gericht"
 ],
-"amenity/coworking_space":[
-"Coworking-Räumlichkeiten"
-],
 "amenity/crematorium":[
 "krematorium",
 "feuerhalle",
@@ -1261,6 +1270,12 @@
 "karaoke tv",
 "karaoke raum",
 "Karaoke-Box"
+],
+"amenity/kitchen":[
+"kochen",
+"Gemeinschaftsküche",
+"küche",
+"koch"
 ],
 "amenity/kneipp_water_cure":[
 "wasserkur",
@@ -1901,6 +1916,11 @@
 "wetterschutz",
 "Wetterschutz"
 ],
+"amenity/shelter/field_shelter":[
+"tierunterstand",
+"überdachung",
+"Weidezelt"
+],
 "amenity/shelter/gazebo":[
 "salettl",
 "aussichtspavillon",
@@ -1956,6 +1976,25 @@
 "seniorenwohnen",
 "altenwohnen",
 "seniorenwohnheim",
+"seniorenpflege"
+],
+"amenity/social_facility/day_care":[
+"tagespflegeklinik",
+"behindertenpflege",
+"altenpflege",
+"altenhilfe",
+"altentagespflege",
+"altenbetreuung",
+"tagesklinik",
+"behindertenbetreuung",
+"seniorenhilfe",
+"Tagespflege",
+"behindertenhilfe",
+"behindertentagespflege",
+"tagesbetreuung",
+"tagespflege",
+"seniorentagespflege",
+"seniorenbetreuung",
 "seniorenpflege"
 ],
 "amenity/social_facility/food_bank":[
@@ -3648,6 +3687,9 @@
 "Disc Golf Abschlagplatz",
 "abschlagplatz"
 ],
+"disused/aeroway":[
+"Unbenutzte Flugbahn-Feature"
+],
 "disused/amenity":[
 "nicht benutzte Einrichtung"
 ],
@@ -4478,6 +4520,20 @@
 "vorfahrt gewähren-zeichen",
 "Vorfahrt gewähren",
 "vorrang gewähren-zeichen"
+],
+"highway/hitchhiking":[
+"autostopp",
+"nimm-mich-mit-häusle",
+"mitfahrerbank",
+"mitfahrbänkle",
+"Mitfahrbank",
+"trampen",
+"anhalter",
+"mitfahrbank",
+"mitfahrbankerl",
+"mitfahrbänkli",
+"mitfahrgelegenheit",
+"anhalterbank"
 ],
 "highway/ladder":[
 "Leiter",
@@ -6213,6 +6269,13 @@
 "Stadion",
 "arena"
 ],
+"leisure/summer_camp":[
+"sommerlager",
+"ferienspiele",
+"ferienlager",
+"zeltlager",
+"Sommercamp"
+],
 "leisure/swimming_area":[
 "natürlicher badebereich",
 "naturbad",
@@ -6501,6 +6564,10 @@ schuhreinigungsstation",
 "Gasometer",
 "gasometer",
 "gaslagertank"
+],
+"man_made/geoglyph":[
+"glifos",
+"Geoglyphe"
 ],
 "man_made/goods_conveyor":[
 "förderanlage",
@@ -7062,6 +7129,12 @@ schuhreinigungsstation",
 "felsdurchbruch",
 "felsbogen",
 "naturbrücke"
+],
+"natural/arete":[
+"firngrat",
+"berggrat",
+"gebirgsgrat",
+"Grat"
 ],
 "natural/bare_rock":[
 "blanker fels",
@@ -8070,7 +8143,11 @@ schuhreinigungsstation",
 "Dorf"
 ],
 "playground":[
-"Spielplatzgerät"
+"spielgeräte",
+"spielplatzausstattung",
+"Spielplatzgerät",
+"spielplatzgeräte",
+"kinderspielgeräte"
 ],
 "playground/activitypanel":[
 "spielewand",
@@ -8407,22 +8484,6 @@ schuhreinigungsstation",
 "wasserturbine",
 "pumpspeicher"
 ],
-"power/plant/source/method/photovoltaic":[
-"solarpaneel",
-"pv",
-"solarstromanlage",
-"solarpark",
-"solargenerator",
-"sonnenenergie",
-"solaranlage",
-"photovoltaikanlage",
-"Photovoltaikanlage",
-"solarmodul",
-"pva",
-"freiflächensolaranlagen",
-"pv-anlage",
-"photovoltaik-freiflächenanlage"
-],
 "power/plant/source/nuclear":[
 "nuklear",
 "Atomkraftwerk",
@@ -8459,6 +8520,17 @@ schuhreinigungsstation",
 "freiflächensolaranlagen",
 "solargenerator",
 "sonnenenergie"
+],
+"power/plant/source/solar/photovoltaic":[
+"fotovoltaikkraftwerk",
+"photovoltaikanlage",
+"photovoltaische solaranlage",
+"solarpark",
+"pv-kraftwerk",
+"pv-anlage",
+"photovoltaik-freiflächenanlage",
+"photovoltaikkraftwerk",
+"Solarpark"
 ],
 "power/plant/source/waste":[
 "müllverbrennung",
@@ -9943,6 +10015,21 @@ herrenfriseur"
 "fotoladen",
 "fotogeschäft",
 "fotograf"
+],
+"shop/piercing":[
+"durchstechen",
+"durchbohren",
+"piercing",
+"ohrloch",
+"Piercing-Studio",
+"ohrstecker",
+"bohren",
+"bauchnabel",
+"stechen",
+"körperschmuck",
+"durchdringen",
+"nase",
+"ohrstechen"
 ],
 "shop/pottery":[
 "töpferwarenladen",

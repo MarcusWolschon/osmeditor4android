@@ -36,6 +36,11 @@
 "citylight",
 "skrzynka plakatowa"
 ],
+"advertising/sign":[
+"Znak reklamowy",
+"logo",
+"znak reklamowy"
+],
 "advertising/totem":[
 "stacja benzynowa",
 "stacja paliw",
@@ -591,9 +596,6 @@
 "Sąd",
 "trybunał"
 ],
-"amenity/coworking_space":[
-"Przestrzeń coworkingowa"
-],
 "amenity/crematorium":[
 "krematorium",
 "Krematorium",
@@ -1064,6 +1066,11 @@
 "budka karaoke",
 "Budka karaoke",
 "klub karaoke"
+],
+"amenity/kitchen":[
+"wspólna kuchnia",
+"kuchnia",
+"Kuchnia"
 ],
 "amenity/kneipp_water_cure":[
 "Basen Kneippa",
@@ -1720,6 +1727,10 @@
 "schronienie",
 "Wiata (schronienie)"
 ],
+"amenity/shelter/field_shelter":[
+"Wiata dla zwierząt",
+"wiata dla zwierząt"
+],
 "amenity/shelter/gazebo":[
 "altana",
 "Altana"
@@ -1784,6 +1795,12 @@
 "amenity/social_facility/assisted_living":[
 "Mieszkania wspomagane dla seniorów",
 "mieszkania wspomagane dla seniorów"
+],
+"amenity/social_facility/day_care":[
+"Dom dziennego pobytu",
+"dzienny dom pobytu",
+"ośrodek opieki dziennej",
+"dom dziennego pobytu"
 ],
 "amenity/social_facility/food_bank":[
 "Bank żywności",
@@ -3604,6 +3621,9 @@
 "tee do disc golfa",
 "disc golf"
 ],
+"disused/aeroway":[
+"Nieużywane urządzenie infrastruktury lotniczej"
+],
 "disused/amenity":[
 "Nieczynny obiekt/usługa"
 ],
@@ -4284,6 +4304,11 @@
 "Znak „ustąp pierwszeństwa”",
 "a-7",
 "znak ustąp pierwszeństwa przejazdu"
+],
+"highway/hitchhiking":[
+"oznakowany punkt oczekiwania na autostop",
+"Oznakowany punkt autostopu",
+"oznakowany punkt autostopu"
 ],
 "highway/ladder":[
 "drabina",
@@ -5229,6 +5254,7 @@
 "leisure/bowling_alley":[
 "kręgle",
 "Kręgielnia",
+"bowling",
 "kręgielnia"
 ],
 "leisure/common":[
@@ -5802,6 +5828,10 @@
 "stadion",
 "Stadion"
 ],
+"leisure/summer_camp":[
+"Ośrodek kolonijny",
+"ośrodek kolonijny"
+],
 "leisure/swimming_area":[
 "Kąpielisko (obszar wodny)",
 "kąpielisko"
@@ -6074,6 +6104,10 @@
 "zbiornik gazu",
 "Wielki zbiornik gazu",
 "gazownia"
+],
+"man_made/geoglyph":[
+"Geoglif",
+"geoglif"
 ],
 "man_made/goods_conveyor":[
 "transport materiałów",
@@ -6609,6 +6643,10 @@
 "Most skalny",
 "łuk skalny",
 "most skalny"
+],
+"natural/arete":[
+"grań",
+"Grań"
 ],
 "natural/bare_rock":[
 "skały",
@@ -7601,6 +7639,8 @@
 "wieś"
 ],
 "playground":[
+"wyposażenie placu zabaw",
+"zabawka na placu zabaw",
 "Wyposażenie placu zabaw"
 ],
 "playground/activitypanel":[
@@ -7868,10 +7908,6 @@
 "zapora wodna",
 "Elektrownia wodna"
 ],
-"power/plant/source/method/photovoltaic":[
-"farma fotowoltaiczna",
-"Farma fotowoltaiczna"
-],
 "power/plant/source/nuclear":[
 "elektrownia atomowa",
 "elektrownia jądrowa",
@@ -7885,6 +7921,11 @@
 "power/plant/source/solar":[
 "elektrownia słoneczna",
 "Elektrownia słoneczna"
+],
+"power/plant/source/solar/photovoltaic":[
+"farma fotowoltaiczna",
+"Farma fotowoltaiczna",
+"elektrownia fotowoltaiczna"
 ],
 "power/plant/source/waste":[
 "elektrownia",
@@ -9870,6 +9911,14 @@
 "fotografia",
 "wywoływanie zdjęć",
 "Sklep fotograficzny"
+],
+"shop/piercing":[
+"piercer",
+"Studio piercingu",
+"salon piercingu",
+"piercing",
+"studio piercingu",
+"przekłuwanie"
 ],
 "shop/pottery":[
 "sklep garncarski",

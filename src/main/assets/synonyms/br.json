@@ -451,9 +451,6 @@
 "barn",
 "lez-varn"
 ],
-"amenity/coworking_space":[
-"Lec'h kenlabourat"
-],
 "amenity/crematorium":[
 "tan",
 "Forn an Ankoù",
@@ -4079,6 +4076,15 @@
 "mont-maez",
 "trederenk",
 "mont e-maez"
+],
+"highway/toll_gantry":[
+"treizhaj",
+"paeañ",
+"Treizhaj hep kloued",
+"taos-treizh",
+"porzh treizhaj",
+"gwir-treizh",
+"hep kloued"
 ],
 "highway/track":[
 "hent",

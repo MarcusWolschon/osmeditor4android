@@ -412,9 +412,6 @@
 "amenity/courthouse":[
 "בית משפט"
 ],
-"amenity/coworking_space":[
-"מתחם עבודה משותף"
-],
 "amenity/crematorium":[
 "משרפה"
 ],
@@ -5262,9 +5259,6 @@
 "power/plant/source/hydro":[
 "תחנת כוח מופעלת מים",
 "תחנת כוח הידרואלקטרית"
-],
-"power/plant/source/method/photovoltaic":[
-"חווה סולרית"
 ],
 "power/plant/source/nuclear":[
 "אנרגיה גרעינית",

@@ -65,6 +65,14 @@
 "mlwch",
 "sothach"
 ],
+"advertising/sign":[
+"hysbyseb",
+"Arwydd Hysbysebu",
+"ad",
+"logo",
+"poster",
+"brand"
+],
 "advertising/totem":[
 "cyhoeddiad",
 "ad",
@@ -316,6 +324,9 @@
 "amenity":[
 "Amwynder"
 ],
+"amenity/animal_boarding":[
+"Cyfleuster Llety Anifeiliaid"
+],
 "amenity/animal_breeding":[
 "buwch",
 "da byw",
@@ -426,10 +437,12 @@
 "Cyfleuster Golchi Beic"
 ],
 "amenity/biergarten":[
+"alcohol",
 "biergarten",
+"yfed",
+"Biergarten",
 "cwrw",
-"beer garden",
-"Gardd Cwrw"
+"beer garden"
 ],
 "amenity/boat_rental":[
 "hwb",
@@ -677,9 +690,6 @@
 "cyfiawnder",
 "trosedd",
 "Llys"
-],
-"amenity/coworking_space":[
-"Ardal Gydweithio"
 ],
 "amenity/crematorium":[
 "angladd",
@@ -1336,6 +1346,13 @@
 "canu",
 "ktv",
 "teledu"
+],
+"amenity/kitchen":[
+"cyhoeddus",
+"Cegin Gymunedol",
+"coginio",
+"cegin gyhoeddus",
+"cegin a rennir"
 ],
 "amenity/kneipp_water_cure":[
 "Cyfleuster Kneipp"
@@ -2254,6 +2271,13 @@
 "picnic",
 "Cysgod"
 ],
+"amenity/shelter/field_shelter":[
+"chysgod",
+"Cysgod Maes",
+"faes",
+"cae",
+"gysgod"
+],
 "amenity/shelter/gazebo":[
 "pergola",
 "gazebo",
@@ -2304,6 +2328,12 @@
 ],
 "amenity/social_facility/assisted_living":[
 "Cyfleuster Byw â Chymorth i'r Henoed"
+],
+"amenity/social_facility/day_care":[
+"gwasanaeth i blant",
+"canolfan ddydd",
+"gofal plant",
+"Gwasanaeth Gofal Dydd"
 ],
 "amenity/social_facility/food_bank":[
 "cegin sŵp",
@@ -3789,6 +3819,9 @@
 "disc_golf/tee":[
 "Ti Golff Disg"
 ],
+"disused/aeroway":[
+"Nodwedd Ffordd Awyr Nas Defnyddir"
+],
 "disused/amenity":[
 "Amwynder Nas Defnyddir"
 ],
@@ -4339,6 +4372,14 @@
 ],
 "highway/give_way":[
 "Arwydd Ildio"
+],
+"highway/hitchhiking":[
+"taith",
+"tro",
+"dro",
+"Lleoliad Cerdded Wedi'i Arwyddo",
+"heicio",
+"taith gerdded"
 ],
 "highway/ladder":[
 "ysgolion",
@@ -5620,6 +5661,14 @@
 "leisure/stadium":[
 "Stadiwm"
 ],
+"leisure/summer_camp":[
+"hamdden",
+"gwyliau",
+"plant",
+"ieuenctid",
+"adloniant",
+"Gwersyll Haf"
+],
 "leisure/swimming_area":[
 "dŵr",
 "Ardal Nofio Naturiol",
@@ -5704,7 +5753,22 @@
 "Carnedd"
 ],
 "man_made/ceremonial_gate":[
-"Giât Seremonïol"
+"borth",
+"torii",
+"Giât Seremonïol",
+"glwyd",
+"phorth",
+"giât",
+"giat",
+"chlwyd",
+"llidiart",
+"gât",
+"iet",
+"porth",
+"llidiard",
+"gat",
+"paifang",
+"clwyd"
 ],
 "man_made/ceremonial_gate/paifang":[
 "giât",
@@ -5720,11 +5784,18 @@
 "pailau"
 ],
 "man_made/ceremonial_gate/torii":[
+"borth",
+"glwyd",
+"phorth",
 "giât",
 "Torii",
 "giat",
-"gât",
+"chlwyd",
 "llidiart",
+"gât",
+"iet",
+"porth",
+"llidiard",
 "gat",
 "clwyd",
 "shinto"
@@ -5832,6 +5903,14 @@
 "propane",
 "tanwydd",
 "cng"
+],
+"man_made/geoglyph":[
+"hynafol",
+"Daearglyff",
+"celf",
+"ffigwr",
+"cloddwaith",
+"gwrthglodd"
 ],
 "man_made/groyne":[
 "Grwyn"
@@ -6192,6 +6271,13 @@
 "natural/arch":[
 "Bwa Naturiol"
 ],
+"natural/arete":[
+"Arête",
+"mynyddoedd",
+"arete",
+"mynydd",
+"esgair"
+],
 "natural/bare_rock":[
 "Carreg Plaen"
 ],
@@ -6540,6 +6626,7 @@
 "Asiantaeth Cyfamod Mechnïaeth"
 ],
 "office/charity":[
+"sefydliad elusennol",
 "Swyddfa Elusen"
 ],
 "office/company":[
@@ -6609,6 +6696,15 @@
 ],
 "office/government/register_office":[
 "Swyddfa Gofrestru"
+],
+"office/government/tax":[
+"cthef",
+"treth",
+"Swyddfa Dreth a Refeniw",
+"cyllid a thollau",
+"arian",
+"ariannol",
+"cyllid"
 ],
 "office/graphic_design":[
 "Swyddfa Ddylunio Graffeg"
@@ -6803,7 +6899,11 @@
 "Pentref"
 ],
 "playground":[
-"Cyfarpar Ardal Chwarae"
+"offer",
+"cyfarpar",
+"Cyfarpar Ardal Chwarae",
+"adnoddau",
+"chwarae"
 ],
 "playground/activitypanel":[
 "gweithgareddau",
@@ -6857,6 +6957,9 @@
 ],
 "playground/playhouse":[
 "Tŷ Chwarae"
+],
+"playground/pump":[
+"Pwmp Chwarae Dŵr"
 ],
 "playground/roundabout":[
 "Cylchfan Chwarae"
@@ -6970,17 +7073,6 @@
 "power/plant/source/hydro":[
 "Gorsaf Ynni Trydan Dŵr"
 ],
-"power/plant/source/method/photovoltaic":[
-"haul",
-"parc solar",
-"ffarm",
-"ynni",
-"Fferm Solar",
-"solar",
-"heulwen",
-"paneli solar",
-"panel"
-],
 "power/plant/source/nuclear":[
 "Gorsaf Ynni Niwclear"
 ],
@@ -6992,6 +7084,16 @@
 "Gorsaf Ynni Solar",
 "golau",
 "heulwen"
+],
+"power/plant/source/solar/photovoltaic":[
+"haul",
+"parc solar",
+"fferm solar",
+"ffotofoltaidd",
+"Fferm Solar",
+"photofoltaidd",
+"heulwen",
+"gorsaf bŵer"
 ],
 "power/plant/source/waste":[
 "Gorsaf Ynni Llosgi Gwastraff"
@@ -7827,9 +7929,10 @@
 "pren"
 ],
 "shop/florist":[
+"blodau",
 "blodyn",
-"Blodau",
 "blodeuydd",
+"Siop Flodau",
 "blodeuwyr"
 ],
 "shop/frame":[
@@ -8235,6 +8338,14 @@
 "lens",
 "delweddau"
 ],
+"shop/piercing":[
+"Stiwdio Tyllu",
+"twll",
+"trwyn",
+"clust",
+"gemwaith",
+"gwn"
+],
 "shop/pottery":[
 "Siop Grochenwaith"
 ],
@@ -8550,6 +8661,9 @@
 ],
 "tourism":[
 "Nodwedd Twristiaeth"
+],
+"tourism/alpine_hut":[
+"Caban Mynydd"
 ],
 "tourism/aquarium":[
 "Acwariwm"

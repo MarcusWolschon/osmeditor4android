@@ -1,5 +1,101 @@
 {
+"amenity/community_centre/cultural_centre":[
+"Cultural Center"
+],
 "amenity/stripclub":[
 "Strip Club"
+],
+"disused/railway":[
+"Disused Railroad Feature"
+],
+"healthcare/physiotherapist":[
+"Physical Therapist"
+],
+"highway/motorway":[
+"Freeway"
+],
+"highway/motorway_junction":[
+"Freeway Exit"
+],
+"highway/motorway_link":[
+"Freeway Link"
+],
+"landuse/railway":[
+"Railroad Corridor"
+],
+"public_transport/platform/bus_tram_point":[
+"Streetcar & Bus Stop"
+],
+"public_transport/platform/tram":[
+"Streetcar Platform"
+],
+"public_transport/platform/tram_point":[
+"Streetcar Stop / Platform"
+],
+"public_transport/station_tram":[
+"Streetcar Station"
+],
+"public_transport/stop_position_tram":[
+"Streetcar Stopping Location"
+],
+"railway":[
+"Railroad Feature"
+],
+"railway/abandoned":[
+"Abandoned Railroad"
+],
+"railway/construction":[
+"Railroad Under Construction"
+],
+"railway/crossing":[
+"Railroad-Path Crossing"
+],
+"railway/derail":[
+"Railroad Derailer"
+],
+"railway/disused":[
+"Disused Railroad"
+],
+"railway/level_crossing":[
+"Railroad-Road Crossing"
+],
+"railway/milestone":[
+"Railroad Milestone"
+],
+"railway/preserved":[
+"Heritage Railroad Track"
+],
+"railway/railway_crossing":[
+"Railroad-Railroad Crossing"
+],
+"railway/signal":[
+"Railroad Signal"
+],
+"railway/switch":[
+"Railroad Switch"
+],
+"railway/tram":[
+"Streetcar Track"
+],
+"railway/tram_crossing":[
+"Streetcar-Path Crossing"
+],
+"railway/tram_level_crossing":[
+"Streetcar-Road Crossing"
+],
+"railway/tram_stop":[
+"Streetcar Stopping Position"
+],
+"railway/turntable":[
+"Railroad Turntable"
+],
+"shop/greengrocer":[
+"Produce Store"
+],
+"type/route/railway":[
+"Railroad Route"
+],
+"type/route/tram":[
+"Streetcar Route"
 ]
 }

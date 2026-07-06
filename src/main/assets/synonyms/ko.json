@@ -28,6 +28,9 @@
 "포스터",
 "포스터 박스"
 ],
+"advertising/sign":[
+"광고판"
+],
 "advertising/totem":[
 "광고란",
 "광고 토템"
@@ -316,9 +319,6 @@
 ],
 "amenity/courthouse":[
 "법원"
-],
-"amenity/coworking_space":[
-"공동 작업 공간"
 ],
 "amenity/crematorium":[
 "화장터",
@@ -1837,6 +1837,9 @@
 "disc_golf/tee":[
 "디스크 골프 티"
 ],
+"disused/aeroway":[
+"사용되지 않는 항공 지물"
+],
 "disused/amenity":[
 "버려진 지물"
 ],
@@ -2708,6 +2711,9 @@
 ],
 "landuse/construction":[
 "공사 중인 지역"
+],
+"landuse/education":[
+"교육 부지"
 ],
 "landuse/farm":[
 "농지"
@@ -3646,6 +3652,9 @@
 "natural/arch":[
 "자연 아치"
 ],
+"natural/arete":[
+"아레트"
+],
 "natural/bare_rock":[
 "노출된 암반",
 "암석",
@@ -4349,9 +4358,6 @@
 "power/plant/source/hydro":[
 "수력 발전소"
 ],
-"power/plant/source/method/photovoltaic":[
-"태양광 발전소"
-],
 "power/plant/source/nuclear":[
 "원자력 발전소"
 ],
@@ -4360,6 +4366,11 @@
 ],
 "power/plant/source/solar":[
 "태양에너지 발전소"
+],
+"power/plant/source/solar/photovoltaic":[
+"태양열 농장",
+"솔라팜",
+"태양열 발전소"
 ],
 "power/plant/source/waste":[
 "쓰레기 소각 발전소"
@@ -5385,6 +5396,9 @@
 "사진기",
 "필름"
 ],
+"shop/piercing":[
+"피어싱샵"
+],
 "shop/pottery":[
 "도자기 가게",
 "도자기 상점"
@@ -5859,6 +5873,9 @@
 "버스 노선",
 "버스 경로"
 ],
+"type/route/climbing":[
+"등반 경로"
+],
 "type/route/detour":[
 "우회 노선",
 "우회 경로"
@@ -5905,6 +5922,9 @@
 "관로 노선",
 "파이프 경로",
 "파이프라인 노선"
+],
+"type/route/piste":[
+"피스트 / 스키 경로"
 ],
 "type/route/power":[
 "송전 노선",

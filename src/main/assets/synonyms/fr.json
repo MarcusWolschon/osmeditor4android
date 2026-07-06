@@ -47,6 +47,13 @@
 "publicité",
 "informations"
 ],
+"advertising/sign":[
+"affiche",
+"panneau publicitaire",
+"publicité",
+"pub",
+"Panneau publicitaire"
+],
 "advertising/totem":[
 "affichage des prix",
 "Totem publicitaire",
@@ -578,6 +585,11 @@
 "batterie",
 "station de recharge"
 ],
+"amenity/childcare":[
+"Crèche",
+"crèche",
+"garderie"
+],
 "amenity/cinema":[
 "films",
 "Cinéma",
@@ -656,6 +668,13 @@
 "Centre communautaire",
 "centre d'animation"
 ],
+"amenity/community_centre/chitalishte_BG":[
+"tchitalichta",
+"chitalishte",
+"tchitalichté",
+"bulgare",
+"Tchitalichté"
+],
 "amenity/community_centre/club_home":[
 "local associatif",
 "Salle de club"
@@ -733,9 +752,6 @@
 "cour d'assises",
 "palais de justice"
 ],
-"amenity/coworking_space":[
-"Espace de bureaux partagés, coworking"
-],
 "amenity/crematorium":[
 "four de crémation",
 "cimetière",
@@ -758,6 +774,13 @@
 "dents",
 "Dentiste",
 "cabinet dentaire"
+],
+"amenity/device_charging_station":[
+"point de recharge pour appareils mobiles",
+"recharge",
+"chargeur téléphone",
+"prise électrique",
+"Point de recharge pour appareils mobiles"
 ],
 "amenity/dive_centre":[
 "Centre de plongée",
@@ -823,6 +846,14 @@
 "générale",
 "médecin",
 "généraliste"
+],
+"amenity/doctors/gynaecology":[
+"obstétricien",
+"gynécologue",
+"grossesse",
+"Gynécologue / Obstétricien",
+"obstétricienne",
+"contraception"
 ],
 "amenity/doctors/haematology":[
 "sang",
@@ -1338,6 +1369,12 @@
 "Karaoke",
 "karaoké"
 ],
+"amenity/kitchen":[
+"cuisine collective",
+"cuisine partagée",
+"cuisine publique",
+"Cuisine partagée"
+],
 "amenity/kneipp_water_cure":[
 "kneipp",
 "soin",
@@ -1391,7 +1428,12 @@
 "Love hôtel"
 ],
 "amenity/luggage_locker":[
-"Consigne à bagages"
+"casier à bagages",
+"consigne",
+"consignes à valises",
+"consigne à bagages",
+"Consigne à bagages",
+"casier"
 ],
 "amenity/marketplace":[
 "Marché",
@@ -2028,6 +2070,9 @@
 "résidence autonomie pour personnes âgées",
 "Résidence autonomie pour personnes âgées"
 ],
+"amenity/social_facility/day_care":[
+"Crèche"
+],
 "amenity/social_facility/food_bank":[
 "banque alimentaire",
 "Banque alimentaire"
@@ -2585,6 +2630,9 @@
 "poids-lourds",
 "bascule publique"
 ],
+"animal/horse_walker":[
+"Marcheur"
+],
 "area":[
 "étendue",
 "area",
@@ -3006,6 +3054,7 @@
 ],
 "barrier/guard_rail":[
 "garde-fou",
+"Barrière de sécurité",
 "rampe",
 "barre de sécurité",
 "garde-corps",
@@ -3878,10 +3927,22 @@
 "Rocher de grimpe"
 ],
 "climbing/route":[
-"Voie d'escalade"
+"bloc",
+"voie d'escalade",
+"Voie d'escalade",
+"relais",
+"moulinette",
+"falaise",
+"grimpe"
 ],
 "climbing/route_bottom":[
-"Départ d'une voie d'escalade"
+"bloc",
+"voie d'escalade",
+"départ",
+"début de voie",
+"Départ d'une voie d'escalade",
+"escalade",
+"grimpe"
 ],
 "club":[
 "Club",
@@ -4225,6 +4286,9 @@
 "frisbee",
 "frolf"
 ],
+"disused/aeroway":[
+"Équipement aéroportuaire désaffecté"
+],
 "disused/amenity":[
 "Infrastructure désaffectée"
 ],
@@ -4244,7 +4308,12 @@
 "École de danse"
 ],
 "education/driving_school":[
-"Auto-école"
+"permis de conduire",
+"auto-école",
+"voiture",
+"Auto-école",
+"autoécole",
+"ecole de conduite"
 ],
 "education/kindergarten":[
 "Crèche, garderie, jardin d'enfants (terrain)"
@@ -5980,6 +6049,9 @@
 "Terrain de lancer de marteau",
 "zone"
 ],
+"leisure/pitch/athletics/high_jump":[
+"Zone de saut en hauteur"
+],
 "leisure/pitch/athletics/javelin_throw":[
 "Terrain de lancer de javelot",
 "terrain de lancer de javelot"
@@ -6027,6 +6099,12 @@
 "leisure/pitch/beachvolleyball":[
 "Terrain de Beach-volley",
 "terrain de beach-volley"
+],
+"leisure/pitch/biathlon":[
+"Stand de tire de biathlon"
+],
+"leisure/pitch/boules":[
+"Terrain de boules (Pétanque, Bocce...)"
 ],
 "leisure/pitch/bowls":[
 "Terrain de boulingrin",
@@ -6299,6 +6377,9 @@
 "Stade",
 "stade"
 ],
+"leisure/summer_camp":[
+"Camp d'été"
+],
 "leisure/swimming_area":[
 "Lieu de baignade",
 "lieu de baignade",
@@ -6434,6 +6515,9 @@
 "support de tapis",
 "cintre à tapis"
 ],
+"man_made/ceremonial_gate":[
+"Porte cérémonielle"
+],
 "man_made/ceremonial_gate/paifang":[
 "Païfang"
 ],
@@ -6552,6 +6636,9 @@
 "man_made/gasometer":[
 "gazomètre",
 "Gazomètre"
+],
+"man_made/geoglyph":[
+"Géoglyphe"
 ],
 "man_made/goods_conveyor":[
 "élévateur à godets",
@@ -7082,6 +7169,9 @@
 ],
 "natural/arch":[
 "Arche Naturelle"
+],
+"natural/arete":[
+"Arête"
 ],
 "natural/bare_rock":[
 "rochers",
@@ -8087,6 +8177,9 @@
 "tunnel",
 "jeux"
 ],
+"playground/water":[
+"Jeu aquatique (non spécifié)"
+],
 "playground/zipwire":[
 "tyrolienne",
 "Tyrolienne (jeu pour enfants)"
@@ -8200,17 +8293,6 @@
 "turbine",
 "centrale hydroélectrique"
 ],
-"power/plant/source/method/photovoltaic":[
-"énergie solaire",
-"énergie verte",
-"ferme solaire",
-"photovoltaïque",
-"parc solaire",
-"énergie renouvelable",
-"centrale électrique",
-"électricité",
-"Parc solaire"
-],
 "power/plant/source/nuclear":[
 "Centrale nucléaire",
 "centrale nucléaire",
@@ -8231,6 +8313,9 @@
 "énergie renouvelable",
 "électricité",
 "Centrale photovoltaïque"
+],
+"power/plant/source/solar/photovoltaic":[
+"Parc solaire"
 ],
 "power/plant/source/waste":[
 "dechets",
@@ -8800,6 +8885,9 @@
 "Feux de signalisation ferroviaire",
 "feux de signalisation ferroviaire"
 ],
+"railway/signal_box":[
+"Poste d'aiguillage"
+],
 "railway/station":[
 "Gare ferroviaire"
 ],
@@ -9020,6 +9108,9 @@
 "shop/baby_goods":[
 "magasin de puériculture",
 "Magasin de produits pour bébés"
+],
+"shop/bag":[
+"Magasin de sacs"
 ],
 "shop/bakery":[
 "boulangerie",
@@ -9781,6 +9872,9 @@
 "tirage de photos",
 "Boutique photo"
 ],
+"shop/piercing":[
+"Perceur"
+],
 "shop/pottery":[
 "potier",
 "céramiste",
@@ -9813,6 +9907,9 @@
 "shop/pyrotechnics":[
 "Magasin de feux d'artifice",
 "magasin de feux d'artifice"
+],
+"shop/radiotechnics":[
+"Magasin de composants électroniques et de radio"
 ],
 "shop/religion":[
 "d'un monastère",
@@ -10015,6 +10112,9 @@
 "shop/water":[
 "eau potable",
 "Magasin d'eau potable"
+],
+"shop/water_sports":[
+"Vente d'équipements et d'articles pour sports nautiques"
 ],
 "shop/weapons":[
 "Armurerie",
@@ -10572,6 +10672,9 @@
 "Itinéraire de pipeline",
 "oléoduc"
 ],
+"type/route/piste":[
+"Itinéraire de ski"
+],
 "type/route/power":[
 "Itinéraire électrique",
 "ligne électrique"
@@ -10633,6 +10736,9 @@
 ],
 "waterway":[
 "Élément de cours d'eau"
+],
+"waterway/access_point":[
+"Point d'accès fluvial"
 ],
 "waterway/boatyard":[
 "chantier naval",

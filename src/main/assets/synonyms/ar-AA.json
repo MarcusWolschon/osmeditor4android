@@ -313,9 +313,6 @@
 "دار قضاء",
 "محكمة"
 ],
-"amenity/coworking_space":[
-"مساحة عمل مشتركة"
-],
 "amenity/crematorium":[
 "محرقة موتى",
 "محرقة جثث الموتى"
@@ -4104,10 +4101,6 @@
 ],
 "power/plant/source/hydro":[
 "محطة كهرباء كهرومائية"
-],
-"power/plant/source/method/photovoltaic":[
-"مزرعة شمسية",
-"محطة الطاقة الشمسية ، محطة توليد الطاقة الشمسية ، الطاقات المتجددة"
 ],
 "power/plant/source/nuclear":[
 "محطة كهرباء نووية"
