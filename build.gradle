@@ -228,10 +228,11 @@ task updateSynonyms() {
         def dir = 'https://api.github.com/repos/openstreetmap/id-tagging-schema/contents/dist/translations?ref=main'
         // download directory listing via GitHub API
         def contentsFile = new File(buildDir, "directory_contents.json")
-        download {
+        download.run {
             src dir
             dest contentsFile
         }
+       
         // parse directory listing
         def contents = new groovy.json.JsonSlurper().parseFile(contentsFile, "utf-8")
         def langs = contents.collect { it.name.replaceAll('(.json$)|(.min.json$)', '') }
