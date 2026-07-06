@@ -107,6 +107,7 @@ public class MapTilesLayer<T> extends NonSerializeableLayer implements ExtentInt
     private static final MRUList<String>        lastServers     = new MRUList<>(MRU_SIZE);
     private final SavingHelper<MRUList<String>> mruSavingHelper = new SavingHelper<>();
 
+    private int zoomLevel     = -1; // current zoom level
     private int prevZoomLevel = -1; // zoom level from previous draw
 
     private static final long TILE_ERROR_LIMIT = 50;
@@ -239,6 +240,32 @@ public class MapTilesLayer<T> extends NonSerializeableLayer implements ExtentInt
         flushTileCache(activity, layerSource.getId(), all);
     }
 
+    private abstract class DeleteTileTask extends ExecutorTask<Void, Void, Void> {
+
+        private final FragmentActivity activity;
+
+        DeleteTileTask(@Nullable final FragmentActivity activity) {
+            super(App.getLogic().getExecutorService(), App.getLogic().getHandler());
+            this.activity = activity;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            if (activity != null) {
+                Progress.showDialog(activity, Progress.PROGRESS_DELETING);
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            invalidate();
+            if (activity != null) {
+                Progress.dismissDialog(activity, Progress.PROGRESS_DELETING);
+            }
+        }
+
+    }
+
     /**
      * Empty the cache
      * 
@@ -246,17 +273,9 @@ public class MapTilesLayer<T> extends NonSerializeableLayer implements ExtentInt
      * @param renderer the renderer to delete the cache for or null for all
      * @param all if true flush the on device cache too
      */
-    public void flushTileCache(@Nullable final FragmentActivity activity, final String renderer, boolean all) {
-        Logic logic = App.getLogic();
-        new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
+    public void flushTileCache(@Nullable final FragmentActivity activity, @Nullable final String renderer, boolean all) {
 
-            @Override
-            protected void onPreExecute() {
-                if (activity != null) {
-                    Progress.showDialog(activity, Progress.PROGRESS_DELETING);
-                }
-            }
-
+        new DeleteTileTask(activity) {
             @Override
             protected Void doInBackground(Void param) {
                 if (mTileProvider != null) {
@@ -264,12 +283,38 @@ public class MapTilesLayer<T> extends NonSerializeableLayer implements ExtentInt
                 }
                 return null;
             }
+        }.execute();
+    }
 
+    /**
+     * Remove the current in view tiles from the cache
+     * 
+     * @param activity activity this was called from, if null don't display progress
+     */
+    public void flushTilesInViewCache(@Nullable final FragmentActivity activity) {
+
+        new DeleteTileTask(activity) {
             @Override
-            protected void onPostExecute(Void result) {
-                if (activity != null) {
-                    Progress.dismissDialog(activity, Progress.PROGRESS_DELETING);
+            protected Void doInBackground(Void param) {
+                if (mTileProvider == null) {
+                    Log.w(DEBUG_TAG, "flushTilesInViewCache no provider");
+                    return null;
                 }
+                final int zoom = Math.min(zoomLevel, layerSource.getMaxZoom());
+
+                Offset offset = layerSource.getOffset(zoomLevel);
+                double lonOffset = offset != null ? offset.getDeltaLon() : 0d;
+                double latOffset = offset != null ? offset.getDeltaLat() : 0d;
+
+                final int n = 1 << zoom;
+                final int xTileLeft = tileLeft(viewBox.getLeft(), lonOffset, n);
+                final int xTileRight = tileRight(viewBox.getRight(), lonOffset, n);
+                final int yTileTop = tileTop(viewBox.getTop(), latOffset, n);
+                final int yTileBottom = tileBottom(viewBox.getBottom(), latOffset, n);
+
+                mTileProvider.flushCache(layerSource.getId(), zoom, Math.min(xTileLeft, xTileRight), Math.min(yTileTop, yTileBottom),
+                        Math.max(xTileLeft, xTileRight), Math.max(yTileTop, yTileBottom));
+                return null;
             }
         }.execute();
     }
@@ -409,7 +454,7 @@ public class MapTilesLayer<T> extends NonSerializeableLayer implements ExtentInt
         // Do some calculations and drag attributes to local variables to save
         // some performance.
         final int actualZoomLevel = osmv.getZoomLevel();
-        final int zoomLevel = Math.min(actualZoomLevel, maxZoom); // clamp to max zoom here
+        zoomLevel = Math.min(actualZoomLevel, maxZoom); // clamp to max zoom here
         if (zoomLevel != prevZoomLevel && prevZoomLevel != -1) {
             mTileProvider.flushQueue(layerSource.getId(), prevZoomLevel);
         }

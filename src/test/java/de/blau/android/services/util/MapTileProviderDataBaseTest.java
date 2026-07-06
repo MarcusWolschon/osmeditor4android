@@ -133,6 +133,32 @@ public class MapTileProviderDataBaseTest {
     }
 
     /**
+     * Remove specific tiles
+     */
+    @Test
+    public void flushTilesInViewCache() {
+        addTileTest();
+        try {
+            db.flushCache("test", 11, 510, 339, 512, 341); 
+            fail("flush failed");
+        } catch (EmptyCacheException e) {
+        }
+        assertEquals(tileBytes.length, db.getCurrentFSCacheByteSize());
+        try {
+            db.flushCache("test", 10, 505, 335, 507, 338);
+            fail("flush failed");
+        } catch (EmptyCacheException e) {
+        }
+        assertEquals(tileBytes.length, db.getCurrentFSCacheByteSize());
+        try {
+            db.flushCache("test", 10, 510, 339, 512, 341); ;
+        } catch (EmptyCacheException e) {
+            fail("flush failed");
+        }
+        assertEquals(0, db.getCurrentFSCacheByteSize());
+    }
+    
+    /**
      * Retrieve a tile
      */
     @Test

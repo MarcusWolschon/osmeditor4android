@@ -336,12 +336,12 @@ public class MapTileProviderDataBase {
     }
 
     /**
-     * Delete all tiles from cache for a specific renderer
+     * Delete all tiles from the cache for a specific renderer
      * 
      * @param rendererID the tile server for which to remove the tiles or null to remove all tiles
      * @throws EmptyCacheException if the cache is empty
      */
-    public synchronized void flushCache(@Nullable String rendererID) throws EmptyCacheException {
+    public synchronized void flushCache(@Nullable final String rendererID) throws EmptyCacheException {
         mDatabase.beginTransaction();
         try {
             if (rendererID == null) {
@@ -350,36 +350,70 @@ public class MapTileProviderDataBase {
             } else {
                 Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Flushing cache for " + rendererID);
                 final Cursor c = mDatabase.rawQuery(SELECT + T_FSCACHE_ZOOM_LEVEL + "," + T_FSCACHE_TILE_X + "," + T_FSCACHE_TILE_Y + "," + T_FSCACHE_FILESIZE
-                        + FROM + T_FSCACHE + WHERE + T_FSCACHE_RENDERER_ID + "='" + rendererID + "' ORDER BY " + T_FSCACHE_TIMESTAMP + " ASC", null);
-                final ArrayList<MapTile> deleteFromDB = new ArrayList<>();
-                long sizeGained = 0;
-                try {
-                    MapTile tileToBeDeleted;
-                    if (c.moveToFirst()) {
-                        do {
-                            final int sizeItem = c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_FILESIZE));
-                            sizeGained += sizeItem;
-                            tileToBeDeleted = new MapTile(rendererID, c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_ZOOM_LEVEL)),
-                                    c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_TILE_X)), c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_TILE_Y)));
-
-                            deleteFromDB.add(tileToBeDeleted);
-                        } while (c.moveToNext());
-                    } else {
-                        throw new EmptyCacheException("Cache seems to be empty.");
-                    }
-                    Log.d(DEBUG_TAG, "flushCache freed " + sizeGained);
-                } finally {
-                    c.close();
-                }
-
-                for (MapTile t : deleteFromDB) {
-                    final String[] args = new String[] { t.rendererID, Integer.toString(t.zoomLevel), Integer.toString(t.x), Integer.toString(t.y) };
-                    mDatabase.delete(T_FSCACHE, T_FSCACHE_WHERE, args);
-                }
+                        + FROM + T_FSCACHE + WHERE + T_FSCACHE_RENDERER_ID + "='" + rendererID + "'", null);
+                deleteTiles(rendererID, c);
             }
             mDatabase.setTransactionSuccessful();
         } finally {
             mDatabase.endTransaction();
+        }
+    }
+
+    /**
+     * Delete tiles in a range of x/y values from the cache for a specific renderer
+     * 
+     * @param rendererID the tile server for which to remove the tiles or null to remove all tiles
+     * @throws EmptyCacheException if the cache is empty
+     */
+    public synchronized void flushCache(@NonNull final String rendererID, int zoom, int startX, int startY, int endX, int endY) throws EmptyCacheException {
+        mDatabase.beginTransaction();
+        try {
+            Log.d(MapTileFilesystemProvider.DEBUG_TAG,
+                    "Flushing cache for " + rendererID + " zoom " + zoom + " min X " + startX + " min Y " + startY + " max X " + endX + " max Y " + endY);
+            final Cursor c = mDatabase.rawQuery(SELECT + T_FSCACHE_ZOOM_LEVEL + "," + T_FSCACHE_TILE_X + "," + T_FSCACHE_TILE_Y + "," + T_FSCACHE_FILESIZE
+                    + FROM + T_FSCACHE + WHERE + T_FSCACHE_RENDERER_ID + "='" + rendererID + "'" + AND + T_FSCACHE_ZOOM_LEVEL + " = " + zoom + AND
+                    + T_FSCACHE_TILE_X + " >= " + startX + AND + T_FSCACHE_TILE_X + " <= " + endX + AND + T_FSCACHE_TILE_Y + " >= " + startY + AND
+                    + T_FSCACHE_TILE_Y + " <= " + endY, null);
+            deleteTiles(rendererID, c);
+
+            mDatabase.setTransactionSuccessful();
+        } finally {
+            mDatabase.endTransaction();
+        }
+    }
+
+    /**
+     * Remove tiles that are the result of a query from the database
+     * 
+     * @param rendererID source of the tiles we want to delete
+     * @param c a Cursor as a result of the query
+     * @throws EmptyCacheException if the cache is empty
+     */
+    private void deleteTiles(@NonNull String rendererID, @NonNull final Cursor c) throws EmptyCacheException {
+        final ArrayList<MapTile> deleteFromDB = new ArrayList<>();
+        long sizeGained = 0;
+        try {
+            MapTile tileToBeDeleted;
+            if (c.moveToFirst()) {
+                do {
+                    final int sizeItem = c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_FILESIZE));
+                    sizeGained += sizeItem;
+                    tileToBeDeleted = new MapTile(rendererID, c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_ZOOM_LEVEL)),
+                            c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_TILE_X)), c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_TILE_Y)));
+
+                    deleteFromDB.add(tileToBeDeleted);
+                } while (c.moveToNext());
+            } else {
+                throw new EmptyCacheException("Cache seems to be empty.");
+            }
+            Log.d(DEBUG_TAG, "flushCache freed " + sizeGained);
+        } finally {
+            c.close();
+        }
+
+        for (MapTile t : deleteFromDB) {
+            final String[] args = new String[] { t.rendererID, Integer.toString(t.zoomLevel), Integer.toString(t.x), Integer.toString(t.y) };
+            mDatabase.delete(T_FSCACHE, T_FSCACHE_WHERE, args);
         }
     }
 

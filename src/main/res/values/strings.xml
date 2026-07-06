@@ -548,6 +548,7 @@
     <string name="layer_tasks">Tasks</string>
     <string name="layer_data">OSM data</string>
     <string name="layer_data_name">%1$s data</string>
+    <string name="layer_update_tiles_in_view">Update tiles in view</string>
     <string name="layer_flush_tile_cache">Flush tile cache</string>
     <string name="layer_change_style">Change style…</string>
     <string name="layer_load_style">Load style…</string>
