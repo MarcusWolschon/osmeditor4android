@@ -192,8 +192,10 @@
   <string name="imagery_offset_zoom">زوم</string>
   <string name="imagery_offset_distance">مسافت</string>
   <string name="zoom_and_offsets">بزرگنمایی %1$d\nآفست\n%2$s°/%3$s°\n%4$sm/%5$sm</string>
+  <!--Position modal-->
   <string name="set_position_datum_label">مبنای Geodetic</string>
   <string name="WGS84">WGS84</string>
+  <!---->
   <string name="tag_editor_name_suggestion">پیشنهاد نام</string>
   <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">این پیشنهاد می‌تواند برخی از مقادیر برچسب را با مقادیر محبوب تر جایگزین کند.</string>
@@ -477,9 +479,9 @@
   <string name="undo_location_zoom">زوم روی مکان، سپس واگرد</string>
   <!--Value widget dialogs-->
   <!--Feedback activity-->
-  <string name="feedback_with_displayname">با نام نمایشی شما در OpenStreetMap فرستاده شود</string>
-  <string name="feedback_displayname_hint">نام نمایشی OpenStreetMap هنوز دریافت نشده</string>
   <string name="feedback_title">بازخورد به توسعه‌دهندگان</string>
+  <string name="feedback_with_displayname">با نام نمایشی شما در OpenStreetMap فرستاده شود</string>
+  <string name="feedback_success_title">موفقیت</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">بارگیری دادهٔ اوپن‌‌استریت‌مپ</string>
   <!--Clear/Reset GPX Track-->
@@ -699,7 +701,6 @@
   <string name="toast_url_check_with_msg">%1$s %2$d %3$s</string>
   <string name="toast_unexpected_element">عنصر غیرمنتظره کلیک شد: \n%1$s</string>
   <string name="toast_import_destination_exists">مقصد واردات از قبل وجود دارد</string>
-  <string name="toast_part_selection_not_supported">انتخاب قسمت راه برای راه‌های بسته پشتیبانی نمی‌شود</string>
   <string name="toast_element_has_been_deleted">عنصر حذف شد</string>
   <string name="toast_updating_tags">به‌روزرسانی برچسب‌ها…</string>
   <string name="toast_updating_parents">به‌روزرسانی والدین…</string>
@@ -736,6 +737,7 @@
   <string name="check">بررسی</string>
   <string name="download">بارگیری</string>
   <string name="abort">لغو کردن / قطع کردن</string>
+  <string name="pause">Pause</string>
   <string name="ignore">رد کردن</string>
   <string name="select">انتخاب</string>
   <string name="skip">پرش/گذشتن</string>
@@ -873,7 +875,6 @@
   <string name="menu_find">یافتن</string>
   <string name="menu_help">راهنما</string>
   <string name="menu_erase">پاک‌کردن گره</string>
-  <string name="menu_set_position">موقعیت</string>
   <string name="menu_split">دونیم‌کردن</string>
   <string name="menu_remove_node_from_way">حذف گره از راه</string>
   <string name="menu_start_end_way">شروع/پایان راه</string>
@@ -1012,6 +1013,7 @@
   <string name="menu_layers_enable_bookmarkslayer">فعال‌کردن لایه نشانک</string>
   <string name="menu_layers_configure">پیکربندی...</string>
   <string name="menu_layers_background_align">ترازکردن تصاویر...</string>
+  <!--Download along dialog-->
   <!---->
   <string name="menu_tools_apply_local_offset">به‌کارگیری آفست ذخیره‌شده بر تصویر</string>
   <string name="menu_tools_background_contrast">پادنمایی</string>
@@ -1425,6 +1427,7 @@
   <string name="undo">واگرد</string>
   <string name="redo">ازنو</string>
   <string name="undo_nothing">چیزی برای واگرد نیست</string>
+  <!--background / forground services-->
   <string name="tracking_active_title">سرویس پس‌زمینهٔ وسپوچی</string>
   <string name="tracking_active_title_short">سرویس پس‌زمینه فعال است</string>
   <string name="tracking_active_text">در حال ضبط رد GPS یا بارگیری خودکار</string>

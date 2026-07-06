@@ -289,8 +289,10 @@
   <string name="imagery_offset_zoom">Zooma</string>
   <string name="imagery_offset_distance">Avstånd</string>
   <string name="zoom_and_offsets">Zoom %1$d\nFörskjutning\n%2$s°/%3$s°\n%4$sm/%5$sm</string>
+  <!--Position modal-->
   <string name="set_position_datum_label">Geodetiskt datum</string>
   <string name="WGS84">WGS84</string>
+  <!---->
   <string name="tag_editor_name_suggestion">Namnförslag</string>
   <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">Det här förslaget kan ersätta vissa taggvärden med mer populära.</string>
@@ -539,6 +541,7 @@
   <string name="layer_toast_playback_finished">Uppspelning klar</string>
   <string name="layer_toast_playback_paused">Uppspelning pausad</string>
   <string name="layer_toast_playback_resumed">Uppspelningen återupptogs</string>
+  <string name="layer_auto_prune">Automatisk beskärning</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">Min zoom</string>
   <string name="layer_info_max_zoom">Max zoom</string>
@@ -596,9 +599,9 @@
   <string name="integer_widget_usage_with_additional">Avmarkera valfritt värde ovan för att använda nummerväljaren</string>
   <string name="date_widget_usage_with_additional">Avmarkera valfritt värde ovan för att använda datumväljaren</string>
   <!--Feedback activity-->
-  <string name="feedback_with_displayname">Skicka med ditt OpenStreetMap-visningsnamn</string>
-  <string name="feedback_displayname_hint">OpenStreetMap-visningsnamnet har ännu inte hämtats</string>
   <string name="feedback_title">Återkoppling för utvecklarna</string>
+  <string name="feedback_with_displayname">Skicka med ditt OpenStreetMap-visningsnamn</string>
+  <string name="feedback_success_title">Lyckat</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Ladda ner OpenStreetMap data</string>
   <!--Clear/Reset GPX Track-->
@@ -835,7 +838,6 @@
   <string name="toast_url_check_with_msg">%1$s %2$d %3$s</string>
   <string name="toast_unexpected_element">Oväntat element klickat:\n%1$s</string>
   <string name="toast_import_destination_exists">Importdestinationen finns redan</string>
-  <string name="toast_part_selection_not_supported">Val av vägdel stöds inte för stängda vägar</string>
   <string name="toast_element_has_been_deleted">Element har raderats</string>
   <string name="toast_updating_tags">Uppdaterar taggar…</string>
   <string name="toast_updating_parents">Uppdaterar föräldrar…</string>
@@ -882,6 +884,7 @@
   <string name="check">Kontrollera</string>
   <string name="download">Hämta</string>
   <string name="abort">Avbryt</string>
+  <string name="pause">Pause</string>
   <string name="ignore">Ignorera</string>
   <string name="select">Markera</string>
   <string name="skip">Avstå</string>
@@ -1026,7 +1029,6 @@
   <string name="menu_find">Hitta</string>
   <string name="menu_help">Hjälp</string>
   <string name="menu_erase">Radera nod</string>
-  <string name="menu_set_position">Position</string>
   <string name="menu_split">Dela</string>
   <string name="menu_remove_node_from_way">Ta bort nod från väg</string>
   <string name="menu_start_end_way">Början/Slut av väg</string>
@@ -1177,6 +1179,7 @@
   <string name="geojson_todo_default_conversion">Standardkonvertering</string>
   <string name="geojson_todo_custom_conversion">Anpassad konvertering…</string>
   <string name="rhino_exception">&lt;br&gt;Fel på rad %1$d, kolumn %2$d&lt;br&gt;&lt;br&gt;%3$s</string>
+  <!--Download along dialog-->
   <!---->
   <string name="menu_tools_apply_local_offset">Tillämpa lagrad offset på bilder</string>
   <string name="menu_tools_background_contrast">Kontrast</string>
@@ -1480,7 +1483,6 @@
   <string name="config_maxDownloadSpeed_title">Maximal automatisk hämtningshastighet</string>
   <string name="config_maxDownloadSpeed_summary">Limit (in km/h) above which auto-download is suspended.</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
-  <string name="config_autoPrune_title">Automatisk beskärning</string>
   <string name="config_autoPrune_summary">Aktivera/inaktivera automatisk rensning av minnesdata och uppgifter</string>
   <string name="config_autoPruneNodeLimit_title">Gräns ​​för automatisk beskärning</string>
   <string name="config_autoPruneNodeLimit_summary">Antal noder i minnet som, när de nås, utlöser en rensning.</string>
@@ -1659,6 +1661,7 @@
   <string name="undo">Ångra</string>
   <string name="redo">Upprepa</string>
   <string name="undo_nothing">inget att ångra</string>
+  <!--background / forground services-->
   <string name="tracking_active_title">Vespucci-bakgrundstjänst</string>
   <string name="tracking_active_title_short">Bakgrundstjänst aktiv</string>
   <string name="tracking_active_text">Spela in ett GPS-spår eller automatisk hämtning</string>

@@ -165,7 +165,7 @@
   <string name="progress_searching_message">Пошук…</string>
   <string name="progress_saving_message">Збереження…</string>
   <string name="progress_uploading_message">Надсилання…</string>
-  <string name="progress_resource_message">Завантаження ресурсу…</string>
+  <string name="progress_resource_download_message">Завантаження ресурсу…</string>
   <string name="progress_loading_preset_message">Завантаження заготовки…</string>
   <string name="progress_importing_file_message">Імпортується файл…</string>
   <string name="progress_running_message">Запуск…</string>
@@ -289,8 +289,10 @@
   <string name="imagery_offset_date">Створено</string>
   <string name="imagery_offset_zoom">Масштаб</string>
   <string name="imagery_offset_distance">Відстань</string>
+  <!--Position modal-->
   <string name="set_position_datum_label">Геодезичний датум</string>
   <string name="WGS84">WGS84</string>
+  <!---->
   <string name="tag_editor_name_suggestion">Підказувати назви</string>
   <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">Підказки можуть замінювати значення деяких теґів на більш поширені.</string>
@@ -560,6 +562,7 @@
   <string name="layer_toast_playback_finished">Відтворення завершено</string>
   <string name="layer_toast_playback_paused">Відтворення призупинено</string>
   <string name="layer_toast_playback_resumed">Відтворення відновлено</string>
+  <string name="layer_auto_prune">Автоматична обрізка</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">Мін масштаб</string>
   <string name="layer_info_max_zoom">Макс масштаб</string>
@@ -618,9 +621,9 @@
   <string name="integer_widget_usage_with_additional">Зніміть позначку з будь-якого значення вище, щоб скористатися номеронабирачем</string>
   <string name="date_widget_usage_with_additional">Скасуйте вибір будь-якого значення вище, щоб скористатися засобом вибору дати</string>
   <!--Feedback activity-->
-  <string name="feedback_with_displayname">Надіслати з вашим нікнеймом з OpenStreetMap</string>
-  <string name="feedback_displayname_hint">Ваш нікнейм з OpenStreetMap ще не отриманий</string>
   <string name="feedback_title">Відгук для розробників</string>
+  <string name="feedback_with_displayname">Надіслати з вашим нікнеймом з OpenStreetMap</string>
+  <string name="feedback_success_title">Успіх</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Завантаження даних OpenStreetMap</string>
   <!--Clear/Reset GPX Track-->
@@ -880,7 +883,6 @@
   <string name="toast_url_check_with_msg">%1$s %2$d %3$s</string>
   <string name="toast_unexpected_element">Торкання неочікуваного елементу:\n%1$s</string>
   <string name="toast_import_destination_exists">Місце призначення імпорту вже існує</string>
-  <string name="toast_part_selection_not_supported">Вибір частини лінії не підтримується для замкнених ліній</string>
   <string name="toast_element_has_been_deleted">Елемент видалено</string>
   <string name="toast_updating_tags">Оновлення тегів...</string>
   <string name="toast_updating_parents">Оновлення батьківських зв\'язків...</string>
@@ -929,6 +931,7 @@
   <string name="check">Перевірка</string>
   <string name="download">Завантажити</string>
   <string name="abort">Припинити</string>
+  <string name="pause">Pause</string>
   <string name="ignore">Ігнорувати</string>
   <string name="select">Виділення</string>
   <string name="skip">Пропустити</string>
@@ -1075,7 +1078,6 @@
   <string name="menu_help">Довідка</string>
   <string name="menu_view">Переглянути…</string>
   <string name="menu_erase">Вилучити точку</string>
-  <string name="menu_set_position">Позиція</string>
   <string name="menu_split">Розділити</string>
   <string name="menu_remove_node_from_way">Видалити точку з лінії</string>
   <string name="menu_start_end_way">Початок/Кінець лінії</string>
@@ -1227,6 +1229,7 @@
   <string name="geojson_todo_default_conversion">Конвертація за замовчуванням</string>
   <string name="geojson_todo_custom_conversion">Конвертація на замовлення...</string>
   <string name="rhino_exception">&lt;br&gt;Помилка в рядку %1$d, стовпці %2$d&lt;br&gt;&lt;br&gt;%3$s</string>
+  <!--Download along dialog-->
   <!---->
   <string name="menu_tools_apply_local_offset">Застосувати збережене зміщення</string>
   <string name="menu_tools_background_contrast">Контраст</string>
@@ -1536,7 +1539,6 @@
   <string name="config_maxDownloadSpeed_title">Максимальна швидкість авто-завантаження</string>
   <string name="config_maxDownloadSpeed_summary">Обмеження (в км/г) після якого автозавантаження призупиняється</string>
   <string name="config_downloadSpeed_current">%1$d км/г</string>
-  <string name="config_autoPrune_title">Автоматична обрізка</string>
   <string name="config_autoPrune_summary">Увімкнути/вимкнути автоматичне видалення даних та завдань у пам\'яті</string>
   <string name="config_autoPruneNodeLimit_title">Ліміт автоматичного скорочення</string>
   <string name="config_autoPruneNodeLimit_summary">Кількість Точок у пам’яті, досягнення якої ініціює видалення.</string>
@@ -1730,6 +1732,7 @@
   <string name="undo">Відмінити</string>
   <string name="redo">Повторити</string>
   <string name="undo_nothing">немає змін для відміни</string>
+  <!--background / forground services-->
   <string name="tracking_active_title">Фонову службу Веспуччі активовано</string>
   <string name="tracking_active_title_short">Фонова служба активна</string>
   <string name="tracking_active_text">Запис GPS-треку або автозавантаження</string>

@@ -187,8 +187,10 @@
   <string name="imagery_offset_date">تم إنشاء</string>
   <string name="imagery_offset_zoom">تكبير/تصغير</string>
   <string name="imagery_offset_distance">المسافة</string>
+  <!--Position modal-->
   <string name="set_position_datum_label">المسند الجيوديسي</string>
   <string name="WGS84">WGS84</string>
+  <!---->
   <string name="tag_editor_name_suggestion">اقتراح الاسم</string>
   <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">يمكن لهذا الاقتراح استبدال بعض قيم الوسوم بقيم أكثر شيوعًا.</string>
@@ -449,9 +451,8 @@
   <string name="undo_location_zoom">تكبير إلى الموقع ، ثم التراجع</string>
   <!--Value widget dialogs-->
   <!--Feedback activity-->
-  <string name="feedback_with_displayname">أرسل باستخدام اسمك الرسمي الموجود على شبكة خريطة الشارع المفتوحة</string>
-  <string name="feedback_displayname_hint">لم يتم استرجاع اسمك الرسمي الموجود على شبكة خريطة الشارع المفتوحة</string>
   <string name="feedback_title">ملاحظات للمطورين</string>
+  <string name="feedback_with_displayname">أرسل باستخدام اسمك الرسمي الموجود على شبكة خريطة الشارع المفتوحة</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">قم بتنزيل بيانات خريطة الشارع المفتوحة</string>
   <!--Clear/Reset GPX Track-->
@@ -678,7 +679,6 @@
   <string name="toast_url_check_with_msg">%1$s %2$d %3$s</string>
   <string name="toast_unexpected_element">تم النقر على عنصر غير متوقع:\n%1$s</string>
   <string name="toast_import_destination_exists">وجهة الاستيراد موجودة بالفعل</string>
-  <string name="toast_part_selection_not_supported">اختيار جزء الطريق غير مدعوم للطرق المغلقة</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">مصادر MapSplit تتطلب تحديد الحد الأدنى والحد الأقصى للتكبير</string>
   <string name="error_pbf_no_version">معلومات الإصدار مفقودة في ملف PBF</string>
@@ -709,6 +709,7 @@
   <string name="check">التحقق</string>
   <string name="download">تحميل</string>
   <string name="abort">إلغاء</string>
+  <string name="pause">Pause</string>
   <string name="ignore">تجاهل</string>
   <string name="select">تحديد</string>
   <string name="skip">تخطي</string>
@@ -846,7 +847,6 @@
   <string name="menu_find">بحث</string>
   <string name="menu_help">مساعدة</string>
   <string name="menu_erase">محو العقدة/النقطة</string>
-  <string name="menu_set_position">موضع</string>
   <string name="menu_split">تجزئة</string>
   <string name="menu_remove_node_from_way">إزالة العقدة من الطريق</string>
   <string name="menu_extract">استخراج العقدة</string>
@@ -977,6 +977,7 @@
   <string name="menu_layers_add_photolayer">تفعيل طبقة الصورة</string>
   <string name="menu_layers_enable_mapillary_layer">تمكين طبقة Mapillary</string>
   <string name="menu_layers_configure">تهيئة المكونات…</string>
+  <!--Download along dialog-->
   <!---->
   <string name="menu_tools_apply_local_offset">تطبيق الإزاحة المخزنة على الصور</string>
   <string name="menu_tools_background_contrast">التباين</string>
@@ -1369,6 +1370,7 @@
   <string name="undo">تراجع</string>
   <string name="redo">إعادة</string>
   <string name="undo_nothing">لا شيء للتراجع</string>
+  <!--background / forground services-->
   <string name="tracking_active_title">خدمة فسبوتشي الخلفية</string>
   <string name="tracking_active_title_short">الخدمة الخلفية نشطة</string>
   <string name="tracking_active_text">تسجيل مسار GPS أو التنزيل التلقائي</string>

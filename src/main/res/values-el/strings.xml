@@ -218,8 +218,10 @@
   <string name="imagery_offset_date">Δημιουργήθηκε</string>
   <string name="imagery_offset_zoom">Εστίαση</string>
   <string name="imagery_offset_distance">Απόσταση</string>
+  <!--Position modal-->
   <string name="set_position_datum_label">Γεωδαιτικό σύστημα</string>
   <string name="WGS84">WGS84</string>
+  <!---->
   <string name="tag_editor_name_suggestion">Όνομα πρότασης</string>
   <!--Search/Find dialog-->
   <string name="search_results_title">Αποτελέσματα αναζήτησης</string>
@@ -444,6 +446,7 @@
   <string name="undo_location_zoom">Κάντε ζουμ στην τοποθεσία, έπειτα αναίρεση</string>
   <!--Value widget dialogs-->
   <!--Feedback activity-->
+  <string name="feedback_success_title">Επιτυχία</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Κατεβάστε τα δεδομένα του OpenStreetMap</string>
   <!--Clear/Reset GPX Track-->
@@ -596,6 +599,7 @@
   <string name="check">Επιταγή</string>
   <string name="download">Λήψη</string>
   <string name="abort">Ματαίωση</string>
+  <string name="pause">Pause</string>
   <string name="ignore">Αγνόηση</string>
   <string name="select">Επιλογή</string>
   <string name="skip">Παράλειψη</string>
@@ -710,7 +714,6 @@
   <string name="menu_find">Εύρεση</string>
   <string name="menu_help">Βοήθεια</string>
   <string name="menu_erase">Διαγραφή κόμβου</string>
-  <string name="menu_set_position">Θέση</string>
   <string name="menu_split">Διαίρεση</string>
   <string name="menu_remove_node_from_way">Αφαίρεση κόμβου από γραμμή</string>
   <string name="menu_start_end_way">Αρχή/Τέλος της Γραμμής</string>
@@ -807,6 +810,7 @@
   <string name="geojson_todo_default_conversion">Προεπιλεγμένη μετατροπή</string>
   <string name="geojson_todo_custom_conversion">Προσαρμοσμένη μετατροπή…</string>
   <string name="rhino_exception">&lt;br&gt;Σφάλμα στη γραμμή %1$d, στήλη %2$d&lt;br&gt;&lt;br&gt;%3$s</string>
+  <!--Download along dialog-->
   <!---->
   <string name="menu_tools_apply_local_offset">Εφαρμογή αποθηκευμένης μετατόπισης στις εικόνες</string>
   <string name="menu_tools_background_contrast">Αντίθεση</string>
@@ -1071,6 +1075,7 @@
   <string name="undo">Αναίρεση</string>
   <string name="redo">Επαναφορά</string>
   <string name="undo_nothing">τίποτα προς αναίρεση</string>
+  <!--background / forground services-->
   <string name="tracking_active_title">Υπηρεσία φόντου του Vespucci</string>
   <string name="tracking_active_title_short">Ενεργή υπηρεσία φόντου</string>
   <string name="tracking_active_text">Καταγραφή ενός ίχνους GPS ή αυτόματη λήψη</string>

@@ -196,8 +196,10 @@
   <string name="imagery_offset_date">Создано</string>
   <string name="imagery_offset_zoom">Масштаб</string>
   <string name="imagery_offset_distance">Расстояние</string>
+  <!--Position modal-->
   <string name="set_position_datum_label">Геодезическая система координат</string>
   <string name="WGS84">WGS84</string>
+  <!---->
   <string name="tag_editor_name_suggestion">Предложение названия</string>
   <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">Это предложение может заменить некоторые значения тегов более популярными значениями.</string>
@@ -471,9 +473,9 @@
   <string name="undo_location_zoom">Показать место, затем отменить</string>
   <!--Value widget dialogs-->
   <!--Feedback activity-->
-  <string name="feedback_with_displayname">Отправить от имени вашей учётной записи OpenStreetMap</string>
-  <string name="feedback_displayname_hint">Отображаемое имя вашей учётной записи OpenStreetMap еще не получено</string>
   <string name="feedback_title">Отзыв для разработчиков</string>
+  <string name="feedback_with_displayname">Отправить от имени вашей учётной записи OpenStreetMap</string>
+  <string name="feedback_success_title">Успех</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Скачать данные OpenStreetMap</string>
   <!--Clear/Reset GPX Track-->
@@ -719,6 +721,7 @@
   <string name="prune">Очистка</string>
   <string name="check">Проверка</string>
   <string name="download">Загрузить</string>
+  <string name="pause">Pause</string>
   <string name="ignore">Игнорировать</string>
   <string name="select">Выбрать</string>
   <string name="skip">Пропустить</string>
@@ -859,7 +862,6 @@
   <string name="menu_find">Поиск</string>
   <string name="menu_help">Справка</string>
   <string name="menu_erase">Удалить точку</string>
-  <string name="menu_set_position">Позиция</string>
   <string name="menu_split">Разделить</string>
   <string name="menu_remove_node_from_way">Удалить точку из линии</string>
   <string name="menu_start_end_way">Начало/Конец линии</string>
@@ -990,6 +992,7 @@
   <string name="menu_layers_enable_mapillary_layer">Показать слой Mapillary</string>
   <string name="menu_layers_configure">Настройка...</string>
   <string name="menu_layers_background_align">Сдвиг слоя...</string>
+  <!--Download along dialog-->
   <!---->
   <string name="menu_tools_apply_local_offset">Применить смещение к снимкам</string>
   <string name="menu_tools_background_contrast">Контраст</string>
@@ -1380,6 +1383,7 @@
   <string name="undo">Отменить изменение</string>
   <string name="redo">Повторить изменение</string>
   <string name="undo_nothing">нечего отменять</string>
+  <!--background / forground services-->
   <string name="tracking_active_title">Фоновый сервис Vespucci</string>
   <string name="tracking_active_title_short">Фоновый сервис активен</string>
   <string name="tracking_active_text">Vespucci записывает GPS-трек или занят автозагрузкой</string>

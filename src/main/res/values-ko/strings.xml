@@ -186,7 +186,9 @@
   <string name="imagery_offset_date">만들어짐</string>
   <string name="imagery_offset_zoom">확대</string>
   <string name="imagery_offset_distance">거리</string>
+  <!--Position modal-->
   <string name="set_position_datum_label">측지 자료</string>
+  <!---->
   <string name="tag_editor_name_suggestion">이름 제안</string>
   <!--Search/Find dialog-->
   <string name="search_results_title">검색 결과</string>
@@ -396,6 +398,7 @@
   <!--Value widget dialogs-->
   <!--Feedback activity-->
   <string name="feedback_title">개발자를 위한 피드백</string>
+  <string name="feedback_success_title">성공</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">OpenStreetMap 데이터 다운로드</string>
   <!--Clear/Reset GPX Track-->
@@ -524,6 +527,7 @@
   <string name="check">수표</string>
   <string name="download">다운로드</string>
   <string name="abort">중단</string>
+  <string name="pause">Pause</string>
   <string name="select">선택</string>
   <string name="more_information">더 많은 정보</string>
   <string name="osm_tags">OSM 태그</string>
@@ -645,7 +649,6 @@
   <string name="menu_find">찾기</string>
   <string name="menu_help">도움말</string>
   <string name="menu_erase">점 삭제</string>
-  <string name="menu_set_position">위치</string>
   <string name="menu_split">분할</string>
   <string name="menu_remove_node_from_way">길에서 점 삭제</string>
   <string name="menu_start_end_way">시작점/끝점으로 이동</string>
@@ -764,6 +767,7 @@
   <string name="menu_layers_enable_panoramax_layer">Panoramax 레이어 활성화</string>
   <string name="menu_layers_enable_bookmarkslayer">북마크 레이어 활성화...</string>
   <string name="menu_layers_configure">설정...</string>
+  <!--Download along dialog-->
   <!---->
   <string name="menu_tools_background_contrast">대비</string>
   <string name="menu_tools_oauth_reset">인증 재설정</string>
@@ -1075,6 +1079,7 @@
   <string name="undo">실행 취소</string>
   <string name="redo">다시 실행</string>
   <string name="undo_nothing">실행 취소할 것이 없습니다</string>
+  <!--background / forground services-->
   <string name="tracking_active_title">Vespucci 백그라운드 서비스</string>
   <string name="tracking_active_title_short">백그라운드 서비스가 활성화됨</string>
   <string name="tracking_active_text">GPS 경로 녹화 혹은 자동 다운로드</string>

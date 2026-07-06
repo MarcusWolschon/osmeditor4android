@@ -266,8 +266,10 @@ Na página seguinte, pode definir algumas preferências iniciais que tornarão a
   <string name="imagery_offset_zoom">Zoom</string>
   <string name="imagery_offset_distance">Distância</string>
   <string name="zoom_and_offsets">Zoom %1$d\nAlinhamento\n%2$s°/%3$s°\n%4$sm/%5$sm</string>
+  <!--Position modal-->
   <string name="set_position_datum_label">Datum geodésico</string>
   <string name="WGS84">WGS84</string>
+  <!---->
   <string name="tag_editor_name_suggestion">Sugestão de nome</string>
   <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">Esta sugestão pode substituir alguns valores de etiquetas por outras mais populares.</string>
@@ -563,9 +565,9 @@ Na página seguinte, pode definir algumas preferências iniciais que tornarão a
   <string name="compass_widget_usage">Aponte o seu dispositivo na direção em que pretende gravar ou arraste o visor para o valor que pretende</string>
   <string name="integer_widget_usage_with_additional">Desmarque qualquer valor acima para utilizar o seletor de números</string>
   <!--Feedback activity-->
-  <string name="feedback_with_displayname">Enviar com o seu nome visível do OpenStreetMap</string>
-  <string name="feedback_displayname_hint">O seu nome visível do OpenStreetMap ainda não foi obtido</string>
   <string name="feedback_title">Opinião para os programadores</string>
+  <string name="feedback_with_displayname">Enviar com o seu nome visível do OpenStreetMap</string>
+  <string name="feedback_success_title">Sucesso</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Descarregar dados OpenStreetMap</string>
   <!--Clear/Reset GPX Track-->
@@ -802,7 +804,6 @@ Na página seguinte, pode definir algumas preferências iniciais que tornarão a
   <string name="toast_url_check_with_msg">%1$s %2$d %3$s</string>
   <string name="toast_unexpected_element">Elemento inesperado clicado:\n%1$s</string>
   <string name="toast_import_destination_exists">O destino de importação já existe</string>
-  <string name="toast_part_selection_not_supported">Seleção de parte da linha não suportada para linhas fechadas</string>
   <string name="toast_element_has_been_deleted">O elemento foi eliminado</string>
   <string name="toast_updating_tags">A atualizar etiquetas…</string>
   <string name="toast_updating_parents">A atualizar os pais…</string>
@@ -845,6 +846,7 @@ Na página seguinte, pode definir algumas preferências iniciais que tornarão a
   <string name="check">Verificado</string>
   <string name="download">Descarregar</string>
   <string name="abort">Abortar</string>
+  <string name="pause">Pause</string>
   <string name="ignore">Ignorar</string>
   <string name="select">Selecionar</string>
   <string name="skip">Saltar</string>
@@ -988,7 +990,6 @@ há %3$s %4$s</string>
   <string name="menu_find">Procurar</string>
   <string name="menu_help">Ajuda</string>
   <string name="menu_erase">Eliminar nó</string>
-  <string name="menu_set_position">Posição</string>
   <string name="menu_split">Dividir</string>
   <string name="menu_remove_node_from_way">Remover nó da linha</string>
   <string name="menu_start_end_way">Início / fim da linha</string>
@@ -1137,6 +1138,7 @@ há %3$s %4$s</string>
   <string name="geojson_todo_default_conversion">Conversão predefinida</string>
   <string name="geojson_todo_custom_conversion">Conversão predefinida…</string>
   <string name="rhino_exception">&lt;br&gt;Erro na linha %1$d, coluna %2$d&lt;br&gt;&lt;br&gt;%3$s</string>
+  <!--Download along dialog-->
   <!---->
   <string name="menu_tools_apply_local_offset">Aplicar na camada o alinhamento guardado</string>
   <string name="menu_tools_background_contrast">Contraste</string>
@@ -1578,6 +1580,7 @@ há %3$s %4$s</string>
   <string name="undo">Desfazer</string>
   <string name="redo">Refazer</string>
   <string name="undo_nothing">nada para desfazer</string>
+  <!--background / forground services-->
   <string name="tracking_active_title">Serviço em segundo plano Vespucci</string>
   <string name="tracking_active_title_short">Serviço em segundo planto ativo</string>
   <string name="tracking_active_text">A gravar um trilho GPS ou a auto-descarregar</string>

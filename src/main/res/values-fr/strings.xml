@@ -232,8 +232,10 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="imagery_offset_date">Créé</string>
   <string name="imagery_offset_zoom">Zoom</string>
   <string name="imagery_offset_distance">Distance</string>
+  <!--Position modal-->
   <string name="set_position_datum_label">Système géodésique</string>
   <string name="WGS84">WGS84</string>
+  <!---->
   <string name="tag_editor_name_suggestion">Suggestion de nom</string>
   <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">Cette suggestion peut remplacer certaines valeurs d\'attributs par des valeurs plus courantes.</string>
@@ -516,9 +518,9 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="undo_location_zoom">Zoomer sur l\'emplacement puis annuler</string>
   <!--Value widget dialogs-->
   <!--Feedback activity-->
-  <string name="feedback_with_displayname">Envoyer avec votre nom d\'affichage OpenStreetMap</string>
-  <string name="feedback_displayname_hint">Nom d\'affichage OpenStreetMap pas encore récupéré</string>
   <string name="feedback_title">Retours pour les développeurs</string>
+  <string name="feedback_with_displayname">Envoyer avec votre nom d\'affichage OpenStreetMap</string>
+  <string name="feedback_success_title">Réussite</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Télécharger les données d\'OpenStreetMap</string>
   <!--Clear/Reset GPX Track-->
@@ -756,6 +758,7 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="check">Vérifier</string>
   <string name="download">Télécharger</string>
   <string name="abort">Annuler</string>
+  <string name="pause">Pause</string>
   <string name="ignore">Ignorer</string>
   <string name="select">Sélectionner</string>
   <string name="skip">Sauter</string>
@@ -891,7 +894,6 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="menu_find">Rechercher</string>
   <string name="menu_help">Aide</string>
   <string name="menu_erase">Supprimer le nœud</string>
-  <string name="menu_set_position">Position</string>
   <string name="menu_split">Scinder</string>
   <string name="menu_remove_node_from_way">Supprimer un nœud d\'un chemin</string>
   <string name="menu_start_end_way">Début/Fin du chemin</string>
@@ -1030,6 +1032,7 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="menu_layers_enable_bookmarkslayer">Activer le calque de favoris</string>
   <string name="menu_layers_configure">Configurer…</string>
   <string name="menu_layers_background_align">Aligner l\'imagerie...</string>
+  <!--Download along dialog-->
   <!---->
   <string name="menu_tools_apply_local_offset">Appliquer le décalage enregistré à l\'imagerie</string>
   <string name="menu_tools_background_contrast">Contraste</string>
@@ -1436,6 +1439,7 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="undo">Annuler</string>
   <string name="redo">Refaire</string>
   <string name="undo_nothing">Plus rien à annuler</string>
+  <!--background / forground services-->
   <string name="tracking_active_title">Service en tâche de fond de Vespucci</string>
   <string name="tracking_active_title_short">Service de tâche de fond actif</string>
   <string name="tracking_active_text">Enregistrement d\'une trace GPS ou téléchargement automatique</string>

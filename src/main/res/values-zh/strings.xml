@@ -143,8 +143,10 @@
   <string name="imagery_offset_date">创建</string>
   <string name="imagery_offset_zoom">放大</string>
   <string name="imagery_offset_distance">距离</string>
+  <!--Position modal-->
   <string name="set_position_datum_label">大地基准点</string>
   <string name="WGS84">WGS84</string>
+  <!---->
   <string name="tag_editor_name_suggestion">建议名称</string>
   <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">此建议可以用更流行的标记值替换某些标记值。</string>
@@ -377,9 +379,8 @@
   <string name="undo_location_zoom">缩放到地点，然后撤销</string>
   <!--Value widget dialogs-->
   <!--Feedback activity-->
-  <string name="feedback_with_displayname">发送时带上您的 OpenStreetMap 显示名称</string>
-  <string name="feedback_displayname_hint">暂未取回 OpenStreetMap 显示名称</string>
   <string name="feedback_title">向开发者反馈</string>
+  <string name="feedback_with_displayname">发送时带上您的 OpenStreetMap 显示名称</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">下载 OpenStreetMap 数据</string>
   <!--Clear/Reset GPX Track-->
@@ -578,6 +579,7 @@
   <string name="prune">删减</string>
   <string name="check">检查</string>
   <string name="download">下载</string>
+  <string name="pause">Pause</string>
   <!--Read a file-->
   <string name="read">读取</string>
   <string name="load">加载</string>
@@ -706,7 +708,6 @@
   <string name="menu_find">查找</string>
   <string name="menu_help">帮助</string>
   <string name="menu_erase">擦除节点</string>
-  <string name="menu_set_position">位置</string>
   <string name="menu_split">分开</string>
   <string name="menu_remove_node_from_way">从路径中移除节点</string>
   <string name="menu_extract">提取节点</string>
@@ -814,6 +815,7 @@
   <string name="menu_layers_add_photolayer">启用照片图层</string>
   <string name="menu_layers_enable_mapillary_layer">启用 Mapillary 图层</string>
   <string name="menu_layers_configure">设置…</string>
+  <!--Download along dialog-->
   <!---->
   <string name="menu_tools_apply_local_offset">应用保存的影像偏移</string>
   <string name="menu_tools_background_contrast">对比</string>
@@ -1153,6 +1155,7 @@
   <string name="undo">撤销</string>
   <string name="redo">重做</string>
   <string name="undo_nothing">没什么可撤销</string>
+  <!--background / forground services-->
   <string name="tracking_active_title">Vespucci 后台服务</string>
   <string name="tracking_active_title_short">启用后台服务</string>
   <string name="tracking_active_text">记录 GPS 轨迹或自动下载</string>

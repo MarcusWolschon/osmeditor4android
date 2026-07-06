@@ -35,7 +35,7 @@
     <string name="help_tag_only_mode">Режим тільки тегів</string>
     <string name="help_indoor_mode">Режим внутрішніх приміщень</string>
     <string name="help_address_mode">Режим адрес</string>
-    <string name="help_upgrade">22.0. Інформація про версію</string>
+    <string name="help_upgrade_220">22.0. Інформація про версію</string>
     <string name="help_upgrade_212">21.2 Примітки до випуску</string>
     <string name="help_upgrade_211">21.1 Примітки до випуску</string>
     <string name="help_upgrade_210">21.0 Примітки до випуску</string>
@@ -106,6 +106,7 @@
         <item>@string/help_voice_commands</item>
         <item>@string/help_add_route_segment</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_220</item>
         <item>@string/help_upgrade_212</item>
         <item>@string/help_upgrade_211</item>
         <item>@string/help_upgrade_210</item>
@@ -177,6 +178,7 @@
         <item>Address mode</item>
         <item>Voice commands</item>
         <item>Add route segment</item>
+        <item>22.1.0 Release notes</item>
         <item>22.0.0 Release notes</item>
         <item>21.2.0 Release notes</item>
         <item>21.1.0 Release notes</item>

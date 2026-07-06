@@ -278,8 +278,10 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="imagery_offset_date">Creato</string>
   <string name="imagery_offset_zoom">Ingrandimento</string>
   <string name="imagery_offset_distance">Distanza</string>
+  <!--Position modal-->
   <string name="set_position_datum_label">dato geodetico</string>
   <string name="WGS84">WGS84</string>
+  <!---->
   <string name="tag_editor_name_suggestion">Suggerimento del nome</string>
   <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">Questo suggerimento può rimpiazzare alcune valori di etichette con altri più popolari.</string>
@@ -512,6 +514,7 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="layer_toast_playback_finished">Riproduzione conclusa</string>
   <string name="layer_toast_playback_paused">Riproduzione in pausa</string>
   <string name="layer_toast_playback_resumed">Riproduzione ripresa</string>
+  <string name="layer_auto_prune">Riduzione automatica</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">Zoom minimo</string>
   <string name="layer_info_max_zoom">Zoom massimo</string>
@@ -561,9 +564,9 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="undo_location_zoom">Ingrandisci sulla posizione poi annulla</string>
   <!--Value widget dialogs-->
   <!--Feedback activity-->
-  <string name="feedback_with_displayname">Invia insieme al tuo nome utente di OpenStreetMap</string>
-  <string name="feedback_displayname_hint">Nome utente di OpenStreetMap non ancora recuperato</string>
   <string name="feedback_title">Feedback per gli sviluppatori</string>
+  <string name="feedback_with_displayname">Invia insieme al tuo nome utente di OpenStreetMap</string>
+  <string name="feedback_success_title">Successo</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Scarica dati OpenStreetMap</string>
   <!--Clear/Reset GPX Track-->
@@ -805,6 +808,7 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="check">Verifica</string>
   <string name="download">Scarica</string>
   <string name="abort">Annulla</string>
+  <string name="pause">Pausa</string>
   <string name="ignore">Ignora</string>
   <string name="select">Seleziona</string>
   <string name="skip">Salta</string>
@@ -943,7 +947,6 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="menu_find">Trova</string>
   <string name="menu_help">Aiuto</string>
   <string name="menu_erase">Cancella nodo</string>
-  <string name="menu_set_position">Posizione</string>
   <string name="menu_split">Dividi</string>
   <string name="menu_remove_node_from_way">Rimuovi nodo dalla linea</string>
   <string name="menu_start_end_way">Inizia/Termina percorso</string>
@@ -1083,6 +1086,7 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="menu_layers_enable_bookmarkslayer">Abilita strato segnalibri</string>
   <string name="menu_layers_configure">Configura...</string>
   <string name="menu_layers_background_align">Allinea immagini…</string>
+  <!--Download along dialog-->
   <!---->
   <string name="menu_tools_apply_local_offset">Applica lo scostamento memorizzato alle immagini</string>
   <string name="menu_tools_background_contrast">Contrasto</string>
@@ -1331,7 +1335,6 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="config_maxDownloadSpeed_title">Max velocità per scaricamento automatico</string>
   <string name="config_maxDownloadSpeed_summary">Limite (in km/h) oltre il quale lo scaricamento automatico è sospeso.</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
-  <string name="config_autoPrune_title">Riduzione automatica</string>
   <string name="config_autoPruneNodeLimit_title">Limite di riduzione automatica</string>
   <string name="config_autoPruneNodeLimit_summary">Numero di nodi in memoria oltre al quale verrà effettuata una riduzione automatica.</string>
   <string name="config_autoPruneNodeLimit_current">%1$d Nodi</string>
@@ -1486,6 +1489,7 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="undo">Annulla</string>
   <string name="redo">Rifai</string>
   <string name="undo_nothing">niente da annullare</string>
+  <!--background / forground services-->
   <string name="tracking_active_title">Servizio in background di Vespucci</string>
   <string name="tracking_active_title_short">Servizio in background attivo</string>
   <string name="tracking_active_text">Sto registrando una traccia GPS oppure sto scaricando automaticamente i dati</string>

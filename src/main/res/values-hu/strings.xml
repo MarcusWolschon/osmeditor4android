@@ -279,8 +279,10 @@ ezt a lépést kihagyhatod, és ha szeretnéd, később is megadhatod az egyéni
   <string name="imagery_offset_zoom">Nagyítás</string>
   <string name="imagery_offset_distance">Távolság</string>
   <string name="zoom_and_offsets">Zoom %1$d\nEltolás\n%2$s°/%3$s°\n%4$sm/%5$sm</string>
+  <!--Position modal-->
   <string name="set_position_datum_label">Geodéziai rendszer</string>
   <string name="WGS84">WGS84</string>
+  <!---->
   <string name="tag_editor_name_suggestion">Névjavaslat</string>
   <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">Ez a javaslat képes lecserélni néhány címkét népszerűbbekre.</string>
@@ -530,6 +532,7 @@ elemek megkövetelése</string>
   <string name="layer_toast_playback_finished">A lejátszás befejeződött</string>
   <string name="layer_toast_playback_paused">Lejátszás szüneteltetve</string>
   <string name="layer_toast_playback_resumed">Lejátszás folytatva</string>
+  <string name="layer_auto_prune">Automatikus tisztogatás</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">Legkisebb nagyítás</string>
   <string name="layer_info_max_zoom">Legnagyobb nagyítás</string>
@@ -587,9 +590,9 @@ elemek megkövetelése</string>
   <string name="integer_widget_usage_with_additional">A számválasztó használatához törölje valamelyik fenti érték kijelölését</string>
   <string name="date_widget_usage_with_additional">A dátumválasztó használatához vonja vissza valamelyik fenti érték kijelölését.</string>
   <!--Feedback activity-->
-  <string name="feedback_with_displayname">Elküldés az OpenStreetMapen megjelenő névvel</string>
-  <string name="feedback_displayname_hint">Az OpenStreetMapen megjelenő név még nincs lekérdezve</string>
   <string name="feedback_title">Visszajelzés a fejlesztőknek</string>
+  <string name="feedback_with_displayname">Elküldés az OpenStreetMapen megjelenő névvel</string>
+  <string name="feedback_success_title">Sikeres</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">OpenStreetMap-adatok letöltése</string>
   <!--Clear/Reset GPX Track-->
@@ -827,7 +830,6 @@ elemek megkövetelése</string>
   <string name="toast_url_check_with_msg">%1$s %2$d %3$s</string>
   <string name="toast_unexpected_element">Váratlan elemre kattintott:\n%1$s</string>
   <string name="toast_import_destination_exists">Az importálás célhelye már létezik</string>
-  <string name="toast_part_selection_not_supported">Zárt vonalaknál nem támogatott a vonalszakasz kijelölése</string>
   <string name="toast_element_has_been_deleted">Elem törölve</string>
   <string name="toast_updating_tags">Címkék frissítése…</string>
   <string name="toast_updating_parents">Szülők frissítése…</string>
@@ -874,6 +876,7 @@ elemek megkövetelése</string>
   <string name="check">Ellenőrzés</string>
   <string name="download">Letöltés</string>
   <string name="abort">Megszakítás</string>
+  <string name="pause">Pause</string>
   <string name="ignore">Figyelmen kívül hagyás</string>
   <string name="select">Kijelölés</string>
   <string name="skip">Kihagyás</string>
@@ -1018,7 +1021,6 @@ elemek megkövetelése</string>
   <string name="menu_find">Keresés</string>
   <string name="menu_help">Súgó</string>
   <string name="menu_erase">Pont törlése</string>
-  <string name="menu_set_position">Pozíció</string>
   <string name="menu_split">Szétvágás</string>
   <string name="menu_remove_node_from_way">Pont eltávolítása egy vonalból</string>
   <string name="menu_start_end_way">Vonal kezdete/vége</string>
@@ -1169,6 +1171,7 @@ elemek megkövetelése</string>
   <string name="geojson_todo_default_conversion">Alapértelmezett konverzió</string>
   <string name="geojson_todo_custom_conversion">Egyéni konverzió…</string>
   <string name="rhino_exception">&lt;br&gt;Hiba a %1$d. sorban, a %2$d. oszlopban&lt;br&gt;&lt;br&gt;%3$s</string>
+  <!--Download along dialog-->
   <!---->
   <string name="menu_tools_apply_local_offset">Tárolt eltolás alkalmazása a légifelvételekre</string>
   <string name="menu_tools_background_contrast">Kontraszt</string>
@@ -1470,7 +1473,6 @@ elemek megkövetelése</string>
   <string name="config_maxDownloadSpeed_title">Maximális sebesség automatikus letöltés közben</string>
   <string name="config_maxDownloadSpeed_summary">A korlát (km/h-ban) amely felett az automatikus letöltés felfüggesztésre kerül.</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
-  <string name="config_autoPrune_title">Automatikus tisztogatás</string>
   <string name="config_autoPrune_summary">A memóriaadatok és a feladatok automatikus tisztogatásának engedélyezése/letiltása</string>
   <string name="config_autoPruneNodeLimit_title">Automatikus tisztogatás határa</string>
   <string name="config_autoPruneNodeLimit_summary">A memóriában lévő pontok száma, amelynek az elérése tisztogatást vált ki.</string>
@@ -1648,6 +1650,7 @@ elemek megkövetelése</string>
   <string name="undo">Visszavonás</string>
   <string name="redo">Újra</string>
   <string name="undo_nothing">Nincs mit visszavonni</string>
+  <!--background / forground services-->
   <string name="tracking_active_title">Vespucci háttérszolgáltatás</string>
   <string name="tracking_active_title_short">A háttérszolgáltatás aktív</string>
   <string name="tracking_active_text">GPS nyomvonal rögzítése vagy automatikus letöltés</string>

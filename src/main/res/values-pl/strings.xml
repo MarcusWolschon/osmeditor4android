@@ -208,8 +208,10 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <string name="imagery_offset_date">Utworzone</string>
   <string name="imagery_offset_zoom">Przybliżenie</string>
   <string name="imagery_offset_distance">Odległość</string>
+  <!--Position modal-->
   <string name="set_position_datum_label">Układ współrzędnych geodezyjnych</string>
   <string name="WGS84">WGS84</string>
+  <!---->
   <string name="tag_editor_name_suggestion">Propozycja nazwy</string>
   <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">Ta sugestia może zastąpić niektóre wartości znaczników bardziej popularnymi.</string>
@@ -441,9 +443,9 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <string name="undo_location_zoom">Przenieś do tego miejsca, potem wycofaj</string>
   <!--Value widget dialogs-->
   <!--Feedback activity-->
-  <string name="feedback_with_displayname">Prześlij wraz ze swoją wyświetlaną nazwą OpenStreetMap</string>
-  <string name="feedback_displayname_hint">Wyświetlana nazwa OpenStreetMap nie została jeszcze pobrana</string>
   <string name="feedback_title">Kontakt z twórcami</string>
+  <string name="feedback_with_displayname">Prześlij wraz ze swoją wyświetlaną nazwą OpenStreetMap</string>
+  <string name="feedback_success_title">Sukces</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Pobierz dane OpenStreetMap</string>
   <!--Clear/Reset GPX Track-->
@@ -624,6 +626,7 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <string name="check">Sprawdź</string>
   <string name="download">Pobierz</string>
   <string name="abort">Przerwij</string>
+  <string name="pause">Pause</string>
   <string name="select">Wybierz</string>
   <string name="skip">Pomiń</string>
   <string name="osm_tags">Tagi OSM</string>
@@ -752,7 +755,6 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <string name="menu_find">Szukaj</string>
   <string name="menu_help">Pomoc</string>
   <string name="menu_erase">Wyczyść węzeł</string>
-  <string name="menu_set_position">Położenie</string>
   <string name="menu_split">Przetnij linię</string>
   <string name="menu_remove_node_from_way">Usuń węzeł z linii</string>
   <string name="menu_extract">Izoluj węzeł</string>
@@ -862,6 +864,7 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <string name="menu_layers_add_photolayer">Włącz warstwę zdjęć</string>
   <string name="menu_layers_enable_mapillary_layer">Włącz warstwę Mapillary</string>
   <string name="menu_layers_configure">Konfiguracja…</string>
+  <!--Download along dialog-->
   <!---->
   <string name="menu_tools_apply_local_offset">Zastosuj zapamiętaną poprawkę położenia tła</string>
   <string name="menu_tools_background_contrast">Kontrast</string>
@@ -1179,6 +1182,7 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <string name="undo">Cofnij</string>
   <string name="redo">Ponów</string>
   <string name="undo_nothing">nie ma nic do cofnięcia</string>
+  <!--background / forground services-->
   <string name="tracking_active_title">Usługa Vespucci w tle</string>
   <string name="tracking_active_title_short">Usługa w tle aktywna</string>
   <string name="tracking_active_text">Rejestrowanie śladu GPS lub automatyczne pobieranie</string>

@@ -39,6 +39,8 @@
   <string name="deleting_references_on_server">…poistamalla viittaukset palvelimelta</string>
   <string name="unexpected_conflict_type">Odottamaton ristiriidan tyyppi</string>
   <!--Upload retry-->
+  <string name="upload_retry_title">Lähetys epäonnistui</string>
+  <string name="upload_retry_message_update_failed_title">Päivitys epäonnistui</string>
   <string name="save_changes">Tallenna muutokset</string>
   <!---->
   <string name="no_login_data_title">Kirjautuminen epäonnistui</string>
@@ -81,6 +83,7 @@
   <string name="applying_osc_failed_message">Todennäköisin syy on, ettet ole ladannut kaikkea sitä alkuperäistä dataa, johon muutoksia olisi tehtävä.</string>
   <string name="duplicate_tag_key_title">Sama avain useamman kerran</string>
   <string name="duplicate_tag_key_message">Olet lisännyt seuraavan avaimen useamman kerran, etkä voi jatkaa ennen kuin ongelma on ratkaistu:</string>
+  <string name="upload_bounding_box_too_large_title">Alue on liian suuri lähetettäväksi</string>
   <!---->
   <string name="select_file_picker_title">Valitse tiedostoselain</string>
   <!--Newbie dialog-->
@@ -200,8 +203,10 @@
   <string name="imagery_offset_date">Luotu</string>
   <string name="imagery_offset_zoom">Suurennus</string>
   <string name="imagery_offset_distance">Etäisyys</string>
+  <!--Position modal-->
   <string name="set_position_datum_label">Geodeettinen datumi</string>
   <string name="WGS84">WGS84</string>
+  <!---->
   <string name="tag_editor_name_suggestion">Nimiehdotus</string>
   <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">Tämä ehdotus voi korvata jotkin tägit suositummilla tägeillä.</string>
@@ -477,9 +482,9 @@
   <string name="undo_location_zoom">Siirry sijaintiin, ja peru sitten</string>
   <!--Value widget dialogs-->
   <!--Feedback activity-->
-  <string name="feedback_with_displayname">Lähetä OpenStreetMapin näyttönimellä</string>
-  <string name="feedback_displayname_hint">OpenStreetMapin näyttönimeä ei ole vielä haettu</string>
   <string name="feedback_title">Palautetta kehittäjille</string>
+  <string name="feedback_with_displayname">Lähetä OpenStreetMapin näyttönimellä</string>
+  <string name="feedback_success_title">Onnistui</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Lataa dataa OpenStreetMapistä</string>
   <!--Clear/Reset GPX Track-->
@@ -694,7 +699,6 @@
   <string name="toast_url_check_with_msg">%1$s %2$d %3$s</string>
   <string name="toast_unexpected_element">Odottamatonta elementtiä napsautettiin:\n%1$s</string>
   <string name="toast_import_destination_exists">Tuonnin kohdetiedosto on jo olemassa</string>
-  <string name="toast_part_selection_not_supported">Viivan osan valintaa tueta suljetuille viivoille</string>
   <string name="toast_element_has_been_deleted">Elementti on jo poistettu</string>
   <string name="toast_updating_tags">Päivitetään tägejä...</string>
   <string name="toast_updating_parents">Päivitetään emoelementtejä...</string>
@@ -729,6 +733,7 @@
   <string name="check">Tarkista</string>
   <string name="download">Lataa</string>
   <string name="abort">Keskeytä</string>
+  <string name="pause">Pause</string>
   <string name="ignore">Sivuuta</string>
   <string name="select">Yhden kohteen valitseminen</string>
   <string name="skip">Ohita</string>
@@ -866,7 +871,6 @@
   <string name="menu_find">Etsi</string>
   <string name="menu_help">Ohje</string>
   <string name="menu_erase">Poista piste</string>
-  <string name="menu_set_position">Sijainti</string>
   <string name="menu_split">Jaa kahtia</string>
   <string name="menu_remove_node_from_way">Poista piste viivasta</string>
   <string name="menu_start_end_way">Viivan alku/loppu</string>
@@ -1006,6 +1010,7 @@
   <string name="menu_layers_enable_bookmarkslayer">Näytä kirjanmerkkitaso</string>
   <string name="menu_layers_configure">Asetukset...</string>
   <string name="menu_layers_background_align">Kohdista kuvataso...</string>
+  <!--Download along dialog-->
   <!---->
   <string name="menu_tools_apply_local_offset">Käytä tallennettua siirrosta kuvatasolle</string>
   <string name="menu_tools_background_contrast">Kontrasti</string>
@@ -1413,6 +1418,7 @@
   <string name="undo">Peru</string>
   <string name="redo">Toista</string>
   <string name="undo_nothing">Ei mitään peruttavaa</string>
+  <!--background / forground services-->
   <string name="tracking_active_title">Vespuccin taustapalvelin</string>
   <string name="tracking_active_title_short">Taustapalvelin käytössä</string>
   <string name="tracking_active_text">GPX-jäljen tallennus tai automaattilataus meneillään.</string>

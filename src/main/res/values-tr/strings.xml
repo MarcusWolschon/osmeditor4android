@@ -152,8 +152,10 @@
   <string name="imagery_offset_date">Oluşturuldu</string>
   <string name="imagery_offset_zoom">Yakınlaş</string>
   <string name="imagery_offset_distance">Mesafe</string>
+  <!--Position modal-->
   <string name="set_position_datum_label">Jeodezik zaman</string>
   <string name="WGS84">WGS84</string>
+  <!---->
   <string name="tag_editor_name_suggestion">İsim tavsiyesi</string>
   <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">Bu öneri, bazı etiket değerlerini daha bilinir olanlarla değiştirebilir.</string>
@@ -377,9 +379,8 @@
   <string name="undo_location_zoom">Konuma yakınlaştır, sonra geri al</string>
   <!--Value widget dialogs-->
   <!--Feedback activity-->
-  <string name="feedback_with_displayname">OpenStreetMap görünen adınızla gönder</string>
-  <string name="feedback_displayname_hint">OpenStreetMap görünen adı henüz alınmadı</string>
   <string name="feedback_title">Geliştiriciler için geri bildirim</string>
+  <string name="feedback_with_displayname">OpenStreetMap görünen adınızla gönder</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">OpenStreetMap verisini indir</string>
   <!--Clear/Reset GPX Track-->
@@ -570,6 +571,7 @@
   <string name="prune">Buda</string>
   <string name="check">Denetle</string>
   <string name="download">İndir</string>
+  <string name="pause">Durdur</string>
   <string name="select">Seçiniz</string>
   <!--Read a file-->
   <string name="read">Oku</string>
@@ -699,7 +701,6 @@
   <string name="menu_find">Bul</string>
   <string name="menu_help">Yardım</string>
   <string name="menu_erase">Düğümü sil</string>
-  <string name="menu_set_position">Pozisyon</string>
   <string name="menu_split">Böl</string>
   <string name="menu_remove_node_from_way">Düğümü yoldan kaldır</string>
   <string name="menu_extract">Düğümü çıkar</string>
@@ -806,6 +807,7 @@
   <string name="menu_layers_add_photolayer">Fotoğraf katmanını etkinleştir</string>
   <string name="menu_layers_enable_mapillary_layer">Mapillary katmanını etkinleştir</string>
   <string name="menu_layers_configure">Yapılandır…</string>
+  <!--Download along dialog-->
   <!---->
   <string name="menu_tools_apply_local_offset">Kaydedilmiş ofseti görüntülere uygulayın</string>
   <string name="menu_tools_background_contrast">Karşıtlık</string>
@@ -1129,6 +1131,7 @@
   <string name="undo">Geri al</string>
   <string name="redo">Yinele</string>
   <string name="undo_nothing">geri alınacak bir şey yok</string>
+  <!--background / forground services-->
   <string name="tracking_active_title">Vespucci arkaplan hizmeti</string>
   <string name="tracking_active_title_short">Arkaplan hizmeti etkin</string>
   <string name="tracking_active_text">GPS izini kaydetme veya otomatik indirme</string>

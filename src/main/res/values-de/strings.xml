@@ -168,7 +168,8 @@
   <string name="progress_searching_message">Suchen…</string>
   <string name="progress_saving_message">Speichern…</string>
   <string name="progress_uploading_message">Hochladen…</string>
-  <string name="progress_resource_message">Ressource wird herunterladen…</string>
+  <string name="progress_resource_download_message">Ressource wird herunterladen…</string>
+  <string name="progress_resource_load_message">Ressource wird geladen…</string>
   <string name="progress_loading_preset_message">Vorlage laden...</string>
   <string name="progress_importing_file_message">Datei wird importiert…</string>
   <string name="progress_running_message">Wird ausgeführt…</string>
@@ -289,8 +290,10 @@
   <string name="imagery_offset_zoom">Zoomstufe</string>
   <string name="imagery_offset_distance">Entfernung</string>
   <string name="zoom_and_offsets">Zoom %1$d\nVersatz\n%2$s°/%3$s°\n%4$s m/%5$s m</string>
+  <!--Position modal-->
   <string name="set_position_datum_label">Geodätisches Datum</string>
   <string name="WGS84">WGS84</string>
+  <!---->
   <string name="tag_editor_name_suggestion">Vorschläge für Namen</string>
   <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">Dieser Vorschlag kann bestehende Tag-Werte durch beliebtere ersetzen</string>
@@ -556,6 +559,7 @@
   <string name="layer_toast_playback_finished">Wiedergabe beendet</string>
   <string name="layer_toast_playback_paused">Wiedergabe pausiert</string>
   <string name="layer_toast_playback_resumed">Wiedergabe wiederaufgenommen</string>
+  <string name="layer_auto_prune">Automatisches Beschneiden</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">Minimaler Zoom</string>
   <string name="layer_info_max_zoom">Maximaler Zoom</string>
@@ -567,6 +571,7 @@
   <string name="errors">Fehler</string>
   <string name="layer_info_layer_not_available">Keine Ebeneninformation verfügbar</string>
   <string name="layer_info_no_meta_data">Metadaten nicht geladen</string>
+  <string name="layer_info_custom_headers">Benutzerdefinierte HTTP-Kopfzeilen</string>
   <!--Mapillary layer-->
   <string name="mapillary_image">%1$s</string>
   <!--Date range dialog-->
@@ -613,9 +618,9 @@
   <string name="integer_widget_usage_with_additional">Hebe die Markierung eines beliebigen Wertes auf, um den Nummernpicker zu verwenden</string>
   <string name="date_widget_usage_with_additional">Hebe die Markierung eines beliebigen Wertes auf, um den Datumspicker zu verwenden</string>
   <!--Feedback activity-->
-  <string name="feedback_with_displayname">Mit OpenStreetMap-Benutzernamen senden</string>
-  <string name="feedback_displayname_hint">OpenStreetMap-Benutzername noch nicht abgerufen</string>
   <string name="feedback_title">Rückmeldung an die Entwickler</string>
+  <string name="feedback_with_displayname">Mit OpenStreetMap-Benutzernamen senden</string>
+  <string name="feedback_success_title">Erfolg</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">OSM-Daten herunterladen</string>
   <!--Clear/Reset GPX Track-->
@@ -649,6 +654,7 @@
   <string name="tip_wms_tile_size">WMS-Server können größere Kachelgrößen als 256x256 unterstützen. Für eine effizientere Konfiguration solltest du 512x512 verwenden.</string>
   <string name="tip_empty_comment_warning">Vespucci fügt immer eine automatisch erstellte Zusammenfassung dessen hinzu, was du hochgeladen hast.&lt;p&gt;Du solltest trotzdem ein paar Worte hinzufügen, warum du die Änderungen vorgenommen hast, um anderen Mappern mehr Kontext zu geben.</string>
   <string name="tip_wikimedia_filename">Stets einen aussagekräftigen und eindeutigen Dateinamen verwenden, insbesondere keinen von der Kamera generierten, da Wikimedia den Upload sonst ablehnt.</string>
+  <string name="tip_address_interpolation">Dieses Werkzeug dient zum Hinzufügen von Adressinterpolationen im Adressmodus. Wenn Sie ein anderes Objekt hinzufügen möchten, wechseln Sie in den Normalmodus und verwenden Sie das Werkzeug „Weg hinzufügen“.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -866,7 +872,6 @@
   <string name="toast_url_check_with_msg">%1$s %2$d %3$s</string>
   <string name="toast_unexpected_element">Unerwartetes Element angeklickt:\n%1$s</string>
   <string name="toast_import_destination_exists">Datei ist bereits importiert</string>
-  <string name="toast_part_selection_not_supported">Wegteil-Auswahl wird für geschlossene Wege nicht unterstützt</string>
   <string name="toast_element_has_been_deleted">Element wurde gelöscht</string>
   <string name="toast_updating_tags">Tags aktualisieren...</string>
   <string name="toast_updating_parents">Aktualisierung der Elternelemente...</string>
@@ -915,6 +920,7 @@
   <string name="check">Prüfen</string>
   <string name="download">Herunterladen</string>
   <string name="abort">Abbrechen</string>
+  <string name="pause">Pause</string>
   <string name="ignore">Ignorieren</string>
   <string name="select">Auswählen</string>
   <string name="skip">Überspringen</string>
@@ -1061,7 +1067,6 @@
   <string name="menu_help">Hilfe</string>
   <string name="menu_view">Anzeigen…</string>
   <string name="menu_erase">Knoten löschen</string>
-  <string name="menu_set_position">Position</string>
   <string name="menu_split">Auftrennen</string>
   <string name="menu_remove_node_from_way">Knoten aus Weg entfernen</string>
   <string name="menu_start_end_way">Start/Ende des Wegs</string>
@@ -1214,6 +1219,7 @@
   <string name="geojson_todo_default_conversion">Standardkonvertierung</string>
   <string name="geojson_todo_custom_conversion">Individuelle Konvertierung...</string>
   <string name="rhino_exception">&lt;br&gt;Fehler in Zeile %1$d, Spalte %2$d&lt;br&gt;&lt;br&gt;%3$s</string>
+  <!--Download along dialog-->
   <!---->
   <string name="menu_tools_apply_local_offset">Gespeicherten Hintergrundversatz anwenden</string>
   <string name="menu_tools_background_contrast">Kontrast</string>
@@ -1510,8 +1516,13 @@
   <string name="config_replaceTolerance_title">Maximale Entfernung zum Verschieben des markierten Knotens</string>
   <string name="config_replaceTolerance_summary">Maximale Entfernung, um die ein markierter Knoten beim Ersetzen der Weggeometrie verschoben werden kann.</string>
   <string name="config_replaceTolerance_current">%1$d Meter</string>
+  <string name="config_minMoveWayNodesWarning_title">Mindestanzahl an Wegknoten für eine Bewegungswarnung</string>
+  <string name="config_minMoveWayNodesWarning_summary">Mindestzahl an Knoten eines Weges, bei der vor unbeabsichtigtem Verschieben desselben gewarnt wird.</string>
   <string name="config_minMoveWayNodesWarning_current">%1$d</string>
+  <string name="config_minMoveVisibleWayNodesWarning_title">Mindestanzahl an Wegknoten für eine Bewegungswarnung bei sichtbaren Knoten</string>
+  <string name="config_minMoveVisibleWayNodesWarning_summary">Die Mindestanzahl an Knoten, über die ein Weg verfügen muss, damit die Überprüfung der sichtbaren Knoten und eine mögliche Warnung ausgelöst werden.</string>
   <string name="config_minMoveVisibleWayNodesWarning_current">%1$d</string>
+  <string name="config_ignoreSubareas_summary">Übergeordnete Beziehungen von Unterbereichen im Eingabedialog zur Begriffsklärung nicht anzeigen.</string>
   <string name="config_ignoreSubareas_title">Subareas ignorieren</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Auto-Download-Einstellungen</string>
@@ -1522,7 +1533,6 @@
   <string name="config_maxDownloadSpeed_title">Höchstgeschwindigkeit für Auto-Download</string>
   <string name="config_maxDownloadSpeed_summary">Geschwindigkeit (in km/h), über der der Auto-Download pausiert wird.</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
-  <string name="config_autoPrune_title">Automatisches Beschneiden</string>
   <string name="config_autoPrune_summary">Automatisches Bereinigen von Speicherdaten und Aufgaben aktivieren/deaktivieren</string>
   <string name="config_autoPruneNodeLimit_title">Grenzwert für automatisches Beschneiden</string>
   <string name="config_autoPruneNodeLimit_summary">Anzahl der Knoten im Speicher, die ein Beschneiden auslöst.</string>
@@ -1630,6 +1640,10 @@
   <string name="config_voiceCommandsEnabled_summary">Unterstützung von Sprachbefehlen aktivieren</string>
   <string name="config_splitWindowForPropertyEditor_summary">Anzeige des Eigenschaftseditors in einem separaten Fenster aktivieren, falls verfügbar.</string>
   <string name="config_splitWindowForPropertyEditor_title">Eigenschaftseditor im geteilten Fenster aktivieren</string>
+  <string name="config_splitWindowForReview_summary">Die Anzeige des Übersichtsbildschirms in einem separaten Fenster aktivieren, sofern verfügbar.</string>
+  <string name="config_splitWindowForReview_title">Anzeige im geteilten Fenster aktivieren</string>
+  <string name="config_tabLayout_summary">Immer das Tab-Layout des Eigenschafteneditors verwenden. Dies ist vor allem auf Geräten nützlich, die im Desktop-Modus laufen und anderenfalls das Fensterlayout verwenden würden.</string>
+  <string name="config_tabLayout_title">Tab-Layout des Eigenschafteneditors erzwingen</string>
   <string name="config_newTaskForPropertyEditor_summary">FLAG_ACTIVITY_NEW_TASK beim Start des Eigenschaftseditors aktivieren. Dies kann das Verhalten bestimmter Startprogramme beim Fortsetzen der App verbessern.</string>
   <string name="config_newTaskForPropertyEditor_title">Modus „new task“ für den Eigenschaftseditor verwenden</string>
   <!---->
@@ -1652,6 +1666,7 @@
   <string name="resource_download_successful">Ressource heruntergeladen.</string>
   <string name="resource_load_successful">Ressource geladen</string>
   <string name="resource_download_failed">Die Ressource konnte nicht heruntergeladen werden. Die Ressource wird nicht funktionieren.</string>
+  <string name="resource_load_failed">Die Ressource konnte nicht geladen werden. Die Ressource wird nicht funktionieren.</string>
   <string name="preset_download_parse_failed">Die Ressourcendatei ist ungültig. Die Ressource wird nicht funktionieren.</string>
   <string name="preset_download_missing_images">Die Vorlagendatei wurde heruntergeladen. Einige Symbole fehlen allerdings.</string>
   <string name="resource_download_title">Ressourcen-Download</string>
@@ -1718,6 +1733,7 @@
   <string name="undo">Rückgängig</string>
   <string name="redo">Wiederholen</string>
   <string name="undo_nothing">Nichts rückgängig zu machen</string>
+  <!--background / forground services-->
   <string name="tracking_active_title">Vespucci-Hintergrunddienst</string>
   <string name="tracking_active_title_short">Hintergrunddienst aktiv</string>
   <string name="tracking_active_text">Ein GPS-Track wird aufgezeichnet oder Daten automatisch heruntergeladen</string>
@@ -1815,6 +1831,7 @@ in %1$d m %2$s</string>
   <string name="issue_tags_reversed">Eigenschaften gedreht</string>
   <string name="issue_role_reversed">Rolle umgedreht</string>
   <string name="issue_oneway_direction_reversed">Einbahnrichtung umgekehrt</string>
+  <string name="issue_oneway_reversing_not_supported">Nicht unterstütztes Einweg-Tag</string>
   <string name="issue_role_conflict">Rollenkonflikt</string>
   <string name="issue_merged_tags">Eigenschaften zusammengeführt</string>
   <string name="issue_same_object">Das selbe Objekt</string>
@@ -1900,6 +1917,7 @@ in %1$d m %2$s</string>
   <string name="keyboard_shortcut_reset">Zurücksetzen</string>
   <string name="keyboard_shortcut_saved">Tastaturkürzel gespeichert</string>
   <string name="keyboard_shortcut_save_error">Fehler beim Speichern des Kürzels</string>
+  <string name="keyboard_shortcuts_reset_all">Alles auf Standardwerte zurücksetzen</string>
   <string name="keyboard_shortcuts_reset_title">Tastenkürzel zurücksetzen</string>
   <string name="keyboard_shortcut_key_required">Buchstabentaste fehlt</string>
   <string name="keyboard_shortcut_duplicate">Doppelter Tastaturkürzel</string>

@@ -92,7 +92,7 @@
   <string name="bounding_box_too_large_message">ダウンロードを試みた範囲が大きすぎるか、データが多すぎます。
 　&lt;br&gt;&lt;br&gt;更に拡大して、再びお試しください。</string>
   <string name="api_offline_title">APIがオフライン</string>
-  <string name="api_offline_message">APIは現在オフラインです。データを検索または書き込みできません。</string>
+  <string name="api_offline_message">APIは現在オフラインです。データを検索することも書き込むこともできません。</string>
   <string name="out_of_memory_title">メモリ不足</string>
   <string name="out_of_memory_message">Vespucciは要求されたデータを読み込めませんでした。再び開始して、範囲を小さく読み込んでください。</string>
   <string name="out_of_memory_dirty_message">Vespucciは要求されたデータを読み込めませんでした。編集を保存し、再び開始して、範囲を小さく読み込んでください。</string>
@@ -113,8 +113,8 @@
   <string name="duplicate_tag_key_title">重複キー</string>
   <string name="duplicate_tag_key_message">次のキーを複数回追加しています。これを解決しないと先に進めません：</string>
   <string name="autodownload_has_been_paused">自動ダウンロードは一時停止しました。</string>
-  <string name="upload_bounding_box_too_large_title">アップロードするデータが大きすぎます</string>
-  <string name="upload_bounding_box_too_large_message">アップデートによって変更を試みている領域が大きすぎます。
+  <string name="upload_bounding_box_too_large_title">アップロードする範囲が大きすぎます</string>
+  <string name="upload_bounding_box_too_large_message">アップロードによって変更を試みている範囲が大きすぎます。
 　&lt;br&gt;&lt;br&gt;変更点を分割して、複数の小さな変更セットにしてください。
 　これを行うには、変更する要素の部分集合を選択してから、それらを分割してアップロードします。</string>
   <string name="upload_way_needs_one_node_title">ウェイには少なくとも１つのノードが必要</string>
@@ -171,7 +171,8 @@
   <string name="progress_searching_message">検索中...</string>
   <string name="progress_saving_message">保存中...</string>
   <string name="progress_uploading_message">アップロード中…</string>
-  <string name="progress_resource_message">リソースをダウンロード中…</string>
+  <string name="progress_resource_download_message">リソースをダウンロード中…</string>
+  <string name="progress_resource_load_message">リソースを読み込み中…</string>
   <string name="progress_loading_preset_message">プリセットを読み込み中…</string>
   <string name="progress_importing_file_message">ファイルを取り込み中</string>
   <string name="progress_running_message">実行中…</string>
@@ -182,6 +183,7 @@
   <string name="progress_migration">移行中…</string>
   <string name="progress_determining_status_message">状態特定中…</string>
   <string name="progress_updating_message">更新中…</string>
+  <string name="progress_validation_title">妥当性検査中</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" の削除</string>
   <string name="changes_changed">\"%1$s\" の変更</string>
@@ -242,6 +244,8 @@
   <string name="bug_element_2">%1$s %2$s</string>
   <string name="maproulette_task_title">MapRoulette課題</string>
   <string name="maproulette_task_coords">経度 %1$4g, 緯度 %2$4g</string>
+  <string name="maproulette_task_explanations">説明</string>
+  <string name="maproulette_task_instructions">指示</string>
   <string name="maproulette_task_set_apikey">MapRoulette APIキーを設定</string>
   <string name="maproulette_task_apikey_not_set">MapRoulette APIキーを保存できませんでした</string>
   <string name="maproulette_task_disable">無効化</string>
@@ -266,8 +270,10 @@
   <string name="imagery_offset_date">作成完了</string>
   <string name="imagery_offset_zoom">拡大</string>
   <string name="imagery_offset_distance">距離</string>
+  <!--Position modal-->
   <string name="set_position_datum_label">測地データ</string>
   <string name="WGS84">WGS84</string>
+  <!---->
   <string name="tag_editor_name_suggestion">名称の提案</string>
   <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">この提案は、いくつかのタグの値を、より一般的な値におきかえます。</string>
@@ -308,6 +314,8 @@
   <string name="current">現状</string>
   <string name="goto_element">要素に移動</string>
   <string name="edit_properties">タグを編集</string>
+  <string name="toast_element_not_found_on_restore">復元用記録に要素がみつかりません</string>
+  <string name="toast_element_no_prior_state">要素は変更されていますが、差分となる以前の状態が端末内にはありません。</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">GeoJSON機能の情報</string>
   <string name="vt_feature_information">ベクトルタイル機能の情報</string>
@@ -347,6 +355,8 @@
   <string name="duplicate_relation_member_message">%1$s\n\nは既にリレーションのメンバーです。</string>
   <string name="remove_relation_member_title">リレーションのメンバーを除外</string>
   <string name="remove_relation_member_message">%1$s 個</string>
+  <string name="relation_member_no_match_warning">\n\n警告:\n\nその要素は、この種類のリレーションでプリセットが定義するメンバーフィルターに一致しません。</string>
+  <string name="duplicate_relation_member_remove_button">メンバーを除外</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">外周からマルチポリゴンにタグを移す</string>
   <string name="move_outer_tags_message">物体に定義するタグはマルチポリゴン上だけに存在するべきです。この動作は、外枠からマルチポリゴンへ共通のタグを移動します。</string>
@@ -503,6 +513,7 @@
   <string name="layer_add_gpx">GPXファイルからレイヤーを追加…</string>
   <string name="layer_download_track">GPX経路をダウンロード…</string>
   <string name="layer_available_tracks">入手可能なGPX経路</string>
+  <string name="layer_auto_prune">自動節減</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">最小拡大</string>
   <string name="layer_info_max_zoom">最大拡大</string>
@@ -550,9 +561,9 @@
   <string name="undo_location_zoom">対象地点に拡大してから元に戻す</string>
   <!--Value widget dialogs-->
   <!--Feedback activity-->
-  <string name="feedback_with_displayname">OpenStreetMap表示名付きで送信</string>
-  <string name="feedback_displayname_hint">OpenStreetMap表示名を見つけられません</string>
   <string name="feedback_title">開発者のためにフィードバック</string>
+  <string name="feedback_with_displayname">OpenStreetMap表示名付きで送信</string>
+  <string name="feedback_success_title">成功</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">OpenStreetMapデータをダウンロード</string>
   <!--Clear/Reset GPX Track-->
@@ -562,7 +573,7 @@
   <string name="tip_title">ご存知でしょうか</string>
   <string name="tip_check_label">これ以上の助言の表示を停止</string>
   <string name="tip_undo">元に戻すボタンを長押しすると、全ての「元に戻す」と「やり直し」の チェックポイントが表示されます。</string>
-  <string name="tip_imagery_privacy">背景とオーバーレイのレイヤーは第三者から提供されています。レイヤーを使用すると、あなたのネットワークアドレスと、閲覧している領域を大まかに示す情報が、提供元に送信されます。&lt;p&gt;提供元が個人情報保護方針の情報を提供している場合は、レイヤーのダイアログ内の「情報」メニューで表示できます。</string>
+  <string name="tip_imagery_privacy">背景とオーバーレイのレイヤーは第三者から提供されています。レイヤーを使用すると、あなたのネットワークアドレスと、閲覧している範囲を大まかに示す情報が、提供元に送信されます。&lt;p&gt;提供元が個人情報保護方針の情報を提供している場合は、レイヤーのダイアログ内の「情報」メニューで表示できます。</string>
   <string name="tip_mapillary_privacy">MapillaryはFacebook傘下のスウェーデン企業Mapillary ABによって提供されています。このサービスを使用すると、あなたのネットワークのアドレスとあなたが閲覧した画像についての情報がこの企業に伝わります。</string>
   <string name="tip_panoramax_privacy">Panoramaxは第三者の提供するサービスで、デフォルトのサーバーはOpenStreetMap Franceが運営していますが、設定でサーバーを変更可能です。このサービスを使用すると、あなたのネットワークアドレスとあなたが閲覧した画像についての情報がサービスの運営者に伝わります。</string>
   <string name="tip_pan_and_zoom_auto_download">描画範囲の移動や拡大で自動ダウンロードを行うと、OpenStreetMapのAPIとあなたの端末の双方に、酷く重い負荷を発生させる可能性があることに注意してください。&lt;p&gt;オフラインのデータソースを利用すると、APIサーバへの負荷を避けることができます。</string>
@@ -665,6 +676,7 @@
   <string name="toast_no_suitable_storage">タイルシステムからタイルデータベース用の適切な位置が返ってきませんでした。</string>
   <string name="toast_min_one_preset">少なともプリセットをひとつ選ばなければなりません！</string>
   <string name="toast_min_one_geocoder">少なくともジオコーダーをひとつ選ばなければなりません！</string>
+  <string name="toast_min_one_style">少なくともひとつの様式が選択されなければなりません!</string>
   <string name="toast_used_backup">状態ファイルが壊れています。代わりにバックアップファイルを使用しました。</string>
   <string name="toast_used_bug_backup">バグ状態ファイルが壊れています。代わりにバックアップファイルを使用しました。</string>
   <string name="toast_tile_database_issue_short">タイルデータベースの問題</string>
@@ -746,6 +758,10 @@
   <string name="toast_invalid_number_format">無効な番号の書式 %1$s</string>
   <string name="toast_error_downloading_mapillary_image">mapillary画像 %1$s のダウンロード中にエラー</string>
   <string name="toast_error_downloading_mapillary_sequences">mapillary 一連 %1$s のダウンロード中にエラー</string>
+  <string name="toast_nothing_changed">変更なし</string>
+  <string name="toast_preset_failed">プリセット %1$s の作成に失敗しました\nエラー %2$s</string>
+  <string name="toast_outer_rings_differing_tags">外側の輪が、不一致のタグを持ちます</string>
+  <string name="toast_multipolygon_has_incomplete_rings">マルチポリゴンが、未完成の輪を持ちます</string>
   <string name="toast_error_saving_bookmark">ブックマークを保存できません</string>
   <string name="toast_error_loading_style">様式を読み込めません: %1$s</string>
   <string name="toast_only_one_source_supported">1つの様式につき1つの発信源のみ対応</string>
@@ -797,6 +813,7 @@
   <string name="check">小切手</string>
   <string name="download">ダウンロード</string>
   <string name="abort">中止</string>
+  <string name="pause">Pause</string>
   <string name="ignore">無視</string>
   <string name="select">選択</string>
   <string name="skip">スキップ</string>
@@ -938,7 +955,6 @@
   <string name="menu_help">ヘルプ</string>
   <string name="menu_view">表示…</string>
   <string name="menu_erase">ノード削除</string>
-  <string name="menu_set_position">位置</string>
   <string name="menu_split">ウェイ分割</string>
   <string name="menu_remove_node_from_way">ウェイからノードを削除</string>
   <string name="menu_start_end_way">ウェイの開始と終了</string>
@@ -948,7 +964,7 @@
   <string name="menu_add_to_route">ルートを追加</string>
   <string name="menu_relation">リレーションを作成</string>
   <string name="menu_edit_relation">リレーションを編集</string>
-  <string name="menu_add_relation_member">メンバーを追加または削除</string>
+  <string name="menu_add_relation_member">メンバーを追加または除外</string>
   <string name="menu_select_relation_members">メンバーを選択</string>
   <string name="menu_tag">タグ編集</string>
   <string name="menu_openstreetbug">メモを追加</string>
@@ -975,7 +991,7 @@
   <string name="menu_gps_add_bookmark">ブックマークに追加…</string>
   <string name="menu_enable_gps_autodownload">現在地に追従して自動ダウンロード</string>
   <string name="menu_enable_pan_and_zoom_auto_download">描画範囲の移動や拡大で自動ダウンロード</string>
-  <string name="menu_transfer">ダウンロード・アップロード…</string>
+  <string name="menu_transfer">転送…</string>
   <string name="menu_transfer_download_current">表示領域をダウンロード</string>
   <string name="menu_transfer_download_replace">消去して表示領域をダウンロード</string>
   <string name="menu_transfer_load_current">表示領域を読み込む</string>
@@ -1084,6 +1100,7 @@
   <string name="menu_layers_background_align">空中写真…</string>
   <string name="menu_layers_convert_geojson_todo">GeoJSONオブジェクトからTodoを作成...</string>
   <string name="geojson_todo_title">GeoJSONオブジェクトからTodoを作成</string>
+  <!--Download along dialog-->
   <!---->
   <string name="menu_tools_apply_local_offset">保存されたオフセットを画像に適用</string>
   <string name="menu_tools_background_contrast">彩度</string>
@@ -1185,7 +1202,7 @@
   <string name="config_enableKeepScreenOn_title">スクリーン表示を継続</string>
   <string name="config_enableKeepScreenOn_summary">節電のために画面が切られることを防ぐ。</string>
   <string name="config_largeDragArea_title">ノードに大きな掴み範囲</string>
-  <string name="config_largeDragArea_summary">ノードを掴むために大きな範囲を提供する。</string>
+  <string name="config_largeDragArea_summary">ノードを掴むための大きな範囲を提供する。</string>
   <string name="config_wayNodeDragging_title">ウェイノードの掴みを有効化</string>
   <string name="config_wayNodeDragging_summary">選択されたウェイの個々のノードをドラッグ可能にする。</string>
   <string name="config_advancedprefs">高度な設定</string>
@@ -1194,6 +1211,7 @@
   <string name="config_presetbutton_summary">JOSM互換プリセット追加と有効化</string>
   <string name="config_built_in_preset">内蔵プリセット</string>
   <string name="config_keyboard_shortcuts_title">ショートカットキー</string>
+  <string name="config_keyboard_shortcuts_summary">キーボードショートカットの対応付けを変更</string>
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">妥当性検査設定</string>
   <string name="config_validatorprefs_summary">妥当性検査用の諸規定を設定します。</string>
@@ -1346,7 +1364,6 @@
   <string name="config_maxDownloadSpeed_title">最大自動ダウンロード速度</string>
   <string name="config_maxDownloadSpeed_summary">自動ダウンロードを一時停止させるための上限速度(km/h)</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
-  <string name="config_autoPrune_title">自動節減</string>
   <string name="config_autoPrune_summary">メモリ内データと課題の自動節減を有効化または無効化</string>
   <string name="config_autoPruneNodeLimit_title">自動節減の上限</string>
   <string name="config_autoPruneNodeLimit_summary">メモリ内でこのノード数に到達したとき、節減が発動します。</string>
@@ -1400,6 +1417,7 @@
   <string name="config_osmoseServer_title">OSMOSE サーバー</string>
   <string name="config_osmoseServer_summary">OSMOSEサーバー用のURL。</string>
   <string name="config_geocoderbutton_title">ジオコーダー設定</string>
+  <string name="config_geocoderbutton_summary">検索機能用のジオコーダーを追加、編集、削除。</string>
   <string name="config_taginfoServer_title">Taginfoサーバー</string>
   <string name="config_taginfoServer_summary">プリセットの生成に使用するTaginfoサーバー</string>
   <string name="config_overpassServer_title">Overpassサーバー</string>
@@ -1475,6 +1493,7 @@
   <string name="resource_download_successful">リソースをダウンロードしました</string>
   <string name="resource_load_successful">リソースを読み込みました</string>
   <string name="resource_download_failed">リソースファイルをダウンロードできませんでした。そのリソースは機能しません。</string>
+  <string name="resource_load_failed">リソースファイルを読み込めませんでした。そのリソースは機能しません。</string>
   <string name="preset_download_parse_failed">リソースファイルは不正です。リソースは動作しません。</string>
   <string name="preset_download_missing_images">プリセットファイルをダウンロードしました。ただし、一部の欠落しているアイコンはダウンロードしませんでした。</string>
   <string name="resource_download_title">リソースダウンローダー</string>
@@ -1495,6 +1514,7 @@
   <string name="urldialog_api_exists">このURLのAPIは既に存在しています。しかし、他のものを追加できます (例: アカウントの変更が簡単になります)。</string>
   <string name="urldialog_add_api">APIを追加…</string>
   <string name="urldialog_nodata_text">設定URLは正しいデータを含んでいません。</string>
+  <string name="urldialog_add_geocoder">ジオコーダーを追加…</string>
   <string name="urldialog_add_image_store">画像記憶を追加…</string>
   <string name="urldialog_add_style">様式を追加…</string>
   <!--API configuration-->
@@ -1538,6 +1558,7 @@
   <string name="undo">元に戻す</string>
   <string name="redo">やり直し</string>
   <string name="undo_nothing">元に戻すことがありません</string>
+  <!--background / forground services-->
   <string name="tracking_active_title">Vespucci バックグラウンドサービス</string>
   <string name="tracking_active_title_short">バックグラウンドサービスが有効</string>
   <string name="tracking_active_text">GPS経路を記録または自動ダウンロード中</string>

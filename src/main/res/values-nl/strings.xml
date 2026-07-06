@@ -262,8 +262,10 @@ Je kan dit doen door een deel van de veranderde elementen te selecteren en ze lo
   <string name="imagery_offset_zoom">Zoom</string>
   <string name="imagery_offset_distance">Afstand</string>
   <string name="zoom_and_offsets">Zoom %1$d\nVerplaatsing\n%2$s°/%3$s°\n%4$sm/%5$sm</string>
+  <!--Position modal-->
   <string name="set_position_datum_label">Geodetisch datum</string>
   <string name="WGS84">WGS84</string>
+  <!---->
   <string name="tag_editor_name_suggestion">Naamsuggestie</string>
   <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">Deze suggestie kan een aantal tag waarden vervangen met populairdere varianten.</string>
@@ -558,9 +560,9 @@ Je kan dit doen door een deel van de veranderde elementen te selecteren en ze lo
   <string name="integer_widget_usage_with_additional">Deselecteer een waarde hierboven om een getal te kunnen selecteren</string>
   <string name="date_widget_usage_with_additional">Deselecteer de waarde hierboven om de datumkiezer te gebruiken</string>
   <!--Feedback activity-->
-  <string name="feedback_with_displayname">Stuur op met je OpenStreetMap weergavenaam</string>
-  <string name="feedback_displayname_hint">OpenStreetMap weergavenaam is nog niet opgehaald</string>
   <string name="feedback_title">Feedback voor de ontwikkelaars</string>
+  <string name="feedback_with_displayname">Stuur op met je OpenStreetMap weergavenaam</string>
+  <string name="feedback_success_title">Succes</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Download OpenStreetMap-gegevens</string>
   <!--Clear/Reset GPX Track-->
@@ -792,7 +794,6 @@ Je kan dit doen door een deel van de veranderde elementen te selecteren en ze lo
   <string name="toast_url_check_with_msg">%1$s %2$d %3$s</string>
   <string name="toast_unexpected_element">Onverwacht element aangeklikt:\n%1$s</string>
   <string name="toast_import_destination_exists">Importdoel bestaat al</string>
-  <string name="toast_part_selection_not_supported">Selecteren van wegonderdelen niet ondersteund voor gesloten wegen.</string>
   <string name="toast_element_has_been_deleted">Element is verwijderd</string>
   <string name="toast_updating_tags">Tags updaten...</string>
   <string name="toast_updating_parents">Bovenliggende elementen updaten...</string>
@@ -835,6 +836,7 @@ Je kan dit doen door een deel van de veranderde elementen te selecteren en ze lo
   <string name="check">Controleren</string>
   <string name="download">Download</string>
   <string name="abort">Afbreken</string>
+  <string name="pause">Pause</string>
   <string name="ignore">Negeren</string>
   <string name="select">Selecteren</string>
   <string name="skip">Overslaan</string>
@@ -977,7 +979,6 @@ Je kan dit doen door een deel van de veranderde elementen te selecteren en ze lo
   <string name="menu_find">Zoeken</string>
   <string name="menu_help">Hulp</string>
   <string name="menu_erase">Verwijder knoop</string>
-  <string name="menu_set_position">Positie</string>
   <string name="menu_split">Splits</string>
   <string name="menu_remove_node_from_way">Verwijder knoop uit de weg</string>
   <string name="menu_start_end_way">Begin/Einde van Weg</string>
@@ -1126,6 +1127,7 @@ Je kan dit doen door een deel van de veranderde elementen te selecteren en ze lo
   <string name="geojson_todo_default_conversion">Standaardconversie</string>
   <string name="geojson_todo_custom_conversion">Eigen conversie...</string>
   <string name="rhino_exception">&lt;br&gt;Fout op regel %1$d, kolom %2$d&lt;br&gt;&lt;br&gt;%3$s</string>
+  <!--Download along dialog-->
   <!---->
   <string name="menu_tools_apply_local_offset">Pas opgeslagen verplaatsing op luchtfotografie toe </string>
   <string name="menu_tools_background_contrast">Contrast</string>
@@ -1565,6 +1567,7 @@ Je kan dit doen door een deel van de veranderde elementen te selecteren en ze lo
   <string name="undo">Ongedaan maken</string>
   <string name="redo">Opnieuw doen</string>
   <string name="undo_nothing">niks om ongedaan te maken</string>
+  <!--background / forground services-->
   <string name="tracking_active_title">Vespucci achtergrondservice</string>
   <string name="tracking_active_title_short">Achtergrondservice actief</string>
   <string name="tracking_active_text">GPS route wordt opgenomen, of auto-downloaden staat aan</string>

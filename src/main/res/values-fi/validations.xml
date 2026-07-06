@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="validations_entries">
+        <item>Kohteen ikä</item>
+        <item>FIXME-ominaisuustiedot</item>
+        <item>Puuttuvat ominaisuustiedot</item>
+        <item>Ei relaatiotyyppiä</item>
+        <item>Brittiläiset yksiköt puuttuu</item>
+        <item>Virheellinen kohde</item>
+        <item>Ominaisuustiedoton kohde</item>
+        <item>Yhdistämätön päätöspiste</item>
+        <item>Surkastunut viiva</item>
+        <item>Tyhjä relaatio</item>
+        <item>Relaation jäsenen rooli puuttuu</item>
+        <item>Relaatiosilmukka</item>
+        <item>Epästandardi elementtityyppi</item>
+    </string-array>
+    </resources>

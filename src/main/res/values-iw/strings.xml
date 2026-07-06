@@ -205,8 +205,10 @@
   <string name="imagery_offset_zoom">תקריב</string>
   <string name="imagery_offset_distance">מרחק</string>
   <string name="zoom_and_offsets">תקריב %1$d\nהיסט\n%2$s°/%3$s°\n%4$sמ׳/%5$sמ׳</string>
+  <!--Position modal-->
   <string name="set_position_datum_label">דאטום גאודטי</string>
   <string name="WGS84">WGS84</string>
+  <!---->
   <string name="tag_editor_name_suggestion">הצעת שם</string>
   <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">הצעה זו יכולה להחליף ערכי תגיות בערכים יותר נפוצים.</string>
@@ -488,9 +490,8 @@
   <string name="undo_location_zoom">להתמקד על המיקום ואז לבטל</string>
   <!--Value widget dialogs-->
   <!--Feedback activity-->
-  <string name="feedback_with_displayname">שליחה עם שם התצוגה שלך ב־OpenStreetMap</string>
-  <string name="feedback_displayname_hint">שם התצוגה ב־OpenStreetMap לא התקבל עדיין</string>
   <string name="feedback_title">משוב עבור המתכנתים</string>
+  <string name="feedback_with_displayname">שליחה עם שם התצוגה שלך ב־OpenStreetMap</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">הורדת נתוני OpenStreetMap</string>
   <!--Clear/Reset GPX Track-->
@@ -676,7 +677,6 @@
   <string name="toast_no_way_points">אין נקודות דרך</string>
   <string name="toast_unexpected_element">רכיב לא צפוי נלחץ:\n%1$s</string>
   <string name="toast_import_destination_exists">יעד הייבוא כבר קיים</string>
-  <string name="toast_part_selection_not_supported">בחירת חלק מהדרך לא נתמכת בדרכים סגורות</string>
   <string name="toast_element_has_been_deleted">הרכיב נמחק</string>
   <string name="toast_updating_tags">התגיות מתעדכנות…</string>
   <string name="toast_updating_parents">ההורים מתעדכנים…</string>
@@ -711,6 +711,7 @@
   <string name="check">בדיקה</string>
   <string name="download">הורדה</string>
   <string name="abort">ביטול</string>
+  <string name="pause">Pause</string>
   <string name="ignore">התעלמות</string>
   <string name="select">בחירה</string>
   <string name="skip">דילוג</string>
@@ -847,7 +848,6 @@
   <string name="menu_find">חיפוש</string>
   <string name="menu_help">עזרה</string>
   <string name="menu_erase">מחיקת מפרק</string>
-  <string name="menu_set_position">מיקום</string>
   <string name="menu_split">פיצול</string>
   <string name="menu_remove_node_from_way">הסרת מפרק מדרך</string>
   <string name="menu_start_end_way">התחלה/סוף של דרך</string>
@@ -976,6 +976,7 @@
   <string name="menu_layers_enable_bookmarkslayer">הפעלת שכבת סימניות</string>
   <string name="menu_layers_configure">הגדרה…</string>
   <string name="menu_layers_background_align">יישור תמונת רקע…</string>
+  <!--Download along dialog-->
   <!---->
   <string name="menu_tools_apply_local_offset">החלת היסט מאוחסן לתמונת הרקע</string>
   <string name="menu_tools_background_contrast">ניגוד</string>
@@ -1314,6 +1315,7 @@
   <string name="undo">ביטול</string>
   <string name="redo">ביצוע חוזר</string>
   <string name="undo_nothing">אין מה לבטל</string>
+  <!--background / forground services-->
   <string name="tracking_active_title">שירות רקע וספוצ׳י</string>
   <string name="tracking_active_title_short">שירות הרקע פעיל</string>
   <string name="tracking_active_text">הקלטת מסלול GPS או הורדה אוטומטית</string>

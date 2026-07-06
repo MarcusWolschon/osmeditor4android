@@ -21,6 +21,7 @@
     <string name="help_advanced_preferences">進階參數選項</string>
     <string name="help_custom_imagery">客製化影像</string>
     <string name="help_presets">預設</string>
+    <string name="help_styles">樣式</string>
     <string name="help_uploading">上傳你的變動</string>
     <string name="help_conflictresolution">排除衝突</string>
     <string name="help_gpssources">GPS 來源</string>
@@ -34,6 +35,7 @@
     <string name="help_tag_only_mode">只有標籤模式</string>
     <string name="help_indoor_mode">室內模式</string>
     <string name="help_address_mode">地址模式</string>
+    <string name="help_upgrade_220">22.0 發佈通知</string>
     <string name="help_upgrade_212">21.2 發佈通知</string>
     <string name="help_upgrade_211">21.1 發佈通知</string>
     <string name="help_upgrade_210">21.0 發佈通知</string>
@@ -104,6 +106,7 @@
         <item>@string/help_voice_commands</item>
         <item>@string/help_add_route_segment</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_220</item>
         <item>@string/help_upgrade_212</item>
         <item>@string/help_upgrade_211</item>
         <item>@string/help_upgrade_210</item>
@@ -175,6 +178,7 @@
         <item>Address mode</item>
         <item>Voice commands</item>
         <item>Add route segment</item>
+        <item>22.1.0 Release notes</item>
         <item>22.0.0 Release notes</item>
         <item>21.2.0 Release notes</item>
         <item>21.1.0 Release notes</item>
