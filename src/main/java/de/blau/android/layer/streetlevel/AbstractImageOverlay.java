@@ -7,10 +7,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonPrimitive;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -20,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.Map;
+import de.blau.android.dialogs.DateRangeDialog;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.resources.symbols.Mapillary;
@@ -194,19 +197,37 @@ public abstract class AbstractImageOverlay extends de.blau.android.layer.mvt.Map
         if (filter != null && filter.size() == 3) {
             setDateFilterValue(filter.get(1), start, format);
             setDateFilterValue(filter.get(2), end, format);
+            if (DateRangeInterface.toDays(start) <= DateRangeInterface.toDays(DateRangeDialog.FROM_DATE)
+                    && DateRangeInterface.toDays(end) >= DateRangeInterface.toDays(new Date().getTime())) {
+                setDateFilterState(filter, false);
+                return;
+            }
+            setDateFilterState(filter, true);
             return;
         }
         Log.e(DEBUG_TAG, "filter not found");
     }
 
     /**
-     * Set the value of a filter
+     * Set the value of a date filter
      * 
      * @param filter a JsonArray representing a filter
      * @param value the value to set
      * @param optional format for string dates
      */
     protected abstract void setDateFilterValue(JsonElement filter, long value, @Nullable SimpleDateFormat format);
+
+    /**
+     * Enable / disable the date filter
+     * 
+     * @param filter a JsonArray representing the date filter
+     * @param enabled the state to set
+     */
+    private void setDateFilterState(@Nullable JsonElement filter, boolean enabled) {
+        if (filter instanceof JsonArray && ((JsonArray) filter).size() == 3) {
+            ((JsonArray) filter).set(0, new JsonPrimitive(enabled ? Layer.LAYER_FILTER_ALL : Layer.LAYER_FILTER_DISABLED));
+        }
+    }
 
     @Override
     public void flushTileCache(@Nullable final FragmentActivity activity, boolean all) {

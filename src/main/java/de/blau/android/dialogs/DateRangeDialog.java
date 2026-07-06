@@ -44,7 +44,7 @@ public class DateRangeDialog extends CancelableDialogFragment {
     private static final String START_DATE = "start_date";
     private static final String END_DATE   = "end_date";
 
-    private static final long FROM_DATE = 1377990000000L;
+    public static final long FROM_DATE = 1377990000000L;
 
     private SimpleDateFormat labelDate = new SimpleDateFormat(LABEL_FORMAT);
 
@@ -107,17 +107,17 @@ public class DateRangeDialog extends CancelableDialogFragment {
         DoNothingListener doNothingListener = new DoNothingListener();
         View layout = inflater.inflate(R.layout.daterange, null);
         RangeSlider slider = (RangeSlider) layout.findViewById(R.id.range_slider);
-        slider.setLabelFormatter((float v) -> labelDate.format(new Date(fromDays(v))));
+        slider.setLabelFormatter((float v) -> labelDate.format(new Date(DateRangeInterface.fromDays(v))));
         MapTilesLayer<?> layer = (MapTilesLayer<?>) App.getLogic().getMap().getLayer(getArguments().getInt(LAYERINDEX, -1));
         if (layer instanceof DateRangeInterface) {
             long today = new Date().getTime();
-            slider.setValues(toDays(Math.max(FROM_DATE, getArguments().getLong(START_DATE, -1L))),
-                    toDays(Math.min(getArguments().getLong(END_DATE, today), today)));
-            slider.setValueTo(toDays(today));
+            slider.setValues(DateRangeInterface.toDays(Math.max(FROM_DATE, getArguments().getLong(START_DATE, -1L))),
+                    DateRangeInterface.toDays(Math.min(getArguments().getLong(END_DATE, today), today)));
+            slider.setValueTo(DateRangeInterface.toDays(today));
             slider.addOnChangeListener((RangeSlider s, float arg1, boolean arg2) -> {
                 final List<Float> values = s.getValues();
                 if (values != null && values.size() == 2) {
-                    ((DateRangeInterface) layer).setDateRange(fromDays(values.get(0)), fromDays(values.get(1)));
+                    ((DateRangeInterface) layer).setDateRange(DateRangeInterface.fromDays(values.get(0)), DateRangeInterface.fromDays(values.get(1)));
                 }
                 layer.invalidate();
             });
@@ -128,25 +128,5 @@ public class DateRangeDialog extends CancelableDialogFragment {
         builder.setPositiveButton(R.string.okay, doNothingListener);
 
         return builder.create();
-    }
-
-    /**
-     * Convert from days to ms
-     * 
-     * @param days the number of days
-     * @return ms
-     */
-    private static long fromDays(float days) {
-        return (long) (days * 24 * 3600000L);
-    }
-
-    /**
-     * Convert from ms to days
-     * 
-     * @param ms the number of ms
-     * @return the number of days
-     */
-    private static float toDays(long ms) {
-        return ms / (24f * 3600000L);
     }
 }

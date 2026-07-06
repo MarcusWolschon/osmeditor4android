@@ -221,7 +221,7 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
     }
 
     /**
-     * Try to determine the sequence id from the atributes
+     * Try to determine the sequence id from the attributes
      * 
      * @param attributes the attributes
      * @return the id or null if it can't be found
@@ -447,7 +447,7 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
             ((JsonArray) filter).set(2, new JsonPrimitive(format.format(value)));
         }
     }
-
+    
     @Override
     public SpannableString getDescription(@NonNull Context context, de.blau.android.util.mvt.VectorTileDecoder.Feature f) {
         return new SpannableString(context.getString(R.string.mapillary_image, f.getAttributes().get(TIMESTAMP_KEY)));
