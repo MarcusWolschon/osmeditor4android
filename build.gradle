@@ -705,7 +705,7 @@ dependencies {
     androidTestImplementation ("com.orhanobut:mockwebserverplus:1.0.0") {
         exclude group: 'org.yaml', module: 'snakeyaml'
     }
-    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.4.0'
+    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.3.0' // 2.4 and later requires min-sdk 23
     androidTestImplementation "androidx.work:work-testing:$work_version"
 }
 
