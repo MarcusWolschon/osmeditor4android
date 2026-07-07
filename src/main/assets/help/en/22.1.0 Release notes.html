@@ -10,9 +10,9 @@
 <h3 id="android-16api-36">Android 16/API 36</h3>
 <p>As per google requirements, version 22.1 targets Android 16/API 36. While in itself this didn't lead to many changes, because it no longer allows opting out of inset handling it did force us to replace the previous third party implementation of a github issue reporter with our own implementation.</p>
 <h3 id="android-50-and-51-eol-announcement">Android 5.0 and 5.1 EOL announcement</h3>
-<p>With next years major version 23 we will be dropping support for Android 5 and 5.1 next year these releases will be a dozen years and google has now dropped support for them in many of the libraries we rely on, with other words we don't really have a choice.</p>
-<h3 id="new-authorization-flow">New authorization flow</h3>
-<p>We've replaced the previous implementation that utilized a Android WebView with &quot;CustomTabs&quot; that use the currently installed default browserthis should allow signing in with google to work again. <a href="https://github.com/openstreetmap/openstreetmap-website/issues/5118">More information</a>.</p>
+<p>With next years major version 23 we will be dropping support for Android 5 and 5.1. These Android versions will be a dozen years old in 2027 and google has now dropped support for them in many of the libraries we rely on, with other words we don't really have a choice.</p>
+<h3 id="improved-authorization-flow">Improved authorization flow</h3>
+<p>We've replaced the previous implementation that utilized a Android WebView with &quot;CustomTabs&quot; that use the currently installed default browser this should allow signing in with google to work again and if you are already logged in to the site, reuse that information. <a href="https://github.com/openstreetmap/openstreetmap-website/issues/5118">More information</a>.</p>
 <h3 id="dedicated-function-to-draw-areas">Dedicated function to draw &quot;areas&quot;</h3>
 <p>We've added an &quot;Add area&quot; function to the &quot;+&quot; button in normal mode, this works the same as the previous &quot;Add way&quot; but will always close the way, even if the <em>Snap</em> function is disabled. See [Add area](Simple%20actions.md#add-area]. While drawing a closing line is indicated that will turn red if the area would intersect itself if closed at that point.</p>
 <p>We expect more functionality to be added to this going forward.</p>
@@ -21,6 +21,7 @@
 <h3 id="download-along-way">Download along way</h3>
 <p>You can now download along an OSM way, this is substantially more efficient than panning along the way to download data and in our experience leads to far less 509 errors from the OSM API. Using this will turn off auto-prune as leaving it enabled could lead to the data you just downloaded being immediately deleted, to make it a bit easier to re-enable auto-prune we have separated the configuration for OSM data and tasks and moved it to the layer control modal.</p>
 <p>We would further recommend disabling [Pan and zoom auto download](Main%20map%20display.md#transfer] and using authenticated reads (see the API configuration)) while using this function.</p>
+<p>A future version will support the same functionality for GPX tracks, due to time constraints it wasn't possible to include it in this release.</p>
 <h3 id="update-set-position-modal">Update &quot;Set position&quot; modal</h3>
 <p>If you select a Node you can change its position with the &quot;Set position&quot; modal. This supports pasting in to the text fields in various formats now and swapping longitude and latitude values, see <a href="Node%20selected.md#set-position">Set position</a>.</p>
 <h3 id="update-tiles-in-view">Update tiles in view</h3>

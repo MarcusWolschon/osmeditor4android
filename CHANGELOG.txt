@@ -27,7 +27,7 @@
 - Fix if no presets are selected, select the default preset
 - Fix table meta data wasn't generated correctly with original sql 
 - Fix regression that stopped panoramax instances being added from instance list
-- Fix update download plugin configration for synonyms
+- Fix update download plugin configuration for synonyms
 - Change move auto-prune configuration to layer control
 - Change bump target SDK to 36
 - Change use Java 21 for CI
