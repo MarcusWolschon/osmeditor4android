@@ -24,7 +24,6 @@ import de.blau.android.net.OAuthHelper;
 import de.blau.android.net.OAuthHelper.OAuthConfiguration;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.API.Auth;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.resources.KeyDatabaseHelper.EntryType;
 import de.blau.android.util.ConfigurationChangeAwareActivity;
@@ -54,58 +53,44 @@ public class Authorize extends ConfigurationChangeAwareActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-        final Preferences prefs = App.getPreferences(this);
-        if (prefs.lightThemeEnabled()) {
+        Log.d(DEBUG_TAG, "onCreate " + (savedInstanceState != null ? " saved state present" : " no saved state"));
+        if (App.getPreferences(this).lightThemeEnabled()) {
             setTheme(R.style.Theme_customMain_Light);
         }
         super.onCreate(savedInstanceState);
 
-        Server server = prefs.getServer();
-        String apiName = server.getApiName();
-        Auth auth = server.getAuthentication();
-        Log.d(DEBUG_TAG, "oauth auth for " + apiName + " " + auth);
-        String errorMessage = null;
-        try {
-            openCustomTab(apiName, auth);
-            return;
-        } catch (NoOAuthConfigurationException nex) {
-            try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(this)) {
-                // get list of possible configs
-                List<String> configNames = new ArrayList<>();
-                for (OAuthConfiguration configuration : KeyDatabaseHelper.getOAuthConfigurations(keyDatabase.getReadableDatabase(), auth)) {
-                    configNames.add(configuration.getName());
-                }
-                ThemeUtils.getAlertDialogBuilder(this).setTitle(R.string.choose_oauth_config)
-                        .setItems(configNames.toArray(new String[0]), (DialogInterface dialog, int which) -> {
-                            Log.d(DEBUG_TAG, "api selection");
-                            try (KeyDatabaseHelper keyDatabase2 = new KeyDatabaseHelper(this)) {
-                                KeyDatabaseHelper.copyKey(keyDatabase2.getWritableDatabase(), configNames.get(which),
-                                        auth == Auth.OAUTH1A ? EntryType.API_OAUTH1_KEY : EntryType.API_OAUTH2_KEY, apiName);
-                            }
-                            try {
-                                openCustomTab(apiName, auth);
-                            } catch (OsmException | NoOAuthConfigurationException | OAuthException | TimeoutException | ExecutionException e) {
-                                String message = getString(R.string.toast_no_oauth, apiName);
-                                Log.e(DEBUG_TAG, "still no config found " + message);
-                                new Handler(Looper.getMainLooper()).post(() -> ScreenMessage.barError(Authorize.this, message));
-                                finish();
-                            }
-                        }).setNegativeButton(R.string.abort, (DialogInterface dialog, int which) -> finish()).create().show();
-                return;
+        customTabStarted = ACTION_FINISH_OAUTH.equals(getIntent().getAction())
+                || (savedInstanceState != null && savedInstanceState.getBoolean(CUSTOM_TAB_STARTED_KEY, false));
+    }
+
+    /**
+     * Show the user a list of possible configs and if they choose one, retry
+     * 
+     * @param auth type of Authorisation
+     */
+    private void selectConfigAndRetry(@NonNull String apiName, @NonNull Auth auth) {
+        try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(this)) {
+            // get list of possible configs
+            List<String> configNames = new ArrayList<>();
+            for (OAuthConfiguration configuration : KeyDatabaseHelper.getOAuthConfigurations(keyDatabase.getReadableDatabase(), auth)) {
+                configNames.add(configuration.getName());
             }
-        } catch (OsmException oe) {
-            errorMessage = getString(R.string.toast_no_oauth, apiName);
-        } catch (OAuthException e) {
-            errorMessage = OAuthHelper.getErrorMessage(this, e);
-        } catch (ExecutionException e) {
-            errorMessage = getString(R.string.toast_oauth_communication);
-        } catch (TimeoutException e) {
-            errorMessage = getString(R.string.toast_oauth_timeout);
-        }
-        Log.e(DEBUG_TAG, "onCreate error " + errorMessage);
-        if (errorMessage != null) {
-            ScreenMessage.barError(this, errorMessage);
-            finish();
+            ThemeUtils.getAlertDialogBuilder(this).setTitle(R.string.choose_oauth_config)
+                    .setItems(configNames.toArray(new String[0]), (DialogInterface dialog, int which) -> {
+                        Log.d(DEBUG_TAG, "api selection");
+                        try (KeyDatabaseHelper keyDatabase2 = new KeyDatabaseHelper(this)) {
+                            KeyDatabaseHelper.copyKey(keyDatabase2.getWritableDatabase(), configNames.get(which),
+                                    auth == Auth.OAUTH1A ? EntryType.API_OAUTH1_KEY : EntryType.API_OAUTH2_KEY, apiName);
+                        }
+                        try {
+                            openCustomTab(apiName, auth);
+                        } catch (OsmException | NoOAuthConfigurationException | OAuthException | TimeoutException | ExecutionException e) {
+                            String message = getString(R.string.toast_no_oauth, apiName);
+                            Log.e(DEBUG_TAG, "still no config found " + message);
+                            new Handler(Looper.getMainLooper()).post(() -> ScreenMessage.barError(Authorize.this, message));
+                            finish();
+                        }
+                    }).setNegativeButton(R.string.abort, (DialogInterface dialog, int which) -> finish()).create().show();
         }
     }
 
@@ -149,17 +134,58 @@ public class Authorize extends ConfigurationChangeAwareActivity {
                 Log.d(DEBUG_TAG, "OAuth flow appears to have been cancelled");
                 finish(); // Close the blank activity
             }, OAUTH_TIMEOUT);
+            return;
         }
+        Server server = App.getPreferences(this).getServer();
+        String apiName = server.getApiName();
+        Auth auth = server.getAuthentication();
+        Log.d(DEBUG_TAG, "onResume oauth auth for " + apiName + " " + auth + " " + customTabStarted);
+        try {
+            openCustomTab(apiName, auth);
+        } catch (NoOAuthConfigurationException nex) {
+            selectConfigAndRetry(apiName, auth);
+        } catch (OsmException oe) {
+            showErrorAndFinish(getString(R.string.toast_no_oauth, apiName));
+        } catch (OAuthException e) {
+            showErrorAndFinish(OAuthHelper.getErrorMessage(this, e));
+        } catch (ExecutionException e) {
+            showErrorAndFinish(getString(R.string.toast_oauth_communication));
+        } catch (TimeoutException e) {
+            showErrorAndFinish(getString(R.string.toast_oauth_timeout));
+        }
+    }
+
+    /**
+     * Display an error message and then call finish
+     * 
+     * @param errorMessage the error message
+     */
+    private void showErrorAndFinish(@NonNull String errorMessage) {
+        Log.e(DEBUG_TAG, "onResume error " + errorMessage);
+        ScreenMessage.barError(this, errorMessage);
+        finish();
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         timeoutHandler.removeCallbacksAndMessages(null);
+        finish(intent);
+    }
+
+    /**
+     * If the Intent has the correct action finish
+     * 
+     * @param intent the Intent
+     * @return true if we are finishing
+     */
+    private boolean finish(@NonNull Intent intent) {
         if (ACTION_FINISH_OAUTH.equals(intent.getAction())) {
-            Log.d(DEBUG_TAG, "onNewIntent calling finishOAuth");
+            Log.d(DEBUG_TAG, "intent calling finishOAuth");
             finish();
+            return true;
         }
+        return false;
     }
 
     @Override
