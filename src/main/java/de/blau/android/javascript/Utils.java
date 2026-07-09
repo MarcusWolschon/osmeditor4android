@@ -46,6 +46,7 @@ public final class Utils {
     private static final String VERSION_CODE     = "versionCode";
     private static final String TODO             = "todo";
     private static final String FEATURE          = "feature";
+    private static final int    NO_OPTIMISATIONS = -1;
 
     /**
      * Empty private constructor
@@ -65,7 +66,7 @@ public final class Utils {
     @Nullable
     public static String evalString(Context ctx, String scriptName, String script) {
         Log.d(DEBUG_TAG, "Eval " + script);
-        org.mozilla.javascript.Context rhinoContext = App.getRhinoHelper(ctx).enterContext();
+        org.mozilla.javascript.Context rhinoContext = getRhinoContext(ctx);
         try {
             Scriptable restrictedScope = App.getRestrictedRhinoScope(ctx);
             Scriptable scope = rhinoContext.newObject(restrictedScope);
@@ -94,7 +95,7 @@ public final class Utils {
     @Nullable
     public static String evalString(@NonNull Context ctx, @NonNull String scriptName, @NonNull String script, @NonNull Map<String, List<String>> originalTags,
             @NonNull Map<String, List<String>> tags, @NonNull String value, @NonNull Map<String, PresetItem> key2PresetItem, @NonNull Preset[] presets) {
-        org.mozilla.javascript.Context rhinoContext = App.getRhinoHelper(ctx).enterContext();
+        org.mozilla.javascript.Context rhinoContext = getRhinoContext(ctx);
         try {
             Map<String, List<String>> savedTags = deepCopy(tags);
             Scriptable restrictedScope = App.getRestrictedRhinoScope(ctx);
@@ -153,7 +154,7 @@ public final class Utils {
      */
     @Nullable
     public static String evalString(@NonNull Context ctx, @NonNull String scriptName, @NonNull String script, @NonNull Feature feature, @NonNull Todo todo) {
-        org.mozilla.javascript.Context rhinoContext = App.getRhinoHelper(ctx).enterContext();
+        org.mozilla.javascript.Context rhinoContext = getRhinoContext(ctx);
         try {
             Scriptable restrictedScope = App.getRestrictedRhinoScope(ctx);
             Scriptable scope = rhinoContext.newObject(restrictedScope);
@@ -171,6 +172,19 @@ public final class Utils {
         } finally {
             org.mozilla.javascript.Context.exit();
         }
+    }
+
+    /**
+     * Get a Rhino Context with disabled optimisations
+     * 
+     * @param ctx an Android Context
+     * @return a Rhino Context with disabled optimizations
+     */
+    @NonNull
+    public static org.mozilla.javascript.Context getRhinoContext(@NonNull Context ctx) {
+        org.mozilla.javascript.Context rhinoContext = App.getRhinoHelper(ctx).enterContext();
+        rhinoContext.setOptimizationLevel(NO_OPTIMISATIONS);
+        return rhinoContext;
     }
 
     /**
@@ -199,7 +213,7 @@ public final class Utils {
      */
     @Nullable
     public static String evalString(@NonNull Context ctx, @NonNull String scriptName, @NonNull String script, @NonNull Logic logic) {
-        org.mozilla.javascript.Context rhinoContext = App.getRhinoHelper(ctx).enterContext();
+        org.mozilla.javascript.Context rhinoContext = getRhinoContext(ctx);
         try {
             Scriptable restrictedScope = App.getRestrictedRhinoScope(ctx);
             Scriptable scope = rhinoContext.newObject(restrictedScope);

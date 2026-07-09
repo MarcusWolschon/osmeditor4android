@@ -42,6 +42,7 @@ import androidx.multidex.MultiDex;
 import androidx.preference.PreferenceManager;
 import de.blau.android.contract.Paths;
 import de.blau.android.filter.PresetFilter;
+import de.blau.android.javascript.Utils;
 import de.blau.android.net.OkHttpCompat;
 import de.blau.android.net.UserAgentInterceptor;
 import de.blau.android.nsi.Names;
@@ -751,7 +752,7 @@ public class App extends Application implements android.app.Application.Activity
     public static org.mozilla.javascript.Scriptable getRestrictedRhinoScope(@NonNull Context ctx) {
         synchronized (rhinoLock) {
             if (rhinoScope == null) {
-                org.mozilla.javascript.Context c = rhinoHelper.enterContext();
+                org.mozilla.javascript.Context c =  Utils.getRhinoContext(ctx);
                 try {
                     // this is a fairly hackish way of sandboxing, but it does work
                     rhinoScope = new ImporterTopLevel(c);
