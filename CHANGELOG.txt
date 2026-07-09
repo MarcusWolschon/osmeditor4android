@@ -45,6 +45,7 @@
 - Add support for authenticated reads
 - Add support squaring individual corners of a selected way
 - Add note on configuration import not being backwards compatible
+- Update JosmFilterParser dependency
 - Update root certificates 
 - Update translations
 - Update imagery from ELI
