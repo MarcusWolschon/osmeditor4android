@@ -1,11 +1,14 @@
 package de.blau.android;
+
 import static org.junit.Assert.fail;
 import static org.robolectric.Shadows.shadowOf;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -17,16 +20,17 @@ import androidx.annotation.NonNull;
 import de.blau.android.osm.OsmParser;
 import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.util.FileUtil;
 
 public final class UnitTestUtils {
-    
+
     /**
      * Private constructor to avoid instantiation
      */
     private UnitTestUtils() {
         // don't instantiate
     }
-    
+
     /**
      * Copy a file from resources to the current directory
      * 
@@ -34,9 +38,8 @@ public final class UnitTestUtils {
      * @param fileName the name of the file to copy
      * @throws IOException if copying goes wrong
      */
-    public static void copyFileFromResources(@NonNull Class<?> c, @NonNull String fileName)
-            throws IOException {
-      
+    public static void copyFileFromResources(@NonNull Class<?> c, @NonNull String fileName) throws IOException {
+
         File destinationDir = new File(".");
         File destinationFile = new File(destinationDir, fileName);
         try (OutputStream os = new FileOutputStream(destinationFile); InputStream is = c.getResourceAsStream("/" + fileName);) {
@@ -49,7 +52,18 @@ public final class UnitTestUtils {
             os.flush();
         }
     }
-    
+
+    /**
+     * Read a file from resources in to a String
+     * 
+     * @param c a Class
+     * @param fileName the name of the file
+     * @throws IOException if reading goes wrong
+     */
+    public static String fileFromResourcesAsString(@NonNull Class<?> c, @NonNull String fileName) throws IOException {
+        return FileUtil.readToString(new BufferedReader(new InputStreamReader(c.getResourceAsStream("/" + fileName))));
+    }
+
     /**
      * Load some test data in to storage
      * 
@@ -73,7 +87,7 @@ public final class UnitTestUtils {
         }
         return d;
     }
-    
+
     /**
      * Super ugly hack to get the looper to run
      */

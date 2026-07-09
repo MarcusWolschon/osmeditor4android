@@ -62,6 +62,17 @@ public class SimplePolygonSplitter {
             openPoly.remove(openPoly.size() - 1);
         }
 
+        // if the split position is exactly on the relevant coordinate things will break
+        // we move the position a bit to avoid this, the change has be larger than
+        // our equality epsilon to have any effect though
+        for (Point vertex : openPoly) {
+            double val = isVertical ? vertex.longitude() : vertex.latitude();
+            if (Math.abs(val - splitPosition) < EPSILON) { // Exact match threshold
+                splitPosition += EPSILON * 10;
+                break;
+            }
+        }
+
         // intersect edges that cross the cut line
         List<Point[]> segments = new ArrayList<>();
         Set<Point> cutLinePoints = new HashSet<>();

@@ -3,9 +3,14 @@ package de.blau.android.util;
 import com.mapbox.geojson.Point;
 import com.mapbox.geojson.Polygon;
 
+import de.blau.android.UnitTestUtils;
+import de.blau.android.osm.BoundingBox;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
+import java.io.IOException;
 import java.util.*;
 
 import org.junit.Test;
@@ -72,5 +77,31 @@ public class SimplePolygonSplitterTest {
         // - Top part → 2 separate polygons
         // Total = 3
         assertEquals(3, result.size());
+    }
+
+    /**
+     * This polygon has a vertex that matches in the horizontal coord exactly the value of the split position creating an
+     * issue with assembly of the resulting polygons. This tests that the fix for this works.
+     */
+    @Test
+    public void testPolygonWithExactSplitPositionMatch() {
+        try {
+            Polygon polygon = Polygon.fromJson(UnitTestUtils.fileFromResourcesAsString(getClass(), "test-polygon.geojson"));
+            BoundingBox box = GeoJson.getBounds(polygon);
+            box.calcDimensions();
+
+            double hCenter = box.getLeft() + box.getWidth() / 2D;
+
+            final int maxDimE7 = 17996;
+
+            final int maxDim2 = maxDimE7 * 2;
+
+            double splitPosition = (box.getWidth() > maxDim2 ? box.getLeft() + maxDimE7 : hCenter) / 1E7D;
+
+            List<Polygon> result = SimplePolygonSplitter.split(polygon, splitPosition, true);
+            assertEquals(3, result.size());
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
     }
 }
