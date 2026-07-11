@@ -38,11 +38,22 @@ public abstract class ConfigurationChangeAwareActivity extends AppCompatActivity
      * Standard insets listener
      */
     public static final OnApplyWindowInsetsListener onApplyWindowInsetslistener = (v, windowInsets) -> {
-        Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.navigationBars() | WindowInsetsCompat.Type.ime());
-        Insets cutout = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout());
-        setMarginsFromInsets(v, Insets.max(insets, cutout));
+        setMarginsFromInsets(v, getInsets(windowInsets));
         return WindowInsetsCompat.CONSUMED;
     };
+
+    /**
+     * Get the insets we are interested in and return them corrected for any double counting
+     * 
+     * @param windowInsets the input insets
+     * @return what we actually want to use
+     */
+    @NonNull
+    public static Insets getInsets(@NonNull WindowInsetsCompat windowInsets) {
+        Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.navigationBars() | WindowInsetsCompat.Type.ime());
+        Insets cutout = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout());
+        return Insets.max(insets, cutout);
+    }
 
     /**
      * Set margins for a View from Insets

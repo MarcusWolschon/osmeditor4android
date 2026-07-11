@@ -54,7 +54,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
-import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -624,14 +623,13 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
         LayoutInflater inflater;
         FragmentActivity activity = getActivity();
         inflater = ThemeUtils.getLayoutInflater(activity);
-        RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.layers_view, container, false);
+        LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.layers_view, container, false);
         tl = (TableLayout) layout.findViewById(R.id.layers_vertical_layout);
         tl.setShrinkAllColumns(false);
         tl.setColumnShrinkable(2, true);
         tl.setStretchAllColumns(false);
         tl.setColumnStretchable(2, true);
         addRows(activity);
-
         return layout;
     }
 
