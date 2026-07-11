@@ -3729,7 +3729,7 @@ public class Logic {
             throw new OsmServerException(ErrorCodes.INVALID_DATA_RECEIVED, ex.getLocalizedMessage());
         } catch (OsmServerException ex) {
             throw ex;
-        } catch (IOException | URISyntaxException ex) {
+        } catch (IOException | URISyntaxException | IllegalArgumentException ex) {
             Log.e(DEBUG_TAG, "getElementWithDeleted no connection", ex);
             throw new OsmServerException(ErrorCodes.NO_CONNECTION, ex.getLocalizedMessage());
         }
@@ -3797,7 +3797,7 @@ public class Logic {
                     throw new OsmServerException(ErrorCodes.INVALID_DATA_RECEIVED, ex.getLocalizedMessage());
                 } catch (OsmServerException osex) {
                     throw osex;
-                } catch (IOException | URISyntaxException ex) {
+                } catch (IOException | URISyntaxException | IllegalArgumentException ex) {
                     Log.e(DEBUG_TAG, "getElementsWithDeleted no connection", ex);
                     throw new OsmServerException(ErrorCodes.NO_CONNECTION, ex.getLocalizedMessage());
                 } catch (Exception ex) {
@@ -3992,7 +3992,7 @@ public class Logic {
         } catch (OsmServerException e) {
             result = e.getHttpErrorCode();
             Log.e(DEBUG_TAG, "downloadElement problem downloading", e);
-        } catch (IOException | URISyntaxException e) {
+        } catch (IOException | URISyntaxException | IllegalArgumentException e) {
             result = ErrorCodes.NO_CONNECTION;
             Log.e(DEBUG_TAG, "downloadElement no connection", e);
         }
@@ -4077,7 +4077,7 @@ public class Logic {
                     return new AsyncResult(ErrorCodes.UNKNOWN_ERROR, e.getMessageWithDescription());
                 } catch (DataConflictException dce) {
                     return new AsyncResult(ErrorCodes.DATA_CONFLICT);
-                } catch (IOException | URISyntaxException e) {
+                } catch (IOException | URISyntaxException | IllegalArgumentException e) {
                     Log.e(DEBUG_TAG, "downloadElements problem downloading", e);
                     return new AsyncResult(ErrorCodes.NO_CONNECTION);
                 }
@@ -4464,7 +4464,8 @@ public class Logic {
                         TransferTasks.merge(context, App.getTaskStorage(), notes);
                         TransferTasks.addBoundingBoxFromData(App.getTaskStorage(), notes);
                     }
-                } catch (UnsupportedFormatException | IOException | SAXException | ParserConfigurationException | URISyntaxException e) {
+                } catch (UnsupportedFormatException | IOException | SAXException | ParserConfigurationException | URISyntaxException
+                        | IllegalArgumentException e) {
                     Log.e(DEBUG_TAG, "Problem parsing OSC ", e);
                     return new AsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
                 } catch (IllegalStateException iex) {
@@ -4870,7 +4871,7 @@ public class Logic {
                     Log.e(DEBUG_TAG, METHOD_UPLOAD, e);
                     result.setError(ErrorCodes.UPLOAD_INCOMPLETE);
                     result.setMessage(e.getLocalizedMessage());
-                } catch (final IOException | NumberFormatException | URISyntaxException e) {
+                } catch (final IOException | URISyntaxException | IllegalArgumentException e) {
                     Log.e(DEBUG_TAG, METHOD_UPLOAD, e);
                     result.setError(ErrorCodes.UPLOAD_PROBLEM);
                     result.setMessage(e.getLocalizedMessage());

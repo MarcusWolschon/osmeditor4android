@@ -700,7 +700,7 @@ public final class TaginfoServer {
             }
             Log.d(DEBUG_TAG, "returning " + (result instanceof List ? ((List) result).size() : "1") + " results");
             return result;
-        } catch (IOException | URISyntaxException e) {
+        } catch (IOException | URISyntaxException | IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "querySync got exception " + e.getMessage());
         }
         return null;

@@ -2335,7 +2335,7 @@ public class Main extends AuthorisationEnabledActivity
                     protected Void doInBackground(Void param) {
                         try {
                             server.closeChangeset();
-                        } catch (IOException | URISyntaxException e) {
+                        } catch (IOException | URISyntaxException | IllegalArgumentException e) {
                             // Never fail
                         }
                         return null;

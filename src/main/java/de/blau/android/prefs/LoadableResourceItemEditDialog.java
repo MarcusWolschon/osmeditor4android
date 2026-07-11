@@ -126,7 +126,7 @@ public abstract class LoadableResourceItemEditDialog extends CancelableDialogFra
                 URL url = null;
                 try {
                     url = new URI(itemURL).toURL();
-                } catch (MalformedURLException | URISyntaxException e) {
+                } catch (MalformedURLException | URISyntaxException | IllegalArgumentException e) {
                     validURL = false;
                 }
 

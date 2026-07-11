@@ -179,7 +179,7 @@ public class OAuth2Helper extends OAuthHelper {
                     .addQueryParameter(CODE_CHALLENGE_METHOD_PARAM, METHOD_SHA_256_VALUE)
                     .addQueryParameter(CODE_CHALLENGE_PARAM, hashAndEncodeChallenge(codeVerifier)).addQueryParameter(ALLOW_SIGNUP_PARAM, "false").build().url()
                     .toString();
-        } catch (MalformedURLException | NoSuchAlgorithmException | URISyntaxException e) {
+        } catch (MalformedURLException | NoSuchAlgorithmException | URISyntaxException | IllegalArgumentException e) {
             throw new OsmException("Configuration error " + e.getMessage());
         }
     }

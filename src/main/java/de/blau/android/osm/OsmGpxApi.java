@@ -140,7 +140,7 @@ public class OsmGpxApi {
                 StreamUtils.copy(body.byteStream(), fileStream);
             }
             return Uri.fromFile(output);
-        } catch (IOException | NumberFormatException | URISyntaxException e) {
+        } catch (IOException | URISyntaxException | IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "Problem downloading GPX track ", e);
         }
         return null;
