@@ -62,7 +62,7 @@ public abstract class AbstractSequenceFetcher implements Runnable {
                 url = querySequence(url, ids);
             } while (url != null);
             saveIdsAndUpdate(ids);
-        } catch (IOException | URISyntaxException ex) {
+        } catch (IOException | URISyntaxException | IllegalArgumentException ex) {
             Log.e(DEBUG_TAG, "query sequence failed with " + ex.getMessage());
             // don't (re-)throw an exception as that will crash the app it seems
         }

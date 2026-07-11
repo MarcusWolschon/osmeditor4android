@@ -506,7 +506,7 @@ public class Feedback extends AuthorisationEnabledActivity implements ActivityRe
             if (segments.length > 0) {
                 return Github.getIssueUrl(repoUser, repoName, segments[segments.length - 1]);
             }
-        } catch (MalformedURLException | URISyntaxException e) {
+        } catch (MalformedURLException | URISyntaxException | IllegalArgumentException e) {
             // fall through
         }
         Log.e(DEBUG_TAG, "Unparseable issue response " + url);

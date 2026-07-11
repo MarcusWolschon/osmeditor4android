@@ -67,7 +67,7 @@ public final class Wiki {
                     return false;
                 }
             }
-        } catch (final IOException | XmlPullParserException | URISyntaxException iox) {
+        } catch (final IOException | XmlPullParserException | URISyntaxException | IllegalArgumentException iox) {
             Log.e(DEBUG_TAG, "Parse wiki api " + iox.getMessage());
             throw new IOException(iox.getMessage());
         }

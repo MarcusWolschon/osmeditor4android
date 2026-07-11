@@ -349,7 +349,7 @@ public class Server {
             parser.setInput(response.body().byteStream(), null);
             cachedUserDetails = UserDetails.fromXml(parser);
             return cachedUserDetails;
-        } catch (XmlPullParserException | IOException | NumberFormatException | URISyntaxException e) {
+        } catch (XmlPullParserException | IOException | URISyntaxException | IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "Problem accessing user details", e);
         }
         return null;
@@ -386,9 +386,9 @@ public class Server {
             }
         } catch (XmlPullParserException e) {
             Log.e(DEBUG_TAG, "Problem parsing user preferences", e);
-        } catch (MalformedURLException | URISyntaxException e) {
+        } catch (MalformedURLException | URISyntaxException | IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "Problem retrieving user preferences", e);
-        } catch (IOException | NumberFormatException e) {
+        } catch (IOException e) {
             Log.e(DEBUG_TAG, "Problem accessing user preferences", e);
         }
         return result;
@@ -410,7 +410,7 @@ public class Server {
                 Log.e(DEBUG_TAG, "Problem setting user preferences " + key + "=" + value + " code " + responseCode + " message " + message);
                 throw new OsmServerException(responseCode, message);
             }
-        } catch (IOException | URISyntaxException e) {
+        } catch (IOException | URISyntaxException | IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "Problem setting user preferences " + key, e);
             throw new OsmException(e.getMessage());
         }
@@ -430,7 +430,7 @@ public class Server {
                 Log.e(DEBUG_TAG, "Problem deleting user preferences " + key + " code " + responseCode + " message " + message);
                 throw new OsmServerException(responseCode, message);
             }
-        } catch (IOException | URISyntaxException e) {
+        } catch (IOException | URISyntaxException | IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "Problem deleting user preferences " + key, e);
             throw new OsmException(e.getMessage());
         }
@@ -456,7 +456,7 @@ public class Server {
                 readOnlyCapabilities = result;
             }
             return readOnlyCapabilities; // if retrieving failed return the default
-        } catch (MalformedURLException | URISyntaxException e) {
+        } catch (MalformedURLException | URISyntaxException | IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "Problem with read-only capabilities URL", e);
         }
         return null;
@@ -492,7 +492,7 @@ public class Server {
                 capabilities = result;
             }
             return capabilities; // if retrieving failed return the default
-        } catch (MalformedURLException | URISyntaxException e) {
+        } catch (MalformedURLException | URISyntaxException | IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "Problem with capabilities URL", e);
         }
         return capabilities; // if retrieving failed return the default
@@ -930,7 +930,7 @@ public class Server {
         try (Response response = openConnectionForAuthenticatedAccess(getChangesetUrl(changesetId), HTTP_PUT, body)) {
             checkResponseCode(response);
             return Changeset.parse(xmlParserFactory.newPullParser(), response.body().byteStream());
-        } catch (IOException | XmlPullParserException | URISyntaxException e) {
+        } catch (IOException | XmlPullParserException | URISyntaxException | IllegalArgumentException e) {
             Log.d(DEBUG_TAG, "getChangeset got " + e.getMessage());
         }
         return null;
@@ -950,7 +950,7 @@ public class Server {
             oscParser.clearBoundingBoxes(); // this removes the default bounding box
             oscParser.start(response.body().byteStream());
             return oscParser.getStorage();
-        } catch (IOException | SAXException | ParserConfigurationException | URISyntaxException e) {
+        } catch (IOException | SAXException | ParserConfigurationException | URISyntaxException | IllegalArgumentException e) {
             Log.d(DEBUG_TAG, "getChanges got " + e.getMessage());
         }
         return null;
@@ -1534,7 +1534,7 @@ public class Server {
             XmlPullParser parser = xmlParserFactory.newPullParser();
             parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
             return Note.parseNotes(parser, null);
-        } catch (XmlPullParserException | IOException | OutOfMemoryError | URISyntaxException e) {
+        } catch (XmlPullParserException | IOException | OutOfMemoryError | URISyntaxException | IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "getNotesForBox Exception", e);
             return new ArrayList<>(); // empty list
         }

@@ -361,7 +361,7 @@ public class Style implements Serializable {
                             return new Sprites(ctx, sheet, image);
                         }
                     }
-                } catch (IOException | URISyntaxException e) {
+                } catch (IOException | URISyntaxException | IllegalArgumentException e) {
                     Log.e(DEBUG_TAG, "getSprites " + e.getMessage());
                 }
                 return null;

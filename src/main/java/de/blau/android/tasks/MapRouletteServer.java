@@ -72,7 +72,7 @@ final class MapRouletteServer {
                 }
                 return new ArrayList<>();
             }
-        } catch (IOException | URISyntaxException e) {
+        } catch (IOException | URISyntaxException | IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "getTasksForBox got exception " + e.getMessage());
         }
         return null;
@@ -138,7 +138,7 @@ final class MapRouletteServer {
             }
             task.setChanged(false);
             App.getTaskStorage().setDirty();
-        } catch (IOException | URISyntaxException e) {
+        } catch (IOException | URISyntaxException | IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "changeState got exception " + e.getMessage());
             UploadResult result = new UploadResult(ErrorCodes.UPLOAD_PROBLEM);
             result.setMessage(e.getMessage());
@@ -166,7 +166,7 @@ final class MapRouletteServer {
                     return MapRouletteChallenge.parseChallenge(inputStream);
                 }
             }
-        } catch (IOException | URISyntaxException e) {
+        } catch (IOException | URISyntaxException | IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "getChallenge got exception " + e.getMessage());
         }
         return null;

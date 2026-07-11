@@ -326,7 +326,7 @@ public final class TransferTasks {
             Logic.mapErrorCode(errorCode, result);
         } catch (XmlPullParserException e) {
             result.setError(ErrorCodes.INVALID_DATA_RECEIVED);
-        } catch (IOException | URISyntaxException e) {
+        } catch (IOException | URISyntaxException | IllegalArgumentException e) {
             result.setError(ErrorCodes.NO_CONNECTION);
         }
         return result;

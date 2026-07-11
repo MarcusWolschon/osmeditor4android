@@ -84,7 +84,7 @@ final class OsmoseServer {
                     return OsmoseBug.parseBugs(osmoseCallResponse.body().byteStream());
                 }
             }
-        } catch (IOException | URISyntaxException e) {
+        } catch (IOException | URISyntaxException | IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "getBugsForBox got exception " + e.getMessage());
         }
         return new ArrayList<>();
@@ -129,7 +129,7 @@ final class OsmoseServer {
             }
             bug.setChanged(false);
             App.getTaskStorage().setDirty();
-        } catch (IOException | URISyntaxException e) {
+        } catch (IOException | URISyntaxException | IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "changeState got exception " + e.getMessage());
             UploadResult result = new UploadResult(ErrorCodes.UPLOAD_PROBLEM);
             result.setMessage(e.getMessage());
@@ -167,7 +167,7 @@ final class OsmoseServer {
             } else {
                 Log.e(DEBUG_TAG, "getMeta failes");
             }
-        } catch (IOException | URISyntaxException e) {
+        } catch (IOException | URISyntaxException | IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "getMeta got exception " + e.getMessage());
             return;
         }
