@@ -51,8 +51,10 @@ import de.blau.android.util.rtree.RTree;
  */
 public class PhotoIndex extends SQLiteOpenHelper {
 
-    private static final int   DATA_VERSION = 7;
-    public static final String DB_NAME      = PhotoIndex.class.getSimpleName();
+    private static final String DEFAULT_GENERATION = "0";
+    private static final String VOLUME_COLUMN      = "volume";
+    private static final int    DATA_VERSION       = 8;
+    public static final String  DB_NAME            = PhotoIndex.class.getSimpleName();
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, PhotoIndex.class.getSimpleName().length());
     private static final String DEBUG_TAG = PhotoIndex.class.getSimpleName().substring(0, TAG_LEN);
@@ -71,10 +73,14 @@ public class PhotoIndex extends SQLiteOpenHelper {
     private static final String LON_COLUMN         = "lon";
     private static final String DIRECTION_COLUMN   = "direction";
     private static final String ORIENTATION_COLUMN = "orientation";
-    private static final String URI_COLUMN         = "dir";        // historically this was the dir
-    private static final String URI_WHERE          = "dir = ?";
-    private static final String LAST_SCAN_COLUMN   = "last_scan";
-    private static final String TAG_COLUMN         = "tag";
+    // historically this was the dir
+    private static final String URI_COLUMN                   = "dir";
+    private static final String URI_WHERE                    = "dir = ?";
+    private static final String URI_AND_VOLUME_WHERE         = "dir = ? AND volume = ? AND tag = ?";
+    private static final String URI_AND_VOLUME_NULL_WHERE    = "dir = ? AND volume is null AND tag = ?";
+    private static final String URI_AND_VOLUME_AND_TAG_WHERE = "dir = ? AND volume = ? AND tag = ?";
+    private static final String LAST_SCAN_COLUMN             = "last_scan";
+    private static final String TAG_COLUMN                   = "tag";
 
     private static final String INSERT_INTO = "INSERT INTO ";
     private static final String ALTER_TABLE = "ALTER TABLE ";
@@ -106,11 +112,10 @@ public class PhotoIndex extends SQLiteOpenHelper {
                 + " (lat int, lon int, direction int DEFAULT NULL, dir VARCHAR, name VARCHAR, source VARCHAR DEFAULT NULL, orientation int DEFAULT 0);");
         db.execSQL("CREATE INDEX latidx ON " + PHOTOS_TABLE + " (lat)");
         db.execSQL("CREATE INDEX lonidx ON " + PHOTOS_TABLE + " (lon)");
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + SOURCES_TABLE + " (dir VARCHAR, last_scan int8, tag VARCHAR DEFAULT NULL);");
-        initSource(db, DCIM, null);
-        initSource(db, App.getAppName(), null);
-        initSource(db, OSMTRACKER, null);
-        initSource(db, MEDIA_STORE, "");
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + SOURCES_TABLE + " (dir VARCHAR, volume VARCHAR, last_scan int8, tag VARCHAR DEFAULT NULL);");
+        initSource(db, DCIM, null, null);
+        initSource(db, App.getAppName(), null, null);
+        initSource(db, OSMTRACKER, null, null);
     }
 
     /**
@@ -120,8 +125,9 @@ public class PhotoIndex extends SQLiteOpenHelper {
      * @param source the source to init
      * @param tag the initial tag
      */
-    private void initSource(@NonNull SQLiteDatabase db, @NonNull String source, @Nullable String tag) {
-        db.execSQL(INSERT_INTO + SOURCES_TABLE + " VALUES ('" + source + "', 0, " + (tag == null ? "NULL" : "''") + ");");
+    private void initSource(@NonNull SQLiteDatabase db, @NonNull String source, @Nullable String volume, @Nullable String tag) {
+        db.execSQL(INSERT_INTO + SOURCES_TABLE + " VALUES ('" + source + "', " + (volume == null ? "NULL" : "'" + volume + "'") + ", 0, "
+                + (tag == null ? "NULL" : "''") + ");");
     }
 
     @Override
@@ -136,13 +142,14 @@ public class PhotoIndex extends SQLiteOpenHelper {
         if (oldVersion <= 5) {
             db.execSQL(ALTER_TABLE + PHOTOS_TABLE + " ADD source VARCHAR DEFAULT NULL");
             db.execSQL(ALTER_TABLE + SOURCES_TABLE + " ADD tag VARCHAR DEFAULT NULL");
-            initSource(db, MEDIA_STORE, "");
             db.execSQL(DELETE_FROM + PHOTOS_TABLE);
         }
         if (oldVersion <= 6) {
             db.execSQL(ALTER_TABLE + PHOTOS_TABLE + " ADD orientation int DEFAULT 0");
             db.execSQL(DELETE_FROM + PHOTOS_TABLE);
-            updateSources(db, MEDIA_STORE, null, System.currentTimeMillis());
+        }
+        if (oldVersion <= 7) {
+            db.execSQL(ALTER_TABLE + SOURCES_TABLE + " ADD volume VARCHAR DEFAULT NULL");
         }
     }
 
@@ -171,7 +178,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
                 // delete scanned photos from index
                 try (SQLiteDatabase db = getWritableDatabase()) {
                     db.delete(PHOTOS_TABLE, SOURCE_COLUMN + "= ?", new String[] { MEDIA_STORE });
-                    updateSources(db, MEDIA_STORE, "", 0);
+                    updateSources(db, MEDIA_STORE, null, "", 0);
                 }
             }
         }
@@ -193,39 +200,64 @@ public class PhotoIndex extends SQLiteOpenHelper {
     public void indexMediaStore() {
         Log.d(DEBUG_TAG, "scanning MediaStore");
         try (SQLiteDatabase db = getWritableDatabase()) {
-            final String mediaStoreVersion = MediaStore.getVersion(context);
-            if (mediaStoreVersion.equals(getTag(db, MEDIA_STORE))) {
-                Log.d(DEBUG_TAG, "MediaStore unchanged");
-                return;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) { // for the benefit of lint
+                for (String volume : MediaStore.getExternalVolumeNames(context)) {
+                    indexMediaStoreVolume(db, volume);
+                }
             }
-            db.delete(PHOTOS_TABLE, SOURCE_COLUMN + " = ?", new String[] { MEDIA_STORE });
-            String[] projection = new String[] { BaseColumns._ID, MediaStore.MediaColumns.DISPLAY_NAME, MediaColumns.MIME_TYPE };
-            try (Cursor cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection,
-                    MediaColumns.MIME_TYPE + " = ? OR " + MediaColumns.MIME_TYPE + " = ?", new String[] { MimeTypes.JPEG, MimeTypes.HEIC }, null)) {
-                Log.d(DEBUG_TAG, "Media store contains " + cursor.getCount() + " entries");
-                // Cache column indices.
-                int idColumn = cursor.getColumnIndexOrThrow(BaseColumns._ID);
-                int displayNameColumn = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DISPLAY_NAME);
-                int mimeTypeColumn = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.MIME_TYPE);
-                while (cursor.moveToNext()) {
-                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q && MimeTypes.HEIC.equals(cursor.getString(mimeTypeColumn))) {
-                        // skip HEIC images is we are on an old Android version
-                        continue;
-                    }
-                    Uri photoUri = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cursor.getString(idColumn));
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                        photoUri = MediaStore.setRequireOriginal(photoUri);
-                    }
-                    if (!isIndexed(db, photoUri)) {
-                        String path = ContentResolverUtil.getDataColumn(context, photoUri, null, null);
-                        if (path == null || !isIndexed(db, path)) {
-                            addPhoto(context, db, photoUri, cursor.getString(displayNameColumn));
-                        }
+        }
+    }
+
+    /**
+     * Scan a specific MediaStore volume
+     * 
+     * @param db a writable database
+     * @param volume the volume
+     */
+    private void indexMediaStoreVolume(@NonNull SQLiteDatabase db, @NonNull String volume) {
+        Log.d(DEBUG_TAG, "Indexing MediaStore volume " + volume);
+        // getGeneration requires Android 11
+        final String mediaStoreVersion = Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q ? DEFAULT_GENERATION
+                : Long.toString(MediaStore.getGeneration(context, volume));
+
+        String tag = getTag(db, MEDIA_STORE);
+        Log.d(DEBUG_TAG, "MediaStore last tag " + tag + " current " + mediaStoreVersion);
+        // on Android 10 devices we don't have a generation value so we always index, but taking the last scan date in
+        // to account
+        if (mediaStoreVersion.equals(tag) && !DEFAULT_GENERATION.equals(tag)) {
+            Log.d(DEBUG_TAG, "MediaStore unchanged");
+            return;
+        }
+        if (tag == null) {
+            Log.d(DEBUG_TAG, "MediaStore source entry missing");
+            tag = "";
+            initSource(db, MEDIA_STORE, volume, tag);
+        }
+
+        long lastScanned = getLastScan(db, MEDIA_STORE, volume, tag);
+        lastScanned = lastScanned == -1 ? 0 : lastScanned / 1000; // DATE_ADDED is in seconds
+        String[] projection = new String[] { BaseColumns._ID, MediaStore.MediaColumns.DISPLAY_NAME, MediaColumns.MIME_TYPE };
+        try (Cursor cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection,
+                "(" + MediaColumns.MIME_TYPE + " = ? OR " + MediaColumns.MIME_TYPE + " = ? ) AND " + MediaColumns.DATE_ADDED + " >= ? ",
+                new String[] { MimeTypes.JPEG, MimeTypes.HEIC, Long.toString(lastScanned) }, null)) {
+            Log.d(DEBUG_TAG, "Media store update has " + cursor.getCount() + " entries");
+            // Cache column indices.
+            int idColumn = cursor.getColumnIndexOrThrow(BaseColumns._ID);
+            int displayNameColumn = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DISPLAY_NAME);
+            while (cursor.moveToNext()) {
+                Uri photoUri = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cursor.getString(idColumn));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    photoUri = MediaStore.setRequireOriginal(photoUri);
+                }
+                if (!isIndexed(db, photoUri)) {
+                    String path = ContentResolverUtil.getDataColumn(context, photoUri, null, null);
+                    if (path == null || !isIndexed(db, path)) {
+                        addPhoto(context, db, photoUri, cursor.getString(displayNameColumn));
                     }
                 }
             }
-            updateSources(db, MEDIA_STORE, mediaStoreVersion, System.currentTimeMillis());
         }
+        updateSources(db, MEDIA_STORE, volume, mediaStoreVersion, System.currentTimeMillis());
     }
 
     /**
@@ -233,15 +265,21 @@ public class PhotoIndex extends SQLiteOpenHelper {
      * 
      * @param db a writable database
      * @param source the source to update
+     * @param volume the volume or null
      * @param tag the tag
      * @param lastScan the time of last scan
      */
-    private void updateSources(@NonNull SQLiteDatabase db, @NonNull String source, @Nullable String tag, long lastScan) {
+    private void updateSources(@NonNull SQLiteDatabase db, @NonNull String source, @Nullable String volume, @Nullable String tag, long lastScan) {
         Log.d(DEBUG_TAG, "updating " + source + " to scan " + lastScan + " tag " + tag);
-        ContentValues lastVersion = new ContentValues();
-        lastVersion.put(TAG_COLUMN, tag);
-        lastVersion.put(LAST_SCAN_COLUMN, lastScan);
-        db.update(SOURCES_TABLE, lastVersion, URI_WHERE, new String[] { source });
+        ContentValues update = new ContentValues();
+        update.put(TAG_COLUMN, tag);
+        update.put(VOLUME_COLUMN, volume);
+        update.put(LAST_SCAN_COLUMN, lastScan);
+        if (volume == null) {
+            db.update(SOURCES_TABLE, update, URI_AND_VOLUME_NULL_WHERE, new String[] { source });
+            return;
+        }
+        db.update(SOURCES_TABLE, update, URI_AND_VOLUME_WHERE, new String[] { source, volume });
     }
 
     /**
@@ -287,7 +325,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
                             dbresult2.moveToNext();
                         }
                         scanDir(db, indir.getAbsolutePath(), lastScan);
-                        updateSources(db, indir.getName(), null, System.currentTimeMillis());
+                        updateSources(db, indir.getName(), null, null, System.currentTimeMillis());
                     }
                 }
                 dbresult.moveToNext();
@@ -597,9 +635,31 @@ public class PhotoIndex extends SQLiteOpenHelper {
                 return dbresult.getString(0);
             }
         } catch (Exception ex) {
-            Log.e(DEBUG_TAG, ex.getMessage());
+            Log.e(DEBUG_TAG, "getTag " + ex.getMessage());
         }
         return null;
+    }
+
+    /**
+     * Get the last scan value for a source and tag
+     * 
+     * @param db the database
+     * @param source the source
+     * @param volume the volume of the source if any
+     * @param tag the tag
+     * @return the last time updated or -1
+     */
+    private long getLastScan(@NonNull SQLiteDatabase db, @NonNull String source, @Nullable String volume, @NonNull String tag) {
+        try (Cursor dbresult = db.query(SOURCES_TABLE, new String[] { LAST_SCAN_COLUMN }, URI_AND_VOLUME_AND_TAG_WHERE, new String[] { source, volume, tag },
+                null, null, null, null)) {
+            if (dbresult.getCount() >= 1) {
+                dbresult.moveToFirst();
+                return dbresult.getLong(0);
+            }
+        } catch (Exception ex) {
+            Log.e(DEBUG_TAG, "getLastScan " + ex.getMessage());
+        }
+        return -1L;
     }
 
     /**
