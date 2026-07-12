@@ -2,6 +2,9 @@
 
 22.1.0-1:
 
+- Fix ScrollView in image information modal getting stuck
+- Fix don't limit width of dialogs if we are in multi-window mode
+- Fix re-factor MediaStore indexing
 - Fix protect against JsonNull
 - Fix Panoramax image symbol highlight missing
 - Fix broken NumberPicker styling
