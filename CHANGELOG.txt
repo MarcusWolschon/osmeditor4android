@@ -1,5 +1,19 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+22.0.7:
+
+- Fix improve layer control layout and fix some more inset issues
+- Fix don't limit the width of dialogs if we are in multi-window mode
+- Fix ScrollView getting stuck when content and view height very similar
+- Fix protect against JsonNull
+- Fix Panoramax image symbol highlight missing
+- Fix broken NumberPicker styling
+- Update JosmFilterParser dependency
+- Update root certificates
+- Update imagery from ELI
+- Update default preset
+- Update tag2link
+
 22.0.6:
 
 - Version bump only
