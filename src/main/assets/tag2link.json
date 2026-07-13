@@ -120,6 +120,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:brand:wikipedia:de",
+    "url": "https://de.wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:bridge:wikipedia",
     "url": "https://wikipedia.org/wiki/$1",
     "source": "osmwiki:P8",
@@ -174,6 +180,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:contact:booking",
+    "url": "$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:contact:facebook",
     "url": "https://www.facebook.com/$1",
     "source": "wikidata:P1630",
@@ -183,6 +195,12 @@
     "key": "Key:contact:facebook",
     "url": "https://unavatar.now.sh/facebook/$1",
     "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:facebook",
+    "url": "https://www.facebook.com/$1",
+    "source": "osmwiki:P8",
     "rank": "normal"
   },
   {
@@ -256,6 +274,18 @@
     "url": "https://fedirect.toolforge.org/?id=$1",
     "source": "wikidata:P1630",
     "rank": "preferred"
+  },
+  {
+    "key": "Key:contact:mastodon",
+    "url": "https://fedirect.toolforge.org/?id=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:mastodon",
+    "url": "https://wikidata-externalid-url.toolforge.org/?p=4033&id=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
   },
   {
     "key": "Key:contact:mastodon",
@@ -571,7 +601,7 @@
   },
   {
     "key": "Key:contact:youtube",
-    "url": "https://www.youtube.com/user/$1",
+    "url": "https://www.youtube.com/@$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
@@ -1542,6 +1572,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:not:school:CH-GE",
+    "url": "https://wiki.openstreetmap.org/wiki/Key:school:CH-GE#$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:notable_tenant:wikidata",
     "url": "https://www.wikidata.org/entity/$1",
     "source": "osmwiki:P8",
@@ -1626,6 +1662,18 @@
     "rank": "normal"
   },
   {
+    "key": "Key:operator:instagram",
+    "url": "https://www.instagram.com/$1/",
+    "source": "osmwiki:P8",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:operator:instagram",
+    "url": "https://www.threads.com/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:operator:ref:CH:UID",
     "url": "https://www.uid.admin.ch/Detail.aspx?uid_id=$1",
     "source": "osmwiki:P8",
@@ -1652,6 +1700,18 @@
   {
     "key": "Key:operator:wikipedia",
     "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:operator:wikipedia:de",
+    "url": "https://de.wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:operator:wikipedia:es",
+    "url": "https://es.wikipedia.org/wiki/$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
@@ -1815,6 +1875,18 @@
     "key": "Key:ref:AU-NSW:mooring",
     "url": "https://mooringonline.onegov.nsw.gov.au/pwl/getstarted/$1",
     "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:badkartan.se",
+    "url": "https://www.badkartan.se/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:badkartan.se",
+    "url": "https://www.badkartan.se/$1",
+    "source": "wikidata:P1630",
     "rank": "normal"
   },
   {
@@ -2407,7 +2479,7 @@
   },
   {
     "key": "Key:ref:gss",
-    "url": "https://statistics.data.gov.uk/atlas/resource?uri=http://statistics.data.gov.uk/id/statistical-geography/$1",
+    "url": "https://findthatpostcode.uk/areas/$1.html",
     "source": "wikidata:P1630",
     "rank": "normal"
   },
@@ -2553,7 +2625,7 @@
     "key": "Key:ref:ine",
     "url": "https://api-features.ign.es/collections/nuc/items?codine=$1",
     "source": "wikidata:P3303",
-    "rank": "normal"
+    "rank": "preferred"
   },
   {
     "key": "Key:ref:ine",
@@ -3009,6 +3081,30 @@
     "key": "Key:ref:sipca",
     "url": "http://www.sipca.es/censo/$1/.html",
     "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:stockholmarchipelagotrail",
+    "url": "https://map.stockholmarchipelagotrail.com/?$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:stockholmarchipelagotrail",
+    "url": "https://map.stockholmarchipelagotrail.com/?id=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:stockholmarchipelagotrail",
+    "url": "https://map.stockholmarchipelagotrail.com/api/objects/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:supercharge_info",
+    "url": "https://supercharge.info/map?siteID=$1",
+    "source": "osmwiki:P8",
     "rank": "normal"
   },
   {
@@ -3558,12 +3654,6 @@
     "rank": "normal"
   },
   {
-    "key": "Key:website:booking",
-    "url": "$1",
-    "source": "osmwiki:P8",
-    "rank": "normal"
-  },
-  {
     "key": "Key:website:catalogue",
     "url": "$1",
     "source": "osmwiki:P8",
@@ -3630,12 +3720,6 @@
     "rank": "normal"
   },
   {
-    "key": "Key:website:reservation",
-    "url": "$1",
-    "source": "osmwiki:P8",
-    "rank": "normal"
-  },
-  {
     "key": "Key:website:ru",
     "url": "$1",
     "source": "osmwiki:P8",
@@ -3669,7 +3753,13 @@
     "key": "Key:wikidata",
     "url": "https://www.wikidata.org/entity/$1",
     "source": "osmwiki:P8",
-    "rank": "preferred"
+    "rank": "normal"
+  },
+  {
+    "key": "Key:wikidata_1",
+    "url": "https://www.wikidata.org/entity/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
   },
   {
     "key": "Key:wikimedia_commons",
