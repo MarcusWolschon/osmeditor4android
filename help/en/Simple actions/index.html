@@ -425,6 +425,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../22.1.0%20Release%20notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    22.1 Release notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../22.0.0%20Release%20notes/" class="md-nav__link">
         
   
@@ -1365,11 +1386,6 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-        
           <li class="md-nav__item">
   <a href="#follow-way" class="md-nav__link">
     <span class="md-ellipsis">
@@ -1377,8 +1393,7 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Follow way">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
   <a href="#add-address-tags" class="md-nav__link">
@@ -1391,6 +1406,15 @@
         
       </ul>
     </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-area" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add area
+    </span>
+  </a>
   
 </li>
         
@@ -2532,11 +2556,6 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-        
           <li class="md-nav__item">
   <a href="#follow-way" class="md-nav__link">
     <span class="md-ellipsis">
@@ -2544,8 +2563,7 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Follow way">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
   <a href="#add-address-tags" class="md-nav__link">
@@ -2558,6 +2576,15 @@
         
       </ul>
     </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-area" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add area
+    </span>
+  </a>
   
 </li>
         
@@ -2670,17 +2697,19 @@
 <p>The created Node is not automatically merged with nearby objects.</p>
 <h3 id="add-way">Add way<a class="headerlink" href="#add-way" title="Permanent link">#</a></h3>
 <p>Start a new OSM Way at the tapped position, tapping a further position will create the next node and so on. Behaviour is similar as described in <a href="../Creating%20new%20objects/">creating new objects</a>. <strong>Way Nodes will be merged with nearby objects.</strong></p>
-<p>Besides tapping the "check mark" button to directly start the <a href="../Property%20editor/">property editor</a>, you can</p>
+<p>Besides tapping the "check mark" button to directly start the <a href="../Property%20editor/">property editor</a>, you can select</p>
 <h4 id="snap"><img alt="Snap" src="../../images/snap_on.png" />  <img alt="Snap" src="../../images/snap_off.png" /> Snap<a class="headerlink" href="#snap" title="Permanent link">#</a></h4>
 <p>When the snap function is active, newly created nodes near to other nodes and ways will snap on to these automatically creating connections. It the checkbox is not checked 
 nodes will be created without merging with other objects. You can toggle this while you are drawing a way.</p>
 <p>Note: when the checkbox is not checked you need to manually close closed ways, for example a building outline.</p>
 <h4 id="add-preset"><img alt="Preset" src="../../images/tag_menu_preset.png" /> Add preset<a class="headerlink" href="#add-preset" title="Permanent link">#</a></h4>
 <p>Create the current new object, launch the <a href="../Property%20editor/">property editor</a> and immediately display the preset tab. In multi-pane mode this will simply start the property editor.</p>
-<h3 id="follow-way"><img alt="Follow" src="../../images/follow.png" /> Follow way<a class="headerlink" href="#follow-way" title="Permanent link">#</a></h3>
+<h4 id="follow-way"><img alt="Follow" src="../../images/follow.png" /> Follow way<a class="headerlink" href="#follow-way" title="Permanent link">#</a></h4>
 <p>If two consecutive nodes overlap with nodes of an existing way you can follow the existing way to one of its nodes after clicking the button.</p>
 <h4 id="add-address-tags"><img alt="Address" src="../../images/address.png" /> Add address tags<a class="headerlink" href="#add-address-tags" title="Permanent link">#</a></h4>
 <p>Adds address tags with prediction. If the way is closed this will add the predicted address tags and start the <a href="../Property%20editor/">property editor</a>. If the way is not closed an address interpolation is created and a dedicated editor is started.</p>
+<h3 id="add-area">Add area<a class="headerlink" href="#add-area" title="Permanent link">#</a></h3>
+<p>As <em>Add way</em> but automatically closes ways and adds an indication of where the closing segment will be. If the closing segment would lead to the way self-intersecting the closing line will be highlighted.</p>
 <h3 id="add-map-note">Add map note<a class="headerlink" href="#add-map-note" title="Permanent link">#</a></h3>
 <p>Create a new OSM map note at the tapped position, starting the note editor. </p>
 <h3 id="add-node">Add node<a class="headerlink" href="#add-node" title="Permanent link">#</a></h3>
@@ -2732,7 +2761,7 @@ nodes will be created without merging with other objects. You can toggle this wh
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-	    Generated for Vespucci 22.0
+	    Generated for Vespucci 22.1
     </div>
   
   
@@ -2783,7 +2812,7 @@ nodes will be created without merging with other objects. You can toggle this wh
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.tabs", "navigation.tabs.sticky"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": 22.0}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.tabs", "navigation.tabs.sticky"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": 22.1}</script>
     
     
       <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>

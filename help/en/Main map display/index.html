@@ -425,6 +425,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../22.1.0%20Release%20notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    22.1 Release notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../22.0.0%20Release%20notes/" class="md-nav__link">
         
   
@@ -1521,6 +1542,24 @@
   <a href="#authors-and-licenses" class="md-nav__link">
     <span class="md-ellipsis">
       Authors and licenses
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#privacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Privacy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provide-feedback" class="md-nav__link">
+    <span class="md-ellipsis">
+      Provide feedback
     </span>
   </a>
   
@@ -2799,6 +2838,24 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#privacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Privacy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provide-feedback" class="md-nav__link">
+    <span class="md-ellipsis">
+      Provide feedback
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#debug" class="md-nav__link">
     <span class="md-ellipsis">
       Debug
@@ -2863,6 +2920,7 @@
 <li>Menu button.<ul>
 <li>Tile based layers: <ul>
 <li><strong>Select imagery</strong> Show a imagery selection dialog, if multiple layers have been used, a most-recently-used list will be displayed above this menu entry, allowing quick layer switching. </li>
+<li><strong>Update tiles in view</strong> remove the tiles that are being displayed from the cache allowing them to be updated. Note: overzooming, that is viewing tiles at a higher zoom level then their nominal zoom value, will lead to tiles from a lower zoom level being removed. For example Mapbox Vector tiles typically have a maximum zoom of 14, but you will nearly always be viewing them at a higher zoom.  </li>
 <li><strong>Flush tile cache</strong> Flush the on device cache for this layer.</li>
 <li><strong>Background properties</strong> Set contrast of layer.</li>
 <li><strong>Info</strong> Display information on the currently selected imagery.</li>
@@ -2919,7 +2977,8 @@
 </ul>
 </li>
 <li>Data and Tasks layers:<ul>
-<li><strong>Info</strong> Display some information on the contents.</li>
+<li><strong>Info</strong> Display some information on the contents.  </li>
+<li><strong>Auto-prune</strong> Enable/disable automatically pruning of in memory data. Default: <em>on</em>.</li>
 <li><strong>Prune</strong> remove downloaded data from storage that is outside of the current screen and unmodified.</li>
 </ul>
 </li>
@@ -3065,7 +3124,7 @@ To reposition or remove the "on-map" GPS button use the "Follow position button 
 <li><strong>Remove EGM</strong> - remove the EGM.</li>
 <li><strong>Load keys from file...</strong> - load additional keys, for example API keys for background imagery, or other OAuth keys from a file.</li>
 <li><strong>Export configuration...</strong> - export configuration data to a file.</li>
-<li><strong>Import configuration...</strong> - import configuration data from a file.</li>
+<li><strong>Import configuration...</strong> - import configuration data from a file. Note that importing database data from a more recent version is not supported.</li>
 <li><strong>JS Console</strong> - start the JavaScript console for scripting the application. Note that this needs to be enabled in the "Advanced preferences".</li>
 </ul>
 <h3 id="find"><img alt="Find" src="../../images/ic_menu_search_holo_light.png" /> Find<a class="headerlink" href="#find" title="Permanent link">#</a></h3>
@@ -3091,6 +3150,10 @@ creating a query you should add <em>({{bbox}})</em> terms for the same reason.</
 <p>Start the on device help browser.</p>
 <h3 id="authors-and-licenses">Authors and licenses<a class="headerlink" href="#authors-and-licenses" title="Permanent link">#</a></h3>
 <p>Some information on the licence of Vespucci itself, specific components and a list of all known contributors to the app.</p>
+<h3 id="privacy">Privacy<a class="headerlink" href="#privacy" title="Permanent link">#</a></h3>
+<p>Display the privacy policy.</p>
+<h3 id="provide-feedback">Provide feedback<a class="headerlink" href="#provide-feedback" title="Permanent link">#</a></h3>
+<p>Open an issue on the github software repository. If you don't login to github a semi-anonymous issue will be created, this is not ideal as you will not be notified of responses to the issue. See <em><a href="../Property%20editor/#provide-preset-feedback">Provide preset feedback</a></em> for the same function for the default preset.</p>
 <h3 id="debug">Debug<a class="headerlink" href="#debug" title="Permanent link">#</a></h3>
 <p>Internal information on the app and a button to force submission of a crash dump.</p>
 
@@ -3122,7 +3185,7 @@ creating a query you should add <em>({{bbox}})</em> terms for the same reason.</
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-	    Generated for Vespucci 22.0
+	    Generated for Vespucci 22.1
     </div>
   
   
@@ -3173,7 +3236,7 @@ creating a query you should add <em>({{bbox}})</em> terms for the same reason.</
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.tabs", "navigation.tabs.sticky"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": 22.0}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.tabs", "navigation.tabs.sticky"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": 22.1}</script>
     
     
       <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
