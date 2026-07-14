@@ -2587,16 +2587,16 @@ it did force us to replace the previous third party implementation of a github i
 <p>With next years major version 23 we will be dropping support for Android 5 and 5.1. These Android versions will be a dozen years old in 2027 and google has now dropped support for
 them in many of the libraries we rely on, with other words we don't really have a choice.</p>
 <h3 id="improved-authorization-flow">Improved authorization flow<a class="headerlink" href="#improved-authorization-flow" title="Permanent link">#</a></h3>
-<p>We've replaced the previous implementation that utilized a Android WebView with "CustomTabs" that use the currently installed default browser this should allow signing in with google to work again and if you are already logged in to the site, reuse that information. <a href="https://github.com/openstreetmap/openstreetmap-website/issues/5118">More information</a>.</p>
+<p>We've replaced the previous implementation that utilized a Android WebView with "CustomTabs" that use the currently installed default browser. This change should allow signing in with google to work again and if you are already logged in to the site reuse that information. <a href="https://github.com/openstreetmap/openstreetmap-website/issues/5118">More information</a>.</p>
 <h3 id="dedicated-function-to-draw-areas">Dedicated function to draw "areas"<a class="headerlink" href="#dedicated-function-to-draw-areas" title="Permanent link">#</a></h3>
 <p>We've added an "Add area" function to the "+" button in normal mode, this works the same as the previous "Add way" but will always close the way, even if the <em>Snap</em> function
-is disabled. See <a href="../Simple%20actions/#add-area">Add area</a>. While drawing a closing line is indicated that will turn red if the area would intersect itself if closed at that point.</p>
+is disabled. See <a href="../Simple%20actions/#add-area">Add area</a>. While drawing the area a closing line is displayed that will turn red if the area would self-intersect if closed at that point.</p>
 <p>We expect more functionality to be added to this going forward. </p>
 <h3 id="support-for-detecting-nearly-connections-for-boundary-ways-and-relations">Support for detecting nearly connections for boundary ways and relations<a class="headerlink" href="#support-for-detecting-nearly-connections-for-boundary-ways-and-relations" title="Permanent link">#</a></h3>
 <p>Validation will now detect and highlight nearly connections for boundary ways and ways that are a member of a boundary relation.</p>
 <h3 id="download-along-way">Download along way<a class="headerlink" href="#download-along-way" title="Permanent link">#</a></h3>
 <p>You can now download along an OSM way, this is substantially more efficient than panning along the way to download data and in our experience leads to far less 509 errors from
-the OSM API. Using this will turn off auto-prune as leaving it enabled could lead to the data you just downloaded being immediately deleted, to make it a bit easier to 
+the OSM API. Using this will turn off auto-prune as leaving it enabled could lead to the data you just downloaded being immediately deleted. To make it a bit easier to 
 re-enable auto-prune we have separated the configuration for OSM data and tasks and moved it to the layer control modal. </p>
 <p>We would further recommend disabling <a href="../Main%20map%20display/#transfer">Pan and zoom auto download</a> and using authenticated reads (see the API configuration)) while using this function.</p>
 <p>A future version will support the same functionality for GPX tracks, due to time constraints it wasn't possible to include it in this release.  </p>
@@ -2605,7 +2605,7 @@ with Osmose support turned on.</p>
 <h3 id="update-set-position-modal">Update "Set position" modal<a class="headerlink" href="#update-set-position-modal" title="Permanent link">#</a></h3>
 <p>If you select a Node you can change its position with the "Set position" modal. This supports pasting in to the text fields in various formats now and swapping longitude and latitude values, see <a href="../Node%20selected/#set-position">Set position</a>. </p>
 <h3 id="update-tiles-in-view">Update tiles in view<a class="headerlink" href="#update-tiles-in-view" title="Permanent link">#</a></h3>
-<p>For tile based layers we now support an <a href="../Main%20map%20display/#layer-control">Update tiles in view</a> that will selectively only remove the the tiles in view and for the current zoom level from the cache.</p>
+<p>For tile based layers we now support an <a href="../Main%20map%20display/#layer-control">Update tiles in view</a> function that only removes the tiles in view and at the current zoom level from the cache.</p>
 <h3 id="additional-squaring-support">Additional squaring support<a class="headerlink" href="#additional-squaring-support" title="Permanent link">#</a></h3>
 <p>We've add support for squaring corners of a selected way, this works both for multiple and a single selected way node.</p>
 <h3 id="improved-tlsssl-support-on-pre-android-14-devices">Improved TLS/SSL support on pre-Android 14 devices<a class="headerlink" href="#improved-tlsssl-support-on-pre-android-14-devices" title="Permanent link">#</a></h3>
@@ -2614,7 +2614,7 @@ with Osmose support turned on.</p>
 <ul>
 <li>Change unjoin Way behaviour to not clone nodes</li>
 <li>Support long press way splitting in legacy mode</li>
-<li>Improve mediastore indexing</li>
+<li>Improved mediastore indexing</li>
 </ul>
 <h2 id="miscellaneous">Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permanent link">#</a></h2>
 <h1 id="upgrading-from-previous-versions">Upgrading from previous versions<a class="headerlink" href="#upgrading-from-previous-versions" title="Permanent link">#</a></h1>
