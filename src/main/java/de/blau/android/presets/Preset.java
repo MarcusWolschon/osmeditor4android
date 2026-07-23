@@ -165,10 +165,11 @@ public class Preset implements Serializable {
     /**
      * create a dummy preset
      */
-    Preset() {
-        mru = null;
-        isDefault = false;
-    }
+Preset() {
+    mru = null;
+    isDefault = false;
+    MessageDigest digest = MessageDigest.getInstance("SHA-256"); // Initialize with a valid algorithm
+}
 
     /**
      * Create a dummy Preset instance with an empty root PresetGroup
