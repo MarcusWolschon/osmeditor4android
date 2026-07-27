@@ -126,7 +126,7 @@ Select the camera app to use. If your, installed, camera app is not listed, plea
 
 ### Use builtin photo viewer
 
-If checked the the internal photo viewer will be used, if not checked the app will attempt to use a suitable 3rd party app on your device. Default: _on_.
+If checked the internal photo viewer will be used, if not checked the app will attempt to use a suitable 3rd party app on your device. Default: _on_.
 
 ### Use the MediaStore
 
