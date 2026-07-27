@@ -124,7 +124,7 @@ Show a camera button on the main display (if a camera app is present). Default: 
 
 Select the camera app to use. If your, installed, camera app is not listed, please report this and we will add it to the list. Unluckily google does not allow to automatically determine installed camera apps outside of pre-installed ones. Default: _System default_.
 
-### Use the building photo viewer
+### Use builtin photo viewer
 
 If checked the the internal photo viewer will be used, if not checked the app will attempt to use a suitable 3rd party app on your device. Default: _on_.
 
@@ -142,7 +142,7 @@ Configure online destinations that can be used for storing images. Currently Pan
 
 ### Image licence
 
-Licence to use for uploaded images. Currently this is just utilized for the Wikimedia COmmons destination.
+Licence to use for uploaded images. Currently this is just utilized for the Wikimedia Commons destination.
 
 ## Data and Editing Settings
 
