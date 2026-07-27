@@ -2913,10 +2913,10 @@ public class Logic {
         try {
             lock();
             final StorageDelegator delegator = getDelegator();
+            createCheckpoint(activity, R.string.undo_action_unjoin_ways);
             if (!delegator.isInDownload(way)) {
                 throw new OsmIllegalOperationException(getResources(activity).getString(R.string.toast_all_way_nodes_download));
-            }
-            createCheckpoint(activity, R.string.undo_action_unjoin_ways);
+            }     
             displayAttachedObjectWarning(activity, way); // needs to be done before unjoin
             return delegator.unjoinWay(activity, way, primaryKey);
         } catch (OsmIllegalOperationException | StorageException ex) {

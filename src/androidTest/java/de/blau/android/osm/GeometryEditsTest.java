@@ -31,6 +31,7 @@ import de.blau.android.LayerUtils;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
+import de.blau.android.R;
 import de.blau.android.TestUtils;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.prefs.Preferences;
@@ -42,9 +43,9 @@ import de.blau.android.util.Util;
 @LargeTest
 public class GeometryEditsTest {
 
-    Context   context = null;
-    Main      main    = null;
-    DataStyleManager styles  = null;
+    Context                       context       = null;
+    Main                          main          = null;
+    DataStyleManager              styles        = null;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -62,7 +63,7 @@ public class GeometryEditsTest {
         Preferences prefs = new Preferences(context);
         LayerUtils.removeImageryLayers(context);
         Logic logic = App.getLogic();
-        Map map = logic.getMap();
+        Map   map   = logic.getMap();
         map.setPrefs(main, prefs);
         App.getDelegator().reset(false);
         App.getDelegator().setOriginalBox(ViewBox.getMaxMercatorExtent());
@@ -73,8 +74,8 @@ public class GeometryEditsTest {
     }
 
     /**
-     * Create a way, split it, create a turn restriction on it, split one of the ways, merge the two resulting ways back
-     * in to one, add the way to a normal relation, split it again
+     * Create a way, split it, create a turn restriction on it, split one of the ways, merge the two resulting ways back in to one, add the way to a normal
+     * relation, split it again
      */
     @UiThreadTest
     @Test
@@ -95,9 +96,9 @@ public class GeometryEditsTest {
 
             List<Way> wList1 = logic.getWaysForNode(n3);
             assertEquals(1, wList1.size());
-            Way w2 = wList1.get(0);
+            Way              w2     = wList1.get(0);
 
-            Relation r1 = logic.createRestriction(main, w1, n2, w2, "test rest");
+            Relation         r1     = logic.createRestriction(main, w1, n2, w2, "test rest");
             List<OsmElement> mList1 = r1.getMemberElements();
             assertEquals(3, mList1.size());
             assertEquals(w1, mList1.get(0));
@@ -192,10 +193,10 @@ public class GeometryEditsTest {
 
             List<Way> wList1 = logic.getWaysForNode(n3);
             assertEquals(1, wList1.size());
-            Way w2 = wList1.get(0);
+            Way                           w2   = wList1.get(0);
 
             // create destination_sign relation from a turn restriction for convenience
-            Relation r1 = logic.createRestriction(main, w1, n2, w2, Tags.VALUE_DESTINATION_SIGN);
+            Relation                      r1   = logic.createRestriction(main, w1, n2, w2, Tags.VALUE_DESTINATION_SIGN);
             java.util.Map<String, String> tags = new TreeMap<>(r1.getTags());
             tags.put(Tags.KEY_TYPE, Tags.VALUE_DESTINATION_SIGN);
             logic.setTags(null, r1, tags);
@@ -249,10 +250,10 @@ public class GeometryEditsTest {
             assertNotNull(w1);
             ArrayList<Node> nList1 = (ArrayList<Node>) w1.getNodes();
             assertEquals(4, nList1.size());
-            final Node n1 = nList1.get(0);
-            final Node n2 = nList1.get(1);
-            final Node n3 = nList1.get(2);
-            final Node n4 = nList1.get(3);
+            final Node       n1    = nList1.get(0);
+            final Node       n2    = nList1.get(1);
+            final Node       n3    = nList1.get(2);
+            final Node       n4    = nList1.get(3);
 
             // add w1 twice to a normal relation
             List<OsmElement> mList = new ArrayList<>();
@@ -412,8 +413,8 @@ public class GeometryEditsTest {
             System.out.println("ApplicationTest created way " + w2.getOsmId());// NOSONAR
             ArrayList<Node> nList2 = (ArrayList<Node>) w2.getNodes();
             assertEquals(5, nList2.size());
-            final Node n1 = nList2.get(0);
-            List<Way> wayList = logic.getWaysForNode(n1);
+            final Node n1      = nList2.get(0);
+            List<Way>  wayList = logic.getWaysForNode(n1);
             assertEquals(2, wayList.size());
             assertTrue(wayList.contains(w1));
             assertTrue(wayList.contains(w2));
@@ -445,7 +446,7 @@ public class GeometryEditsTest {
         try {
             App.getDelegator().setOriginalBox(new BoundingBox(-1, -1, 1, 1)); // force ops to be outside box
             Logic logic = App.getLogic();
-            Map map = main.getMap();
+            Map   map   = main.getMap();
             logic.setZoom(map, 20);
             float tolerance = styles.getCurrent().getWayToleranceValue();
             System.out.println("Tolerance " + tolerance); // NOSONAR
@@ -454,10 +455,10 @@ public class GeometryEditsTest {
             logic.setSelectedNode(null);
             logic.setSelectedRelation(null);
             logic.performAdd(main, 1000.0f, 0.0f);
-            Node wn = logic.getSelectedNode();
+            Node    wn  = logic.getSelectedNode();
             ViewBox box = new ViewBox(wn.getLon(), wn.getLat());
-            float wnY = getY(logic, wn);
-            float wnX = getX(logic, wn);
+            float   wnY = getY(logic, wn);
+            float   wnX = getX(logic, wn);
             System.out.println("WN1 X " + wnX + " Y " + wnY); // NOSONAR
             logic.performAdd(main, 1000.0f, 1000.0f);
             wn = logic.getSelectedNode();
@@ -492,7 +493,7 @@ public class GeometryEditsTest {
             logic.setSelectedNode(null);
 
             Node tempNode = logic.performAddOnWay(main, null, X, 500.0f, false);
-            Node n1 = logic.getSelectedNode();
+            Node n1       = logic.getSelectedNode();
             box.union(n1.getLon(), n1.getLat());
             assertEquals(n1, tempNode);
             assertEquals(1, logic.getWaysForNode(n1).size());
@@ -532,9 +533,9 @@ public class GeometryEditsTest {
             Way w1 = logic.getSelectedWay();
             logic.setSelectedWay(null);
             logic.setSelectedNode(null);
-            int lon = GeoMath.xToLonE7(logic.getMap().getWidth(), logic.getViewBox(), 1001.0f);
-            int lat = GeoMath.yToLatE7(logic.getMap().getHeight(), logic.getMap().getWidth(), logic.getViewBox(), 500.0f);
-            Node n1 = logic.performAddNode(main, lon, lat);
+            int  lon = GeoMath.xToLonE7(logic.getMap().getWidth(), logic.getViewBox(), 1001.0f);
+            int  lat = GeoMath.yToLatE7(logic.getMap().getHeight(), logic.getMap().getWidth(), logic.getViewBox(), 500.0f);
+            Node n1  = logic.performAddNode(main, lon, lat);
             assertEquals(0, logic.getWaysForNode(n1).size());
             List<Result> result = logic.performJoinNodeToWays(main, Util.wrapInList(w1), n1);
             assertTrue(w1.hasNode(n1));
@@ -560,9 +561,9 @@ public class GeometryEditsTest {
             Node n1 = logic.getSelectedNode();
             logic.setSelectedWay(null);
             logic.setSelectedNode(null);
-            int lon = GeoMath.xToLonE7(logic.getMap().getWidth(), logic.getViewBox(), 1001.0f);
-            int lat = GeoMath.yToLatE7(logic.getMap().getHeight(), logic.getMap().getWidth(), logic.getViewBox(), 1001.0f);
-            Node n2 = logic.performAddNode(main, lon, lat);
+            int  lon = GeoMath.xToLonE7(logic.getMap().getWidth(), logic.getViewBox(), 1001.0f);
+            int  lat = GeoMath.yToLatE7(logic.getMap().getHeight(), logic.getMap().getWidth(), logic.getViewBox(), 1001.0f);
+            Node n2  = logic.performAddNode(main, lon, lat);
             assertEquals(2, App.getDelegator().getApiNodeCount());
             List<Result> result = logic.performMergeNodes(main, Util.wrapInList(n1), n2, true);
             assertEquals(1, App.getDelegator().getApiNodeCount());
@@ -587,8 +588,8 @@ public class GeometryEditsTest {
     }
 
     /**
-     * Unjoin ways with common nodes, first in normal mode, aka no connections should remain, then in unjoin dissimilar
-     * which should maintain connection to similar ways
+     * Unjoin ways with common nodes, first in normal mode, aka no connections should remain, then in unjoin dissimilar which should maintain connection to
+     * similar ways
      */
     @UiThreadTest
     @Test
@@ -603,7 +604,7 @@ public class GeometryEditsTest {
             logic.performAdd(main, 200.0f, 400.0f);
             logic.performAdd(main, 400.0f, 400.0f);
             logic.performAdd(main, 400.0f, 200.0f);
-            Way w1 = logic.getSelectedWay();
+            Way                     w1   = logic.getSelectedWay();
             TreeMap<String, String> tags = new TreeMap<>();
             tags.put(Tags.KEY_HIGHWAY, Tags.VALUE_MOTORWAY);
             w1.setTags(tags);
@@ -640,6 +641,52 @@ public class GeometryEditsTest {
             assertTrue(w1.hasCommonNode(w3));
         } catch (Exception igit) {
             fail(igit.getMessage());
+        }
+    }
+
+    /**
+     * Unjoin ways with common nodes that are not in a downloaded area
+     */
+    @UiThreadTest
+    @Test
+    public void unjoinWayNotDownloaded() {
+        App.getDelegator().reset(false);
+        Logic logic = App.getLogic();
+        logic.setSelectedWay(null);
+        logic.setSelectedNode(null);
+        logic.setSelectedRelation(null);
+        logic.performAdd(main, 200.0f, 200.0f);
+        assertNotNull(logic.getSelectedNode());
+        logic.performAdd(main, 200.0f, 400.0f);
+        logic.performAdd(main, 400.0f, 400.0f);
+        logic.performAdd(main, 400.0f, 200.0f);
+        Way                     w1   = logic.getSelectedWay();
+        logic.setSelectedWay(null);
+        logic.setSelectedNode(null);
+        logic.performAdd(main, 200.0f, 200.0f);
+        assertNotNull(logic.getSelectedNode());
+        logic.performAdd(main, 200.0f, 400.0f);
+        logic.performAdd(main, 400.0f, 400.0f);
+        Way w2 = logic.getSelectedWay();
+        logic.setSelectedWay(null);
+        logic.setSelectedNode(null);
+        logic.performAdd(main, 400.0f, 400.0f);
+        logic.performAdd(main, 600.0f, 600.0f);
+        Way w3 = logic.getSelectedWay();
+        logic.setSelectedWay(null);
+        logic.setSelectedNode(null);
+        assertTrue(w1.hasCommonNode(w2));
+        assertTrue(w2.hasCommonNode(w3));
+        assertTrue(w1.hasCommonNode(w3));
+        try {
+            logic.performUnjoinWay(main, w1, null);
+            fail("Expected exception");
+        } catch (OsmIllegalOperationException igit) {
+            // this should happen
+            // check that the previous checkpoint is still there 
+            String[] undoActions = App.getDelegator().getUndo().getUndoActions(main);
+            assertEquals(7, undoActions.length);
+            assertEquals("Insertion<br><small>node #-5</small><br><small>way #-3</small><br>", undoActions[undoActions.length-1]);
         }
     }
 
@@ -704,7 +751,7 @@ public class GeometryEditsTest {
             // collapse the area
             int lat = w1.getFirstNode().getLat();
             int lon = w1.getFirstNode().getLon();
-            for (Node n : w1.getNodes()) {
+            for (Node n:w1.getNodes()) {
                 App.getDelegator().moveNode(n, lat, lon);
             }
 
@@ -732,10 +779,10 @@ public class GeometryEditsTest {
             logic.performAdd(main, 300.0f, 300.0f);
             logic.performAdd(main, 300.0f, 500.0f);
             logic.performAdd(main, 100.0f, 500.0f);
-            Way w1 = logic.getSelectedWay();
+            Way         w1      = logic.getSelectedWay();
             BoundingBox origBox = w1.getBounds();
-            List<Node> nodes = new ArrayList<>(w1.getNodes());
-            for (Node n : nodes) {
+            List<Node>  nodes   = new ArrayList<>(w1.getNodes());
+            for (Node n:nodes) {
                 logic.performEraseNode(main, n, true);
             }
             assertEquals(OsmElement.STATE_DELETED, w1.getState());
@@ -788,7 +835,7 @@ public class GeometryEditsTest {
             logic.setSelectedRelation(null); // this is fairly fragile
             logic.performAdd(main, 300.0f, 300.0f);
             logic.performAdd(main, 300.0f, 500.0f);
-            Way w = logic.getSelectedWay();
+            Way              w       = logic.getSelectedWay();
 
             List<OsmElement> members = new ArrayList<>();
             members.add(w);
@@ -928,10 +975,10 @@ public class GeometryEditsTest {
             Way w1 = logic.getSelectedWay();
             assertNotNull(w1);
             StorageDelegator delegator = App.getDelegator();
-            List<Node> oldNodes = w1.getNodes();
-            int nodeCount = oldNodes.size();
-            int[] oldLat = new int[nodeCount];
-            int[] oldLon = new int[nodeCount];
+            List<Node>       oldNodes  = w1.getNodes();
+            int              nodeCount = oldNodes.size();
+            int[]            oldLat    = new int[nodeCount];
+            int[]            oldLon    = new int[nodeCount];
             for (int i = 0; i < nodeCount; i++) {
                 oldLat[i] = oldNodes.get(i).getLat();
                 oldLon[i] = oldNodes.get(i).getLon();
@@ -979,10 +1026,10 @@ public class GeometryEditsTest {
             assertNotNull(logic.getSelectedNode());
             System.out.println(logic.getSelectedNode()); // NOSONAR
             assertEquals(1, App.getDelegator().getApiNodeCount());
-            Node node = logic.getSelectedNode();
+            Node             node      = logic.getSelectedNode();
             StorageDelegator delegator = App.getDelegator();
-            int oldLat = node.getLat();
-            int oldLon = node.getLon();
+            int              oldLat    = node.getLat();
+            int              oldLon    = node.getLon();
             delegator.moveNode(node, oldLat + (int) (10 * 1E7), oldLon + (int) (5 * 1E7));
             assertEquals(oldLat + (int) (10 * 1E7), node.getLat());
             assertEquals(oldLon + (int) (5 * 1E7), node.getLon());
@@ -1020,7 +1067,7 @@ public class GeometryEditsTest {
             Way w1 = logic.getSelectedWay();
             assertNotNull(w1);
             StorageDelegator delegator = App.getDelegator();
-            List<Node> nodes = w1.getNodes();
+            List<Node>       nodes     = w1.getNodes();
             assertEquals(2, nodes.size());
             logic.performMergeNodes(main, Util.wrapInList(nodes.get(0)), nodes.get(1), true);
             assertNull(delegator.getCurrentStorage().getWay(w1.getOsmId()));
