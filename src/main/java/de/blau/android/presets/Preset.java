@@ -170,20 +170,22 @@ Preset() {
     isDefault = false;
     MessageDigest digest = MessageDigest.getInstance("SHA-256"); // Initialize with a valid algorithm
 }
-
-    /**
-     * Create a dummy Preset instance with an empty root PresetGroup
-     * 
-     * @return a dummy Preset instance
-     */
-    @NonNull
-    public static Preset dummyInstance() {
-        Preset preset = new Preset(); // dummy preset to hold the elements of all
-        PresetGroup rootGroup = new PresetGroup(preset, null, "", null);
-        rootGroup.setItemSort(false);
-        preset.setRootGroup(rootGroup);
-        return preset;
-    }
+/**
+ * Create a dummy Preset instance with an empty root PresetGroup
+ * 
+ * @return a dummy Preset instance
+ */
+@NonNull
+public static Preset dummyInstance() {
+    Preset preset = new Preset(); // dummy preset to hold the elements of all
+    byte[] data = "";
+    MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+    messageDigest.update(data);
+    PresetGroup rootGroup = new PresetGroup(preset, null, "", messageDigest);
+    rootGroup.setItemSort(false);
+    preset.setRootGroup(rootGroup);
+    return preset;
+}
 
     /**
      * Creates a preset object.
