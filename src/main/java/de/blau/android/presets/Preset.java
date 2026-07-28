@@ -170,15 +170,8 @@ Preset() {
     isDefault = false;
     MessageDigest digest = MessageDigest.getInstance("SHA-256"); // Initialize with a valid algorithm
 }
-/**
- * Create a dummy Preset instance with an empty root PresetGroup
- * 
- * @return a dummy Preset instance
- */
-@NonNull
 public static Preset dummyInstance() {
-    Preset preset = new Preset(); // dummy preset to hold the elements of all
-    byte[] data = "";
+    byte[] data = "Example Data".getBytes(); // Initialize data with some valid data
     MessageDigest messageDigest = MessageDigest.getInstance("MD5");
     messageDigest.update(data);
     PresetGroup rootGroup = new PresetGroup(preset, null, "", messageDigest);
