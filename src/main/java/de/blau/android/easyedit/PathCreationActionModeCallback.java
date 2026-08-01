@@ -767,10 +767,10 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     /**
      * If areaMode is active close the way if it isn't already
      * 
-     * @param way the Way
+     * @param way the Way (if null this will not do anything)
      */
-    private void closeWay(final Way way) {
-        if (areaMode && !way.isClosed()) {
+    private void closeWay(@Nullable final Way way) {
+        if (areaMode && way != null && !way.isClosed()) {
             // close
             App.getDelegator().addNodeToWay(way.getFirstNode(), way);
         }
