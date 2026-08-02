@@ -89,17 +89,18 @@ public class PhotoViewerActivity<T extends Serializable> extends ConfigurationCh
         if (savedInstanceState == null) {
             // No previous state to restore - get the state from the intent
             Log.d(DEBUG_TAG, "Initializing from intent");
-            photoList = Util.getSerializableExtra(getIntent(), PhotoViewerFragment.PHOTO_LIST_KEY, ArrayList.class);
-            startPos = getIntent().getIntExtra(PhotoViewerFragment.START_POS_KEY, 0);
-            photoLoader = Util.getSerializableExtra(getIntent(), PhotoViewerFragment.PHOTO_LOADER_KEY, ImageLoader.class);
-            wrap = Util.getSerializableExtra(getIntent(), PhotoViewerFragment.WRAP_KEY, Boolean.class);
+            final Intent intent = getIntent();
+            photoList = Util.getSerializableExtra(intent, PhotoViewerFragment.PHOTO_LIST_KEY, ArrayList.class);
+            startPos = intent.getIntExtra(PhotoViewerFragment.START_POS_KEY, 0);
+            photoLoader = Util.getSerializableExtra(intent, PhotoViewerFragment.PHOTO_LOADER_KEY, ImageLoader.class);
+            wrap = Boolean.TRUE.equals(Util.getSerializableExtra(intent, PhotoViewerFragment.WRAP_KEY, Boolean.class));
         } else {
             Log.d(DEBUG_TAG, "Initializing from saved state");
             String photoListFilename = savedInstanceState.getString(PhotoViewerFragment.PHOTO_LIST_KEY);
             photoList = new SavingHelper<ArrayList<T>>().load(this, photoListFilename, true);
             startPos = savedInstanceState.getInt(PhotoViewerFragment.START_POS_KEY);
             photoLoader = Util.getSerializeable(savedInstanceState, PhotoViewerFragment.PHOTO_LOADER_KEY, ImageLoader.class);
-            wrap = savedInstanceState.getBoolean(PhotoViewerFragment.WRAP_KEY);
+            wrap = savedInstanceState.getBoolean(PhotoViewerFragment.WRAP_KEY, false);
         }
         String tag = PhotoViewerFragment.class.getName() + this.getClass().getName();
         photoViewerFragment = (PhotoViewerFragment<T>) getSupportFragmentManager().findFragmentByTag(tag);
