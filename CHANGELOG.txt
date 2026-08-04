@@ -1,5 +1,12 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+22.0.8:
+
+- Fix don't undo the prev. checkpoint if unjoining fails
+- Fix typos in Advanced preferences.md
+- Update default preset
+- Update imagery from ELI
+
 22.0.7:
 
 - Fix improve layer control layout and fix some more inset issues
