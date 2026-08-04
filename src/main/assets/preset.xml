@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.103.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,road_marking,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.105.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,road_marking,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop">
 <!--
     Icons have been derived from mainly from
   
@@ -1179,7 +1179,7 @@
             <list_entry value="no" display_value="None"/>
             <list_entry value="load-unload" display_value="Loading and unloading only"/>
         </combo>
-        <combo key="maxstay:conditional" text="Time Limit" values_no_i18n="true" values_sort="false" match="none" editable="true">
+        <combo key="maxstay:conditional" text="Time Limit @" values_no_i18n="true" values_sort="false" match="none" editable="true">
             <list_entry value="30 minutes @ (Mo-Fr 09:00-19:00)"/><list_entry value="60 minutes @ (Mo-Fr 09:00-19:00)"/><list_entry value="180 minutes @ (Mo-Fr 09:00-19:00)"/><list_entry value="1 hour @ (Mo-Fr 09:00-19:00)"/><list_entry value="1.5 hours @ (Mo-Fr 09:00-19:00)"/>
             <list_entry value="no @ (Mo-Fr 09:00-19:00)"/>
             <list_entry value="load-unload @ (Mo-Fr 09:00-19:00)"/>
@@ -2386,7 +2386,7 @@
             <list_entry value="K1" display_value="K1" regions="GB,IE"/>
             <list_entry value="K2" display_value="K2" regions="GB"/>
             <list_entry value="K3" display_value="K3" regions="GB"/>
-            <list_entry value="K4&#x2423;Post&#x2423;Office" display_value="K4 Post Office" regions="GB"/>
+            <list_entry value="K4&#xFFFD;?&#xFFFD;Post&#xFFFD;?&#xFFFD;Office" display_value="K4 Post Office" regions="GB"/>
             <list_entry value="K6" display_value="K6" regions="GB"/>
             <list_entry value="K8" display_value="K8" regions="GB"/>
             <list_entry value="KX100" display_value="KX100" regions="GB"/>
@@ -4023,7 +4023,31 @@
             <link wiki="Tag:barrier=fence"/>
             <key key="barrier" value="fence"/>
             <optional>
-                <combo key="fence_type" text="Type" values="barbed_wire,bars,chain_link,concrete,electric,metal,pole,railing,split_rail,wire,wood" display_values="Barbed wire,Bars,Chain link,Concrete,Electric,Metal,Pole,Railing,Split rail,Wire,Wood" values_context="material"/>
+                <combo key="fence_type" text="Type" values_context="material">
+                    <list_entry value="animal_crossing" short_description="Animal crossing"/>
+                    <list_entry value="barbed_wire" display_value="Barbed wire"/>
+                    <list_entry value="bars" display_value="Bars"/>
+                    <list_entry value="chain" display_value="Chain" deprecated="true"/>
+                    <list_entry value="chain_link" display_value="Chain link"/>
+                    <list_entry value="concrete" display_value="Concrete"/>
+                    <list_entry value="corrugated_metal" display_value="Corrugated metal"/>
+                    <list_entry value="electric" display_value="Electric"/>
+                    <list_entry value="glass" display_value="Glass"/>
+                    <list_entry value="knee_rail" display_value="Knee rail"/>
+                    <list_entry value="krest" display_value="Krest"/>
+                    <list_entry value="metal" display_value="Metal" deprecated="true"/>
+                    <list_entry value="metal_bars" display_value="Metal bars"/>
+                    <list_entry value="net" display_value="Net"/>
+                    <list_entry value="paling" display_value="Paling"/>
+                    <list_entry value="pole" display_value="Pole"/>
+                    <list_entry value="post_and_rail" display_value="Post and rail"/>
+                    <list_entry value="railing" display_value="Railing"/>
+                    <list_entry value="roundpole" display_value="Roundpole"/>
+                    <list_entry value="slatted" display_value="Slatted"/>
+                    <list_entry value="split_rail" display_value="Split rail"/>
+                    <list_entry value="wire" display_value="Wire"/>
+                    <list_entry value="wood" display_value="Wood" deprecated="true"/> 
+                </combo>
                 <text key="height" text="Height (meters)" length="7" value_type="dimension_vertical"/>
             </optional>
         </item> <!-- Fence -->
@@ -4862,12 +4886,32 @@
                 <key key="natural" value="cape"/>
                 <reference ref="optional_name_wikipedia"/>
             </item> <!-- Cape -->
-            <item name="Strait" icon="icons/png/natural_empty.png" type="node,way,closedway,multipolygon" preset_name_label="true">
+            <item name="Strait" icon="${natural_straight}" type="node,way,closedway,multipolygon" preset_name_label="true">
                 <link wiki="Tag:natural=strait"/>
                 <space/>
                 <key key="natural" value="strait"/>
                 <reference ref="optional_name_wikipedia"/>
             </item> <!-- Strait -->
+            <separator/>
+            <item name="Access point" icon="icons/png/water_access_point.png" type="node" preset_name_label="true">
+                <link wiki="Tag:waterway=access_point"/>
+                <space/>
+                <key key="waterway" value="access_point"/>
+                 <reference ref="surface"/>
+                <reference ref="optional_name"/>
+                <reference ref="facility_access"/>
+                <check key="backcountry" text="Backcountry" disable_off="true"/>
+                <check key="seasonal" text="Seasonal" disable_off="true"/>
+                <label text="Access:"/>
+                <check key="canoe" text="Canoe" disable_off="true"/>
+                <check key="swimming" text="Swimming" disable_off="true"/>
+                <check key="fishing" text="Fishing" disable_off="true"/>
+                <label text="When water body frozen:"/>
+                <check key="snowmobile" text="Snowmobile" disable_off="true"/>
+                <check key="ski:nordic" text="Cross-country skiing" disable_off="true"/>
+                <check key="ice_skates" text="Ice skating entry" disable_off="true"/>
+                <preset_link preset_name="Slipway" text="Similar but different tags:" alternative="true"/>
+            </item> <!-- Access point -->
         </group> <!-- Water -->
         <group name="Shipping" icon="icons/png/water_ferry_terminal_12048.png">
             <item name="Ferry Terminal" icon="icons/png/water_ferry_terminal_12048.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -5012,6 +5056,7 @@
                     <reference ref="surface"/>
                     <reference ref="fee"/>
                 </optional>
+                <preset_link preset_name="Access point" text="Similar but different tags:" alternative="true"/>
             </item> <!-- Slipway -->
             <item name="Boatyard" icon="icons/png/water_boatyard_34003.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <link wiki="Tag:waterway=boatyard"/>
@@ -7472,6 +7517,15 @@
             <preset_link preset_name="Water Park" text="Similar but different tags:" alternative="true"/>
             <preset_link preset_name="Sports Centre" text="Similar but different tags:" alternative="true"/>
         </item> <!-- Public bath -->
+         <item name="Hot tub" icon="icons/png/amenity_hot_tub.png" type="node,closedway" preset_name_label="true">
+            <link wiki="Tag:leisure=hot_tub"/>
+            <space/>
+            <key key="leisure" value="hot_tub"/>
+            <check key="indoor" text="Located inside a building?" disable_off="true" match="none"/>
+            <reference ref="name_operator_oh_wheelchair"/>
+            <reference ref="facility_access"/>
+            <reference ref="link_contact_address_payment"/>
+        </item> <!-- Hot tub -->
         <item name="Tanning Salon" icon="icons/png/amenity_tanning_studio.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:leisure=tanning_salon"/>
             <space/>
@@ -11359,7 +11413,7 @@
             <space/>
             <key key="pipeline" value="substation"/>
             <text key="name" text="Name"/>
-            <combo key="substation" text="Type" values="compression,distribution,field_gathering,inspection_gauge,measurement,valve,valve_group" display_values="Compression,Distribution,Field gathering,Inspection gauge,Measurement,Valve,Valve group" values_context="pipeline" values_searchable="true"/>
+            <combo key="substation" text="Role" values="compression,distribution,field_gathering,inspection_gauge,measurement,valve,valve_group" display_values="Compression,Distribution,Field gathering,Inspection gauge,Measurement,Valve,Valve group" values_context="pipeline" values_searchable="true"/>
             <reference ref="ref_operator"/>
             <reference ref="substance"/>
         </item> <!-- Pipeline Substation -->
@@ -12102,7 +12156,7 @@
                 <text key="rotor:diameter" text="Rotor diameter (meters)" value_type="dimension_horizontal"/>
                 <reference ref="power_output"/>
             </item> <!-- Wind Turbine -->
-            <item name="Heliostat" icon="" type="node" preset_name_label="true">
+            <item name="Heliostat" icon="icons/png/man_made_empty.png" type="node" preset_name_label="true">
                 <link wiki="Tag:power=heliostat"/>
                 <key key="power" value="heliostat"/>
                 <optional>
@@ -12119,7 +12173,7 @@
             <space/>
             <key key="power" value="substation"/>
             <text key="name" text="Name"/>
-            <combo key="substation" text="Type of substation" values="transmission,distribution,minor_distribution,converter,compensation,transition,traction,industrial" values_context="power"/>
+            <combo key="substation" text="Role" values="transmission,distribution,minor_distribution,converter,compensation,transition,traction,industrial" values_context="power"/>
             <reference ref="power_loc"/>
             <reference ref="voltage_frequency"/>
             <reference ref="ref_operator"/>
@@ -12133,7 +12187,7 @@
             <link wiki="Tag:power=transformer"/>
             <space/>
             <key key="power" value="transformer"/>
-            <combo key="transformer" text="Type of transformer" values="distribution,generator,converter,main,phase_angle_regulator,auxiliary,yes" match="key" values_context="power"/>
+            <combo key="transformer" text="Type" values="distribution,generator,converter,main,phase_angle_regulator,auxiliary,yes" match="key" values_context="power"/>
             <reference ref="power_loc"/>
             <reference ref="transformer_voltage_frequency"/>
             <reference ref="ref_operator"/>
@@ -12216,7 +12270,7 @@
             </optional>
         </item> <!-- Power Street Cabinet -->
         <separator/>
-        <item name="Transformer Tower" icon="styles/standard/power/transformer_tower.svg" type="node,closedway" preset_name_label="true">
+        <item name="Transformer Tower" icon="icons/png/man_made_empty.png" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:building=transformer_tower"/>
             <space/>
             <key key="building" value="transformer_tower"/>
@@ -12224,7 +12278,7 @@
             <reference ref="ref_operator"/>
             <preset_link preset_name="Power Substation"/>
         </item> <!-- Transformer Tower -->
-        <item name="Terminal" icon="presets/power/terminal.svg" type="node" preset_name_label="true" name_context="power">
+        <item name="Terminal" icon="icons/png/man_made_empty.png" type="node" preset_name_label="true" name_context="power">
             <link wiki="Tag:power=terminal"/>
             <space/>
             <key key="power" value="terminal"/>
@@ -12233,7 +12287,7 @@
                 <reference ref="ref_operator"/>
             </optional>
         </item> <!-- Terminal -->
-        <item name="Power Portal" icon="styles/standard/power/portal.svg" type="node,way" preset_name_label="true">
+        <item name="Power Portal" icon="icons/png/man_made_empty.png" type="node,way" preset_name_label="true">
             <link wiki="Tag:power=portal"/>
             <space/>
             <key key="power" value="portal"/>
@@ -12264,7 +12318,7 @@
                 <combo key="tower:type" text="Tower type" values="termination,branch,transposing,crossing,transition" display_values="Termination,Branch,Transposing,Crossing,Transition" text_context="power" values_context="power" deprecated="true"/>
                 <combo key="branch:type" text="Branch tower type" values="tap,split,loop,cross" display_values="Tap,Split,Loop,Cross" values_context="power" deprecated="true"/>
                 <combo key="design" text="Tower design" values_context="power">
-                    <list_entry value="one-level" display_value="One-level"/><list_entry value="two-level" display_value="Two-level"/><list_entry value="three-level" display_value="Three-level"/><list_entry value="four-level" display_value="Four-level"/><list_entry value="five-level" display_value="Five-level"/><list_entry value="six-level" display_value="Six-level"/><list_entry value="nine-level" display_value="Nine-level"/><list_entry value="asymmetric" display_value="Asymmetric (2 or 3 levels)"/><list_entry value="barrel" display_value="Barrel (3 levels)"/><list_entry value="barrel;one-level" display_value="Barrel plus one-level (4 levels)"/><list_entry value="bipole" display_value="Bipole (pair of closely spaced poles)"/><list_entry value="delta" display_value="Delta (1 level)"/><list_entry value="delta_two-level" display_value="Delta (2 levels)"/><list_entry value="delta_three-level" display_value="Delta (3 levels)"/><list_entry value="donau" display_value="Donau (2 levels)"/><list_entry value="donau;one-level" display_value="Donau plus one-level (3 levels)"/><list_entry value="flag" display_value="Flag"/><list_entry value="guyed_v-frame" display_value="Guyed v-frame"/><list_entry value="h-frame" display_value="H-frame (1 level)"/><list_entry value="h-frame_two-level" display_value="H-frame (2 levels)"/><list_entry value="h-frame_three-level" display_value="H-frame (3 levels)"/><list_entry value="guyed_h-frame" display_value="Guyed h-frame"/><list_entry value="monopolar" display_value="Monopolar (no cross-arms)"/><list_entry value="guyed_monopolar" display_value="Guyed monopolar (no cross-arms)"/><list_entry value="portal" display_value="Portal (1 level)"/><list_entry value="guyed_portal" display_value="Guyed portal"/><list_entry value="portal_two-level" display_value="Portal (2 levels)"/><list_entry value="portal_three-level" display_value="Portal (3 levels)"/><list_entry value="triangle" display_value="Triangle (3 levels)"/><list_entry value="x-frame" display_value="X-frame (1 leg)"/><list_entry value="y-frame" display_value="Y-frame (2 legs)"/>
+                    <list_entry value="one-level" display_value="One-level"/><list_entry value="two-level" display_value="Two-level"/><list_entry value="three-level" display_value="Three-level"/><list_entry value="four-level" display_value="Four-level"/><list_entry value="five-level" display_value="Five-level"/><list_entry value="six-level" display_value="Six-level"/><list_entry value="nine-level" display_value="Nine-level"/><list_entry value="asymmetric" display_value="Asymmetric (2 or 3 levels)"/><list_entry value="barrel" display_value="Barrel (3 levels)"/><list_entry value="barrel;one-level" display_value="Barrel plus one-level (4 levels)"/><list_entry value="bipole" display_value="Bipole (pair of closely spaced poles)"/><list_entry value="delta" display_value="Delta (1 level)"/><list_entry value="delta_two-level" display_value="Delta (2 levels)"/><list_entry value="delta_three-level" display_value="Delta (3 levels)"/><list_entry value="donau" display_value="Donau (2 levels)"/><list_entry value="donau;one-level" display_value="Donau plus one-level (3 levels)"/><list_entry value="flag" display_value="Flag"/><list_entry value="guyed_v-frame" display_value="Guyed v-frame"/><list_entry value="h-frame" display_value="H-frame (1 level)"/><list_entry value="h-frame_two-level" display_value="H-frame (2 levels)"/><list_entry value="h-frame_three-level" display_value="H-frame (3 levels)"/><list_entry value="guyed_h-frame" display_value="Guyed h-frame"/><list_entry value="monopolar" display_value="Monopolar (no cross-arms)"/><list_entry value="guyed_monopolar" display_value="Guyed monopolar (no cross-arms)"/><list_entry value="portal" display_value="Portal (1 level)"/><list_entry value="guyed_portal" display_value="Guyed portal"/><list_entry value="portal_two-level" display_value="Portal (2 levels)"/><list_entry value="portal_three-level" display_value="Portal (3 levels)"/><list_entry value="triangle" display_value="Triangle (3 levels)"/><list_entry value="x-frame" display_value="X-frame (2 legs)"/><list_entry value="y-frame" display_value="Y-frame (1 leg"/>
                 </combo>
                 <reference ref="line_properties"/>
                 <check key="triple_tower" text="Triple tower" disable_off="true"/>
@@ -12301,10 +12355,25 @@
             <reference ref="power_pole"/>
             <space/>
             <label text="Transformer Attributes:"/>
-            <key key="transformer" value="distribution" match="key!"/>
+            <key key="transformer" value="distribution" match="keyvalue!"/>
             <reference ref="transformer_voltage_frequency"/>
             <reference ref="optional_transformer_rating_phases_devices_windings"/>
         </item> <!-- Pole with Transformer-->
+        <item name="Pole with Substation" icon="icons/png/man_made_empty.png" type="node" preset_name_label="true">
+            <link wiki="Tag:power=pole"/>
+            <space/>
+            <key key="power" value="pole"/>
+            <label text="Pole Attributes:"/>
+            <reference ref="power_pole"/>
+            <space/>
+            <label text="Substation Attributes:"/>
+            <combo key="substation" text="Role of substation" values="industrial,minor_distribution" match="key!"/>
+            <space/>
+            <label text="Transformer Attributes:"/>
+            <combo key="transformer" text="Nature of transformer" values="main" match="none"/>
+            <reference ref="transformer_voltage_frequency"/>
+            <reference ref="optional_transformer_rating_phases_devices_windings"/>
+        </item> <!-- Pole with Substation -->
         <item name="Catenary mast" icon="icons/png/power_catenary_mast.png" type="node" preset_name_label="true">
             <link wiki="Tag:power=catenary_mast"/>
             <space/>
@@ -12313,7 +12382,7 @@
                 <reference ref="ref_operator"/>
             </optional>
         </item> <!-- Catenary mast -->
-        <item name="Connection" icon="" name_context="power" type="node" preset_name_label="true">
+        <item name="Connection" icon="icons/png/man_made_empty.png" name_context="power" type="node" preset_name_label="true">
             <link wiki="Tag:power=connection"/>
             <space/>
             <key key="power" value="connection"/>
@@ -12322,7 +12391,7 @@
                 <reference ref="ref_operator"/>
             </optional>
         </item> <!-- Connection -->
-        <item name="Insulator" icon="styles/standard/power/insulator.svg" type="node,way" preset_name_label="true">
+        <item name="Insulator" icon="icons/png/man_made_empty.png" type="node,way" preset_name_label="true">
             <link wiki="Tag:power=insulator"/>
             <space/>
             <key key="power" value="insulator"/>
@@ -12831,7 +12900,7 @@
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Tea -->
-        <item name="Coffee" icon="icons/png/shopping_coffee_29167.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Coffee" icon="icons/png/shopping_coffee_29167.png" type="node,closedway,multipolygon" preset_name_label="true" name_context="shop">
             <link wiki="Tag:shop=coffee"/>
             <space/>
             <key key="shop" value="coffee"/>
@@ -14208,6 +14277,13 @@
                 <reference ref="wikipedia_wikidata"/>
             </optional>
         </item> <!-- Administrative -->
+        <item name="Census" icon="icons/png/poi_empty.png" type="way,closedway,relation,multipolygon" preset_name_label="true" deprecated="true">
+            <link wiki="Tag:boundary=census"/>
+            <space/>
+            <key key="boundary" value="census"/>
+            <text key="name" text="Name"/>
+            <reference ref="wikipedia_wikidata"/>
+        </item> <!-- Political -->
         <item name="Political" icon="icons/png/poi_boundary_administrative.png" type="closedway,relation,multipolygon" preset_name_label="true">
             <link wiki="Tag:boundary=political"/>
             <space/>
@@ -14222,14 +14298,7 @@
             <key key="boundary" value="postal_code"/>
             <text key="postal_code" text="Postal Code"/>
         </item> <!-- Postal Code -->
-        <item name="National Park" icon="icons/png/poi_boundary_administrative.png" type="closedway,relation,multipolygon" preset_name_label="true">
-            <link wiki="Tag:boundary=national_park"/>
-            <space/>
-            <key key="boundary" value="national_park"/>
-            <text key="name" text="Name"/>
-            <reference ref="wikipedia_wikidata_images"/>
-        </item> <!-- National Park -->
-        <item name="Protected Area" icon="presets/boundaries.png" type="closedway,relation,multipolygon" preset_name_label="true">
+        <item name="Protected Area" icon="icons/png/poi_boundary_administrative.png" type="closedway,relation,multipolygon" preset_name_label="true">
             <link wiki="Tag:boundary=protected_area"/>
             <space/>
             <key key="boundary" value="protected_area"/>
@@ -14242,6 +14311,27 @@
                 <text key="start_date" text="Start date" value_type="date"/>
             </optional>
         </item> <!-- Protected Area -->
+        <item name="Maritime" icon="icons/png/poi_marina_21018.png" type="way,closedway,relation,multipolygon" preset_name_label="true">
+            <link wiki="Tag:boundary=maritime"/>
+            <space/>
+            <key key="boundary" value="maritime"/>
+            <combo key="border_type" text="Border type" values="baseline,territorial,contiguous,eez" display_values="Baseline,Territorial,Contiguous,EEZ"/>
+            <text key="name" text="Name"/>
+        </item> <!-- Maritime -->
+        <item name="National Park" icon="icons/png/poi_boundary_administrative.png" type="closedway,relation,multipolygon" preset_name_label="true">
+            <link wiki="Tag:boundary=national_park"/>
+            <space/>
+            <key key="boundary" value="national_park"/>
+            <text key="name" text="Name"/>
+            <reference ref="wikipedia_wikidata_images"/>
+        </item> <!-- National Park -->
+        <item name="Statistical" icon="icons/png/poi_empty.png" type="way,closedway,relation,multipolygon" preset_name_label="true">
+            <link wiki="Tag:boundary=statistical"/>
+            <space/>
+            <key key="boundary" value="statistical"/>
+            <text key="name" text="Name"/>
+            <reference ref="wikipedia_wikidata"/>
+        </item> <!-- Statistical -->
         <item name="Hazardous Area" icon="icons/png/ISO_7010_W001.png" type="closedway,relation" preset_name_label="true">
             <link wiki="Tag:boundary=hazard"/>
             <space/>
@@ -14260,13 +14350,6 @@
                 <text key="related_law" text="Related law"/>
             </optional>
         </item> <!-- Hazardous Area -->
-        <item name="Maritime" icon="icons/png/poi_marina_21018.png" type="way,closedway,relation,multipolygon" preset_name_label="true">
-            <link wiki="Tag:boundary=maritime"/>
-            <space/>
-            <key key="boundary" value="maritime"/>
-            <combo key="border_type" text="Border type" values="baseline,territorial,contiguous,eez" display_values="Baseline,Territorial,Contiguous,EEZ"/>
-            <text key="name" text="Name"/>
-        </item> <!-- Maritime -->
         <separator/>
         <item name="Boundary Marker" icon="icons/png/poi_empty.png" type="node" preset_name_label="true">
             <link wiki="Tag:boundary=marker"/>
@@ -15334,7 +15417,18 @@
             <key key="type" value="boundary"/>
             <text key="name" text="Name"/>
             <reference ref="wikipedia_wikidata"/>
-            <combo key="boundary" text="Boundary type" values="administrative,historic,maritime,national_park,place,political,postal_code,protected_area,statistical" display_values="Administrative,Historic,Maritime,National park,Place,Political,Postal code,Protected area,Statistical" values_searchable="true"/>
+            <combo key="boundary" text="Boundary type" values_searchable="true"> 
+                <list_entry value="administrative" display_value="Administrative"/>
+                <list_entry value="census" display_value="Census" deprecated="true"/>
+                <list_entry value="historic" display_value="Historic"/>
+                <list_entry value="maritime" display_value="Maritime"/>
+                <list_entry value="national_park" display_value="National park"/>
+                <list_entry value="place" display_value="Place"/>
+                <list_entry value="political" display_value="Political"/>
+                <list_entry value="postal_code" display_value="Postal code"/>
+                <list_entry value="protected_area" display_value="Protected area"/>
+                <list_entry value="statistical" display_value="Statistical"/>
+            </combo>
             <optional>
                 <combo key="admin_level" text="Administrative level" values="1,2,3,4,5,6,7,8,9,10,11" sort_values="false" match_expression="boundary=administrative"/>    
                 <text key="postal_code" text="Postal code" match_expression="boundary=postal_code"/> 
