@@ -1,0 +1,13 @@
+Vespucci je napredni alat otvorenog koda za uređivanje OpenStreetMap podataka; nije preglednik karata niti navigacijska aplikacija. Za korištenje je potreban <a href="http://www.openstreetmap.org/">OpenStreetMap račun</a>.
+
+Možete preuzeti podatke karte za određeno područje i uređivati kartu. Nakon uređivanja možete ih izravno prenijeti na OSM poslužitelje.
+
+Svaku slučajnu neželjenu promjenu možete poništiti, a sve su promjene navedene za pregled prije prijenosa. Automatsko dovršavanje oznaka, JOSM-kompatibilni predlošci, poveznice na prevedene stranice o značajkama karte i čak automatsko dovršavanje naziva obližnjih ulica pomažu pronaći prave oznake.
+
+Preporučujemo da onemogućite automatska ažuriranja aplikacija za Vespucci, kako biste mogli poslati svoje izmjene prije ažuriranja aplikacije.
+
+Više informacija i dokumentaciju možete pronaći na <a href="http://vespucci.io/">vespucci.io</a> i na ekranu za Pomoć u aplikaciji.
+
+Molimo nemojte ovdje prijavljivati probleme niti tražiti podršku; pogledajte <a href="http://vespucci.io/tutorials/faq/#why-cant-you-provide-technical-support-on-the-google-play-store-review-section">zašto ne možemo pružati podršku i prihvaćati prijave u odjeljku recenzija na Trgovini Play</a>. <a href="http://vespucci.io/help/en/Introduction/#reporting-problems">Probleme možete prijaviti</a> izravno iz aplikacije, bez GitHub računa, ili izravno otići na <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">web stranicu za praćenje problema</a>.
+
+OpenStreetMap, OSM i logotip povećala su zaštićeni žigovi <a href="https://osmfoundation.org/">OpenStreetMap Fondacije</a>. Aplikacija Vespucci nije odobrena niti povezana s OpenStreetMap Fondacijom.
