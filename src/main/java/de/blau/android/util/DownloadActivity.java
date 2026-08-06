@@ -135,22 +135,22 @@ public class DownloadActivity extends WebViewActivity {
          */
         private void checkStatus(@NonNull final DownloadManager mgr, final long id, @NonNull final String filename) {
             Cursor queryCursor = mgr.query(new DownloadManager.Query().setFilterById(id));
-            if (queryCursor == null) {
+            if (queryCursor == null || queryCursor.getCount() == 0) {
                 Log.e(DEBUG_TAG, "Download not found id: " + id);
-            } else {
-                queryCursor.moveToFirst();
-                try {
-                    int status = queryCursor.getInt(queryCursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS));
-                    if (status == DownloadManager.STATUS_FAILED) {
-                        int reason = queryCursor.getInt(queryCursor.getColumnIndexOrThrow(DownloadManager.COLUMN_REASON));
-                        ScreenMessage.toastTopError(DownloadActivity.this, errorMessage(DownloadActivity.this, reason, filename));
-                    } else if (status == DownloadManager.STATUS_RUNNING) {
-                        ScreenMessage.toastTopInfo(DownloadActivity.this, getString(R.string.toast_download_started, filename));
-                    }
-                } catch (IllegalArgumentException iaex) {
-                    Log.e(DEBUG_TAG, iaex.getMessage());
-                    ScreenMessage.toastTopError(DownloadActivity.this, errorMessage(DownloadActivity.this, DownloadManager.ERROR_UNKNOWN, filename));
+                return;
+            }
+            queryCursor.moveToFirst();
+            try {
+                int status = queryCursor.getInt(queryCursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS));
+                if (status == DownloadManager.STATUS_FAILED) {
+                    int reason = queryCursor.getInt(queryCursor.getColumnIndexOrThrow(DownloadManager.COLUMN_REASON));
+                    ScreenMessage.toastTopError(DownloadActivity.this, errorMessage(DownloadActivity.this, reason, filename));
+                } else if (status == DownloadManager.STATUS_RUNNING) {
+                    ScreenMessage.toastTopInfo(DownloadActivity.this, getString(R.string.toast_download_started, filename));
                 }
+            } catch (IllegalArgumentException iaex) {
+                Log.e(DEBUG_TAG, iaex.getMessage());
+                ScreenMessage.toastTopError(DownloadActivity.this, errorMessage(DownloadActivity.this, DownloadManager.ERROR_UNKNOWN, filename));
             }
         }
 
