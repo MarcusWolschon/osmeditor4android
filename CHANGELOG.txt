@@ -1,5 +1,15 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+22.1.0:
+
+- Fix don't crash if we can't find download
+- Fix protect against a potential NPE when getting activity arguments
+- Fix protect against null way when auto closing
+- Fix don't undo the previous checkpoint if unjoining fails
+- Fix updated OpenStreetMap OAuth2 URL in keys2-default.txt to fix incorrectly directed login url
+- Update default preset and taginfo project file
+- Update translations
+
 22.1.0-1:
 
 - Fix ScrollView in image information modal getting stuck
