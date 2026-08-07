@@ -40,8 +40,6 @@ import java.util.regex.Matcher;
 import javax.net.ssl.SSLProtocolException;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.openstreetmap.osmosis.osmbinary.file.BlockInputStream;
-import org.openstreetmap.osmosis.osmbinary.file.BlockReaderAdapter;
 import org.xml.sax.SAXException;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -59,6 +57,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
+import crosby.binary.file.BlockInputStream;
 import de.blau.android.Selection.Ids;
 import de.blau.android.contract.HttpStatusCodes;
 import de.blau.android.contract.Urls;
@@ -2918,7 +2917,7 @@ public class Logic {
             createCheckpoint(activity, R.string.undo_action_unjoin_ways);
             if (!delegator.isInDownload(way)) {
                 throw new OsmIllegalOperationException(getResources(activity).getString(R.string.toast_all_way_nodes_download));
-            }     
+            }
             displayAttachedObjectWarning(activity, way); // needs to be done before unjoin
             return delegator.unjoinWay(activity, way, primaryKey);
         } catch (OsmIllegalOperationException | StorageException ex) {
@@ -4386,9 +4385,9 @@ public class Logic {
             protected AsyncResult doInBackground(Boolean arg) {
                 try {
                     Storage storage = new Storage();
-                    try {
-                        BlockReaderAdapter opp = new OsmPbfParser(storage);
-                        new BlockInputStream(is, opp).process();
+                    OsmPbfParser opp = new OsmPbfParser(storage);
+                    try (BlockInputStream bis = new BlockInputStream(is, opp)) {
+                        bis.process();
                         StorageDelegator sd = getDelegator();
                         sd.reset(false);
                         sd.setCurrentStorage(storage); // this sets dirty flag
