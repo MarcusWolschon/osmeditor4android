@@ -41,10 +41,10 @@ import de.blau.android.util.ThemeUtils;
  * Display a dialog asking for a search string that is then found with nominatim
  *
  */
-public class SearchForm extends CancelableDialogFragment {
+public class FindPlace extends CancelableDialogFragment {
 
-    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, SearchForm.class.getSimpleName().length());
-    private static final String DEBUG_TAG = SearchForm.class.getSimpleName().substring(0, TAG_LEN);
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, FindPlace.class.getSimpleName().length());
+    private static final String DEBUG_TAG = FindPlace.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String BBOX_KEY = "bbox";
 
@@ -63,7 +63,7 @@ public class SearchForm extends CancelableDialogFragment {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
-            SearchForm searchFormFragment = newInstance(bbox);
+            FindPlace searchFormFragment = newInstance(bbox);
             searchFormFragment.show(fm, TAG);
         } catch (IllegalStateException isex) {
             Log.e(DEBUG_TAG, "showDialog", isex);
@@ -85,8 +85,8 @@ public class SearchForm extends CancelableDialogFragment {
      * @param bbox a BoundingBox to restrict the query to if null the whole world is considered
      * @return a SearchForm instance
      */
-    private static SearchForm newInstance(@Nullable final ViewBox bbox) {
-        SearchForm f = new SearchForm();
+    private static FindPlace newInstance(@Nullable final ViewBox bbox) {
+        FindPlace f = new FindPlace();
 
         Bundle args = new Bundle();
         args.putSerializable(BBOX_KEY, bbox);
@@ -126,7 +126,7 @@ public class SearchForm extends CancelableDialogFragment {
         LinearLayout searchLayout = (LinearLayout) inflater.inflate(R.layout.query_entry, null);
 
         Builder searchBuilder = ThemeUtils.getAlertDialogBuilder(getActivity());
-        searchBuilder.setTitle(R.string.menu_find);
+        searchBuilder.setTitle(R.string.find_place_title);
         searchBuilder.setMessage(R.string.find_message);
         searchBuilder.setView(searchLayout);
 

@@ -113,7 +113,7 @@ import de.blau.android.dialogs.Layers;
 import de.blau.android.dialogs.NewVersion;
 import de.blau.android.dialogs.Newbie;
 import de.blau.android.dialogs.Progress;
-import de.blau.android.dialogs.SearchForm;
+import de.blau.android.dialogs.FindPlace;
 import de.blau.android.dialogs.Tip;
 import de.blau.android.dialogs.TooMuchData;
 import de.blau.android.dialogs.UndoDialog;
@@ -2060,7 +2060,7 @@ public class Main extends AuthorisationEnabledActivity
             return true;
         case R.id.menu_find:
             descheduleAutoLock();
-            SearchForm.showDialog(this, map.getViewBox());
+            FindPlace.showDialog(this, map.getViewBox());
             return true;
         case R.id.menu_search_objects:
             descheduleAutoLock();
