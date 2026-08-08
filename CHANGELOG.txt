@@ -7,6 +7,8 @@
 - Fix protect against null way when auto closing
 - Fix don't undo the previous checkpoint if unjoining fails
 - Fix updated OpenStreetMap OAuth2 URL in keys2-default.txt to fix incorrectly directed login url
+- Fix enable Android de-sugaring support to support Clipper2 on older devices
+- Change replace osmbinary dependency by supported version
 - Update default preset and taginfo project file
 - Update translations
 
