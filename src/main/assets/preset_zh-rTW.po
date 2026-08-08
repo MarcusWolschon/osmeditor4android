@@ -24258,19 +24258,19 @@ msgstr "接索式 V 型架"
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1493(list_entry:display_value|value:h-frame)
 msgctxt "power"
 msgid "H-frame (1 level)"
-msgstr ""
+msgstr "H 型架 (一層)"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12321(list_entry:display_value|preset:Power_Tower|value:h-frame_two-level)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1493(list_entry:display_value|value:h-frame_two-level)
 msgctxt "power"
 msgid "H-frame (2 levels)"
-msgstr ""
+msgstr "H 型架 (二層)"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12321(list_entry:display_value|preset:Power_Tower|value:h-frame_three-level)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1493(list_entry:display_value|value:h-frame_three-level)
 msgctxt "power"
 msgid "H-frame (3 levels)"
-msgstr ""
+msgstr "H 型架 (三層)"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1450(combo:display_values|key:line_arrangement)
 msgctxt "power"
@@ -24336,12 +24336,12 @@ msgstr "方法"
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1493(list_entry:display_value|value:monopolar)
 msgctxt "power"
 msgid "Monopolar (no cross-arms)"
-msgstr ""
+msgstr "單極 (沒有延伸臂)"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12321(list_entry:display_value|preset:Power_Tower|value:nine-level)
 msgctxt "power"
 msgid "Nine-level"
-msgstr ""
+msgstr "九層"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12409(combo:text|preset:Power_Line|key:wires)
 msgctxt "power"
@@ -24352,12 +24352,12 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1493(list_entry:display_value|value:one-level)
 msgctxt "power"
 msgid "One-level"
-msgstr ""
+msgstr "一層"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1493(list_entry:display_value|value:semi-horizontal_one-level)
 msgctxt "power"
 msgid "One-level semi-horizontal"
-msgstr ""
+msgstr "一層有半平行"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1397(combo:display_values|key:location)
 msgctxt "power"
@@ -24377,7 +24377,7 @@ msgstr "月台"
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1492(combo:text|key:design)
 msgctxt "power"
 msgid "Pole design"
-msgstr ""
+msgstr "單極設計"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1490(combo:text|key:pole:type)
 msgctxt "power"

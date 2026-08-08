@@ -2,6 +2,7 @@
 <resources>
   <string name="addr_housenumber">Číslo domovní (addr:housenumber)</string>
   <string name="addr_conscriptionnumber">Číslo popisné (addr:conscriptionnumber)</string>
+  <string name="addr_housename">Jméno domu (addr:housename)</string>
   <string name="addr_street">Ulice (addr:street)</string>
   <string name="addr_postcode">PSČ (addr:postcode)</string>
   <string name="addr_city">Obec (addr:city)</string>
@@ -10,7 +11,7 @@
   <string name="addr_place">Vesnice/místní část (addr:place)</string>
   <string name="addr_block">Blok (addr:block)</string>
   <string name="addr_block_number">Číslo bloku (addr:block_number)</string>
-  <string name="addr_parentstreet">Dodatečná lokalizace (addr:parenstreet)</string>
+  <string name="addr_parentstreet">Dodatečná lokalizace (addr:parentstreet)</string>
   <string name="addr_hamlet">Vesnička/osada (addr:hamlet)</string>
   <string name="addr_suburb">Městská část/obvod (addr:suburb)</string>
   <string name="addr_subdistrict">Distrikt (addr:subdistrict)</string>

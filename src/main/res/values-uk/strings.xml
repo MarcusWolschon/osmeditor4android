@@ -3,7 +3,7 @@
   <!--Mode names-->
   <string name="mode_easy">Основний</string>
   <string name="mode_tag_only">Тільки теґи</string>
-  <string name="mode_indoor">План приміщення</string>
+  <string name="mode_indoor">В приміщенні</string>
   <string name="mode_correct">Режим C</string>
   <string name="mode_address">Адреси</string>
   <string name="mode_voice">Голосовий ввід</string>
@@ -48,6 +48,7 @@
   <string name="local_reference_inconsistency">Несумісність локальних посилань: безпечним варіантом є відновлення видаленого елемента, на який є посилання, але, будь ласка, повідомте про це як про помилку.</string>
   <string name="delete_locally">Видалити\nлокально</string>
   <string name="undelete_on_server">Відновити\nна сервері</string>
+  <string name="error_running_action">У дії %1$s сталася помилка: %2$s</string>
   <!--Upload retry-->
   <string name="upload_retry_title">Помилка завантаження</string>
   <string name="upload_retry_message_no_open_changeset">Не вдалося відкрити набір змін.\n\nМожна повторити спробу.</string>
@@ -166,6 +167,7 @@
   <string name="progress_saving_message">Збереження…</string>
   <string name="progress_uploading_message">Надсилання…</string>
   <string name="progress_resource_download_message">Завантаження ресурсу…</string>
+  <string name="progress_resource_load_message">Завантаження ресурсу…</string>
   <string name="progress_loading_preset_message">Завантаження заготовки…</string>
   <string name="progress_importing_file_message">Імпортується файл…</string>
   <string name="progress_running_message">Запуск…</string>
@@ -177,6 +179,7 @@
   <string name="progress_determining_status_message">Визначення статусу…</string>
   <string name="progress_updating_message">Оновлення…</string>
   <string name="progress_validation_title">Перевірка</string>
+  <string name="progress_calculating_message">Розрахунок…</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">„%1$s“ вилучено</string>
   <string name="changes_changed">„%1$s“ змінено</string>
@@ -290,8 +293,11 @@
   <string name="imagery_offset_zoom">Масштаб</string>
   <string name="imagery_offset_distance">Відстань</string>
   <!--Position modal-->
+  <string name="set_position_title">Встановити положення</string>
   <string name="set_position_datum_label">Геодезичний датум</string>
   <string name="WGS84">WGS84</string>
+  <string name="toast_coordinate_parsing_failed">Не вдалося проаналізувати %1$s</string>
+  <string name="set_position_swap">Поміняти місцями довготу та широту</string>
   <!---->
   <string name="tag_editor_name_suggestion">Підказувати назви</string>
   <!--Search/Find dialog-->
@@ -534,6 +540,7 @@
   <string name="layer_tasks">Завдання</string>
   <string name="layer_data">Дані OSM</string>
   <string name="layer_data_name">%1$s дані</string>
+  <string name="layer_update_tiles_in_view">Оновити плитки у вікні перегляду</string>
   <string name="layer_flush_tile_cache">Скинути кеш тайлів</string>
   <string name="layer_change_style">Змінити стиль…</string>
   <string name="layer_load_style">Завантажити стиль…</string>
@@ -622,8 +629,26 @@
   <string name="date_widget_usage_with_additional">Скасуйте вибір будь-якого значення вище, щоб скористатися засобом вибору дати</string>
   <!--Feedback activity-->
   <string name="feedback_title">Відгук для розробників</string>
+  <string name="feedback_title_hint">Заголовок</string>
+  <string name="feedback_description_hint">Будь ласка, детально опишіть проблему або пропозицію щодо нової функції</string>
+  <string name="feedback_who_is_sending">Хто це надсилає?</string>
+  <string name="feedback_login_osm">Увійти в OpenStreetMap</string>
   <string name="feedback_with_displayname">Надіслати з вашим нікнеймом з OpenStreetMap</string>
+  <string name="feedback_displayname_hint">Ім\'я для відображення в OpenStreetMap</string>
+  <string name="feedback_send">Надіслати</string>
+  <string name="feedback_device_info">Вказати інформацію про пристрій</string>
+  <string name="feedback_anonymous">Надіслати анонімно</string>
+  <string name="feedback_token_client_id_hint">Введіть тут свій ідентифікатор клієнта</string>
+  <string name="feedback_device_info_format">Версія програми: %1$s (%2$d)\nВерсія Android: %3$s (API%4$d)\nПристрій: %5$s %6$s</string>
+  <string name="feedback_error_code">Помилка:  %1$d %2$s</string>
+  <string name="feedback_exception">Виняток: %1$s</string>
+  <string name="github_login_with_github">Увійти в GitHub (за бажанням)</string>
+  <string name="github_status_authenticated">Увійшов через GitHub</string>
+  <string name="github_reset_login">Скинути дані для входу</string>
+  <string name="feedback_title_required">Заголовок є обов’язковим</string>
   <string name="feedback_success_title">Успіх</string>
+  <string name="feedback_success_message">Ваш відгук успішно надіслано. Ви можете знайти інформацію про проблему за адресою \b\&lt;a href=\"%1$s\"&gt;%1$s&lt;/a&gt;</string>
+  <string name="feedback_failure_title">Не вдалося надіслати</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Завантаження даних OpenStreetMap</string>
   <!--Clear/Reset GPX Track-->
@@ -658,6 +683,8 @@
   <string name="tip_empty_comment_warning">Vespucci завжди додає автоматично створене резюме того, що ви завантажили.&lt;p&gt;Вам все ж варто подумати про те, щоб додати кілька слів про те, чому ви вносите правки, щоб надати більше контексту для інших картографів.</string>
   <string name="tip_wikimedia_filename">Завжди використовуйте описове та унікальне ім’я файлу, зокрема не те, що було створено камерою, інакше Вікімедіа відхилить завантаження.</string>
   <string name="tip_address_interpolation">Цей інструмент призначений для додавання інтерполяцій адреси в режимі «Адреси». Якщо ви хочете додати інший об’єкт, перейдіть у режим «Основний» і скористайтеся інструментом «Додати лінію».</string>
+  <string name="tip_download_along">Цей інструмент згенерує список квадратних областей, що покривають вибраний лінійний об\'єкт, а потім надішле цей список до сервісу для завантаження.&lt;p&gt;Ви можете налаштувати обсяг буфера з кожного боку об\'єкта, який буде завантажено, та максимальні розміри областей. Використання цієї функції вимкне автоматичне видалення для типу даних, які ви завантажуєте (дані OSM або завдання), оскільки це може видалити щойно завантажені вами дані.&lt;p&gt;Щоб мінімізувати навантаження на цільові сервери, області завантажуються послідовно, одна за раз, навіть попри це існує потенціал для перевантаження, тому, будь ласка, використовуйте цю функцію відповідально.</string>
+  <string name="tip_set_position">Введіть нові десяткові координати елемента або вставте їх у будь-яке з полів. Якщо вставлений текст містить як довготу, так і широту, обидва поля будуть заповнені; якщо вказано лише одну координату, вона буде вставлена лише у відповідне поле. Підтримуються десяткові та DMS-формати; детальнішу інформацію див. у документації до функції &lt;i&gt;Перейти до координат&lt;/i&gt;.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -883,6 +910,7 @@
   <string name="toast_url_check_with_msg">%1$s %2$d %3$s</string>
   <string name="toast_unexpected_element">Торкання неочікуваного елементу:\n%1$s</string>
   <string name="toast_import_destination_exists">Місце призначення імпорту вже існує</string>
+  <string name="toast_part_selection_not_supported">Вибір ділянок маршруту не підтримується для закритих або нових маршрутів</string>
   <string name="toast_element_has_been_deleted">Елемент видалено</string>
   <string name="toast_updating_tags">Оновлення тегів...</string>
   <string name="toast_updating_parents">Оновлення батьківських зв\'язків...</string>
@@ -901,6 +929,13 @@
   <string name="toast_panoramax_instance_list_error">Не вдалося отримати список екземплярів Panoramax\n%1$s</string>
   <string name="toast_authorisation_successful">Авторизація успішно завершена!</string>
   <string name="toast_authorisation_failed">Помилка авторизації\n%1$s</string>
+  <string name="toast_way_self_intersects">Лінія перетинається сама із собою</string>
+  <plurals name="toast_unglued_nodes">
+    <item quantity="one">Від\'єднано одну точку</item>
+    <item quantity="few">Роз\'єднано %1$d точки</item>
+    <item quantity="many">Роз\'єднано %1$d точок</item>
+    <item quantity="other">Роз\'єднано %1$d точок</item>
+  </plurals>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Джерела MapSplit повинні мати встановлені мінімальне та максимальне масштабування</string>
   <string name="error_pbf_no_version">У файлі PBF відсутня інформація про версію</string>
@@ -932,9 +967,11 @@
   <string name="download">Завантажити</string>
   <string name="abort">Припинити</string>
   <string name="pause">Pause</string>
+  <string name="resume">Резюме</string>
   <string name="ignore">Ігнорувати</string>
   <string name="select">Виділення</string>
   <string name="skip">Пропустити</string>
+  <string name="submit">Надіслати</string>
   <string name="deprecated">%1$s (застаріле)</string>
   <string name="more_information">Додаткова інформація</string>
   <string name="osm_tags">Теґи OSM</string>
@@ -1078,9 +1115,11 @@
   <string name="menu_help">Довідка</string>
   <string name="menu_view">Переглянути…</string>
   <string name="menu_erase">Вилучити точку</string>
+  <string name="menu_set_position">Встановити положення…</string>
   <string name="menu_split">Розділити</string>
   <string name="menu_remove_node_from_way">Видалити точку з лінії</string>
   <string name="menu_start_end_way">Початок/Кінець лінії</string>
+  <string name="menu_download_along_way">Завантажити вздовж лінії...</string>
   <string name="menu_extract">Відокремити точку</string>
   <string name="menu_append">Додати</string>
   <string name="menu_create_route">Створити маршрут</string>
@@ -1230,6 +1269,13 @@
   <string name="geojson_todo_custom_conversion">Конвертація на замовлення...</string>
   <string name="rhino_exception">&lt;br&gt;Помилка в рядку %1$d, стовпці %2$d&lt;br&gt;&lt;br&gt;%3$s</string>
   <!--Download along dialog-->
+  <string name="download_along_way_title">Завантажити вздовж лінії</string>
+  <string name="download_data_label">Завантажити дані OSM</string>
+  <string name="download_tasks_label">Завантажити завдання</string>
+  <string name="download_buffer_label">Запас (метри)</string>
+  <string name="download_max_dimension_label">Максимальний розмір площі (метри)</string>
+  <string name="download_completed_successfully">Завантаження завершено успішно</string>
+  <string name="download_paused">Завантаження призупинено</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Застосувати збережене зміщення</string>
   <string name="menu_tools_background_contrast">Контраст</string>
@@ -1297,6 +1343,7 @@
   <string name="actionmode_closed_way_split_2">Виберіть 2-у точку</string>
   <string name="actionmode_closed_way_split_long_click_2">Виберіть 2-гу точку або натисніть і утримуйте</string>
   <string name="actionmode_split_way_node_selection">Виберіть точку або натисніть і утримуйте</string>
+  <string name="actionmode_split_way_long_click">Натисніть і утримуйте, щоб позначити місце роз\'єднання</string>
   <string name="actionmode_split_way_select_part">Оберіть частину для нової лінії</string>
   <string name="actionmode_select_node_to_append_to">Виберіть точку для додавання до</string>
   <string name="actionmode_restriction">Додати обмеження повороту</string>
@@ -1330,6 +1377,7 @@
   <string name="menu_add_node_address">Додати адресну точку</string>
   <string name="menu_add_address_interpolation">Додати інтерполяцію адрес</string>
   <string name="menu_add_way">Додати лінію</string>
+  <string name="menu_add_area">Додати область</string>
   <string name="add_node_instruction">Торкніться позиції</string>
   <string name="add_way_start_instruction">Торкніться першої позиції для початку</string>
   <string name="add_way_node_instruction">Торкніться наступної позиції точки</string>
@@ -1659,6 +1707,7 @@
   <string name="listedit_use_translations">Використовувати переклади</string>
   <string name="manage_geocoders">Керування геокодерами</string>
   <string name="listedit_supports_compressed_uploads">Підтримує завантаження стиснених файлів</string>
+  <string name="listedit_authenticated_reads">Використовувати зчитування з автентифікацією</string>
   <string name="geocoder_type">Тип геокодера</string>
   <string name="manage_image_stores">Керувати зберіганням зображень</string>
   <string name="imagestore_type">Тип зберігання зображень</string>
@@ -1667,6 +1716,7 @@
   <string name="resource_download_successful">Ресурс завантажено</string>
   <string name="resource_load_successful">Ресурс зчитано </string>
   <string name="resource_download_failed">Не вдалося завантажити файл ресурсів. Ресурс не працюватиме.</string>
+  <string name="resource_load_failed">Не вдалося завантажити файл ресурсів. Ресурс не працюватиме.</string>
   <string name="preset_download_parse_failed">Файл ресурсів є недійсним. Ресурс не працюватиме.</string>
   <string name="preset_download_missing_images">Файл заготовки успішно завантажено. Але, деякі значки неможливо завантажити і вони не будуть показані.</string>
   <string name="resource_download_title">Завантажувач ресурсів</string>
@@ -1739,6 +1789,10 @@
   <string name="tracking_long_text">Веспуччі записує трек GPX або автоматично завантажується.  Щоб повністю вийти, натисніть кнопку нижче або кнопку «Назад» у програмі.</string>
   <string name="gps_failure">Не вдалося включити GPS</string>
   <string name="gps_service_start_failure">Не вдалося запустити службу GPS, спробуйте ще раз.\n\nПомилка: %1$s</string>
+  <string name="download_service_title">Служба завантаження у фоновому режимі</string>
+  <string name="download_service_idle">Завантаження завершено, сервіс наразі перебуває в режимі очікування</string>
+  <string name="download_service_downloaded">Завантажено  %1$d з  %2$d областей</string>
+  <string name="download_service_start_failure">Не вдалося запустити службу завантаження.\n\nПомилка: %1$s</string>
   <!--element description-->
   <string name="address_housenumber">Адреса %1$s</string>
   <string name="address_housenumber_street">Адреса %1$s %2$s</string>
@@ -1913,6 +1967,7 @@
   <string name="tile_no_network">Немає мережі</string>
   <string name="tile_unknown_error">Невідома помилка</string>
   <!--Keyboard Shortcuts UI-->
+  <string name="keyboard_shortcuts_empty">Скорочених шляхів немає</string>
   <string name="keyboard_shortcut_modifier">Клавіша-модифікатор</string>
   <string name="keyboard_shortcut_save">Збереження</string>
   <string name="keyboard_shortcut_reset">Скинути</string>
@@ -1920,5 +1975,6 @@
   <string name="keyboard_shortcut_save_error">Помилка збереження ярлика</string>
   <string name="keyboard_shortcuts_reset_all">Скинути всі налаштування до заводських</string>
   <string name="keyboard_shortcuts_reset_title">Скинути ярлики</string>
+  <string name="keyboard_shortcut_key_required">Необхідно ввести ключовий символ</string>
   <string name="keyboard_shortcut_duplicate">Дублікат ярлика</string>
 </resources>
