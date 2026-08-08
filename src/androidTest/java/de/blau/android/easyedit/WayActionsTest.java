@@ -85,6 +85,9 @@ public class WayActionsTest {
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
         logic = App.getLogic();
+        logic.setFilter(null);
+        prefs.enablePresetFilter(false);
+        prefs.enableTagFilter(false);
         logic.deselectAll();
         TestUtils.loadTestData(main, "test2.osm");
         App.getTaskStorage().reset();
