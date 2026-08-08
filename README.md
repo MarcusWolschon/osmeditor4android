@@ -55,7 +55,7 @@ If you're interested in this project, you're welcome to help improving it. We ne
 
 Currently building is supported with gradle in eclipse, android studio and naturally gradle on the command line, see [build instructions](BUILDING.md).
 
-If you are interested in adding a feature or other development work, please reach out to us before embarking on something that might be already in work or a fools errand. For trivial changes (for example typos) please feel free to directly create a pull request. Development currently happens on the _master_ branch, if you are working on a feature please _rebase_ on the HEAD of that branch to keep your code up to date and mergeable, if you have already created a pull request you can force push to github to make in reflect your local work..
+If you are interested in adding a feature or other development work, please reach out to us before embarking on something that might be already in work or a fools errand. For trivial changes (for example typos) please feel free to directly create a pull request. Development currently happens on the _master_ branch, if you are working on a feature please _rebase_ on the HEAD of that branch to keep your code up to date and mergeable, if you have already created a pull request you can force push to github to make it reflect your local work.
 
 Important note: if you are building your own version, particularly if you are making it available to third parties, please change app_version and app_name_version in res/values/appname.xml to something that makes it clear that this is not an "official" release and clearly identifies your builds.
 
