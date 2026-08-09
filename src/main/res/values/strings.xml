@@ -312,8 +312,9 @@
     <string name="set_position_swap">Swap longitude and latitude</string>
     <!--  -->
     <string name="tag_editor_name_suggestion">Name suggestion</string>
-    <!--  Search/Find dialog -->
     <string name="tag_editor_name_suggestion_overwrite_message">This suggestion can replace some tag values with more popular ones.</string>
+    <!--  Search/Find place dialog -->
+    <string name="find_place_title">Find place</string>
     <string name="search_results_title">Search results</string>
     <string name="search_online">Search online</string>
     <string name="find_message">Enter search string</string>
@@ -1110,7 +1111,7 @@
     <string name="menu_edit">Edit…</string>
     <string name="menu_add">New</string>
     <string name="menu_config">Preferences</string>
-    <string name="menu_find">Find</string>
+    <string name="menu_find">Find place…</string>
     <string name="menu_help">Help</string>
     <string name="menu_view">View…</string>
     <string name="menu_erase">Erase node</string>

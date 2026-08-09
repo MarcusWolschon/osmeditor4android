@@ -243,7 +243,7 @@ Show the user preference screens. The settings are split into two sets: the firs
  * **Import configuration...** - import configuration data from a file. Note that importing database data from a more recent version is not supported.
  * **JS Console** - start the JavaScript console for scripting the application. Note that this needs to be enabled in the "Advanced preferences".
 
-### ![Find](../images/ic_menu_search_holo_light.png) Find
+### ![Find place...](../images/ic_menu_search_holo_light.png) Find
 
 Search for a location and pan to it with the OpenStreetMap Nominatim or Photon service *(requires network connectivity)*
 
