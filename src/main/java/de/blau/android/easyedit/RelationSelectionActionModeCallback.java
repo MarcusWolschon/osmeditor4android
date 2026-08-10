@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
 import de.blau.android.dialogs.EmptyRelation;
+import de.blau.android.exception.StorageException;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
@@ -91,8 +92,7 @@ public class RelationSelectionActionModeCallback extends ElementSelectionActionM
 
         updated |= setItemVisibility(((Relation) element).getMembers() != null, selectMembersItem, false);
 
-        updated |= setItemVisibility(element.hasTag(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON) && ((Relation) element).allDownloaded(), rotateItem,
-                false);
+        updated |= setItemVisibility(element.hasTag(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON) && ((Relation) element).allDownloaded(), rotateItem, false);
 
         if (updated) {
             arrangeMenu(menu);
@@ -165,10 +165,14 @@ public class RelationSelectionActionModeCallback extends ElementSelectionActionM
      */
     private void deleteRelation(@Nullable final ActionMode mode, @NonNull final Relation r) {
         List<Relation> origParents = r.hasParentRelations() ? new ArrayList<>(r.getParentRelations()) : null;
-        logic.performEraseRelation(main, r, true);
-        if (mode != null) {
-            mode.finish();
+        try {
+            logic.performEraseRelation(main, r, true);
+            if (mode != null) {
+                mode.finish();
+            }
+            checkEmptyRelations(main, origParents);
+        } catch (StorageException ex) {
+            // already toasted and logged
         }
-        checkEmptyRelations(main, origParents);
     }
 }

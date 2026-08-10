@@ -169,6 +169,9 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
             }
         } catch (OsmIllegalOperationException e) {
             finishOnException(e);
+        } catch (StorageException ex) {
+            // already toasted and logged
+            manager.finish();
         }
     }
 
@@ -223,6 +226,9 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
                     }
                 } catch (OsmIllegalOperationException e) {
                     finishOnException(e);
+                } catch (StorageException ex) {
+                    // already toasted and logged
+                    manager.finish();
                 }
             }
             return true;
@@ -235,6 +241,10 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
             } catch (OsmIllegalOperationException e1) {
                 ScreenMessage.barError(main, e1.getLocalizedMessage());
                 Log.d(DEBUG_TAG, "Caught exception " + e1);
+            } catch (StorageException ex) {
+                // already toasted and logged
+                manager.finish();
+                return true;
             }
             Node lastSelectedNode = logic.getSelectedNode();
             if (lastSelectedNode != null) {
@@ -264,6 +274,7 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
             break;
         }
         return false;
+
     }
 
     /**

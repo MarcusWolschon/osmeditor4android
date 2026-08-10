@@ -262,9 +262,9 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
         action = MENUITEM_JOIN; // don't forget this
         if (count > 1) {
             manager.showDisambiguationMenu();
-        } else {
-            mergeNodeWith(joinableElements, into);
+            return;
         }
+        mergeNodeWith(joinableElements, into);
     }
 
     /**
@@ -293,6 +293,8 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
             }
         } catch (OsmIllegalOperationException | IllegalStateException e) {
             ScreenMessage.barError(main, e.getLocalizedMessage());
+        } catch (StorageException ex) {
+            // already toasted and logged
         }
     }
 
@@ -359,10 +361,14 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
      */
     private void deleteNode(@Nullable final ActionMode mode) {
         List<Relation> origParents = element.hasParentRelations() ? new ArrayList<>(element.getParentRelations()) : null;
-        logic.performEraseNode(main, (Node) element, true);
-        if (mode != null) {
-            mode.finish();
+        try {
+            logic.performEraseNode(main, (Node) element, true);
+            if (mode != null) {
+                mode.finish();
+            }
+            checkEmptyRelations(main, origParents);
+        } catch (StorageException ex) {
+            // already toasted and logged
         }
-        checkEmptyRelations(main, origParents);
     }
 }

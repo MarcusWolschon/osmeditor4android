@@ -16,6 +16,7 @@ import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.exception.StorageException;
 import de.blau.android.osm.Relation;
 import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ThemeUtils;
@@ -141,12 +142,16 @@ public class EmptyRelation extends CancelableDialogFragment {
         }
         builder.setNeutralButton(R.string.leave_empty, (dialog, which) -> showNext(index));
         builder.setNegativeButton(R.string.Delete, (dialog, which) -> {
-            if (r != null) {
-                logic.performEraseRelation(activity, r, true);
-            } else {
-                Log.e(DEBUG_TAG, "Relation not in memory: " + relationIds[index]);
+            try {
+                if (r != null) {
+                    logic.performEraseRelation(activity, r, true);
+                } else {
+                    Log.e(DEBUG_TAG, "Relation not in memory: " + relationIds[index]);
+                }
+                showNext(index);
+            } catch (StorageException ex) {
+                // already toasted and logged
             }
-            showNext(index);
         });
         return builder.create();
     }

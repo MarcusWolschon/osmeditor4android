@@ -37,6 +37,7 @@ import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.address.Address;
+import de.blau.android.exception.StorageException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
@@ -247,39 +248,45 @@ public class AddressInterpolationDialog extends CancelableDialogFragment {
         dialog.setOnShowListener((DialogInterface d) -> {
             final Button positive = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
             positive.setOnClickListener((View v) -> {
-                startValidator.validate();
-                endValidator.validate();
-                if (start.getError() != null || end.getError() != null || otherEdit.getError() != null) {
-                    Sound.beep(); // error messages are already displayed
-                    return;
-                }
-                Map<String, String> newTags = new TreeMap<>();
-                // collect common tags
-                for (int i = 0; i < tagLayout.getChildCount(); i++) {
-                    TextRow row = (TextRow) tagLayout.getChildAt(i);
-                    String value = row.getValue();
-                    if (value != null && !"".equals(value)) {
-                        newTags.put(row.getKey(), value);
+                try {
+                    startValidator.validate();
+                    endValidator.validate();
+                    if (start.getError() != null || end.getError() != null || otherEdit.getError() != null) {
+                        Sound.beep(); // error messages are already displayed
+                        return;
                     }
+                    Map<String, String> newTags = new TreeMap<>();
+                    // collect common tags
+                    for (int i = 0; i < tagLayout.getChildCount(); i++) {
+                        TextRow row = (TextRow) tagLayout.getChildAt(i);
+                        String value = row.getValue();
+                        if (value != null && !"".equals(value)) {
+                            newTags.put(row.getKey(), value);
+                        }
+                    }
+                    updateNode(firstNode, newTags, start.getText().toString().trim());
+                    updateNode(lastNode, newTags, end.getText().toString().trim());
+                    if (even.isChecked()) {
+                        wayTags.put(Tags.KEY_ADDR_INTERPOLATION, Tags.VALUE_EVEN);
+                    } else if (odd.isChecked()) {
+                        wayTags.put(Tags.KEY_ADDR_INTERPOLATION, Tags.VALUE_ODD);
+                    } else {
+                        wayTags.put(Tags.KEY_ADDR_INTERPOLATION, otherEdit.getText().toString().trim());
+                    }
+                    App.getLogic().setTags(activity, Way.NAME, way.getOsmId(), wayTags, false);
+                    // update and save the addresses
+                    Address.updateLastAddresses(context, streetNameAutocompleteAdapter, Node.NAME, firstNode.getOsmId(), Util.getListMap(firstNode.getTags()),
+                            false);
+                    Address.updateLastAddresses(context, streetNameAutocompleteAdapter, Node.NAME, lastNode.getOsmId(), Util.getListMap(lastNode.getTags()),
+                            true);
+                    if (activity instanceof Main) {
+                        ((Main) activity).invalidateMap();
+                    }
+                } catch (StorageException ex) {
+                    // already toasted and logged
+                } finally {
+                    dialog.dismiss();
                 }
-                updateNode(firstNode, newTags, start.getText().toString().trim());
-                updateNode(lastNode, newTags, end.getText().toString().trim());
-                if (even.isChecked()) {
-                    wayTags.put(Tags.KEY_ADDR_INTERPOLATION, Tags.VALUE_EVEN);
-                } else if (odd.isChecked()) {
-                    wayTags.put(Tags.KEY_ADDR_INTERPOLATION, Tags.VALUE_ODD);
-                } else {
-                    wayTags.put(Tags.KEY_ADDR_INTERPOLATION, otherEdit.getText().toString().trim());
-                }
-                App.getLogic().setTags(activity, Way.NAME, way.getOsmId(), wayTags, false);
-                // update and save the addresses
-                Address.updateLastAddresses(context, streetNameAutocompleteAdapter, Node.NAME, firstNode.getOsmId(), Util.getListMap(firstNode.getTags()),
-                        false);
-                Address.updateLastAddresses(context, streetNameAutocompleteAdapter, Node.NAME, lastNode.getOsmId(), Util.getListMap(lastNode.getTags()), true);
-                if (activity instanceof Main) {
-                    ((Main) activity).invalidateMap();
-                }
-                dialog.dismiss();
             });
         });
         return dialog;

@@ -566,13 +566,17 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
             return;
         }
         dontTag = true;
-        closeWay(lastSelectedWay); // will only close if we are in area mode
-        main.startSupportActionMode(new WaySelectionActionModeCallback(manager, lastSelectedWay));
-        if (itemId == MENUITEM_ADDRESS && !lastSelectedWay.isClosed()) {
-            AddressInterpolationDialog.showDialog(main, lastSelectedWay);
-        } else {
-            // show preset screen
-            main.performTagEdit(lastSelectedWay, null, itemId == MENUITEM_ADDRESS, itemId == MENUITEM_NEWWAY_PRESET);
+        try {
+            closeWay(lastSelectedWay); // will only close if we are in area mode
+            main.startSupportActionMode(new WaySelectionActionModeCallback(manager, lastSelectedWay));
+            if (itemId == MENUITEM_ADDRESS && !lastSelectedWay.isClosed()) {
+                AddressInterpolationDialog.showDialog(main, lastSelectedWay);
+            } else {
+                // show preset screen
+                main.performTagEdit(lastSelectedWay, null, itemId == MENUITEM_ADDRESS, itemId == MENUITEM_NEWWAY_PRESET);
+            }
+        } catch (StorageException ex) {
+            // already toasted and logged
         }
     }
 
@@ -648,39 +652,45 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
             Log.e(DEBUG_TAG, "Undo called but nothing to undo");
             return;
         }
-        Node removedNode = addedNodes.remove(addedNodes.size() - 1);
-        final boolean deleteNode = !existingNodes.contains(removedNode);
-        final List<Way> modifiedWays = logic.getWaysForNode(removedNode);
-        if (createdWay != null && createdWay.nodeCount() > 0) {
-            logic.performRemoveEndNodeFromWay(main, createdWay.getLastNode().equals(logic.getSelectedNode()), createdWay, deleteNode, false);
-            createdWay.dontValidate();
-            if (OsmElement.STATE_DELETED == createdWay.getState()) {
-                createdWay = null;
-                logic.setSelectedWay(null);
-            }
-        } else if (deleteNode) {
-            logic.performEraseNode(main, removedNode, false);
-        }
-        // undo any changes from creating and then removing nodes on ways
-        if (deleteNode) {
-            for (Way w : modifiedWays) {
-                if (w.equals(createdWay)) {
-                    continue;
+        try {
+            Node removedNode = addedNodes.remove(addedNodes.size() - 1);
+            final boolean deleteNode = !existingNodes.contains(removedNode);
+            final List<Way> modifiedWays = logic.getWaysForNode(removedNode);
+            if (createdWay != null && createdWay.nodeCount() > 0) {
+                logic.performRemoveEndNodeFromWay(main, createdWay.getLastNode().equals(logic.getSelectedNode()), createdWay, deleteNode, false);
+                createdWay.dontValidate();
+                if (OsmElement.STATE_DELETED == createdWay.getState()) {
+                    createdWay = null;
+                    logic.setSelectedWay(null);
                 }
-                UndoStorage undo = logic.getUndo();
-                List<UndoElement> undoWays = undo.getUndoElements(w);
-                UndoElement undoWay = Util.getLast(undoWays);
-                if (undoWay instanceof UndoWay) {
-                    if (undoWay.getState() == OsmElement.STATE_UNCHANGED && w.getNodes().equals(((UndoWay) undoWay).getNodes())) {
-                        undoWay.restore(); // this should just update the state
-                        undo.remove(w);
-                    } else {
-                        Log.w(DEBUG_TAG, "Not fixing up " + w);
+            } else if (deleteNode) {
+                logic.performEraseNode(main, removedNode, false);
+            }
+
+            // undo any changes from creating and then removing nodes on ways
+            if (deleteNode) {
+                for (Way w : modifiedWays) {
+                    if (w.equals(createdWay)) {
+                        continue;
                     }
-                } else {
-                    Log.e(DEBUG_TAG, "UndoElement should be an UndoWay " + undoWay.toString());
+                    UndoStorage undo = logic.getUndo();
+                    List<UndoElement> undoWays = undo.getUndoElements(w);
+                    UndoElement undoWay = Util.getLast(undoWays);
+                    if (undoWay instanceof UndoWay) {
+                        if (undoWay.getState() == OsmElement.STATE_UNCHANGED && w.getNodes().equals(((UndoWay) undoWay).getNodes())) {
+                            undoWay.restore(); // this should just update the state
+                            undo.remove(w);
+                        } else {
+                            Log.w(DEBUG_TAG, "Not fixing up " + w);
+                        }
+                    } else {
+                        Log.e(DEBUG_TAG, "UndoElement should be an UndoWay " + undoWay.toString());
+                    }
                 }
             }
+        } catch (StorageException ex) {
+            // already toasted and logged, we can't really do anything at this point
+            manager.finish();
         }
         // exit or select the previous node
         if (addedNodes.isEmpty()) {
@@ -756,10 +766,14 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         manager.finish();
         removeCheckpoint();
         if (!addedNodes.isEmpty()) {
-            closeWay(lastSelectedWay);
-            if (!dontTag) {
-                tagApplicable(lastSelectedNode, lastSelectedWay, false);
-                delayedResetHasProblem(lastSelectedWay);
+            try {
+                closeWay(lastSelectedWay);
+                if (!dontTag) {
+                    tagApplicable(lastSelectedNode, lastSelectedWay, false);
+                    delayedResetHasProblem(lastSelectedWay);
+                }
+            } catch (StorageException ex) {
+                // already toasted and logged
             }
         }
     }

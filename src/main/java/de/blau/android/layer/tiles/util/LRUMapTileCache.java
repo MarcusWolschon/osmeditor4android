@@ -220,9 +220,8 @@ public class LRUMapTileCache<T> {
      * @return previous value associated with key or <code>null</code> if there was no mapping for key; a
      *         <code>null</code> return can also indicate that the cache previously associated <code>null</code> with
      *         the specified key
-     * @throws StorageException if we can't expand the cache anymore
      */
-    public synchronized T put(@NonNull final String key, @NonNull final T value, boolean recycleable, long owner) throws StorageException {
+    public synchronized T put(@NonNull final String key, @NonNull final T value, boolean recycleable, long owner) {
         if (maxCacheSize == 0) {
             return null;
         }

@@ -31,6 +31,7 @@ import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.exception.StorageException;
 import de.blau.android.gpx.WayPoint;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement.ElementType;
@@ -242,8 +243,11 @@ public class ViewWayPoint extends CancelableDialogFragment {
     private void createObjectFromWayPoint(final WayPoint wp, final boolean useSearch) {
         Logic logic = App.getLogic();
         FragmentActivity activity = getActivity();
-        Node n = logic.performAddNode(activity, wp.getLongitude(), wp.getLatitude());
-        if (activity instanceof Main) {
+        try {
+            Node n = logic.performAddNode(activity, wp.getLongitude(), wp.getLatitude());
+            if (!(activity instanceof Main)) {
+                return;
+            }
             PresetElementPath presetPath = null;
             if (useSearch && wp.getType() != null) {
                 List<PresetElement> searchResults = new ArrayList<>(
@@ -265,6 +269,8 @@ public class ViewWayPoint extends CancelableDialogFragment {
                 tags.put(Tags.KEY_NOTE, wp.getDescription());
             }
             ((Main) activity).performTagEdit(n, presetPath, tags, presetPath == null);
+        } catch (StorageException ex) {
+            // already toased and logged
         }
     }
 

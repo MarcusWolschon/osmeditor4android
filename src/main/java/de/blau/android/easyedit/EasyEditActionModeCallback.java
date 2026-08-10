@@ -558,7 +558,12 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
 
                         @Override
                         public void onSuccess() {
-                            runnable.run();
+                            try {
+                                runnable.run();
+                            } catch (Exception ex) {
+                                // should have already been handled
+                                Log.e(DEBUG_TAG, ex.getMessage());
+                            }
                         }
 
                         @Override
@@ -566,11 +571,24 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
                             ErrorAlert.showDialog(main, result);
                         }
                     }));
-            builder.setNegativeButton(R.string.ignore, (DialogInterface dialog, int which) -> runnable.run());
+            builder.setNegativeButton(R.string.ignore, (DialogInterface dialog, int which) -> {
+                try {
+                    runnable.run();
+                } catch (Exception ex) {
+                    // should have already been handled
+                    Log.e(DEBUG_TAG, ex.getMessage());
+                }
+
+            });
             builder.setNeutralButton(R.string.abort, (DialogInterface dialog, int which) -> manager.finish());
             builder.show();
-        } else {
+            return;
+        }
+        try {
             runnable.run();
+        } catch (Exception ex) {
+            // should have already been handled
+            Log.e(DEBUG_TAG, ex.getMessage());
         }
     }
 

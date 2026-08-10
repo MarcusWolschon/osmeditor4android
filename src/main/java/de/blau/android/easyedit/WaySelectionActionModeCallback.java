@@ -387,8 +387,12 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
         List<String> primaryKeys = way.getObjectKeys(activity);
         final int keyCount = primaryKeys.size();
         if (keyCount <= 1) {
-            List<Node> result = logic.performUnjoinWay(activity, way, keyCount == 1 ? primaryKeys.get(0) : null);
-            toastUnglued(result.size());
+            try {
+                List<Node> result = logic.performUnjoinWay(activity, way, keyCount == 1 ? primaryKeys.get(0) : null);
+                toastUnglued(result.size());
+            } catch (OsmIllegalOperationException | StorageException ex) {
+                // already toasted
+            }
             return;
         }
         ThemeUtils.getAlertDialogBuilder(activity).setTitle(R.string.select_primary_key)
@@ -435,11 +439,15 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
      */
     private void deleteWay(@Nullable final ActionMode mode) {
         List<Relation> origParents = element.hasParentRelations() ? new ArrayList<>(element.getParentRelations()) : null;
-        logic.performEraseWay(main, (Way) element, true, true);
-        if (mode != null) {
-            mode.finish();
+        try {
+            logic.performEraseWay(main, (Way) element, true, true);
+            if (mode != null) {
+                mode.finish();
+            }
+            checkEmptyRelations(main, origParents);
+        } catch (StorageException ex) {
+            // already toasted and logged
         }
-        checkEmptyRelations(main, origParents);
     }
 
     /**

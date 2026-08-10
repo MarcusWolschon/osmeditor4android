@@ -15,6 +15,7 @@ import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main.UndoInterface;
 import de.blau.android.R;
+import de.blau.android.exception.StorageException;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 
@@ -107,11 +108,15 @@ public class PasteMultipleActionModeCallback extends EasyEditActionModeCallback 
 
     @Override
     public boolean handleClick(float x, float y) {
-        App.getLogic().pasteFromClipboard(main, 0, x, y);
-        if (pasteCount == 0) {
-            manager.invalidate();
+        try {
+            App.getLogic().pasteFromClipboard(main, 0, x, y);
+            if (pasteCount == 0) {
+                manager.invalidate();
+            }
+            pasteCount++;
+        } catch (StorageException ex) {
+            // already toasted and logged
         }
-        pasteCount++;
         return true;
     }
 }

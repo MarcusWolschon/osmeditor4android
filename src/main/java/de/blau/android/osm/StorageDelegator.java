@@ -40,7 +40,6 @@ import de.blau.android.contract.FileExtensions;
 import de.blau.android.exception.DataConflictException;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
-import de.blau.android.exception.StorageException;
 import de.blau.android.filter.Filter;
 import de.blau.android.osm.OsmChangeParser.MissingNode;
 import de.blau.android.osm.UndoStorage.Checkpoint;
@@ -268,14 +267,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             lock();
             dirty = true;
             undo.save(elem);
-            try {
-                apiStorage.insertElementSafe(elem);
-                currentStorage.insertElementSafe(elem);
-                onElementChanged((OsmElement) null, elem);
-            } catch (StorageException e) {
-                // TODO handle OOM
-                Log.e(DEBUG_TAG, "insertElementSafe got " + e.getMessage());
-            }
+            apiStorage.insertElementSafe(elem);
+            currentStorage.insertElementSafe(elem);
+            onElementChanged((OsmElement) null, elem);
         } finally {
             unlock();
         }
@@ -291,14 +285,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             lock();
             dirty = true;
             undo.save(elem);
-            try {
-                apiStorage.insertElementUnsafe(elem);
-                currentStorage.insertElementUnsafe(elem);
-                onElementChanged((OsmElement) null, elem);
-            } catch (StorageException e) {
-                // TODO handle OOM
-                Log.e(DEBUG_TAG, "insertElementUnsafe got " + e.getMessage());
-            }
+            apiStorage.insertElementUnsafe(elem);
+            currentStorage.insertElementUnsafe(elem);
+            onElementChanged((OsmElement) null, elem);
         } finally {
             unlock();
         }
@@ -320,13 +309,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 elem.updateState(OsmElement.STATE_MODIFIED);
                 elem.stamp();
                 elem.resetHasProblem();
-                try {
-                    apiStorage.insertElementSafe(elem);
-                    onElementChanged(null, elem);
-                } catch (StorageException e) {
-                    // TODO handle OOM
-                    Log.e(DEBUG_TAG, "setTags got " + e.getMessage());
-                }
+                apiStorage.insertElementSafe(elem);
+                onElementChanged(null, elem);
             }
         } finally {
             unlock();
@@ -1254,21 +1238,16 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             return; // node was already deleted
         }
         undo.save(node);
-        try {
-            if (node.isNew()) {
-                apiStorage.removeElement(node);
-            } else {
-                apiStorage.insertElementSafe(node);
-            }
-            removeWayNode(node);
-            removeElementFromRelations(node);
-            currentStorage.removeNode(node);
-            node.updateState(OsmElement.STATE_DELETED);
-            onElementChanged((List<OsmElement>) null, (List<OsmElement>) null);
-        } catch (StorageException e) {
-            // TODO handle OOM
-            Log.e(DEBUG_TAG, "removeNode got " + e.getMessage());
+        if (node.isNew()) {
+            apiStorage.removeElement(node);
+        } else {
+            apiStorage.insertElementSafe(node);
         }
+        removeWayNode(node);
+        removeElementFromRelations(node);
+        currentStorage.removeNode(node);
+        node.updateState(OsmElement.STATE_DELETED);
+        onElementChanged((List<OsmElement>) null, (List<OsmElement>) null);
     }
 
     /**
@@ -2086,22 +2065,17 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     public void removeWay(@NonNull final Way way) {
         dirty = true;
         undo.save(way);
-        try {
-            currentStorage.removeWay(way);
-            if (apiStorage.contains(way)) {
-                if (way.isNew()) {
-                    apiStorage.removeElement(way);
-                }
-            } else {
-                apiStorage.insertElementSafe(way);
+        currentStorage.removeWay(way);
+        if (apiStorage.contains(way)) {
+            if (way.isNew()) {
+                apiStorage.removeElement(way);
             }
-            removeElementFromRelations(way);
-            way.updateState(OsmElement.STATE_DELETED);
-            onElementChanged((List<OsmElement>) null, (List<OsmElement>) null);
-        } catch (StorageException e) {
-            // TODO handle OOM
-            Log.e(DEBUG_TAG, "removeWay got " + e.getMessage());
+        } else {
+            apiStorage.insertElementSafe(way);
         }
+        removeElementFromRelations(way);
+        way.updateState(OsmElement.STATE_DELETED);
+        onElementChanged((List<OsmElement>) null, (List<OsmElement>) null);
     }
 
     /**
@@ -2115,21 +2089,16 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         // undo - relation saved here, affected ways saved in removeRelationFromMembers
         dirty = true;
         undo.save(relation);
-        try {
-            if (relation.isNew()) {
-                apiStorage.removeElement(relation);
-            } else {
-                apiStorage.insertElementSafe(relation);
-            }
-            removeElementFromRelations(relation);
-            removeRelationFromMembers(relation);
-            currentStorage.removeRelation(relation);
-            relation.updateState(OsmElement.STATE_DELETED);
-            onElementChanged((List<OsmElement>) null, (List<OsmElement>) null);
-        } catch (StorageException e) {
-            // TODO handle OOM
-            Log.e(DEBUG_TAG, "removeRelation got " + e.getMessage());
+        if (relation.isNew()) {
+            apiStorage.removeElement(relation);
+        } else {
+            apiStorage.insertElementSafe(relation);
         }
+        removeElementFromRelations(relation);
+        removeRelationFromMembers(relation);
+        currentStorage.removeRelation(relation);
+        relation.updateState(OsmElement.STATE_DELETED);
+        onElementChanged((List<OsmElement>) null, (List<OsmElement>) null);
     }
 
     /**

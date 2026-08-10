@@ -2,7 +2,6 @@ package de.blau.android.easyedit;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -17,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
@@ -57,9 +57,13 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
          * Add a node without merging with nearby elements, start the PropertyEditor with the Preset tab
          */
         NODE_TAGS(R.string.menu_add_node_tags, R.string.menu_add_node_tags, R.string.add_node_instruction, (main, manager, x, y) -> {
-            Node node = App.getLogic().performAddNode(main, x, y);
-            main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
-            main.performTagEdit(node, null, false, true);
+            try {
+                Node node = App.getLogic().performAddNode(main, x, y);
+                main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
+                main.performTagEdit(node, null, false, true);
+            } catch (StorageException ex) {
+                // already toasted and logged
+            }
         }) {
             @Override
             public boolean isEnabled() {
@@ -70,10 +74,14 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
          * Add an address node with with nearby elements, start the PropertyEditor with the Preset tab
          */
         ADDRESS_NODE(R.string.menu_add_node_address, R.string.menu_add_node_address, R.string.simple_add_node, (main, manager, x, y) -> {
-            App.getLogic().performAdd(main, x, y);
-            Node node = App.getLogic().getSelectedNode();
-            main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
-            main.performTagEdit(node, null, true, false);
+            try {
+                App.getLogic().performAdd(main, x, y);
+                Node node = App.getLogic().getSelectedNode();
+                main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
+                main.performTagEdit(node, null, true, false);
+            } catch (StorageException ex) {
+                // already toasted and logged
+            }
         }) {
             @Override
             public boolean isEnabled() {
@@ -205,8 +213,12 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
          * Paste an object from the clipboard multiple times
          */
         PASTEMULTIPLE(R.string.menu_paste_multiple, R.string.menu_paste_multiple, R.string.simple_paste_multiple, (main, manager, x, y) -> {
-            App.getLogic().pasteFromClipboard(main, 0, x, y);
-            main.startSupportActionMode(new PasteMultipleActionModeCallback(manager));
+            try {
+                App.getLogic().pasteFromClipboard(main, 0, x, y);
+                main.startSupportActionMode(new PasteMultipleActionModeCallback(manager));
+            } catch (StorageException ex) {
+                // already toasted and logged
+            }
         }) {
             @Override
             public boolean isEnabled() {
@@ -382,18 +394,22 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
      * @param x screen x
      * @param y screen y
      */
-    public static void paste(@Nullable final Activity activity, @NonNull final EasyEditManager manager, final float x, final float y) {
-        List<OsmElement> elements = App.getLogic().pasteFromClipboard(activity, 0, x, y);
-        if (elements != null && !elements.isEmpty()) {
-            if (elements.size() > 1) {
-                manager.finish();
-                App.getLogic().setSelection(elements);
-                manager.editElements();
+    public static void paste(@Nullable final FragmentActivity activity, @NonNull final EasyEditManager manager, final float x, final float y) {
+        try {
+            List<OsmElement> elements = App.getLogic().pasteFromClipboard(activity, 0, x, y);
+            if (elements != null && !elements.isEmpty()) {
+                if (elements.size() > 1) {
+                    manager.finish();
+                    App.getLogic().setSelection(elements);
+                    manager.editElements();
+                } else {
+                    manager.editElement(elements.get(0));
+                }
             } else {
-                manager.editElement(elements.get(0));
+                manager.finish();
             }
-        } else {
-            manager.finish();
+        } catch (StorageException ex) {
+            // already toasted and logged
         }
     }
 
