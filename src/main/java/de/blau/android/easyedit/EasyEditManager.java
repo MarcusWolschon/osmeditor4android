@@ -81,7 +81,7 @@ public class EasyEditManager {
      * 
      * @param main the instance of Main we are being used from
      */
-    public EasyEditManager(Main main) {
+    public EasyEditManager(@NonNull Main main) {
         this.main = main;
         this.logic = App.getLogic();
     }

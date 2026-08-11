@@ -204,7 +204,7 @@ public class Photo implements BoundedObject, GeoPoint, Serializable {
      * @return degrees
      * @throws NumberFormatException if the String couldn't be parsed for whatever reason
      */
-    private Float convertToDegree(@NonNull String stringDMS) throws NumberFormatException {
+    private Float convertToDegree(@Nullable String stringDMS) throws NumberFormatException {
         try {
             Float result = null;
             String[] dms = stringDMS.split(",", 3);

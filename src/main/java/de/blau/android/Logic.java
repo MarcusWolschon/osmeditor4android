@@ -699,24 +699,13 @@ public class Logic {
      * @param stringId the resource id of the string representing the checkpoint name
      */
     public void createCheckpoint(@Nullable Activity activity, int stringId) {
-        Resources r = getResources(activity);
         final UndoStorage undo = getDelegator().getUndo();
         boolean firstCheckpoint = !undo.canUndo();
-        undo.createCheckpoint(r.getString(stringId), getSelectedIds());
+        undo.createCheckpoint(App.getString(activity, stringId), getSelectedIds());
         getDelegator().recordImagery(map);
         if (firstCheckpoint && activity instanceof AppCompatActivity) {
             ((AppCompatActivity) activity).invalidateOptionsMenu();
         }
-    }
-
-    /**
-     * Get resources for this app
-     * 
-     * @param context a potentially null Android context
-     * @return Resrources
-     */
-    private Resources getResources(@Nullable Context context) {
-        return context != null ? context.getResources() : App.resources();
     }
 
     /**
@@ -737,8 +726,7 @@ public class Logic {
      * @param force if true remove even if not empty
      */
     public void removeCheckpoint(@Nullable Activity activity, int stringId, boolean force) {
-        Resources r = getResources(activity);
-        getDelegator().getUndo().removeCheckpoint(r.getString(stringId), force);
+        getDelegator().getUndo().removeCheckpoint(App.getString(activity, stringId), force);
     }
 
     /**
@@ -2916,7 +2904,7 @@ public class Logic {
             final StorageDelegator delegator = getDelegator();
             createCheckpoint(activity, R.string.undo_action_unjoin_ways);
             if (!delegator.isInDownload(way)) {
-                throw new OsmIllegalOperationException(getResources(activity).getString(R.string.toast_all_way_nodes_download));
+                throw new OsmIllegalOperationException(App.getString(activity, R.string.toast_all_way_nodes_download));
             }
             displayAttachedObjectWarning(activity, way); // needs to be done before unjoin
             return delegator.unjoinWay(activity, way, primaryKey);
@@ -3034,7 +3022,7 @@ public class Logic {
             lock();
             createCheckpoint(activity, R.string.undo_action_replace_geometry);
             if (!delegator.isInDownload(target)) {
-                throw new OsmIllegalOperationException(getResources(activity).getString(R.string.toast_all_way_nodes_download));
+                throw new OsmIllegalOperationException(App.getString(activity, R.string.toast_all_way_nodes_download));
             }
             final int geometrySize = geometry.size();
             delegator.validateWayNodeCount(geometrySize);

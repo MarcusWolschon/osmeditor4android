@@ -370,7 +370,7 @@ public class Relation extends StyledOsmElement implements RelationInterface, Bou
         String name = getTagWithKey(Tags.KEY_NAME);
         String type = getTagWithKey(Tags.KEY_TYPE);
         if (!Util.notEmpty(type)) {
-            return addId(ctx, (name != null ? name + " " : "") + App.resources().getString(R.string.unset_relation_type), withType);
+            return addId(ctx, (name != null ? name + " " : "") + App.getString(ctx, R.string.unset_relation_type), withType);
         }
 
         PresetItem p = null;

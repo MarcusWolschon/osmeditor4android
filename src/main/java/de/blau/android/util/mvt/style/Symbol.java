@@ -362,6 +362,10 @@ public class Symbol extends Layer {
     @Override
     public void render(Canvas c, Style style, Feature feature, int z, Rect screenRect, Rect destinationRect, float scaleX, float scaleY) {
         super.render(c, style, feature, z, screenRect, destinationRect, scaleX, scaleY);
+        if (feature == null) {
+            // silently ignore for now
+            return;
+        }
         this.destinationRect = destinationRect;
         this.scaleX = scaleX;
         this.scaleY = scaleY;

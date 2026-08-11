@@ -330,22 +330,34 @@ public class App extends Application implements android.app.Application.Activity
     }
 
     /**
-     * Get the Resources from the current running App instance
+     * Use this is to get strings if a Context might not be available
      * 
-     * Mainly used in situations in which we need to display, potentially translated, text and don't have an Context
-     * available
-     * 
-     * @return a Resources instance
-     * 
-     * @deprecated using this is bad practice and should avoided as far as possible
+     * @param ctx optional context
+     * @param resId resource id
+     * @return a String, empty if the current instance doesn't exist which should never be the case
      */
-    @Deprecated
-    @Nullable
-    public static Resources resources() {
-        if (currentInstance != null) {
-            return currentInstance.getResources();
+    @NonNull
+    public static String getString(@Nullable Context ctx, int resId) {
+        if (ctx != null) {
+            return ctx.getString(resId);
         }
-        return null;
+        return currentInstance != null ? currentInstance.getString(resId) : "";
+    }
+
+    /**
+     * Use this is to get strings if a Context might not be available,
+     * 
+     * @param ctx optional context
+     * @param resId resource id
+     * @param formatArgs arguments for getString
+     * @return a String, empty if the current instance doesn't exist which should never be the case
+     */
+    @NonNull
+    public static String getString(@Nullable Context ctx, int resId, @NonNull Object... formatArgs) {
+        if (ctx != null) {
+            return ctx.getString(resId, formatArgs);
+        }
+        return currentInstance != null ? currentInstance.getString(resId, formatArgs) : "";
     }
 
     /**
@@ -752,7 +764,7 @@ public class App extends Application implements android.app.Application.Activity
     public static org.mozilla.javascript.Scriptable getRestrictedRhinoScope(@NonNull Context ctx) {
         synchronized (rhinoLock) {
             if (rhinoScope == null) {
-                org.mozilla.javascript.Context c =  Utils.getRhinoContext(ctx);
+                org.mozilla.javascript.Context c = Utils.getRhinoContext(ctx);
                 try {
                     // this is a fairly hackish way of sandboxing, but it does work
                     rhinoScope = new ImporterTopLevel(c);
