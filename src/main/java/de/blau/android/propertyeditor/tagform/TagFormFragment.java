@@ -569,6 +569,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         LinkedHashMap<String, String> allTags = tagListener.getKeyValueMapSingle(true);
         LinkedHashMap<String, String> result = new LinkedHashMap<>();
         Properties prop = App.getGeoContext(getContext()).getProperties(propertyEditorListener.getIsoCodes());
+        if (prop == null) {
+            return;
+        }
         String[] languages = prop.getLanguages();
         if (languages == null) {
             return;

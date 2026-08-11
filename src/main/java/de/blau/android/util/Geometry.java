@@ -665,6 +665,10 @@ public final class Geometry {
      */
     private static void coverPolygon(@NonNull Polygon polygon, int minDimE7, int maxDimE7, @NonNull List<BoundingBox> boxes) {
         BoundingBox box = GeoJson.getBounds(polygon);
+        if (box == null) {
+            Log.e(DEBUG_TAG, "Polygon has null bounding box");
+            return;
+        }
         box.calcDimensions();
         // bounding box is small enough we are done
         if (box.getHeight() <= maxDimE7 && box.getWidth() <= maxDimE7) {
