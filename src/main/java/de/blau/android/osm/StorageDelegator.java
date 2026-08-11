@@ -693,7 +693,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     public void validateWayNodeCount(final int newCount) {
         if (newCount > getMaxWayNodes()) {
-            throw new OsmIllegalOperationException(App.resources().getString(R.string.exception_too_many_nodes));
+            throw new OsmIllegalOperationException(App.getString(null, R.string.exception_too_many_nodes));
         }
     }
 
@@ -2523,7 +2523,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     private void throwExceptionForTooManyMembers(@NonNull Relation r) {
         throw new OsmIllegalOperationException(PreconditionIssue.RELATION_MEMBER_COUNT, r,
-                App.resources().getString(R.string.exception_too_many_members, r.getDescription()));
+                App.getString(null, R.string.exception_too_many_members, r.getDescription()));
     }
 
     /**
@@ -4334,8 +4334,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 return;
             }
             final Checkpoint checkpoint = checkpoints.get(checkpoints.size() - 1); // the last checkpoint
-            undo.createCheckpoint(ctx != null ? ctx.getString(R.string.undo_action_fix_conflict) : App.resources().getString(R.string.undo_action_fix_conflict),
-                    null);
+            undo.createCheckpoint(App.getString(ctx, R.string.undo_action_fix_conflict), null);
             undo.save(element);
             List<UndoStorage.UndoElement> list = undo.getElements(Util.wrapInList(checkpoint), element);
             list.get(0).restore();
