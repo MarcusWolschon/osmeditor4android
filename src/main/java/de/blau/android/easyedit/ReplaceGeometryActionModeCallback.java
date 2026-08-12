@@ -106,7 +106,13 @@ public class ReplaceGeometryActionModeCallback extends AbortableWayActionModeCal
                 final List<Result> result = logic.performReplaceGeometry(main, (Way) target, ((Way) element).getNodes());
                 AlertDialog.Builder builder = ThemeUtils.getAlertDialogBuilder(main);
                 builder.setTitle(R.string.remove_geometry_source);
-                builder.setPositiveButton(R.string.Yes, (dialog, id) -> logic.performEraseWay(main, ((Way) element), true, false));
+                builder.setPositiveButton(R.string.Yes, (dialog, id) -> {
+                    try {
+                        logic.performEraseWay(main, ((Way) element), true, false);
+                    } catch (StorageException ex) {
+                        // already toasted and logged
+                    }
+                });
                 builder.setNegativeButton(R.string.No, null);
                 AlertDialog d = builder.create();
                 d.setOnDismissListener((DialogInterface dialog) -> {

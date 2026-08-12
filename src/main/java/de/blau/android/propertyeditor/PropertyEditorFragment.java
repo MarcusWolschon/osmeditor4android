@@ -58,6 +58,7 @@ import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.exception.DuplicateKeyException;
 import de.blau.android.exception.IllegalOperationException;
 import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.exception.StorageException;
 import de.blau.android.nsi.Names.TagMap;
 import de.blau.android.osm.Capabilities;
 import de.blau.android.osm.OsmElement;
@@ -1011,8 +1012,13 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
         }
 
         Logic logic = App.getLogic();
-        if (logic != null) {
-            StorageDelegator d = App.getDelegator();
+        if (logic == null) {
+            Log.e(DEBUG_TAG, "updateAndFinish logic is null");
+            controlListener.finished(this);
+            return;
+        }
+        StorageDelegator d = App.getDelegator();
+        try {
             // Tags
             for (int i = 0; i < elementCount; i++) {
                 if (isDeleted(d, i)) {
@@ -1021,11 +1027,7 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
                 }
                 final Map<String, String> tags = currentTags.get(i);
                 if (!originalTags.get(i).equals(tags)) {
-                    try {
-                        logic.setTags(getActivity(), types[i], osmIds[i], tags);
-                    } catch (OsmIllegalOperationException e) {
-                        ScreenMessage.barError(getActivity(), e.getMessage());
-                    }
+                    logic.setTags(getActivity(), types[i], osmIds[i], tags);
                 }
             }
 
@@ -1050,8 +1052,10 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
                     logic.updateParentRelations(getActivity(), types[0], osmIds[0], currentParents);
                 }
             }
-        } else {
-            Log.e(DEBUG_TAG, "updateAndFinish logic is null");
+        } catch (OsmIllegalOperationException e) {
+            ScreenMessage.barError(getActivity(), e.getMessage());
+        } catch (StorageException ex) {
+            // already toasted and logged
         }
 
         // call through to activity that we are done

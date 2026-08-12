@@ -148,8 +148,12 @@ public class ClosedWaySplittingActionModeCallback extends AbstractClosedWaySplit
     public boolean handleElementLongClick(@NonNull OsmElement element, float x, float y) {
         super.handleElementLongClick(element, x, y);
         if (way.equals(element)) {
-            split(logic.addOnWay(main, Util.wrapInList(way), x, y, true));
-            return true;
+            try {
+                split(logic.addOnWay(main, Util.wrapInList(way), x, y, true));
+                return true;
+            } catch (StorageException ex) {
+                // already toasted and logged
+            }
         }
         Sound.beep();
         return true;

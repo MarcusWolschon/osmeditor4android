@@ -9,7 +9,6 @@ import java.net.HttpURLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -23,6 +22,7 @@ import de.blau.android.App;
 import de.blau.android.ErrorCodes;
 import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
+import de.blau.android.exception.StorageException;
 import de.blau.android.imagestorage.ImageStorage;
 import de.blau.android.imagestorage.PanoramaxStorage;
 import de.blau.android.imagestorage.UploadResult;
@@ -243,7 +243,11 @@ public class UploadImage {
         }
         Map<String, String> tags = new HashMap<>(element.getTags());
         imageStore.addTag(url, tags);
-        App.getLogic().setTags((Activity) context, element, tags);
+        try {
+            App.getLogic().setTags((FragmentActivity) context, element, tags);
+        } catch (StorageException ex) {
+            // already toasted and logged
+        }
     }
 
     private static ImageStorage getImageStore(ImageStorageConfiguration configuration) {

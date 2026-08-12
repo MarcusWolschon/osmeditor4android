@@ -28,6 +28,7 @@ import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.exception.StorageException;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.osm.GeoJson;
 import de.blau.android.osm.OsmElement;
@@ -136,13 +137,20 @@ public class FeatureInfo extends InfoDialogFragment {
         if (feature != null) {
             builder.setNeutralButton(R.string.create_osm_element, (dialog, which) -> {
                 int maxNodes = App.getLogic().getPrefs().getServer().getCachedCapabilities().getMaxWayNodes();
-                List<OsmElement> elements = GeoJson.toOsm(feature, maxNodes);
                 FragmentActivity activity = getActivity();
-                final Logic logic = App.getLogic();
-                logic.addElements(activity, elements);
-                if (activity instanceof Main) {
-                    selectElements(logic, elements);
-                    ((Main) activity).getEasyEditManager().startElementSelectionMode();
+                try {
+                    List<OsmElement> elements = GeoJson.toOsm(feature, maxNodes);
+                    final Logic logic = App.getLogic();
+                    logic.addElements(activity, elements);
+                    if (activity instanceof Main) {
+                        selectElements(logic, elements);
+                        ((Main) activity).getEasyEditManager().startElementSelectionMode();
+                    }
+                } catch (StorageException ex) {
+                    // already toasted and logged
+                } catch (OutOfMemoryError oom) {
+                    Log.e(DEBUG_TAG, oom.getMessage());
+                    ScreenMessage.toastTopError(activity, R.string.toast_out_of_memory);
                 }
             });
 

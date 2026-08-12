@@ -637,8 +637,11 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
         if (!tags.isEmpty()) {
             AlertDialog alertDialog = ThemeUtils.getAlertDialogBuilder(main).setTitle(R.string.move_outer_tags_title)
                     .setMessage(R.string.move_outer_tags_message).setPositiveButton(R.string.move, (dialog, which) -> {
-                        logic.createCheckpoint(main, R.string.undo_action_move_tags);
-                        RelationUtils.moveOuterTags(App.getDelegator(), relation);
+                        try {
+                            logic.moveOuterTags(main, relation);
+                        } catch (StorageException ex) {
+                            // already toasted and logged
+                        }
                     }).setNeutralButton(R.string.leave_as_is, null).create();
             alertDialog.setOnDismissListener(dialog -> finishMode.run());
             alertDialog.show();
@@ -666,7 +669,11 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
                                     outerTags.remove(key);
                                 }
                             }
-                            App.getLogic().setTags(main, outer.getType(), outer.getRef(), outerTags, false);
+                            try {
+                                App.getLogic().setTags(main, outer.getType(), outer.getRef(), outerTags, false);
+                            } catch (StorageException ex) {
+                                // already toasted and logged
+                            }
                         }
                     }
                 }).setNeutralButton(R.string.leave_as_is, null).create();

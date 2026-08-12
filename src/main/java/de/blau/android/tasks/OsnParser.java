@@ -166,8 +166,8 @@ public class OsnParser extends DefaultHandler {
             default:
                 // ignore everything else
             }
-        } catch (StorageException sex) {
-            throw new SAXException(sex);
+        } catch (OutOfMemoryError oom) {
+            throw new SAXException(new StorageException(StorageException.OOM));
         } catch (OsmParseException e) {
             logAndSaveException(e);
         }

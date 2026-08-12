@@ -737,7 +737,7 @@ public class Logic {
      * @param tags Tags to be set
      * @throws OsmIllegalOperationException if the e isn't in storage
      */
-    public void setTags(@Nullable Activity activity, @NonNull final OsmElement e, @Nullable final java.util.Map<String, String> tags)
+    public void setTags(@Nullable FragmentActivity activity, @NonNull final OsmElement e, @Nullable final java.util.Map<String, String> tags)
             throws OsmIllegalOperationException {
         setTags(activity, e, tags, true);
     }
@@ -751,7 +751,7 @@ public class Logic {
      * @param tags Tags to be set
      * @throws OsmIllegalOperationException if the e isn't in storage
      */
-    public void setTags(@Nullable Activity activity, final String type, final long osmId, @Nullable final java.util.Map<String, String> tags)
+    public void setTags(@Nullable FragmentActivity activity, final String type, final long osmId, @Nullable final java.util.Map<String, String> tags)
             throws OsmIllegalOperationException {
         setTags(activity, type, osmId, tags, true);
     }
@@ -766,7 +766,7 @@ public class Logic {
      * @param createCheckpoint create a checkpoint, except in composite operations this should always be true
      * @throws OsmIllegalOperationException if the e isn't in storage
      */
-    public void setTags(@Nullable Activity activity, final String type, final long osmId, @Nullable final java.util.Map<String, String> tags,
+    public void setTags(@Nullable FragmentActivity activity, final String type, final long osmId, @Nullable final java.util.Map<String, String> tags,
             boolean createCheckpoint) throws OsmIllegalOperationException {
         setTags(activity, getDelegator().getOsmElement(type, osmId), tags, createCheckpoint);
     }
@@ -781,7 +781,7 @@ public class Logic {
      * @param createCheckpoint create a checkpoint, except in composite operations this should always be true
      * @throws OsmIllegalOperationException if the e isn't in storage
      */
-    public void setTags(@Nullable Activity activity, @Nullable OsmElement osmElement, @Nullable final java.util.Map<String, String> tags,
+    public void setTags(@Nullable FragmentActivity activity, @Nullable OsmElement osmElement, @Nullable final java.util.Map<String, String> tags,
             boolean createCheckpoint) throws OsmIllegalOperationException {
         if (osmElement == null) {
             Log.e(DEBUG_TAG, "Attempted to setTags on a non-existing element");
@@ -801,6 +801,9 @@ public class Logic {
                 createCheckpoint(activity, R.string.undo_action_set_tags);
             }
             getDelegator().setTags(osmElement, tags);
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex, createCheckpoint);
+            throw ex; // rethrow
         } finally {
             unlock();
         }
@@ -814,9 +817,10 @@ public class Logic {
      * @param osmId OSM-ID of the element.
      * @param parents new parent relations
      * @return false if no element exists for the given osmId/type.
+     * @throws OsmIllegalOperationException
      */
     public boolean updateParentRelations(@Nullable FragmentActivity activity, final String type, final long osmId,
-            final MultiHashMap<Long, RelationMemberPosition> parents) {
+            final MultiHashMap<Long, RelationMemberPosition> parents) throws OsmIllegalOperationException {
         OsmElement osmElement = getDelegator().getOsmElement(type, osmId);
         if (osmElement == null) {
             Log.e(DEBUG_TAG, "Attempted to update relations on a non-existing element");
@@ -832,7 +836,7 @@ public class Logic {
             }
             return true;
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         } finally {
             unlock();
@@ -846,8 +850,10 @@ public class Logic {
      * @param osmId The OSM ID of the relation to change.
      * @param members The new list of members to set for the given relation.
      * @return true if the members was updated
+     * @throws OsmIllegalOperationException
      */
-    public boolean updateRelation(@Nullable FragmentActivity activity, long osmId, List<RelationMemberDescription> members) {
+    public boolean updateRelation(@Nullable FragmentActivity activity, long osmId, List<RelationMemberDescription> members)
+            throws OsmIllegalOperationException {
         OsmElement osmElement = getDelegator().getOsmElement(Relation.NAME, osmId);
         if (osmElement == null) {
             Log.e(DEBUG_TAG, "Attempted to update non-existing relation #" + osmId);
@@ -859,7 +865,7 @@ public class Logic {
             getDelegator().updateRelation((Relation) osmElement, members);
             return true;
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         } finally {
             unlock();
@@ -1684,7 +1690,7 @@ public class Logic {
                 main.getEasyEditManager().invalidateOnDownload();
             }
         } catch (OsmIllegalOperationException | StorageException e) {
-            handleDelegatorException(main, e);
+            handleDelegatorException(main, e, true);
         } catch (IllegalOperationException e) { // generated by moving a note
             ScreenMessage.barError(main, e.getMessage());
         } finally {
@@ -1950,7 +1956,7 @@ public class Logic {
             setSelectedNode(lSelectedNode);
             setSelectedWay(lSelectedWay);
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         } finally {
             unlock();
@@ -2026,7 +2032,7 @@ public class Logic {
      * @return the created node
      */
     @NonNull
-    public Node performAddNode(@Nullable final Activity activity, double lonD, double latD) {
+    public Node performAddNode(@Nullable final FragmentActivity activity, double lonD, double latD) {
         int lon = (int) (lonD * 1E7D);
         int lat = (int) (latD * 1E7D);
         return performAddNode(activity, lon, lat);
@@ -2041,7 +2047,7 @@ public class Logic {
      * @return the created node
      */
     @NonNull
-    public Node performAddNode(@Nullable final Activity activity, float x, float y) {
+    public Node performAddNode(@Nullable final FragmentActivity activity, float x, float y) {
         return performAddNode(activity, xToLonE7(x), yToLatE7(y));
     }
 
@@ -2054,7 +2060,7 @@ public class Logic {
      * @return the created node
      */
     @NonNull
-    public Node performAddNode(@Nullable final Activity activity, int lonE7, int latE7) {
+    public Node performAddNode(@Nullable final FragmentActivity activity, int lonE7, int latE7) {
         Log.d(DEBUG_TAG, "performAddNode");
         try {
             lock();
@@ -2064,6 +2070,9 @@ public class Logic {
             outsideOfDownload(activity, lonE7, latE7);
             setSelectedNode(newNode);
             return newNode;
+        } catch (StorageException ex) {
+            handleDelegatorException(activity, ex, true);
+            throw ex; // rethrow
         } finally {
             unlock();
         }
@@ -2112,13 +2121,14 @@ public class Logic {
      * @throws OsmIllegalOperationException if the operation would create an illegal state
      */
     @Nullable
-    public Node addOnWay(@Nullable Activity activity, @Nullable List<Way> ways, final float x, final float y, boolean forceNew) {
+    public Node addOnWay(@Nullable Activity activity, @Nullable List<Way> ways, final float x, final float y, boolean forceNew)
+            throws OsmIllegalOperationException {
         createCheckpoint(activity, R.string.undo_action_add);
         try {
             return getClickedNodeOrCreatedWayNode(ways, x, y, forceNew);
-        } catch (OsmIllegalOperationException e) {
+        } catch (OsmIllegalOperationException | StorageException e) {
             rollback();
-            throw new OsmIllegalOperationException(e);
+            throw e;
         }
     }
 
@@ -2178,7 +2188,7 @@ public class Logic {
             displayAttachedObjectWarning(activity, node);
             getDelegator().moveNode(node, latE7, lonE7);
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         }
     }
@@ -2210,6 +2220,9 @@ public class Logic {
                     }
                 }
             }
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex, true);
+            throw ex; // rethrow
         } finally {
             unlock();
         }
@@ -2231,6 +2244,9 @@ public class Logic {
             }
             displayAttachedObjectWarning(activity, relation); // needs to be done before removal
             getDelegator().removeRelation(relation);
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex, true);
+            throw ex; // rethrow
         } finally {
             unlock();
         }
@@ -2278,14 +2294,17 @@ public class Logic {
      * 
      * @param activity the calling activity or null
      * @param ex the Exception to handle
+     * @param rollback if true undo the current undo checkpoint
      */
-    private void handleDelegatorException(@Nullable final FragmentActivity activity, @NonNull Exception ex) {
+    private void handleDelegatorException(@Nullable final FragmentActivity activity, @NonNull Exception ex, boolean rollback) {
         if (ex instanceof OsmIllegalOperationException) {
             dismissAttachedObjectWarning(activity);
             if (activity != null) {
                 ScreenMessage.toastTopError(activity, activity.getString(R.string.toast_illegal_operation, ex.getLocalizedMessage()));
             }
-            rollback();
+            if (rollback) {
+                rollback();
+            }
             invalidateMap();
         } else if ((ex instanceof StorageException) && activity != null) {
             ScreenMessage.toastTopError(activity, R.string.toast_out_of_memory);
@@ -2301,7 +2320,6 @@ public class Logic {
      * @param fromEnd create new Way from Nodes after node
      * @return a List of Result objects containing the new Way and any issues
      * @throws OsmIllegalOperationException if the operation failed
-     * @throws StorageException if we ran out of memory
      */
     @NonNull
     public List<Result> performSplit(@Nullable final FragmentActivity activity, @NonNull final Way way, @NonNull final Node node, boolean fromEnd) {
@@ -2312,7 +2330,7 @@ public class Logic {
             invalidateMap();
             return result;
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         } finally {
             unlock();
@@ -2330,7 +2348,6 @@ public class Logic {
      * @return a List of Result objects containing the original Way in the 1st element and the new Way in the 2ndand any
      *         issues
      * @throws OsmIllegalOperationException if the operation failed
-     * @throws StorageException if we ran out of memory
      */
     @NonNull
     public List<Result> performClosedWaySplit(@Nullable FragmentActivity activity, @NonNull Way way, @NonNull Node node1, @NonNull Node node2,
@@ -2346,7 +2363,7 @@ public class Logic {
             invalidateMap();
             return results;
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         } finally {
             unlock();
@@ -2391,7 +2408,7 @@ public class Logic {
             invalidateMap();
             return result;
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex;
         } finally {
             unlock();
@@ -2443,6 +2460,9 @@ public class Logic {
             createCheckpoint(activity, R.string.undo_action_remove_node_from_way);
             displayAttachedObjectWarning(activity, node);
             getDelegator().removeNodeFromWay(way, node);
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex, true);
+            throw ex;
         } finally {
             unlock();
         }
@@ -2468,6 +2488,9 @@ public class Logic {
             }
             displayAttachedObjectWarning(activity, way.getLastNode());
             getDelegator().removeEndNodeFromWay(fromEnd, way, deleteNode);
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex, createCheckPoint);
+            throw ex;
         } finally {
             unlock();
         }
@@ -2492,7 +2515,7 @@ public class Logic {
             MergeAction action = new MergeAction(getDelegator(), mergeInto, mergeFrom, getSelectedIds());
             return action.mergeWays();
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         } finally {
             unlock();
@@ -2546,7 +2569,7 @@ public class Logic {
             }
             return overallResult;
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         } finally {
             unlock();
@@ -2571,7 +2594,7 @@ public class Logic {
             MergeAction action = new MergeAction(getDelegator(), ways.get(0), ways.get(1), getSelectedIds());
             return action.mergeSimplePolygons(map);
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         } finally {
             unlock();
@@ -2623,7 +2646,7 @@ public class Logic {
             @Override
             protected void onPostExecute(StorageException ex) {
                 if (ex != null) {
-                    handleDelegatorException(activity, ex);
+                    handleDelegatorException(activity, ex, true);
                     return;
                 }
                 invalidateMap();
@@ -2663,7 +2686,7 @@ public class Logic {
             invalidateMap();
             return newNode;
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         } finally {
             unlock();
@@ -2760,7 +2783,7 @@ public class Logic {
                         overallResult.addAll(tempResult.subList(1, tempResult.size()));
                     }
                 } catch (OsmIllegalOperationException | StorageException ex) {
-                    handleDelegatorException(activity, ex);
+                    handleDelegatorException(activity, ex, true);
                     throw ex; // rethrow
                 }
                 if (!(result.getElement() instanceof Node)) {
@@ -2840,7 +2863,7 @@ public class Logic {
                                 tempResult = action.mergeNodes();
                             }
                         } catch (OsmIllegalOperationException | StorageException ex) {
-                            handleDelegatorException(activity, ex);
+                            handleDelegatorException(activity, ex, true);
                             throw ex; // rethrow
                         }
                         break; // need to leave loop !!!
@@ -2881,7 +2904,7 @@ public class Logic {
             displayAttachedObjectWarning(activity, node); // needs to be done before unjoin
             getDelegator().unjoinWays(node);
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         } finally {
             unlock();
@@ -2909,7 +2932,7 @@ public class Logic {
             displayAttachedObjectWarning(activity, way); // needs to be done before unjoin
             return delegator.unjoinWay(activity, way, primaryKey);
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         } finally {
             unlock();
@@ -2934,7 +2957,7 @@ public class Logic {
             createCheckpoint(activity, R.string.undo_action_reverse_way);
             return getDelegator().reverseWay(way);
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         } finally {
             unlock();
@@ -2997,7 +3020,9 @@ public class Logic {
             setSelectedNode(lSelectedNode);
             setSelectedWay(lSelectedWay);
         } catch (StorageException e) {
-            rollback();
+            if (createCheckpoint) {
+                rollback();
+            }
             throw e;
         } finally {
             unlock();
@@ -3064,7 +3089,7 @@ public class Logic {
             }
             return result;
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         } finally {
             unlock();
@@ -3914,6 +3939,11 @@ public class Logic {
                 }
                 postLoadHandler.onError(null);
             }
+
+            @Override
+            protected void onBackgroundError(Exception ex) {
+                postLoadHandler.onError(null);
+            }
         };
 
         loader.execute();
@@ -4056,6 +4086,8 @@ public class Logic {
                         return new AsyncResult(ErrorCodes.OUT_OF_MEMORY);
                     }
                     return new AsyncResult(ErrorCodes.INVALID_DATA_RECEIVED);
+                } catch (StorageException sex) {
+                    return new AsyncResult(ErrorCodes.OUT_OF_MEMORY);
                 } catch (ParserConfigurationException e) {
                     Log.e(DEBUG_TAG, "downloadElements problem parsing", e);
                     return new AsyncResult(ErrorCodes.INVALID_DATA_RECEIVED);
@@ -4858,7 +4890,7 @@ public class Logic {
                     Log.e(DEBUG_TAG, METHOD_UPLOAD, e);
                     result.setError(ErrorCodes.UPLOAD_INCOMPLETE);
                     result.setMessage(e.getLocalizedMessage());
-                } catch (final IOException | URISyntaxException | IllegalArgumentException e) {
+                } catch (final IOException | URISyntaxException | IllegalArgumentException | StorageException e) {
                     Log.e(DEBUG_TAG, METHOD_UPLOAD, e);
                     result.setError(ErrorCodes.UPLOAD_PROBLEM);
                     result.setMessage(e.getLocalizedMessage());
@@ -5802,7 +5834,7 @@ public class Logic {
             getDelegator().addMemberToRelation(to, restriction);
             return restriction;
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         }
     }
@@ -5823,7 +5855,7 @@ public class Logic {
             setRelationType(type, relation);
             return relation;
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         }
     }
@@ -5837,11 +5869,16 @@ public class Logic {
      * @return the new relation
      */
     @NonNull
-    public Relation createRelationFromMembers(@Nullable Activity activity, String type, List<RelationMember> members) {
+    public Relation createRelationFromMembers(@Nullable FragmentActivity activity, String type, List<RelationMember> members) {
         createCheckpoint(activity, R.string.undo_action_create_relation);
-        Relation relation = getDelegator().createAndInsertRelationFromMembers(members);
-        setRelationType(type, relation);
-        return relation;
+        try {
+            Relation relation = getDelegator().createAndInsertRelationFromMembers(members);
+            setRelationType(type, relation);
+            return relation;
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex, true);
+            throw ex; // rethrow
+        }
     }
 
     /**
@@ -5868,7 +5905,7 @@ public class Logic {
         try {
             getDelegator().addMembersToRelation(relation, members);
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         }
     }
@@ -5885,7 +5922,7 @@ public class Logic {
         try {
             getDelegator().addRelationMembersToRelation(relation, members);
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         }
     }
@@ -5905,7 +5942,7 @@ public class Logic {
             getDelegator().removeRelationMembersFromRelation(relation, removeMembers);
             getDelegator().addRelationMembersToRelation(relation, addMembers);
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         }
     }
@@ -6402,7 +6439,7 @@ public class Logic {
         try {
             getDelegator().copyToClipboard(elements, centroid[0], centroid[1]);
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             // don't rethrow
         }
     }
@@ -6435,7 +6472,7 @@ public class Logic {
         try {
             getDelegator().cutToClipboard(elements, centroid[0], centroid[1]);
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             // don't rethrow
         }
         invalidateMap();
@@ -6500,11 +6537,16 @@ public class Logic {
      * @return the pasted objects or null if the clipboard was empty
      */
     @Nullable
-    public List<OsmElement> pasteFromClipboard(@Nullable Activity activity, int index, float x, float y) {
+    public List<OsmElement> pasteFromClipboard(@Nullable FragmentActivity activity, int index, float x, float y) {
         createCheckpoint(activity, R.string.undo_action_paste);
-        int lat = yToLatE7(y);
-        int lon = xToLonE7(x);
-        return getDelegator().pasteFromClipboard(index, lat, lon);
+        try {
+            int lat = yToLatE7(y);
+            int lon = xToLonE7(x);
+            return getDelegator().pasteFromClipboard(index, lat, lon);
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex, true);
+            throw ex;
+        }
     }
 
     /**
@@ -6532,7 +6574,7 @@ public class Logic {
             }
             return duplicated;
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             // don't rethrow
         }
         return new ArrayList<>();
@@ -6565,7 +6607,7 @@ public class Logic {
             invalidateMap();
             displayAttachedObjectWarning(activity, way);
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex;
         }
     }
@@ -6586,7 +6628,23 @@ public class Logic {
             displayAttachedObjectWarning(activity, nodes);
             return circle;
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
+            throw ex;
+        }
+    }
+
+    /**
+     * Move tags from member elements to the relation
+     * 
+     * @param ctivity this method was called from, if null no warnings will be displayed
+     * @param relation the target relation
+     */
+    public void moveOuterTags(@Nullable FragmentActivity activity, @NonNull Relation relation) {
+        createCheckpoint(activity, R.string.undo_action_move_tags);
+        try {
+            RelationUtils.moveOuterTags(getDelegator(), relation);
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex, true);
             throw ex;
         }
     }

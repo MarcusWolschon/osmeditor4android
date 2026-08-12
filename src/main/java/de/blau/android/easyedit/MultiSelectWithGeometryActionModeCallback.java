@@ -21,6 +21,7 @@ import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.dialogs.ElementIssueDialog;
 import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.exception.StorageException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
@@ -99,9 +100,9 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
         actionMap.put(main.getString(R.string.ACTION_MERGE), new Shortcuts.Action(R.string.action_merge, () -> {
             if (sortedWays != null) {
                 mergeWays();
-            } else {
-                Sound.beep();
+                return;
             }
+            Sound.beep();
         }));
     }
 
@@ -223,57 +224,61 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
         if (super.onActionItemClicked(mode, item)) {
             return true;
         }
-        switch (item.getItemId()) {
-        case ElementSelectionActionModeCallback.MENUITEM_DELETE:
-            menuDelete(false);
-            break;
-        case ElementSelectionActionModeCallback.MENUITEM_COPY:
-            logic.copyToClipboard(main, selection);
-            mode.finish();
-            break;
-        case ElementSelectionActionModeCallback.MENUITEM_CUT:
-            logic.cutToClipboard(main, selection);
-            mode.finish();
-            break;
-        case MENUITEM_RELATION:
-            ElementSelectionActionModeCallback.buildPresetSelectDialog(main,
-                    p -> main.startSupportActionMode(new EditRelationMembersActionModeCallback(manager,
-                            p != null ? p.getPath(App.getCurrentRootPreset(main).getRootGroup()) : null, selection)),
-                    ElementType.RELATION, R.string.select_relation_type_title, Tags.KEY_TYPE, null).show();
-            break;
-        case MENUITEM_ADD_RELATION_MEMBERS:
-            ElementSelectionActionModeCallback.buildRelationSelectDialog(main, r -> {
-                Relation relation = (Relation) App.getDelegator().getOsmElement(Relation.NAME, r);
-                if (relation != null) {
-                    main.startSupportActionMode(new EditRelationMembersActionModeCallback(manager, relation, selection));
+        try {
+            switch (item.getItemId()) {
+            case ElementSelectionActionModeCallback.MENUITEM_DELETE:
+                menuDelete(false);
+                break;
+            case ElementSelectionActionModeCallback.MENUITEM_COPY:
+                logic.copyToClipboard(main, selection);
+                mode.finish();
+                break;
+            case ElementSelectionActionModeCallback.MENUITEM_CUT:
+                logic.cutToClipboard(main, selection);
+                mode.finish();
+                break;
+            case MENUITEM_RELATION:
+                ElementSelectionActionModeCallback.buildPresetSelectDialog(main,
+                        p -> main.startSupportActionMode(new EditRelationMembersActionModeCallback(manager,
+                                p != null ? p.getPath(App.getCurrentRootPreset(main).getRootGroup()) : null, selection)),
+                        ElementType.RELATION, R.string.select_relation_type_title, Tags.KEY_TYPE, null).show();
+                break;
+            case MENUITEM_ADD_RELATION_MEMBERS:
+                ElementSelectionActionModeCallback.buildRelationSelectDialog(main, r -> {
+                    Relation relation = (Relation) App.getDelegator().getOsmElement(Relation.NAME, r);
+                    if (relation != null) {
+                        main.startSupportActionMode(new EditRelationMembersActionModeCallback(manager, relation, selection));
+                    }
+                }, -1, R.string.select_relation_title, null, null, selection).show();
+                break;
+            case MENUITEM_ORTHOGONALIZE:
+                orthogonalize();
+                break;
+            case MENUITEM_MERGE:
+                if (canMergePolygons(selection)) {
+                    mergePolygons();
+                } else {
+                    mergeWays();
                 }
-            }, -1, R.string.select_relation_title, null, null, selection).show();
-            break;
-        case MENUITEM_ORTHOGONALIZE:
-            orthogonalize();
-            break;
-        case MENUITEM_MERGE:
-            if (canMergePolygons(selection)) {
-                mergePolygons();
-            } else {
-                mergeWays();
+                break;
+            case MENUITEM_INTERSECT:
+                intersectWays();
+                break;
+            case MENUITEM_CREATE_CIRCLE:
+                createCircle();
+                break;
+            case MENUITEM_ROTATE:
+                deselectOnExit = false;
+                main.startSupportActionMode(new RotationActionModeCallback(manager));
+                break;
+            case MENUITEM_EXTRACT_SEGMENT:
+                extractSegment();
+                break;
+            default:
+                return false;
             }
-            break;
-        case MENUITEM_INTERSECT:
-            intersectWays();
-            break;
-        case MENUITEM_CREATE_CIRCLE:
-            createCircle();
-            break;
-        case MENUITEM_ROTATE:
-            deselectOnExit = false;
-            main.startSupportActionMode(new RotationActionModeCallback(manager));
-            break;
-        case MENUITEM_EXTRACT_SEGMENT:
-            extractSegment();
-            break;
-        default:
-            return false;
+        } catch (StorageException ex) {
+            // already toasted and logged
         }
         return true;
     }
@@ -344,10 +349,15 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
                 logic.getHandler().post(() -> {
                     List<Way> waysWithNode = logic.getWaysForNode(node);
                     selection.removeAll(waysWithNode);
-                    logic.performJoinNodeToWays(main, selection, node);
-                    main.zoomTo(node);
-                    manager.finish();
-                    manager.editElement(node);
+                    try {
+                        logic.performJoinNodeToWays(main, selection, node);
+                        main.zoomTo(node);
+                        manager.finish();
+                        manager.editElement(node);
+                    } catch (StorageException ex) {
+                        // already toasted and logged
+                        manager.finish();
+                    }
                 });
             }
         }
@@ -357,16 +367,18 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
      * Create a circle from selected nodes
      */
     private void createCircle() {
-        try {
-            logic.getHandler().post(() -> {
+        logic.getHandler().post(() -> {
+            try {
                 Way circle = logic.createCircle(main, logic.getSelectedNodes());
                 manager.finish();
                 manager.editElement(circle);
                 main.performTagEdit(circle, null, false, true);
-            });
-        } catch (OsmIllegalOperationException | IllegalStateException e) {
-            ScreenMessage.barError(main, e.getLocalizedMessage());
-        }
+            } catch (OsmIllegalOperationException | IllegalStateException e) {
+                logic.getHandler().post(() -> ScreenMessage.barError(main, e.getLocalizedMessage()));
+            } catch (StorageException ex) {
+                // already toasted and logged
+            }
+        });
     }
 
     /**
@@ -475,11 +487,12 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
         // check for relation membership
         if (!deleteFromRelations) {
             for (OsmElement e : selection) {
-                if (e.hasParentRelations()) {
-                    ThemeUtils.getAlertDialogBuilder(main).setTitle(R.string.delete).setMessage(R.string.delete_elements_from_relation_description)
-                            .setPositiveButton(R.string.delete, (dialog, which) -> menuDelete(true)).show();
-                    return;
+                if (!e.hasParentRelations()) {
+                    continue;
                 }
+                ThemeUtils.getAlertDialogBuilder(main).setTitle(R.string.delete).setMessage(R.string.delete_elements_from_relation_description)
+                        .setPositiveButton(R.string.delete, (dialog, which) -> menuDelete(true)).show();
+                return;
             }
         }
 
@@ -490,10 +503,14 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
                 origParents.addAll(temp);
             }
         }
-        logic.performEraseMultipleObjects(main, selection);
 
-        // check for new empty relations
-        ElementSelectionActionModeCallback.checkEmptyRelations(main, origParents);
+        try {
+            logic.performEraseMultipleObjects(main, selection);
+            // check for new empty relations
+            ElementSelectionActionModeCallback.checkEmptyRelations(main, origParents);
+        } catch (StorageException ex) {
+            // already toasted and logged
+        }
         manager.finish();
     }
 }

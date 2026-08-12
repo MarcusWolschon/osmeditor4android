@@ -169,7 +169,12 @@ public class Shortcuts {
             if (actionString != null) {
                 Shortcuts.Action action = actionMap.get(actionString);
                 if (action != null) {
-                    action.runnable.run();
+                    try {
+                        action.runnable.run();
+                    } catch (Exception e) {
+                        // in general any exception here should have already been toasted
+                        Log.e(DEBUG_TAG, e.getMessage());
+                    }
                     return true;
                 }
             }

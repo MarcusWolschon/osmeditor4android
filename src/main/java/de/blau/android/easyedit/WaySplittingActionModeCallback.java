@@ -140,7 +140,11 @@ public class WaySplittingActionModeCallback extends AbortableWayActionModeCallba
         super.handleElementLongClick(element, x, y);
         if (way.equals(element)) {
             // this doesn't lock logic which is likely not necessary
-            splitAt(logic.addOnWay(main, Util.wrapInList(way), x, y, true));
+            try {
+                splitAt(logic.addOnWay(main, Util.wrapInList(way), x, y, true));
+            } catch (StorageException e) {
+                // already toasted and logged
+            }
             return true;
         }
         if (way.isClosed() || way.isNew()) {

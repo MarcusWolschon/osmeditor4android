@@ -45,9 +45,9 @@ import de.blau.android.Main;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.exception.OsmServerException;
+import de.blau.android.exception.StorageException;
 import de.blau.android.osm.ApiResponse;
 import de.blau.android.osm.ApiResponse.Conflict;
-import de.blau.android.review.ReviewAndUpload;
 import de.blau.android.osm.MergeAction;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -56,6 +56,7 @@ import de.blau.android.osm.Result;
 import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
+import de.blau.android.review.ReviewAndUpload;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.InfoDialogFragment;
@@ -303,10 +304,14 @@ public class UploadConflict extends CancelableDialogFragment {
                                 throw new IllegalStateException(
                                         res.getString(R.string.unable_to_download_server_version, conflictElementType, conflictElementId));
                             }
-                            setMergedTags(activity, logic, updatedElement, elementOnServer, elementLocal, mergedTags, restartHandler);
-                            // as updatedElement is actually a new instance it will be added twice to the undo
-                            // checkpoint therefore remove it
-                            delegator.getUndo().remove(updatedElement);
+                            try {
+                                setMergedTags(activity, logic, updatedElement, elementOnServer, elementLocal, mergedTags, restartHandler);
+                                // as updatedElement is actually a new instance it will be added twice to the undo
+                                // checkpoint therefore remove it
+                                delegator.getUndo().remove(updatedElement);
+                            } catch (StorageException ex) {
+                                // already toasted and logged
+                            }
                         }
 
                         @Override

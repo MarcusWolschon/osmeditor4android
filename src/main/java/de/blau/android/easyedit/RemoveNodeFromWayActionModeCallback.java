@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
 import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.exception.StorageException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
@@ -84,6 +85,8 @@ public class RemoveNodeFromWayActionModeCallback extends AbortableWayActionModeC
         } catch (OsmIllegalOperationException oloex) {
             Log.e(DEBUG_TAG, "Tried to remove node from way " + way.getOsmId() + " #nodes " + way.getNodes().size() + " cloased " + way.isClosed());
             ScreenMessage.toastTopError(main, oloex.getMessage()); // this should never happen
+        } catch (StorageException ex) {
+            // already toasted and logged
         }
     }
 

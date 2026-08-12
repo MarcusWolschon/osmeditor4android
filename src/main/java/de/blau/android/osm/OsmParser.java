@@ -21,6 +21,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import de.blau.android.exception.OsmParseException;
+import de.blau.android.exception.StorageException;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.collections.LongOsmElementMap;
 
@@ -264,6 +265,8 @@ public class OsmParser extends DefaultHandler {
         } catch (OsmParseException e) {
             Log.e(DEBUG_TAG, "OsmParseException", e);
             exceptions.add(e);
+        } catch (StorageException sex) {
+            // FIXME REMOVE
         }
     }
 
