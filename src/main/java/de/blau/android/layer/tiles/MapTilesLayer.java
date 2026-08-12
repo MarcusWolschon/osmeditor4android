@@ -29,7 +29,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
-import de.blau.android.Logic;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.dialogs.LayerInfo;
