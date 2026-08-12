@@ -1013,9 +1013,9 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
 
         Logic logic = App.getLogic();
         if (logic == null) {
-        } else {
             Log.e(DEBUG_TAG, "updateAndFinish logic is null");
             controlListener.finished(this);
+            return;
         }
         StorageDelegator d = App.getDelegator();
         try {
