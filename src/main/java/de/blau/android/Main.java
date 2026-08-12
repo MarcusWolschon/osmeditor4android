@@ -1217,12 +1217,12 @@ public class Main extends AuthorisationEnabledActivity
         }
         if (loadBox != null) { // zoom only
             try {
-                logic.lock();
+                logic.lockWrites();
                 map.getViewBox().fitToBoundingBox(getMap(), loadBox);
                 map.invalidate();
                 logic.saveEditingState(this);
             } finally {
-                logic.unlock();
+                logic.unlockWrites();
             }
         }
     }
@@ -3822,7 +3822,7 @@ public class Main extends AuthorisationEnabledActivity
             int focusLat = GeoMath.yToLatE7(map.getHeight(), map.getWidth(), viewBox, focusY);
             Logic logic = App.getLogic();
             try {
-                logic.lock();
+                logic.lockWrites();
                 viewBox.zoom(Math.max(0.8f, Math.min(1.2f, scaleFactor)) - 1.0f);
                 int newfocusLon = GeoMath.xToLonE7(map.getWidth(), viewBox, focusX);
                 int newfocusLat = GeoMath.yToLatE7(map.getHeight(), map.getWidth(), viewBox, focusY);
@@ -3832,7 +3832,7 @@ public class Main extends AuthorisationEnabledActivity
                     // ignored
                 }
             } finally {
-                logic.unlock();
+                logic.unlockWrites();
             }
             map.getDataStyleManager().updateStrokes(logic.strokeWidth(viewBox.getWidth()));
             if (logic.isRotationMode()) {

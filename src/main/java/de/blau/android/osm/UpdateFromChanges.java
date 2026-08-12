@@ -35,7 +35,7 @@ public final class UpdateFromChanges {
     public static boolean update(@NonNull StorageDelegator delegator, @NonNull Storage changes) {
 
         try {
-            delegator.lock();
+            delegator.lockWrites();
             // make temp copy of current storage (we may have to abort
             Storage tempApi = new Storage(delegator.getApiStorage());
             Storage tempCurrent = new Storage(delegator.getCurrentStorage());
@@ -147,7 +147,7 @@ public final class UpdateFromChanges {
             delegator.dirty();
 
         } finally {
-            delegator.unlock();
+            delegator.unlockWrites();
         }
         return true;
     }

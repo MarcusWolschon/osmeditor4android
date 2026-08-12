@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import android.app.Activity;
 import android.content.Context;
@@ -93,7 +93,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * when reading state lockout writing/reading
      */
-    private transient ReentrantLock lock = new ReentrantLock();
+    private transient ReentrantReadWriteLock           lock      = new ReentrantReadWriteLock();
+    private transient ReentrantReadWriteLock.WriteLock writeLock = lock.writeLock();
+    private transient ReentrantReadWriteLock.ReadLock  readLock  = lock.readLock();
 
     /**
      * Indicates whether changes have been made since the last save to disk. Since a newly created storage is not saved,
@@ -134,7 +136,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     public void reset(boolean dirty) {
         try {
-            lock();
+            lockWrites();
             this.dirty = dirty;
             apiStorage = new Storage();
             currentStorage = new Storage();
@@ -142,7 +144,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             factory = new OsmElementFactory();
             imagery = new ArrayList<>();
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -153,13 +155,13 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     public void setCurrentStorage(@NonNull final Storage currentStorage) {
         try {
-            lock();
+            lockWrites();
             dirty = true;
             apiStorage = new Storage();
             this.currentStorage = currentStorage;
             undo = new UndoStorage(currentStorage, apiStorage);
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -210,10 +212,10 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     public void clearUndo() {
         try {
-            lock();
+            lockWrites();
             undo = new UndoStorage(currentStorage, apiStorage);
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -222,12 +224,12 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     public void clearUndo(@NonNull List<OsmElement> elements) {
         try {
-            lock();
+            lockWrites();
             for (OsmElement element : elements) {
                 undo.removeFromAll(element);
             }
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -264,14 +266,14 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     public void insertElementSafe(@NonNull final OsmElement elem) {
         try {
-            lock();
+            lockWrites();
             dirty = true;
             undo.save(elem);
             apiStorage.insertElementSafe(elem);
             currentStorage.insertElementSafe(elem);
             onElementChanged((OsmElement) null, elem);
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -282,14 +284,14 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     private void insertElementUnsafe(@NonNull final OsmElement elem) {
         try {
-            lock();
+            lockWrites();
             dirty = true;
             undo.save(elem);
             apiStorage.insertElementUnsafe(elem);
             currentStorage.insertElementUnsafe(elem);
             onElementChanged((OsmElement) null, elem);
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -301,7 +303,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     public void setTags(@NonNull final OsmElement elem, @Nullable final Map<String, String> tags) {
         try {
-            lock();
+            lockWrites();
             dirty = true;
             undo.save(elem);
             if (elem.setTags(tags)) {
@@ -313,7 +315,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 onElementChanged(null, elem);
             }
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -490,13 +492,13 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     public void fixupApiStorage() {
         try {
-            lock();
+            lockWrites();
             long minNodeId = fixupApiStorage(currentStorage.getNodes());
             long minWayId = fixupApiStorage(currentStorage.getWays());
             long minRelationId = fixupApiStorage(currentStorage.getRelations());
             getFactory().setIdSequences(minNodeId, minWayId, minRelationId);
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -536,7 +538,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         dirty = true;
         Relation relation = factory.createRelationWithNewId();
         try {
-            lock();
+            lockWrites();
             insertElementUnsafe(relation);
             if (members != null) {
                 for (OsmElement e : members) {
@@ -548,7 +550,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 }
             }
         } finally {
-            unlock();
+            unlockWrites();
         }
         return relation;
     }
@@ -565,7 +567,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         dirty = true;
         Relation relation = factory.createRelationWithNewId();
         try {
-            lock();
+            lockWrites();
             insertElementUnsafe(relation);
             for (RelationMember member : members) {
                 if (member.downloaded()) {
@@ -579,7 +581,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 }
             }
         } finally {
-            unlock();
+            unlockWrites();
         }
         return relation;
     }
@@ -612,12 +614,12 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         undo.save(way);
         validateWayNodeCount(way.nodeCount() + 1);
         try {
-            lock();
+            lockWrites();
             apiStorage.insertElementSafe(way);
             way.addNode(node);
             way.updateState(OsmElement.STATE_MODIFIED);
         } finally {
-            unlock();
+            unlockWrites();
         }
         onElementChanged(null, way);
     }
@@ -635,12 +637,12 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         undo.save(way);
         validateWayNodeCount(way.nodeCount() + nodes.size());
         try {
-            lock();
+            lockWrites();
             apiStorage.insertElementSafe(way);
             way.addNodes(nodes, false);
             way.updateState(OsmElement.STATE_MODIFIED);
         } finally {
-            unlock();
+            unlockWrites();
         }
         onElementChanged(null, way);
     }
@@ -658,13 +660,13 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         undo.save(way);
         validateWayNodeCount(nodes.size());
         try {
-            lock();
+            lockWrites();
             way.removeAllNodes();
             apiStorage.insertElementSafe(way);
             way.addNodes(nodes, false);
             way.updateState(OsmElement.STATE_MODIFIED);
         } finally {
-            unlock();
+            unlockWrites();
         }
         onElementChanged(null, way);
     }
@@ -711,13 +713,13 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         undo.save(way);
         validateWayNodeCount(way.nodeCount() + 1);
         try {
-            lock();
+            lockWrites();
             apiStorage.insertElementSafe(way);
             way.addNodeAfter(nodeBeforeIndex, newNode);
             way.updateState(OsmElement.STATE_MODIFIED);
             onElementChanged(null, way);
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -735,13 +737,13 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         undo.save(way);
         validateWayNodeCount(way.nodeCount() + 1);
         try {
-            lock();
+            lockWrites();
             apiStorage.insertElementSafe(way);
             way.appendNode(refNode, nextNode);
             way.updateState(OsmElement.STATE_MODIFIED);
             onElementChanged(null, way);
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -757,12 +759,12 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         dirty = true;
         undo.save(node);
         try {
-            lock();
+            lockWrites();
             invalidateWayBoundingBox(node);
             updateLatLon(node, latE7, lonE7);
             onElementChanged(null, node);
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -1160,7 +1162,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             }
             // prepare updated nodes for upload
             try {
-                lock();
+                lockWrites();
                 for (int wayIndex = 0; wayIndex < wayList.size(); wayIndex++) {
                     List<Node> nodes = wayList.get(wayIndex).getNodes();
                     Coordinates[] coords = coordsArray.get(wayIndex);
@@ -1170,7 +1172,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                     }
                 }
             } finally {
-                unlock();
+                unlockWrites();
             }
         }
         // Don't call onElementChanged
@@ -2268,7 +2270,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         Log.d(DEBUG_TAG, "updateParentRelations new parents size " + parents.size());
         List<Relation> origParents = e.getParentRelations() != null ? new ArrayList<>(e.getParentRelations()) : new ArrayList<>();
         try {
-            lock();
+            lockWrites();
             for (Relation origParent : origParents) { // find changes to existing memberships
                 if (!parents.containsKey(origParent.getOsmId())) {
                     removeElementFromRelation(e, origParent); // saves undo state
@@ -2324,7 +2326,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 }
             }
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -2452,7 +2454,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         undo.save(origElement);
         undo.save(newElement);
         try {
-            lock();
+            lockWrites();
             for (RelationMember rm : relation.getAllMembers(origElement)) {
                 rm.setElement(newElement);
             }
@@ -2463,7 +2465,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             relation.updateState(OsmElement.STATE_MODIFIED);
             insertElementSafe(relation);
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -2534,7 +2536,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         List<OsmElement> toCopy = new ArrayList<>();
         Map<OsmElement, OsmElement> processed = new HashMap<>();
         try {
-            lock();
+            lockReads();
             for (OsmElement e : elements) {
                 if (e instanceof Node) {
                     toCopy.add(duplicateNode((Node) e, 0, 0, processed, false));
@@ -2550,7 +2552,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 clipboards.push(clipboard);
             }
         } finally {
-            unlock();
+            unlockReads();
         }
     }
 
@@ -2566,7 +2568,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         List<OsmElement> toCut = new ArrayList<>();
         Map<Long, Node> replacedNodes = new HashMap<>();
         try {
-            lock();
+            lockWrites();
             for (OsmElement e : elements) {
                 if (e instanceof Relation) {
                     throw new IllegalArgumentException("Cutting of Relations not supported");
@@ -2624,7 +2626,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             clipboard.cutTo(toCut, lat, lon);
             clipboards.push(clipboard);
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -2932,10 +2934,10 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     public Storage getCurrentStorage() {
         // this doesn't make a lot of sense and needs to be re-visted
         try {
-            lock();
+            lockReads();
             return currentStorage;
         } finally {
-            unlock();
+            unlockReads();
         }
     }
 
@@ -2943,10 +2945,10 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     @NonNull
     public List<BoundingBox> getBoundingBoxes() {
         try {
-            lock();
+            lockReads();
             return currentStorage.getBoundingBoxes();
         } finally {
-            unlock();
+            unlockReads();
         }
     }
 
@@ -2958,10 +2960,10 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     public void setOriginalBox(@NonNull final BoundingBox box) {
         dirty = true;
         try {
-            lock();
+            lockWrites();
             currentStorage.setBoundingBox(box);
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -2969,10 +2971,10 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     public void addBoundingBox(@NonNull BoundingBox box) {
         dirty = true;
         try {
-            lock();
+            lockWrites();
             currentStorage.addBoundingBox(box);
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -2984,10 +2986,10 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     public void deleteBoundingBox(@NonNull BoundingBox box) {
         dirty = true;
         try {
-            lock();
+            lockWrites();
             currentStorage.deleteBoundingBox(box);
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -3003,7 +3005,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         // if we are simply expanding the area no need keep the old bounding boxes
         dirty = true;
         try {
-            lock();
+            lockWrites();
             List<BoundingBox> bbs = new ArrayList<>(currentStorage.getBoundingBoxes());
             for (BoundingBox bb : bbs) {
                 if (bb != null) {
@@ -3019,7 +3021,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             }
             currentStorage.addBoundingBox(box);
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -3106,6 +3108,38 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     }
 
     /**
+     * Get a list of all nodes contained in bounding box box currently in storage
+     * 
+     * @param box the bounding box
+     * @return unmodifiable list of all nodes currently loaded contained in box
+     */
+    @NonNull
+    public List<Node> getNodes(@NonNull BoundingBox box) {
+        try {
+            lockReads();
+            return getCurrentStorage().getNodes(box);
+        } finally {
+            unlockReads();
+        }
+    }
+
+    /**
+     * Get a list of all the Ways connected to the given Node.
+     * 
+     * @param node The Node.
+     * @return A list of all Ways connected to the Node.
+     */
+    @NonNull
+    public List<Way> getWaysForNode(@NonNull final Node node) {
+        try {
+            lockReads();
+            return getCurrentStorage().getWays(node);
+        } finally {
+            unlockReads();
+        }
+    }
+
+    /**
      * Stores the current storage data to the default storage file
      * 
      * @param ctx Android Context
@@ -3118,7 +3152,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             Log.i(DEBUG_TAG, "storage delegator empty or not dirty, skipping save");
             return;
         }
-        if (lock.tryLock()) {
+        if (tryReadLock()) {
             try {
                 if (savingHelper.save(ctx, FILENAME, this, true)) {
                     dirty = false;
@@ -3139,7 +3173,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 SavingHelper.export(ctx, this); // ctx == null is checked in method
                 Log.d(DEBUG_TAG, "save of state file failed, written emergency change file");
             } finally {
-                lock.unlock();
+                unlockReads();
             }
         } else {
             Log.i(DEBUG_TAG, "storage delegator locked, skipping save");
@@ -3167,7 +3201,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     public boolean readFromFile(@NonNull Context context, @NonNull String filename) {
         try {
-            lock();
+            lockWrites();
             StorageDelegator newDelegator = savingHelper.load(context, filename, true);
             if (newDelegator != null) {
                 Log.d(DEBUG_TAG, "read saved state");
@@ -3191,7 +3225,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 return false;
             }
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -3203,19 +3237,23 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     public List<String> listChanges(final Resources aResources) {
         List<String> retval = new ArrayList<>();
+        try {
+            lockReads();
+            for (Node node : new ArrayList<>(apiStorage.getNodes())) {
+                retval.add(node.getStateDescription(aResources));
+            }
 
-        for (Node node : new ArrayList<>(apiStorage.getNodes())) {
-            retval.add(node.getStateDescription(aResources));
-        }
+            for (Way way : new ArrayList<>(apiStorage.getWays())) {
+                retval.add(way.getStateDescription(aResources));
+            }
 
-        for (Way way : new ArrayList<>(apiStorage.getWays())) {
-            retval.add(way.getStateDescription(aResources));
+            for (Relation relation : new ArrayList<>(apiStorage.getRelations())) {
+                retval.add(relation.getStateDescription(aResources));
+            }
+            return retval;
+        } finally {
+            unlockReads();
         }
-
-        for (Relation relation : new ArrayList<>(apiStorage.getRelations())) {
-            retval.add(relation.getStateDescription(aResources));
-        }
-        return retval;
     }
 
     /**
@@ -3225,10 +3263,15 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     public List<OsmElement> listChangedElements() {
         List<OsmElement> retval = new ArrayList<>();
-        retval.addAll(new ArrayList<>(apiStorage.getNodes()));
-        retval.addAll(new ArrayList<>(apiStorage.getWays()));
-        retval.addAll(new ArrayList<>(apiStorage.getRelations()));
-        return retval;
+        try {
+            lockReads();
+            retval.addAll(new ArrayList<>(apiStorage.getNodes()));
+            retval.addAll(new ArrayList<>(apiStorage.getWays()));
+            retval.addAll(new ArrayList<>(apiStorage.getRelations()));
+            return retval;
+        } finally {
+            unlockReads();
+        }
     }
 
     /**
@@ -3306,7 +3349,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             }
             server.openChangeset(closeOpenChangeset, comment, tmpSource, imagery, extraTags);
             try {
-                lock();
+                lockReads();
                 int startCount = apiStorage.getElementCount();
                 if (fullUpload) {
                     server.diffUpload(this, apiStorage);
@@ -3325,7 +3368,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 uploadedCount = startCount - apiStorage.getElementCount();
                 elementCount = elementCount - uploadedCount;
             } finally {
-                unlock();
+                unlockReads();
             }
             if (closeChangeset || split) { // always close when splitting
                 server.closeChangeset();
@@ -3439,10 +3482,10 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     @Override
     public void export(OutputStream outputStream) throws Exception {
         try {
-            lock();
+            lockReads();
             OsmXml.writeOsmChange(getApiStorage(), outputStream, null, Integer.MAX_VALUE, App.getUserAgent());
         } finally {
-            unlock();
+            unlockReads();
         }
     }
 
@@ -3471,7 +3514,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         List<OsmElement> newElements = new ArrayList<>(); // elements that we need to run postMerg on
 
         try {
-            lock();
+            lockWrites();
 
             // make temp copy of current storage (we may have to abort
             Storage temp = new Storage(currentStorage);
@@ -3637,7 +3680,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             currentStorage = temp;
             undo.setCurrentStorage(temp);
         } finally {
-            unlock();
+            unlockWrites();
         }
         // no need to do this in the locked block
         if (postMerge != null) {
@@ -3861,7 +3904,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             }
         }
         try {
-            lock();
+            lockWrites();
             for (Way w : currentStorage.getWays()) {
                 final long wayId = w.getOsmId();
                 if (apiStorage.getWay(wayId) == null && !box.intersects(w.getBounds()) && !keepWays.contains(wayId) && !hasModifiedNodes(w)
@@ -3895,7 +3938,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             }
             BoundingBox.prune(this, box);
         } finally {
-            unlock();
+            unlockWrites();
         }
         dirty();
     }
@@ -3964,7 +4007,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         LongHashSet keepNodes = new LongHashSet();
         LongHashSet keepRelations = new LongHashSet();
         try {
-            lock();
+            lockWrites();
             for (Way w : currentStorage.getWays()) {
                 if (apiStorage.getWay(w.getOsmId()) == null) {
                     currentStorage.removeWay(w);
@@ -3998,7 +4041,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             }
             fixupBacklinks();
         } finally {
-            unlock();
+            unlockWrites();
         }
         dirty();
     }
@@ -4037,7 +4080,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         final String ABORTMESSAGE = "applyOsc aborting %s is unchanged/created";
 
         try {
-            lock();
+            lockWrites();
             // make temp copy of current storage (we may have to abort
             Storage tempCurrent = new Storage(currentStorage);
             Storage tempApi = new Storage(apiStorage);
@@ -4251,7 +4294,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             currentStorage = tempCurrent;
             apiStorage = tempApi;
         } finally {
-            unlock();
+            unlockWrites();
         }
         return true; // Success
     }
@@ -4296,7 +4339,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     public void undoLast(@Nullable Context ctx, @NonNull OsmElement element) {
         try {
-            lock();
+            lockWrites();
             List<de.blau.android.osm.UndoStorage.Checkpoint> checkpoints = undo.getUndoCheckpoints(element);
             if (checkpoints.isEmpty()) {
                 Log.e(DEBUG_TAG, "No undo checkpoint found for " + element.getDescription());
@@ -4314,7 +4357,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             }
             fixupBacklinks();
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -4347,12 +4390,17 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @return true if the coordinates are in one of the bounding boxes
      */
     public boolean isInDownload(int lonE7, int latE7) {
-        for (BoundingBox bb : new ArrayList<>(currentStorage.getBoundingBoxes())) { // make shallow copy
-            if (bb != null && bb.isIn(lonE7, latE7)) {
-                return true;
+        try {
+            lockReads();
+            for (BoundingBox bb : new ArrayList<>(currentStorage.getBoundingBoxes())) { // make shallow copy
+                if (bb != null && bb.isIn(lonE7, latE7)) {
+                    return true;
+                }
             }
+            return false;
+        } finally {
+            unlockReads();
         }
-        return false;
     }
 
     /**
@@ -4366,24 +4414,29 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     public boolean isInDownload(@NonNull Way w) {
         List<Node> toCheck = new ArrayList<>(w.getNodes());
         List<Node> inDownload = new ArrayList<>();
-        for (BoundingBox bb : new ArrayList<>(currentStorage.getBoundingBoxes())) { // make shallow copy
-            if (bb == null) {
-                continue;
-            }
-            for (Node n : toCheck) {
-                if ((bb.isIn(n.getLon(), n.getLat())) || n.isNew()) {
-                    inDownload.add(n);
+        try {
+            lockReads();
+            for (BoundingBox bb : new ArrayList<>(currentStorage.getBoundingBoxes())) { // make shallow copy
+                if (bb == null) {
+                    continue;
                 }
+                for (Node n : toCheck) {
+                    if ((bb.isIn(n.getLon(), n.getLat())) || n.isNew()) {
+                        inDownload.add(n);
+                    }
+                }
+                if (!inDownload.isEmpty()) {
+                    toCheck.removeAll(inDownload);
+                }
+                if (toCheck.isEmpty()) {
+                    return true;
+                }
+                inDownload.clear();
             }
-            if (!inDownload.isEmpty()) {
-                toCheck.removeAll(inDownload);
-            }
-            if (toCheck.isEmpty()) {
-                return true;
-            }
-            inDownload.clear();
+            return false;
+        } finally {
+            unlockReads();
         }
-        return false;
     }
 
     /**
@@ -4420,23 +4473,37 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * Try to set the reading lock
      */
-    public boolean tryLock() {
-        return lock.tryLock();
+    public boolean tryReadLock() {
+        return readLock.tryLock();
+    }
+
+    /**
+     * Set the write lock
+     */
+    public void lockWrites() {
+        writeLock.lock();
+    }
+
+    /**
+     * Free the write lock checking if it is currently held
+     */
+    public void unlockWrites() {
+        if (writeLock.isHeldByCurrentThread()) {
+            writeLock.unlock();
+        }
     }
 
     /**
      * Set the reading lock
      */
-    public void lock() {
-        lock.lock();
+    public void lockReads() {
+        readLock.lock();
     }
 
     /**
-     * Free the reading lock checking if it is currently held
+     * Free the read lock
      */
-    public void unlock() {
-        if (lock.isHeldByCurrentThread()) {
-            lock.unlock();
-        }
+    public void unlockReads() {
+        readLock.unlock();
     }
 }
