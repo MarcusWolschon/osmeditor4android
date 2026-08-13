@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="openstreetmap-cgimap 2.1.0 (340200 spike-07.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <bounds minlat="47.3894910" minlon="8.3857321" maxlat="47.3897305" maxlon="8.3859743"/>
+ <node id="599672191" visible="true" version="2" changeset="152681326" timestamp="2024-06-14T14:15:54Z" user="SimonPoole" uid="92387" lat="47.3895404" lon="8.3857834"/>
+ <node id="599672192" visible="true" version="1" changeset="3456456" timestamp="2009-12-26T17:08:39Z" user="marcschneider" uid="55777" lat="47.3894333" lon="8.3856256"/>
+ <node id="599672193" visible="true" version="4" changeset="70109208" timestamp="2019-05-10T13:06:46Z" user="sovereign_ch" uid="5755216" lat="47.3893260" lon="8.3854561"/>
+ <node id="599672200" visible="true" version="3" changeset="168232381" timestamp="2025-06-28T15:44:00Z" user="SimonPoole" uid="92387" lat="47.3901337" lon="8.3857465"/>
+ <node id="599672201" visible="true" version="2" changeset="10579724" timestamp="2012-02-03T22:05:59Z" user="SimonPoole" uid="92387" lat="47.3900411" lon="8.3856845"/>
+ <node id="599672203" visible="true" version="3" changeset="13483681" timestamp="2012-10-13T19:38:24Z" user="SimonPoole" uid="92387" lat="47.3899476" lon="8.3856997"/>
+ <node id="599672205" visible="true" version="3" changeset="13483681" timestamp="2012-10-13T19:38:24Z" user="SimonPoole" uid="92387" lat="47.3898380" lon="8.3857580"/>
+ <node id="599672206" visible="true" version="3" changeset="13483681" timestamp="2012-10-13T19:38:24Z" user="SimonPoole" uid="92387" lat="47.3897513" lon="8.3858041"/>
+ <node id="599672207" visible="true" version="3" changeset="13483681" timestamp="2012-10-13T19:38:24Z" user="SimonPoole" uid="92387" lat="47.3896793" lon="8.3858273"/>
+ <node id="599672208" visible="true" version="3" changeset="13483681" timestamp="2012-10-13T19:38:24Z" user="SimonPoole" uid="92387" lat="47.3895817" lon="8.3858136"/>
+ <node id="633469292" visible="true" version="3" changeset="13483681" timestamp="2012-10-13T19:38:30Z" user="SimonPoole" uid="92387" lat="47.3892895" lon="8.3860322"/>
+ <node id="633469295" visible="true" version="3" changeset="13483681" timestamp="2012-10-13T19:38:30Z" user="SimonPoole" uid="92387" lat="47.3895478" lon="8.3858995"/>
+ <node id="1963251759" visible="true" version="1" changeset="13483681" timestamp="2012-10-13T19:38:02Z" user="SimonPoole" uid="92387" lat="47.3892321" lon="8.3863408"/>
+ <node id="1963251762" visible="true" version="1" changeset="13483681" timestamp="2012-10-13T19:38:02Z" user="SimonPoole" uid="92387" lat="47.3892549" lon="8.3860541"/>
+ <node id="2205375971" visible="true" version="2" changeset="141741786" timestamp="2023-09-25T17:38:13Z" user="mottiger" uid="7504544" lat="47.3900747" lon="8.3856984">
+  <tag k="crossing" v="uncontrolled"/>
+  <tag k="crossing:island" v="no"/>
+  <tag k="crossing:markings" v="zebra"/>
+  <tag k="highway" v="crossing"/>
+ </node>
+ <node id="12959612247" visible="true" version="1" changeset="168233207" timestamp="2025-06-28T16:01:33Z" user="SimonPoole" uid="92387" lat="47.3897204" lon="8.3857544"/>
+ <node id="12959612260" visible="true" version="1" changeset="168233207" timestamp="2025-06-28T16:01:33Z" user="SimonPoole" uid="92387" lat="47.3899981" lon="8.3856915"/>
+ <node id="12959612270" visible="true" version="1" changeset="168233207" timestamp="2025-06-28T16:01:33Z" user="SimonPoole" uid="92387" lat="47.3899951" lon="8.3857701"/>
+ <node id="12959612273" visible="true" version="1" changeset="168233207" timestamp="2025-06-28T16:01:33Z" user="SimonPoole" uid="92387" lat="47.3897930" lon="8.3859038"/>
+ <node id="12959612276" visible="true" version="1" changeset="168233207" timestamp="2025-06-28T16:01:33Z" user="SimonPoole" uid="92387" lat="47.3897274" lon="8.3854812"/>
+ <node id="12959612284" visible="true" version="1" changeset="168233207" timestamp="2025-06-28T16:01:33Z" user="SimonPoole" uid="92387" lat="47.3897613" lon="8.3858829"/>
+ <node id="12959612287" visible="true" version="1" changeset="168233207" timestamp="2025-06-28T16:01:33Z" user="SimonPoole" uid="92387" lat="47.3899795" lon="8.3857952"/>
+ <node id="12959612295" visible="true" version="1" changeset="168233207" timestamp="2025-06-28T16:01:33Z" user="SimonPoole" uid="92387" lat="47.3897285" lon="8.3858115"/>
+ <node id="12959612297" visible="true" version="1" changeset="168233207" timestamp="2025-06-28T16:01:33Z" user="SimonPoole" uid="92387" lat="47.3899485" lon="8.3858297"/>
+ <node id="12959612299" visible="true" version="1" changeset="168233207" timestamp="2025-06-28T16:01:33Z" user="SimonPoole" uid="92387" lat="47.3898643" lon="8.3858764"/>
+ <node id="12959612300" visible="true" version="1" changeset="168233207" timestamp="2025-06-28T16:01:33Z" user="SimonPoole" uid="92387" lat="47.3895123" lon="8.3859388"/>
+ <way id="49855552" visible="true" version="3" changeset="168233207" timestamp="2025-06-28T16:01:33Z" user="SimonPoole" uid="92387">
+  <nd ref="1963251759"/>
+  <nd ref="1963251762"/>
+  <nd ref="633469292"/>
+  <nd ref="12959612300"/>
+  <nd ref="633469295"/>
+  <nd ref="599672208"/>
+  <tag k="highway" v="service"/>
+  <tag k="maxspeed" v="30"/>
+ </way>
+ <way id="236483012" visible="true" version="3" changeset="168233207" timestamp="2025-06-28T16:01:33Z" user="SimonPoole" uid="92387">
+  <nd ref="599672200"/>
+  <nd ref="2205375971"/>
+  <nd ref="599672201"/>
+  <nd ref="12959612260"/>
+  <nd ref="599672203"/>
+  <nd ref="599672205"/>
+  <nd ref="599672206"/>
+  <nd ref="12959612295"/>
+  <nd ref="599672207"/>
+  <nd ref="599672208"/>
+  <nd ref="599672191"/>
+  <nd ref="599672192"/>
+  <nd ref="599672193"/>
+  <tag k="highway" v="residential"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="30"/>
+  <tag k="name" v="Schulstrasse"/>
+  <tag k="sidewalk" v="left"/>
+ </way>
+ <way id="1410378601" visible="true" version="1" changeset="168233207" timestamp="2025-06-28T16:01:33Z" user="SimonPoole" uid="92387">
+  <nd ref="12959612295"/>
+  <nd ref="12959612247"/>
+  <nd ref="12959612276"/>
+  <tag k="highway" v="service"/>
+  <tag k="service" v="driveway"/>
+ </way>
+ <way id="1410378609" visible="true" version="1" changeset="168233207" timestamp="2025-06-28T16:01:33Z" user="SimonPoole" uid="92387">
+  <nd ref="12959612295"/>
+  <nd ref="12959612284"/>
+  <nd ref="12959612273"/>
+  <nd ref="12959612299"/>
+  <nd ref="12959612297"/>
+  <nd ref="12959612287"/>
+  <nd ref="12959612270"/>
+  <nd ref="12959612260"/>
+  <tag k="highway" v="service"/>
+ </way>
+</osm>

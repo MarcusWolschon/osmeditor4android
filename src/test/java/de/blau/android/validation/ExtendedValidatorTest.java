@@ -96,6 +96,35 @@ public class ExtendedValidatorTest {
         result = v.validate(r);
         assertEquals(Validator.OK, result);
     }
+    
+    /**
+     * Don't detect missing required roles
+     */
+    @Test
+    public void missingRoleTest2() {
+        Validator v = new ExtendedValidator(ApplicationProvider.getApplicationContext(), App.getDefaultValidator(ApplicationProvider.getApplicationContext()));
+        StorageDelegator d = App.getDelegator();
+        OsmElementFactory factory = d.getFactory();
+
+        Relation r = factory.createRelationWithNewId();
+        Map<String, String> tags = new HashMap<>();
+        tags.put(Tags.KEY_TYPE, "linestring");
+        d.setTags(r, tags);
+        Way w = factory.createWayWithNewId();
+        Node n1 = factory.createNodeWithNewId(toE7(51.476), toE7(0.007));
+        Node n2 = factory.createNodeWithNewId(toE7(51.476), toE7(0.008));
+        d.addNodeToWay(n1, w);
+        d.addNodeToWay(n2, w);
+        d.insertElementSafe(n1);
+        d.insertElementSafe(n2);
+        d.insertElementSafe(w);
+
+        RelationMember member = new RelationMember("", w);
+        d.addMemberToRelation(member, r);
+
+        int result = v.validate(r);
+        assertEquals(Validator.OK, result);
+    }
 
     /**
      * Detect looping relations

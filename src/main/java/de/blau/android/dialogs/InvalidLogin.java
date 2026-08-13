@@ -2,30 +2,34 @@ package de.blau.android.dialogs;
 
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
-import de.blau.android.Authorize;
 import de.blau.android.R;
 import de.blau.android.listener.DoNothingListener;
-import de.blau.android.util.CancelableDialogFragment;
+import de.blau.android.util.AuthorisationEnabledDialogFragment;
 import de.blau.android.util.ThemeUtils;
 
 /**
  * Display a dialog reporting that the login credentials don't work
  *
  */
-public class InvalidLogin extends CancelableDialogFragment {
+public class InvalidLogin extends AuthorisationEnabledDialogFragment {
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, InvalidLogin.class.getSimpleName().length());
     private static final String DEBUG_TAG = InvalidLogin.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String TAG = "fragment_invalid_login";
+
+    private ActivityResultLauncher<Intent> authorisationLauncher;
 
     /**
      * Display a dialog reporting that the login credentials don't work
@@ -74,9 +78,17 @@ public class InvalidLogin extends CancelableDialogFragment {
         DoNothingListener doNothingListener = new DoNothingListener();
         builder.setNegativeButton(R.string.cancel, doNothingListener); // logins in the preferences should no longer be
                                                                        // used
-        if (App.getPreferences(getActivity()).getServer().getOAuth()) {
-            builder.setPositiveButton(R.string.wrong_login_data_re_authenticate, (dialog, which) -> Authorize.startForResult(getActivity(), null));
+        if (App.getPreferences(getActivity()).getServer().getOAuth() && authorisationLauncher != null) {
+            builder.setPositiveButton(R.string.wrong_login_data_re_authenticate, (dialog, which) -> startAuthorisation());
         }
         return builder.create();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        authorisationLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            // nothing
+        });
     }
 }

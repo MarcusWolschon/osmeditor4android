@@ -10,6 +10,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import de.blau.android.exception.OsmException;
+import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.GeoPoint;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.util.collections.FloatPrimitiveList;
@@ -303,5 +304,47 @@ public class GeoMathTest {
         assertEquals(p1, points.get(1));
         assertEquals(p2, points.get(2));
         assertEquals(p3, points.get(3));
+    }
+
+    @Test
+    public void createBoundingBoxForCoordinates() throws OsmException {
+        double lat = 0.0;
+        double lon = 0.0;
+        double radius = 1000.0;
+        BoundingBox bb = GeoMath.createBoundingBoxForCoordinates(lat, lon, radius);
+
+        double radiusDegree = GeoMath.convertMetersToGeoDistance(radius);
+        assertEquals(lon - radiusDegree, bb.getLeft() / 1E7D, 0.0001);
+        assertEquals(lat - radiusDegree, bb.getBottom() / 1E7D, 0.0001);
+        assertEquals(lon + radiusDegree, bb.getRight() / 1E7D, 0.0001);
+        assertEquals(lat + radiusDegree, bb.getTop() / 1E7D, 0.0001);
+
+        lat = 0.0;
+        lon = 180.0;
+        radius = 11000.0;
+        bb = GeoMath.createBoundingBoxForCoordinates(lat, lon, radius);
+        assertEquals(180.0, bb.getRight() / 1E7D, 0.0001);
+        assertEquals(180.0 - (GeoMath.convertMetersToGeoDistance(radius) * 2), bb.getLeft() / 1E7D, 0.0001);
+
+        lat = GeoMath.MAX_COMPAT_LAT;
+        lon = 0.0;
+        radius = 1000.0;
+
+        try {
+            GeoMath.createBoundingBoxForCoordinates(lat, lon, radius);
+            fail("Should have thrown OsmException for latitude out of range");
+        } catch (OsmException e) {
+            assertEquals("Latitude outside of range that can be projected to mercator coordinates", e.getMessage());
+        }
+
+        radiusDegree = GeoMath.convertMetersToGeoDistance(radius);
+        lat = GeoMath.MAX_COMPAT_LAT - radiusDegree + 0.0000001;
+
+        try {
+            GeoMath.createBoundingBoxForCoordinates(lat, lon, radius);
+            fail("Should have thrown OsmException for latitude top out of range");
+        } catch (OsmException e) {
+            assertEquals("Latitude outside of range that can be projected to mercator coordinates", e.getMessage());
+        }
     }
 }

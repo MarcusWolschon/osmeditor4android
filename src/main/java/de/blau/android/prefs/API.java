@@ -52,6 +52,7 @@ public class API {
     public final String  accesstokensecret;
     public final int     timeout;
     public final boolean compressedUploads;
+    public final boolean authenticatedReads;
 
     /**
      * Construct an new API instance
@@ -64,9 +65,10 @@ public class API {
      * @param authParams authentication params
      * @param timeout timeout in seconds
      * @param compressedUploads if true compress uploads
+     * @param authenticatedReads authenticate reads
      */
     public API(@NonNull String id, @NonNull String name, @NonNull String url, @Nullable String readonlyurl, @Nullable String notesurl,
-            @NonNull AuthParams authParams, int timeout, boolean compressedUploads) {
+            @NonNull AuthParams authParams, int timeout, boolean compressedUploads, boolean authenticatedReads) {
         this.id = id;
         this.name = name;
         this.url = url;
@@ -79,5 +81,6 @@ public class API {
         this.accesstokensecret = authParams.accesstokensecret;
         this.timeout = timeout;
         this.compressedUploads = compressedUploads;
+        this.authenticatedReads = authenticatedReads;
     }
 }

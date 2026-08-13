@@ -36,4 +36,6 @@
     <color name="osm_green_light">#ff9fd385</color>
     <!-- splitter -->
     <color name="splitter_dragging">#88FFFFFF</color>
+    <!-- shortcut icon tint -->
+	<color name="launcher_green">#FF82AA6B</color>
 </resources>

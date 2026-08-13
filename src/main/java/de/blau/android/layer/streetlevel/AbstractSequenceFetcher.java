@@ -4,7 +4,10 @@ import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -17,6 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.contract.MimeTypes;
+import de.blau.android.osm.OsmXml;
 import okhttp3.Call;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -51,16 +55,16 @@ public abstract class AbstractSequenceFetcher implements Runnable {
     @Override
     public void run() {
         try {
-            URL url = new URL(String.format(urlTemplate, sequenceId, apiKey));
+            URL url = new URI(String.format(urlTemplate, sequenceId, apiKey != null ? URLEncoder.encode(apiKey, OsmXml.UTF_8) : null)).toURL();
             ArrayList<String> ids = new ArrayList<>();
             do {
                 Log.d(DEBUG_TAG, "query sequence: " + url.toString());
                 url = querySequence(url, ids);
             } while (url != null);
             saveIdsAndUpdate(ids);
-        } catch (IOException ex) {
+        } catch (IOException | URISyntaxException | IllegalArgumentException ex) {
             Log.e(DEBUG_TAG, "query sequence failed with " + ex.getMessage());
-            throw new IllegalStateException(ex);
+            // don't (re-)throw an exception as that will crash the app it seems
         }
     }
 
@@ -69,9 +73,10 @@ public abstract class AbstractSequenceFetcher implements Runnable {
      * 
      * @param url the URL
      * @throws IOException if IO goes wrong
+     * @throws URISyntaxException if the URI couldn't be parsed
      */
     @Nullable
-    protected URL querySequence(@NonNull URL url, @NonNull ArrayList<String> ids) throws IOException {
+    protected URL querySequence(@NonNull URL url, @NonNull ArrayList<String> ids) throws IOException, URISyntaxException {
         Request request = new Request.Builder().url(url).build();
         OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(20000, TimeUnit.MILLISECONDS).readTimeout(20000, TimeUnit.MILLISECONDS).build();
         Call call = client.newCall(request);
@@ -116,7 +121,8 @@ public abstract class AbstractSequenceFetcher implements Runnable {
      * @param ids
      * @return a List of ids
      * @throws IOException if the ids can't be found
+     * @throws URISyntaxException on URI parsing errors
      */
     @Nullable
-    protected abstract URL getIds(@NonNull JsonElement root, ArrayList<String> ids) throws IOException;
+    protected abstract URL getIds(@NonNull JsonElement root, ArrayList<String> ids) throws IOException, URISyntaxException;
 }

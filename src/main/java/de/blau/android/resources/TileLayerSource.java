@@ -711,8 +711,8 @@ public class TileLayerSource implements Serializable {
         }
 
         String urlPath = null;
-        try {
-            URL parsedUrl = new URL(tileUrl);
+        try {         
+            URL parsedUrl = new URL(tileUrl); // can't use URI here due to placeholders
             urlPath = parsedUrl.getPath();
             if (getImageExtension() == null) {
                 int extPos = urlPath.lastIndexOf('.');

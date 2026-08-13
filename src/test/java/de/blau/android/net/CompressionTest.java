@@ -9,6 +9,7 @@ import static org.robolectric.Shadows.shadowOf;
 import java.io.ByteArrayInputStream;
 import java.io.EOFException;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Map;
 import java.util.zip.GZIPInputStream;
 
@@ -71,7 +72,7 @@ public class CompressionTest {
         main = Robolectric.buildActivity(Main.class).create().resume().get();
         prefDB = new AdvancedPrefDatabase(main);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, null, null, null, null), true);
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, null, null, null, null), true, false);
         prefDB.selectAPI("Test");
         System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR
         Logic logic = App.getLogic();
@@ -105,7 +106,7 @@ public class CompressionTest {
         Note note = new Note(0, 0);
         try {
             server.addNote(note, new NoteComment(note, "Test"));
-        } catch (XmlPullParserException | IOException e) {
+        } catch (XmlPullParserException | IOException | URISyntaxException e) {
             fail(e.getMessage());
         }
         UnitTestUtils.runLooper();
@@ -128,7 +129,7 @@ public class CompressionTest {
         Server server = prefs.getServer();
         try {
             server.openChangeset(false, "TestTest", null, null, null);
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             fail(e.getMessage());
         }
         UnitTestUtils.runLooper();

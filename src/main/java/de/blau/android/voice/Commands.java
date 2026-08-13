@@ -12,12 +12,14 @@ import android.speech.RecognizerIntent;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.address.Address;
 import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.exception.StorageException;
 import de.blau.android.nsi.Names.NameAndTags;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement.ElementType;
@@ -63,7 +65,8 @@ public final class Commands {
      * @param lonE7 WGS84*1E7 longitude
      * @param latE7 WGS84*1E7 latitude
      */
-    public static void processIntentResult(Activity activity, final int requestCode, final int resultCode, final Intent data, int lonE7, int latE7) {
+    public static void processIntentResult(@NonNull FragmentActivity activity, final int requestCode, final int resultCode, final Intent data, int lonE7,
+            int latE7) {
         Logic logic = App.getLogic();
         if (requestCode == Main.VOICE_RECOGNITION_REQUEST_CODE) {
             List<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
@@ -155,8 +158,8 @@ public final class Commands {
      * @param node the Node
      * @param originalText the original text from the voice recording
      */
-    public static void setAddressTags(@NonNull Activity activity, @NonNull final Logic logic, int number, @NonNull String additionalText, @NonNull Node node,
-            @NonNull String originalText) {
+    public static void setAddressTags(@NonNull FragmentActivity activity, @NonNull final Logic logic, int number, @NonNull String additionalText,
+            @NonNull Node node, @NonNull String originalText) {
         Map<String, String> tags = new TreeMap<>(node.getTags());
         tags.put(Tags.KEY_ADDR_HOUSENUMBER, Integer.toString(number) + additionalText);
         tags.put(SOURCE_ORIGINAL_TEXT, originalText);
@@ -178,7 +181,7 @@ public final class Commands {
      * @return the Node or null
      */
     @Nullable
-    public static Node addNode(@NonNull Activity activity, @Nullable Node node, @Nullable String name, @NonNull PresetItem pi, @NonNull Logic logic,
+    public static Node addNode(@NonNull FragmentActivity activity, @Nullable Node node, @Nullable String name, @NonNull PresetItem pi, @NonNull Logic logic,
             @NonNull String original) {
         if (node != null) {
             ScreenMessage.toastTopInfo(activity, pi.getName() + (name != null ? " name: " + name : ""));
@@ -197,6 +200,8 @@ public final class Commands {
             } catch (OsmIllegalOperationException e) {
                 Log.e(DEBUG_TAG, "addNode got " + e.getMessage());
                 ScreenMessage.toastTopError(activity, e.getLocalizedMessage());
+            } catch (StorageException ex) {
+                // already handled
             }
         }
         return null;
@@ -235,12 +240,17 @@ public final class Commands {
      * @param latE7 WGS84*1E7 latitude
      * @return true if started successfully
      */
-    public static boolean startVoiceRecognition(@NonNull Activity activity, final int requestCode, final int lonE7, final int latE7) {
+    public static boolean startVoiceRecognition(@NonNull FragmentActivity activity, final int requestCode, final int lonE7, final int latE7) {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         if (activity instanceof ActivityResultHandler) {
-            ((ActivityResultHandler) activity).setResultListener(requestCode,
-                    (int resultCode, Intent result) -> processIntentResult(activity, requestCode, resultCode, result, lonE7, latE7));
+            ((ActivityResultHandler) activity).setResultListener(requestCode, (int resultCode, Intent result) -> {
+                try {
+                    processIntentResult(activity, requestCode, resultCode, result, lonE7, latE7);
+                } catch (StorageException ex) {
+                    // already handled
+                }
+            });
         }
         try {
             activity.startActivityForResult(intent, requestCode);

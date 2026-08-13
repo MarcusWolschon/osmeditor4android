@@ -137,7 +137,7 @@ public class PresetIconManager implements Serializable {
     @NonNull
     private InputStream openStreamForIcon(@NonNull String url) throws IOException {
         if (basePath != null && externalAssetPackage == null) {
-            if (PresetParser.isUrl(url)) {
+            if (de.blau.android.util.Util.isUrl(url)) {
                 return new FileInputStream(basePath + "/" + hashPath(url));
             } else if ((isPng(url) || isSvg(url)) && !url.contains("..")) {
                 return new FileInputStream(basePath + "/" + url);

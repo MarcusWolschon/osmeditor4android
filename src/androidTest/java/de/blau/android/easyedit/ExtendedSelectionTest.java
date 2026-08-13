@@ -19,7 +19,9 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
+import androidx.test.uiautomator.By;
 import androidx.test.uiautomator.UiDevice;
+import androidx.test.uiautomator.Until;
 import de.blau.android.App;
 import de.blau.android.LayerUtils;
 import de.blau.android.Logic;
@@ -34,6 +36,7 @@ import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.Coordinates;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -350,4 +353,55 @@ public class ExtendedSelectionTest {
         assertTrue(wayNodes.contains(nodes.get(1)));
     }
 
+    /**
+     * Create a new way from menu and clicks at two more locations and finishing via home button, then square
+     */
+    // @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void square() {
+        map.getDataLayer().setVisible(true);
+        TestUtils.zoomToLevel(device, main, 22);
+        TestUtils.unlock(device);
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_way), true, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_way_start_instruction)));
+        TestUtils.clickAtCoordinates(device, map, 8.3886384, 47.3892752, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_way_node_instruction), 1000));
+
+        TestUtils.clickAtCoordinates(device, map, 8.3887655, 47.3892752, true);
+        TestUtils.sleep();
+        TestUtils.clickAtCoordinates(device, map, 8.38877, 47.389202, true);
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_untagged_element)));
+        TestUtils.clickHome(device, true);
+        Way way = App.getLogic().getSelectedWay();
+        assertNotNull(way);
+        assertTrue(way.getOsmId() < 0);
+        assertEquals(3, way.nodeCount());
+        Coordinates[] coords = Coordinates.nodeListToCoordinateArray(map.getWidth(), map.getHeight(), map.getViewBox(), way.getNodes());
+        Coordinates v1 = coords[0].subtract(coords[1]);
+        Coordinates v2 = coords[2].subtract(coords[1]);
+        double theta = Math.toDegrees(Math.acos(Coordinates.dotproduct(v1, v2) / (v1.length() * v2.length())));
+        System.out.println("Original angle " + theta);
+        assertEquals(92.33, theta, 0.25);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        TestUtils.clickOverflowButton(device);
+        TestUtils.clickText(device, false, context.getString(R.string.menu_select_way_nodes), false, false);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_multiselect)));
+        
+        if (!TestUtils.clickMenuButton(device, context.getString(R.string.menu_orthogonalize), false, true)) {
+            assertTrue(TestUtils.clickOverflowButton(device));
+            assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_orthogonalize), true, false));
+        }
+      
+        device.wait(Until.findObject(By.res(device.getCurrentPackageName() + ":string/Done")), 1000);
+        coords = Coordinates.nodeListToCoordinateArray(map.getWidth(), map.getHeight(), map.getViewBox(), way.getNodes());
+        v1 = coords[0].subtract(coords[1]);
+        v2 = coords[2].subtract(coords[1]);
+        theta = Math.toDegrees(Math.acos(Coordinates.dotproduct(v1, v2) / (v1.length() * v2.length())));
+        System.out.println("New angle " + theta);
+        assertEquals(90.00, theta, 0.05);
+        device.waitForIdle(1000);
+        TestUtils.clickUp(device);
+    }
 }

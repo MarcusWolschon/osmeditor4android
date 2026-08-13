@@ -450,6 +450,15 @@ public class TagFilterActivity extends ListActivity {
         }
 
         @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (getCursor().isClosed()) {
+                Log.w(DEBUG_TAG, "cursor closed, recreating");
+                updateAdapter(TagFilterDatabaseHelper.getCurrent(db));
+            }
+            return super.getView(position, convertView, parent);
+        }
+
+        @Override
         public View newView(Context context, Cursor cursor, ViewGroup parent) {
             Log.d(DEBUG_TAG, "newView");
             View view = LayoutInflater.from(context).inflate(R.layout.tagfilter_item, parent, false);

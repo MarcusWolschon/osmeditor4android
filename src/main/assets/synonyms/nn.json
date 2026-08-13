@@ -14,14 +14,11 @@
 "amenity/dentist":[
 "Tannlege"
 ],
-"amenity/driving_school":[
-"Køyreskule"
-],
-"amenity/language_school":[
-"Språkskule"
-],
 "amenity/telephone":[
 "Telefon"
+],
+"amenity/townhall":[
+"Rådhus"
 ],
 "area":[
 "Område"
@@ -37,6 +34,9 @@
 ],
 "building":[
 "Bygning"
+],
+"building/greenhouse":[
+"Drivhus"
 ],
 "building/school":[
 "Skulebugning"
@@ -56,9 +56,6 @@
 "entrance/emergency":[
 "Naudutgang"
 ],
-"leisure/dancing_school":[
-"Danseskule"
-],
 "line":[
 "Linje"
 ],
@@ -76,6 +73,9 @@
 ],
 "place/square":[
 "Kvadrat"
+],
+"place/town":[
+"Tettstad"
 ],
 "point":[
 "Punkt"

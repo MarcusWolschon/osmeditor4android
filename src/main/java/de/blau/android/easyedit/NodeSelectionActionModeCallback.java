@@ -5,29 +5,21 @@ import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
+import java.util.Set;
 import java.util.SortedMap;
 
-import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AlertDialog.Builder;
-import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.App;
 import de.blau.android.DisambiguationMenu;
 import de.blau.android.R;
 import de.blau.android.dialogs.ElementIssueDialog;
+import de.blau.android.dialogs.SetPositionDialog;
 import de.blau.android.easyedit.turnrestriction.FromElementWithViaNodeActionModeCallback;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.StorageException;
@@ -37,9 +29,9 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
+import de.blau.android.prefs.keyboard.Shortcuts;
 import de.blau.android.presets.Preset;
 import de.blau.android.util.GeoContext;
-import de.blau.android.util.GeoMath;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Sound;
 import de.blau.android.util.ThemeUtils;
@@ -50,15 +42,16 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, NodeSelectionActionModeCallback.class.getSimpleName().length());
     private static final String DEBUG_TAG = NodeSelectionActionModeCallback.class.getSimpleName().substring(0, TAG_LEN);
 
-    private static final int MENUITEM_APPEND       = LAST_REGULAR_MENUITEM + 1;
-    private static final int MENUITEM_JOIN         = LAST_REGULAR_MENUITEM + 2;
-    private static final int MENUITEM_UNJOIN       = LAST_REGULAR_MENUITEM + 3;
-    private static final int MENUITEM_EXTRACT      = LAST_REGULAR_MENUITEM + 4;
-    private static final int MENUITEM_RESTRICTION  = LAST_REGULAR_MENUITEM + 5;
+    private static final int MENUITEM_APPEND        = LAST_REGULAR_MENUITEM + 1;
+    private static final int MENUITEM_JOIN          = LAST_REGULAR_MENUITEM + 2;
+    private static final int MENUITEM_UNJOIN        = LAST_REGULAR_MENUITEM + 3;
+    private static final int MENUITEM_EXTRACT       = LAST_REGULAR_MENUITEM + 4;
+    private static final int MENUITEM_RESTRICTION   = LAST_REGULAR_MENUITEM + 5;
     /** */
-    private static final int MENUITEM_SET_POSITION = LAST_REGULAR_MENUITEM + 6;
-    private static final int MENUITEM_ADDRESS      = LAST_REGULAR_MENUITEM + 7;
-    private static final int MENUITEM_ROTATE       = LAST_REGULAR_MENUITEM + 8;
+    private static final int MENUITEM_SET_POSITION  = LAST_REGULAR_MENUITEM + 6;
+    private static final int MENUITEM_ADDRESS       = LAST_REGULAR_MENUITEM + 7;
+    private static final int MENUITEM_ROTATE        = LAST_REGULAR_MENUITEM + 8;
+    private static final int MENUITEM_ORTHOGONALIZE = LAST_REGULAR_MENUITEM + 9;
 
     private final GeoContext geoContext;
     private List<OsmElement> joinableElements = null;
@@ -70,6 +63,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
     private MenuItem         extractItem;
     private MenuItem         restrictionItem;
     private MenuItem         rotateItem;
+    private MenuItem         orthogonalizeItem;
     private int              action;
     private Preset[]         presets;
 
@@ -82,6 +76,15 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
     NodeSelectionActionModeCallback(EasyEditManager manager, Node node) {
         super(manager, node);
         geoContext = App.getGeoContext(main);
+
+        actionMap.put(main.getString(R.string.ACTION_MERGE), new Shortcuts.Action(R.string.action_merge, () -> {
+            int count = joinableElements != null ? joinableElements.size() : 0;
+            if (count > 0) {
+                mergeNode(count, true);
+            } else {
+                Sound.beep();
+            }
+        }));
     }
 
     @Override
@@ -103,6 +106,13 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
         appendItem = menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_append));
 
         joinItem = menu.add(Menu.NONE, MENUITEM_JOIN, Menu.NONE, R.string.menu_join).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_merge));
+        joinItem.setActionView(R.layout.merge_action_view);
+        View joinView = joinItem.getActionView();
+        joinView.setOnClickListener((View v) -> mergeNode(joinableElements.size(), true));
+        joinView.setOnLongClickListener((View v) -> {
+            mergeNode(joinableElements.size(), false);
+            return true;
+        });
 
         unjoinItem = menu.add(Menu.NONE, MENUITEM_UNJOIN, Menu.NONE, R.string.menu_unjoin).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_unjoin));
 
@@ -116,6 +126,10 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_gps));
 
         rotateItem = menu.add(Menu.NONE, MENUITEM_ROTATE, Menu.NONE, R.string.menu_rotate).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_rotate));
+
+        orthogonalizeItem = menu.add(Menu.NONE, MENUITEM_ORTHOGONALIZE, Menu.NONE, R.string.menu_orthogonalize)
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_ortho));
+
         return true;
     }
 
@@ -146,6 +160,10 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
                 Preset.findBestMatch(main, presets, element.getTags(), geoContext != null ? geoContext.getIsoCodes(element) : null, element, false),
                 element) != null, rotateItem, false);
 
+        Set<Node> squarableNodes = new HashSet<>();
+        getSquarableNodes(logic, Util.wrapInList((Node) element), null, squarableNodes);
+        updated |= ElementSelectionActionModeCallback.setItemVisibility(!Util.isEmpty(squarableNodes), orthogonalizeItem, false);
+
         if (updated) {
             arrangeMenu(menu);
         }
@@ -172,71 +190,95 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
 
     @Override
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-        if (!super.onActionItemClicked(mode, item)) {
-            try {
-                action = item.getItemId();
-                switch (action) {
-                case MENUITEM_APPEND:
-                    if (appendableWays.size() > 1) {
-                        manager.showDisambiguationMenu();
-                    } else {
-                        final PathCreationActionModeCallback callback = new PathCreationActionModeCallback(manager, appendableWays.get(0), (Node) element);
-                        callback.setTitle(R.string.menu_append);
-                        callback.setSubTitle(R.string.add_way_node_instruction);
-                        main.startSupportActionMode(callback);
-                    }
-                    break;
-                case MENUITEM_JOIN:
-                    mergeNode(joinableElements.size());
-                    break;
-                case MENUITEM_UNJOIN:
-                    logic.performUnjoinWays(main, (Node) element);
-                    mode.finish();
-                    break;
-                case MENUITEM_EXTRACT:
-                    logic.performExtract(main, (Node) element);
-                    manager.invalidate();
-                    break;
-                case MENUITEM_RESTRICTION:
-                    main.startSupportActionMode(new FromElementWithViaNodeActionModeCallback(manager, new HashSet<>(highways), (Node) element, null));
-                    break;
-                case MENUITEM_SET_POSITION:
-                    setPosition();
-                    break;
-                case MENUITEM_ADDRESS:
-                    main.performTagEdit(element, null, true, false);
-                    break;
-                case MENUITEM_ROTATE:
-                    deselect = false;
-                    main.startSupportActionMode(new RotationActionModeCallback(manager));
-                    break;
-                case MENUITEM_SHARE_POSITION:
-                    double[] lonLat = new double[2];
-                    lonLat[0] = ((Node) element).getLon() / 1E7;
-                    lonLat[1] = ((Node) element).getLat() / 1E7;
-                    Util.sharePosition(main, lonLat, main.getMap().getZoomLevel());
-                    break;
-                default:
-                    return false;
+        if (super.onActionItemClicked(mode, item)) {
+            return true;
+        }
+        try {
+            action = item.getItemId();
+            switch (action) {
+            case MENUITEM_APPEND:
+                if (appendableWays.size() > 1) {
+                    manager.showDisambiguationMenu();
+                } else {
+                    final PathCreationActionModeCallback callback = new PathCreationActionModeCallback(manager, appendableWays.get(0), (Node) element);
+                    callback.setTitle(R.string.menu_append);
+                    callback.setSubTitle(R.string.add_way_node_instruction);
+                    main.startSupportActionMode(callback);
                 }
-            } catch (OsmIllegalOperationException | StorageException ex) {
-                // logic will have already toasted
+                break;
+            case MENUITEM_JOIN:
+                Log.d(DEBUG_TAG, "MENUITEM_JOIN used via menu item");
+                mergeNode(joinableElements.size(), true);
+                break;
+            case MENUITEM_UNJOIN:
+                logic.performUnjoinWays(main, (Node) element);
+                mode.finish();
+                break;
+            case MENUITEM_EXTRACT:
+                logic.performExtract(main, (Node) element);
+                manager.invalidate();
+                break;
+            case MENUITEM_RESTRICTION:
+                main.startSupportActionMode(new FromElementWithViaNodeActionModeCallback(manager, new HashSet<>(highways), (Node) element, null));
+                break;
+            case MENUITEM_SET_POSITION:
+                SetPositionDialog.show(main, (Node) element);
+                break;
+            case MENUITEM_ADDRESS:
+                main.performTagEdit(element, null, true, false);
+                break;
+            case MENUITEM_ROTATE:
+                deselect = false;
+                main.startSupportActionMode(new RotationActionModeCallback(manager));
+                break;
+            case MENUITEM_ORTHOGONALIZE:
+                Set<Way> ways = new HashSet<>();
+                Set<Node> nodes = new HashSet<>();
+                getSquarableNodes(logic, Util.wrapInList((Node) element), ways, nodes);
+                orthogonalize(main, logic, new ArrayList<>(ways), new ArrayList<>(nodes));
+                break;
+            case MENUITEM_SHARE_POSITION:
+                double[] lonLat = new double[2];
+                lonLat[0] = ((Node) element).getLon() / 1E7;
+                lonLat[1] = ((Node) element).getLat() / 1E7;
+                Util.sharePosition(main, lonLat, main.getMap().getZoomLevel());
+                break;
+            default:
+                return false;
             }
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            // logic will have already toasted
         }
         return true;
+    }
+
+    /**
+     * Merge the selected node with any other available elements
+     * 
+     * @param count the number of elements available for merge
+     * @param into true default, selected node is merged in to the nearby node(S)
+     */
+    private void mergeNode(int count, boolean into) {
+        action = MENUITEM_JOIN; // don't forget this
+        if (count > 1) {
+            manager.showDisambiguationMenu();
+            return;
+        }
+        mergeNodeWith(joinableElements, into);
     }
 
     /**
      * Merge the selected node with an OsmELement
      * 
      * @param target the target OsmElement
+     * @param into true default, selected node is merged in to the nearby node(s)
      * 
      */
-    private void mergeNodeWith(@NonNull List<OsmElement> target) {
-        Log.d(DEBUG_TAG, "mergeNodesWith " + element.getDescription(main));
+    private void mergeNodeWith(@NonNull List<OsmElement> target, boolean into) {
+        Log.d(DEBUG_TAG, "mergeNodesWith " + element.getDescription(main) + " " + into);
         try {
             List<Result> result = target.get(0) instanceof Way ? logic.performJoinNodeToWays(main, target, (Node) element)
-                    : logic.performMergeNodes(main, target, (Node) element);
+                    : logic.performMergeNodes(main, target, (Node) element, into);
             if (!result.isEmpty()) {
                 manager.invalidate(); // button will remain enabled
                 OsmElement newElement = result.get(0).getElement();
@@ -251,6 +293,8 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
             }
         } catch (OsmIllegalOperationException | IllegalStateException e) {
             ScreenMessage.barError(main, e.getLocalizedMessage());
+        } catch (StorageException ex) {
+            // already toasted and logged
         }
     }
 
@@ -291,9 +335,9 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
         int itemId = position;
         if (action == MENUITEM_JOIN) {
             if (itemId == 0) {
-                mergeNodeWith(joinableElements);
+                mergeNodeWith(joinableElements, true);
             } else {
-                mergeNodeWith(Util.wrapInList(joinableElements.get(itemId - 1)));
+                mergeNodeWith(Util.wrapInList(joinableElements.get(itemId - 1)), true);
             }
         } else if (action == MENUITEM_APPEND) {
             main.startSupportActionMode(new PathCreationActionModeCallback(manager, appendableWays.get(itemId), (Node) element));
@@ -317,93 +361,14 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
      */
     private void deleteNode(@Nullable final ActionMode mode) {
         List<Relation> origParents = element.hasParentRelations() ? new ArrayList<>(element.getParentRelations()) : null;
-        logic.performEraseNode(main, (Node) element, true);
-        if (mode != null) {
-            mode.finish();
-        }
-        checkEmptyRelations(main, origParents);
-    }
-
-    @Override
-    public boolean processShortcut(Character c) {
-        if (c == Util.getShortCut(main, R.string.shortcut_merge)) {
-            int count = joinableElements.size();
-            if (count > 0) {
-                mergeNode(count);
-            } else {
-                Sound.beep();
+        try {
+            logic.performEraseNode(main, (Node) element, true);
+            if (mode != null) {
+                mode.finish();
             }
-            return true;
+            checkEmptyRelations(main, origParents);
+        } catch (StorageException ex) {
+            // already toasted and logged
         }
-        return super.processShortcut(c);
-    }
-
-    /**
-     * Merge the selected node with any other available elements
-     * 
-     * @param count the number of elements available for merge
-     */
-    void mergeNode(int count) {
-        if (count > 1) {
-            manager.showDisambiguationMenu();
-        } else {
-            mergeNodeWith(joinableElements);
-        }
-    }
-
-    /**
-     * Show a dialog to set the location of the selected Node
-     */
-    private void setPosition() {
-        if (element instanceof Node) {
-            // show dialog to set lon/lat
-            createSetPositionDialog(((Node) element).getLon(), ((Node) element).getLat()).show();
-        }
-    }
-
-    /**
-     * Build a dialog with the current coordinates
-     * 
-     * @param lonE7 longitude in 1E7 format
-     * @param latE7 latitude in 1E7 format
-     * @return the Dialog
-     */
-    @SuppressLint("InflateParams")
-    private AppCompatDialog createSetPositionDialog(int lonE7, int latE7) {
-        final LayoutInflater inflater = ThemeUtils.getLayoutInflater(main);
-        Builder builder = ThemeUtils.getAlertDialogBuilder(main);
-        builder.setTitle(R.string.menu_set_position);
-
-        View layout = inflater.inflate(R.layout.set_position, null);
-        builder.setView(layout);
-        // TODO add conversion to/from other datums
-        TextView datum = (TextView) layout.findViewById(R.id.set_position_datum);
-        datum.setText(R.string.WGS84);
-        final EditText lon = (EditText) layout.findViewById(R.id.set_position_lon);
-        lon.setText(String.format(Locale.US, "%.7f", lonE7 / 1E7d));
-        final EditText lat = (EditText) layout.findViewById(R.id.set_position_lat);
-        lat.setText(String.format(Locale.US, "%.7f", latE7 / 1E7d));
-        builder.setPositiveButton(R.string.set, null);
-        builder.setNegativeButton(R.string.cancel, null);
-        final AlertDialog dialog = builder.create();
-        dialog.setOnShowListener((DialogInterface dialogInterface) -> {
-            Button positive = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
-            positive.setOnClickListener((View v) -> {
-                try {
-                    double longitude = Double.parseDouble(lon.getText().toString());
-                    double latitude = Double.parseDouble(lat.getText().toString());
-                    if (GeoMath.coordinatesInCompatibleRange(longitude, latitude)) {
-                        logic.performSetPosition(main, (Node) element, longitude, latitude);
-                        dialog.dismiss();
-                        manager.invalidate();
-                    } else {
-                        ScreenMessage.toastTopWarning(main, R.string.coordinates_out_of_range);
-                    }
-                } catch (OsmIllegalOperationException | NumberFormatException | StorageException ex) {
-                    Log.w(DEBUG_TAG, ex.getMessage());
-                }
-            });
-        });
-        return dialog;
     }
 }

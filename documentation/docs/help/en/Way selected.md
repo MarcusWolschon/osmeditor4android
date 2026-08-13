@@ -50,6 +50,8 @@ Reverse the direction of the way. If the way has direction dependent tags it wil
 
 Split the selected way. The nodes at the available locations for splitting will have a visible touch area. The "Split" action is only available if the way has more than two nodes. If the way is closed you will need to select two nodes. For non-closed ways a long touch on the node to use for splitting will allow you to select which part of the original way will be used for the new way.
 
+If there is no existing node in a convenient position you can add one and split at it by long clicking the location on the way. Segment selection is not possible if you use this function.
+
 ### ![Merge](../images/tag_menu_merge.png) Merge
 
 Join the selected way with one that it shares a node with resulting in a single way. This option will only be available if the ways have compatible tags and relation memberships.
@@ -130,6 +132,14 @@ Move the way to the internal copy and paste buffer removing it from the data.
 
 Set tags from the internal tag clipboard and start the property editor.
 
+### Download along way
+
+Download OSM data or tasks along the selected way. The list of areas (bounding boxes) to download is submitted to a separate service and you can continue editing while the downloads
+take place. The downloads can be paused or aborted by buttons in the notification entry for the service (in Android notification area).
+
+Note: using this functionality will disable [layer](Main%20map%20display.md#layer-control) for the relevant type data as leaving it
+enabled would potentially lead to the data you just downloaded to immediately being removed again.
+
 ### ![Delete](../images/tag_menu_delete.png) Delete
 
 Remove the object from the data.
@@ -164,7 +174,18 @@ Add the current selection to an existing or new todo list.
 
 ### Replace geometry
 
-Replace the geometry of the current way with that of a  (in a second step) selected way, the algorithm tries to reuse the nodes in the way as best as possible. Tagged nodes in way will be moved up to an adjustable maximum (default 1m, this can be changed in the [Advanced preferences](Advanced%20preferences.md)), if they would have to be moved more they will be extracted from the way to give the user a chance to position them correctly. 
+Replace the geometry of the current way with that of a (in a second step) selected way, the algorithm tries to reuse the nodes in the way as best as possible. Tagged nodes or such that are part of a different way will be moved up to an adjustable maximum (default 1m, this can be changed in the [Advanced preferences](Advanced%20preferences.md)), if they would have to be moved more they will be extracted from the way to give the user a chance to position them correctly. If there are such nodes a todo list with them we automatically be created allowing you to check them systematically.
+
+Note: while it is not necessary to unglue the way, all way nodes need to have been downloaded with their parent ways.
+
+### Add new image
+
+Start the camera app and upload the resulting image, adding an appropriate tag to the OSM element. Currently Panoramax and Wikimedia Commons targets are supported, 
+you do need to configure and authorize access to the servers in the [Advanced preferences](Advanced%20preferences.md#image-storage).
+
+### Add existing image
+
+As [Add new image](#add-new-image) but allows you to select an existing image for upload.
 
 ### Upload element
 

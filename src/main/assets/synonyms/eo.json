@@ -316,13 +316,6 @@
 "transseksa",
 "lgbt"
 ],
-"amenity/bbq":[
-"bbq",
-"rostigilo",
-"rostejo",
-"kradrostilo",
-"Rostilo"
-],
 "amenity/bench":[
 "seĝo",
 "segho",
@@ -475,15 +468,6 @@
 "shargostacio",
 "sxargostacio"
 ],
-"amenity/childcare":[
-"beb-vartejo",
-"infangardejo",
-"bebogardejo",
-"infanvartejo",
-"Bebovartejo",
-"infanĝardeno",
-"vartejo"
-],
 "amenity/cinema":[
 "kinoteatro",
 "filmejo",
@@ -524,13 +508,6 @@
 "amenity/clock/sundial":[
 "Sunhorloĝo",
 "horloĝo suna"
-],
-"amenity/college":[
-"studejo",
-"kolegio",
-"mezgrada lernejo",
-"mezlernejo",
-"Postmezgrada lernejo (ISCED 4)"
 ],
 "amenity/community_centre":[
 "kulturdomo",
@@ -575,9 +552,6 @@
 "juĝejo",
 "juĝo"
 ],
-"amenity/coworking_space":[
-"Loko por samloka laborado (ang. coworking)"
-],
 "amenity/crematorium":[
 "kadavro-bruligejo",
 "kremaciejo",
@@ -608,9 +582,6 @@
 "doktoro",
 "sanigejo"
 ],
-"amenity/doctors/gynaecology":[
-"Obstetrikisto/Ginekologo"
-],
 "amenity/doctors/podiatry":[
 "piedisto",
 "Pied-kuracisto"
@@ -639,19 +610,6 @@
 "sxprucakvo",
 "Trinkakvejo",
 "ŝprucakvo"
-],
-"amenity/driving_school":[
-"autado",
-"autlernejo",
-"kondukpermesilo",
-"Stirlernejo",
-"aŭtado",
-"auxtado",
-"stirado",
-"veturila lernejo",
-"auxtlernejo",
-"ŝofor",
-"aŭtlernejo"
 ],
 "amenity/embassy":[
 "Ambasadejo"
@@ -871,22 +829,6 @@
 "karaokeo",
 "Karaokeejo"
 ],
-"amenity/kindergarten":[
-"kindergarteno",
-"Infanvartejo (ISCED 0)",
-"infanghardeno",
-"antaŭlernejo",
-"infanvartejo",
-"infanogxardeno",
-"infanĝardeno",
-"infanoghardeno",
-"lernludejo",
-"infangxardeno"
-],
-"amenity/language_school":[
-"lingvolernejo",
-"Lingva lernejo"
-],
 "amenity/lavoir":[
 "lavejo",
 "vestaĵlavejo",
@@ -965,10 +907,6 @@
 "motocikla pruntejo",
 "motorciklpruntejo",
 "Motorcikl-pruntejo"
-],
-"amenity/music_school":[
-"Muzika lernejo",
-"muziklernejo"
 ],
 "amenity/nightclub":[
 "Noktoklubejo",
@@ -1208,10 +1146,6 @@
 "poshtejo",
 "posxtejo"
 ],
-"amenity/prep_school":[
-"Lernejo pretiganta (al ekzameno/universitato)",
-"kursoj"
-],
 "amenity/prison":[
 "Mallibereja tereno",
 "pundomo",
@@ -1418,12 +1352,6 @@
 "kampadejo",
 "Stacio de forigo de fekaĵoj (kampado)"
 ],
-"amenity/school":[
-"lernejo",
-"edukejo",
-"Lernejo (ISCED 1-3)",
-"instruejo"
-],
 "amenity/shelter":[
 "budo",
 "sxirmejo",
@@ -1606,16 +1534,6 @@
 "amuzila biblioteko",
 "ludila biblioteko",
 "Ludil‑biblioteko"
-],
-"amenity/university":[
-"altlernejo",
-"studejo",
-"politeĥniko",
-"altgrada lernejo",
-"universitato",
-"politekniko",
-"Altgrada lernejo (ISCED 5-7)",
-"instruejo"
 ],
 "amenity/vacuum_cleaner":[
 "polvosucxilo",
@@ -2301,9 +2219,6 @@
 "lernodomo",
 "studanthejmo"
 ],
-"building/entrance":[
-"Enirejo/elirejo"
-],
 "building/farm":[
 "farmo",
 "kampara domo",
@@ -2942,12 +2857,6 @@
 "defibrilatoro",
 "Defibrililo"
 ],
-"emergency/designated":[
-"Vivsav-serva aliro: adaptita"
-],
-"emergency/destination":[
-"Vivsav-serva aliro: nur al celloko"
-],
 "emergency/fire_alarm":[
 "budo",
 "fajro",
@@ -3009,20 +2918,11 @@
 "savanto",
 "montara savservo"
 ],
-"emergency/no":[
-"Vivsav-serva aliro: ne"
-],
-"emergency/official":[
-"Vivsav-serva aliro: oficiala"
-],
 "emergency/phone":[
 "Alarma telefono",
 "alarmo",
 "telefono",
 "vivsava telefono"
-],
-"emergency/private":[
-"Vivsav-serva aliro: privata"
 ],
 "emergency/siren":[
 "sireno",
@@ -3049,9 +2949,6 @@
 "fajrobrigada akvujo",
 "akvujo",
 "Kontraŭbrulega akvujo"
-],
-"emergency/yes":[
-"Vivsav-serva aliro: jes"
 ],
 "entrance":[
 "pordo",
@@ -3449,11 +3346,6 @@
 "auxtosxoseo",
 "autovojo"
 ],
-"highway/motorway_junction":[
-"vojkruciĝo",
-"Elvetrejo el aŭtovojo",
-"aŭtovojo"
-],
 "highway/motorway_link":[
 "Aŭtovoja ligilo",
 "aŭtoŝoseo",
@@ -3740,11 +3632,6 @@
 "trafikinsulo",
 "ghirado u-forma"
 ],
-"highway/unclassified":[
-"Vojo kvara-ranga",
-"kvarranga",
-"kvargrada"
-],
 "historic":[
 "antikvaĵo",
 "historiejo",
@@ -3979,11 +3866,6 @@
 "Konstruejo",
 "konstruado",
 "buldozoj"
-],
-"landuse/education":[
-"lernejo",
-"universitato",
-"Tereno de edukada institucio"
 ],
 "landuse/farm":[
 "Farmejo"
@@ -4223,11 +4105,6 @@
 "Dancejo",
 "diskoteko",
 "diskejo"
-],
-"leisure/dancing_school":[
-"dancolernejo",
-"Danca lernejo",
-"danclernejo"
 ],
 "leisure/disc_golf_course":[
 "Ludkampo por golfdisko",
@@ -4477,15 +4354,6 @@
 "retpilkadejo",
 "plagxa flugpilkado",
 "Plaĝ-flugpilkada ludkampo"
-],
-"leisure/pitch/boules":[
-"bocce",
-"petanque",
-"Globludo grunda (Boules)",
-"pétanque",
-"globludo",
-"lyonnaise",
-"grunda globludo"
 ],
 "leisure/pitch/bowls":[
 "herbejglobludo",
@@ -5114,13 +4982,6 @@
 "geodezio",
 "referencpunkto",
 "Geodezia vertico"
-],
-"man_made/torii":[
-"torii",
-"sanktejo",
-"templo",
-"ŝintoo",
-"Torijo"
 ],
 "man_made/tower":[
 "turo",
@@ -6256,16 +6117,6 @@
 "elektrejo",
 "akvobarilo"
 ],
-"power/plant/source/method/photovoltaic":[
-"sunĉelo",
-"Sunenergia elektrocentralo",
-"sunpanelo",
-"centralo",
-"elektrejo",
-"suncentralo",
-"sunkolektroro",
-"fotovoltaiko"
-],
 "power/plant/source/nuclear":[
 "atomkerna",
 "centralo",
@@ -6875,12 +6726,6 @@
 "suĉinfano",
 "bebo"
 ],
-"shop/bag":[
-"valizoj",
-"Saka/valiza vendejo",
-"mansaketoj",
-"sakoj"
-],
 "shop/bakery":[
 "kukejo",
 "panoj",
@@ -6913,12 +6758,6 @@
 "sunumi",
 "sunbrunigado",
 "Salono de sunbrunigado"
-],
-"shop/bed":[
-"litoj",
-"Lita/matraca vendejo",
-"matracoj",
-"litkusenoj"
 ],
 "shop/beverages":[
 "trinkaĵoj",
@@ -7706,12 +7545,6 @@
 "artfajrajxoj",
 "fajraĵoj"
 ],
-"shop/radiotechnics":[
-"radioteĥniko",
-"radiotekniko",
-"Radioteĥnika/elektronik-parta vendejo",
-"elektroniko"
-],
 "shop/religion":[
 "devotaĵoj",
 "kultobjektoj",
@@ -7939,10 +7772,6 @@
 "trinkebla akvo",
 "boteligita akvo"
 ],
-"shop/water_sports":[
-"akvosportiloj",
-"Akvosport-aparata vendejo"
-],
 "shop/weapons":[
 "armea",
 "pistoloj",
@@ -8154,11 +7983,6 @@
 "tourism/information/map":[
 "mapo",
 "Mapo"
-],
-"tourism/information/office":[
-"informejo",
-"Turism-informa oficejo",
-"turisminformejo"
 ],
 "tourism/information/route_marker":[
 "vojindikilo",
@@ -8496,11 +8320,6 @@
 "tubaro",
 "naftodukto",
 "akvodukto"
-],
-"type/route/piste":[
-"skitrako",
-"Skiada kurso",
-"skivojo"
 ],
 "type/route/power":[
 "lineo",

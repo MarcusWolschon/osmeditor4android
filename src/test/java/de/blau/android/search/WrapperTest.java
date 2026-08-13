@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -38,24 +39,25 @@ import de.blau.android.presets.PresetItem;
 import de.blau.android.util.Util;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = { ShadowWorkManager.class }, sdk=33)
+@Config(shadows = { ShadowWorkManager.class }, sdk = 33)
 @LargeTest
 public class WrapperTest {
 
     Wrapper          wrapper;
     StorageDelegator delegator;
+    private Main     main;
 
     /**
      * Pre test setup
      */
     @Before
     public void setup() {
-        Robolectric.buildActivity(Main.class).create().resume();
+        main = Robolectric.buildActivity(Main.class).create().resume().get();
         delegator = App.getDelegator();
         delegator.reset(true);
         delegator.setCurrentStorage(PbfTest.read());
         Logic logic = App.getLogic();
-        logic.setMap(new de.blau.android.Map(ApplicationProvider.getApplicationContext()), false);
+        logic.setMap(new de.blau.android.Map(main), false);
         logic.getViewBox().fitToBoundingBox(logic.getMap(), delegator.getLastBox());
         wrapper = new Wrapper(ApplicationProvider.getApplicationContext());
     }
@@ -292,7 +294,7 @@ public class WrapperTest {
      * getPreset should fail if no Context is supplied
      */
     @Test
-    public void getPresetTes2t() {
+    public void getPresetTest2() {
         Wrapper wrapper2 = new Wrapper();
         try {
             wrapper2.getPreset("Highways|Streets|Secondary");
@@ -307,17 +309,17 @@ public class WrapperTest {
      */
     @Test
     public void matchesPresetTest() {
-        Object secondary = wrapper.getPreset("Highways|Streets|Secondary");
+        Serializable secondary = wrapper.getPreset("Highways|Streets|Secondary");
         assertTrue(secondary instanceof PresetItem);
         Way way = (Way) delegator.getOsmElement(Way.NAME, 571087535L);
         assertNotNull(way);
         wrapper.setElement(way);
         assertTrue(wrapper.matchesPreset(secondary));
-        Object primary = wrapper.getPreset("Highways|Streets|Primary");
+        Serializable primary = wrapper.getPreset("Highways|Streets|Primary");
         assertTrue(primary instanceof PresetItem);
         assertFalse(wrapper.matchesPreset(primary));
 
-        Object streets = wrapper.getPreset("Highways|Streets|*");
+        Serializable streets = wrapper.getPreset("Highways|Streets|*");
         assertTrue(streets instanceof PresetGroup);
         assertTrue(wrapper.matchesPreset(streets));
         assertTrue(wrapper.matchesPreset(streets));
@@ -444,7 +446,7 @@ public class WrapperTest {
         Way way = (Way) delegator.getOsmElement(Way.NAME, 111762730L);
         assertNotNull(way);
         wrapper.setElement(way);
-        List<Object> objects = wrapper.getMatchingElements(new Version(8));
+        List<Serializable> objects = wrapper.getMatchingElements(new Version(8));
         assertEquals(441, objects.size());
         assertEquals(way, wrapper.getElement());
     }
@@ -463,5 +465,59 @@ public class WrapperTest {
         Relation r = (Relation) delegator.getOsmElement(Relation.NAME, 8134573L);
         assertNotNull(r);
         assertEquals(Type.RELATION, Wrapper.toJosmFilterType(r));
+    }
+
+    /**
+     */
+    @Test
+    public void inTest() {
+        Wrapper wrapper2 = new Wrapper();
+        try {
+            wrapper2.in(wrapper2, "Zürich");
+            fail("Should have thrown an UnsupportedOperationException");
+        } catch (UnsupportedOperationException uoex) {
+            // expected
+        }
+    }
+
+    /**
+     */
+    @Test
+    public void inTest2() {
+        Wrapper wrapper2 = new Wrapper();
+        wrapper2.setSilent(true);
+        assertTrue(wrapper2.in(wrapper2, "Zürich"));
+    }
+
+    /**
+     */
+    @Test
+    public void aroundTest() {
+        Wrapper wrapper2 = new Wrapper();
+        try {
+            wrapper2.around(wrapper2, "Zürich");
+            fail("Should have thrown an UnsupportedOperationException");
+        } catch (UnsupportedOperationException uoex) {
+            // expected
+        }
+    }
+
+    /**
+     */
+    @Test
+    public void aroundTest2() {
+        Wrapper wrapper2 = new Wrapper();
+        wrapper2.setSilent(true);
+        assertTrue(wrapper2.around(wrapper2, "Zürich"));
+    }
+
+    @Test
+    public void displayValueTest() {
+        Way way = (Way) delegator.getOsmElement(Way.NAME, 571087535L);
+        assertNotNull(way);
+        wrapper.setElement(way);
+        assertEquals("Asphalt", wrapper.displayValue("surface", "asphalt"));
+        assertEquals("asphalt", wrapper.displayValue("no key", "asphalt"));
+        assertEquals("no value", wrapper.displayValue("surface", "no value"));
     }
 }

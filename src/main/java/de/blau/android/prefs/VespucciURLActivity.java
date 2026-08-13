@@ -1,30 +1,44 @@
 package de.blau.android.prefs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+import static de.blau.android.contract.Github.OAUTH_GITHUB_PATH;
+import static de.blau.android.contract.OpenStreetMap.OAUTH1A_PATH;
+import static de.blau.android.contract.OpenStreetMap.OAUTH2_PATH;
+
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewGroupCompat;
 import de.blau.android.AsyncResult;
 import de.blau.android.Authorize;
-import de.blau.android.PostAsyncActionHandler;
+import de.blau.android.Feedback;
 import de.blau.android.R;
+import de.blau.android.contract.Github;
+import de.blau.android.contract.OpenStreetMap;
 import de.blau.android.exception.NoOAuthConfigurationException;
 import de.blau.android.net.OAuth1aHelper;
 import de.blau.android.net.OAuth2Helper;
 import de.blau.android.net.OAuthHelper;
-import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
+import de.blau.android.resources.KeyDatabaseHelper;
+import de.blau.android.resources.KeyDatabaseHelper.EntryType;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
 
@@ -37,38 +51,51 @@ import de.blau.android.util.Util;
  * @author Simon
  *
  */
-public class VespucciURLActivity extends AppCompatActivity implements OnClickListener {
-    private static final String DEBUG_TAG = VespucciURLActivity.class.getSimpleName().substring(0,
-            Math.min(23, VespucciURLActivity.class.getSimpleName().length()));
+public class VespucciURLActivity extends AppCompatActivity {
 
-    private static final int    REQUEST_PRESETEDIT   = 0;
-    private static final String OAUTH1A_PATH         = "oauth";
-    static final String         OAUTH2_PATH          = "oauth2";
-    public static final String  PRESET_PATH          = "preset";
-    public static final String  PRESETNAME_PARAMETER = "presetname";
-    public static final String  PRESETURL_PARAMETER  = "preseturl";
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, VespucciURLActivity.class.getSimpleName().length());
+    private static final String DEBUG_TAG = VespucciURLActivity.class.getSimpleName().substring(0, TAG_LEN);
 
-    private String preseturl;
-    private String presetname;
+    public static final String PRESET_PATH          = "preset";
+    public static final String PRESETNAME_PARAMETER = "presetname";
+    public static final String PRESETURL_PARAMETER  = "preseturl";
+
+    public static final String STYLE_PATH          = "style";
+    public static final String STYLENAME_PARAMETER = "stylename";
+    public static final String STYLEURL_PARAMETER  = "styleurl";
+
+    private String url;
+    private String name;
 
     private AdvancedPrefDatabase prefdb;
     private boolean              downloadSucessful = false;
 
-    private View mainView;
+    private View                           mainView;
+    private ActivityResultLauncher<Intent> startForResult;
 
-    private PostAsyncActionHandler oauthResultHandler = new PostAsyncActionHandler() {
+    private OAuthHelper.Callback oauthResultHandler = new OAuthHelper.Callback() {
 
         @Override
-        public void onSuccess() {
-            Intent intent = new Intent(VespucciURLActivity.this, Authorize.class);
-            intent.setAction(Authorize.ACTION_FINISH_OAUTH);
-            startActivity(intent);
+        public void onSuccess(@NonNull String accessToken) {
+            if (!Util.isEmpty(accessToken)) { // will be empty for OAuth 1
+                OAuthHelper.setAccessToken(VespucciURLActivity.this, accessToken, null);
+            }
+            finish();
         }
 
         @Override
         public void onError(AsyncResult result) {
             ScreenMessage.toastTopError(VespucciURLActivity.this, getString(R.string.toast_oauth_handshake_failed, result.getMessage()));
-            onSuccess();
+            finish();
+        }
+
+        /**
+         * Start the final activity
+         */
+        private void finish() {
+            Intent intent = new Intent(VespucciURLActivity.this, Authorize.class);
+            intent.setAction(Authorize.ACTION_FINISH_OAUTH);
+            startActivity(intent);
         }
 
     };
@@ -84,7 +111,18 @@ public class VespucciURLActivity extends AppCompatActivity implements OnClickLis
         super.onCreate(savedInstanceState);
         mainView = View.inflate(this, R.layout.url_activity, null);
         setContentView(mainView);
+        ViewGroupCompat.installCompatInsetsDispatch(mainView);
         prefdb = new AdvancedPrefDatabase(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        startForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), (ActivityResult result) -> {
+            if (result.getResultCode() == Activity.RESULT_OK) {
+                downloadSucessful = true;
+            }
+        });
     }
 
     @Override
@@ -96,38 +134,121 @@ public class VespucciURLActivity extends AppCompatActivity implements OnClickLis
             finish();
             return;
         }
-        String path = stripPathSeperators(data.getPath());
-        if (Util.isEmpty(path) && data.getQueryParameter(PRESETURL_PARAMETER) != null) {
-            // hack as the uri may not be encoded properly
-            path = PRESET_PATH;
+        String path = stripPathSeparators(data.getPath());
+        if (Util.isEmpty(path)) {
+            path = fixupPath(data);
         }
         Log.i(DEBUG_TAG, "onResume " + path);
         switch (path) {
         case OAUTH1A_PATH:
         case OAUTH2_PATH: // NOSONAR
             mainView.setVisibility(View.GONE);
-            final String apiName = data.getQueryParameter(OAuth2Helper.STATE_PARAM);
-            try {
-                OAuthHelper oa = OAUTH1A_PATH.equals(path) ? new OAuth1aHelper() : new OAuth2Helper(getBaseContext(), apiName);
-                oa.getAccessToken(getBaseContext(), data, oauthResultHandler);
-            } catch (ExecutionException e) {
-                ScreenMessage.toastTopError(this, getString(R.string.toast_oauth_communication));
-            } catch (TimeoutException e) {
-                ScreenMessage.toastTopError(this, getString(R.string.toast_oauth_timeout));
-            } catch (NoOAuthConfigurationException e) {
-                ScreenMessage.toastTopError(this, getString(R.string.toast_no_oauth, apiName));
-            } catch (IllegalArgumentException e) {
-                ScreenMessage.toastTopError(this, getString(R.string.toast_oauth_handshake_failed, e.getMessage()));
-            }
+            processOsmCallback(data, path);
         default: // NOSONAR fall through is intentional
             setResult(RESULT_OK);
             finish();
             break;
+        case OAUTH_GITHUB_PATH:
+            mainView.setVisibility(View.GONE);
+            processGithubCallback(data);
+            break;
         case PRESET_PATH:
             setupPresetUi(data);
             break;
+        case STYLE_PATH:
+            setupStyleUi(data);
+            break;
         }
         super.onResume();
+    }
+
+    /**
+     * Process a callback from OSM OAuth1a or OAuth2
+     * 
+     * @param data the intent data
+     * @param path the callback uri path
+     */
+    private void processOsmCallback(Uri data, String path) {
+        final String apiName = data.getQueryParameter(OAuth2Helper.STATE_PARAM);
+        try {
+            OAuthHelper oa = OAUTH1A_PATH.equals(path) ? new OAuth1aHelper()
+                    : new OAuth2Helper(getBaseContext(), apiName, OpenStreetMap.AUTHORIZE_PATH, OpenStreetMap.ACCESS_TOKEN_PATH,
+                            OpenStreetMap.OSM_REDIRECT_URI);
+            oa.getAccessToken(getBaseContext(), data, oauthResultHandler);
+        } catch (ExecutionException e) {
+            ScreenMessage.toastTopError(this, getString(R.string.toast_oauth_communication));
+        } catch (TimeoutException e) {
+            ScreenMessage.toastTopError(this, getString(R.string.toast_oauth_timeout));
+        } catch (NoOAuthConfigurationException e) {
+            ScreenMessage.toastTopError(this, getString(R.string.toast_no_oauth, apiName));
+        } catch (IllegalArgumentException e) {
+            ScreenMessage.toastTopError(this, getString(R.string.toast_oauth_handshake_failed, e.getMessage()));
+        }
+    }
+
+    /**
+     * Process a callback from Github OAuth2
+     * 
+     * @param data the intent data
+     */
+    private void processGithubCallback(@NonNull Uri data) {
+        try {
+            new OAuth2Helper(this, Feedback.REPO_KEY, Github.AUTHORIZE_PATH, Github.ACCESS_TOKEN_PATH, Github.WEB_FLOW_REDIRECT_URI).getAccessToken(this, data,
+                    new OAuthHelper.Callback() {
+                        @Override
+                        public void onSuccess(@NonNull String accessToken) {
+                            try (KeyDatabaseHelper keys = new KeyDatabaseHelper(VespucciURLActivity.this); SQLiteDatabase db = keys.getWritableDatabase()) {
+                                KeyDatabaseHelper.replaceOrDeleteKey(db, Feedback.GITHUB_BEARER_TOKEN, EntryType.API_KEY, accessToken, false, false, null, null,
+                                        null);
+                            }
+                            Log.d(DEBUG_TAG, "OAuth token saved successfully");
+                            finishHandshake();
+                        }
+
+                        @Override
+                        public void onError(AsyncResult result) {
+                            ScreenMessage.toastTopError(VespucciURLActivity.this, getString(R.string.toast_oauth_handshake_failed, result.getMessage()));
+                            finishHandshake();
+                        }
+
+                        /**
+                         * hand things back
+                         */
+                        private void finishHandshake() {
+                            Intent intent = new Intent(VespucciURLActivity.this, Feedback.class);
+                            intent.setAction(Authorize.ACTION_FINISH_OAUTH);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            setResult(RESULT_OK);
+                            finish();
+                        }
+
+                    });
+        } catch (ExecutionException e) {
+            ScreenMessage.toastTopError(this, getString(R.string.toast_oauth_communication));
+        } catch (TimeoutException e) {
+            ScreenMessage.toastTopError(this, getString(R.string.toast_oauth_timeout));
+        } catch (NoOAuthConfigurationException e) {
+            ScreenMessage.toastTopError(this, getString(R.string.toast_no_oauth, Feedback.REPO_KEY));
+        } catch (IllegalArgumentException e) {
+            ScreenMessage.toastTopError(this, getString(R.string.toast_oauth_handshake_failed, e.getMessage()));
+        }
+    }
+
+    /**
+     * Hack as the uri may not be encoded properly
+     * 
+     * @param data the Uri
+     * @return the path value
+     */
+    private String fixupPath(@NonNull Uri data) {
+        if (data.getQueryParameter(PRESETURL_PARAMETER) != null) {
+            return PRESET_PATH;
+        }
+        if (data.getQueryParameter(STYLEURL_PARAMETER) != null) {
+            return STYLE_PATH;
+        }
+        return "";
     }
 
     /**
@@ -136,34 +257,79 @@ public class VespucciURLActivity extends AppCompatActivity implements OnClickLis
      * @param data the Uri to use
      */
     private void setupPresetUi(@NonNull Uri data) {
-        mainView.findViewById(R.id.urldialog_nodata).setVisibility(preseturl == null ? View.VISIBLE : View.GONE);
-        preseturl = data.getQueryParameter(PRESETURL_PARAMETER);
-        presetname = data.getQueryParameter(PRESETNAME_PARAMETER);
-        if (preseturl != null) {
-            ActionBar actionbar = getSupportActionBar();
-            if (actionbar != null) {
-                actionbar.setDisplayShowHomeEnabled(true);
-                actionbar.setDisplayHomeAsUpEnabled(true);
-                actionbar.setTitle(R.string.preset_download_title);
-                actionbar.setDisplayShowTitleEnabled(true);
-                actionbar.show();
-            }
-            mainView.findViewById(R.id.urldialog_layoutPreset).setVisibility(View.VISIBLE);
+        setupUi(data, PRESETURL_PARAMETER, PRESETNAME_PARAMETER, R.string.preset, R.string.urldialog_add_preset, u -> prefdb.getPresetByURL(u) != null);
+        mainView.findViewById(R.id.urldialog_buttonAdd)
+                .setOnClickListener(v -> startForResult.launch(PresetConfigurationEditorActivity.getIntent(this, name, url, enable())));
+    }
 
-            ((TextView) mainView.findViewById(R.id.urldialog_textPresetName)).setText(presetname);
-            ((TextView) mainView.findViewById(R.id.urldialog_textPresetURL)).setText(preseturl);
-            PresetInfo existingPreset = prefdb.getPresetByURL(preseturl);
-            if (downloadSucessful) {
-                mainView.findViewById(R.id.urldialog_textPresetSuccessful).setVisibility(View.VISIBLE);
-                mainView.findViewById(R.id.urldialog_textPresetExists).setVisibility(View.GONE);
-            } else {
-                mainView.findViewById(R.id.urldialog_textPresetExists).setVisibility(existingPreset != null ? View.VISIBLE : View.GONE);
-                mainView.findViewById(R.id.urldialog_textPresetSuccessful).setVisibility(View.GONE);
-            }
-            mainView.findViewById(R.id.urldialog_checkboxEnable).setVisibility(existingPreset == null ? View.VISIBLE : View.GONE);
-            mainView.findViewById(R.id.urldialog_buttonAddPreset).setVisibility(existingPreset == null ? View.VISIBLE : View.GONE);
-            mainView.findViewById(R.id.urldialog_buttonAddPreset).setOnClickListener(this);
+    /**
+     * Show the style download UI
+     * 
+     * @param data the Uri to use
+     */
+    private void setupStyleUi(@NonNull Uri data) {
+        setupUi(data, STYLEURL_PARAMETER, STYLENAME_PARAMETER, R.string.style, R.string.urldialog_add_style, u -> prefdb.getStyleByURL(u) != null);
+        mainView.findViewById(R.id.urldialog_buttonAdd)
+                .setOnClickListener(v -> startForResult.launch(StyleConfigurationEditorActivity.getIntent(this, name, url, enable())));
+    }
+
+    /**
+     * Check if the enable checkbox is checked
+     * 
+     * @return true if checked
+     */
+    private boolean enable() {
+        CheckBox enableCheckBox = (CheckBox) mainView.findViewById(R.id.urldialog_checkboxEnable);
+        return enableCheckBox != null && enableCheckBox.isChecked();
+    }
+
+    private interface ResourceExists {
+        boolean exists(@NonNull String url);
+    }
+
+    /**
+     * Setup the UI
+     * 
+     * @param data the URi
+     * @param urlParam parameter used to extract the url
+     * @param nameParam parameter used to extract the name
+     * @param titleRes resource for the tile
+     * @param buttonRes resource for the buttom
+     * @param urlExists function to check if the url has already been configured
+     */
+    private void setupUi(@NonNull Uri data, @NonNull String urlParam, @NonNull String nameParam, int titleRes, int buttonRes,
+            @NonNull ResourceExists urlExists) {
+        url = data.getQueryParameter(urlParam);
+        mainView.findViewById(R.id.urldialog_nodata).setVisibility(url == null ? View.VISIBLE : View.GONE);
+        name = data.getQueryParameter(nameParam);
+        if (url == null) {
+            Log.e(DEBUG_TAG, "Null url " + data);
         }
+        ActionBar actionbar = getSupportActionBar();
+        if (actionbar != null) {
+            actionbar.setDisplayShowHomeEnabled(true);
+            actionbar.setDisplayHomeAsUpEnabled(true);
+            actionbar.setTitle(R.string.resource_download_title);
+            actionbar.setDisplayShowTitleEnabled(true);
+            actionbar.show();
+        }
+        mainView.findViewById(R.id.urldialog_layoutPreset).setVisibility(View.VISIBLE);
+
+        ((TextView) mainView.findViewById(R.id.urldialog_textTitle)).setText(titleRes);
+        ((TextView) mainView.findViewById(R.id.urldialog_textName)).setText(name);
+        ((TextView) mainView.findViewById(R.id.urldialog_textURL)).setText(url);
+        boolean exists = urlExists.exists(url);
+        if (downloadSucessful) {
+            mainView.findViewById(R.id.urldialog_textSuccessful).setVisibility(View.VISIBLE);
+            mainView.findViewById(R.id.urldialog_textExists).setVisibility(View.GONE);
+        } else {
+            mainView.findViewById(R.id.urldialog_textExists).setVisibility(exists ? View.VISIBLE : View.GONE);
+            mainView.findViewById(R.id.urldialog_textSuccessful).setVisibility(View.GONE);
+        }
+        mainView.findViewById(R.id.urldialog_checkboxEnable).setVisibility(!exists ? View.VISIBLE : View.GONE);
+        Button add = mainView.findViewById(R.id.urldialog_buttonAdd);
+        add.setText(buttonRes);
+        add.setVisibility(!exists ? View.VISIBLE : View.GONE);
     }
 
     /**
@@ -172,7 +338,7 @@ public class VespucciURLActivity extends AppCompatActivity implements OnClickLis
      * @param path the String to remove the slashes from
      * @return the String
      */
-    private String stripPathSeperators(@NonNull String path) {
+    private String stripPathSeparators(@NonNull String path) {
         if (path.startsWith("/")) {
             path = path.substring(1);
         }
@@ -183,15 +349,6 @@ public class VespucciURLActivity extends AppCompatActivity implements OnClickLis
     }
 
     @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.urldialog_buttonAddPreset) {
-            CheckBox enableCheckBox = (CheckBox) mainView.findViewById(R.id.urldialog_checkboxEnable);
-            boolean enable = enableCheckBox != null && enableCheckBox.isChecked();
-            PresetEditorActivity.startForResult(this, presetname, preseturl, enable, REQUEST_PRESETEDIT);
-        }
-    }
-
-    @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         Log.d(DEBUG_TAG, "onOptionsItemSelected");
         if (item.getItemId() == android.R.id.home) {
@@ -199,13 +356,5 @@ public class VespucciURLActivity extends AppCompatActivity implements OnClickLis
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_PRESETEDIT && resultCode == RESULT_OK) {
-            downloadSucessful = true;
-        }
     }
 }

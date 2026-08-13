@@ -42,6 +42,7 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Way;
 import de.blau.android.tasks.Task.State;
+import de.blau.android.util.AuthorisationEnabledActivity;
 import de.blau.android.util.ClipboardUtils;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.ThemeUtils;
@@ -113,8 +114,11 @@ public class MapRouletteFragment extends TaskFragment {
 
     @Override
     protected <T extends Task> void update(Server server, PostAsyncActionHandler handler, T task) {
-        TransferTasks.updateMapRouletteTask(getActivity(), server, App.getPreferences(getContext()).getMapRouletteServer(), (MapRouletteTask) task, false,
-                handler);
+        if (!(getActivity() instanceof AuthorisationEnabledActivity)) {
+            throw new IllegalArgumentException("Expected a AuthorisationEnabledActivity");
+        }
+        TransferTasks.updateMapRouletteTask((AuthorisationEnabledActivity) getActivity(), server, App.getPreferences(getContext()).getMapRouletteServer(),
+                (MapRouletteTask) task, false, handler);
     }
 
     @Override

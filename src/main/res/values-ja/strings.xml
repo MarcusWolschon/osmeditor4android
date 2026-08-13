@@ -27,6 +27,7 @@
   <string name="upload_conflict_message_missing_references">この端末内の要素は、サーバー上で削除された物体を参照します</string>
   <string name="upload_conflict_message_unknown">%1$s \nを原因とする未知のアップロード競合 \n%2$s</string>
   <string name="upload_conflict_message_changeset_closed">変更セットが不意に閉じられました、再試行中</string>
+  <string name="upload_conflict_message_local_reference_inconsistency">端末内での参照が不一致</string>
   <string name="server_side_object">サーバー側の版</string>
   <string name="local_object">この端末内の版</string>
   <string name="resolve_by">…によって競合を解決</string>
@@ -44,6 +45,7 @@
   <string name="unexpected_conflict_type">不意の種類の競合</string>
   <string name="missing_referenced_elements">参照された要素が欠落</string>
   <string name="still_in_use_by_elements">要素が使用するままにする</string>
+  <string name="local_reference_inconsistency">端末内での参照が不一致です。参照された要素の削除を取り消すことは安全な選択肢ですが、これをバグとして報告してください。</string>
   <string name="delete_locally">端末内で削除</string>
   <string name="undelete_on_server">サーバー上で\n復元</string>
   <!--Upload retry-->
@@ -90,7 +92,7 @@
   <string name="bounding_box_too_large_message">ダウンロードを試みた範囲が大きすぎるか、データが多すぎます。
 　&lt;br&gt;&lt;br&gt;更に拡大して、再びお試しください。</string>
   <string name="api_offline_title">APIがオフライン</string>
-  <string name="api_offline_message">APIは現在オフラインです。データを検索または書き込みできません。</string>
+  <string name="api_offline_message">APIは現在オフラインです。データを検索することも書き込むこともできません。</string>
   <string name="out_of_memory_title">メモリ不足</string>
   <string name="out_of_memory_message">Vespucciは要求されたデータを読み込めませんでした。再び開始して、範囲を小さく読み込んでください。</string>
   <string name="out_of_memory_dirty_message">Vespucciは要求されたデータを読み込めませんでした。編集を保存し、再び開始して、範囲を小さく読み込んでください。</string>
@@ -106,11 +108,13 @@
   <string name="download_limit_message">更にデータのダウンロードを試行する前に、お待ちください。</string>
   <string name="upload_limit_title">アップロード上限を超過</string>
   <string name="upload_limit_message">現在のアップロード割当量を使い果たしました。再試行する前に、お待ちください。</string>
+  <string name="upload_unavailable_title">サービス不能</string>
+  <string name="upload_unavailable_message">サービスは一時的に不能です。再試行する前に、お待ちください。</string>
   <string name="duplicate_tag_key_title">重複キー</string>
   <string name="duplicate_tag_key_message">次のキーを複数回追加しています。これを解決しないと先に進めません：</string>
   <string name="autodownload_has_been_paused">自動ダウンロードは一時停止しました。</string>
-  <string name="upload_bounding_box_too_large_title">アップロードするデータが大きすぎます</string>
-  <string name="upload_bounding_box_too_large_message">アップデートによって変更を試みている領域が大きすぎます。
+  <string name="upload_bounding_box_too_large_title">アップロードする範囲が大きすぎます</string>
+  <string name="upload_bounding_box_too_large_message">アップロードによって変更を試みている範囲が大きすぎます。
 　&lt;br&gt;&lt;br&gt;変更点を分割して、複数の小さな変更セットにしてください。
 　これを行うには、変更する要素の部分集合を選択してから、それらを分割してアップロードします。</string>
   <string name="upload_way_needs_one_node_title">ウェイには少なくとも１つのノードが必要</string>
@@ -126,7 +130,7 @@
 　デスクトップエディタで実現できるほぼ全てのことを携帯端末で対応しますが、これはある程度の複雑さが伴います。
 　端末またはオンライン上の手助けページでは、よくある疑問にお答えします。もし、もっと支援が必要なら、Openstreetmapsコミュニティフォーラムで質問することをお勧めします。
 　&lt;br&gt;&lt;br&gt;始めるには、3つのことを知っておく必要があります：
-　&lt;ul&gt;&lt;li&gt;左上の鍵アイコンをタップすると、鍵（編集不可）と鍵解除の状態が切り替わります。
+　&lt;ul&gt;&lt;li&gt;左上の鍵アイコンをタップすると、ロック（編集不可）とロック解除の状態が切り替わります。
 　&lt;/li&gt;&lt;li&gt;新しい物体を追加するには、大きな緑色のボタンをタップし、メニューから追加したい物体を選択します。そして、置きたい位置をタップします。
 　&lt;/li&gt;&lt;li&gt;近くのpoint of interest(関心地点)表示を開くには、下の底のメニューバーの上のハンドルを上に掴んで引いてください。
 　&lt;/li&gt;&lt;/ul&gt;
@@ -160,14 +164,15 @@
   <string name="progress_title">ロード中</string>
   <string name="progress_message">データをメモリにロード中…</string>
   <string name="progress_download_message">サーバーからデータをダウンロード中…</string>
-  <string name="progress_download_tasks_message">サーバーからダウンロード作業中…</string>
+  <string name="progress_download_tasks_message">サーバーから課題をダウンロード中…</string>
   <string name="progress_download_sequence_message">サーバーから連続ダウンロード中…</string>
   <string name="progress_general_title">しばらくお待ちください</string>
   <string name="progress_deleting_message">削除...</string>
   <string name="progress_searching_message">検索中...</string>
   <string name="progress_saving_message">保存中...</string>
   <string name="progress_uploading_message">アップロード中…</string>
-  <string name="progress_preset_message">プリセットをダウンロード中…</string>
+  <string name="progress_resource_download_message">リソースをダウンロード中…</string>
+  <string name="progress_resource_load_message">リソースを読み込み中…</string>
   <string name="progress_loading_preset_message">プリセットを読み込み中…</string>
   <string name="progress_importing_file_message">ファイルを取り込み中</string>
   <string name="progress_running_message">実行中…</string>
@@ -178,6 +183,8 @@
   <string name="progress_migration">移行中…</string>
   <string name="progress_determining_status_message">状態特定中…</string>
   <string name="progress_updating_message">更新中…</string>
+  <string name="progress_validation_title">妥当性検査中</string>
+  <string name="progress_calculating_message">計算中…</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" の削除</string>
   <string name="changes_changed">\"%1$s\" の変更</string>
@@ -195,17 +202,19 @@
   <string name="upload_validation_error_empty_comment">コメントは空にできません</string>
   <string name="upload_validation_error_empty_source">情報源は空にできません</string>
   <string name="upload_empty_comment_warning_label">コメントが空の場合の警告</string>
+  <string name="confirm_upload_custom_tags_page">任意のタグ</string>
   <string name="upload_auto_summary">自動生成概要</string>
   <string name="untagged_node">タグの無いノード</string>
   <string name="untagged_way">タグの無いウェイ</string>
   <string name="untagged_relation">タグの無いリレーション</string>
   <string name="changed_preset">%1$sから%2$s</string>
-  <string name="changed_tags">%1$s件のタグを変更</string>
+  <string name="changed_tags">%1$s変更されたタグ</string>
   <string name="moved">%1$s件の移動</string>
   <string name="unknown_object">未知の物体</string>
   <!--Review changes dialog-->
   <string name="review_changes_title">変更点を確認</string>
   <string name="review_upload_selected">選択したものをアップロード</string>
+  <string name="review_update">更新</string>
   <!--Upload GPX-->
   <string name="upload_gpx_title">GPX経路をアップロード</string>
   <string name="upload_gpx_description_label">説明</string>
@@ -221,22 +230,40 @@
   <string name="openstreetbug_new_nodeway">ノード・ウェイを作成</string>
   <string name="openstreetbug_edit_title">メモを編集</string>
   <string name="openstreetbug_comment_label">コメント:</string>
-  <string name="openstreetbug_commit_ok">タスクの変更を保存しました</string>
-  <string name="openstreetbug_commit_fail">変更作業を保存できませんでした</string>
-  <string name="openstreetbug_commit_fail_with_message">変更作業を保存できませんでした\n%1$s</string>
-  <string name="openstreetbug_unknown_task_type">不明なタスク種別</string>
+  <string name="openstreetbug_commit_ok">課題の変更を保存しました</string>
+  <string name="openstreetbug_commit_fail">課題の変更を保存できませんでした</string>
+  <string name="openstreetbug_commit_fail_with_message">課題の変更を保存できませんでした\n%1$s</string>
+  <string name="openstreetbug_unknown_task_type">不明な課題種別</string>
   <string name="openstreetbug_not_supported">%1$s は対応していません。</string>
+  <string name="note_description">%1$s - %2$s</string>
+  <string name="bug_description_191">%1$s - %2$s</string>
+  <string name="bug_description_2_191">%1$s %2$s - %3$s</string>
   <string name="generic_bug">バグ</string>
   <string name="osmose_bug">Osmose</string>
   <string name="todo_title">Todo</string>
   <string name="todo">Todo</string>
   <string name="bug_element_2">%1$s %2$s</string>
-  <string name="maproulette_task_title">MapRouletteタスク</string>
+  <string name="maproulette_task_title">MapRoulette課題</string>
   <string name="maproulette_task_coords">経度 %1$4g, 緯度 %2$4g</string>
+  <string name="maproulette_task_explanations">説明</string>
+  <string name="maproulette_task_instructions">指示</string>
+  <string name="maproulette_task_set_apikey">MapRoulette APIキーを設定</string>
+  <string name="maproulette_task_apikey_not_set">MapRoulette APIキーを保存できませんでした</string>
   <string name="maproulette_task_disable">無効化</string>
+  <string name="maproulette_task_apikey_set">MapRoulette APIキーを保存しました</string>
+  <string name="maproulette_task_no_apikey">MapRoulette APIキー</string>
+  <string name="maproulette_description">Maproulette: %1$s</string>
   <!--Todo dialogs-->
+  <plurals name="add_todo_title">
+    <item quantity="other">要素をTodoリストに追加</item>
+  </plurals>
+  <string name="todo_list_legend">Todoリスト</string>
   <string name="todo_comment_legend">コメント</string>
+  <string name="toast_todo_all_closed">要素の全課題を閉じました</string>
+  <string name="toast_todo_already_in_list">要素はすでにTodoリストに含まれています</string>
   <string name="save_changes_title">変更を保存しますか?</string>
+  <!--System created todo lists-->
+  <string name="replace_geometry_todo_list">ジオメトリの問題を置き換え</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">注意！</string>
   <string name="unsaved_data_message">保存されていない変更は、次に進むと破棄されます。</string>
@@ -250,10 +277,14 @@
   <string name="imagery_offset_date">作成完了</string>
   <string name="imagery_offset_zoom">拡大</string>
   <string name="imagery_offset_distance">距離</string>
+  <!--Position modal-->
   <string name="set_position_datum_label">測地データ</string>
   <string name="WGS84">WGS84</string>
+  <string name="set_position_swap">緯度と経度を入れ替える</string>
+  <!---->
   <string name="tag_editor_name_suggestion">名称の提案</string>
   <!--Search/Find dialog-->
+  <string name="tag_editor_name_suggestion_overwrite_message">この提案は、いくつかのタグの値を、より一般的な値におきかえます。</string>
   <string name="search_results_title">検索結果</string>
   <string name="search_online">オンラインで検索</string>
   <string name="find_message">検索文字列</string>
@@ -287,11 +318,17 @@
   <string name="empty_role">空のロール</string>
   <string name="last_edited">最終編集</string>
   <string name="original">オリジナル</string>
+  <string name="previous">以前</string>
   <string name="current">現状</string>
   <string name="goto_element">要素に移動</string>
   <string name="edit_properties">タグを編集</string>
+  <string name="toast_element_not_found_on_restore">復元用記録に要素がみつかりません</string>
+  <string name="toast_element_no_prior_state">要素は変更されていますが、差分となる以前の状態が端末内にはありません。</string>
   <!--GeoJSON feature display dialog-->
-  <string name="copy_properties">プロパティをコピー</string>
+  <string name="feature_information">GeoJSON機能の情報</string>
+  <string name="vt_feature_information">ベクトルタイル機能の情報</string>
+  <string name="vt_layer">ベクトルタイルレイヤー</string>
+  <string name="copy_properties">属性をコピー</string>
   <string name="create_osm_element">OSMの要素を作成</string>
   <!--API/Data layer info dialog-->
   <string name="data_in_memory">メモリ内のデータ</string>
@@ -326,6 +363,10 @@
   <string name="duplicate_relation_member_message">%1$s\n\nは既にリレーションのメンバーです。</string>
   <string name="remove_relation_member_title">リレーションのメンバーを除外</string>
   <string name="remove_relation_member_message">%1$s 個</string>
+  <string name="relation_member_no_match_warning">\n\n警告:\n\nその要素は、この種類のリレーションでプリセットが定義するメンバーフィルターに一致しません。</string>
+  <string name="duplicate_relation_member_remove_button">メンバーを除外</string>
+  <string name="choose_role_title">役割の選択</string>
+  <string name="leave_role_empty">役割を空のまま残す</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">外周からマルチポリゴンにタグを移す</string>
   <string name="move_outer_tags_message">物体に定義するタグはマルチポリゴン上だけに存在するべきです。この動作は、外枠からマルチポリゴンへ共通のタグを移動します。</string>
@@ -336,12 +377,17 @@
   <string name="remove_duplicate_outer_tags_message">マルチポリゴンに設定されたタグを外周から削除する</string>
   <string name="remove">削除</string>
   <!--Abort action mode dialog-->
+  <string name="abort_action_title">アクションを中止</string>
   <!--Address interpoation dialog-->
+  <string name="address_interpolation_title">住所補間を作成</string>
   <string name="start">開始</string>
   <string name="end">終了</string>
   <string name="even">最初が奇数</string>
   <string name="odd">最初が偶数</string>
   <string name="other">その他</string>
+  <string name="validation_start_is_empty">最初の住居番号には必ず値を入力してください！</string>
+  <string name="validation_end_is_empty">最後の住居番号には必ず値を入力してください！</string>
+  <string name="validation_other_is_empty">その他を選択した場合は必ず値を入力してください！</string>
   <!--Safe split dialog-->
   <string name="split_safe_title">リレーションのメンバーが欠けています</string>
   <string name="split_safe_message">付近のリレーションのメンバーのウェイがダウンロードされていません。リレーションのメンバーの順序を維持するには、ダウンロードする必要があるかもしれません。</string>
@@ -349,6 +395,8 @@
   <string name="evaluate">評価する</string>
   <string name="js_console_msg_live">ライブ方式!</string>
   <string name="js_console_msg_debug">デバッグ方式!</string>
+  <string name="console_input_hint">コードをここに入力してください</string>
+  <string name="console_output_hint">出力はここに表示されます</string>
   <string name="save_code">コードを保存...</string>
   <string name="load_code">コードを読込...</string>
   <string name="share_code">コードを共有...</string>
@@ -356,6 +404,19 @@
   <string name="run">実行</string>
   <string name="overpass_result">ダウンロード済: %1$d個のノード, %2$d個のウェイ, %3$d個のリレーション</string>
   <string name="overpass_console">Overpassコンソール</string>
+  <string name="select_result">結果を選択</string>
+  <string name="merge_result">結果を統合</string>
+  <string name="overpass_query_would_overwrite">結果は変更を上書きします!　クエリは中止されました。</string>
+  <!--Download missing dialog-->
+  <string name="download_missing_title">欠落したプリセットと様式をダウンロード</string>
+  <string name="download_missing_message">あなたのシステムには %1$s と %2$s で設定がありますが、まだダウンロードされていません。</string>
+  <plurals name="download_missing_presets">
+    <item quantity="other">%1$d 件のプリセット</item>
+  </plurals>
+  <plurals name="download_missing_styles">
+    <item quantity="other">%1$d 件の様式</item>
+  </plurals>
+  <string name="download_missing_error">ダウンロードのエラー %1$s</string>
   <!---->
   <string name="error">エラー</string>
   <string name="warning">警告</string>
@@ -365,6 +426,7 @@
   <string name="attached_object_warning_title">この操作は、フィルタリングされた添付物体に影響します！</string>
   <string name="attached_object_warning_message">変更された物体は、それと一緒に変更される隠れた要素へ接続されます。</string>
   <!--replace geometry confirm-->
+  <string name="remove_geometry_source">ジオメトリソースを削除しますか？</string>
   <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">よろしい。表示するままで</string>
   <!--This concerns a shown message that should only be shown once-->
@@ -385,7 +447,8 @@
   <string name="safe_mode_dialog_title">安全方式の選択肢</string>
   <string name="safe_style_label">データの様式を最小に設定</string>
   <string name="safe_layer_label">全てのレイヤーを無効化</string>
-  <string name="safe_state_label">保存した状態を削除</string>
+  <string name="safe_editing_state_label">選択したものとUI状態を削除</string>
+  <string name="safe_state_label">保存したデータ状態を削除</string>
   <string name="safe_delete_state_title">保存した状態を削除しますか?</string>
   <string name="safe_delete_state_text">よろしい (取り消せません)</string>
   <!--Empty relation dialog-->
@@ -428,6 +491,7 @@
   <string name="layer_style_label">ラベル</string>
   <string name="json_object_not_displayed">JSONオブジェクト (非表示)</string>
   <string name="json_array_not_displayed">JSON配列 (非表示)</string>
+  <string name="gpx_automatic">自動</string>
   <string name="gpx_name">GPX名</string>
   <string name="gpx_description">GPX説明</string>
   <string name="gpx_type">GPXの種類</string>
@@ -440,7 +504,7 @@
   <string name="layer_gpx">GPX</string>
   <string name="layer_gpx_recording">GPX記録</string>
   <string name="layer_photos">写真</string>
-  <string name="layer_tasks">タスク</string>
+  <string name="layer_tasks">課題</string>
   <string name="layer_data">OSMデータ</string>
   <string name="layer_data_name">%1$s データ</string>
   <string name="layer_flush_tile_cache">タイルキャッシュを全削除</string>
@@ -457,6 +521,7 @@
   <string name="layer_category_map">地図板</string>
   <string name="layer_category_historicmap">期限切れの地図</string>
   <string name="layer_category_osmbasedmap">OSMを基にする地図</string>
+  <string name="layer_category_qa">品質保証</string>
   <string name="layer_category_other">その他</string>
   <string name="layer_add_layer_from_mvt_style">MVT型からレイヤーを追加…</string>
   <string name="layer_add_custom_imagery">任意の画像を追加…</string>
@@ -464,6 +529,7 @@
   <string name="layer_add_gpx">GPXファイルからレイヤーを追加…</string>
   <string name="layer_download_track">GPX経路をダウンロード…</string>
   <string name="layer_available_tracks">入手可能なGPX経路</string>
+  <string name="layer_auto_prune">自動節減</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">最小拡大</string>
   <string name="layer_info_max_zoom">最大拡大</string>
@@ -483,13 +549,15 @@
   <string name="photo_viewer_goto">写真に行く</string>
   <string name="photo_viewer_label">写真表示器</string>
   <string name="mapillary_viewer_label">Mapillary表示器</string>
+  <string name="photo_viewer_upload">アップロード…</string>
   <!--API info dialog-->
   <string name="api_info_bounds">矩形境界</string>
   <string name="api_info_mapsplit_source">MapSplitは読み込みのみの情報源です</string>
   <!--Element issue dialog-->
-  <string name="tag_conflict_title">変更されたプロパティ</string>
+  <string name="tag_conflict_title">変更された属性</string>
   <string name="replace_geometry_issue_title">変更された要素</string>
   <!--Relation selection dialog-->
+  <string name="no_suitable_relations_message">ダウンロードしたデータには、適切なリレーションがありません</string>
   <string name="select_route_title">ルートを選択</string>
   <string name="select_relation_title">リレーションを選択</string>
   <!--Preset selection dialog-->
@@ -509,9 +577,28 @@
   <string name="undo_location_zoom">対象地点に拡大してから元に戻す</string>
   <!--Value widget dialogs-->
   <!--Feedback activity-->
-  <string name="feedback_with_displayname">OpenStreetMap表示名付きで送信</string>
-  <string name="feedback_displayname_hint">OpenStreetMap表示名を見つけられません</string>
   <string name="feedback_title">開発者のためにフィードバック</string>
+  <string name="feedback_title_hint">題</string>
+  <string name="feedback_description_hint">問題または機能要望の詳細をお述べください</string>
+  <string name="feedback_who_is_sending">誰がこれを送信しますか?</string>
+  <string name="feedback_login_osm">OpenStreetMapにログイン</string>
+  <string name="feedback_with_displayname">OpenStreetMap表示名付きで送信</string>
+  <string name="feedback_displayname_hint">OpenStreetMap 表示名</string>
+  <string name="feedback_send">送信</string>
+  <string name="feedback_device_info">端末の情報を含める</string>
+  <string name="feedback_anonymous">匿名で送信</string>
+  <string name="feedback_token_client_id_hint">あなたのクライアントIDをここに入力してください</string>
+  <string name="feedback_device_info_format">アプリのバージョン: %1$s (%2$d)\nアンドロイドのバージョン: %3$s (API %4$d)\n端末: %5$s %6$s</string>
+  <string name="feedback_reporter_label">\n\n報告者: %1$s</string>
+  <string name="feedback_error_code">エラー %1$d %2$s</string>
+  <string name="feedback_exception">例外: %1$s</string>
+  <string name="github_login_with_github">Githubにログイン (任意)</string>
+  <string name="github_status_authenticated">GitHub で認証済み</string>
+  <string name="github_reset_login">ログインをリセット</string>
+  <string name="feedback_title_required">題が必要です</string>
+  <string name="feedback_success_title">成功</string>
+  <string name="feedback_success_message">フィードバックの提出に成功しました。問題は以下から確認可能です\n\n&lt;a href=\"%1$s\"&gt;%1$s&lt;/a&gt;</string>
+  <string name="feedback_failure_title">提出に失敗しました</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">OpenStreetMapデータをダウンロード</string>
   <!--Clear/Reset GPX Track-->
@@ -521,7 +608,7 @@
   <string name="tip_title">ご存知でしょうか</string>
   <string name="tip_check_label">これ以上の助言の表示を停止</string>
   <string name="tip_undo">元に戻すボタンを長押しすると、全ての「元に戻す」と「やり直し」の チェックポイントが表示されます。</string>
-  <string name="tip_imagery_privacy">背景とオーバーレイのレイヤーは第三者から提供されています。レイヤーを使用すると、あなたのネットワークアドレスと、閲覧している領域を大まかに示す情報が、提供元に送信されます。&lt;p&gt;提供元が個人情報保護方針の情報を提供している場合は、レイヤーのダイアログ内の「情報」メニューで表示できます。</string>
+  <string name="tip_imagery_privacy">背景とオーバーレイのレイヤーは第三者から提供されています。レイヤーを使用すると、あなたのネットワークアドレスと、閲覧している範囲を大まかに示す情報が、提供元に送信されます。&lt;p&gt;提供元が個人情報保護方針の情報を提供している場合は、レイヤーのダイアログ内の「情報」メニューで表示できます。</string>
   <string name="tip_mapillary_privacy">MapillaryはFacebook傘下のスウェーデン企業Mapillary ABによって提供されています。このサービスを使用すると、あなたのネットワークのアドレスとあなたが閲覧した画像についての情報がこの企業に伝わります。</string>
   <string name="tip_panoramax_privacy">Panoramaxは第三者の提供するサービスで、デフォルトのサーバーはOpenStreetMap Franceが運営していますが、設定でサーバーを変更可能です。このサービスを使用すると、あなたのネットワークアドレスとあなたが閲覧した画像についての情報がサービスの運営者に伝わります。</string>
   <string name="tip_pan_and_zoom_auto_download">描画範囲の移動や拡大で自動ダウンロードを行うと、OpenStreetMapのAPIとあなたの端末の双方に、酷く重い負荷を発生させる可能性があることに注意してください。&lt;p&gt;オフラインのデータソースを利用すると、APIサーバへの負荷を避けることができます。</string>
@@ -530,9 +617,9 @@
   <string name="tip_gpx_no_elevation">バージョン15から、初期設定ではGPX経路に標高情報を含めなくなりました。&lt;p&gt;標高の記録を有効化するには、ツールメニューから&lt;b&gt;地球重力モデル(EGM)のインストール&lt;/b&gt;でジオイドをインストールするか、NMEA入力に切り替えてください。</string>
   <string name="tip_tag_conflict">OSMの要素を結合または反転すると、しばしば要素上の属性を変更する必要があり、これによって潜在的にエラーまたは衝突が生ずると注意喚起され、設問内で物体の確認をする機会が提供されます。</string>
   <string name="tip_gpx_recording">GPX記録を開始すると、Vespucciはこのアプリが表示されていないときにも、GPX記録のために位置情報を収集します。&lt;p&gt;その場合、アプリを明確に閉じるか、GPX記録を切ることによって、位置情報の利用を止めることができます。</string>
-  <string name="tip_auto_download">OSMデータやタスクの自動ダウンロードを開始すると、Vespucciはアプリが表示されていないときにも、現在地を特定するために位置情報を利用します。&lt;p&gt;その場合、アプリを明確に閉じるか、自動ダウンロードを切ることによって、位置情報の利用を止めることができます。</string>
+  <string name="tip_auto_download">OSMデータや課題の自動ダウンロードを開始すると、Vespucciはアプリが表示されていないときにも、現在地を特定するために位置情報を利用します。&lt;p&gt;その場合、アプリを明確に閉じるか、自動ダウンロードを切ることによって、位置情報の利用を止めることができます。</string>
   <string name="tip_no_redo">この方式では現在、ノードの追加を元に戻すことに対応していません。</string>
-  <string name="tip_way_splitting">強調表示されたノードを触れて、分割箇所を決定してください。長押しすると、新規ウェイに使用される更に多くの部分を選択できるようになります。</string>
+  <string name="tip_way_splitting">強調表示されたノードを触れて、分割箇所を決定してください。長押しすると、新規ウェイに使用される更に多くの部分を選択できるようになります。&lt;p&gt;都合のいい箇所に既存のノードがない場合は、ウェイ上で長クリックすると、その位置でノードを追加し分割できます。この方法を使用する場合、区分選択はできません。</string>
   <string name="tip_closed_way_splitting">閉じたウェイは2箇所で分割されます。強調表示されたノードを触れて、1番目の分割箇所を決定してください。次に、2番目の分割箇所を尋ねます。</string>
   <string name="tip_disambiguation_menu">互いにとても近い複数のOSMの要素もしくは他の物体、または、リレーションのメンバーは、明確にメニューに表示されます。あなたは、ここで一覧から特定の要素を選択できます。&lt;p&gt;要素が現在既に選択されている場合は、強調表示されます。</string>
   <string name="tip_wms_tile_size">WMS (Web Map Service)は256x256より大きなタイルに対応します。より効率的にするために、512x512を使用する設定を検討してください。</string>
@@ -542,7 +629,10 @@
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
   <!--NotificationChannels-->
+  <string name="qa_channel_name">Vespucciの品質保証</string>
+  <string name="qa_channel_description">データの問題と課題の、品質保証注意喚起チャンネル</string>
   <!--Notifications-->
+  <string name="upload_checker_title">作業をアップロードすることを思い出させる</string>
   <plurals name="upload_checker_message">
     <item quantity="other">公開していない変更が %1$d 件あります。</item>
   </plurals>
@@ -555,15 +645,17 @@
   <string name="toast_styleable_layer_exists">%1$s 用のレイヤーは存在します</string>
   <string name="toast_no_changes">変更がありません…</string>
   <string name="toast_jpeg_not_transparent">JPEGファイルは透過せず、一面に被せての使用はできません</string>
+  <string name="toast_unsupported_projection">地図投影法 %1$s には対応しません。\n\nEPSG:3857及びEPSG:4326と同等のもののみに対応します。</string>
   <string name="toast_unsaved_changes">先に、保存していない変更をアップロードしてください。</string>
   <string name="clear_anyway">とにかく消去しますか?</string>
   <string name="toast_upload_success">OSMサーバーへアップロードしました。</string>
   <string name="toast_not_in_edit_range">編集するには拡大せよ(音量↑/↓または画面上でボタンを押すか2本指を広げる)</string>
-  <string name="toast_unlock_to_edit">編集するためには鍵を解除してください</string>
+  <string name="toast_unlock_to_edit">編集するためにはロックを解除してください</string>
   <string name="toast_save_done">保存しました</string>
   <string name="toast_save_failed">保存できませんでした</string>
   <string name="toast_export_failed">出力できませんでした</string>
   <string name="toast_export_success">%1$s へ出力</string>
+  <string name="toast_upload_to_success">%1$s へのアップロードに成功</string>
   <plurals name="toast_preset_removed_or_replaced_tags">
     <item quantity="other">%1$d 件のタグを上書きまはた削除</item>
   </plurals>
@@ -582,6 +674,11 @@
   <string name="toast_download_failed">ダウンロード失敗。エラーコード %1$d メッセージ %2$s</string>
   <string name="toast_note_reopened">メモを再度開きました</string>
   <string name="toast_untrusted_certificate">信用していない証明書\n%1$s</string>
+  <string name="toast_element_may_have_been_moved">要素は移動されたかもしれません</string>
+  <string name="toast_configuration_export_failed">設定の出力に失敗しました\n\n%1$s</string>
+  <string name="toast_configuration_import_failed">設定の取り込みに失敗しました\n\n%1$s</string>
+  <string name="toast_configuration_export_success">設定の出力に成功しました!</string>
+  <string name="toast_configuration_import_success">設定の取り込みに成功しました!</string>
   <!--Validation-->
   <string name="toast_unsurveyed_road">未調査の道</string>
   <string name="toast_noname">名称または参照番号が欠落した道</string>
@@ -592,27 +689,39 @@
   <string name="toast_oauth">ご自分のOSMアカウントに対してOAuth認証を許可してください。</string>
   <string name="toast_no_oauth">API「%1$s」でOAuth設定が利用できません。もし対応しているなら、ログイン名とパスワードを利用してください。</string>
   <string name="toast_oauth_not_enabled">現在のAPI用にはOAuthは有効化されていません。</string>
+  <string name="toast_oauth_timeout">認証ハンドシェイク中にタイムアウトしました。再試行してください。</string>
+  <string name="toast_oauth_communication">認証ハンドシェイク中に誤通信しました。再試行してください。</string>
+  <string name="toast_oauth_handshake_failed">OAuthハンドシェイクを成し遂げられませんでした: %1$s</string>
+  <string name="toast_timeout">サーバーからタイムアウト</string>
   <string name="coordinates_out_of_range">経度の値は -180°/+180° 以内です。緯度は -85°/85° です。</string>
   <string name="toast_nothing_found">検索結果なし</string>
+  <string name="toast_layer_statesave_failed">%1$s レイヤーで現在の状態を保存できませんでした!</string>
+  <string name="toast_task_layer_statesave_failed">現在の課題レイヤーの状態を保存できませんでした!</string>
+  <string name="toast_task_storage_statesave_failed">現在の課題記憶の状態を保存できませんでした!</string>
+  <string name="toast_data_statesave_failed">現在の状態データを保存できませんでした!\nこれは致命的なエラーです: 未保存の変更がある場合は、終了して、復旧用の自動保存ファイル使用してください。</string>
+  <string name="toast_data_stateload_failed">状態データを読み込めませんでした!\nファイルは破損しているか、異なるバージョンから作成されました。\n未保存の変更がある場合は、自動保存された .ocs ファイルを使用して、復旧を試みることができます。</string>
   <string name="toast_missing_filemanager">ファイル管理ソフトをインストールしてください。</string>
   <string name="toast_outside_of_download">この領域を編集するために、更にデータをダウンロードしてください。</string>
   <string name="toast_file_not_found">%1$s が見つかりません。</string>
+  <string name="toast_unknown_voice_command">申し訳ありませんが、現時点では「%1$s」を理解できません</string>
+  <string name="toast_inconsistent_state">矛盾した状態が検知されました。改善のため、エラー報告をご送信ください。</string>
+  <string name="toast_camera_error">カメラアプリを起動できません: %1$s</string>
   <string name="toast_no_voice">音声認識の装置がありません</string>
+  <string name="toast_storage_error">%1$s はVespucciによって書き込めません。\nこれは、権限不足または端末の技術的問題である可能性があります。</string>
   <string name="toast_no_suitable_storage">タイルシステムからタイルデータベース用の適切な位置が返ってきませんでした。</string>
   <string name="toast_min_one_preset">少なともプリセットをひとつ選ばなければなりません！</string>
   <string name="toast_min_one_geocoder">少なくともジオコーダーをひとつ選ばなければなりません！</string>
+  <string name="toast_min_one_style">少なくともひとつの様式が選択されなければなりません!</string>
   <string name="toast_used_backup">状態ファイルが壊れています。代わりにバックアップファイルを使用しました。</string>
   <string name="toast_used_bug_backup">バグ状態ファイルが壊れています。代わりにバックアップファイルを使用しました。</string>
-  <string name="toast_split_from">「from」ウェイを分割しました</string>
-  <string name="toast_split_via">「via」ウェイを分割しました</string>
-  <string name="toast_split_from_and_via">「from」および「via」ウェイを分割しました</string>
-  <string name="toast_split_to">「to」ウェイを分割しました</string>
   <string name="toast_tile_database_issue_short">タイルデータベースの問題</string>
   <string name="toast_tile_database_issue">マップタイルのデータベースに深刻な問題があります\n\"%1$s\"\nFAQを参照してください https://vespucci.io/</string>
+  <string name="toast_tile_source_issue">マップタイルの発信源に深刻な問題があります。一時的に無効化しました\n\"%1$s\"</string>
+  <string name="toast_tile_container_issue">タイルの入れ物ファイル \"%1$s\" が存在しないか、もしくは開けません</string>
   <string name="toast_invalid_apiurl">不適切な API URL</string>
   <string name="toast_invalid_readonlyurl">不適切な読込専用 API URL</string>
   <string name="toast_invalid_notesurl">不正なメモAPIのURL</string>
-  <string name="toast_invalid_preseturl">不正なプリセットURL</string>
+  <string name="toast_invalid_url">無効なURL</string>
   <string name="toast_missing_preset_file">「%1$s」用のプリセットファイルが欠落しています</string>
   <string name="toast_invalid_filter_regexp">フィルター内に不適切な正規表現 キー=\"%1$s\" 値=\"%2$s\"</string>
   <string name="toast_error_accessing_photo">写真 %1$s を利用できません。</string>
@@ -631,8 +740,9 @@
   <string name="toast_null_island">エレメントを0°/0°(Null Island)に追加しないでください</string>
   <string name="toast_string_too_long">文字列が長すぎます (%1$d 文字)、切り捨てました！</string>
   <string name="toast_illegal_operation">不正な操作： %1$s</string>
+  <string name="toast_all_way_nodes_download">全てのウェイノードは、ダウンロードされた領域内でなければなりません</string>
   <string name="toast_preset_creation_failed">プリセット「%1$s」を作成できませんでした: %2$s</string>
-  <string name="toast_imperial_units">不明な帝国単位</string>
+  <string name="toast_imperial_units">欠如している帝国単位</string>
   <string name="toast_server_connection_failed">サーバーに接続できませんでした: %1$s</string>
   <string name="toast_flus_all_caches">この操作は全てのキャッシュをクリアします！</string>
   <string name="toast_applied_offset">画像オフセットを適用しました。</string>
@@ -646,9 +756,12 @@
   <string name="toast_remote_nmea_connection_closed">遠隔NMEA接続は閉じました</string>
   <string name="toast_tags_copied">タグがクリップボードにコピーされました</string>
   <string name="toast_tags_cut">タグがクリップボードに切り取られました</string>
-  <string name="toast_properties_copied">プロパティがクリップボードにコピーされました</string>
+  <string name="toast_properties_copied">属性がクリップボードにコピーされました</string>
   <string name="toast_task_conflict">%1$s がサーバー上で変更されました。最初にアップロードしてから再ダウンロードしてください</string>
   <string name="toast_move_note_warning">新しいノートのみが移動できます</string>
+  <string name="toast_task_layer_disabled">課題レイヤーは無効です</string>
+  <string name="toast_unable_to_create_task_layer">課題レイヤーを作成できませんでした</string>
+  <string name="toast_merged">統合しました</string>
   <string name="toast_invalid_style_file">不正な様式ファイル %1$s\n%2$s</string>
   <string name="toast_updated">%1$s を更新しました</string>
   <string name="toast_cannot_resume_download_of">%1$s のダウンロードを再開できません</string>
@@ -669,6 +782,7 @@
   <string name="toast_phone_number_reformatted">電話番号の書式が直されました</string>
   <string name="toast_members_not_downloaded">リレーションのメンバーがダウンロードされていません</string>
   <string name="toast_restart_required">変更を反映するには、Vespucciを再起動する必要があります</string>
+  <string name="toast_unable_to_open_offline_data">オフライン用データを開けません %1$s %2$s</string>
   <string name="toast_no_usable_location">使用できる位置情報がありません</string>
   <string name="toast_default_channel_needs_to_be_enabled">初期設定の通知チャンネルでは、記録の開始が有効化されている必要があります。</string>
   <plurals name="added_required_elements">
@@ -677,17 +791,33 @@
   <string name="toast_out_of_memory">メモリ不足!</string>
   <string name="toast_egm_installed">地球重力モデルがダウンロードされ、インストールされました</string>
   <string name="toast_invalid_number_format">無効な番号の書式 %1$s</string>
+  <string name="toast_error_downloading_mapillary_image">mapillary画像 %1$s のダウンロード中にエラー</string>
+  <string name="toast_error_downloading_mapillary_sequences">mapillary 一連 %1$s のダウンロード中にエラー</string>
+  <string name="toast_nothing_changed">変更なし</string>
+  <string name="toast_preset_failed">プリセット %1$s の作成に失敗しました\nエラー %2$s</string>
+  <string name="toast_outer_rings_differing_tags">外側の輪が、不一致のタグを持ちます</string>
+  <string name="toast_multipolygon_has_incomplete_rings">マルチポリゴンが、未完成の輪を持ちます</string>
   <string name="toast_error_saving_bookmark">ブックマークを保存できません</string>
   <string name="toast_error_loading_style">様式を読み込めません: %1$s</string>
   <string name="toast_only_one_source_supported">1つの様式につき1つの発信源のみ対応</string>
   <string name="toast_style_file_too_large">提供されたその様式は大きすぎで、しかも恐らくはMapbox-GL様式ではないでしょう。</string>
+  <string name="toast_error_element_too_large">属性編集には要素が大きすぎます</string>
+  <string name="toast_api_key_missing">%1$s 用のAPIキーがありません</string>
   <string name="toast_no_track_points">経路点なし</string>
   <string name="toast_no_way_points">ウェイの点なし</string>
   <string name="toast_import_destination_exists">取り込んだ宛先は既に存在します。</string>
   <string name="toast_element_has_been_deleted">要素は削除されました</string>
+  <string name="toast_updating_tags">タグを更新中…</string>
   <string name="toast_error_loading_egm">地球重力モデルの読み込み中にエラー %1$s</string>
   <string name="toast_querying_wms_server_failed">WMSサーバーへの問い合わせに失敗: %1$s</string>
+  <string name="toast_note_not_found">メモ #%1$d が見つかりません</string>
   <string name="toast_no_compass">端末は方位磁石機能を持ちません!</string>
+  <string name="toast_panoramax_sequence_error">panoramax一連 id %1$s id %2$s を取得できません</string>
+  <string name="toast_panoramax_image_not_in_sequence_error">一連内に画像id %1$s が見つかりません</string>
+  <string name="toast_panoramax_sequence_exception">panoramax一連を取得できません\n%1$s</string>
+  <string name="toast_panoramax_instance_list_error">panoramaxインスタンス一覧を取得できません\n%1$s</string>
+  <string name="toast_authorisation_successful">認証成功!</string>
+  <string name="toast_authorisation_failed">認証失敗\n%1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">発信源MapSplitには最小と最大の拡大が設定されている必要があります</string>
   <string name="error_pbf_no_version">PBFファイル内のバージョン情報が欠落しています</string>
@@ -718,6 +848,7 @@
   <string name="check">小切手</string>
   <string name="download">ダウンロード</string>
   <string name="abort">中止</string>
+  <string name="pause">Pause</string>
   <string name="ignore">無視</string>
   <string name="select">選択</string>
   <string name="skip">スキップ</string>
@@ -770,7 +901,7 @@
   <string name="tag_dialog_value_hint">タップして値入力</string>
   <string name="tag_action_tag_title">選択されたタグ</string>
   <string name="tag_action_members_title">選択されたメンバー</string>
-  <string name="tag_additional_properties">付加プロパティ</string>
+  <string name="tag_additional_properties">追加属性</string>
   <string name="tag_details">詳細</string>
   <string name="tag_menu_move_up">上に移動</string>
   <string name="tag_menu_move_top">先頭に移動</string>
@@ -784,6 +915,7 @@
   <string name="menu_top">先頭</string>
   <string name="menu_select_all">全て選択</string>
   <string name="menu_deselect_all">全て選択解除</string>
+  <string name="menu_invert_selection">選択したものを反転</string>
   <string name="menu_preset_help">プリセットのヘルプ</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i18n">異なる言語を追加</string>
@@ -795,6 +927,7 @@
   <string name="tag_restriction_add_expression">条件式を追加</string>
   <string name="tag_restriction_add_opening_hours">営業時間を追加</string>
   <string name="tag_restriction_value_hint">条件付きの制限</string>
+  <string name="default_checkgroup_hint">追加属性</string>
   <string name="tag_form_unknown_element">不明な要素 (プリセットが見つかりません)</string>
   <string name="tag_form_untagged_element">タグの無い要素</string>
   <!--preset item menu in preset MRU-->
@@ -850,14 +983,13 @@
   <string name="no_nominatim_result">Nominatimサーバーで%1$sが見つかりませんでした</string>
   <!--Menu-->
   <string name="menu_move">表示位置の移動</string>
-  <string name="menu_edit">編集</string>
+  <string name="menu_edit">編集…</string>
   <string name="menu_add">新規</string>
   <string name="menu_config">設定</string>
   <string name="menu_find">検索</string>
   <string name="menu_help">ヘルプ</string>
-  <string name="menu_view">表示</string>
+  <string name="menu_view">表示…</string>
   <string name="menu_erase">ノード削除</string>
-  <string name="menu_set_position">位置</string>
   <string name="menu_split">ウェイ分割</string>
   <string name="menu_remove_node_from_way">ウェイからノードを削除</string>
   <string name="menu_start_end_way">ウェイの開始と終了</string>
@@ -867,7 +999,7 @@
   <string name="menu_add_to_route">ルートを追加</string>
   <string name="menu_relation">リレーションを作成</string>
   <string name="menu_edit_relation">リレーションを編集</string>
-  <string name="menu_add_relation_member">メンバーを追加または削除</string>
+  <string name="menu_add_relation_member">メンバーを追加または除外</string>
   <string name="menu_select_relation_members">メンバーを選択</string>
   <string name="menu_tag">タグ編集</string>
   <string name="menu_openstreetbug">メモを追加</string>
@@ -894,7 +1026,7 @@
   <string name="menu_gps_add_bookmark">ブックマークに追加…</string>
   <string name="menu_enable_gps_autodownload">現在地に追従して自動ダウンロード</string>
   <string name="menu_enable_pan_and_zoom_auto_download">描画範囲の移動や拡大で自動ダウンロード</string>
-  <string name="menu_transfer">ダウンロード・アップロード…</string>
+  <string name="menu_transfer">転送…</string>
   <string name="menu_transfer_download_current">表示領域をダウンロード</string>
   <string name="menu_transfer_download_replace">消去して表示領域をダウンロード</string>
   <string name="menu_transfer_load_current">表示領域を読み込む</string>
@@ -912,13 +1044,13 @@
   <string name="menu_transfer_read_pbf_file">PBFファイルから読み込む</string>
   <string name="menu_transfer_save_file">JOSMファイルに保存…</string>
   <string name="menu_transfer_download_msf">オフラインで使用するためにデータをダウンロード…</string>
-  <string name="menu_transfer_bugs">タスク…</string>
-  <string name="menu_transfer_bugs_download_current">表示範囲のタスクをダウンロード</string>
+  <string name="menu_transfer_bugs">課題…</string>
+  <string name="menu_transfer_bugs_download_current">表示範囲の課題をダウンロード</string>
   <string name="menu_transfer_bugs_upload">全てをアップロード</string>
-  <string name="menu_transfer_bugs_upload_long">全てのタスクをアップロード</string>
+  <string name="menu_transfer_bugs_upload_long">全ての課題をアップロード</string>
   <string name="menu_transfer_bugs_clear">消去</string>
-  <string name="menu_transfer_bugs_clear_long">タスクを消去</string>
-  <string name="menu_transfer_autodownload_long">タスクを自動ダウンロード</string>
+  <string name="menu_transfer_bugs_clear_long">課題を消去</string>
+  <string name="menu_transfer_autodownload_long">課題を自動ダウンロード</string>
   <string name="menu_transfer_save_notes_all">全てのメモを保存…</string>
   <string name="menu_transfer_save_notes_new_and_changed">新しいもしくは変更があったメモを保存</string>
   <string name="menu_transfer_read_notes">メモを読み込み…</string>
@@ -951,7 +1083,7 @@
   <string name="menu_todo">Todo...</string>
   <string name="menu_todo_close_and_next">クローズして次のTodoへ</string>
   <string name="menu_todo_skip_and_next">スキップして次のTodoへ</string>
-  <string name="menu_todo_close_all_tasks">全てのタスクを閉じる</string>
+  <string name="menu_todo_close_all_tasks">全ての課題を閉じる</string>
   <string name="menu_add_to_todo">Todo一覧に追加...</string>
   <string name="menu_set_name">名前をセット</string>
   <string name="menu_tools">ツール…</string>
@@ -968,6 +1100,8 @@
   <string name="menu_tools_remove_egm">地球重力モデルを削除</string>
   <string name="menu_tools_import_data_style">データの様式を取り込む…</string>
   <string name="menu_tools_load_keys">ファイルから諸キーを読込…</string>
+  <string name="menu_tools_export_configuration">設定を出力…</string>
+  <string name="menu_tools_import_configuration">設定を取り込み…</string>
   <!---->
   <string name="menu_modes">方式</string>
   <string name="menu_simple_actions">簡単方式</string>
@@ -991,7 +1125,7 @@
   <string name="menu_layers_load_geojson">GeoJSONレイヤーを追加…</string>
   <string name="menu_layers_add_backgroundlayer">背景画像レイヤーを追加…</string>
   <string name="menu_layers_add_overlaylayer">オーバーレイ画像レイヤーを追加…</string>
-  <string name="menu_layers_add_tasklayer">タスクレイヤーを有効化</string>
+  <string name="menu_layers_add_tasklayer">課題レイヤーを有効化</string>
   <string name="menu_layers_add_grid">升目を有効化</string>
   <string name="menu_layers_add_photolayer">写真レイヤーを有効化</string>
   <string name="menu_layers_enable_mapillary_layer">Mapillaryレイヤーを有効化</string>
@@ -1001,17 +1135,23 @@
   <string name="menu_layers_background_align">空中写真…</string>
   <string name="menu_layers_convert_geojson_todo">GeoJSONオブジェクトからTodoを作成...</string>
   <string name="geojson_todo_title">GeoJSONオブジェクトからTodoを作成</string>
+  <!--Download along dialog-->
   <!---->
   <string name="menu_tools_apply_local_offset">保存されたオフセットを画像に適用</string>
   <string name="menu_tools_background_contrast">彩度</string>
   <string name="menu_tools_oauth_reset">認証をリセット</string>
   <string name="menu_tools_oauth_authorisation">OAuthで認証…</string>
+  <string name="menu_authorize">認証…</string>
   <string name="menu_enable_tagfilter">タグフィルター</string>
-  <string name="menu_enable_presetfilter">リセットフィルター</string>
+  <string name="menu_enable_presetfilter">プリセットフィルター</string>
   <string name="preset_menu_waynodes">ウェイノードを含む</string>
   <string name="preset_menu_invert">フィルターを反転</string>
+  <string name="tag_filter_title">フィルター: %1$s</string>
+  <string name="tag_filter_load">読み込み…</string>
+  <string name="tag_filter_new">新規…</string>
+  <string name="tag_filter_name">フィルター名</string>
   <!--element action mode menu-->
-  <string name="menu_tags">プロパティ</string>
+  <string name="menu_tags">属性</string>
   <!--ELement entry in context menu-->
   <string name="element_for_menu_with_direction">%1$s %2$s</string>
   <!--Text should be as short as possible-->
@@ -1023,6 +1163,8 @@
   <string name="menu_reverse">反転</string>
   <string name="notreversable_description">このウェイは方向に依存する特性を持つタグが付けられているため、反転できません。反転すると、付けられたタグを破壊します。</string>
   <string name="reverse_anyway">とにかく反転する</string>
+  <string name="menu_add_new_image">新規画像を追加…</string>
+  <string name="menu_add_existing_image">既存画像を追加…</string>
   <string name="deleteway_description">あなたはウェイを削除しようとしています。\n\n全てのノードを残したままにするか、このウェイに属するタグなしノードを削除するか、選べます。</string>
   <string name="deleteway_relation_description">あなたは1個以上のリレーションのメンバーであるウェイを削除しようとしています。ウェイを削除すると、リレーションが不正な状態になる可能性があります。</string>
   <string name="deleteway_nodesnotdownloaded_description">ウェイにはダウンロードされた領域の外側のノードが含まれ、もしかすると一貫しない状態の生成なくして削除できません。\n\n再試行する前に、その周囲の領域をダウンロードしてください。</string>
@@ -1053,7 +1195,6 @@
   <string name="actionmode_split_closed_way">閉じたウェイを分割</string>
   <string name="actionmode_rotate">回転</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">1番目のノードを選択</string>
   <string name="actionmode_closed_way_split_2">2番目のノードを選択</string>
   <string name="actionmode_restriction">進行方向制限を追加</string>
   <string name="actionmode_restriction_restart_from">「from」セグメントを再選択</string>
@@ -1061,6 +1202,7 @@
   <string name="actionmode_restriction_restart_via">「via」セグメントを再選択</string>
   <string name="actionmode_restriction_to">「to」セグメントを追加</string>
   <string name="actionmode_restriction_restart_to">「to」セグメントを再選択</string>
+  <string name="select_primary_key">使用する第一キーを選択</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">ノードを追加</string>
   <string name="simple_add_node">画面上の位置をタップしてください</string>
@@ -1076,6 +1218,7 @@
   <string name="menu_paste_multiple">複数回貼り付け</string>
   <string name="simple_paste_multiple">画面上の位置をタップしてください</string>
   <!---->
+  <string name="duplicated_name_template">%1$s の重複</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">背景地図</string>
   <string name="config_backgroundLayer_summary">タイルベースの地図背景。</string>
@@ -1087,14 +1230,14 @@
   <string name="config_scale_summary">地図上に表示する目盛りの種別。</string>
   <string name="config_mapProfile_title">データの様式</string>
   <string name="config_mapProfile_summary">データレイヤー用の様式を選ぶ。</string>
-  <string name="config_enableOpenStreetBugs_title">タスクを表示</string>
+  <string name="config_enableOpenStreetBugs_title">課題を表示</string>
   <string name="config_enableOpenStreetBugs_summary">メモ、バグ、タスクを表示、編集、作成。</string>
   <string name="config_enablePhotoLayer_title">写真レイヤーを有効化</string>
   <string name="config_enablePhotoLayer_summary">地理的情報が付加された写真を表示。</string>
   <string name="config_enableKeepScreenOn_title">スクリーン表示を継続</string>
   <string name="config_enableKeepScreenOn_summary">節電のために画面が切られることを防ぐ。</string>
   <string name="config_largeDragArea_title">ノードに大きな掴み範囲</string>
-  <string name="config_largeDragArea_summary">ノードを掴むために大きな範囲を提供する。</string>
+  <string name="config_largeDragArea_summary">ノードを掴むための大きな範囲を提供する。</string>
   <string name="config_wayNodeDragging_title">ウェイノードの掴みを有効化</string>
   <string name="config_wayNodeDragging_summary">選択されたウェイの個々のノードをドラッグ可能にする。</string>
   <string name="config_advancedprefs">高度な設定</string>
@@ -1102,9 +1245,15 @@
   <string name="config_presetbutton_title">プリセット</string>
   <string name="config_presetbutton_summary">JOSM互換プリセット追加と有効化</string>
   <string name="config_built_in_preset">内蔵プリセット</string>
+  <string name="config_keyboard_shortcuts_title">ショートカットキー</string>
+  <string name="config_keyboard_shortcuts_summary">キーボードショートカットの対応付けを変更</string>
   <!--Validator preferences-->
-  <string name="config_validatorprefs_title">入力値検査の設定</string>
-  <string name="config_validatorprefs_summary">検証ルール設定</string>
+  <string name="config_validatorprefs_title">妥当性検査設定</string>
+  <string name="config_validatorprefs_summary">妥当性検査用の諸規定を設定します。</string>
+  <string name="config_connectedNodeTolerance_title">要接続ノードの間隙</string>
+  <string name="config_connectedNodeTolerance_summary">通り・道路の終端のノードと通り・道路がこの距離(メートル)以内の隔たりであれば、それが接続されなければならないとします。</string>
+  <string name="config_enabledValidations_title">有効な諸妥当性検査</string>
+  <string name="config_enabledValidations_summary">個々の妥当性検査を有効化または無効化します</string>
   <!--opening hours templates-->
   <string name="config_opening_hours_title">営業時間テンプレート</string>
   <string name="config_opening_hours_summary">開業時間のテンプレートを読み込み、保存及び削除</string>
@@ -1123,29 +1272,17 @@
   <string name="config_tagFormEnabled_title">タグ枠を表示</string>
   <string name="config_tagFormEnabled_summary">編集用にタグ枠を表示します。</string>
   <string name="config_supportPresetLabels_title">プリセットからラベルを表示</string>
-  <string name="configsupportPresetLabels_summary">タグ枠編集機構内にプリセットのラベルを表示</string>
-  <string name="config_showCameraAction_title">カメラ操作を表示</string>
-  <string name="config_showCameraAction_summary">アクションバーにカメラアイコンを表示します。</string>
-  <string name="config_selectCameraApp_title">カメラアプリ</string>
-  <string name="config_selectCameraApp_summary">使用するカメラアプリを選択してください。</string>
-  <string name="config_system_camera">システムのデフォルト</string>
-  <string name="config_open_camera">Open Camera</string>
-  <string name="config_fv5_lite">FV-5 Lite</string>
-  <string name="config_fv5_pro">FV-5 Pro</string>
-  <string name="config_useInternalPhotoViewer_title">組み込みの写真ビューワーを使用</string>
-  <string name="config_useInternalPhotoViewer_summary">組み込みの写真ビューワーを使用します。チェックがついていない場合は、外部のビューワーが使用されます。</string>
-  <string name="config_indexMediaStore_summary">写真を利用するために、追加でMediaStoreを使用します</string>
-  <string name="config_indexMediaStore_title">MediaStoreを使用</string>
-  <string name="config_addToMediaStore_summary">MediaStoreへ、記録した画像を追加するカメラボタン</string>
-  <string name="config_addToMediaStore_title">MediaStoreへ画像を追加</string>
+  <string name="config_supportPresetLabels_summary">タグ枠編集機構内にプリセットのラベルを表示</string>
   <string name="config_alwaysDrawBoundingBoxes_title">ダウンロードされていない領域を常に暗くする</string>
-  <string name="config_alwaysDrawBoundingBoxes_summary">鍵状態中にダウンロードされていない領域を暗くします。</string>
+  <string name="config_alwaysDrawBoundingBoxes_summary">ロック状態中にダウンロードされていない領域を暗くします。</string>
   <string name="config_map_orientation_title">地図画面の向き</string>
   <string name="config_map_orientation_summary">端末の向きが変わるときの地図画面のふるまい。</string>
   <string name="config_showTolerance_title">反応域を表示</string>
   <string name="config_showTolerance_summary">選択可能な要素の範囲を表示します。</string>
   <string name="config_use_back_for_undo_title">← キーを元に戻すために使用</string>
   <string name="config_use_back_for_undo_summary">主編集画面で ← キーを元に戻すために使用します。</string>
+  <string name="config_imageLicence_title">画像の著作権情報</string>
+  <string name="config_imageLicence_summary">アップロード画像に使用される著作権情報</string>
   <string name="config_theme_title">テーマ</string>
   <string name="config_theme_summary">アプリの様式を選択します</string>
   <string name="config_splitActionBarEnabled_title">分割アクションバーを利用可にする</string>
@@ -1154,8 +1291,8 @@
   <string name="config_appLocale_device_language">端末の言語</string>
   <string name="config_maxInlineValues_title">埋め込まれた項目の最大数</string>
   <string name="config_maxInlineValues_summary">タグ枠で表示される埋め込まれた項目の最大個数</string>
-  <string name="config_autoLockDelay_title">自動で鍵を掛けるまでの待ち時間</string>
-  <string name="config_autoLockDelay_summary">自動で鍵を掛ける前に待つ秒の数値。0で無効。</string>
+  <string name="config_autoLockDelay_title">自動ロックまでの待ち時間</string>
+  <string name="config_autoLockDelay_summary">自動ロックまでに待つ秒数。0で無効。</string>
   <string name="config_autoLockDelay_current">%1$d 秒</string>
   <string name="config_enableAntiAliasing_title">アンチエイリアスを有効化</string>
   <string name="config_enableAntiAliasing_summary">線をより滑らかにする</string>
@@ -1172,21 +1309,46 @@
   <string name="config_uploadChecker_title">アップロード注意通知間隔</string>
   <string name="config_uploadChecker_summary">変更を公開していない場合に、注意の通知を出す間隔です。</string>
   <string name="config_uploadChecker_current">%1$d時間</string>
+  <string name="config_dataWarn_title">データ過多警告</string>
+  <string name="config_dataWarn_summary">読み込まれたデータが過多であるとして警告を開始する、ノード個数</string>
   <string name="config_beepVolume_title">ビープの音量</string>
+  <string name="config_beepVolume_summary">ビープの音量設定。</string>
   <string name="config_beepVolume_current">%1$d</string>
   <string name="config_mapillary_min_zoom_title">Mapillary用の最小拡大</string>
   <string name="config_mapillary_min_zoom_summary">Mapillaryのデータが表示される前に必要な最小の拡大段階。</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>
+  <string name="config_nameCap_summary">入力された名称タグを自動で大文字化します</string>
+  <string name="config_nameCap_title">名称大文字化</string>
   <string name="config_longStringLimit_current">%1$d</string>
   <string name="config_zoomWithKeys_title">拡大縮小に音量キーを使用</string>
   <string name="config_zoomWithKeys_summary">拡大と縮小用に音量キーの使用を有効にします。</string>
   <string name="config_poi_keys_title">付近のPOIを表示</string>
   <string name="config_poi_keys_summary">付近のPOI(関心地点)を表示するために使用されるキーを設定します。</string>
+  <!--Camera and image settings-->
+  <string name="config_category_camera_and_images">カメラと画像の設定</string>
+  <string name="config_showCameraAction_title">カメラ操作を表示</string>
+  <string name="config_showCameraAction_summary">アクションバーにカメラアイコンを表示します。</string>
+  <string name="config_selectCameraApp_title">カメラアプリ</string>
+  <string name="config_selectCameraApp_summary">使用するカメラアプリを選択してください。</string>
+  <string name="config_system_camera">システムのデフォルト</string>
+  <string name="config_open_camera">Open Camera</string>
+  <string name="config_fv5_lite">FV-5 Lite</string>
+  <string name="config_fv5_pro">FV-5 Pro</string>
+  <string name="config_useInternalPhotoViewer_title">組み込みの写真ビューワーを使用</string>
+  <string name="config_useInternalPhotoViewer_summary">組み込みの写真ビューワーを使用します。チェックがついていない場合は、外部のビューワーが使用されます。</string>
+  <string name="config_indexMediaStore_summary">写真を利用するために、追加でMediaStoreを使用します</string>
+  <string name="config_indexMediaStore_title">MediaStoreを使用</string>
+  <string name="config_addToMediaStore_summary">カメラボタンで記録した画像を、MediaStoreへ追加します。</string>
+  <string name="config_addToMediaStore_title">MediaStoreへ画像を追加</string>
+  <string name="config_imageStores_summary">画像保存用の記憶位置を指定します。</string>
+  <string name="config_imageStores_title">画像記憶</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">データと編集の設定</string>
   <string name="config_category_editing_summary">自動ダウンロード、保存、通知の設定。</string>
   <string name="config_forceContextMenu_title">常にコンテキストメニューを利用する</string>
   <string name="config_forceContextMenu_summary">選択されたものがあいまいな場合にコンテキストメニューを常に表示する。</string>
+  <string name="config_overrideRegionAddressTags_title">初期設定の住所タグを上書き</string>
+  <string name="config_overrideRegionAddressTags_summary">地域固有の値に優先して、我々の住所タグ設定を使用します</string>
   <string name="config_address_tags">住所タグ</string>
   <string name="config_address_tags_summary">タグは住所の予測に使用されます。</string>
   <string name="config_neighbourDistance_title">近隣住所の間の距離</string>
@@ -1196,6 +1358,8 @@
   <string name="config_enableNameSuggestions_summary">名称タグに提案を有効化します</string>
   <string name="config_enableNameSuggestionsPresets_title">名称提案プリセットを有効化</string>
   <string name="config_enableNameSuggestionsPresets_summary">名称提案が選択された際、自動的にプリセットを入力します。</string>
+  <string name="config_autoApplyPreset_title">プリセットの自動適用を有効化</string>
+  <string name="config_autoApplyPreset_summary">属性編集の開始時に、プリセットを自動で適用します。</string>
   <string name="config_generateAlerts_title">通知を生成</string>
   <string name="config_generateAlerts_summary">問題やメモのあるデータ用に通知を生成する</string>
   <string name="config_groupAlertsOnly_summary">通知グループによる音の警告を一回だけ鳴らす</string>
@@ -1213,33 +1377,47 @@
   <string name="config_autoformatPhoneNumbers_summary">電話番号の形式を自動的に整える機能を有効化します。</string>
   <string name="config_maxOffsetDistance_title">保存された画像オフセット用の最大距離</string>
   <string name="config_maxOffsetDistance_current">%1$d メートル</string>
+  <string name="config_useImperialUnits_title">測定に帝国単位を使用</string>
+  <string name="config_useImperialUnits_summary">慣例的に帝国単位を使用する国で、測定に帝国単位を使用します。</string>
+  <string name="config_minCircleNodes_current">%1$d 個のノード</string>
   <string name="config_maxCircleSegment_current">%1$d メートル</string>
   <string name="config_minCircleSegment_current">%1$d メートル</string>
   <string name="config_replaceTolerance_title">タグ付きノードを移動する際の最大距離</string>
   <string name="config_replaceTolerance_summary">ウェイの配置を変えてタグ付きノードを移動する際の最大距離</string>
   <string name="config_replaceTolerance_current">%1$d メートル</string>
+  <string name="config_minMoveWayNodesWarning_title">移し警告用の、最小ウェイノード数</string>
+  <string name="config_minMoveWayNodesWarning_summary">移したウェイの警告が発動するのに必要な、ウェイの最小ノード個数です。</string>
+  <string name="config_minMoveWayNodesWarning_current">%1$d 個</string>
+  <string name="config_minMoveVisibleWayNodesWarning_title">可視ノード移し警告用の、最小ウェイノード数</string>
+  <string name="config_minMoveVisibleWayNodesWarning_summary">可視ノード確認との潜在的警告が発動するのに必要な、ウェイの最小ノード個数です。</string>
+  <string name="config_minMoveVisibleWayNodesWarning_current">%1$d 個</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">自動ダウンロード設定</string>
+  <string name="config_category_auto_download_summary">データと課題の自動ダウンロード設定</string>
   <string name="config_extTriggeredDownloadRadius_title">ダウンロード半径</string>
   <string name="config_downloadRadius_current">%1$d メートル</string>
   <string name="config_maxDownloadSpeed_title">最大自動ダウンロード速度</string>
   <string name="config_maxDownloadSpeed_summary">自動ダウンロードを一時停止させるための上限速度(km/h)</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
-  <string name="config_autoPrune_title">自動節減</string>
-  <string name="config_autoPrune_summary">メモリ内とタスクの自動節減を有効化または無効化</string>
+  <string name="config_autoPrune_summary">メモリ内データと課題の自動節減を有効化または無効化</string>
   <string name="config_autoPruneNodeLimit_title">自動節減の上限</string>
   <string name="config_autoPruneNodeLimit_summary">メモリ内でこのノード数に到達したとき、節減が発動します。</string>
   <string name="config_autoPruneNodeLimit_current">%1$d 個のノード</string>
   <string name="config_autoPruneBoundingBoxLimit_title">自動節減する矩形境界の上限</string>
   <string name="config_autoPruneBoundingBoxLimit_summary">メモリ内でこの矩形境界数に到達したとき、節減が発動します。</string>
+  <string name="config_autoPruneBoundingBoxLimit_current">%1$d 個の矩形</string>
   <string name="config_panAndZoomLimit_title">拡大制限</string>
   <string name="config_panAndZoomLimit_summary">描画範囲の移動や拡大で自動ダウンロードする最小拡大段階です。</string>
   <string name="config_panAndZoomLimit_current">%1$d</string>
-  <string name="config_bugFilter_summary">メモ、バグ、タスクレイヤーに表示させる要素を選択</string>
-  <string name="config_maxBugDownloadSpeed_summary">メモ、バグ、タスクの自動ダウンロードを一時停止させるための最低制限速度(km/h)</string>
-  <string name="config_autoPruneTaskLimit_title">タスク自動節減の上限</string>
-  <string name="config_autoPruneTaskLimit_summary">メモリ内でこのタスク数に到達したとき、節減が発動します。</string>
-  <string name="config_autoPruneTaskLimit_current">%1$d 件のタスク</string>
+  <string name="config_bugFilter_title">課題フィルター</string>
+  <string name="config_bugFilter_summary">メモ、バグ、課題レイヤーに表示させる要素を選択</string>
+  <string name="config_bugDownloadRadius_title">課題ダウンロード半径</string>
+  <string name="config_bugDownloadRadius_summary">ダウンロードする課題の半径(メートル)。</string>
+  <string name="config_maxBugDownloadSpeed_title">最大課題自動ダウンロード速度</string>
+  <string name="config_maxBugDownloadSpeed_summary">メモ、バグ、課題の自動ダウンロードを一時停止させるための最低制限速度(km/h)</string>
+  <string name="config_autoPruneTaskLimit_title">課題自動節減の上限</string>
+  <string name="config_autoPruneTaskLimit_summary">メモリ内でこの課題数に到達したとき、節減が発動します。</string>
+  <string name="config_autoPruneTaskLimit_current">%1$d 件の課題</string>
   <!--Location Settings-->
   <string name="config_category_gps">位置情報設定</string>
   <string name="config_category_gps_summary">GPS/GNSS設定値及びその他の位置情報提供元。</string>
@@ -1255,7 +1433,7 @@
   <string name="config_gps_distance_current">%1$d メートル</string>
   <string name="config_leaveGpsDisabled_title">GPS/GNSSが無効のままにする</string>
   <string name="config_leaveGpsDisabled_summary">GPS/GNSSが無効の場合、有効にするかどうかを尋ねません。</string>
-  <string name="config_gps_network_title">ネットワークの位置にフォールバック</string>
+  <string name="config_gps_network_title">ネットワークの位置情報にフォールバック</string>
   <string name="config_gps_network_summary">GPS/GNSS測位が存在しないか有効化されていない場合、ネットワーク提供者にフォールバックします。</string>
   <string name="config_gnssTimeToStale_title">位置情報が期限切れになる時間</string>
   <string name="config_gnssTimeToStale_summary">場所が期限切れと見なす必要がある位置情報の経過時間 (秒単位)。</string>
@@ -1274,6 +1452,7 @@
   <string name="config_osmoseServer_title">OSMOSE サーバー</string>
   <string name="config_osmoseServer_summary">OSMOSEサーバー用のURL。</string>
   <string name="config_geocoderbutton_title">ジオコーダー設定</string>
+  <string name="config_geocoderbutton_summary">検索機能用のジオコーダーを追加、編集、削除。</string>
   <string name="config_taginfoServer_title">Taginfoサーバー</string>
   <string name="config_taginfoServer_summary">プリセットの生成に使用するTaginfoサーバー</string>
   <string name="config_overpassServer_title">Overpassサーバー</string>
@@ -1327,8 +1506,8 @@
   <string name="config_voiceCommandsEnabled_summary">音声コマンドの支援を有効にします。</string>
   <string name="config_splitWindowForPropertyEditor_summary">利用可能な場合は、分離されたウィンドウ内に属性編集画面を表示します。</string>
   <string name="config_splitWindowForPropertyEditor_title">属性編集画面の分離を有効化</string>
-  <string name="config_newTaskForPropertyEditor_summary">プロパティエディターを起動する際にFLAG_ACTIVITY_NEW_TASKを設定します。特定のランチャーのアプリを再開するときの挙動を改善するかもしれません。</string>
-  <string name="config_newTaskForPropertyEditor_title">プロパティエディタで「新しいタスク」モードを使う</string>
+  <string name="config_newTaskForPropertyEditor_summary">属性編集を起動する際にFLAG_ACTIVITY_NEW_TASKを設定します。特定のランチャーのアプリを再開するときの挙動を改善するかもしれません。</string>
+  <string name="config_newTaskForPropertyEditor_title">属性編集で「新しい課題」モードを使う</string>
   <!---->
   <string name="manage_apis">APIを管理</string>
   <string name="config_api_url_title">API URL</string>
@@ -1341,23 +1520,38 @@
   <string name="listedit_use_translations">翻訳を使用</string>
   <string name="manage_geocoders">ジオコーダーの管理</string>
   <string name="listedit_supports_compressed_uploads">圧縮アップロードに対応</string>
+  <string name="geocoder_type">ジオコーダーの種別</string>
+  <string name="manage_image_stores">画像記憶を管理</string>
+  <string name="imagestore_type">画像記憶の種別</string>
   <!--preset downloader messages-->
   <string name="preset_update">プリセットを更新</string>
-  <string name="preset_download_successful">プリセットをダウンロードしました</string>
-  <string name="preset_download_failed">プリセットファイルをダウンロードできませんでした。プリセットは動作しません。</string>
-  <string name="preset_download_parse_failed">プリセットファイルは不正です。プリセットは動作しません。</string>
+  <string name="resource_download_successful">リソースをダウンロードしました</string>
+  <string name="resource_load_successful">リソースを読み込みました</string>
+  <string name="resource_download_failed">リソースファイルをダウンロードできませんでした。そのリソースは機能しません。</string>
+  <string name="resource_load_failed">リソースファイルを読み込めませんでした。そのリソースは機能しません。</string>
+  <string name="preset_download_parse_failed">リソースファイルは不正です。リソースは動作しません。</string>
   <string name="preset_download_missing_images">プリセットファイルをダウンロードしました。ただし、一部の欠落しているアイコンはダウンロードしませんでした。</string>
-  <string name="preset_download_title">プリセットのダウンローダー</string>
+  <string name="resource_download_title">リソースダウンローダー</string>
   <!--preset management-->
   <string name="preset_management_delete">本当にプリセットを削除しますか?</string>
+  <!--style downloader messages-->
+  <string name="style_update">様式を更新</string>
+  <!--style management-->
+  <string name="manage_styles">様式を管理</string>
+  <string name="style_management_delete">本当に様式を削除しますか?</string>
+  <!--Image storage management-->
+  <string name="imagestores_add_from_panoramax_list">panoramaxインスタンス一覧から追加…</string>
+  <string name="imagestores_add_manually">手動で追加…</string>
   <!--url handler activity-->
-  <string name="urldialog_add_preset">プリセットを追加</string>
-  <string name="urldialog_preset_exists">プリセットは既に存在しています</string>
-  <string name="urldialog_preset_download_successful">プリセットをダウンロードしました。</string>
+  <string name="urldialog_add_preset">プリセットを追加…</string>
+  <string name="urldialog_resource_exists">このリソースは既に存在しています</string>
+  <string name="urldialog_resource_download_successful">リソースをダウンロードしました。</string>
   <string name="urldialog_api_exists">このURLのAPIは既に存在しています。しかし、他のものを追加できます (例: アカウントの変更が簡単になります)。</string>
-  <string name="urldialog_add_api">APIを追加</string>
+  <string name="urldialog_add_api">APIを追加…</string>
   <string name="urldialog_nodata_text">設定URLは正しいデータを含んでいません。</string>
-  <string name="urldialog_add_geocoder">ジオコーダーを追加</string>
+  <string name="urldialog_add_geocoder">ジオコーダーを追加…</string>
+  <string name="urldialog_add_image_store">画像記憶を追加…</string>
+  <string name="urldialog_add_style">様式を追加…</string>
   <!--API configuration-->
   <string name="api_name">API名</string>
   <string name="api_url">API URL</string>
@@ -1365,6 +1559,19 @@
   <string name="notes_url">メモ API URL (任意)</string>
   <string name="copy_of">%1$sのコピー</string>
   <string name="choose_oauth_config">OAuth設定を選択</string>
+  <!--image upload dialog-->
+  <string name="image_upload_title">アップロード先を選択</string>
+  <string name="image_upload">アップロード</string>
+  <string name="image_upload_and_remove">アップロードと削除</string>
+  <string name="image_upload_not_authorized">対象のストレージ用に認証していないため、アップロードに失敗しました</string>
+  <string name="image_upload_failed">アップロード失敗 %1$s</string>
+  <string name="image_upload_failed_duplicate_image">画像はすでにアップロードに成功しました。</string>
+  <string name="wikimedia_meta_title">Wikimediaのメタデータ</string>
+  <string name="wikimedia_meta_filename">ファイル名</string>
+  <string name="wikimedia_meta_description">説明</string>
+  <string name="wikimedia_meta_source">情報源</string>
+  <string name="wikimedia_meta_author">作者</string>
+  <string name="wikimedia_meta_category">カテゴリー</string>
   <!--common terms-->
   <string name="add">追加</string>
   <string name="edit">編集</string>
@@ -1379,18 +1586,20 @@
   <string name="URI">URI</string>
   <!---->
   <string name="empty_list">エントリーなし</string>
-  <string name="geocoder_type">ジオコーダーの種別</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">プリセット</string>
+  <string name="style">スタイル</string>
   <string name="api">API</string>
   <string name="undo">元に戻す</string>
   <string name="redo">やり直し</string>
   <string name="undo_nothing">元に戻すことがありません</string>
+  <!--background / forground services-->
   <string name="tracking_active_title">Vespucci バックグラウンドサービス</string>
   <string name="tracking_active_title_short">バックグラウンドサービスが有効</string>
   <string name="tracking_active_text">GPS経路を記録または自動ダウンロード中</string>
   <string name="tracking_long_text">VespucciはGPX経路を記録または自動ダウンロードします。完了するには、以下のボタンもしくはアプリ内の戻るボタンを押して終了します。</string>
   <string name="gps_failure">GPSの有効化に失敗しました</string>
+  <string name="gps_service_start_failure">GPSサービスの開始に失敗しました。再試行してください。\n\nエラー: %1$s</string>
   <!--element description-->
   <string name="address_housenumber">住所 %1$s</string>
   <string name="address_housenumber_street">住所 %1$s %2$s</string>
@@ -1478,14 +1687,14 @@
   <string name="issue_role_reversed">ロールを反転しました</string>
   <string name="issue_oneway_direction_reversed">一方通行の方向を反転しました</string>
   <string name="issue_role_conflict">ロールが競合しています</string>
-  <string name="issue_merged_tags">タグをマージしました</string>
+  <string name="issue_merged_tags">タグを統合しました</string>
   <string name="issue_same_object">同じオブジェクト</string>
   <string name="issue_merged_metric">長さに依存する値を結合しました</string>
   <string name="issue_split_metric">長さに依存する値を分割しました</string>
   <string name="issue_split_route_ordering">ルートを手動で並び替える必要があるかもしれません</string>
   <string name="issue_split_area">エリアを分割しました。マルチポリゴンに変換する必要があるかもしれません</string>
   <string name="issue_precondition_relation_member_count">リレーションのメンバーが多すぎます</string>
-  <string name="issue_replace_extracted_node">タグ付けされたノードをウェイから抽出しました</string>
+  <string name="issue_replace_extracted_node">ノードをウェイから抽出しました</string>
   <string name="issue_replace_member_element_replaced">メンバー要素を置き換えました</string>
   <!--time and distance-->
   <plurals name="days">
@@ -1527,7 +1736,17 @@
   <string name="way_id">ウェイ %1$d</string>
   <string name="relation_id">リレーション %1$d</string>
   <!--Tile downloader diagnostics-->
+  <string name="layer_diag_title">レイヤー診断</string>
   <string name="empty_tile">空のタイル</string>
+  <string name="tile_error">タイルのエラーコード: %1$d\n\n%2$s</string>
+  <string name="tile_error_message">タイルのエラーメッセージ:\n\n%1$s\n\n%2$s</string>
+  <string name="unexpected_tile_format">予期せぬ形式\nURL:%1$s %2$s</string>
+  <string name="unexpected_tile_format_subtype">予期せぬ形式の亜型 %1$s\nURL: %2$s</string>
+  <string name="diagnostics_for_tile">%1$s 用の診断</string>
+  <string name="tile_status">状態: %1$s</string>
+  <string name="tile_input_error">タイルの入力エラー: %1$s\nURL: %2$s</string>
+  <string name="tile_data_received">%1$d バイトの受信に成功しました</string>
+  <string name="tile_mark_invalid">タイルを不正として印す</string>
   <string name="tile_decoding_failed">タイルのデコードに失敗</string>
   <string name="tile_success">成功</string>
   <string name="tile_fail">失敗</string>
@@ -1535,4 +1754,16 @@
   <string name="tile_io_error">入出力エラー</string>
   <string name="tile_no_network">ネットワークなし</string>
   <string name="tile_unknown_error">未知のエラー</string>
+  <!--Keyboard Shortcuts UI-->
+  <string name="keyboard_shortcuts_empty">利用可能なショートカットがありません</string>
+  <string name="keyboard_shortcut_modifier">修飾キー</string>
+  <string name="keyboard_shortcut_key">キー文字</string>
+  <string name="keyboard_shortcut_save">保存</string>
+  <string name="keyboard_shortcut_reset">リセット</string>
+  <string name="keyboard_shortcut_saved">ショートカットを保存しました</string>
+  <string name="keyboard_shortcut_save_error">ショートカットを保存中にエラー</string>
+  <string name="keyboard_shortcuts_reset_all">全てを初期設定にリセット</string>
+  <string name="keyboard_shortcuts_reset_title">ショートカットをリセット</string>
+  <string name="keyboard_shortcut_key_required">キー文字は必須です</string>
+  <string name="keyboard_shortcut_duplicate">重複したショートカット</string>
 </resources>

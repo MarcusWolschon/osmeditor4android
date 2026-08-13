@@ -76,6 +76,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | value_type                    | extension | indicate the kind of value this tag should have
 |                   | regions                       | supported | comma separated list of countries this preset group is applicable for
 |                   | exclude_regions               | supported | if true, invert the meaning of regions
+|                   | deprecated                    | extension | display only if already present
 |__&lt;combo&gt;__  |                               | supported | combo elements can contain a sequence of list_entry elements, or references to chunks that contain the same
 |                   | key                           | supported | required
 |                   | text                          | supported |
@@ -97,6 +98,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | values_from                   | supported | extension: if the target method supports a String argument the current key will be passed
 |                   | regions                       | supported | comma separated list of countries this preset group is applicable for
 |                   | exclude_regions               | supported | if true, invert the meaning of regions
+|                   | deprecated                    | extension | display only if already present
 |__&lt;multiselect&gt;__ |                          | supported | multiselect elements can contain a sequence of list_entry elements, or references to chunks that contain the same
 |                   | key                           | supported | required
 |                   | text                          | supported |
@@ -120,6 +122,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | value_count_key               | extension | reference to a tag that will hold the number of values this multiselect should contain
 |                   | regions                       | supported | comma separated list of countries this preset group is applicable for
 |                   | exclude_regions               | supported | if true, invert the meaning of regions
+|                   | deprecated                    | extension | display only if already present
 |__&lt;list_entry&gt;__       |                     | supported |
 |                   | value                         | supported | required
 |                   | display_value                 | supported |
@@ -129,12 +132,14 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | image                         | extension |
 |                   | regions                       | supported | comma separated list of countries this preset group is applicable for
 |                   | exclude_regions               | supported | if true, invert the meaning of regions
+|                   | deprecated                    | extension | display only if already present
 |__&lt;checkgroup&gt;__       |                     | supported |
 |                   | columns                       | ignored   |
 |                   | text                          | extension |
 |                   | text_context                  | extension |
 |                   | regions                       | supported | comma separated list of countries this preset group is applicable for
 |                   | exclude_regions               | supported | if true, invert the meaning of regions
+|                   | deprecated                    | extension | display only if already present
 |__&lt;check&gt;__  |                               | supported |
 |                   | key                           | supported | required
 |                   | text                          | supported |
@@ -148,6 +153,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | use_last_as_default           | extension | "force" has the same effect as "true"
 |                   | regions                       | supported | comma separated list of countries this preset group is applicable for
 |                   | exclude_regions               | supported | if true, invert the meaning of regions
+|                   | deprecated                    | extension | display only if already present
 |__&lt;label&gt;__  |                               | supported |
 |                   | regions                       | extension | comma separated list of countries this preset group is applicable for
 |                   | exclude_regions               | extension | if true, invert the meaning of regions
@@ -175,6 +181,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | regexp                        | ignored   |
 |                   | regions                       | extension | comma separated list of countries this preset group is applicable for
 |                   | exclude_regions               | extension | if true, invert the meaning of regions
+|                   | deprecated                    | extension | display only if already present
 |__&lt;preset_link&gt;__ |                          | supported | Used for tag matching and added to preset MRU list for easy access
 |                        | text                     | ignored   |
 |                        | text_context             | ignored   |
@@ -183,7 +190,8 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 ## Name templates
 
 The Vespucci name templates differ slightly from the JOSM implementation, in particular nested quotes need to be escaped, however any template that works with Vespucci should
-work with JOSM.
+work with JOSM. See [the template parser repository](https://github.com/simonpoole/JosmTemplateParser?tab=readme-ov-file#josmtemplateparser) for more information on our
+implementation.
 
 ## Translation <a name="Translation"></a>
 

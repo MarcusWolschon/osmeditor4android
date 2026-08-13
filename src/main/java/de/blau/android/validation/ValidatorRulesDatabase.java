@@ -28,13 +28,13 @@ public final class ValidatorRulesDatabase {
     private static final String RULESET_TABLE        = "rulesets";
     static final String         ID_FIELD             = "id";
     static final String         NAME_FIELD           = "name";
-    private static final String RESURVEY_TABLE       = "resurveytags";
+    public static final String  RESURVEY_TABLE       = "resurveytags";
     static final String         DAYS_FIELD           = "days";
     static final String         VALUE_FIELD          = "value";
     static final String         ISREGEXP_FIELD       = "is_regexp";
     static final String         KEY_FIELD            = "key";
     static final String         RULESET_FIELD        = "ruleset";
-    private static final String CHECK_TABLE          = "checktags";
+    public static final String  CHECK_TABLE          = "checktags";
     static final String         OPTIONAL_FIELD       = "optional";
 
     static final String QUERY_RESURVEY_DEFAULT  = "SELECT resurveytags.rowid as _id, key, value, is_regexp, days FROM resurveytags WHERE ruleset = "

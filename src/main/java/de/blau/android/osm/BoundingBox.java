@@ -1,5 +1,7 @@
 package de.blau.android.osm;
 
+import static de.blau.android.util.GeoMath.OSM_SCALE;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -187,8 +189,8 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
      * @return a String, representing the bounding box. Format: "left,bottom,right,top" in decimal degrees.
      */
     public String toApiString() {
-        return Double.toString(left / 1E7D) + STRING_DELIMITER + Double.toString(bottom / 1E7D) + STRING_DELIMITER + Double.toString(right / 1E7D)
-                + STRING_DELIMITER + Double.toString(top / 1E7D);
+        return Double.toString(left / OSM_SCALE) + STRING_DELIMITER + Double.toString(bottom / OSM_SCALE) + STRING_DELIMITER
+                + Double.toString(right / OSM_SCALE) + STRING_DELIMITER + Double.toString(top / OSM_SCALE);
     }
 
     /**
@@ -389,7 +391,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
     /**
      * Calculates the dimensions width and height of this bounding box.
      */
-    protected void calcDimensions() {
+    public void calcDimensions() {
         int t;
         if (right < left) {
             t = right;
@@ -438,7 +440,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
      * @return true if the location is in the bounding box
      */
     public boolean contains(double longitude, double latitude) {
-        return contains((int) (longitude * 1E7D), (int) (latitude * 1E7D));
+        return contains((int) (longitude * OSM_SCALE), (int) (latitude * OSM_SCALE));
     }
 
     /**
@@ -480,6 +482,30 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
     }
 
     /**
+     * Return lat value of the vertical center of the bounding box
+     * 
+     * @return vertical center of the bounding box in degrees
+     */
+    public double getCenterLat() {
+        int mBottom = GeoMath.latE7ToMercatorE7(getBottom());
+        int mHeight = GeoMath.latE7ToMercatorE7(getTop()) - mBottom;
+        return GeoMath.mercatorToLat((mBottom + mHeight / 2D) / OSM_SCALE);
+    }
+
+    /**
+     * Get the center of a bounding box in WGS84 coords
+     * 
+     * @return an array with lon and lat value
+     */
+    @NonNull
+    public double[] getCenter() {
+        double[] result = new double[2];
+        result[0] = ((long) getRight() + (long) getLeft()) / (2 * OSM_SCALE);
+        result[1] = getCenterLat();
+        return result;
+    }
+
+    /**
      * Check if the box is valid
      * 
      * Allows degenerated boxes
@@ -498,7 +524,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
      * @return true, if the bbox is smaller than maxAreaDegrees
      */
     public boolean isValidForApi(@NonNull float maxAreaDegrees) {
-        return width / 1E7D * height / 1E7D < maxAreaDegrees;
+        return width / OSM_SCALE * height / OSM_SCALE < maxAreaDegrees;
     }
 
     /**
@@ -510,7 +536,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
         if (!isValidForApi(maxAreaDegrees)) {
             int centerX = (left / 2 + right / 2); // divide first to stay < 2^32
             int centerY = (top + bottom) / 2;
-            double d = Math.sqrt((width / 1E7D * height / 1E7D) / maxAreaDegrees);
+            double d = Math.sqrt((width / OSM_SCALE * height / OSM_SCALE) / maxAreaDegrees);
             final int newWidth = (int) (width / d) / 2;
             setLeft(centerX - newWidth);
             setRight(centerX + newWidth);
@@ -739,6 +765,78 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
                     if (box.getWidth() > 1 && box.getHeight() > 1) { // don't add mini boxes
                         result.add(box);
                     }
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Check if two boxes are adjacent (touching but not overlapping)
+     */
+    public boolean isAdjacent(@NonNull BoundingBox neighbour) {
+        // Horizontally adjacent
+        if ((right == neighbour.left || left == neighbour.right) && bottom < neighbour.top && top > neighbour.bottom) {
+            return true;
+        }
+        // Vertically adjacent
+        return (top == neighbour.bottom || bottom == neighbour.top) && left < neighbour.right && right > neighbour.left;
+    }
+
+    /**
+     * Merge small slivers (boxes with very small width or height) with adjacent boxes.
+     * 
+     * @param boxes list of boxes to consolidate
+     * @param minSize minimum dimension (in 1E7 degrees) to keep as separate box
+     * @return consolidated list
+     */
+    @NonNull
+    public static List<BoundingBox> consolidate(@NonNull List<BoundingBox> boxes, int minSize) {
+        if (boxes.isEmpty()) {
+            return boxes;
+        }
+
+        List<BoundingBox> result = new ArrayList<>(boxes);
+        boolean changed = true;
+
+        // Iteratively merge small boxes with neighbors
+        while (changed) {
+            changed = false;
+            for (int i = 0; i < result.size(); i++) {
+                BoundingBox current = result.get(i);
+
+                // Skip boxes that are reasonably sized in both dimensions
+                if (current.getWidth() >= minSize && current.getHeight() >= minSize) {
+                    continue;
+                }
+
+                // Find best neighbor to merge with (smallest union)
+                int bestNeighbor = -1;
+                long smallestUnion = Long.MAX_VALUE;
+
+                for (int j = 0; j < result.size(); j++) {
+                    if (i == j) {
+                        continue;
+                    }
+                    BoundingBox neighbor = result.get(j);
+                    // Check if adjacent or overlapping
+                    if (current.intersects(neighbor) || current.isAdjacent(neighbor)) {
+                        BoundingBox union = new BoundingBox(current);
+                        union.union(neighbor);
+                        long unionArea = union.approxArea();
+                        if (unionArea < smallestUnion) {
+                            smallestUnion = unionArea;
+                            bestNeighbor = j;
+                        }
+                    }
+                }
+
+                // Merge with best neighbor
+                if (bestNeighbor >= 0) {
+                    current.union(result.get(bestNeighbor));
+                    result.remove(bestNeighbor);
+                    changed = true;
+                    break; // Restart iteration after modification
                 }
             }
         }

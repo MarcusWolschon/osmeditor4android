@@ -20,22 +20,6 @@ Enable the form based tag editor. Default: _on_.
 
 Display labels from presets in the tag form editor. Default: _on_.
 
-### Show camera action
-
-Show a camera button on the main display (if a camera app is present). Default: _on_.
-
-### Camera app
-
-Select the camera app to use. If your, installed, camera app is not listed, please report this and we will add it to the list. Unluckily google does not allow to automatically determine installed camera apps outside of pre-installed ones. Default: _System default_.
-
-### Use the MediaStore
-
-Additionally use Androids MediaStore for accessing photos. This will add all photographs in JPEG format found via the MediaStore that contain coordinates in their EXIF data to the photo layer. Default: _off_.
-
-### Add images to the MediaStore
-
-Add images recorded via the camera button (see above) to Androids MediaStore. This potentially makes managing the images from an external app easier. Default: _off_.
-
 ### Follow location button layout
 
 Change the side of the display the "Follow location" button is positioned on or remove it completely. Default: _lefthand side_.
@@ -126,6 +110,40 @@ Note: this setting is only applicable when the current locale uses latin script.
 
 Allow the use of the volume keys for zooming in and out. Default: _false_.
 
+### Keyboard shortcuts
+
+Change the mapping for keyboard shortcuts.
+
+## Camera and Images Settings
+
+### Show camera action
+
+Show a camera button on the main display (if a camera app is present). Default: _on_.
+
+### Camera app
+
+Select the camera app to use. If your, installed, camera app is not listed, please report this and we will add it to the list. Unluckily google does not allow to automatically determine installed camera apps outside of pre-installed ones. Default: _System default_.
+
+### Use builtin photo viewer
+
+If checked the internal photo viewer will be used, if not checked the app will attempt to use a suitable 3rd party app on your device. Default: _on_.
+
+### Use the MediaStore
+
+Additionally to the _Pictures_ folder in the Vespucci directory, use Androids MediaStore for accessing photos. This will add all photographs in JPEG or HEIF format found via the MediaStore that contain coordinates in their EXIF data to the photo layer. Default: _off_.
+
+### Add images to the MediaStore
+
+Add images recorded via the camera button (see above) to Androids MediaStore. This potentially makes managing the images from an external app easier. Default: _off_.
+
+### Image storage
+
+Configure online destinations that can be used for storing images. Currently Panoramax instances and Wikimedia Commons are supported.
+
+### Image licence
+
+Licence to use for uploaded images. Currently this is just utilized for the Wikimedia Commons destination.
+
 ## Data and Editing Settings
 
 Settings related to editing.
@@ -208,8 +226,20 @@ Minimum distance between two circle nodes. Default: _0.5m_.
 
 ### Maximum distance to move tagged node
 
-Maximum distance to move a tagged node when replacing way geometry. DEfault: _1.0m_.
-    
+Maximum distance to move a tagged node when replacing way geometry. Default: _1.0m_.
+
+### Min. way node count for move warning
+
+The minimum number of nodes a way needs to have to trigger the moved way warning. Default: _100_.
+
+### Min. way node count for visible node move warning
+
+The minimum number of nodes a way needs to have to trigger the visible node check and potential warning. The warning will be shown if more than half of the nodes in the way are not visible. Default: _5_.
+
+### Ignore subareas
+
+Ignore parent relations that we are a subarea of in the disambiguation modal. Default: _on_.
+   
 ## Auto-download Settings
 
 ### Download radius
@@ -220,17 +250,13 @@ When auto-downloading, the radius of the area that is attempted to download arou
 
 Maximum speed up to which auto-download is attempted. Default: _10 km/h_.
 
-### Auto-prune
-
-Enable/disable automatically pruning in memory data and tasks. Default: _on_.
-
 ### Auto-prune limit
 
-Limit at, when reached, an automatic prune of the data in memory is attempted. Requires _Auto prune_ to be on. Default: _5000 Nodes_.
+Limit at, when reached, an automatic prune of the data in memory is attempted. Requires _Auto prune_ to be on for the [layer](Main%20map%20display.md#layer-control). Default: _5000 Nodes_.
 
 ### Auto-prune Bounding Boxes limit
 
-Number of Bounding Boxes in memory that when reached will trigger a prune. Requires _Auto prune_ to be on. Default: _100 Bounding boxes_.
+Number of Bounding Boxes in memory that when reached will trigger a prune. Requires _Auto prune_ to be on for the [layer](Main%20map%20display.md#layer-control). Default: _100 Bounding boxes_.
     
 ### Zoom limit
 
@@ -247,7 +273,7 @@ Maximum speed up to which auto-download of notes and bugs is attempted. Default:
 
 ### Task auto-prune limit
 
-Limit at, when reached, an automatic prune of the tasks in memory is attempted. Requires _Auto prune_ to be on. Default: _10000 Tasks_.
+Limit at, when reached, an automatic prune of the tasks in memory is attempted. Requires _Auto prune_ to be on for the [layer](Main%20map%20display.md#layer-control). Default: _10000 Tasks_.
 
 ## Location Settings
 
@@ -302,6 +328,9 @@ OpenStreetMap API and other servers configuration.
 This lists all the configured OSM API instances, allows adding further ones and editing the configuration of existing entries. The default configuration contains an entry for the regular openstreetmap.org API, the sandbox API for development and experimentation and (since 21.1.2) one for OpenHistoricalMap.
 
 Select _Edit_ from the overflow menu to configure the URLs including read-only sources and authentication method for a specific entry. Basic Authentication, OAuth 1.0a and OAuth 2 are supported, however the API instance on openstreetmap.org only supports OAuth 2 since June 2024. Additional entries can be added with the "+" button.
+
+Checking _Use authenticated reads_ will authenticate all read operations if the app on your device has been authorised. This will at least reduce the probability
+of issues with rate limiting on the standard OpenStreetMap API (code 509 errors).
 
 For API instances that support uploading compressed bodies in POST requests, _Support compressed uploads_ can be set. By default this is only enabled for the openstreetmap.org API instance. Note that OAuth support for entries that are not pre-configured requires adding corresponding client keys,  
 
@@ -416,6 +445,14 @@ Enable voice command support: Default: _off_.
 ### Enable split window property editor
 
 Enable displaying the property editor in a separate window if available. Default: _off_
+
+### Enable split window review screen
+
+Enable displaying the review screen in a separate window if available. Default: _off_
+
+### Force property editor tab layout
+
+Always use the tab layout of the property editor. This is mainly useful on devices running in desktop mode that otherwise would use the pane layout. Default: _off_
 
 ### Use "new task" mode for property editor
 

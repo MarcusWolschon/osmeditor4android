@@ -1,0 +1,660 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="openstreetmap-cgimap 2.1.0 (1329 spike-07.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <bounds minlat="47.3890115" minlon="8.3853990" maxlat="47.3894632" maxlon="8.3860308"/>
+ <node id="296055264" visible="true" version="8" changeset="168233207" timestamp="2025-06-28T16:01:33Z" user="SimonPoole" uid="92387" lat="47.3885864" lon="8.3858675"/>
+ <node id="296055265" visible="true" version="6" changeset="70109208" timestamp="2019-05-10T13:06:44Z" user="sovereign_ch" uid="5755216" lat="47.3887723" lon="8.3857489"/>
+ <node id="296055266" visible="true" version="5" changeset="70109208" timestamp="2019-05-10T13:06:44Z" user="sovereign_ch" uid="5755216" lat="47.3890119" lon="8.3857031"/>
+ <node id="296055267" visible="true" version="4" changeset="70109208" timestamp="2019-05-10T13:06:44Z" user="sovereign_ch" uid="5755216" lat="47.3890807" lon="8.3856806"/>
+ <node id="296055268" visible="true" version="5" changeset="70109208" timestamp="2019-05-10T13:06:44Z" user="sovereign_ch" uid="5755216" lat="47.3891445" lon="8.3856510"/>
+ <node id="296055269" visible="true" version="5" changeset="13483681" timestamp="2012-10-13T19:38:21Z" user="SimonPoole" uid="92387" lat="47.3894692" lon="8.3852447"/>
+ <node id="296055270" visible="true" version="8" changeset="170403583" timestamp="2025-08-13T18:16:52Z" user="mottiger" uid="7504544" lat="47.3896428" lon="8.3850433">
+  <tag k="crossing" v="uncontrolled"/>
+  <tag k="crossing:island" v="yes"/>
+  <tag k="crossing:markings" v="zebra"/>
+  <tag k="crossing:markings:colour" v="yellow"/>
+  <tag k="highway" v="crossing"/>
+ </node>
+ <node id="416426201" visible="true" version="4" changeset="70109208" timestamp="2019-05-10T13:06:44Z" user="sovereign_ch" uid="5755216" lat="47.3893945" lon="8.3853447"/>
+ <node id="416426203" visible="true" version="4" changeset="70109208" timestamp="2019-05-10T13:06:45Z" user="sovereign_ch" uid="5755216" lat="47.3892674" lon="8.3855414"/>
+ <node id="416426205" visible="true" version="4" changeset="70109208" timestamp="2019-05-10T13:06:45Z" user="sovereign_ch" uid="5755216" lat="47.3888636" lon="8.3857283"/>
+ <node id="577098580" visible="true" version="7" changeset="78094805" timestamp="2019-12-07T19:44:19Z" user="Nzara" uid="481380" lat="47.3893659" lon="8.3853923">
+  <tag k="bus" v="yes"/>
+  <tag k="ele" v="518"/>
+  <tag k="name" v="Vorbühl"/>
+  <tag k="network" v="ZVV"/>
+  <tag k="operator" v="VBZ"/>
+  <tag k="public_transport" v="stop_position"/>
+  <tag k="ref" v="2789"/>
+  <tag k="uic_name" v="Bergdietikon, Vorbühl"/>
+  <tag k="uic_ref" v="8590205"/>
+ </node>
+ <node id="599672191" visible="true" version="2" changeset="152681326" timestamp="2024-06-14T14:15:54Z" user="SimonPoole" uid="92387" lat="47.3895404" lon="8.3857834"/>
+ <node id="599672192" visible="true" version="1" changeset="3456456" timestamp="2009-12-26T17:08:39Z" user="marcschneider" uid="55777" lat="47.3894333" lon="8.3856256"/>
+ <node id="599672193" visible="true" version="4" changeset="70109208" timestamp="2019-05-10T13:06:46Z" user="sovereign_ch" uid="5755216" lat="47.3893260" lon="8.3854561"/>
+ <node id="599672200" visible="true" version="3" changeset="168232381" timestamp="2025-06-28T15:44:00Z" user="SimonPoole" uid="92387" lat="47.3901337" lon="8.3857465"/>
+ <node id="599672201" visible="true" version="2" changeset="10579724" timestamp="2012-02-03T22:05:59Z" user="SimonPoole" uid="92387" lat="47.3900411" lon="8.3856845"/>
+ <node id="599672203" visible="true" version="3" changeset="13483681" timestamp="2012-10-13T19:38:24Z" user="SimonPoole" uid="92387" lat="47.3899476" lon="8.3856997"/>
+ <node id="599672205" visible="true" version="3" changeset="13483681" timestamp="2012-10-13T19:38:24Z" user="SimonPoole" uid="92387" lat="47.3898380" lon="8.3857580"/>
+ <node id="599672206" visible="true" version="3" changeset="13483681" timestamp="2012-10-13T19:38:24Z" user="SimonPoole" uid="92387" lat="47.3897513" lon="8.3858041"/>
+ <node id="599672207" visible="true" version="3" changeset="13483681" timestamp="2012-10-13T19:38:24Z" user="SimonPoole" uid="92387" lat="47.3896793" lon="8.3858273"/>
+ <node id="599672208" visible="true" version="3" changeset="13483681" timestamp="2012-10-13T19:38:24Z" user="SimonPoole" uid="92387" lat="47.3895817" lon="8.3858136"/>
+ <node id="630927779" visible="true" version="5" changeset="70109208" timestamp="2019-05-10T13:06:46Z" user="sovereign_ch" uid="5755216" lat="47.3886945" lon="8.3857867"/>
+ <node id="631659198" visible="true" version="5" changeset="152681326" timestamp="2024-06-14T14:15:54Z" user="SimonPoole" uid="92387" lat="47.3895525" lon="8.3851461"/>
+ <node id="663945236" visible="true" version="6" changeset="78594191" timestamp="2019-12-18T17:35:35Z" user="sovereign_ch" uid="5755216" lat="47.3896908" lon="8.3849966"/>
+ <node id="2157506163" visible="true" version="2" changeset="152138356" timestamp="2024-06-01T20:54:33Z" user="map()" uid="17236937" lat="47.3890799" lon="8.3858568">
+  <tag k="admin_level" v="9"/>
+  <tag k="name" v="Bernold"/>
+  <tag k="place" v="hamlet"/>
+  <tag k="source" v="knowledge"/>
+ </node>
+ <node id="2202925545" visible="true" version="2" changeset="152681326" timestamp="2024-06-14T14:15:54Z" user="SimonPoole" uid="92387" lat="47.3890315" lon="8.3852470"/>
+ <node id="2202925547" visible="true" version="2" changeset="152681326" timestamp="2024-06-14T14:15:54Z" user="SimonPoole" uid="92387" lat="47.3890606" lon="8.3853642"/>
+ <node id="2202925548" visible="true" version="2" changeset="152681326" timestamp="2024-06-14T14:15:54Z" user="SimonPoole" uid="92387" lat="47.3890609" lon="8.3853072"/>
+ <node id="2202925550" visible="true" version="2" changeset="152681326" timestamp="2024-06-14T14:15:54Z" user="SimonPoole" uid="92387" lat="47.3890769" lon="8.3853714"/>
+ <node id="2202925551" visible="true" version="2" changeset="152681326" timestamp="2024-06-14T14:15:54Z" user="SimonPoole" uid="92387" lat="47.3891062" lon="8.3854354"/>
+ <node id="2202925552" visible="true" version="2" changeset="152681326" timestamp="2024-06-14T14:15:54Z" user="SimonPoole" uid="92387" lat="47.3891234" lon="8.3851134"/>
+ <node id="2202925553" visible="true" version="2" changeset="152681326" timestamp="2024-06-14T14:15:54Z" user="SimonPoole" uid="92387" lat="47.3891291" lon="8.3854035"/>
+ <node id="2202925554" visible="true" version="2" changeset="152681326" timestamp="2024-06-14T14:15:54Z" user="SimonPoole" uid="92387" lat="47.3891319" lon="8.3854097"/>
+ <node id="2202925555" visible="true" version="2" changeset="152681326" timestamp="2024-06-14T14:15:54Z" user="SimonPoole" uid="92387" lat="47.3891344" lon="8.3852275"/>
+ <node id="2202925558" visible="true" version="2" changeset="152681326" timestamp="2024-06-14T14:15:54Z" user="SimonPoole" uid="92387" lat="47.3891638" lon="8.3851963"/>
+ <node id="2202925561" visible="true" version="2" changeset="152681326" timestamp="2024-06-14T14:15:54Z" user="SimonPoole" uid="92387" lat="47.3891684" lon="8.3853619"/>
+ <node id="2205375858" visible="true" version="1" changeset="15388164" timestamp="2013-03-16T19:37:35Z" user="SimonPoole" uid="92387" lat="47.3892775" lon="8.3857664"/>
+ <node id="2205375862" visible="true" version="1" changeset="15388164" timestamp="2013-03-16T19:37:35Z" user="SimonPoole" uid="92387" lat="47.3893150" lon="8.3857032"/>
+ <node id="2205375864" visible="true" version="1" changeset="15388164" timestamp="2013-03-16T19:37:35Z" user="SimonPoole" uid="92387" lat="47.3893241" lon="8.3857267"/>
+ <node id="2205375866" visible="true" version="1" changeset="15388164" timestamp="2013-03-16T19:37:35Z" user="SimonPoole" uid="92387" lat="47.3893315" lon="8.3859047"/>
+ <node id="2205375868" visible="true" version="1" changeset="15388164" timestamp="2013-03-16T19:37:35Z" user="SimonPoole" uid="92387" lat="47.3893458" lon="8.3856769"/>
+ <node id="2205375870" visible="true" version="1" changeset="15388164" timestamp="2013-03-16T19:37:35Z" user="SimonPoole" uid="92387" lat="47.3894089" lon="8.3858387"/>
+ <node id="2205375971" visible="true" version="2" changeset="141741786" timestamp="2023-09-25T17:38:13Z" user="mottiger" uid="7504544" lat="47.3900747" lon="8.3856984">
+  <tag k="crossing" v="uncontrolled"/>
+  <tag k="crossing:island" v="no"/>
+  <tag k="crossing:markings" v="zebra"/>
+  <tag k="highway" v="crossing"/>
+ </node>
+ <node id="2504793474" visible="true" version="1" changeset="18483571" timestamp="2013-10-22T10:14:08Z" user="SimonPoole" uid="92387" lat="47.3890729" lon="8.3860933"/>
+ <node id="2504793475" visible="true" version="1" changeset="18483571" timestamp="2013-10-22T10:14:08Z" user="SimonPoole" uid="92387" lat="47.3890850" lon="8.3861024"/>
+ <node id="2504793476" visible="true" version="1" changeset="18483571" timestamp="2013-10-22T10:14:08Z" user="SimonPoole" uid="92387" lat="47.3891123" lon="8.3859609"/>
+ <node id="2504793478" visible="true" version="1" changeset="18483571" timestamp="2013-10-22T10:14:08Z" user="SimonPoole" uid="92387" lat="47.3891872" lon="8.3861658"/>
+ <node id="2504793480" visible="true" version="1" changeset="18483571" timestamp="2013-10-22T10:14:08Z" user="SimonPoole" uid="92387" lat="47.3892262" lon="8.3860349"/>
+ <node id="2977788990" visible="true" version="1" changeset="24334280" timestamp="2014-07-24T17:14:29Z" user="SimonPoole" uid="92387" lat="47.3890739" lon="8.3857440">
+  <tag k="amenity" v="vending_machine"/>
+  <tag k="vending" v="excrement_bags"/>
+ </node>
+ <node id="3354019793" visible="true" version="4" changeset="106848860" timestamp="2021-06-23T16:01:53Z" user="SimonPoole" uid="92387" lat="47.3892607" lon="8.3854399">
+  <tag k="amenity" v="post_box"/>
+  <tag k="collection_times" v="Mo-Fr 08:00; PH closed"/>
+  <tag k="drive_through" v="no"/>
+ </node>
+ <node id="6464567684" visible="true" version="1" changeset="70109208" timestamp="2019-05-10T13:06:43Z" user="sovereign_ch" uid="5755216" lat="47.3891956" lon="8.3856079"/>
+ <node id="11980984563" visible="true" version="1" changeset="152681326" timestamp="2024-06-14T14:15:54Z" user="SimonPoole" uid="92387" lat="47.3891892" lon="8.3853398"/>
+ <node id="11980984568" visible="true" version="1" changeset="152681326" timestamp="2024-06-14T14:15:54Z" user="SimonPoole" uid="92387" lat="47.3890785" lon="8.3851971"/>
+ <node id="11980988069" visible="true" version="1" changeset="152681326" timestamp="2024-06-14T14:15:54Z" user="SimonPoole" uid="92387" lat="47.3891405" lon="8.3853922"/>
+ <node id="11980988072" visible="true" version="1" changeset="152681326" timestamp="2024-06-14T14:15:54Z" user="SimonPoole" uid="92387" lat="47.3890669" lon="8.3851735"/>
+ <node id="11980988114" visible="true" version="1" changeset="152681326" timestamp="2024-06-14T14:15:54Z" user="SimonPoole" uid="92387" lat="47.3891648" lon="8.3853975"/>
+ <node id="12245859427" visible="true" version="1" changeset="157783080" timestamp="2024-10-12T07:53:34Z" user="crac" uid="13415157" lat="47.3890859" lon="8.3860270"/>
+ <node id="12245859428" visible="true" version="1" changeset="157783080" timestamp="2024-10-12T07:53:34Z" user="crac" uid="13415157" lat="47.3890301" lon="8.3859917"/>
+ <node id="12245859429" visible="true" version="1" changeset="157783080" timestamp="2024-10-12T07:53:34Z" user="crac" uid="13415157" lat="47.3890160" lon="8.3860404"/>
+ <node id="12245859430" visible="true" version="1" changeset="157783080" timestamp="2024-10-12T07:53:34Z" user="crac" uid="13415157" lat="47.3890718" lon="8.3860757"/>
+ <node id="12959612260" visible="true" version="1" changeset="168233207" timestamp="2025-06-28T16:01:33Z" user="SimonPoole" uid="92387" lat="47.3899981" lon="8.3856915"/>
+ <node id="12959612295" visible="true" version="1" changeset="168233207" timestamp="2025-06-28T16:01:33Z" user="SimonPoole" uid="92387" lat="47.3897285" lon="8.3858115"/>
+ <node id="12959613611" visible="true" version="1" changeset="168233207" timestamp="2025-06-28T16:01:33Z" user="SimonPoole" uid="92387" lat="47.3886337" lon="8.3858274"/>
+ <way id="210186143" visible="true" version="3" changeset="152681326" timestamp="2024-06-14T14:15:54Z" user="SimonPoole" uid="92387">
+  <nd ref="2202925550"/>
+  <nd ref="2202925547"/>
+  <nd ref="2202925548"/>
+  <nd ref="2202925545"/>
+  <nd ref="11980984568"/>
+  <nd ref="11980988072"/>
+  <nd ref="2202925552"/>
+  <nd ref="2202925558"/>
+  <nd ref="2202925555"/>
+  <nd ref="11980984563"/>
+  <nd ref="2202925561"/>
+  <nd ref="11980988114"/>
+  <nd ref="11980988069"/>
+  <nd ref="2202925553"/>
+  <nd ref="2202925554"/>
+  <nd ref="2202925551"/>
+  <nd ref="2202925550"/>
+  <tag k="addr:city" v="Bergdietikon"/>
+  <tag k="addr:housenumber" v="3"/>
+  <tag k="addr:postcode" v="8962"/>
+  <tag k="addr:street" v="Gerstenstrasse"/>
+  <tag k="building" v="residential"/>
+ </way>
+ <way id="210456656" visible="true" version="4" changeset="152681326" timestamp="2024-06-14T14:15:54Z" user="SimonPoole" uid="92387">
+  <nd ref="2205375868"/>
+  <nd ref="2205375870"/>
+  <nd ref="2205375866"/>
+  <nd ref="2205375858"/>
+  <nd ref="2205375864"/>
+  <nd ref="2205375862"/>
+  <nd ref="2205375868"/>
+  <tag k="addr:city" v="Bergdietikon"/>
+  <tag k="addr:housenumber" v="29"/>
+  <tag k="addr:postcode" v="8962"/>
+  <tag k="addr:street" v="Schulstrasse"/>
+  <tag k="building" v="residential"/>
+ </way>
+ <way id="236483012" visible="true" version="3" changeset="168233207" timestamp="2025-06-28T16:01:33Z" user="SimonPoole" uid="92387">
+  <nd ref="599672200"/>
+  <nd ref="2205375971"/>
+  <nd ref="599672201"/>
+  <nd ref="12959612260"/>
+  <nd ref="599672203"/>
+  <nd ref="599672205"/>
+  <nd ref="599672206"/>
+  <nd ref="12959612295"/>
+  <nd ref="599672207"/>
+  <nd ref="599672208"/>
+  <nd ref="599672191"/>
+  <nd ref="599672192"/>
+  <nd ref="599672193"/>
+  <tag k="highway" v="residential"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="30"/>
+  <tag k="name" v="Schulstrasse"/>
+  <tag k="sidewalk" v="left"/>
+ </way>
+ <way id="243037178" visible="true" version="3" changeset="152692763" timestamp="2024-06-14T18:14:38Z" user="SimonPoole" uid="92387">
+  <nd ref="2504793480"/>
+  <nd ref="2504793478"/>
+  <nd ref="2504793475"/>
+  <nd ref="2504793474"/>
+  <nd ref="2504793476"/>
+  <nd ref="2504793480"/>
+  <tag k="addr:city" v="Bergdietikon"/>
+  <tag k="addr:housenumber" v="27a"/>
+  <tag k="addr:postcode" v="8962"/>
+  <tag k="addr:street" v="Schulstrasse"/>
+  <tag k="building" v="residential"/>
+ </way>
+ <way id="806059619" visible="true" version="2" changeset="168233207" timestamp="2025-06-28T16:01:33Z" user="SimonPoole" uid="92387">
+  <nd ref="296055264"/>
+  <nd ref="12959613611"/>
+  <nd ref="630927779"/>
+  <nd ref="296055265"/>
+  <nd ref="416426205"/>
+  <nd ref="296055266"/>
+  <nd ref="296055267"/>
+  <nd ref="296055268"/>
+  <nd ref="6464567684"/>
+  <nd ref="416426203"/>
+  <nd ref="599672193"/>
+  <nd ref="577098580"/>
+  <nd ref="416426201"/>
+  <nd ref="296055269"/>
+  <nd ref="631659198"/>
+  <nd ref="296055270"/>
+  <nd ref="663945236"/>
+  <tag k="highway" v="tertiary"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="50"/>
+  <tag k="name" v="Kindhauserstrasse"/>
+  <tag k="sidewalk" v="left"/>
+ </way>
+ <way id="1323362265" visible="true" version="1" changeset="157783080" timestamp="2024-10-12T07:53:34Z" user="crac" uid="13415157">
+  <nd ref="12245859427"/>
+  <nd ref="12245859428"/>
+  <nd ref="12245859429"/>
+  <nd ref="12245859430"/>
+  <nd ref="12245859427"/>
+  <tag k="leisure" v="swimming_pool"/>
+ </way>
+ <relation id="1638705" visible="true" version="48" changeset="176229282" timestamp="2025-12-21T18:13:23Z" user="d_berger" uid="1234273">
+  <member type="node" ref="990041228" role="stop"/>
+  <member type="way" ref="90128273" role="platform"/>
+  <member type="node" ref="954562015" role="stop"/>
+  <member type="node" ref="5564576462" role="platform"/>
+  <member type="node" ref="577098706" role="stop"/>
+  <member type="node" ref="5564576465" role="platform"/>
+  <member type="node" ref="577294188" role="stop"/>
+  <member type="node" ref="5564576467" role="platform"/>
+  <member type="node" ref="577098600" role="stop"/>
+  <member type="node" ref="5564576470" role="platform"/>
+  <member type="node" ref="573380243" role="stop"/>
+  <member type="node" ref="5564576471" role="platform"/>
+  <member type="node" ref="577098574" role="stop"/>
+  <member type="node" ref="5564576473" role="platform"/>
+  <member type="node" ref="577098583" role="stop"/>
+  <member type="node" ref="5564576476" role="platform"/>
+  <member type="node" ref="416083529" role="stop"/>
+  <member type="node" ref="5564576478" role="platform"/>
+  <member type="node" ref="416064528" role="stop"/>
+  <member type="node" ref="5564576479" role="platform"/>
+  <member type="way" ref="148986546" role=""/>
+  <member type="way" ref="85395572" role=""/>
+  <member type="way" ref="1120616073" role=""/>
+  <member type="way" ref="85395590" role=""/>
+  <member type="way" ref="85395627" role=""/>
+  <member type="way" ref="154462892" role=""/>
+  <member type="way" ref="1280878555" role=""/>
+  <member type="way" ref="1121031194" role=""/>
+  <member type="way" ref="1277776658" role=""/>
+  <member type="way" ref="816567043" role=""/>
+  <member type="way" ref="148673903" role=""/>
+  <member type="way" ref="119104100" role=""/>
+  <member type="way" ref="154344157" role=""/>
+  <member type="way" ref="816567046" role=""/>
+  <member type="way" ref="36898112" role=""/>
+  <member type="way" ref="148799186" role=""/>
+  <member type="way" ref="45179683" role=""/>
+  <member type="way" ref="45179682" role=""/>
+  <member type="way" ref="1420002843" role=""/>
+  <member type="way" ref="119104096" role=""/>
+  <member type="way" ref="45265074" role=""/>
+  <member type="way" ref="119104095" role=""/>
+  <member type="way" ref="437198562" role=""/>
+  <member type="way" ref="45381177" role=""/>
+  <member type="way" ref="437198561" role=""/>
+  <member type="way" ref="583292967" role=""/>
+  <member type="way" ref="45381175" role=""/>
+  <member type="way" ref="583292969" role=""/>
+  <member type="way" ref="795990976" role=""/>
+  <member type="way" ref="1162557780" role=""/>
+  <member type="way" ref="437198560" role=""/>
+  <member type="way" ref="795990969" role=""/>
+  <member type="way" ref="35542707" role=""/>
+  <member type="way" ref="819899722" role=""/>
+  <member type="way" ref="119104093" role=""/>
+  <member type="way" ref="797031193" role=""/>
+  <member type="way" ref="119104094" role=""/>
+  <member type="way" ref="45180812" role=""/>
+  <member type="way" ref="27009604" role=""/>
+  <member type="way" ref="806059619" role=""/>
+  <member type="way" ref="119104098" role=""/>
+  <member type="way" ref="805324342" role=""/>
+  <member type="way" ref="1162557787" role=""/>
+  <member type="way" ref="1162557786" role=""/>
+  <member type="way" ref="805324350" role=""/>
+  <member type="way" ref="805324352" role=""/>
+  <member type="way" ref="496747931" role=""/>
+  <member type="way" ref="119104097" role=""/>
+  <member type="way" ref="805324346" role=""/>
+  <member type="way" ref="104364414" role=""/>
+  <member type="way" ref="214323580" role=""/>
+  <member type="way" ref="35479116" role=""/>
+  <member type="way" ref="581620397" role=""/>
+  <member type="way" ref="35479120" role=""/>
+  <tag k="colour" v="#734522"/>
+  <tag k="contractor" v="Limmat Bus"/>
+  <tag k="from" v="Dietikon, Bahnhof"/>
+  <tag k="gtfs:feed" v="CH-Alle"/>
+  <tag k="gtfs:release_date" v="2025-12-18"/>
+  <tag k="gtfs:route_id" v="92-305-A-j26-1"/>
+  <tag k="gtfs:trip_id:like" v="%92-305-A-j26-1.2.H"/>
+  <tag k="gtfs:trip_id:sample" v="22.TA.92-305-A-j26-1.2.H"/>
+  <tag k="name" v="Bus 305: Dietikon, Bahnhof → Kindhausen AG"/>
+  <tag k="nat_ref" v="70.305"/>
+  <tag k="network" v="ZVV"/>
+  <tag k="network:wikidata" v="Q201977"/>
+  <tag k="operator" v="VBZ"/>
+  <tag k="operator:wikidata" v="Q682070"/>
+  <tag k="public_transport:version" v="2"/>
+  <tag k="ref" v="305"/>
+  <tag k="ref_trips" v="92-305-A-j26-1.2.H"/>
+  <tag k="route" v="bus"/>
+  <tag k="to" v="Kindhausen AG"/>
+  <tag k="type" v="route"/>
+ </relation>
+ <relation id="2078158" visible="true" version="16" changeset="176229282" timestamp="2025-12-21T18:13:23Z" user="d_berger" uid="1234273">
+  <member type="relation" ref="1638705" role=""/>
+  <member type="relation" ref="2807173" role=""/>
+  <tag k="colour" v="#734522"/>
+  <tag k="contractor" v="Limmat Bus"/>
+  <tag k="gtfs:feed" v="CH-Alle"/>
+  <tag k="gtfs:release_date" v="2025-12-18"/>
+  <tag k="gtfs:route_id" v="92-305-A-j26-1"/>
+  <tag k="name" v="Bus 305"/>
+  <tag k="nat_ref" v="70.305"/>
+  <tag k="network" v="ZVV"/>
+  <tag k="network:wikidata" v="Q201977"/>
+  <tag k="operator" v="VBZ"/>
+  <tag k="operator:wikidata" v="Q682070"/>
+  <tag k="ref" v="305"/>
+  <tag k="route_master" v="bus"/>
+  <tag k="type" v="route_master"/>
+  <tag k="website" v="http://www.vbz.ch/"/>
+ </relation>
+ <relation id="2807173" visible="true" version="34" changeset="176229282" timestamp="2025-12-21T18:13:23Z" user="d_berger" uid="1234273">
+  <member type="node" ref="416064528" role="stop"/>
+  <member type="node" ref="5564576479" role="platform"/>
+  <member type="node" ref="416083528" role="stop"/>
+  <member type="node" ref="5564576477" role="platform"/>
+  <member type="node" ref="577098580" role="stop"/>
+  <member type="node" ref="5564576475" role="platform"/>
+  <member type="node" ref="577098578" role="stop"/>
+  <member type="node" ref="5564576474" role="platform"/>
+  <member type="node" ref="573380242" role="stop"/>
+  <member type="node" ref="5564576472" role="platform"/>
+  <member type="node" ref="577098597" role="stop"/>
+  <member type="node" ref="5564576469" role="platform"/>
+  <member type="node" ref="984783547" role="stop"/>
+  <member type="node" ref="5564576468" role="platform"/>
+  <member type="node" ref="984784083" role="stop"/>
+  <member type="node" ref="5564576466" role="platform"/>
+  <member type="node" ref="2190871496" role="stop"/>
+  <member type="node" ref="5564576464" role="platform"/>
+  <member type="node" ref="1623520413" role="stop"/>
+  <member type="node" ref="5564576463" role="platform"/>
+  <member type="node" ref="990041204" role="stop"/>
+  <member type="way" ref="90128267" role="platform"/>
+  <member type="way" ref="581620398" role=""/>
+  <member type="way" ref="35479116" role=""/>
+  <member type="way" ref="214323580" role=""/>
+  <member type="way" ref="104364414" role=""/>
+  <member type="way" ref="805324346" role=""/>
+  <member type="way" ref="119104097" role=""/>
+  <member type="way" ref="496747931" role=""/>
+  <member type="way" ref="805324352" role=""/>
+  <member type="way" ref="805324350" role=""/>
+  <member type="way" ref="1162557786" role=""/>
+  <member type="way" ref="1162557787" role=""/>
+  <member type="way" ref="805324342" role=""/>
+  <member type="way" ref="119104098" role=""/>
+  <member type="way" ref="806059619" role=""/>
+  <member type="way" ref="27009604" role=""/>
+  <member type="way" ref="45180812" role=""/>
+  <member type="way" ref="119104094" role=""/>
+  <member type="way" ref="797031193" role=""/>
+  <member type="way" ref="119104093" role=""/>
+  <member type="way" ref="819899722" role=""/>
+  <member type="way" ref="35542707" role=""/>
+  <member type="way" ref="795990969" role=""/>
+  <member type="way" ref="437198560" role=""/>
+  <member type="way" ref="1162557780" role=""/>
+  <member type="way" ref="795990976" role=""/>
+  <member type="way" ref="583292969" role=""/>
+  <member type="way" ref="45381175" role=""/>
+  <member type="way" ref="583292967" role=""/>
+  <member type="way" ref="437198561" role=""/>
+  <member type="way" ref="45381177" role=""/>
+  <member type="way" ref="437198562" role=""/>
+  <member type="way" ref="119104095" role=""/>
+  <member type="way" ref="45265074" role=""/>
+  <member type="way" ref="119104096" role=""/>
+  <member type="way" ref="1420002843" role=""/>
+  <member type="way" ref="45179682" role=""/>
+  <member type="way" ref="45179683" role=""/>
+  <member type="way" ref="148799186" role=""/>
+  <member type="way" ref="36898112" role=""/>
+  <member type="way" ref="816567046" role=""/>
+  <member type="way" ref="154344157" role=""/>
+  <member type="way" ref="119104100" role=""/>
+  <member type="way" ref="148673903" role=""/>
+  <member type="way" ref="816567043" role=""/>
+  <member type="way" ref="1277776658" role=""/>
+  <member type="way" ref="1121031194" role=""/>
+  <member type="way" ref="1280878555" role=""/>
+  <member type="way" ref="154462892" role=""/>
+  <member type="way" ref="85395552" role=""/>
+  <member type="way" ref="85395622" role=""/>
+  <tag k="colour" v="#734522"/>
+  <tag k="contractor" v="Limmat Bus"/>
+  <tag k="from" v="Kindhausen AG"/>
+  <tag k="gtfs:feed" v="CH-Alle"/>
+  <tag k="gtfs:release_date" v="2025-12-18"/>
+  <tag k="gtfs:route_id" v="92-305-A-j26-1"/>
+  <tag k="gtfs:trip_id:like" v="%92-305-A-j26-1.5.R"/>
+  <tag k="gtfs:trip_id:sample" v="156.TA.92-305-A-j26-1.5.R"/>
+  <tag k="name" v="Bus 305: Kindhausen AG → Dietikon, Bahnhof"/>
+  <tag k="nat_ref" v="70.305"/>
+  <tag k="network" v="ZVV"/>
+  <tag k="network:wikidata" v="Q201977"/>
+  <tag k="operator" v="VBZ"/>
+  <tag k="operator:wikidata" v="Q682070"/>
+  <tag k="public_transport:version" v="2"/>
+  <tag k="ref" v="305"/>
+  <tag k="ref_trips" v="92-305-A-j26-1.5.R"/>
+  <tag k="route" v="bus"/>
+  <tag k="to" v="Dietikon, Bahnhof"/>
+  <tag k="type" v="route"/>
+ </relation>
+ <relation id="9669351" visible="true" version="39" changeset="178207566" timestamp="2026-02-06T21:59:29Z" user="d_berger" uid="1234273">
+  <member type="node" ref="990041228" role="stop"/>
+  <member type="way" ref="90128273" role="platform"/>
+  <member type="node" ref="10253515735" role="stop"/>
+  <member type="way" ref="1056581824" role="platform"/>
+  <member type="node" ref="984784098" role="stop"/>
+  <member type="node" ref="5566760689" role="platform"/>
+  <member type="node" ref="984783927" role="stop"/>
+  <member type="node" ref="5564576613" role="platform"/>
+  <member type="node" ref="1617097162" role="stop"/>
+  <member type="node" ref="5564576608" role="platform"/>
+  <member type="node" ref="984783846" role="stop"/>
+  <member type="node" ref="5564576606" role="platform"/>
+  <member type="node" ref="577098706" role="stop"/>
+  <member type="node" ref="5564576465" role="platform"/>
+  <member type="node" ref="573380243" role="stop"/>
+  <member type="node" ref="5564576471" role="platform"/>
+  <member type="node" ref="577098574" role="stop"/>
+  <member type="node" ref="5564576473" role="platform"/>
+  <member type="node" ref="577098583" role="stop"/>
+  <member type="node" ref="5564576476" role="platform"/>
+  <member type="node" ref="416083529" role="stop"/>
+  <member type="node" ref="5564576478" role="platform"/>
+  <member type="node" ref="416064528" role="stop"/>
+  <member type="node" ref="5564576479" role="platform"/>
+  <member type="node" ref="1767757695" role="stop"/>
+  <member type="way" ref="693780289" role="platform"/>
+  <member type="node" ref="984783517" role="stop"/>
+  <member type="way" ref="693780288" role="platform"/>
+  <member type="node" ref="3075087935" role="stop"/>
+  <member type="way" ref="695791973" role="platform"/>
+  <member type="node" ref="6515251066" role="stop"/>
+  <member type="way" ref="693942571" role="platform"/>
+  <member type="node" ref="6515251061" role="stop"/>
+  <member type="way" ref="693942568" role="platform"/>
+  <member type="node" ref="6515251056" role="stop"/>
+  <member type="way" ref="693942566" role="platform"/>
+  <member type="node" ref="955814832" role="stop"/>
+  <member type="way" ref="693942564" role="platform"/>
+  <member type="node" ref="3940219598" role="stop"/>
+  <member type="way" ref="694041155" role="platform"/>
+  <member type="node" ref="3940219597" role="stop"/>
+  <member type="way" ref="694041153" role="platform"/>
+  <member type="node" ref="945359489" role="stop"/>
+  <member type="way" ref="187143760" role="platform"/>
+  <member type="node" ref="945359590" role="stop"/>
+  <member type="way" ref="187143744" role="platform"/>
+  <member type="node" ref="6516160594" role="stop_exit_only"/>
+  <member type="way" ref="187143745" role="platform_exit_only"/>
+  <member type="way" ref="148986546" role=""/>
+  <member type="way" ref="85395572" role=""/>
+  <member type="way" ref="1120616073" role=""/>
+  <member type="way" ref="85395590" role=""/>
+  <member type="way" ref="85395627" role=""/>
+  <member type="way" ref="154462892" role=""/>
+  <member type="way" ref="1280878555" role=""/>
+  <member type="way" ref="1121031195" role=""/>
+  <member type="way" ref="946638076" role=""/>
+  <member type="way" ref="1450018974" role=""/>
+  <member type="way" ref="1450018975" role=""/>
+  <member type="way" ref="946638073" role=""/>
+  <member type="way" ref="946638074" role=""/>
+  <member type="way" ref="85395557" role=""/>
+  <member type="way" ref="958366168" role=""/>
+  <member type="way" ref="1056581815" role=""/>
+  <member type="way" ref="1056581813" role=""/>
+  <member type="way" ref="1056581811" role=""/>
+  <member type="way" ref="1056581812" role=""/>
+  <member type="way" ref="1120999107" role=""/>
+  <member type="way" ref="1121053890" role=""/>
+  <member type="way" ref="154462885" role=""/>
+  <member type="way" ref="28818821" role=""/>
+  <member type="way" ref="1389229309" role=""/>
+  <member type="way" ref="154462890" role=""/>
+  <member type="way" ref="36809590" role=""/>
+  <member type="way" ref="154344164" role=""/>
+  <member type="way" ref="28818818" role=""/>
+  <member type="way" ref="154344143" role=""/>
+  <member type="way" ref="28818815" role=""/>
+  <member type="way" ref="28818822" role=""/>
+  <member type="way" ref="1183423805" role=""/>
+  <member type="way" ref="683433697" role=""/>
+  <member type="way" ref="42203918" role=""/>
+  <member type="way" ref="683433696" role=""/>
+  <member type="way" ref="42203916" role=""/>
+  <member type="way" ref="154462886" role=""/>
+  <member type="way" ref="154344162" role=""/>
+  <member type="way" ref="45179683" role=""/>
+  <member type="way" ref="45179682" role=""/>
+  <member type="way" ref="1420002843" role=""/>
+  <member type="way" ref="119104096" role=""/>
+  <member type="way" ref="45265074" role=""/>
+  <member type="way" ref="119104095" role=""/>
+  <member type="way" ref="437198564" role=""/>
+  <member type="way" ref="45180811" role=""/>
+  <member type="way" ref="119104092" role=""/>
+  <member type="way" ref="819899722" role=""/>
+  <member type="way" ref="119104093" role=""/>
+  <member type="way" ref="797031193" role=""/>
+  <member type="way" ref="119104094" role=""/>
+  <member type="way" ref="45180812" role=""/>
+  <member type="way" ref="27009604" role=""/>
+  <member type="way" ref="806059619" role=""/>
+  <member type="way" ref="119104098" role=""/>
+  <member type="way" ref="805324342" role=""/>
+  <member type="way" ref="1162557787" role=""/>
+  <member type="way" ref="1162557786" role=""/>
+  <member type="way" ref="805324350" role=""/>
+  <member type="way" ref="805324352" role=""/>
+  <member type="way" ref="496747931" role=""/>
+  <member type="way" ref="119104097" role=""/>
+  <member type="way" ref="805324346" role=""/>
+  <member type="way" ref="104364414" role=""/>
+  <member type="way" ref="214323580" role=""/>
+  <member type="way" ref="35479116" role=""/>
+  <member type="way" ref="581620397" role=""/>
+  <member type="way" ref="35479120" role=""/>
+  <member type="way" ref="581620398" role=""/>
+  <member type="way" ref="35479116" role=""/>
+  <member type="way" ref="214323580" role=""/>
+  <member type="way" ref="104364414" role=""/>
+  <member type="way" ref="805324346" role=""/>
+  <member type="way" ref="119104097" role=""/>
+  <member type="way" ref="496747931" role=""/>
+  <member type="way" ref="805324352" role=""/>
+  <member type="way" ref="805324350" role=""/>
+  <member type="way" ref="1162557786" role=""/>
+  <member type="way" ref="1162557787" role=""/>
+  <member type="way" ref="805324342" role=""/>
+  <member type="way" ref="119104098" role=""/>
+  <member type="way" ref="806059619" role=""/>
+  <member type="way" ref="27009604" role=""/>
+  <member type="way" ref="45695385" role=""/>
+  <member type="way" ref="437198566" role=""/>
+  <member type="way" ref="437198565" role=""/>
+  <member type="way" ref="437198567" role=""/>
+  <member type="way" ref="340622862" role=""/>
+  <member type="way" ref="340622866" role=""/>
+  <member type="way" ref="170793588" role=""/>
+  <member type="way" ref="1436241025" role=""/>
+  <member type="way" ref="819429607" role=""/>
+  <member type="way" ref="819429606" role=""/>
+  <member type="way" ref="567158052" role=""/>
+  <member type="way" ref="1436241026" role=""/>
+  <member type="way" ref="25219777" role=""/>
+  <member type="way" ref="36791524" role=""/>
+  <member type="way" ref="34428800" role=""/>
+  <member type="way" ref="1242576370" role=""/>
+  <member type="way" ref="373653471" role=""/>
+  <member type="way" ref="1242576369" role=""/>
+  <member type="way" ref="1242576368" role=""/>
+  <member type="way" ref="1242576371" role=""/>
+  <member type="way" ref="1244171491" role=""/>
+  <member type="way" ref="1244171492" role=""/>
+  <member type="way" ref="1348095292" role=""/>
+  <member type="way" ref="301924809" role=""/>
+  <member type="way" ref="1241678868" role=""/>
+  <member type="way" ref="1241678866" role=""/>
+  <member type="way" ref="1241678869" role=""/>
+  <member type="way" ref="373653467" role=""/>
+  <member type="way" ref="360169946" role=""/>
+  <member type="way" ref="36788970" role=""/>
+  <member type="way" ref="360169945" role=""/>
+  <member type="way" ref="117425324" role=""/>
+  <member type="way" ref="117425327" role=""/>
+  <member type="way" ref="107979614" role=""/>
+  <member type="way" ref="1383244611" role=""/>
+  <member type="way" ref="1383244606" role=""/>
+  <member type="way" ref="36788969" role=""/>
+  <member type="way" ref="124265188" role=""/>
+  <member type="way" ref="124265189" role=""/>
+  <member type="way" ref="390635302" role=""/>
+  <member type="way" ref="390635299" role=""/>
+  <member type="way" ref="1244171493" role=""/>
+  <member type="way" ref="390635304" role=""/>
+  <member type="way" ref="107979615" role=""/>
+  <member type="way" ref="23903093" role=""/>
+  <member type="way" ref="694043510" role=""/>
+  <member type="way" ref="390874091" role=""/>
+  <member type="way" ref="24291809" role=""/>
+  <member type="way" ref="390874087" role=""/>
+  <member type="way" ref="390874090" role=""/>
+  <member type="way" ref="390874089" role=""/>
+  <member type="way" ref="390874086" role=""/>
+  <member type="way" ref="27092852" role=""/>
+  <member type="way" ref="373653497" role=""/>
+  <member type="way" ref="390874121" role=""/>
+  <member type="way" ref="189269453" role=""/>
+  <member type="way" ref="390489007" role=""/>
+  <member type="way" ref="189269454" role=""/>
+  <member type="way" ref="857750207" role=""/>
+  <member type="way" ref="389771092" role=""/>
+  <member type="way" ref="170793562" role=""/>
+  <member type="way" ref="170793561" role=""/>
+  <member type="way" ref="120149556" role=""/>
+  <tag k="by_night" v="only"/>
+  <tag k="colour" v="#000000"/>
+  <tag k="duration" v="00:27"/>
+  <tag k="from" v="Dietikon, Bahnhof"/>
+  <tag k="gtfs:feed" v="CH-Alle"/>
+  <tag k="gtfs:release_date" v="2025-12-18"/>
+  <tag k="gtfs:route_id" v="92-N31-j26-1"/>
+  <tag k="gtfs:trip_id:like" v="%92-N31-j26-1.1.R"/>
+  <tag k="gtfs:trip_id:sample" v="3.TA.92-N31-j26-1.1.R"/>
+  <tag k="interval" v="01:00"/>
+  <tag k="name" v="Bus N31: Dietikon → Kindhausen AG → Oberwil-Lieli"/>
+  <tag k="nat_ref" v="50.831"/>
+  <tag k="network" v="A-Welle;ZVV"/>
+  <tag k="operator" v="AVA"/>
+  <tag k="operator:wikidata" v="Q57312492"/>
+  <tag k="public_transport:version" v="2"/>
+  <tag k="ref" v="N31"/>
+  <tag k="ref_trips" v="92-N31-j26-1.1.R"/>
+  <tag k="route" v="bus"/>
+  <tag k="to" v="Oberwil-Lieli, Englisächer"/>
+  <tag k="type" v="route"/>
+  <tag k="via" v="Kindhausen AG"/>
+ </relation>
+ <relation id="10744648" visible="true" version="1" changeset="81371766" timestamp="2020-02-23T17:19:23Z" user="sovereign_ch" uid="5755216">
+  <member type="node" ref="577098580" role="stop"/>
+  <member type="node" ref="5564576475" role="platform"/>
+  <member type="node" ref="577098583" role="stop"/>
+  <member type="node" ref="5564576476" role="platform"/>
+  <tag k="name" v="Bergdietikon, Vorbühl"/>
+  <tag k="network" v="ZVV"/>
+  <tag k="operator" v="VBZ"/>
+  <tag k="public_transport" v="stop_area"/>
+  <tag k="ref" v="2789"/>
+  <tag k="type" v="public_transport"/>
+  <tag k="uic_name" v="Bergdietikon, Vorbühl"/>
+  <tag k="uic_ref" v="8590205"/>
+ </relation>
+ <relation id="11742628" visible="true" version="6" changeset="177395878" timestamp="2026-01-18T23:36:02Z" user="d_berger" uid="1234273">
+  <member type="relation" ref="9669351" role=""/>
+  <tag k="colour" v="#000000"/>
+  <tag k="gtfs:feed" v="CH-Alle"/>
+  <tag k="gtfs:release_date" v="2025-12-18"/>
+  <tag k="gtfs:route_id" v="92-N31-j26-1"/>
+  <tag k="name" v="Bus N31"/>
+  <tag k="nat_ref" v="50.831"/>
+  <tag k="network" v="A-Welle;ZVV"/>
+  <tag k="operator" v="AVA"/>
+  <tag k="operator:wikidata" v="Q57312492"/>
+  <tag k="ref" v="N31"/>
+  <tag k="route_master" v="bus"/>
+  <tag k="type" v="route_master"/>
+  <tag k="website" v="https://www.aargauverkehr.ch/"/>
+ </relation>
+</osm>

@@ -331,6 +331,7 @@
 "centre des arts"
 ],
 "amenity/atm":[
+"Distributeur de billets",
 "dab",
 "retrait d'argent",
 "gab",
@@ -526,6 +527,9 @@
 "Café",
 "café"
 ],
+"amenity/cafe/teahouse":[
+"Salon de thé"
+],
 "amenity/car_pooling":[
 "co-voiturage",
 "autopartage",
@@ -646,31 +650,6 @@
 "ombre",
 "cadran",
 "solaire"
-],
-"amenity/college":[
-"college",
-"post bac",
-"haute école",
-"ecole superieure",
-"university",
-"école supérieure",
-"enseignement superieur",
-"institut",
-"école",
-"établissement d'enseignement supérieur",
-"cegep",
-"cégep",
-"amenity college",
-"grande école",
-"etablissement d'enseignement superieur",
-"grande ecole",
-"enseignement supérieur",
-"université",
-"ecole",
-"non universitaire",
-"Enseignement supérieur (non universitaire) - institution ou campus (terrain)",
-"post-bac",
-"enseignement supérieur non universitaire"
 ],
 "amenity/community_centre":[
 "salle polyvalente",
@@ -1062,18 +1041,6 @@
 "Circuit d'essai de stages de conduite",
 "conduire"
 ],
-"amenity/driving_school":[
-"permis de conduire",
-"moto école",
-"auto-école",
-"école de conduite",
-"Auto-école",
-"auto ecole",
-"driving school",
-"moto-école",
-"code de la route",
-"ecole de conduite"
-],
 "amenity/embassy":[
 "Ambassade"
 ],
@@ -1099,11 +1066,11 @@
 ],
 "amenity/fast_food":[
 "vente à emporter",
+"Restauration rapide",
 "fast food",
 "a emporter",
 "service au comptoir",
 "à emporter",
-"Fast Food",
 "sandwich",
 "kébab",
 "tacos",
@@ -1272,6 +1239,7 @@
 "grande fontaine",
 "non potable",
 "fountain",
+"Fontaine",
 "fontaine d'ornement",
 "fontaine d'eau",
 "fontaine décorative",
@@ -1362,6 +1330,7 @@
 "mirador"
 ],
 "amenity/ice_cream":[
+"Boutique de glaces",
 "magasin de glaces"
 ],
 "amenity/ice_cream/frozen_yogurt":[
@@ -1381,20 +1350,6 @@
 "Karaoke",
 "karaoké"
 ],
-"amenity/kindergarten":[
-"kindergarten",
-"nurserie",
-"Crèche, garderie, jardin d'enfants (terrain)",
-"créche",
-"crêche",
-"childcare",
-"nourricerie",
-"garde d'enfants",
-"halte-garderie",
-"enfant",
-"jardin d'enfants",
-"creche"
-],
 "amenity/kneipp_water_cure":[
 "kneipp",
 "soin",
@@ -1405,11 +1360,6 @@
 "hydrothérapie",
 "piscine",
 "Bain Kneipp"
-],
-"amenity/language_school":[
-"École de langues",
-"école de langues",
-"langues étrangères"
 ],
 "amenity/lavoir":[
 "Lavoir",
@@ -1495,10 +1445,6 @@
 "scooter",
 "moto",
 "Location de motos"
-],
-"amenity/music_school":[
-"école de musique",
-"École de musique"
 ],
 "amenity/nightclub":[
 "discothèque",
@@ -1736,15 +1682,6 @@
 "amenity/post_office":[
 "Bureau de poste",
 "bureau de poste"
-],
-"amenity/prep_school":[
-"tests",
-"École préparatoire",
-"académique",
-"tutorat",
-"devoirs",
-"école",
-"examens"
 ],
 "amenity/prison":[
 "Prison (terrain)",
@@ -2045,27 +1982,6 @@
 "station de vidange",
 "mobilehome"
 ],
-"amenity/school":[
-"enseignement élémentaire",
-"college",
-"collège",
-"école primaire",
-"école secondaire",
-"cycles primaires et secondaires",
-"école élémentaire",
-"établissement d'enseignement élémentaire",
-"École élémentaire ou secondaire (terrain)",
-"enseignement secondaire",
-"école",
-"enseignements élémentaire et secondaire",
-"cp-ce1-ce2-cm1-cm2",
-"établissement d'enseignement secondaire",
-"écoliers",
-"school",
-"ecole",
-"lycée",
-"lycee"
-],
 "amenity/shelter":[
 "abri",
 "Abri"
@@ -2302,30 +2218,6 @@
 "amenity/trolley_bay":[
 "abri à chariots",
 "Abri à chariots"
-],
-"amenity/university":[
-"college",
-"post bac",
-"Université, établissement d'enseignement supérieur, campus (terrain)",
-"haute école",
-"campus",
-"university",
-"ecole superieure",
-"universitaire",
-"école supérieure",
-"institut",
-"école",
-"amenity university",
-"campus universitaire",
-"établissement d'enseignement supérieur",
-"etablissement d'enseignement superieur",
-"grande école",
-"grande ecole",
-"enseignement supérieur universitaire",
-"enseignement supérieur",
-"université",
-"ecole",
-"post-bac"
 ],
 "amenity/vacuum_cleaner":[
 "automobile",
@@ -3141,7 +3033,7 @@
 "Portail en fils de fer"
 ],
 "barrier/handrail":[
-"Rampe"
+"Rampe, Main courante"
 ],
 "barrier/hedge":[
 "haie",
@@ -3993,6 +3885,12 @@
 "enterrement",
 "Section de cimetière"
 ],
+"climbing/route":[
+"Voie d'escalade"
+],
+"climbing/route_bottom":[
+"Début d'une voie d'escalade"
+],
 "club":[
 "Club",
 "club",
@@ -4344,6 +4242,39 @@
 "disused/shop":[
 "Magasin désaffecté"
 ],
+"education":[
+"Structure éducative"
+],
+"education/college":[
+"Enseignement supérieur (non universitaire) - institution ou campus (terrain)"
+],
+"education/dancing_school":[
+"École de danse"
+],
+"education/driving_school":[
+"Auto-école"
+],
+"education/kindergarten":[
+"Crèche, garderie, jardin d'enfants (terrain)"
+],
+"education/language_school":[
+"École de langues"
+],
+"education/music_school":[
+"École de musique"
+],
+"education/prep_school":[
+"École préparatoire"
+],
+"education/school":[
+"École élémentaire ou secondaire (terrain)"
+],
+"education/university":[
+"Université, établissement d'enseignement supérieur, campus (terrain)"
+],
+"education/yes":[
+"Structure éducative (non spécifiée)"
+],
 "embankment":[
 "Terre-plein"
 ],
@@ -4365,12 +4296,6 @@
 "défibrillateur automatisé externe",
 "dae",
 "défibrillateur automatique"
-],
-"emergency/designated":[
-"Accès aux services d'urgences désigné"
-],
-"emergency/destination":[
-"Accessible aux services d'urgences"
 ],
 "emergency/disaster_response":[
 "centre d'intervention d'urgence",
@@ -4485,18 +4410,9 @@
 "secours",
 "pghm"
 ],
-"emergency/no":[
-"Non accessible aux services d'urgences"
-],
-"emergency/official":[
-"Accès d'urgence officiel"
-],
 "emergency/phone":[
 "Téléphone de secours",
 "téléphone d'urgence"
-],
-"emergency/private":[
-"Accès d'urgence privé"
 ],
 "emergency/siren":[
 "Sirène",
@@ -4535,9 +4451,6 @@
 "Réservoir d'eau de secours",
 "urgence",
 "reservoir"
-],
-"emergency/yes":[
-"Accessible aux services d'urgences"
 ],
 "entrance":[
 "issue",
@@ -4918,10 +4831,7 @@
 "Îlot central"
 ],
 "highway/cyclist_waiting_aid":[
-"sas à vélo",
-"Sas vélo",
-"sas pour vélo",
-"sas cycliste"
+"Aide pour cyclistes"
 ],
 "highway/elevator":[
 "monte-charge",
@@ -5064,6 +4974,7 @@
 "aire de croisement"
 ],
 "highway/path":[
+"sentier",
 "chemin",
 "Chemin"
 ],
@@ -5091,6 +5002,7 @@
 "Chemin informel",
 "raccourci",
 "chemin informel",
+"sentier informel",
 "ligne de désire",
 "chemin officieux"
 ],
@@ -5323,6 +5235,9 @@
 "site historique",
 "Site historique"
 ],
+"historic/aircraft":[
+"Avion historique"
+],
 "historic/archaeological_site":[
 "Site archéologique",
 "site archéologique"
@@ -5408,6 +5323,9 @@
 "buste",
 "stèle",
 "mémorial"
+],
+"historic/memorial/blue_plaque-GB-IE":[
+"Plaque bleue"
 ],
 "historic/memorial/plaque":[
 "plaque historique",
@@ -5819,14 +5737,6 @@
 "salle de bal",
 "piste de danse",
 "Salle de danse"
-],
-"leisure/dancing_school":[
-"école de danse",
-"swing",
-"tango",
-"École de danse",
-"danse",
-"valse"
 ],
 "leisure/disc_golf_course":[
 "golf",
@@ -6551,6 +6461,12 @@
 "support de tapis",
 "cintre à tapis"
 ],
+"man_made/ceremonial_gate/paifang":[
+"Paifang"
+],
+"man_made/ceremonial_gate/torii":[
+"Torii"
+],
 "man_made/charge_point":[
 "borne de recharge pour véhicules électriques",
 "Borne de recharge pour véhicules électriques"
@@ -7009,14 +6925,6 @@
 "man_made/telescope/radio":[
 "Radiotélescope",
 "radiotélescope"
-],
-"man_made/torii":[
-"torii",
-"portail",
-"temple shinto",
-"Torii",
-"portique",
-"shinto"
 ],
 "man_made/tower":[
 "tour",
@@ -8513,6 +8421,9 @@
 "gare",
 "attente voyageur"
 ],
+"public_transport/platform/light_rail_point":[
+"Arrêt de métro léger"
+],
 "public_transport/platform/monorail":[
 "Quai de monorail",
 "arrêt de monorail",
@@ -9590,7 +9501,8 @@
 "magasin de village"
 ],
 "shop/gift":[
-"boutique de souvenirs"
+"boutique de souvenirs",
+"Magasin de souvenirs"
 ],
 "shop/gold_buyer":[
 "Acheteur d'or"
@@ -10647,6 +10559,9 @@
 "trajet d'autobus",
 "Itinéraire de bus"
 ],
+"type/route/climbing":[
+"Voie d'escalade"
+],
 "type/route/detour":[
 "détour",
 "Déviation"
@@ -10755,6 +10670,12 @@
 "type/site":[
 "Site",
 "site"
+],
+"type/site/climbing/area":[
+"Zone de grimpe"
+],
+"type/site/climbing/crag":[
+"Rocher de grimpe"
 ],
 "type/waterway":[
 "cours d'eau",

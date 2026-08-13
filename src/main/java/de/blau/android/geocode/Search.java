@@ -2,15 +2,11 @@ package de.blau.android.geocode;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.text.Spanned;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -22,8 +18,10 @@ import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDialog;
 import de.blau.android.R;
+import de.blau.android.geocode.Query.PostQueryHandler;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.AdvancedPrefDatabase.Geocoder;
+import de.blau.android.prefs.AdvancedPrefDatabase.GeocoderType;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -124,23 +122,10 @@ public class Search {
      * @param limitSearch if true limitSearch to bbox
      */
     public void find(@NonNull Geocoder geocoder, @NonNull String q, @Nullable ViewBox bbox, boolean limitSearch) {
-        Query querier = null;
-        boolean multiline = false;
-        switch (geocoder.type) {
-        case PHOTON:
-            querier = new QueryPhoton(activity, geocoder.url, bbox);
-            multiline = true;
-            break;
-        case NOMINATIM:
-        default:
-            querier = new QueryNominatim(activity, geocoder.url, bbox, limitSearch);
-            multiline = false;
-            break;
-        }
-        querier.execute(q);
-        try {
-            List<SearchResult> result = querier.get(20, TimeUnit.SECONDS);
-            if (result != null && !result.isEmpty()) {
+        final boolean multiline = geocoder.type == GeocoderType.PHOTON;
+        PostQueryHandler postQueryHandler = new PostQueryHandler() {
+            @Override
+            public void onSuccess(List<SearchResult> result) {
                 if (dialog != null) { // dismiss keyboard
                     InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
                     Window window = dialog.getWindow();
@@ -150,17 +135,22 @@ public class Search {
                 }
                 AppCompatDialog sr = createSearchResultsDialog(result, multiline ? R.layout.search_results_item_multi_line : R.layout.search_results_item);
                 sr.show();
-            } else {
+            }
+
+            @Override
+            public void onError() {
                 ScreenMessage.toastTopWarning(activity, R.string.toast_nothing_found);
             }
-        } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in
-                                                                // question
-            Log.e(DEBUG_TAG, "find got exception " + e.getMessage());
-            querier.cancel();
-            ScreenMessage.toastTopError(activity, R.string.no_connection_title);
-        } catch (TimeoutException e) {
-            Log.e(DEBUG_TAG, "find got exception " + e.getMessage());
-            ScreenMessage.toastTopError(activity, R.string.toast_timeout);
+        };
+
+        switch (geocoder.type) {
+        case PHOTON:
+            new QueryPhoton(activity, geocoder.url, bbox, postQueryHandler).execute(q);
+            break;
+        case NOMINATIM:
+        default:
+            new QueryNominatim(activity, geocoder.url, bbox, limitSearch, postQueryHandler).execute(q);
+            break;
         }
     }
 

@@ -25,9 +25,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:gravity="center_vertical" />
-            <ListView android:id="@+id/upload_changes"
+            <androidx.recyclerview.widget.RecyclerView android:id="@+id/upload_changes"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="fill_parent"
+                android:scrollbars="vertical"
+                android:saveEnabled="false"
+                android:padding="0dp" />
         </LinearLayout>
         <LinearLayout android:id="@+id/tags_page"
             android:layout_width="fill_parent"

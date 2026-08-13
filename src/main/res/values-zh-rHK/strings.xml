@@ -721,8 +721,6 @@
   <string name="config_showWayIcons_summary">在建築物上顯示最符合預設組合</string>
   <string name="config_tagFormEnabled_title">顯示標籤表格</string>
   <string name="config_tagFormEnabled_summary">顯示標籤表格以便編輯。</string>
-  <string name="config_showCameraAction_title">顯示相機的動作</string>
-  <string name="config_showCameraAction_summary">在動作列上顯示相機圖示。</string>
   <string name="config_alwaysDrawBoundingBoxes_title">總是模糊無法下載的區域</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">鎖定模式下模糊無法下載的區域。</string>
   <string name="config_map_orientation_title">地圖螢幕方向</string>
@@ -746,6 +744,9 @@
   <string name="config_maxStrokeWidth_current">%1$d px</string>
   <string name="config_upload_current">%1$d 物件</string>
   <string name="config_uploadChecker_current">%1$d小時</string>
+  <!--Camera and image settings-->
+  <string name="config_showCameraAction_title">顯示相機的動作</string>
+  <string name="config_showCameraAction_summary">在動作列上顯示相機圖示。</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">資料和編輯設定</string>
   <string name="config_category_editing_summary">自動下載，儲存和通知設定</string>
@@ -852,6 +853,7 @@
   <string name="manage_presets">管理預置</string>
   <string name="listedit_use_translations">使用翻譯</string>
   <string name="manage_geocoders">管理 geocoders</string>
+  <string name="geocoder_type">geocoder 類型</string>
   <!--preset downloader messages-->
   <string name="preset_update">更新預置</string>
   <string name="preset_download_successful">預置已下載</string>
@@ -860,6 +862,7 @@
   <string name="preset_download_missing_images">預載檔案已經下載，然後遺失的的圖示還未下載。</string>
   <string name="preset_download_title">預置下載器</string>
   <!--preset management-->
+  <!--Image storage management-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">增加預置</string>
   <string name="urldialog_preset_exists">此預置已存在</string>
@@ -874,6 +877,12 @@
   <string name="readonly_url">唯讀API網址 (選擇)</string>
   <string name="notes_url">註解API網址 (選擇)</string>
   <string name="copy_of">%1$s的複製物</string>
+  <!--image upload dialog-->
+  <string name="image_upload">上傳</string>
+  <string name="wikimedia_meta_description">記述</string>
+  <string name="wikimedia_meta_source">來源</string>
+  <string name="wikimedia_meta_author">作者</string>
+  <string name="wikimedia_meta_category">分類</string>
   <!--common terms-->
   <string name="add">增加</string>
   <string name="edit">編輯</string>
@@ -886,7 +895,6 @@
   <string name="Continue">伸延</string>
   <!---->
   <string name="empty_list">無輸入</string>
-  <string name="geocoder_type">geocoder 類型</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">預置</string>
   <string name="api">API</string>

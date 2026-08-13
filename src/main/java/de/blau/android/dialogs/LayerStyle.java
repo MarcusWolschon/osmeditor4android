@@ -9,7 +9,6 @@ import com.kunzisoft.androidclearchroma.colormode.ColorMode;
 import com.kunzisoft.androidclearchroma.listener.OnColorSelectedListener;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
@@ -41,7 +40,6 @@ import de.blau.android.layer.StyleableInterface;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.resources.symbols.Symbols;
 import de.blau.android.util.Density;
-import de.blau.android.util.Screen;
 import de.blau.android.util.ThemeUtils;
 
 /**
@@ -364,10 +362,7 @@ public class LayerStyle extends AbstractConfigurationDialog {
     @Override
     public void onStart() {
         super.onStart();
-        Dialog dialog = getDialog();
-        if (dialog != null) {
-            dialog.getWindow().setLayout((int) (Screen.getScreenSmallDimension(getActivity()) * 0.9), ViewGroup.LayoutParams.WRAP_CONTENT);
-        }
+        de.blau.android.dialogs.Util.limitWindowWidth(this);
     }
 
     @Override

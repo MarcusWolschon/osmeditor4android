@@ -6,7 +6,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Deque;
@@ -14,7 +16,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Queue;
 import java.util.concurrent.TimeUnit;
 
@@ -73,7 +74,6 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -83,13 +83,14 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
 import androidx.core.view.MenuCompat;
+import androidx.core.view.ViewCompat;
 import androidx.core.view.ViewGroupCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
+import ch.poole.osm.josmfilterparser.Condition;
 import de.blau.android.Logic.CursorPaddirection;
 import de.blau.android.RemoteControlUrlActivity.RemoteControlUrlData;
 import de.blau.android.Selection.Ids;
@@ -98,7 +99,6 @@ import de.blau.android.bookmarks.BookmarkStorage;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Flavors;
 import de.blau.android.contract.MimeTypes;
-import de.blau.android.contract.Paths;
 import de.blau.android.contract.Schemes;
 import de.blau.android.contract.Ui;
 import de.blau.android.contract.Urls;
@@ -106,15 +106,14 @@ import de.blau.android.dialogs.BarometerCalibration;
 import de.blau.android.dialogs.ConsoleDialog;
 import de.blau.android.dialogs.DataLoss;
 import de.blau.android.dialogs.DownloadCurrentWithChanges;
+import de.blau.android.dialogs.DownloadMissing;
 import de.blau.android.dialogs.ElementInfo;
 import de.blau.android.dialogs.GnssPositionInfo;
 import de.blau.android.dialogs.Layers;
 import de.blau.android.dialogs.NewVersion;
 import de.blau.android.dialogs.Newbie;
 import de.blau.android.dialogs.Progress;
-import de.blau.android.dialogs.Review;
-import de.blau.android.dialogs.ReviewAndUpload;
-import de.blau.android.dialogs.SearchForm;
+import de.blau.android.dialogs.FindPlace;
 import de.blau.android.dialogs.Tip;
 import de.blau.android.dialogs.TooMuchData;
 import de.blau.android.dialogs.UndoDialog;
@@ -154,10 +153,14 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
+import de.blau.android.photos.ImageAction;
 import de.blau.android.photos.PhotoIndex;
+import de.blau.android.photos.TakePicture;
 import de.blau.android.prefs.AdvancedPrefDatabase;
+import de.blau.android.prefs.ImportExportConfiguration;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.prefs.keyboard.Shortcuts;
 import de.blau.android.presets.PresetElementPath;
 import de.blau.android.propertyeditor.PropertyEditorActivity;
 import de.blau.android.propertyeditor.PropertyEditorData;
@@ -166,8 +169,13 @@ import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerDatabaseView;
 import de.blau.android.resources.TileLayerSource;
+import de.blau.android.review.Review;
+import de.blau.android.review.ReviewActivity;
+import de.blau.android.review.ReviewAndUpload;
 import de.blau.android.search.Search;
 import de.blau.android.sensors.CompassEventListener;
+import de.blau.android.services.DownloadService;
+import de.blau.android.services.DownloadService.DownloaderBinder;
 import de.blau.android.services.TrackerService;
 import de.blau.android.services.TrackerService.TrackerBinder;
 import de.blau.android.services.TrackerService.TrackerLocationListener;
@@ -181,10 +189,9 @@ import de.blau.android.tasks.TodoFragment;
 import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ActivityResultHandler;
+import de.blau.android.util.AuthorisationEnabledActivity;
 import de.blau.android.util.BadgeDrawable;
-import de.blau.android.util.ConfigurationChangeAwareActivity;
 import de.blau.android.util.ContentResolverUtil;
-import de.blau.android.util.DateFormatter;
 import de.blau.android.util.DownloadActivity;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
@@ -216,7 +223,7 @@ import de.blau.android.views.ZoomControls;
  * @author mb
  * @author Simon Poole
  */
-public class Main extends ConfigurationChangeAwareActivity
+public class Main extends AuthorisationEnabledActivity
         implements ServiceConnection, TrackerLocationListener, UpdateViewListener, de.blau.android.geocode.SearchItemSelectedCallback, ActivityResultHandler {
 
     /**
@@ -246,6 +253,7 @@ public class Main extends ConfigurationChangeAwareActivity
     public static final String ACTION_DELETE_PHOTO          = "de.blau.android.DELETE_PHOTO";
     public static final String ACTION_IMAGE_SELECT          = "de.blau.android.ACTION_MAPILLARY_SELECT";
     public static final String ACTION_MAP_UPDATE            = "de.blau.android.MAP_UPDATE";
+    public static final String ACTION_SELECT                = "de.blau.android.SELECT";
     public static final String ACTION_PUSH_SELECTION        = "de.blau.android.PUSH_SELECTION";
     public static final String ACTION_POP_SELECTION         = "de.blau.android.POP_SELECTION";
     public static final String ACTION_CLEAR_SELECTION_STACK = "de.blau.android.CLEAR_SELECTION_STACK";
@@ -254,11 +262,6 @@ public class Main extends ConfigurationChangeAwareActivity
      * Alpha value for floating action buttons workaround We should probably find a better place for this
      */
     public static final float FABALPHA = 0.90f;
-
-    /**
-     * Date pattern used for the image file name.
-     */
-    private static final String DATE_PATTERN_IMAGE_FILE_NAME_PART = "yyyyMMdd_HHmmss";
 
     /**
      * Id for requesting permissions
@@ -279,7 +282,7 @@ public class Main extends ConfigurationChangeAwareActivity
     private final class ConnectivityChangedReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
+            if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction())) {
                 Log.d("ConnectivityChanged...", "Received broadcast");
                 if (getEasyEditManager().isProcessingAction()) {
                     getEasyEditManager().invalidate();
@@ -291,25 +294,6 @@ public class Main extends ConfigurationChangeAwareActivity
     }
 
     private ConnectivityChangedReceiver connectivityChangedReceiver;
-
-    private static class TakePicture extends ActivityResultContracts.TakePicture {
-        private final Preferences prefs;
-
-        public TakePicture(@NonNull Preferences prefs) {
-            this.prefs = prefs;
-        }
-
-        @NonNull
-        @Override
-        public Intent createIntent(@NonNull Context context, @NonNull Uri input) {
-            Intent intent = super.createIntent(context, input).putExtra(MediaStore.EXTRA_OUTPUT, input).setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            String cameraApp = prefs.getCameraApp();
-            if (!"".equals(cameraApp)) {
-                intent.setPackage(cameraApp);
-            }
-            return intent;
-        }
-    }
 
     /**
      * our map layout
@@ -394,6 +378,11 @@ public class Main extends ConfigurationChangeAwareActivity
      */
     private TrackerService tracker = null;
 
+    /**
+     * The current instance of the download service
+     */
+    private DownloadService downloader = null;
+
     private UndoListener undoListener;
 
     private MapTouchListener mapTouchListener;
@@ -440,11 +429,7 @@ public class Main extends ConfigurationChangeAwareActivity
      */
     private NetworkStatus networkStatus;
 
-    /**
-     * file we asked the camera app to create (ugly)
-     */
-    private File                        imageFile = null;
-    private ActivityResultLauncher<Uri> takePictureRequestLauncher;
+    private ActivityResultLauncher<ImageAction> takePictureRequestLauncher;
 
     // flag to ensure that we only check once per activity life cycle
     private boolean gpsChecked = false;
@@ -487,6 +472,8 @@ public class Main extends ConfigurationChangeAwareActivity
         App.initGeoContext(this);
         updatePrefs(new Preferences(this));
 
+        bindService(new Intent(this, DownloadService.class), this, BIND_AUTO_CREATE);
+
         int layout = R.layout.main;
         if (prefs.lightThemeEnabled()) {
             setTheme(R.style.Theme_customMain_Light);
@@ -507,6 +494,7 @@ public class Main extends ConfigurationChangeAwareActivity
         LinearLayout ml = (LinearLayout) getLayoutInflater().inflate(layout, null);
 
         ViewGroupCompat.installCompatInsetsDispatch(ml);
+        ViewCompat.setOnApplyWindowInsetsListener(ml, onApplyWindowInsetslistener);
 
         mapLayout = (RelativeLayout) ml.findViewById(R.id.mainMap);
 
@@ -572,7 +560,7 @@ public class Main extends ConfigurationChangeAwareActivity
             Layers.showDialog(Main.this);
         });
 
-        App.getDataStyle(this); // needs to happen before setContentView
+        App.getDataStyleManager(this); // needs to happen before setContentView
 
         setContentView(ml);
 
@@ -702,7 +690,8 @@ public class Main extends ConfigurationChangeAwareActivity
 
         Util.clearCaches(this, App.getConfiguration(), getResources().getConfiguration());
 
-        takePictureRequestLauncher = registerForActivityResult(new TakePicture(prefs), this::indexImage);
+        TakePicture takePicture = new TakePicture(this, prefs);
+        takePictureRequestLauncher = registerForActivityResult(takePicture, takePicture::processImage);
     }
 
     @Override
@@ -1031,22 +1020,25 @@ public class Main extends ConfigurationChangeAwareActivity
                 case ACTION_MAP_UPDATE:
                     invalidateMap();
                     break;
+                case ACTION_SELECT:
+                    Selection.Ids ids = Util.getSerializableExtra(intent, Selection.SELECTION_KEY, Ids.class);
+                    Selection selection = new Selection();
+                    selection.fromIds(this, App.getDelegator(), ids);
+                    logic.replaceSelection(selection);
+                    zoomToSelected(logic);
+                    break;
                 case ACTION_PUSH_SELECTION:
+                    ids = Util.getSerializableExtra(intent, Selection.SELECTION_KEY, Ids.class);
+                    selection = new Selection();
+                    selection.fromIds(this, App.getDelegator(), ids);
+                    logic.pushSelection(selection);
+                    zoomToSelected(logic);
+                    break;
                 case ACTION_POP_SELECTION:
-                    if (ACTION_PUSH_SELECTION.equals(action)) {
-                        Selection.Ids ids = Util.getSerializableExtra(intent, Selection.SELECTION_KEY, Ids.class);
-                        Selection selection = new Selection();
-                        selection.fromIds(this, App.getDelegator(), ids);
-                        logic.pushSelection(selection);
-                    } else {
+                    if (logic.getSelectionStack().size() > 1) {
                         logic.popSelection();
+                        zoomToSelected(logic);
                     }
-                    final List<OsmElement> selectedElements = logic.getSelectedElements();
-                    zoomTo(selectedElements);
-                    if (Mode.MODE_EASYEDIT == logic.getMode() && !selectedElements.isEmpty()) {
-                        getEasyEditManager().startElementSelectionMode();
-                    }
-                    invalidateMap();
                     break;
                 case ACTION_CLEAR_SELECTION_STACK:
                     Deque<Selection> stack = logic.getSelectionStack();
@@ -1084,6 +1076,18 @@ public class Main extends ConfigurationChangeAwareActivity
                 processShortcutExtras();
             }
         }
+    }
+
+    /**
+     * @param logic
+     */
+    private void zoomToSelected(final Logic logic) {
+        final List<OsmElement> selectedElements = logic.getSelectedElements();
+        zoomTo(selectedElements);
+        if (Mode.MODE_EASYEDIT == logic.getMode() && !selectedElements.isEmpty()) {
+            getEasyEditManager().editElements();
+        }
+        invalidateMap();
     }
 
     /**
@@ -1213,12 +1217,12 @@ public class Main extends ConfigurationChangeAwareActivity
         }
         if (loadBox != null) { // zoom only
             try {
-                logic.lock();
+                logic.lockWrites();
                 map.getViewBox().fitToBoundingBox(getMap(), loadBox);
                 map.invalidate();
                 logic.saveEditingState(this);
             } finally {
-                logic.unlock();
+                logic.unlockWrites();
             }
         }
     }
@@ -1232,7 +1236,7 @@ public class Main extends ConfigurationChangeAwareActivity
     private void displayNote(@NonNull final Context ctx, @NonNull final Logic logic, @NonNull final long id) {
         new ExecutorTask<Long, Void, Note>(logic.getExecutorService(), logic.getHandler()) {
             @Override
-            protected Note doInBackground(Long id) throws NumberFormatException, XmlPullParserException, IOException {
+            protected Note doInBackground(Long id) throws NumberFormatException, XmlPullParserException, IOException, URISyntaxException {
                 TaskStorage storage = App.getTaskStorage();
                 Note note = storage.getNote(id);
                 if (note == null) {
@@ -1482,6 +1486,9 @@ public class Main extends ConfigurationChangeAwareActivity
             getTracker().setListener(null);
             // the services onDestroy is not guaranteed to be called, so we do it here
             getTracker().onDestroy();
+        }
+        if (getDownloadService() != null) {
+            getDownloadService().onDestroy();
         }
         try {
             unbindService(this);
@@ -1930,6 +1937,7 @@ public class Main extends ConfigurationChangeAwareActivity
             menu.findItem(R.id.menu_transfer_download_current).setEnabled(networkConnected).setTitle(R.string.menu_transfer_download_current);
             menu.findItem(R.id.menu_transfer_download_replace).setEnabled(networkConnected).setTitle(R.string.menu_transfer_download_replace);
         }
+        menu.findItem(R.id.menu_transfer_query_overpass).setEnabled(networkConnected);
         // note: isDirty is not a good indicator of if if there is really
         // something to upload
         final boolean hasChanges = apiElementCount > 0;
@@ -1977,7 +1985,7 @@ public class Main extends ConfigurationChangeAwareActivity
         menuUtil.setShowAlways(menu);
         // only show camera icon if we have a camera, and a camera app is
         // installed
-        if (haveCamera) {
+        if (hasCamera()) {
             menu.findItem(R.id.menu_camera).setShowAsAction(prefs.showCameraAction() ? MenuItem.SHOW_AS_ACTION_ALWAYS : MenuItem.SHOW_AS_ACTION_NEVER);
         } else {
             menu.findItem(R.id.menu_camera).setVisible(false).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
@@ -2052,7 +2060,7 @@ public class Main extends ConfigurationChangeAwareActivity
             return true;
         case R.id.menu_find:
             descheduleAutoLock();
-            SearchForm.showDialog(this, map.getViewBox());
+            FindPlace.showDialog(this, map.getViewBox());
             return true;
         case R.id.menu_search_objects:
             descheduleAutoLock();
@@ -2093,7 +2101,7 @@ public class Main extends ConfigurationChangeAwareActivity
             }
             Filter currentFilter = logic.getFilter();
             if (currentFilter != null) {
-                currentFilter.saveState();
+                currentFilter.saveState(this);
                 currentFilter.hideControls();
                 currentFilter.removeControls();
                 logic.setFilter(null);
@@ -2128,10 +2136,8 @@ public class Main extends ConfigurationChangeAwareActivity
             return true;
         case R.id.menu_camera:
             try {
-                imageFile = getImageFile();
-                Uri photoUri = FileProvider.getUriForFile(this, getString(R.string.content_provider), imageFile);
-                if (photoUri != null && takePictureRequestLauncher != null) {
-                    takePictureRequestLauncher.launch(photoUri);
+                if (takePictureRequestLauncher != null) {
+                    takePictureRequestLauncher.launch(new ImageAction(ImageAction.Action.NOTHING));
                 }
             } catch (Exception ex) {
                 try {
@@ -2293,13 +2299,17 @@ public class Main extends ConfigurationChangeAwareActivity
             return true;
         case R.id.menu_transfer_query_overpass:
             descheduleAutoLock();
-            showOverpassConsole(this, null);
+            showOverpassConsole(this, null, null);
             break;
         case R.id.menu_transfer_upload:
             confirmUpload(null);
             return true;
         case R.id.menu_transfer_review:
-            Review.showDialog(this);
+            if (prefs.useSplitWindowForReview()) {
+                ReviewActivity.start(this);
+            } else {
+                Review.showDialog(this);
+            }
             return true;
         case R.id.menu_transfer_update:
             logic.redownload(this, false, null);
@@ -2325,7 +2335,7 @@ public class Main extends ConfigurationChangeAwareActivity
                     protected Void doInBackground(Void param) {
                         try {
                             server.closeChangeset();
-                        } catch (IOException e) {
+                        } catch (IOException | URISyntaxException | IllegalArgumentException e) {
                             // Never fail
                         }
                         return null;
@@ -2560,28 +2570,46 @@ public class Main extends ConfigurationChangeAwareActivity
                 }
             });
             return true;
-        case R.id.menu_tools_import_data_style:
+        case R.id.menu_tools_export_config:
             descheduleAutoLock();
-            SelectFile.read(this, R.string.config_osmPreferredDir_key, new ReadFile() {
+            SelectFile.save(this, MimeTypes.TEXTXML, R.string.config_configPreferredDir_key, new SaveFile() {
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public boolean save(FragmentActivity currentActivity, Uri fileUri) {
+                    try (OutputStream out = Main.this.getContentResolver().openOutputStream(fileUri, FileUtil.TRUNCATE_WRITE_MODE)) {
+                        ImportExportConfiguration.exportConfig(Main.this, out);
+                    } catch (IOException ex) {
+                        ScreenMessage.toastTopError(Main.this, ex.getMessage());
+                        return false;
+                    }
+                    ScreenMessage.toastTopInfo(Main.this, R.string.toast_configuration_export_success);
+                    return true;
+                }
+            });
+            return true;
+        case R.id.menu_tools_import_config:
+            descheduleAutoLock();
+            SelectFile.read(this, R.string.config_configPreferredDir_key, new ReadFile() {
                 private static final long serialVersionUID = 1L;
 
                 @Override
                 public boolean read(FragmentActivity currentActivity, Uri fileUri) {
                     try (InputStream in = currentActivity.getContentResolver().openInputStream(fileUri)) {
-                        File destDir = FileUtil.getApplicationDirectory(currentActivity, Paths.DIRECTORY_PATH_STYLES);
-                        String filename = ContentResolverUtil.getDisplaynameColumn(currentActivity, fileUri);
-                        File dest = new File(destDir, filename);
-                        FileUtil.copy(in, dest);
-                        if (filename.toLowerCase(Locale.US).endsWith("." + FileExtensions.ZIP)) {
-                            FileUtil.unpackZip(destDir.getAbsolutePath() + Paths.DELIMITER, filename);
-                            dest.delete(); // NOSONAR delete the zip file
-                        }
-                        App.getDataStyle(currentActivity).reset();
-                        App.getDataStyle(currentActivity).getStylesFromFiles(currentActivity);
-                        SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
-                    } catch (IOException fex) {
-                        fileNotFound(fileUri);
+                        ImportExportConfiguration.importConfig(Main.this, in);
+                    } catch (IOException ex) {
+                        ScreenMessage.toastTopError(Main.this, ex.getMessage());
+                        return false;
                     }
+                    ScreenMessage.toastTopInfo(Main.this, R.string.toast_configuration_import_success);
+                    try (AdvancedPrefDatabase prefdb = new AdvancedPrefDatabase(Main.this)) {
+                        List<String> notDownloadedPresets = prefdb.getNotDownloadedPresets();
+                        List<String> notDownloadedStyles = prefdb.getNotDownloadedStyles();
+                        if (!notDownloadedPresets.isEmpty() || !notDownloadedStyles.isEmpty()) {
+                            DownloadMissing.showDialog(Main.this, notDownloadedPresets, notDownloadedStyles);
+                        }
+                    }
+                    App.resetKeyboardShortcuts();
                     return true;
                 }
             });
@@ -2601,7 +2629,7 @@ public class Main extends ConfigurationChangeAwareActivity
         case R.id.menu_tools_oauth_authorisation: // immediately start
                                                   // authorization handshake
             if (server.getOAuth()) {
-                Authorize.startForResult(this, null);
+                startAuthorisation();
             } else {
                 ScreenMessage.barError(this, R.string.toast_oauth_not_enabled);
             }
@@ -2696,8 +2724,9 @@ public class Main extends ConfigurationChangeAwareActivity
      * 
      * @param activity the calling FragmentActivity
      * @param text initial overpass query
+     * @param condition optional original JOSM search string
      */
-    public static void showOverpassConsole(@NonNull final FragmentActivity activity, @Nullable String text) {
+    public static void showOverpassConsole(@NonNull final FragmentActivity activity, @Nullable String text, @Nullable Condition condition) {
         ConsoleDialog.showDialog(activity, R.string.overpass_console, R.string.merge_result, R.string.select_result, text, null,
                 (context, input, merge, select) -> {
                     Logic logic = App.getLogic();
@@ -2705,7 +2734,7 @@ public class Main extends ConfigurationChangeAwareActivity
                         return Util.withHtmlColor(context, R.attr.errorTextColor, context.getString(R.string.overpass_query_would_overwrite));
                     }
                     AsyncResult result = de.blau.android.overpass.Server.query(context, de.blau.android.overpass.Server.replacePlaceholders(context, input),
-                            merge, select);
+                            merge, select, condition);
                     if (ErrorCodes.OK == result.getCode()) {
                         if (context instanceof Main) {
                             Main main = (Main) context;
@@ -2827,7 +2856,7 @@ public class Main extends ConfigurationChangeAwareActivity
     private void fileNotFound(Uri fileUri) {
         try {
             ScreenMessage.toastTopError(this, getResources().getString(R.string.toast_file_not_found, fileUri.toString()));
-        } catch (Exception ex) {
+        } catch (Exception e) {
             // protect against translation errors
         }
     }
@@ -2888,58 +2917,6 @@ public class Main extends ConfigurationChangeAwareActivity
         logic.setZoom(getMap(), Ui.ZOOM_FOR_ZOOMTO);
         map.getViewBox().moveTo(getMap(), trackPoint.getLon(), trackPoint.getLat());
         map.invalidate();
-    }
-
-    /**
-     * Get a new File for storing an image
-     * 
-     * @return a File object
-     * @throws IOException if reading the file went wrong
-     */
-    @NonNull
-    private File getImageFile() throws IOException {
-        File outDir = FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_PICTURES);
-        String imageFileName = DateFormatter.getFormattedString(DATE_PATTERN_IMAGE_FILE_NAME_PART);
-        // FIXME this forces the extension to jpg, but it could be a HEIC image
-        File newImageFile = File.createTempFile(imageFileName, "." + FileExtensions.JPG, outDir);
-        Log.d(DEBUG_TAG, "getImageFile " + newImageFile.getAbsolutePath());
-        return newImageFile;
-    }
-
-    /**
-     * If an image has successfully been captured by a camera app, index the file, otherwise delete
-     * 
-     * @param resultCode the result code from the intent
-     */
-    private void indexImage(final boolean result) {
-        if (imageFile == null) {
-            Log.e(DEBUG_TAG, "unexpected state imageFile == null");
-            return;
-        }
-        try {
-            if (result || imageFile.length() > 0L) {
-                try (PhotoIndex pi = new PhotoIndex(this)) {
-                    if (pi.addPhoto(imageFile) == null) {
-                        Log.e(DEBUG_TAG, "No image available");
-                        ScreenMessage.toastTopError(this, R.string.toast_photo_failed);
-                        return;
-                    }
-                }
-                if (prefs.addToMediaStore()) {
-                    PhotoIndex.addImageToMediaStore(getContentResolver(), imageFile.getAbsolutePath());
-                }
-                if (map.getPhotoLayer() != null) {
-                    map.invalidate();
-                }
-            } else {
-                Log.e(DEBUG_TAG, "image capture canceled, deleting image");
-                imageFile.delete(); // NOSONAR
-            }
-        } catch (SecurityException e) {
-            Log.e(DEBUG_TAG, "access denied for delete to " + imageFile.getAbsolutePath());
-        } finally {
-            imageFile = null; // reset
-        }
     }
 
     /**
@@ -3039,7 +3016,6 @@ public class Main extends ConfigurationChangeAwareActivity
      * @param follow if true center on current location
      */
     public synchronized void setFollowGPS(boolean follow) {
-        Log.d(DEBUG_TAG, "Set follow GPS " + follow);
         if (followGPS != follow) {
             followGPS = follow;
             if (follow) {
@@ -3200,9 +3176,12 @@ public class Main extends ConfigurationChangeAwareActivity
      * @param savedImageFileName Image file name.
      */
     public void setImageFileName(@Nullable String savedImageFileName) {
+        if (takePictureRequestLauncher == null) {
+            return;
+        }
+        TakePicture takePicture = ((TakePicture) takePictureRequestLauncher.getContract());
         if (savedImageFileName != null) {
-            Log.d(DEBUG_TAG, "setting imageFIleName to " + savedImageFileName);
-            imageFile = new File(savedImageFileName);
+            takePicture.setImageFileName(savedImageFileName);
         }
     }
 
@@ -3213,7 +3192,38 @@ public class Main extends ConfigurationChangeAwareActivity
      */
     @Nullable
     public String getImageFileName() {
-        return imageFile != null ? imageFile.getAbsolutePath() : null;
+        if (takePictureRequestLauncher == null) {
+            return null;
+        }
+        return ((TakePicture) takePictureRequestLauncher.getContract()).getImageFileName();
+    }
+
+    /**
+     * Restore the file name for a photograph
+     * 
+     * @param savedImageFileName Image file name.
+     */
+    public void setImageAction(@Nullable ImageAction action) {
+        if (takePictureRequestLauncher == null) {
+            return;
+        }
+        TakePicture takePicture = ((TakePicture) takePictureRequestLauncher.getContract());
+        if (action != null) {
+            takePicture.setAction(action);
+        }
+    }
+
+    /**
+     * Return the file name for a photograph
+     * 
+     * @return Image file name.
+     */
+    @Nullable
+    public ImageAction getImageAction() {
+        if (takePictureRequestLauncher == null) {
+            return null;
+        }
+        return ((TakePicture) takePictureRequestLauncher.getContract()).getAction();
     }
 
     @Override
@@ -3714,7 +3724,7 @@ public class Main extends ConfigurationChangeAwareActivity
                     clickedObjects.get(0).onSelected(Main.this);
                     break;
                 default:
-                    showDisambiguationMenu(v, x, y);
+                    showDisambiguationMenu(getEasyEditManager(), v, x, y);
                     break;
                 }
             }
@@ -3730,8 +3740,9 @@ public class Main extends ConfigurationChangeAwareActivity
         @Override
         public boolean onLongClick(final View v, final float x, final float y) {
             final Logic logic = App.getLogic();
-            clickedNodesAndWays = getClickedOsmElements(logic, x, y);
-            int elementCount = clickedNodesAndWays.size();
+            final EasyEditManager manager = getEasyEditManager();
+            clickedNodesAndWays = manager.filterElementsLongClick(getClickedOsmElements(logic, x, y));
+            final int elementCount = clickedNodesAndWays.size();
             if (logic.isUiLocked()) {
                 // display context menu
                 getClickedObjects(x, y);
@@ -3744,7 +3755,7 @@ public class Main extends ConfigurationChangeAwareActivity
                         ElementInfo.showDialog(Main.this, clickedNodesAndWays.get(0));
                     }
                 } else if (itemCount > 1) {
-                    showDisambiguationMenu(v, x, y);
+                    showDisambiguationMenu(manager, v, x, y);
                 }
                 return true;
             }
@@ -3752,18 +3763,18 @@ public class Main extends ConfigurationChangeAwareActivity
                 ScreenMessage.barWarningShort(Main.this, R.string.toast_not_in_edit_range);
                 return false;
             }
-            if (prefs.areSimpleActionsEnabled()) {
-                if (getEasyEditManager().usesLongClick()) {
-                    if (elementCount == 1 && getEasyEditManager().handleLongClick(v, clickedNodesAndWays.get(0))) {
-                        return true;
-                    }
-                    if (elementCount > 1) {
-                        longClick = true; // another ugly flag
-                        showDisambiguationMenu(v, x, y);
-                        return true;
-                    }
-                } // fall through to beep
-            } else if (getEasyEditManager().handleLongClick(v, x, y)) {
+            if (prefs.areSimpleActionsEnabled() || manager.usesLongClick()) {
+                // this works in both simple and legacy modes
+                if (elementCount == 1 && manager.handleLongClick(v, clickedNodesAndWays.get(0), x, y)) {
+                    return true;
+                }
+                if (elementCount > 1) {
+                    longClick = true; // another ugly flag
+                    showDisambiguationMenu(manager, v, x, y);
+                    return true;
+                }
+                // fall through to beep
+            } else if (manager.handleLongClick(v, x, y)) {
                 // editing with the screen moving under you is a pain
                 setFollowGPS(false);
                 return true;
@@ -3811,7 +3822,7 @@ public class Main extends ConfigurationChangeAwareActivity
             int focusLat = GeoMath.yToLatE7(map.getHeight(), map.getWidth(), viewBox, focusY);
             Logic logic = App.getLogic();
             try {
-                logic.lock();
+                logic.lockWrites();
                 viewBox.zoom(Math.max(0.8f, Math.min(1.2f, scaleFactor)) - 1.0f);
                 int newfocusLon = GeoMath.xToLonE7(map.getWidth(), viewBox, focusX);
                 int newfocusLat = GeoMath.yToLatE7(map.getHeight(), map.getWidth(), viewBox, focusY);
@@ -3821,9 +3832,9 @@ public class Main extends ConfigurationChangeAwareActivity
                     // ignored
                 }
             } finally {
-                logic.unlock();
+                logic.unlockWrites();
             }
-            map.getDataStyle().updateStrokes(logic.strokeWidth(viewBox.getWidth()));
+            map.getDataStyleManager().updateStrokes(logic.strokeWidth(viewBox.getWidth()));
             if (logic.isRotationMode()) {
                 logic.showCrosshairsForCentroid();
             }
@@ -3841,8 +3852,8 @@ public class Main extends ConfigurationChangeAwareActivity
          * @param y the click-position on the display.
          */
         private void performEdit(Mode mode, final View v, final float x, final float y) {
-            final EasyEditManager easyEditMgr = getEasyEditManager();
-            if (easyEditMgr.actionModeHandledClick(x, y)) {
+            final EasyEditManager manager = getEasyEditManager();
+            if (manager.actionModeHandledClick(x, y)) {
                 return;
             }
             Logic logic = App.getLogic();
@@ -3859,7 +3870,7 @@ public class Main extends ConfigurationChangeAwareActivity
             case 0:
                 // no elements were touched
                 if (inEasyEditMode) {
-                    easyEditMgr.nothingTouched(false);
+                    manager.nothingTouched(false);
                 }
                 break;
             case 1:
@@ -3870,7 +3881,7 @@ public class Main extends ConfigurationChangeAwareActivity
                     return;
                 }
                 if (clickedNodesAndWays.size() == 1) {
-                    editClickedOsmElement(easyEditMgr, inEasyEditMode);
+                    editClickedOsmElement(manager, inEasyEditMode);
                     return;
                 }
                 String debugString = "performEdit can't find what was clicked " + filter;
@@ -3880,10 +3891,10 @@ public class Main extends ConfigurationChangeAwareActivity
             default:
                 // multiple possible elements touched - show menu
                 if (menuRequired()) {
-                    showDisambiguationMenu(v, x, y);
+                    showDisambiguationMenu(manager, v, x, y);
                     return;
                 }
-                editClickedOsmElement(easyEditMgr, inEasyEditMode);
+                editClickedOsmElement(manager, inEasyEditMode);
                 break;
             }
         }
@@ -3930,7 +3941,7 @@ public class Main extends ConfigurationChangeAwareActivity
          * @param x x screen coordinate
          * @param y y screen coordinate
          */
-        public void onCreateDefaultDisambiguationMenu(@NonNull final DisambiguationMenu menu, float x, float y) {
+        private void onCreateDefaultDisambiguationMenu(@NonNull final DisambiguationMenu menu, float x, float y) {
             int id = 0;
             if (!clickedObjects.isEmpty()) {
                 for (final ClickedObject<?> co : clickedObjects) {
@@ -4021,20 +4032,21 @@ public class Main extends ConfigurationChangeAwareActivity
                 return;
             }
             Mode mode = App.getLogic().getMode();
+            final EasyEditManager manager = getEasyEditManager();
             if (mode.elementsGeomEditable()) {
                 if (doubleTap) {
                     doubleTap = false;
-                    getEasyEditManager().startExtendedSelection(element);
+                    manager.startExtendedSelection(element);
                 } else if (longClick) {
                     longClick = false;
-                    getEasyEditManager().handleLongClick(null, element);
+                    manager.handleLongClick(null, element, 0, 0); // FIXME do we need to get x,y here somehow?
                 } else {
-                    getEasyEditManager().editElement(element);
+                    manager.editElement(element);
                 }
             } else if (mode.elementsEditable()) {
                 if (doubleTap) {
                     doubleTap = false;
-                    startSupportActionMode(new MultiSelectActionModeCallback(getEasyEditManager(), clickedNodesAndWays.get(0)));
+                    startSupportActionMode(new MultiSelectActionModeCallback(manager, clickedNodesAndWays.get(0)));
                 } else {
                     performTagEdit(element, null, false, false);
                 }
@@ -4050,23 +4062,24 @@ public class Main extends ConfigurationChangeAwareActivity
             }
             clickedNodesAndWays = getClickedOsmElements(logic, x, y);
             final int clickedCount = clickedNodesAndWays.size();
+            final EasyEditManager manager = getEasyEditManager();
             if (clickedCount == 0) {
                 // no elements were touched
                 // short cut to finishing multi-select
-                getEasyEditManager().nothingTouched(true);
+                manager.nothingTouched(true);
                 return;
             }
-            if (!getEasyEditManager().inMultiSelectMode()) {
+            if (!manager.inMultiSelectMode()) {
                 if (clickedCount > 1 && menuRequired()) {
                     // multiple possible elements touched - show menu
                     Log.d(DEBUG_TAG, "onDoubleTap displaying menu");
                     doubleTap = true; // ugly flag
-                    showDisambiguationMenu(v, x, y);
+                    showDisambiguationMenu(manager, v, x, y);
                 } else if (logic.getMode().elementsGeomEditable()) {
                     // menuRequired tells us it's ok to just take the first one
-                    getEasyEditManager().startExtendedSelection(clickedNodesAndWays.get(0));
+                    manager.startExtendedSelection(clickedNodesAndWays.get(0));
                 } else if (App.getLogic().getMode().elementsEditable()) {
-                    startSupportActionMode(new MultiSelectActionModeCallback(getEasyEditManager(), clickedNodesAndWays.get(0)));
+                    startSupportActionMode(new MultiSelectActionModeCallback(manager, clickedNodesAndWays.get(0)));
                 }
             } else {
                 ScreenMessage.toastTopInfo(Main.this, R.string.toast_already_in_multiselect);
@@ -4089,13 +4102,14 @@ public class Main extends ConfigurationChangeAwareActivity
         /**
          * Create and show the disambiguation menu
          * 
+         * @param manager the current EasyEditManager instance
          * @param view the current anchor view
          * @param x x screen coordinate
          * @param y y screen coordinate
          */
-        public void showDisambiguationMenu(@NonNull View view, float x, float y) {
+        private void showDisambiguationMenu(@NonNull EasyEditManager manager, @NonNull View view, float x, float y) {
             DisambiguationMenu menu = new DisambiguationMenu(view);
-            if (!getEasyEditManager().createDisambiguationMenu(menu)) {
+            if (!manager.createDisambiguationMenu(menu)) {
                 onCreateDefaultDisambiguationMenu(menu, x, y);
             }
             menu.show();
@@ -4105,9 +4119,11 @@ public class Main extends ConfigurationChangeAwareActivity
 
     /**
      * Create and show the disambiguation menu
+     * 
+     * @param manager a EasyEditManager instance
      */
-    public void showDisambiguationMenu() {
-        mapTouchListener.showDisambiguationMenu(getMap(), -1f, -1f);
+    public void showDisambiguationMenu(@NonNull EasyEditManager manager) {
+        mapTouchListener.showDisambiguationMenu(manager, getMap(), -1f, -1f);
     }
 
     /**
@@ -4117,6 +4133,38 @@ public class Main extends ConfigurationChangeAwareActivity
      * @author simon
      */
     public class MapKeyListener implements OnKeyListener {
+
+        private final java.util.Map<String, Shortcuts.Action> actionMap = new HashMap<>();
+
+        public MapKeyListener() {
+            final Main main = Main.this;
+            actionMap.put(main.getString(R.string.ACTION_ZOOM_IN), new Shortcuts.Action(R.string.action_zoom_in, () -> {
+                App.getLogic().zoom(Logic.ZOOM_IN);
+                updateZoomControls();
+            }));
+            actionMap.put(main.getString(R.string.ACTION_ZOOM_OUT), new Shortcuts.Action(R.string.action_zoom_out, () -> {
+                App.getLogic().zoom(Logic.ZOOM_OUT);
+                updateZoomControls();
+            }));
+            actionMap.put(main.getString(R.string.ACTION_HELP), new Shortcuts.Action(R.string.action_help, () -> HelpViewer.start(main, R.string.help_main)));
+            actionMap.put(main.getString(R.string.ACTION_UNDO), new Shortcuts.Action(R.string.action_undo, () -> main.undoListener.onClick(null)));
+            actionMap.put(main.getString(R.string.ACTION_GPS_FOLLOW), new Shortcuts.Action(R.string.action_gps_follow, main::toggleFollowGPS));
+            actionMap.put(main.getString(R.string.ACTION_GPS_GOTO), new Shortcuts.Action(R.string.action_gps_goto, main::gotoCurrentLocation));
+            actionMap.put(main.getString(R.string.ACTION_DOWNLOAD), new Shortcuts.Action(R.string.action_download, () -> main.onMenuDownloadCurrent(true)));
+            actionMap.put(main.getString(R.string.ACTION_BUG_DOWNLOAD),
+                    new Shortcuts.Action(R.string.action_bugs_download, () -> main.downLoadBugs(map.getViewBox().copy())));
+            actionMap.put(main.getString(R.string.ACTION_ELEMENT_PASTE), new Shortcuts.Action(R.string.action_element_paste, () -> {
+                if (App.getDelegator().clipboardIsEmpty()) {
+                    return;
+                }
+                ViewBox viewBox = App.getLogic().getViewBox();
+                double[] coords = viewBox.getCenter();
+                int width = getMap().getWidth();
+                int height = getMap().getHeight();
+                SimpleActionModeCallback.paste(main, getEasyEditManager(), GeoMath.lonToX(width, viewBox, coords[0]),
+                        GeoMath.latToY(height, width, viewBox, coords[1]));
+            }));
+        }
 
         @SuppressLint("NewApi")
         @Override
@@ -4200,63 +4248,23 @@ public class Main extends ConfigurationChangeAwareActivity
          * @param inElementSelectedMode true if we are in an Element selection mode
          */
         private boolean handleShortCut(@NonNull final KeyEvent event, @NonNull final Logic logic, boolean isProcessingAction, boolean inElementSelectedMode) {
-            Character c = Character.toLowerCase((char) event.getUnicodeChar());
-            if (c == Util.getShortCut(Main.this, R.string.shortcut_zoom_in)) {
-                logic.zoom(Logic.ZOOM_IN);
-                updateZoomControls();
-                return true;
-            }
-            if (c == Util.getShortCut(Main.this, R.string.shortcut_zoom_out)) {
-                logic.zoom(Logic.ZOOM_OUT);
-                updateZoomControls();
-                return true;
-            }
-            if (!event.isCtrlPressed()) {
-                return false;
-            }
-            // get rid of Ctrl key
             char shortcut = Character.toLowerCase((char) event.getUnicodeChar(0));
+            Shortcuts.Modifier metaKey = Shortcuts.Modifier.fromState(event.getMetaState());
             // menu based shortcuts don't seem to work (anymore) so we do this on foot
-            if (isProcessingAction && getEasyEditManager().processShortcut(shortcut)) {
+            if (isProcessingAction && getEasyEditManager().processShortcut(metaKey, shortcut)) {
                 return true;
             }
+
             if (!logic.getMode().elementsSelectable() || (isProcessingAction && !inElementSelectedMode)) {
+                // avoid any of the following shortcuts in action modes except selection
                 return false;
             }
-            if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_help)) {
-                HelpViewer.start(Main.this, R.string.help_main);
+
+            if (App.getKeyboardShortcuts(Main.this).execute(metaKey, shortcut, actionMap)) {
                 return true;
             }
-            if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_undo)) {
-                Main.this.undoListener.onClick(null);
-                return true;
-            }
-            if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_gps_follow)) {
-                Main.this.toggleFollowGPS();
-                return true;
-            }
-            if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_gps_goto)) {
-                Main.this.gotoCurrentLocation();
-                return true;
-            }
-            if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_download)) {
-                Main.this.onMenuDownloadCurrent(true);
-                return true;
-            }
-            if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_bugs_download)) {
-                Main.this.downLoadBugs(map.getViewBox().copy());
-                return true;
-            }
-            if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_paste) && !App.getDelegator().clipboardIsEmpty()) {
-                ViewBox viewBox = logic.getViewBox();
-                double[] coords = viewBox.getCenter();
-                int width = getMap().getWidth();
-                int height = getMap().getHeight();
-                SimpleActionModeCallback.paste(Main.this, getEasyEditManager(), GeoMath.lonToX(width, viewBox, coords[0]),
-                        GeoMath.latToY(height, width, viewBox, coords[1]));
-                return true;
-            }
-            // short cut not found
+
+            // shortcut not found
             Sound.beep();
             Log.w(DEBUG_TAG, "Unknown short cut key event " + event);
             return false;
@@ -4351,10 +4359,15 @@ public class Main extends ConfigurationChangeAwareActivity
 
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
-        Log.i(DEBUG_TAG, "Service " + name.getClassName() + " connected");
-        if (TrackerService.class.getCanonicalName().equals(name.getClassName())) {
+        if (name == null) {
+            Log.w(DEBUG_TAG, "onServiceConnected null name");
+            return;
+        }
+        final String className = name.getClassName();
+        Log.i(DEBUG_TAG, "Service " + className + " connected");
+        if (TrackerService.class.getCanonicalName().equals(className)) {
             Log.i(DEBUG_TAG, "Setting up tracker");
-            setTracker((((TrackerBinder) service).getService()));
+            setTracker(((TrackerBinder) service).getService());
             map.setTracker(getTracker());
             de.blau.android.layer.gpx.MapOverlay layer = (de.blau.android.layer.gpx.MapOverlay) map.getLayer(LayerType.GPX,
                     getString(R.string.layer_gpx_recording));
@@ -4368,6 +4381,9 @@ public class Main extends ConfigurationChangeAwareActivity
             startStopBugAutoDownload();
             triggerMenuInvalidation();
         }
+        if (DownloadService.class.getCanonicalName().equals(className)) {
+            setDownloadService(((DownloaderBinder) service).getService());
+        }
     }
 
     @Override
@@ -4378,6 +4394,9 @@ public class Main extends ConfigurationChangeAwareActivity
             setTracker(null);
             map.setTracker(null);
             triggerMenuInvalidation();
+        }
+        if (DownloadService.class.getCanonicalName().equals(name.getClassName())) {
+            setDownloadService(null);
         }
     }
 
@@ -4446,6 +4465,21 @@ public class Main extends ConfigurationChangeAwareActivity
      */
     private void setTracker(@Nullable TrackerService tracker) {
         this.tracker = tracker;
+    }
+
+    /**
+     * @return the DownloadService
+     */
+    @Nullable
+    public DownloadService getDownloadService() {
+        return downloader;
+    }
+
+    /**
+     * @param downloader the DownloadService to set
+     */
+    private void setDownloadService(@Nullable DownloadService downloader) {
+        this.downloader = downloader;
     }
 
     /**
@@ -4768,8 +4802,8 @@ public class Main extends ConfigurationChangeAwareActivity
                         : getString(R.string.element_for_menu_with_parents_with_direction, direction, description, parentList.toString());
             }
         }
-        return noParents ? getString(R.string.element_for_menu_with_parents, description, parentList.toString())
-                : getString(R.string.element_for_menu, description);
+        return noParents ? getString(R.string.element_for_menu, description)
+                : getString(R.string.element_for_menu_with_parents, description, parentList.toString());
     }
 
     /**
@@ -4784,5 +4818,20 @@ public class Main extends ConfigurationChangeAwareActivity
             list.append(", ");
         }
         list.append(e.getDescription(this));
+    }
+
+    /**
+     * @return the takePictureRequestLauncher
+     */
+    @Nullable
+    public ActivityResultLauncher<ImageAction> getTakePictureRequestLauncher() {
+        return takePictureRequestLauncher;
+    }
+
+    /**
+     * @return the haveCamera
+     */
+    public boolean hasCamera() {
+        return haveCamera;
     }
 }

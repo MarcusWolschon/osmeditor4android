@@ -1,0 +1,13 @@
+{
+    "batchcomplete": "",
+    "warnings": {
+        "main": {
+            "*": "A POST request was made without a \"Content-Type\" header. This does not work reliably.\nSubscribe to the mediawiki-api-announce mailing list at <https://lists.wikimedia.org/postorius/lists/mediawiki-api-announce.lists.wikimedia.org/> for notice of API deprecations and breaking changes. Use [[Special:ApiFeatureUsage]] to see usage of deprecated features by your application."
+        }
+    },
+    "query": {
+        "tokens": {
+            "csrftoken": "082847d6401a02d184d77a943c0b9f1f68d0f1e1+\\"
+        }
+    }
+}

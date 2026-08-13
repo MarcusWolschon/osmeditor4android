@@ -185,7 +185,7 @@ public class GeocodeInput {
         if (new NetworkStatus(context).isConnected()) {
             String url = QueryNominatim.getNominatimUrl(context);
             if (url != null) {
-                QueryNominatim querier = new QueryNominatim(null, url, null, false);
+                QueryNominatim querier = new QueryNominatim(null, url, null, false, null);
                 querier.execute(loc);
                 List<SearchResult> results;
                 try {

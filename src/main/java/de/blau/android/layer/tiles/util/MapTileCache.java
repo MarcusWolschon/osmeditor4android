@@ -4,7 +4,6 @@ package de.blau.android.layer.tiles.util;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import de.blau.android.exception.StorageException;
 import de.blau.android.services.util.MapTile;
 
 /**
@@ -25,8 +24,8 @@ public class MapTileCache<T> {
     // Fields
     // ===========================================================
 
-    private static final String DEBUG_TAG = MapTileCache.class.getSimpleName().substring(0, Math.min(23, MapTileCache.class.getSimpleName().length()));
-    private final LRUMapTileCache<T>  mCachedTiles;
+    private static final String      DEBUG_TAG = MapTileCache.class.getSimpleName().substring(0, Math.min(23, MapTileCache.class.getSimpleName().length()));
+    private final LRUMapTileCache<T> mCachedTiles;
 
     // ===========================================================
     // Constructors
@@ -71,9 +70,8 @@ public class MapTileCache<T> {
      * @param aImage the tile Bitmap
      * @param owner a ref to the owner
      * @return true if there was no previous mapping for this tile
-     * @throws StorageException if we coudn't store the tile
      */
-    public synchronized boolean putTile(@NonNull final MapTile aTile, @NonNull final T aImage, final long owner) throws StorageException {
+    public synchronized boolean putTile(@NonNull final MapTile aTile, @NonNull final T aImage, final long owner) {
         return mCachedTiles.put(aTile.toId(), aImage, true, owner) != null;
     }
 
@@ -85,10 +83,8 @@ public class MapTileCache<T> {
      * @param owner a ref to the owner
      * @param recycleable treue if the Bitmap can be recycled
      * @return true if there was no previous mapping for this tile
-     * @throws StorageException if we coudn't store the tile
      */
-    public synchronized boolean putTile(@NonNull final MapTile aTile, @NonNull final T aImage, final boolean recycleable, final long owner)
-            throws StorageException {
+    public synchronized boolean putTile(@NonNull final MapTile aTile, @NonNull final T aImage, final boolean recycleable, final long owner) {
         return mCachedTiles.put(aTile.toId(), aImage, recycleable, owner) != null;
     }
 

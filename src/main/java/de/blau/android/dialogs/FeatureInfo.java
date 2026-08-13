@@ -21,7 +21,6 @@ import android.widget.ScrollView;
 import android.widget.TableLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -29,12 +28,14 @@ import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.exception.StorageException;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.osm.GeoJson;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
+import de.blau.android.util.CustomAlertDialog;
 import de.blau.android.util.GeoJSONConstants;
 import de.blau.android.util.InfoDialogFragment;
 import de.blau.android.util.ScreenMessage;
@@ -130,19 +131,26 @@ public class FeatureInfo extends InfoDialogFragment {
 
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
-        Builder builder = ThemeUtils.getAlertDialogBuilder(getActivity());
+        CustomAlertDialog.Builder builder = ThemeUtils.getCustomAlertDialogBuilder(getActivity());
         DoNothingListener doNothingListener = new DoNothingListener();
         builder.setPositiveButton(R.string.done, doNothingListener);
         if (feature != null) {
             builder.setNeutralButton(R.string.create_osm_element, (dialog, which) -> {
                 int maxNodes = App.getLogic().getPrefs().getServer().getCachedCapabilities().getMaxWayNodes();
-                List<OsmElement> elements = GeoJson.toOsm(feature, maxNodes);
                 FragmentActivity activity = getActivity();
-                final Logic logic = App.getLogic();
-                logic.addElements(activity, elements);
-                if (activity instanceof Main) {
-                    selectElements(logic, elements);
-                    ((Main) activity).getEasyEditManager().startElementSelectionMode();
+                try {
+                    List<OsmElement> elements = GeoJson.toOsm(feature, maxNodes);
+                    final Logic logic = App.getLogic();
+                    logic.addElements(activity, elements);
+                    if (activity instanceof Main) {
+                        selectElements(logic, elements);
+                        ((Main) activity).getEasyEditManager().startElementSelectionMode();
+                    }
+                } catch (StorageException ex) {
+                    // already toasted and logged
+                } catch (OutOfMemoryError oom) {
+                    Log.e(DEBUG_TAG, oom.getMessage());
+                    ScreenMessage.toastTopError(activity, R.string.toast_out_of_memory);
                 }
             });
 

@@ -81,7 +81,6 @@
   <string name="progress_searching_message">جارٍ البحث…</string>
   <string name="progress_saving_message">جار الحفظ…</string>
   <string name="progress_uploading_message">جارٍ الرفع...</string>
-  <string name="progress_preset_message">يتم الآن تنزيل القالب...</string>
   <string name="progress_loading_preset_message">جارٍ تحميل قوالب الوسوم...</string>
   <string name="progress_importing_file_message">جارٍ استيراد الملف ...</string>
   <string name="progress_running_message">تشغيل...</string>
@@ -174,6 +173,7 @@
   <string name="toast_todo_already_in_list">العنصر موجود بالفعل في قائمة المهام هذه</string>
   <string name="toast_no_open_todos">لا يوجد مهام لإنجازها</string>
   <string name="toast_no_todos_in_list">لا توجد مهام في القائمة المحددة</string>
+  <!--System created todo lists-->
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">انتبه!</string>
   <string name="unsaved_data_message">إذا قمت بالمتابعة سيتم تجاهل التغييرات التي لم يتم حفظها.</string>
@@ -187,8 +187,10 @@
   <string name="imagery_offset_date">تم إنشاء</string>
   <string name="imagery_offset_zoom">تكبير/تصغير</string>
   <string name="imagery_offset_distance">المسافة</string>
+  <!--Position modal-->
   <string name="set_position_datum_label">المسند الجيوديسي</string>
   <string name="WGS84">WGS84</string>
+  <!---->
   <string name="tag_editor_name_suggestion">اقتراح الاسم</string>
   <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">يمكن لهذا الاقتراح استبدال بعض قيم الوسوم بقيم أكثر شيوعًا.</string>
@@ -280,13 +282,13 @@
   <string name="other">آخر</string>
   <!--Safe split dialog-->
   <string name="split_safe_title">أعضاء في علاقة مفقودة</string>
-  <string name="split_safe_message">لا يتم تنزيل طرق أعضاء علاقة الجيران. قد يعتمد الحفاظ على علاقة ترتيب الأعضاء على هذه.</string>
   <!--JS console dialog-->
   <string name="evaluate">تقييم</string>
   <string name="js_console_msg_live">الوضع الحي المباشر!</string>
   <string name="js_console_msg_debug">وضع التصحيح!</string>
   <string name="console_output_hint">المخرجات ستظهر هنا</string>
   <!--Overpass console-->
+  <!--Download missing dialog-->
   <!---->
   <string name="error">خطأ</string>
   <string name="warning">تحذير</string>
@@ -449,9 +451,8 @@
   <string name="undo_location_zoom">تكبير إلى الموقع ، ثم التراجع</string>
   <!--Value widget dialogs-->
   <!--Feedback activity-->
-  <string name="feedback_with_displayname">أرسل باستخدام اسمك الرسمي الموجود على شبكة خريطة الشارع المفتوحة</string>
-  <string name="feedback_displayname_hint">لم يتم استرجاع اسمك الرسمي الموجود على شبكة خريطة الشارع المفتوحة</string>
   <string name="feedback_title">ملاحظات للمطورين</string>
+  <string name="feedback_with_displayname">أرسل باستخدام اسمك الرسمي الموجود على شبكة خريطة الشارع المفتوحة</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">قم بتنزيل بيانات خريطة الشارع المفتوحة</string>
   <!--Clear/Reset GPX Track-->
@@ -475,7 +476,6 @@
   <string name="tip_mode_switching">يتضاعف زر القفل كمبدل للوضع ، وعند الضغط عليه لفترة طويلة ستظهر قائمة بها خيارات مختلفة.&lt;p&gt;كما يمكنك العثور على مزيد من المعلومات حول أوضاع فسبوتشي في نظام المساعدة ، سواء في المقدمة أو في المساعدة لعرض الخريطة الرئيسية.</string>
   <string name="tip_empty_gpx_download">نظرًا لوجود خلل في OSM API، يجب أن تكون نقطة البداية لمسار GPX في الاعتبار حتى يمكن العثور عليها للتنزيل.</string>
   <string name="tip_no_redo">هذا الوضع لا يدعم إعادة إضافات العقدة، في الوقت الحالي.</string>
-  <string name="tip_way_splitting">المس عقدة مظللة لتحديد موضع الانقسام، كما ستتيح لك اللمسة الطويلة تحديد الجزء المستخدم للطريق الجديد في خطوة أخرى.</string>
   <string name="tip_closed_way_splitting">يجب تقسيم الطريق المغلق إلى مكانين. المس العقدة المظللة لتحديد موضع الانقسام الأول، وفي الخطوة التالية سيطلب منك تحديد موضع الانقسام الثاني.</string>
   <string name="tip_disambiguation_menu">عندما تتواجد عدة عناصر أو كائنات أخرى قريبة جدًا من بعضها أو عندما تكون العناصر أعضاء في علاقة ما، سيعرض لك التطبيق قائمة توضيحية، يمكنك بعد ذلك تحديد العنصر الذي تقصده من القائمة.&lt;p&gt;وعندما يكون العنصر محدداً، فسيتم تمييزه عن بقية العناصر.</string>
   <!--NumberPicker-->
@@ -577,16 +577,11 @@
   <string name="toast_min_one_geocoder">يجب اختيار معرف جغرافي واحد على الأقل!</string>
   <string name="toast_used_backup">ملف حالة تالف، استخدم ملف النسخ الاحتياطي بدلاً من ذلك.</string>
   <string name="toast_used_bug_backup">ملف حالة الخلل البرمجي تالف، استخدم ملف النسخ الاحتياطي بدلاً من ذلك.</string>
-  <string name="toast_split_from">يتجزأ \"من\" الطريق</string>
-  <string name="toast_split_via">يتجزأ \"عبر\" الطريق</string>
-  <string name="toast_split_from_and_via">يتجزأ \"من\" و \"عبر\" الطرق</string>
-  <string name="toast_split_to">يتجزأ \"إلى\" الطريق</string>
   <string name="toast_tile_database_issue_short">مشلكة في قاعدة بيانات الخريطة المصورة</string>
   <string name="toast_tile_database_issue">مشكلة قوية في قاعدة بيانات مصورات الخرائط\n\"%1$s\"\n الرجاء مراجعة الأسئلة المتكررة على https://vespucci.io/</string>
   <string name="toast_invalid_apiurl">عنوان URL غير صالح لواجهة برمجة التطبيقات</string>
   <string name="toast_invalid_readonlyurl">عنوان URL غير صالح للقراءة فقط لواجهة برمجة التطبيقات</string>
   <string name="toast_invalid_notesurl">عنوان URL لواجهة برمجة تطبيقات للملاحظات غير صالح</string>
-  <string name="toast_invalid_preseturl">عنوان URL غير صحيح للقالب</string>
   <string name="toast_missing_preset_file">ملف القالب غير موجود لـ\"%1$s\"</string>
   <string name="toast_invalid_filter_regexp">تعبير عادي غير صالح في عامل التصفية بالمفتاح = \"%1$s\" value=\"%2$s\"</string>
   <string name="toast_error_accessing_photo">لا يمكن الوصول إلى الصورة %1$s</string>
@@ -684,7 +679,6 @@
   <string name="toast_url_check_with_msg">%1$s %2$d %3$s</string>
   <string name="toast_unexpected_element">تم النقر على عنصر غير متوقع:\n%1$s</string>
   <string name="toast_import_destination_exists">وجهة الاستيراد موجودة بالفعل</string>
-  <string name="toast_part_selection_not_supported">اختيار جزء الطريق غير مدعوم للطرق المغلقة</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">مصادر MapSplit تتطلب تحديد الحد الأدنى والحد الأقصى للتكبير</string>
   <string name="error_pbf_no_version">معلومات الإصدار مفقودة في ملف PBF</string>
@@ -715,6 +709,7 @@
   <string name="check">التحقق</string>
   <string name="download">تحميل</string>
   <string name="abort">إلغاء</string>
+  <string name="pause">Pause</string>
   <string name="ignore">تجاهل</string>
   <string name="select">تحديد</string>
   <string name="skip">تخطي</string>
@@ -847,14 +842,11 @@
   <string name="no_nominatim_result">لم يتم العثور على خادم Nominatim %1$s</string>
   <!--Menu-->
   <string name="menu_move">نقل</string>
-  <string name="menu_edit">تحرير</string>
   <string name="menu_add">جديد</string>
   <string name="menu_config">التفضيلات</string>
   <string name="menu_find">بحث</string>
   <string name="menu_help">مساعدة</string>
-  <string name="menu_view">العرض</string>
   <string name="menu_erase">محو العقدة/النقطة</string>
-  <string name="menu_set_position">موضع</string>
   <string name="menu_split">تجزئة</string>
   <string name="menu_remove_node_from_way">إزالة العقدة من الطريق</string>
   <string name="menu_extract">استخراج العقدة</string>
@@ -985,6 +977,7 @@
   <string name="menu_layers_add_photolayer">تفعيل طبقة الصورة</string>
   <string name="menu_layers_enable_mapillary_layer">تمكين طبقة Mapillary</string>
   <string name="menu_layers_configure">تهيئة المكونات…</string>
+  <!--Download along dialog-->
   <!---->
   <string name="menu_tools_apply_local_offset">تطبيق الإزاحة المخزنة على الصور</string>
   <string name="menu_tools_background_contrast">التباين</string>
@@ -1034,9 +1027,7 @@
   <string name="actionmode_split_closed_way">تقسيم طريق مغلق</string>
   <string name="actionmode_rotate">تدوير</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">تحديد العقدة الأولى</string>
   <string name="actionmode_closed_way_split_2">تحديد العقدة الثانية</string>
-  <string name="actionmode_split_way_node_selection">تحديد العقدة</string>
   <string name="actionmode_split_way_select_part">حدد جزء للطريق الجديد</string>
   <string name="actionmode_select_node_to_append_to">حدد عقدة للإلحاق بها</string>
   <string name="actionmode_restriction">أضف قيود الانعطاف</string>
@@ -1102,6 +1093,7 @@
   <string name="config_presetbutton_title">القوالب</string>
   <string name="config_presetbutton_summary">قم بإضافة وتمكين القوالب المتوافقة مع JOSM</string>
   <string name="config_built_in_preset">قالب موجود بالاصل</string>
+  <string name="config_keyboard_shortcuts_title">اختصارات لوحة المفاتيح</string>
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">إعدادات المدقق</string>
   <string name="config_validatorprefs_summary">تكوين قواعد التحقق من الصحة.</string>
@@ -1126,18 +1118,6 @@
   <string name="config_showWayIcons_summary">اعرض أنسب رمز للقالب على المباني.</string>
   <string name="config_tagFormEnabled_title">عرض شكل الوسم</string>
   <string name="config_tagFormEnabled_summary">عرض شكل الوسم للتحرير.</string>
-  <string name="config_showCameraAction_title">إظهار زر الكاميرا</string>
-  <string name="config_showCameraAction_summary">إظهار رمز الكاميرا على شريط الإجراءات.</string>
-  <string name="config_selectCameraApp_title">تطبيق الكاميرا</string>
-  <string name="config_selectCameraApp_summary">حدد تطبيق الكاميرا المراد استخدامه.</string>
-  <string name="config_system_camera">النظام الافتراضي</string>
-  <string name="config_open_camera">افتح الكاميرا</string>
-  <string name="config_fv5_lite">FV5 لايت</string>
-  <string name="config_fv5_pro">FV5 pro</string>
-  <string name="config_useInternalPhotoViewer_title">استخدم عارض الصور المدمج</string>
-  <string name="config_useInternalPhotoViewer_summary">استخدم عارض الصورة المدمج، إذا لم يتم تحديده فسيتم استخدام عارض خارجي.</string>
-  <string name="config_indexMediaStore_summary">بالإضافة إلى استخدام متجر الوسائط للوصول إلى الصور</string>
-  <string name="config_indexMediaStore_title">استخدم متجر الوسائط</string>
   <string name="config_followGPSbutton_title">تخطيط زر متتبع الموقع</string>
   <string name="config_followGPSbutton_summary">حيث سيتم وضع زر \"تتبع الموقع\".</string>
   <string name="config_alwaysDrawBoundingBoxes_title">قم دائمًا بتعتيم المناطق التي لم يتم تنزيلها</string>
@@ -1178,6 +1158,19 @@
   <string name="config_nameCap_summary">الكتابة التلقائية للوسوم بالأحرف الكبيرة على الإدخال</string>
   <string name="config_nameCap_title">كتابة الاسم بأحرف كبيرة</string>
   <string name="config_longStringLimit_current">%1$d</string>
+  <!--Camera and image settings-->
+  <string name="config_showCameraAction_title">إظهار زر الكاميرا</string>
+  <string name="config_showCameraAction_summary">إظهار رمز الكاميرا على شريط الإجراءات.</string>
+  <string name="config_selectCameraApp_title">تطبيق الكاميرا</string>
+  <string name="config_selectCameraApp_summary">حدد تطبيق الكاميرا المراد استخدامه.</string>
+  <string name="config_system_camera">النظام الافتراضي</string>
+  <string name="config_open_camera">افتح الكاميرا</string>
+  <string name="config_fv5_lite">FV5 لايت</string>
+  <string name="config_fv5_pro">FV5 pro</string>
+  <string name="config_useInternalPhotoViewer_title">استخدم عارض الصور المدمج</string>
+  <string name="config_useInternalPhotoViewer_summary">استخدم عارض الصورة المدمج، إذا لم يتم تحديده فسيتم استخدام عارض خارجي.</string>
+  <string name="config_indexMediaStore_summary">بالإضافة إلى استخدام متجر الوسائط للوصول إلى الصور</string>
+  <string name="config_indexMediaStore_title">استخدم متجر الوسائط</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">البيانات وتحرير الإعدادات</string>
   <string name="config_category_editing_summary">إعدادات التنزيل التلقائي والحفظ والتنبيهات.</string>
@@ -1219,6 +1212,8 @@
   <string name="config_maxCircleSegment_current">%1$d متر (أمتار)</string>
   <string name="config_minCircleSegment_current">%1$d متر (أمتار)</string>
   <string name="config_replaceTolerance_current">%1$d متر (أمتار)</string>
+  <string name="config_minMoveWayNodesWarning_current">%1$d</string>
+  <string name="config_minMoveVisibleWayNodesWarning_current">%1$d</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">إعدادات التنزيل التلقائي</string>
   <string name="config_category_auto_download_summary">إعدادات البيانات وتنزيل المهام تلقائيًا</string>
@@ -1333,28 +1328,29 @@
   <string name="manage_presets">إدارة القوالب</string>
   <string name="listedit_use_translations">استخدم الترجمات</string>
   <string name="manage_geocoders">إدارة الترميزات الجغرافية</string>
+  <string name="geocoder_type">نوع الكود الجغرافي</string>
   <!--preset downloader messages-->
   <string name="preset_update">تحديث القالب</string>
-  <string name="preset_download_successful">تم تنزيل القالب</string>
-  <string name="preset_download_failed">تعذر تنزيل ملف القالب.  لن يعمل القالب.</string>
-  <string name="preset_download_parse_failed">ملف القالب غير صالح.  لن يعمل القالب.</string>
   <string name="preset_download_missing_images">تم تنزيل ملف القالب  ومع ذلك بعض الرموز لم يتم إنزالها.</string>
-  <string name="preset_download_title">أداة تنزيل القالب</string>
   <!--preset management-->
+  <!--style downloader messages-->
+  <!--style management-->
+  <!--Image storage management-->
   <!--url handler activity-->
-  <string name="urldialog_add_preset">أضف القالب</string>
-  <string name="urldialog_preset_exists">هذا القالب موجود بالفعل</string>
-  <string name="urldialog_preset_download_successful">تم تنزيل القالب.</string>
   <string name="urldialog_api_exists">يوجد بالفعل API مع نفس عنوان URL هذا.  ومع ذلك ، يمكنك إضافة حساب آخر (على سبيل المثال للتبديل بين الحسابات بسهولة).</string>
-  <string name="urldialog_add_api">إضافة API</string>
   <string name="urldialog_nodata_text">لا يحتوي عنوان URL الخاص بالتكوين على بيانات صالحة.</string>
-  <string name="urldialog_add_geocoder">أضف المكود الجغرافي</string>
   <!--API configuration-->
   <string name="api_name">اسم API</string>
   <string name="api_url">عنوان URL الخاص بواجهة برمجة التطبيقات</string>
   <string name="readonly_url">عنوان URL لواجهة برمجة التطبيقات للقراءة فقط (اختياري)</string>
   <string name="notes_url">عنوان URL لواجهة برمجة تطبيقات Notes (اختياري)</string>
   <string name="copy_of">نسخ من %1$s</string>
+  <!--image upload dialog-->
+  <string name="image_upload">الرفع</string>
+  <string name="wikimedia_meta_description">الوصف</string>
+  <string name="wikimedia_meta_source">المصدر</string>
+  <string name="wikimedia_meta_author">المحرر</string>
+  <string name="wikimedia_meta_category">التصنيف</string>
   <!--common terms-->
   <string name="add">إضافة</string>
   <string name="edit">تحرير</string>
@@ -1367,13 +1363,14 @@
   <string name="Continue">إستمرار</string>
   <!---->
   <string name="empty_list">لا توجد إدخالات</string>
-  <string name="geocoder_type">نوع الكود الجغرافي</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">القالب</string>
+  <string name="style">النمط</string>
   <string name="api">API</string>
   <string name="undo">تراجع</string>
   <string name="redo">إعادة</string>
   <string name="undo_nothing">لا شيء للتراجع</string>
+  <!--background / forground services-->
   <string name="tracking_active_title">خدمة فسبوتشي الخلفية</string>
   <string name="tracking_active_title_short">الخدمة الخلفية نشطة</string>
   <string name="tracking_active_text">تسجيل مسار GPS أو التنزيل التلقائي</string>
@@ -1536,4 +1533,7 @@
   <string name="relation_id">العلاقة %1$d</string>
   <!--Tile downloader diagnostics-->
   <string name="tile_unknown_error">خطأ غير معروف</string>
+  <!--Keyboard Shortcuts UI-->
+  <string name="keyboard_shortcut_save">حفظ</string>
+  <string name="keyboard_shortcut_reset">إعادة ضبط</string>
 </resources>

@@ -1,5 +1,8 @@
 package de.blau.android.osm;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+import static de.blau.android.util.GeoMath.OSM_SCALE;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,16 +12,21 @@ import java.util.Map;
 
 import org.xmlpull.v1.XmlSerializer;
 
+import com.github.micycle1.clipper2.core.Path64;
+import com.github.micycle1.clipper2.core.Point64;
+
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.Geometry;
 import de.blau.android.util.rtree.BoundedObject;
 import de.blau.android.validation.Validator;
 
-public class Way extends StyledOsmElement implements WayInterface, BoundedObject {
+public class Way extends StyledOsmElement implements WayInterface, BoundedObject, BoundingBoxCoverage {
 
-    private static final String DEBUG_TAG = Way.class.getSimpleName().substring(0, Math.min(23, Way.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Way.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Way.class.getSimpleName().substring(0, TAG_LEN);
 
     /**
      * 
@@ -429,22 +437,20 @@ public class Way extends StyledOsmElement implements WayInterface, BoundedObject
         }
 
         String barrier = getTagWithKey(Tags.KEY_BARRIER);
-        if (barrier != null) {
-            if (Tags.VALUE_RETAINING_WALL.equals(barrier)) {
-                return true;
-            }
-            if (Tags.VALUE_KERB.equals(barrier)) {
-                return true;
-            }
-            if (Tags.VALUE_GUARD_RAIL.equals(barrier)) {
-                return true;
-            }
-            String twoSided = getTagWithKey(Tags.KEY_TWO_SIDED);
-            if (Tags.VALUE_CITY_WALL.equals(barrier) && (twoSided == null || !Tags.VALUE_YES.equals(twoSided))) {
-                return true;
-            }
+        if (barrier == null) {
+            return false;
         }
-        return false;
+        if (Tags.VALUE_RETAINING_WALL.equals(barrier)) {
+            return true;
+        }
+        if (Tags.VALUE_KERB.equals(barrier)) {
+            return true;
+        }
+        if (Tags.VALUE_GUARD_RAIL.equals(barrier)) {
+            return true;
+        }
+        String twoSided = getTagWithKey(Tags.KEY_TWO_SIDED);
+        return Tags.VALUE_CITY_WALL.equals(barrier) && (twoSided == null || !Tags.VALUE_YES.equals(twoSided));
     }
 
     @Override
@@ -515,8 +521,8 @@ public class Way extends StyledOsmElement implements WayInterface, BoundedObject
         double result = 0d;
         if (nodes != null) {
             for (int i = 0; i < (nodes.size() - 1); i++) {
-                result = result + GeoMath.haversineDistance(nodes.get(i).getLon() / 1E7D, nodes.get(i).getLat() / 1E7D, nodes.get(i + 1).getLon() / 1E7D,
-                        nodes.get(i + 1).getLat() / 1E7D);
+                result = result + GeoMath.haversineDistance(nodes.get(i).getLon() / OSM_SCALE, nodes.get(i).getLat() / OSM_SCALE,
+                        nodes.get(i + 1).getLon() / OSM_SCALE, nodes.get(i + 1).getLat() / OSM_SCALE);
             }
         }
         return result;
@@ -539,6 +545,27 @@ public class Way extends StyledOsmElement implements WayInterface, BoundedObject
         return distance;
     }
 
+    @Override
+    @NonNull
+    public List<BoundingBox> getCoverage(double bufferMeters, double minDimension, double maxDimension) {
+        if (nodes == null || nodes.size() < 2) {
+            return new ArrayList<>();
+        }
+
+        final boolean closed = isClosed(); // we need to not close the polygon so that EndType.Joined works
+
+        // create buffer area
+        final Path64 path = new Path64();
+        final int size = nodes.size() - (closed ? 1 : 0);
+        for (int i = 0; i < size; i++) {
+            GeoPoint p = nodes.get(i);
+            // lon is already WGS84 E7
+            path.add(new Point64(p.getLon(), Math.round(GeoMath.latE7ToMercator(p.getLat()) * OSM_SCALE)));
+        }
+
+        return Geometry.coverPath64(path, bufferMeters, minDimension, maxDimension, closed);
+    }
+
     /**
      * Cache the calculated bounding box for this way
      * 
@@ -559,7 +586,7 @@ public class Way extends StyledOsmElement implements WayInterface, BoundedObject
      */
     public void invalidateBoundingBox() {
         left = Integer.MIN_VALUE;
-        // changing geometry might chage the type
+        // changing geometry might change the type
         elementType = null;
     }
 

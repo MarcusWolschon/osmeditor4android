@@ -30,6 +30,7 @@ public final class ErrorCodes {
     public static final int DOWNLOAD_LIMIT_EXCEEDED = 17;
     public static final int UPLOAD_LIMIT_EXCEEDED   = 18;
     public static final int UPLOAD_INCOMPLETE       = 19;
+    public static final int UNAVAILABLE             = 20;
 
     public static final int UPLOAD_CONFLICT               = 50;
     public static final int INVALID_LOGIN                 = 51;

@@ -37,7 +37,8 @@ import de.blau.android.views.TriStateCheckBox;
  */
 public class CheckGroupDialogRow extends MultiselectDialogRow {
 
-    private static final String DEBUG_TAG = CheckGroupDialogRow.class.getSimpleName().substring(0, Math.min(23, CheckGroupDialogRow.class.getSimpleName().length()));
+    private static final String DEBUG_TAG = CheckGroupDialogRow.class.getSimpleName().substring(0,
+            Math.min(23, CheckGroupDialogRow.class.getSimpleName().length()));
 
     Map<String, String> keyValues;
 
@@ -63,9 +64,10 @@ public class CheckGroupDialogRow extends MultiselectDialogRow {
     /**
      * Set the selected check values
      * 
+     * @param context an Android Context
      * @param keyValues a Map of the current keys and values for this check group
      */
-    public void setSelectedValues(@NonNull Map<String, String> keyValues) {
+    public void setSelectedValues(@NonNull Context context, @NonNull Map<String, String> keyValues) {
         this.keyValues = keyValues;
         de.blau.android.propertyeditor.Util.resetValueLayout(valueList, () -> setValue("", ""));
 
@@ -84,7 +86,7 @@ public class CheckGroupDialogRow extends MultiselectDialogRow {
             }
             PresetCheckField check = field.getCheckField(key);
             if (check != null && !"".equals(value)) {
-                String d = check.getHint();
+                String d = check.isDeprecated() ? context.getString(R.string.deprecated, check.getHint()) : check.getHint();
                 String valueOn = check.getOnValue().getValue();
                 StringWithDescription valueOff = check.getOffValue();
                 boolean off = valueOff != null && valueOff.getValue().equals(value);
@@ -153,83 +155,90 @@ public class CheckGroupDialogRow extends MultiselectDialogRow {
     static void getRow(@NonNull final TagFormFragment caller, @NonNull final LayoutInflater inflater, @Nullable final LinearLayout rowLayout,
             @NonNull final PresetCheckGroupField field, @Nullable final Map<String, String> keyValues, @NonNull PresetItem preset,
             Map<String, String> allTags) {
+        final Context context = caller.getContext();
         final String key = field.getKey();
-        if (rowLayout != null && keyValues != null) {
-            if (field.size() <= caller.maxInlineValues) {
-                String hint = preset.getHint(key);
-                if (hint == null) { // simply display as individual checks
-                    for (PresetCheckField check : field.getCheckFields()) {
-                        caller.addRow(rowLayout, check, keyValues.get(check.getKey()), preset, allTags);
-                    }
-                } else {
-                    final CheckGroupRow row = (CheckGroupRow) inflater.inflate(R.layout.tag_form_checkgroup_row, rowLayout, false);
-                    row.getKeyView().setText(hint);
-                    row.getKeyView().setTag(key);
-                    OnStateChangedListener onStateChangeListener = (checkBox, state) -> {
-                        PresetCheckField check = (PresetCheckField) checkBox.getTag();
-                        String checkKey = check.getKey();
-                        if (state == null) {
-                            caller.updateSingleValue(checkKey, "");
-                            keyValues.put(checkKey, "");
-                        } else if (!checkBox.isEnabled()) {
-                            // unknown stuff
-                            keyValues.put(checkKey, keyValues.get(checkKey));
-                        } else if (state) { // NOSONAR state can't be null here
-                            caller.updateSingleValue(checkKey, check.getOnValue().getValue());
-                            keyValues.put(checkKey, check.getOnValue().getValue());
-                        } else {
-                            StringWithDescription offValue = check.getOffValue();
-                            caller.updateSingleValue(checkKey, offValue == null ? "" : offValue.getValue());
-                            keyValues.put(checkKey, offValue == null ? "" : offValue.getValue());
-                        }
-                        if (rowLayout instanceof EditableLayout) {
-                            ((EditableLayout) rowLayout).putTag(checkKey, keyValues.get(checkKey));
-                        }
-                    };
+        if (rowLayout == null || keyValues == null) {
+            Log.e(DEBUG_TAG, "addRow rowLayout " + rowLayout + " keyValues " + keyValues + " for " + field.getKey());
+            return;
+        }
+        if (field.size() > caller.maxInlineValues) {
+            final CheckGroupDialogRow row = (CheckGroupDialogRow) inflater.inflate(R.layout.tag_form_checkgroup_dialog_row, rowLayout, false);
 
-                    for (PresetCheckField check : field.getCheckFields()) {
-                        String checkKey = check.getKey();
-                        String checkValue = keyValues.get(checkKey);
-
-                        Boolean state = getState(check, checkValue);
-
-                        String checkHint = check.getHint();
-                        if (checkHint != null && !"".equals(checkHint)) {
-                            TriStateCheckBox checkBox = row.addCheck(checkHint == null ? checkKey : checkHint, state, onStateChangeListener);
-                            checkBox.setTag(check);
-                        } else {
-                            // unknown value: add non-editable checkbox
-                            TriStateCheckBox checkBox = row.addCheck(checkKey + "=" + checkValue, state, onStateChangeListener);
-                            checkBox.setTag(check);
-                            checkBox.setEnabled(false);
-                        }
-                    }
-                    rowLayout.addView(row);
+            String tempHint = preset.getHint(key);
+            if (tempHint == null) {
+                // fudge something
+                tempHint = caller.getString(R.string.default_checkgroup_hint);
+            }
+            final String hint = tempHint;
+            row.keyView.setText(hint);
+            row.keyView.setTag(key);
+            row.setPreset(preset);
+            row.setSelectedValues(context, keyValues);
+            row.valueView.setHint(R.string.tag_dialog_value_hint);
+            row.setOnClickListener(new ShowDialogOnClickListener() {
+                @Override
+                public AlertDialog buildDialog() {
+                    return buildCheckGroupDialog(caller, hint, key, row, preset);
                 }
-            } else {
-                final CheckGroupDialogRow row = (CheckGroupDialogRow) inflater.inflate(R.layout.tag_form_checkgroup_dialog_row, rowLayout, false);
-
-                String tempHint = preset.getHint(key);
-                if (tempHint == null) {
-                    // fudge something
-                    tempHint = caller.getString(R.string.default_checkgroup_hint);
-                }
-                final String hint = tempHint;
-                row.keyView.setText(hint);
-                row.keyView.setTag(key);
-                row.setPreset(preset);
-                row.setSelectedValues(keyValues);
-                row.valueView.setHint(R.string.tag_dialog_value_hint);
-                row.setOnClickListener(new ShowDialogOnClickListener() {
-                    @Override
-                    public AlertDialog buildDialog() {
-                        return buildCheckGroupDialog(caller, hint, key, row, preset);
-                    }
-                });
-                rowLayout.addView(row);
+            });
+            rowLayout.addView(row);
+            return;
+        }
+        String hint = preset.getHint(key);
+        if (hint == null) { // simply display as individual checks
+            for (PresetCheckField check : field.getCheckFields()) {
+                caller.addRow(rowLayout, check, keyValues.get(check.getKey()), preset, allTags);
             }
         } else {
-            Log.e(DEBUG_TAG, "addRow rowLayout " + rowLayout + " keyValues " + keyValues + " for " + field.getKey());
+            final CheckGroupRow row = (CheckGroupRow) inflater.inflate(R.layout.tag_form_checkgroup_row, rowLayout, false);
+            row.getKeyView().setText(hint);
+            row.getKeyView().setTag(key);
+            OnStateChangedListener onStateChangeListener = (checkBox, state) -> {
+                PresetCheckField check = (PresetCheckField) checkBox.getTag();
+                String checkKey = check.getKey();
+                if (state == null) {
+                    caller.updateSingleValue(checkKey, "");
+                    keyValues.put(checkKey, "");
+                } else if (!checkBox.isEnabled()) {
+                    // unknown stuff
+                    keyValues.put(checkKey, keyValues.get(checkKey));
+                } else if (state) { // NOSONAR state can't be null here
+                    caller.updateSingleValue(checkKey, check.getOnValue().getValue());
+                    keyValues.put(checkKey, check.getOnValue().getValue());
+                } else {
+                    StringWithDescription offValue = check.getOffValue();
+                    caller.updateSingleValue(checkKey, offValue == null ? "" : offValue.getValue());
+                    keyValues.put(checkKey, offValue == null ? "" : offValue.getValue());
+                }
+                if (rowLayout instanceof EditableLayout) {
+                    ((EditableLayout) rowLayout).putTag(checkKey, keyValues.get(checkKey));
+                }
+            };
+
+            for (PresetCheckField check : field.getCheckFields()) {
+                String checkKey = check.getKey();
+                String checkValue = keyValues.get(checkKey);
+                String checkHint = check.getHint();
+                if (check.isDeprecated()) {
+                    if (checkValue == null) {
+                        continue;
+                    }
+                    checkHint = context.getString(R.string.deprecated, checkHint);
+                }
+
+                Boolean state = getState(check, checkValue);
+
+                if (checkHint != null && !"".equals(checkHint)) {
+                    TriStateCheckBox checkBox = row.addCheck(checkHint == null ? checkKey : checkHint, state, onStateChangeListener);
+                    checkBox.setTag(check);
+                } else {
+                    // unknown value: add non-editable checkbox
+                    TriStateCheckBox checkBox = row.addCheck(checkKey + "=" + checkValue, state, onStateChangeListener);
+                    checkBox.setTag(check);
+                    checkBox.setEnabled(false);
+                }
+            }
+            rowLayout.addView(row);
         }
     }
 
@@ -280,6 +289,12 @@ public class CheckGroupDialogRow extends MultiselectDialogRow {
             String checkKey = check.getKey();
             String checkValue = row.keyValues.get(checkKey);
             String checkHint = check.getHint();
+            if (check.isDeprecated()) {
+                if (checkValue == null) {
+                    continue;
+                }
+                checkHint = caller.getContext().getString(R.string.deprecated, checkHint);
+            }
             Boolean state = getState(check, checkValue);
 
             if (checkHint != null && !"".equals(checkHint)) {

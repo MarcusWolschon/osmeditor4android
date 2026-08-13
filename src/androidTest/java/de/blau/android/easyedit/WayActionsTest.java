@@ -85,6 +85,9 @@ public class WayActionsTest {
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
         logic = App.getLogic();
+        logic.setFilter(null);
+        prefs.enablePresetFilter(false);
+        prefs.enableTagFilter(false);
         logic.deselectAll();
         TestUtils.loadTestData(main, "test2.osm");
         App.getTaskStorage().reset();
@@ -108,7 +111,7 @@ public class WayActionsTest {
     @Test
     public void square() {
         map.getDataLayer().setVisible(true);
-        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.zoomToLevel(device, main, 22);
         TestUtils.unlock(device);
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_way), true, false));
@@ -487,7 +490,7 @@ public class WayActionsTest {
         AdvancedPrefDatabase prefDB = new AdvancedPrefDatabase(context);
         try {
             prefDB.deleteAPI("Test");
-            prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null), false);
+            prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null), false, false);
             prefDB.selectAPI("Test");
             Preferences prefs = new Preferences(context);
             LayerUtils.removeImageryLayers(context);
@@ -556,7 +559,7 @@ public class WayActionsTest {
         AdvancedPrefDatabase prefDB = new AdvancedPrefDatabase(context);
         try {
             prefDB.deleteAPI("Test");
-            prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null), false);
+            prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null), false, false);
             prefDB.selectAPI("Test");
             Preferences prefs = new Preferences(context);
             LayerUtils.removeImageryLayers(context);

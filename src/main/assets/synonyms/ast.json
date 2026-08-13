@@ -104,12 +104,6 @@
 "tasca",
 "chigre"
 ],
-"amenity/bbq":[
-"llar",
-"Barbacoa/Asador",
-"fueu",
-"cocina"
-],
 "amenity/bench":[
 "asientu",
 "Asientu"
@@ -152,11 +146,6 @@
 "amenity/charging_station":[
 "Estación de recarga"
 ],
-"amenity/childcare":[
-"Preescolar/Guardería",
-"escuela infantil",
-"educación infantil"
-],
 "amenity/cinema":[
 "multicine",
 "cinematógrafu",
@@ -169,9 +158,6 @@
 ],
 "amenity/clock":[
 "Reló"
-],
-"amenity/college":[
-"Terrén de colexu universitariu"
 ],
 "amenity/community_centre":[
 "atenéu",
@@ -188,9 +174,6 @@
 "sala",
 "tribunal",
 "audiencia"
-],
-"amenity/coworking_space":[
-"Espaciu de trabayu compartíu"
 ],
 "amenity/crematorium":[
 "Crematoriu"
@@ -216,15 +199,6 @@
 "Agua potable",
 "fonte",
 "bebederu"
-],
-"amenity/driving_school":[
-"llicencia",
-"escuela",
-"permisu",
-"Autoescuela",
-"conducir",
-"conducción",
-"carné"
 ],
 "amenity/embassy":[
 "Embaxada"
@@ -276,11 +250,6 @@
 ],
 "amenity/motorcycle_parking":[
 "Aparcaderu de motos"
-],
-"amenity/music_school":[
-"Academia de música",
-"escuela de música",
-"conservatoriu"
 ],
 "amenity/nightclub":[
 "discobar",
@@ -366,11 +335,6 @@
 "Vertíu de depósitos d'autocaravanes",
 "saneamientru caravanes"
 ],
-"amenity/school":[
-"terrén d'escuela",
-"zona escolar",
-"Antoxana d'escuela"
-],
 "amenity/shelter":[
 "Abellugu"
 ],
@@ -414,10 +378,6 @@
 "ayuntamientu",
 "Edificiu municipal",
 "casa del conceyu"
-],
-"amenity/university":[
-"terrén universitariu",
-"Campus universitariu"
 ],
 "amenity/vending_machine":[
 "máquina",
@@ -610,9 +570,6 @@
 ],
 "building/dormitory":[
 "Residencia"
-],
-"building/entrance":[
-"Entrada/Salida"
 ],
 "building/garage":[
 "aparcaderu",
@@ -845,35 +802,17 @@
 "corazón",
 "ataque cardiacu"
 ],
-"emergency/designated":[
-"Accesu d'emerxencia designáu"
-],
-"emergency/destination":[
-"Accesu d'emerxencia a destín"
-],
 "emergency/fire_hydrant":[
 "Toma de mangueres",
 "apagafueos",
 "boca de riegu",
 "fueu"
 ],
-"emergency/no":[
-"Accesu d'emerxencia Non"
-],
-"emergency/official":[
-"Accesu d'emerxencia oficial"
-],
 "emergency/phone":[
 "teléfonu d'ayuda",
 "Teléfonu d'emerxencia",
 "teléfonu de socorru",
 "s.o.s."
-],
-"emergency/private":[
-"Accesu d'emerxencia priváu"
-],
-"emergency/yes":[
-"Accesu d'emerxencia Si"
 ],
 "ford":[
 "Vau"
@@ -987,9 +926,6 @@
 ],
 "highway/motorway":[
 "Autoestrada"
-],
-"highway/motorway_junction":[
-"Entrada/salida d'autoestrada"
 ],
 "highway/motorway_link":[
 "accesu",
@@ -1112,9 +1048,6 @@
 ],
 "highway/turning_loop":[
 "Círculu de xiru (con islla)"
-],
-"highway/unclassified":[
-"Estrada menor/ensin clasificar"
 ],
 "historic":[
 "Sitiu históricu"
@@ -1299,9 +1232,6 @@
 ],
 "leisure/pitch/beachvolleyball":[
 "Campu de voleibol  playa"
-],
-"leisure/pitch/boules":[
-"Pista de petanca"
 ],
 "leisure/pitch/bowls":[
 "Bolera"
@@ -2023,9 +1953,6 @@
 "shop/pyrotechnics":[
 "Venta de pirotecnia"
 ],
-"shop/radiotechnics":[
-"Componentes electrónicos"
-],
 "shop/religion":[
 "Artículos relixosos"
 ],
@@ -2106,9 +2033,6 @@
 ],
 "shop/watches":[
 "Reloxería"
-],
-"shop/water_sports":[
-"Tienda de natación/deportes acuáticos"
 ],
 "shop/weapons":[
 "Armería"
@@ -2244,9 +2168,6 @@
 "type/route/pipeline":[
 "ruta de tubería",
 "Ruta de tubería"
-],
-"type/route/piste":[
-"Pista/Ruta d'esquí"
 ],
 "type/route/power":[
 "ruta de llinia d'enerxía",

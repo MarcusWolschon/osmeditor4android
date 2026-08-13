@@ -51,6 +51,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
+import de.blau.android.resources.DataStyleManager;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.resources.TileLayerSource.TileType;
 import de.blau.android.services.TrackerService;
@@ -172,8 +173,8 @@ public class Map extends SurfaceView implements IMapView {
 
     private TrackerService tracker = null;
 
-    private final boolean   hardwareLayerType;
-    private final DataStyle styles;
+    private final boolean          hardwareLayerType;
+    private final DataStyleManager styles;
 
     /**
      * Construct a new Map object that orchestrates the layer drawing and related rendering
@@ -183,11 +184,14 @@ public class Map extends SurfaceView implements IMapView {
     @SuppressLint("NewApi")
     public Map(@NonNull final Context context) {
         super(context);
+        if (!(context instanceof Main)) {
+            throw new IllegalArgumentException("Map requires Main as a context");
+        }
         this.context = context;
 
         canvasBounds = new Rect();
 
-        styles = App.getDataStyle(context);
+        styles = App.getDataStyleManager(context);
 
         setFocusable(true);
         setFocusableInTouchMode(true);
@@ -708,6 +712,7 @@ public class Map extends SurfaceView implements IMapView {
         }
 
         paintGpsPos(canvas);
+
         if (showCrosshairs && logic.isInEditZoomRange()) {
             paintCrosshairs(canvas);
         }
@@ -715,6 +720,8 @@ public class Map extends SurfaceView implements IMapView {
         if (imageryAlignMode) {
             paintZoomAndOffset(canvas);
         }
+
+        ((Main) context).getEasyEditManager().draw(this, canvas);
 
         if (showStats) {
             time = System.currentTimeMillis() - time;
@@ -784,9 +791,9 @@ public class Map extends SurfaceView implements IMapView {
     private void paintCrosshairs(@NonNull Canvas canvas) {
         float x = GeoMath.lonE7ToX(getWidth(), getViewBox(), crosshairsLon);
         float y = GeoMath.latE7ToY(getHeight(), getWidth(), getViewBox(), crosshairsLat);
-        Paint paint = getDataStyle().getInternal(DataStyle.CROSSHAIRS_HALO).getPaint();
+        Paint paint = styles.getInternal(DataStyle.CROSSHAIRS_HALO).getPaint();
         drawCrosshairs(canvas, x, y, paint);
-        paint = getDataStyle().getInternal(DataStyle.CROSSHAIRS).getPaint();
+        paint = styles.getInternal(DataStyle.CROSSHAIRS).getPaint();
         drawCrosshairs(canvas, x, y, paint);
     }
 
@@ -801,7 +808,7 @@ public class Map extends SurfaceView implements IMapView {
     private void drawCrosshairs(@NonNull Canvas canvas, float x, float y, @NonNull Paint paint) {
         canvas.save();
         canvas.translate(x, y);
-        canvas.drawPath(getDataStyle().getCurrent().getCrosshairsPath(), paint);
+        canvas.drawPath(styles.getCurrent().getCrosshairsPath(), paint);
         canvas.restore();
     }
 
@@ -849,7 +856,7 @@ public class Map extends SurfaceView implements IMapView {
             canvas.save();
             canvas.translate(x, y);
             canvas.rotate(o);
-            canvas.drawPath(getDataStyle().getCurrent().getOrientationPath(), paint);
+            canvas.drawPath(styles.getCurrent().getOrientationPath(), paint);
             canvas.restore();
         }
         if (displayLocation.hasAccuracy()) {
@@ -868,7 +875,7 @@ public class Map extends SurfaceView implements IMapView {
     private void paintStats(@NonNull final Canvas canvas, final float fps) {
         int pos = 1;
         String text = "";
-        Paint infotextPaint = getDataStyle().getInternal(DataStyle.INFOTEXT).getPaint();
+        Paint infotextPaint = styles.getInternal(DataStyle.INFOTEXT).getPaint();
         float textSize = infotextPaint.getTextSize();
 
         BoundingBox viewBox = getViewBox();
@@ -1014,24 +1021,23 @@ public class Map extends SurfaceView implements IMapView {
                     nextNode = null;
                 }
                 x = -Float.MAX_VALUE; // misuse this as a flag
-                if (!interrupted && prevNode != null) {
-                    if (thisIntersects || nextIntersects || (!(nextNode != null && lastDrawnNode != null)
-                            || clipBox.isIntersectionPossible(nextNodeLon, nextNodeLat, lastDrawnNodeLon, lastDrawnNodeLat))) {
-                        x = GeoMath.lonE7ToX(w, box, nodeLon);
-                        y = GeoMath.latE7ToY(h, w, box, nodeLat);
-                        if (prevX == -Float.MAX_VALUE) { // last segment didn't intersect
-                            prevX = GeoMath.lonE7ToX(w, box, prevNode.getLon());
-                            prevY = GeoMath.latE7ToY(h, w, box, prevNode.getLat());
-                        }
-                        // Line segment needs to be drawn
-                        points.add(prevX);
-                        points.add(prevY);
-                        points.add(x);
-                        points.add(y);
-                        lastDrawnNode = node;
-                        lastDrawnNodeLat = nodeLat;
-                        lastDrawnNodeLon = nodeLon;
+                if (!interrupted && prevNode != null && (thisIntersects || nextIntersects || (!(nextNode != null && lastDrawnNode != null)
+                        || clipBox.isIntersectionPossible(nextNodeLon, nextNodeLat, lastDrawnNodeLon, lastDrawnNodeLat)))) {
+                    x = GeoMath.lonE7ToX(w, box, nodeLon);
+                    y = GeoMath.latE7ToY(h, w, box, nodeLat);
+                    if (prevX == -Float.MAX_VALUE) { // last segment didn't intersect
+                        prevX = GeoMath.lonE7ToX(w, box, prevNode.getLon());
+                        prevY = GeoMath.latE7ToY(h, w, box, prevNode.getLat());
                     }
+                    // Line segment needs to be drawn
+                    points.add(prevX);
+                    points.add(prevY);
+                    points.add(x);
+                    points.add(y);
+                    lastDrawnNode = node;
+                    lastDrawnNodeLat = nodeLat;
+                    lastDrawnNodeLon = nodeLon;
+
                 }
                 prevNode = node;
                 prevX = x;
@@ -1340,7 +1346,7 @@ public class Map extends SurfaceView implements IMapView {
     /**
      * @return the current DataStyle instance
      */
-    public DataStyle getDataStyle() {
+    public DataStyleManager getDataStyleManager() {
         return styles;
     }
 }

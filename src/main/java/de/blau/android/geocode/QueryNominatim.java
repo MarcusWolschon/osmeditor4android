@@ -41,14 +41,16 @@ public class QueryNominatim extends Query {
      * @param url URL for the specific instance of the geocoder
      * @param bbox a ViewBox to restrict the query to, if null the whole world will be considered
      * @param limitSearch if true limit search to bbox
+     * @param postQueryHandler code to run once we are done
      */
-    public QueryNominatim(@Nullable FragmentActivity activity, @NonNull String url, @Nullable ViewBox bbox, boolean limitSearch) {
-        super(activity, url, bbox);
+    public QueryNominatim(@Nullable FragmentActivity activity, @NonNull String url, @Nullable ViewBox bbox, boolean limitSearch,
+            @Nullable final PostQueryHandler postQueryHandler) {
+        super(activity, url, bbox, postQueryHandler);
         limitToBoundingBox = limitSearch;
     }
 
     @Override
-    protected List<SearchResult> doInBackground(String query) {
+    protected List<SearchResult> doInBackground(String query) throws IOException {
         List<SearchResult> result = new ArrayList<>();
         Uri.Builder builder = Uri.parse(url).buildUpon().appendPath("search").appendQueryParameter("q", query);
         if (bbox != null) {
@@ -62,29 +64,24 @@ public class QueryNominatim extends Query {
 
         String urlString = uriBuilder.toString();
         Log.d(DEBUG_TAG, "urlString: " + urlString);
-        try {
-            Request request = new Request.Builder().url(urlString).build();
-            Response searchCallResponse = App.getHttpClient().newCall(request).execute();
-            if (searchCallResponse.isSuccessful()) {
-                try (ResponseBody responseBody = searchCallResponse.body(); InputStream inputStream = responseBody.byteStream()) {
-                    if (inputStream != null) {
-                        try (JsonReader reader = new JsonReader(new InputStreamReader(inputStream))) {
-                            reader.beginArray();
-                            while (reader.hasNext()) {
-                                SearchResult searchResult = readNominatimResult(reader);
-                                if (searchResult != null) {
-                                    result.add(searchResult);
-                                    Log.d(DEBUG_TAG, "received: " + searchResult.toString());
-                                }
+        Request request = new Request.Builder().url(urlString).build();
+        Response searchCallResponse = App.getHttpClient().newCall(request).execute();
+        if (searchCallResponse.isSuccessful()) {
+            try (ResponseBody responseBody = searchCallResponse.body(); InputStream inputStream = responseBody.byteStream()) {
+                if (inputStream != null) {
+                    try (JsonReader reader = new JsonReader(new InputStreamReader(inputStream))) {
+                        reader.beginArray();
+                        while (reader.hasNext()) {
+                            SearchResult searchResult = readNominatimResult(reader);
+                            if (searchResult != null) {
+                                result.add(searchResult);
+                                Log.d(DEBUG_TAG, "received: " + searchResult.toString());
                             }
-                            reader.endArray();
                         }
+                        reader.endArray();
                     }
                 }
             }
-        } catch (IOException e) {
-            Log.e(DEBUG_TAG, "QueryNominatim got " + e.getMessage());
-            connectionError(e.getMessage());
         }
         return result;
     }
@@ -127,7 +124,7 @@ public class QueryNominatim extends Query {
         }
         return null;
     }
-    
+
     /**
      * Get a URL for a Nominatim server
      * 

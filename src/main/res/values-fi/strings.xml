@@ -39,6 +39,8 @@
   <string name="deleting_references_on_server">…poistamalla viittaukset palvelimelta</string>
   <string name="unexpected_conflict_type">Odottamaton ristiriidan tyyppi</string>
   <!--Upload retry-->
+  <string name="upload_retry_title">Lähetys epäonnistui</string>
+  <string name="upload_retry_message_update_failed_title">Päivitys epäonnistui</string>
   <string name="save_changes">Tallenna muutokset</string>
   <!---->
   <string name="no_login_data_title">Kirjautuminen epäonnistui</string>
@@ -81,6 +83,7 @@
   <string name="applying_osc_failed_message">Todennäköisin syy on, ettet ole ladannut kaikkea sitä alkuperäistä dataa, johon muutoksia olisi tehtävä.</string>
   <string name="duplicate_tag_key_title">Sama avain useamman kerran</string>
   <string name="duplicate_tag_key_message">Olet lisännyt seuraavan avaimen useamman kerran, etkä voi jatkaa ennen kuin ongelma on ratkaistu:</string>
+  <string name="upload_bounding_box_too_large_title">Alue on liian suuri lähetettäväksi</string>
   <!---->
   <string name="select_file_picker_title">Valitse tiedostoselain</string>
   <!--Newbie dialog-->
@@ -99,7 +102,6 @@
   <string name="progress_searching_message">Etsitään...</string>
   <string name="progress_saving_message">Tallennetaan...</string>
   <string name="progress_uploading_message">Lähetetään...</string>
-  <string name="progress_preset_message">Ladataan esivalintaa...</string>
   <string name="progress_loading_preset_message">Ladataan esivalintaa...</string>
   <string name="progress_importing_file_message">Tuodaan tiedostoa...</string>
   <string name="progress_running_message">Suoritetaan...</string>
@@ -187,6 +189,7 @@
   <string name="toast_todo_already_in_list">Elementti on jo tässä tehtävälistassa</string>
   <string name="toast_no_open_todos">Ei tehtäviä avoinna</string>
   <string name="toast_no_todos_in_list">Ei tehtäviä valitussa listassa</string>
+  <!--System created todo lists-->
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Varoitus!</string>
   <string name="unsaved_data_message">Tallentamattomat muokkaukset hylätään jos jatkat.</string>
@@ -200,8 +203,10 @@
   <string name="imagery_offset_date">Luotu</string>
   <string name="imagery_offset_zoom">Suurennus</string>
   <string name="imagery_offset_distance">Etäisyys</string>
+  <!--Position modal-->
   <string name="set_position_datum_label">Geodeettinen datumi</string>
   <string name="WGS84">WGS84</string>
+  <!---->
   <string name="tag_editor_name_suggestion">Nimiehdotus</string>
   <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">Tämä ehdotus voi korvata jotkin tägit suositummilla tägeillä.</string>
@@ -296,7 +301,6 @@
   <string name="other">Muu</string>
   <!--Safe split dialog-->
   <string name="split_safe_title">Puuttuva relaatiojäsen</string>
-  <string name="split_safe_message">Viereisiä relaatiojäsen-viivoja ei ole ladattu. Relaatiojäsenten järjestyksen säilyttäminen saattaa riippua niistä.</string>
   <!--JS console dialog-->
   <string name="evaluate">Suorita</string>
   <string name="js_console_msg_live">Suoramuokkaustila!</string>
@@ -313,6 +317,7 @@
   <string name="select_result">Valitse tulos</string>
   <string name="merge_result">Sulautuksen tulos</string>
   <string name="overpass_query_would_overwrite">Tulos menisi muutosten päälle! Haku keskeytetään.</string>
+  <!--Download missing dialog-->
   <!---->
   <string name="error">Virhe</string>
   <string name="warning">Varoitus</string>
@@ -477,9 +482,9 @@
   <string name="undo_location_zoom">Siirry sijaintiin, ja peru sitten</string>
   <!--Value widget dialogs-->
   <!--Feedback activity-->
-  <string name="feedback_with_displayname">Lähetä OpenStreetMapin näyttönimellä</string>
-  <string name="feedback_displayname_hint">OpenStreetMapin näyttönimeä ei ole vielä haettu</string>
   <string name="feedback_title">Palautetta kehittäjille</string>
+  <string name="feedback_with_displayname">Lähetä OpenStreetMapin näyttönimellä</string>
+  <string name="feedback_success_title">Onnistui</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Lataa dataa OpenStreetMapistä</string>
   <!--Clear/Reset GPX Track-->
@@ -504,7 +509,6 @@
   <string name="tip_mode_switching">Lukkopainikkeella voi vaihtaa myös muokkaustilaa. Pitkä painallus avaa eri vaihtoehdot näyttävän valikon.&lt;p&gt;Lisätietoja Vespuccin muokkaustiloista on ohjesivuilla – sekä esittelyssä että pääkarttanäkymän ohjeessa.</string>
   <string name="tip_empty_gpx_download">OSM-APIn pienen omituisuuden vuoksi GPX-jäljen alkupisteen pitää olla näkymässä, jotta se löytyisi ladattavaksi.</string>
   <string name="tip_no_redo">Tässä tilassa ei toistaiseksi ole mahdollista toistaa pisteiden lisäyksiä.</string>
-  <string name="tip_way_splitting">Osoita jakokohta koskettamalla jotain korostettua pistettä. Pitkä kosketus antaa sinun valita kummasta osasta tehdään uusi viiva.</string>
   <string name="tip_closed_way_splitting">Suljettu viiva täytyy jakaa kahdesta kohdasta. Osoita 1. jakokohta koskettamalla jotain korostettua pistettä, ja seuraavassa vaiheessa sinulta kysytään 2. jakokohta.</string>
   <string name="tip_disambiguation_menu">Kun useita OSM-elementtejä tai muita kohteita on hyvin lähellä toisiaan tai elementit ovat relaation jäseniä, näytölle avautuu täsmennysikkuna. Ikkunan listasta voi sitten valita haluamansa elementin.&lt;p&gt;Elementit, jotka ovat parhaillaan valittuja, näytetään listassa korostettuina.</string>
   <!--NumberPicker-->
@@ -594,16 +598,11 @@
   <string name="toast_min_one_geocoder">Ainakin yhden geokooderin pitää olla valittuna.</string>
   <string name="toast_used_backup">Vioittunut tilatiedosto, käytettiin varmuuskopiota.</string>
   <string name="toast_used_bug_backup">Vioittunut virhetilatiedosto, käytettiin varmuuskopiota.</string>
-  <string name="toast_split_from">From-viiva jaettiin kahtia</string>
-  <string name="toast_split_via">Via-viiva jaettiin kahtia</string>
-  <string name="toast_split_from_and_via">From- ja via-viivat jaettiin kahtia</string>
-  <string name="toast_split_to">To-viiva jaettiin kahtia</string>
   <string name="toast_tile_database_issue_short">Ongelma laattatietokannassa</string>
   <string name="toast_tile_database_issue">Laattatietokannassa on vakava ongelma:\n\"%1$s\"\nKatso ohjeita sivultamme osoitteesta https://vespucci.io/</string>
   <string name="toast_invalid_apiurl">APIn URL on virheellinen</string>
   <string name="toast_invalid_readonlyurl">APIn ReadOnly-URL on virheellinen</string>
   <string name="toast_invalid_notesurl">APIn Notes-URL on virheellinen</string>
-  <string name="toast_invalid_preseturl">Esivalinta-URL on virheellinen</string>
   <string name="toast_missing_preset_file">Esivalintatiedostoa \"%1$s\" ei ole</string>
   <string name="toast_invalid_filter_regexp">Virheellinen säännöllinen lauseke suodattimessa, jossa avain=\"%1$sja \" arvo=\"%2$s\"</string>
   <string name="toast_error_accessing_photo">Valokuvaa %1$s ei voida lukea</string>
@@ -700,7 +699,6 @@
   <string name="toast_url_check_with_msg">%1$s %2$d %3$s</string>
   <string name="toast_unexpected_element">Odottamatonta elementtiä napsautettiin:\n%1$s</string>
   <string name="toast_import_destination_exists">Tuonnin kohdetiedosto on jo olemassa</string>
-  <string name="toast_part_selection_not_supported">Viivan osan valintaa tueta suljetuille viivoille</string>
   <string name="toast_element_has_been_deleted">Elementti on jo poistettu</string>
   <string name="toast_updating_tags">Päivitetään tägejä...</string>
   <string name="toast_updating_parents">Päivitetään emoelementtejä...</string>
@@ -735,6 +733,7 @@
   <string name="check">Tarkista</string>
   <string name="download">Lataa</string>
   <string name="abort">Keskeytä</string>
+  <string name="pause">Pause</string>
   <string name="ignore">Sivuuta</string>
   <string name="select">Yhden kohteen valitseminen</string>
   <string name="skip">Ohita</string>
@@ -867,14 +866,11 @@
   <string name="no_nominatim_result">Nominatim-palvelin ei löytänyt sijaintia %1$s</string>
   <!--Menu-->
   <string name="menu_move">Siirrä</string>
-  <string name="menu_edit">Muokkaa</string>
   <string name="menu_add">Uusi</string>
   <string name="menu_config">Asetukset</string>
   <string name="menu_find">Etsi</string>
   <string name="menu_help">Ohje</string>
-  <string name="menu_view">Näytä</string>
   <string name="menu_erase">Poista piste</string>
-  <string name="menu_set_position">Sijainti</string>
   <string name="menu_split">Jaa kahtia</string>
   <string name="menu_remove_node_from_way">Poista piste viivasta</string>
   <string name="menu_start_end_way">Viivan alku/loppu</string>
@@ -1014,6 +1010,7 @@
   <string name="menu_layers_enable_bookmarkslayer">Näytä kirjanmerkkitaso</string>
   <string name="menu_layers_configure">Asetukset...</string>
   <string name="menu_layers_background_align">Kohdista kuvataso...</string>
+  <!--Download along dialog-->
   <!---->
   <string name="menu_tools_apply_local_offset">Käytä tallennettua siirrosta kuvatasolle</string>
   <string name="menu_tools_background_contrast">Kontrasti</string>
@@ -1065,9 +1062,7 @@
   <string name="actionmode_split_closed_way">Jaa suljettu viiva</string>
   <string name="actionmode_rotate">Pyöritä</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">Valitse 1. piste</string>
   <string name="actionmode_closed_way_split_2">Valitse 2. piste</string>
-  <string name="actionmode_split_way_node_selection">Valitse piste</string>
   <string name="actionmode_split_way_select_part">Valitse osa uudeksi viivaksi</string>
   <string name="actionmode_select_node_to_append_to">Valitse piste josta jatketaan</string>
   <string name="actionmode_restriction">Lisää kääntymisrajoitus</string>
@@ -1129,6 +1124,7 @@
   <string name="config_presetbutton_title">Esivalinnat</string>
   <string name="config_presetbutton_summary">Lisää ja ota käyttöön JOSM-yhteensopivia esivalintoja</string>
   <string name="config_built_in_preset">Valmiit esivalinnat</string>
+  <string name="config_keyboard_shortcuts_title">Pikanäppäimet</string>
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">Tarkistimen asetukset</string>
   <string name="config_validatorprefs_summary">Määritä tarkistimen säännöt</string>
@@ -1154,19 +1150,7 @@
   <string name="config_tagFormEnabled_title">Näytä tägilomake</string>
   <string name="config_tagFormEnabled_summary">Näytä tägilomake muokkausnäkymässä.</string>
   <string name="config_supportPresetLabels_title">Näytä esivalintojen nimikkeet</string>
-  <string name="configsupportPresetLabels_summary">Näytä esivalintojen nimikkeet tägien lomakemuokkaimessa.</string>
-  <string name="config_showCameraAction_title">Näytä kameratoiminto</string>
-  <string name="config_showCameraAction_summary">Näytä kamerakuvake toimintopalkissa.</string>
-  <string name="config_selectCameraApp_title">Kamerasovellus</string>
-  <string name="config_selectCameraApp_summary">Valitse käytettävä kamerasovellus</string>
-  <string name="config_system_camera">Järjestelmän oletus</string>
-  <string name="config_open_camera">Open Camera</string>
-  <string name="config_fv5_lite">FV5 lite</string>
-  <string name="config_fv5_pro">FV5 pro</string>
-  <string name="config_useInternalPhotoViewer_title">Käytä sisäistä kuvakatselinta</string>
-  <string name="config_useInternalPhotoViewer_summary">Käytä Vespuccin omaa, sisäistä kuvakatselinta. Muutoin käytetään ulkoista katselinta.</string>
-  <string name="config_indexMediaStore_summary">Käytä lisäksi MediaStorea kuvien katsomiseen</string>
-  <string name="config_indexMediaStore_title">Käytä MedisStorea</string>
+  <string name="config_supportPresetLabels_summary">Näytä esivalintojen nimikkeet tägien lomakemuokkaimessa.</string>
   <string name="config_followGPSbutton_title">Sijainninseuranta-napin asettelu</string>
   <string name="config_followGPSbutton_summary">Missä kohdassa \"Seuraa sijaintia\" -nappi näytetään.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Himmennä aina lataamattomat alueet</string>
@@ -1216,6 +1200,19 @@
   <string name="config_longStringLimit_title">Pitkän merkkijonon raja</string>
   <string name="config_longStringLimit_summary">Raja jota pidempiä ominaisuusmuokkaimen tekstikenttiä muokataan erillisessä ikkunassa.</string>
   <string name="config_longStringLimit_current">%1$d</string>
+  <!--Camera and image settings-->
+  <string name="config_showCameraAction_title">Näytä kameratoiminto</string>
+  <string name="config_showCameraAction_summary">Näytä kamerakuvake toimintopalkissa.</string>
+  <string name="config_selectCameraApp_title">Kamerasovellus</string>
+  <string name="config_selectCameraApp_summary">Valitse käytettävä kamerasovellus</string>
+  <string name="config_system_camera">Järjestelmän oletus</string>
+  <string name="config_open_camera">Open Camera</string>
+  <string name="config_fv5_lite">FV5 lite</string>
+  <string name="config_fv5_pro">FV5 pro</string>
+  <string name="config_useInternalPhotoViewer_title">Käytä sisäistä kuvakatselinta</string>
+  <string name="config_useInternalPhotoViewer_summary">Käytä Vespuccin omaa, sisäistä kuvakatselinta. Muutoin käytetään ulkoista katselinta.</string>
+  <string name="config_indexMediaStore_summary">Käytä lisäksi MediaStorea kuvien katsomiseen</string>
+  <string name="config_indexMediaStore_title">Käytä MedisStorea</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Data- ja muokkausasetukset</string>
   <string name="config_category_editing_summary">Automaattilataus-, tallennus ja ilmoitusasetukset.</string>
@@ -1261,6 +1258,8 @@
   <string name="config_maxCircleSegment_current">%1$d metri(ä)</string>
   <string name="config_minCircleSegment_current">%1$d metri(ä)</string>
   <string name="config_replaceTolerance_current">%1$d metri(ä)</string>
+  <string name="config_minMoveWayNodesWarning_current">%1$d</string>
+  <string name="config_minMoveVisibleWayNodesWarning_current">%1$d</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Automaattisen latauksen asetukset</string>
   <string name="config_category_auto_download_summary">Automaattisen datan ja tehtävien latauksen asetukset.</string>
@@ -1378,28 +1377,29 @@
   <string name="manage_presets">Esivalintojen hallinta</string>
   <string name="listedit_use_translations">Käytä käännöksiä</string>
   <string name="manage_geocoders">Geokoodereiden hallinta</string>
+  <string name="geocoder_type">Geokooderin tyyppi</string>
   <!--preset downloader messages-->
   <string name="preset_update">Päivitä esivalinta</string>
-  <string name="preset_download_successful">Esivalinta ladattu</string>
-  <string name="preset_download_failed">Esivalintatiedostoa ei voitu ladata. Esivalintaa ei voi käyttää.</string>
-  <string name="preset_download_parse_failed">Esivalintatiedosto on virheellinen. Esivalintaa ei voi käyttää.</string>
   <string name="preset_download_missing_images">Esivalintatiedosto ladattiin onnistuneesti. Osaa kuvakkeista ei kuitenkaan voitu ladata, ja ne tulevat puuttumaan.</string>
-  <string name="preset_download_title">Esivalintojen lataus</string>
   <!--preset management-->
+  <!--style downloader messages-->
+  <!--style management-->
+  <!--Image storage management-->
   <!--url handler activity-->
-  <string name="urldialog_add_preset">Lisää esivalinta</string>
-  <string name="urldialog_preset_exists">Tämä esivalinta on jo olemassa</string>
-  <string name="urldialog_preset_download_successful">Esivalinta ladattu.</string>
   <string name="urldialog_api_exists">Tässä URLissa oleva API on jo olemassa. Voit kuitenkin lisätä toisen (esim. helpottamaan tilin vaihtamista).</string>
-  <string name="urldialog_add_api">Lisää API</string>
   <string name="urldialog_nodata_text">Määritys-URLissa ei ole kelvollista dataa.</string>
-  <string name="urldialog_add_geocoder">Lisää geokooderi</string>
   <!--API configuration-->
   <string name="api_name">APIn nimi</string>
   <string name="api_url">APIn URL</string>
   <string name="readonly_url">Read-Only-APIn URL (valinnainen)</string>
   <string name="notes_url">Notes-APIn URL (valinnainen)</string>
   <string name="copy_of">Kopio - %1$s</string>
+  <!--image upload dialog-->
+  <string name="image_upload">Lähettäminen</string>
+  <string name="wikimedia_meta_description">Kuvaus</string>
+  <string name="wikimedia_meta_source">Lähde</string>
+  <string name="wikimedia_meta_author">Tekijä</string>
+  <string name="wikimedia_meta_category">Luokka</string>
   <!--common terms-->
   <string name="add">Lisää</string>
   <string name="edit">Muokkaa</string>
@@ -1412,13 +1412,13 @@
   <string name="Continue">Pidennä</string>
   <!---->
   <string name="empty_list">Tyhjä lista</string>
-  <string name="geocoder_type">Geokooderin tyyppi</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">Esivalinta</string>
   <string name="api">API</string>
   <string name="undo">Peru</string>
   <string name="redo">Toista</string>
   <string name="undo_nothing">Ei mitään peruttavaa</string>
+  <!--background / forground services-->
   <string name="tracking_active_title">Vespuccin taustapalvelin</string>
   <string name="tracking_active_title_short">Taustapalvelin käytössä</string>
   <string name="tracking_active_text">GPX-jäljen tallennus tai automaattilataus meneillään.</string>
@@ -1580,4 +1580,7 @@
   <string name="tile_success">Onnistui</string>
   <string name="tile_fail">Ei onnistunut</string>
   <string name="tile_unknown_error">Tuntematon virhe</string>
+  <!--Keyboard Shortcuts UI-->
+  <string name="keyboard_shortcut_save">Tallentaminen</string>
+  <string name="keyboard_shortcut_reset">Palauta</string>
 </resources>

@@ -1,5 +1,6 @@
 package de.blau.android.search;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -48,6 +49,8 @@ public class Wrapper implements Meta {
     final Context context;
     final Logic   logic;
 
+    private boolean silent = false;
+
     /**
      * Create a new wrapper object
      * 
@@ -81,6 +84,15 @@ public class Wrapper implements Meta {
     @Nullable
     public OsmElement getElement() {
         return element;
+    }
+
+    /**
+     * Set silent flag
+     * 
+     * @param silent value to set
+     */
+    public void setSilent(boolean silent) {
+        this.silent = silent;
     }
 
     @Override
@@ -255,7 +267,7 @@ public class Wrapper implements Meta {
     }
 
     @Override
-    public Object getPreset(@NonNull String presetPath) {
+    public Serializable getPreset(@NonNull String presetPath) {
         if (context == null) {
             throw unsupported("preset:");
         }
@@ -271,7 +283,7 @@ public class Wrapper implements Meta {
     }
 
     @Override
-    public boolean matchesPreset(@NonNull Object preset) {
+    public boolean matchesPreset(@NonNull Serializable preset) {
         SortedMap<String, String> tags = element.getTags();
         ElementType type = element.getType();
         if (preset instanceof PresetItem && matches((PresetItem) preset, type, tags)) {
@@ -385,8 +397,8 @@ public class Wrapper implements Meta {
     }
 
     @Override
-    public boolean isChild(@NonNull Type type, @NonNull Meta meta, @NonNull List<Object> parents) {
-        for (Object o : parents) {
+    public boolean isChild(@NonNull Type type, @NonNull Meta meta, @NonNull List<Serializable> parents) {
+        for (Serializable o : parents) {
             if (o instanceof Relation) {
                 if (element.hasParentRelation((Relation) o)) {
                     return true;
@@ -399,8 +411,8 @@ public class Wrapper implements Meta {
     }
 
     @Override
-    public boolean isParent(@NonNull Type type, @NonNull Meta meta, @NonNull List<Object> children) {
-        for (Object o : children) {
+    public boolean isParent(@NonNull Type type, @NonNull Meta meta, @NonNull List<Serializable> children) {
+        for (Serializable o : children) {
             if (element instanceof Relation) {
                 if (((OsmElement) o).hasParentRelation((Relation) element)) {
                     return true;
@@ -414,8 +426,8 @@ public class Wrapper implements Meta {
 
     @NonNull
     @Override
-    public List<Object> getMatchingElements(@NonNull Condition c) {
-        List<Object> result = new ArrayList<>();
+    public List<Serializable> getMatchingElements(@NonNull Condition c) {
+        List<Serializable> result = new ArrayList<>();
         SearchResult sr = getMatchingElementsInternal(c);
         result.addAll(sr.nodes);
         result.addAll(sr.ways);
@@ -423,7 +435,33 @@ public class Wrapper implements Meta {
         return result;
     }
 
-    class SearchResult {
+    @Override
+    public boolean in(Meta meta, String region) {
+        if (silent) {
+            return true;
+        }
+        return Meta.super.in(meta, region);
+    }
+
+    @Override
+    public boolean around(Meta meta, String region) {
+        if (silent) {
+            return true;
+        }
+        return Meta.super.around(meta, region);
+    }
+
+    @Override
+    public String displayValue(String key, String value) {
+        PresetItem item = Preset.findBestMatch(App.getCurrentPresets(context), getTags(), null, null);
+        if (item == null) {
+            return value;
+        }
+        String displayValue = item.getDescriptionForValue(key, value);
+        return displayValue != null ? displayValue : value;
+    }
+
+    public class SearchResult {
         List<Node>     nodes     = new ArrayList<>();
         List<Way>      ways      = new ArrayList<>();
         List<Relation> relations = new ArrayList<>();
@@ -461,6 +499,26 @@ public class Wrapper implements Meta {
     }
 
     /**
+     * Eval the condition on all objects in a storage object
+     * 
+     * @param c the Condition to check
+     * @param storage the Storage of the elements to search in
+     * @return a SearchResult object
+     */
+    @NonNull
+    public SearchResult getMatchingElementsInternal(@NonNull Condition c, @NonNull Storage storage) {
+        OsmElement savedElement = element; // save this instead of instantiating a new wrapper
+
+        SearchResult result = new SearchResult();
+        processElements(result.nodes, storage.getNodes(), null, Type.NODE, c);
+        processElements(result.ways, storage.getWays(), null, Type.WAY, c);
+        processElements(result.relations, storage.getRelations(), null, Type.RELATION, c);
+
+        element = savedElement;
+        return result;
+    }
+
+    /**
      * Loop over current and api storage and process all elements
      * 
      * @param <T> the type of OsmElement
@@ -470,23 +528,26 @@ public class Wrapper implements Meta {
      * @param type element type
      * @param c the Condition that needs to be matched
      */
-    private <T extends OsmElement> void processElements(@NonNull List<T> result, @NonNull List<T> current, @NonNull List<T> api, @NonNull Type type, @NonNull Condition c) {
+    private <T extends OsmElement> void processElements(@NonNull List<T> result, @NonNull List<T> current, @Nullable List<T> api, @NonNull Type type,
+            @NonNull Condition c) {
         for (T e : current) {
             element = e;
             if (c.eval(type, this, e.getTags())) {
                 result.add(e);
             }
         }
-        for (T e : api) {
-            element = e;
-            if (e.getState() == OsmElement.STATE_DELETED && c.eval(type, this, e.getTags())) {
-                result.add(e);
+        if (api != null) {
+            for (T e : api) {
+                element = e;
+                if (e.getState() == OsmElement.STATE_DELETED && c.eval(type, this, e.getTags())) {
+                    result.add(e);
+                }
             }
         }
     }
 
     @Override
-    public @NonNull Meta wrap(Object arg0) {
+    public @NonNull Meta wrap(Serializable arg0) {
         if (context == null) {
             throw unsupported("unknown");
         }

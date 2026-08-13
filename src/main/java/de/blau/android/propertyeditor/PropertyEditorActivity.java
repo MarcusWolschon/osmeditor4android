@@ -20,7 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.ViewGroupCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -37,6 +37,7 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetElement;
 import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.PresetGroup;
+import de.blau.android.util.ConfigurationChangeAwareActivity;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -56,6 +57,8 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, PropertyEditorActivity.class.getSimpleName().length());
     private static final String DEBUG_TAG = PropertyEditorActivity.class.getSimpleName().substring(0, TAG_LEN);
 
+    private static final String ATTEMPT_REPLACE = "attemptReplace";
+
     /**
      * Start a PropertyEditor activity
      * 
@@ -72,6 +75,7 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
         Log.d(DEBUG_TAG, "start");
         try {
             final Intent intent = buildIntent(activity, dataClass, predictAddressTags, showPresets, extraTags, presetItems);
+            intent.putExtra(ATTEMPT_REPLACE, true);
             if (App.getPreferences(activity).useSplitWindowForPropertyEditor()) {
                 activity.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT));
             } else if (App.getPreferences(activity).useNewTaskForPropertyEditor()) {
@@ -122,7 +126,7 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
         Preferences prefs = logic.getPrefs();
         if (prefs == null) {
             Log.e(DEBUG_TAG, "prefs was null creating new");
-            App.getDataStyle(this);
+            App.getDataStyleManager(this);
             prefs = new Preferences(this);
             logic.setPrefs(prefs);
         }
@@ -145,6 +149,8 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
             postLoadData.onSuccess();
         }
         getOnBackPressedDispatcher().addCallback(this, onBackPressedCallback);
+        // fragment will not get readded on a configuration change so we need to change thins here
+        setInsets(android.R.id.content);
     }
 
     @Override
@@ -172,6 +178,7 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
                 de.blau.android.util.Util.getSerializableExtra(intent, PropertyEditorFragment.TAGEDIT_LAST_ADDRESS_TAGS, Boolean.class));
         boolean showPresets = getPrimitiveBoolean(
                 de.blau.android.util.Util.getSerializableExtra(intent, PropertyEditorFragment.TAGEDIT_SHOW_PRESETS, Boolean.class));
+        boolean attemptReplace = getPrimitiveBoolean(de.blau.android.util.Util.getSerializableExtra(intent, ATTEMPT_REPLACE, Boolean.class));
 
         M extraTags = (M) intent.getSerializableExtra(PropertyEditorFragment.TAGEDIT_EXTRA_TAGS);
         L presetsToApply = (L) intent.getSerializableExtra(PropertyEditorFragment.TAGEDIT_PRESETSTOAPPLY);
@@ -197,7 +204,8 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
             return;
         }
 
-        addFragment(getSupportFragmentManager(), android.R.id.content, loadData, applyLastAddressTags, showPresets, extraTags, presetsToApply, usePaneLayout);
+        addFragment(getSupportFragmentManager(), android.R.id.content, loadData, applyLastAddressTags, showPresets, extraTags, presetsToApply, usePaneLayout,
+                attemptReplace);
     }
 
     /**
@@ -221,27 +229,40 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
      * @param extraTags additional tags that should be added
      * @param presetsToApply presets that should be applied
      * @param usePaneLayout optional layout control
+     * @param attemptReplace attempt to replace the fragment aka check if it has changes or not
      */
     public void addFragment(@NonNull FragmentManager fm, int viewRes, @NonNull PropertyEditorData[] data, boolean predictAddressTags, boolean showPresets,
-            @Nullable M extraTags, @Nullable L presetsToApply, @Nullable Boolean usePaneLayout) {
+            @Nullable M extraTags, @Nullable L presetsToApply, @Nullable Boolean usePaneLayout, boolean attemptReplace) {
         FragmentTransaction ft = fm.beginTransaction();
-        Fragment existing = peekBackStack(fm);
+        PropertyEditorFragment<M, L, T> existing = peekBackStack(fm);
+
+        String tag = java.util.UUID.randomUUID().toString();
         if (existing != null) {
-            ft.hide(existing);
+            if (!existing.hasChanges() && attemptReplace) {
+                existing.finishActionMode();
+                fm.popBackStackImmediate();
+            } else {
+                ft.hide(existing);
+            }
         }
         PropertyEditorFragment<M, L, T> fragment = PropertyEditorFragment.newInstance(data, predictAddressTags, showPresets, extraTags, presetsToApply,
-                usePaneLayout);
-        String tag = java.util.UUID.randomUUID().toString();
+                usePaneLayout, backStackCount(fm) + 1);
         ft.add(viewRes, fragment, tag);
         ft.addToBackStack(tag);
         ft.commit();
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(viewRes), (View v, WindowInsetsCompat insets) -> {
-            if (fragment != null) {
-                ViewCompat.dispatchApplyWindowInsets(fragment.getView(), insets);
-            }
-            return insets;
-        });
+        setInsets(viewRes);
+    }
+
+    /**
+     * Set the current Insets on the View with id viewRes
+     * 
+     * @param viewRes the view id
+     */
+    private void setInsets(int viewRes) {
+        View top = findViewById(viewRes);
+        ViewGroupCompat.installCompatInsetsDispatch(top);
+        ViewCompat.setOnApplyWindowInsetsListener(top, ConfigurationChangeAwareActivity.onApplyWindowInsetslistener);
     }
 
     /**
@@ -359,7 +380,7 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
             startActivity(intent);
         }
         addFragment(fm, android.R.id.content, new PropertyEditorData[] { new PropertyEditorData(element, null) }, false, false, null, null,
-                top != null && top.usingPaneLayout());
+                top != null && top.usingPaneLayout(), false);
     }
 
     /**

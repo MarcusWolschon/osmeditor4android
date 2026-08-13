@@ -8,7 +8,8 @@
     <androidx.viewpager.widget.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:saveEnabled="false" >
     </androidx.viewpager.widget.ViewPager>
     <androidx.appcompat.widget.ActionMenuView
         android:id="@+id/photoMenuView"
@@ -16,5 +17,6 @@
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="bottom"
         android:background="@null"
-        android:minHeight="?attr/actionBarSize" />
+        android:minHeight="?attr/actionBarSize"
+        android:saveEnabled="false" />
 </FrameLayout>

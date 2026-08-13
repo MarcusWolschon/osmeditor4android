@@ -1,0 +1,13 @@
+Vespucci は、OpenStreetMapデータの編集用の、先進オープンソースツールです。これは地図ビューアやナビゲーションアプリではありません。使用するには <a href="http://www.openstreetmap.org/">OpenStreetMap のアカウント</a> が必要です。
+
+指定したエリアの地図データをダウンロードし、地図を編集できます。編集したらOSMサーバーに直接アップロードできます。
+
+誤った変更は元に戻せますし、アップロード前にすべての変更を確認できます。タグのオートコンプリート、JOSM互換プリセット、翻訳済み地図機能ページへのリンク、近隣道路名のオートコンプリートが、使用するべき適切なタグ付けを支援します。
+
+アプリのアップデートが行われる前に、編集内容をアップロードできるように、Vespucciの自動アップデートを無効にすることをお勧めします。
+
+詳細情報やドキュメントは 、<a href="http://vespucci.io/">vespucci.io</a> やデバイス上のヘルプをご覧ください。
+
+ここで問題を報告したり、サポートを求めないでください。 <a href="http://vespucci.io/tutorials/faq/#why-cant-you-provide-technical-support-on-the-google-play-store-review-section">プレイストアのレビューから、問題を受け付けたりサポートを提供できない理由 (why we can't provide support and accept issues on the play store review) 節</a>をご覧ください。githubアカウントがなくても、アプリから直接 <a href="http://vespucci.io/help/en/Introduction/#reporting-problems">問題報告 </a> したり、<a href="https://github.com/MarcusWolschon/osmeditor4android/issues">問題トラッカー</a>に直接行くこともできます。
+
+OpenStreetMap や OSM、虫眼鏡のロゴは <a href="https://osmfoundation.org/">OpenStreetMap Foundation</a>の商標です. Vespucci アプリは OpenStreetMap Foundation に承認されたものでも、提携しているものでもありません。

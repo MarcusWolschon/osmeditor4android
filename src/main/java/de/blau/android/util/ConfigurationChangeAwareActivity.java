@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup.MarginLayoutParams;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
+import androidx.core.os.ConfigurationCompat;
 import androidx.core.view.OnApplyWindowInsetsListener;
 import androidx.core.view.WindowInsetsCompat;
 import de.blau.android.App;
@@ -25,7 +26,8 @@ public abstract class ConfigurationChangeAwareActivity extends AppCompatActivity
         super.onConfigurationChanged(newConfig);
         final Configuration oldConfig = App.getConfiguration();
         App.setConfiguration(newConfig);
-        if (Util.themeChanged(App.getPreferences(this), oldConfig, newConfig)) {
+        if (Util.themeChanged(App.getPreferences(this), oldConfig, newConfig)
+                || !ConfigurationCompat.getLocales(oldConfig).get(0).equals(ConfigurationCompat.getLocales(newConfig).get(0))) {
             Log.d(DEBUG_TAG, "recreating activity " + this.getClass().getCanonicalName());
             recreate();
         }
@@ -36,10 +38,22 @@ public abstract class ConfigurationChangeAwareActivity extends AppCompatActivity
      * Standard insets listener
      */
     public static final OnApplyWindowInsetsListener onApplyWindowInsetslistener = (v, windowInsets) -> {
-        Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.navigationBars() | WindowInsetsCompat.Type.ime());
-        setMarginsFromInsets(v, insets);
+        setMarginsFromInsets(v, getInsets(windowInsets));
         return WindowInsetsCompat.CONSUMED;
     };
+
+    /**
+     * Get the insets we are interested in and return them corrected for any double counting
+     * 
+     * @param windowInsets the input insets
+     * @return what we actually want to use
+     */
+    @NonNull
+    public static Insets getInsets(@NonNull WindowInsetsCompat windowInsets) {
+        Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.navigationBars() | WindowInsetsCompat.Type.ime());
+        Insets cutout = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout());
+        return Insets.max(insets, cutout);
+    }
 
     /**
      * Set margins for a View from Insets

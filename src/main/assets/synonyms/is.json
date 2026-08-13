@@ -102,9 +102,6 @@
 "amenity/bar/lgbtq":[
 "LGBTQ+ Bar"
 ],
-"amenity/bbq":[
-"Grill"
-],
 "amenity/bench":[
 "Bekkur"
 ],
@@ -145,9 +142,6 @@
 "amenity/charging_station":[
 "Hleðslustöð"
 ],
-"amenity/childcare":[
-"Barnagæsla/dagvistun"
-],
 "amenity/cinema":[
 "bíó",
 "Kvikmyndahús"
@@ -167,9 +161,6 @@
 "amenity/clock/sundial":[
 "Sólúr"
 ],
-"amenity/college":[
-"Framhaldskólalóð"
-],
 "amenity/community_centre":[
 "Samfélagsmiðstöð"
 ],
@@ -178,9 +169,6 @@
 ],
 "amenity/courthouse":[
 "Dómhús"
-],
-"amenity/coworking_space":[
-"Sameiginlegt vinnurými"
 ],
 "amenity/crematorium":[
 "Líkbrennsla"
@@ -202,9 +190,6 @@
 ],
 "amenity/drinking_water":[
 "Drykkjarvatn"
-],
-"amenity/driving_school":[
-"Ökuskóli"
 ],
 "amenity/embassy":[
 "Sendiráð"
@@ -263,9 +248,6 @@
 "amenity/internet_cafe":[
 "Netkaffihús"
 ],
-"amenity/language_school":[
-"Tungumálaskóli"
-],
 "amenity/lavoir":[
 "Þvottaþró (þvottaaðstaða)"
 ],
@@ -286,9 +268,6 @@
 ],
 "amenity/motorcycle_parking":[
 "Mótorhjólastæði"
-],
-"amenity/music_school":[
-"Tónlistarskóli"
 ],
 "amenity/nightclub":[
 "Næturklúbbur"
@@ -427,9 +406,6 @@
 "amenity/sanitary_dump_station":[
 "Salernishreinsun fyrir bíla"
 ],
-"amenity/school":[
-"Skólalóð"
-],
 "amenity/shelter":[
 "Skýli"
 ],
@@ -477,9 +453,6 @@
 ],
 "amenity/townhall":[
 "Ráðhús"
-],
-"amenity/university":[
-"Háskólalóð"
 ],
 "amenity/vehicle_inspection":[
 "Skoðun farartækja"
@@ -729,9 +702,6 @@
 "building/dormitory":[
 "Heimavist"
 ],
-"building/entrance":[
-"Inngangur/Útgangur"
-],
 "building/farm":[
 "Íbúðarhús á býli"
 ],
@@ -964,12 +934,6 @@
 "emergency/defibrillator":[
 "Hjartastuðtæki"
 ],
-"emergency/designated":[
-"Ætlað sem neyðaraðgangur"
-],
-"emergency/destination":[
-"Neyðaraðgangur ef í fararleið"
-],
 "emergency/fire_extinguisher":[
 "Slökkvitæki"
 ],
@@ -991,26 +955,14 @@
 "emergency/mountain_rescue":[
 "Fjallabjörgun"
 ],
-"emergency/no":[
-"Ekki neyðaraðgangur"
-],
-"emergency/official":[
-"Opinber neyðaraðgangur"
-],
 "emergency/phone":[
 "Neyðarsími"
-],
-"emergency/private":[
-"Einka neyðaraðgangur"
 ],
 "emergency/siren":[
 "Sírena"
 ],
 "emergency/water_tank":[
 "Neyðarvatnstankur"
-],
-"emergency/yes":[
-"Neyðaraðgangur: Já"
 ],
 "ford":[
 "Vað"
@@ -1144,9 +1096,6 @@
 "highway/motorway":[
 "Hraðbraut"
 ],
-"highway/motorway_junction":[
-"Hraðbrautartenging / Útafakstur"
-],
 "highway/motorway_link":[
 "Hraðbrautarrein"
 ],
@@ -1252,9 +1201,6 @@
 ],
 "highway/turning_loop":[
 "Viðsnúningstorg (eyja)"
-],
-"highway/unclassified":[
-"Minni/Óflokkaður vegur"
 ],
 "historic":[
 "Sögulegur staður"
@@ -1427,9 +1373,6 @@
 "leisure/dance":[
 "Danssalur"
 ],
-"leisure/dancing_school":[
-"Dansskóli"
-],
 "leisure/dog_park":[
 "Hundagarður"
 ],
@@ -1531,9 +1474,6 @@
 ],
 "leisure/pitch/beachvolleyball":[
 "Strandblakvöllur"
-],
-"leisure/pitch/boules":[
-"Kúluspilsvöllur (boules/bocce)"
 ],
 "leisure/pitch/bowls":[
 "Kúluspilsflöt"
@@ -2346,9 +2286,6 @@
 "shop/baby_goods":[
 "Barnavöruverslun"
 ],
-"shop/bag":[
-"Töskubúð"
-],
 "shop/bakery":[
 "Bakarí"
 ],
@@ -2363,9 +2300,6 @@
 ],
 "shop/beauty/tanning":[
 "Sólbaðsstofa"
-],
-"shop/bed":[
-"Rúm/Dýnuverslun"
 ],
 "shop/beverages":[
 "Drykkjarbúð"
@@ -2586,9 +2520,6 @@
 "shop/pyrotechnics":[
 "Flugeldaverslun"
 ],
-"shop/radiotechnics":[
-"Rafíhlutaverslun"
-],
 "shop/religion":[
 "Verslun með trúartengdar vörur"
 ],
@@ -2661,9 +2592,6 @@
 ],
 "shop/watches":[
 "Úraverslun"
-],
-"shop/water_sports":[
-"Verslun með sund/vatnaíþróttavörur"
 ],
 "shop/weapons":[
 "Vopnaverslun"
@@ -2850,9 +2778,6 @@
 ],
 "type/route/pipeline":[
 "Röraleið"
-],
-"type/route/piste":[
-"Skíða/göngubraut"
 ],
 "type/route/power":[
 "Orkuflutningsleið"

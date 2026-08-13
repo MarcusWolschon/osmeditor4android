@@ -175,7 +175,7 @@ Authorizing Vespucci to access your account on your behalf requires you to one t
 
 Το Vespucci έχει έναν απλό επιλυτή συγκρούσεων. Ωστόσο, εάν υποψιάζεστε ότι υπάρχουν σημαντικά ζητήματα με τις επεξεργασίες σας, εξαγάγετε τις αλλαγές σας σε ένα αρχείο .osc ("Εξαγωγή" μενού αντικειμένου στο μενού "Μεταφορά") και διορθώστε τα και ανεβάστε τα με το JOSM. Δείτε την λεπτομερή βοήθεια στο [επίλυση συγκρούσεων] (../en/Conflict%20resolution.md).  
 
-### Nearby point-of-interest display
+### Προβολή κοντινών σημείων-ενδιαφέροντος
 
 A nearby point-of-interest display can be shown by pulling the handle in the middle and top of the bottom menu bar up. 
 
@@ -191,7 +191,7 @@ To record a GPX track and display it on your device select "Start GPX track" ite
 
 Note: by default Vespucci will not record elevation data with your GPX track, this is due to some Android specific issues. To enable elevation recording, either install a gravitational model, or, simpler, go to the [Advanced preferences](Advanced%20preferences.md) and configure NMEA input.
 
-### How to export a GPX track?
+### Πώς εξάγεται ένα ίχνος GPX;
 
 Open the layer menu, then click the 3-dots menu next to "GPX recording", then select **Export GPX track...**. Choose in which folder to export the track, then give it a name suffixed with `.gpx` (example: MyTrack.gpx).
 
@@ -310,7 +310,7 @@ The full description can be found here [Preferences](Preferences.md)
 
 The full description can be found here [Advanced preferences](Advanced%20preferences.md)
 
-## Reporting and Resolving Issues
+## Αναφορά και Επίλυση Ζητημάτων
 
 If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). The "Provide feedback" function from the main menu will open a new issue and include the relevant app and device information without extra typing.
 

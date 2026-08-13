@@ -26,6 +26,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.ViewGroupCompat;
 import androidx.fragment.app.FragmentActivity;
+import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.MimeTypes;
@@ -96,7 +97,7 @@ public class DownloadActivity extends WebViewActivity {
                 // Start download
                 @SuppressWarnings("deprecation")
                 DownloadManager.Request request = new DownloadManager.Request(uri).setAllowedOverRoaming(false).setTitle(filename)
-                        .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, Paths.DIRECTORY_PATH_VESPUCCI + Paths.DELIMITER + filename)
+                        .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, App.getAppName() + Paths.DELIMITER + filename)
                         .setVisibleInDownloadsUi(true);
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                 if (!allNetworks) {
@@ -134,22 +135,22 @@ public class DownloadActivity extends WebViewActivity {
          */
         private void checkStatus(@NonNull final DownloadManager mgr, final long id, @NonNull final String filename) {
             Cursor queryCursor = mgr.query(new DownloadManager.Query().setFilterById(id));
-            if (queryCursor == null) {
+            if (queryCursor == null || queryCursor.getCount() == 0) {
                 Log.e(DEBUG_TAG, "Download not found id: " + id);
-            } else {
-                queryCursor.moveToFirst();
-                try {
-                    int status = queryCursor.getInt(queryCursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS));
-                    if (status == DownloadManager.STATUS_FAILED) {
-                        int reason = queryCursor.getInt(queryCursor.getColumnIndexOrThrow(DownloadManager.COLUMN_REASON));
-                        ScreenMessage.toastTopError(DownloadActivity.this, errorMessage(DownloadActivity.this, reason, filename));
-                    } else if (status == DownloadManager.STATUS_RUNNING) {
-                        ScreenMessage.toastTopInfo(DownloadActivity.this, getString(R.string.toast_download_started, filename));
-                    }
-                } catch (IllegalArgumentException iaex) {
-                    Log.e(DEBUG_TAG, iaex.getMessage());
-                    ScreenMessage.toastTopError(DownloadActivity.this, errorMessage(DownloadActivity.this, DownloadManager.ERROR_UNKNOWN, filename));
+                return;
+            }
+            queryCursor.moveToFirst();
+            try {
+                int status = queryCursor.getInt(queryCursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS));
+                if (status == DownloadManager.STATUS_FAILED) {
+                    int reason = queryCursor.getInt(queryCursor.getColumnIndexOrThrow(DownloadManager.COLUMN_REASON));
+                    ScreenMessage.toastTopError(DownloadActivity.this, errorMessage(DownloadActivity.this, reason, filename));
+                } else if (status == DownloadManager.STATUS_RUNNING) {
+                    ScreenMessage.toastTopInfo(DownloadActivity.this, getString(R.string.toast_download_started, filename));
                 }
+            } catch (IllegalArgumentException iaex) {
+                Log.e(DEBUG_TAG, iaex.getMessage());
+                ScreenMessage.toastTopError(DownloadActivity.this, errorMessage(DownloadActivity.this, DownloadManager.ERROR_UNKNOWN, filename));
             }
         }
 

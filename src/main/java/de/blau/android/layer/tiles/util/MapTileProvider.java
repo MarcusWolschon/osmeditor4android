@@ -280,6 +280,27 @@ public class MapTileProvider<T> {
     }
 
     /**
+     * Flush a range of tiles from the cache
+     * 
+     * @param rendererId the provider to flush
+     * @param zoom zoom level
+     * @param minX minimum tile X
+     * @param minY minimum tile Y
+     * @param maxX maximum tile X
+     * @param maxY maximum tile Y
+     */
+    public void flushCache(@NonNull String rendererId, int zoom, int minX, int minY, int maxX, int maxY) {
+        if (mapTileFilesystemProvider != null) {
+            try {
+                mapTileFilesystemProvider.flushCache(rendererId, zoom, minX, minY, maxX, maxY);
+            } catch (Exception e) {
+                Log.e(DEBUG_TAG, "Exception in flushCache()", e);
+            }
+        }
+        mTileCache.clear(); // zap everything in in memory cache
+    }
+
+    /**
      * Tell the tile provider service to reread the database of TileLayerServers
      */
     public void update() {

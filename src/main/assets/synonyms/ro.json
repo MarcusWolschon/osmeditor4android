@@ -14,6 +14,9 @@
 "aeroway/aerodrome":[
 "Aeroport"
 ],
+"aeroway/hangar":[
+"Hangar"
+],
 "aeroway/helipad":[
 "Heliport"
 ],
@@ -24,7 +27,7 @@
 "Bancomat"
 ],
 "amenity/bank":[
-"Banca"
+"Bancă"
 ],
 "amenity/bar":[
 "Bar"
@@ -59,9 +62,6 @@
 "amenity/charging_station":[
 "Benzinărie"
 ],
-"amenity/childcare":[
-"Grădiniță"
-],
 "amenity/cinema":[
 "Cinema"
 ],
@@ -91,9 +91,6 @@
 ],
 "amenity/drinking_water":[
 "Apă de Băut"
-],
-"amenity/driving_school":[
-"Școală de Șoferi"
 ],
 "amenity/embassy":[
 "Ambasadă"
@@ -200,9 +197,6 @@
 "amenity/restaurant":[
 "Restaurant"
 ],
-"amenity/school":[
-"Școală"
-],
 "amenity/shelter":[
 "Adăpost"
 ],
@@ -221,11 +215,11 @@
 "amenity/theatre":[
 "Teatru"
 ],
+"amenity/toilets":[
+"Baie"
+],
 "amenity/townhall":[
 "Primărie"
-],
-"amenity/university":[
-"Universitate"
 ],
 "amenity/veterinary":[
 "Medic Veterinar"
@@ -349,9 +343,6 @@
 ],
 "building/dormitory":[
 "Dormitoriu"
-],
-"building/entrance":[
-"Intrare/Ieșire"
 ],
 "building/farm":[
 "Casă la fermă"
@@ -521,9 +512,6 @@
 "highway/motorway":[
 "Autostradă"
 ],
-"highway/motorway_junction":[
-"Juncție de Autostradă / Ieșire"
-],
 "highway/motorway_link":[
 "Intrare în Autostradă"
 ],
@@ -595,9 +583,6 @@
 ],
 "highway/turning_circle":[
 "Cerc de Cotitură"
-],
-"highway/unclassified":[
-"Stradă Minoră/Neclasificată"
 ],
 "historic":[
 "Sit Istoric"
@@ -785,11 +770,20 @@
 "man_made/chimney":[
 "Șemineu"
 ],
+"man_made/cross":[
+"Cruce"
+],
 "man_made/embankment":[
 "Îmbarcare"
 ],
+"man_made/insect_hotel":[
+"Hotel de insecte"
+],
 "man_made/lighthouse":[
 "Far"
+],
+"man_made/observatory":[
+"Observator"
 ],
 "man_made/pier":[
 "Chei"
@@ -806,11 +800,20 @@
 "man_made/storage_tank":[
 "Rezervor de Stocare"
 ],
+"man_made/storage_tank/water":[
+"Rezervor de apă"
+],
 "man_made/surveillance":[
 "Supraveghere"
 ],
 "man_made/surveillance/camera":[
 "Cameră de Supraveghere"
+],
+"man_made/telescope":[
+"Telescop"
+],
+"man_made/telescope/optical":[
+"Telescop optic"
 ],
 "man_made/tower":[
 "Turn"
@@ -818,8 +821,14 @@
 "man_made/tower/observation":[
 "Turn de Observație"
 ],
+"man_made/video_wall":[
+"Ecran digital"
+],
 "man_made/wastewater_plant":[
 "Sta'ie de Epurare"
+],
+"man_made/water_tap":[
+"Robinet de apă"
 ],
 "man_made/water_tower":[
 "Turn de Apă"
@@ -854,6 +863,9 @@
 "natural/coastline":[
 "Linie de Coastă"
 ],
+"natural/geyser":[
+"Gheizer"
+],
 "natural/glacier":[
 "Ghețar"
 ],
@@ -865,6 +877,9 @@
 ],
 "natural/hot_spring":[
 "Izvor termal"
+],
+"natural/mud":[
+"Noroi"
 ],
 "natural/peak":[
 "Vârf"
@@ -878,6 +893,12 @@
 "natural/scree":[
 "Pietriș"
 ],
+"natural/scrub":[
+"Tufăriș"
+],
+"natural/shrub":[
+"Arbust"
+],
 "natural/tree":[
 "Copac"
 ],
@@ -890,6 +911,9 @@
 "natural/water/basin":[
 "Bazin"
 ],
+"natural/water/canal":[
+"Suprafață canal"
+],
 "natural/water/lake":[
 "Lac"
 ],
@@ -898,6 +922,9 @@
 ],
 "natural/water/reservoir":[
 "Rezervor"
+],
+"natural/water/river":[
+"Suprafață râu"
 ],
 "natural/wetland":[
 "Zonă Umedă"
@@ -910,6 +937,9 @@
 ],
 "office/administrative":[
 "Oficiu Administrativ"
+],
+"office/diplomatic":[
+"Birou diplomatic"
 ],
 "office/diplomatic/embassy":[
 "Ambasadă"
@@ -950,11 +980,20 @@
 "office/physician":[
 "Fizician"
 ],
+"office/religion":[
+"Birou religios"
+],
 "office/research":[
 "Birou de Cercetare"
 ],
 "office/telecommunication":[
 "Oficiu Telecom"
+],
+"office/therapist":[
+"Birou de terapist"
+],
+"office/translator":[
+"Birou de traduceri"
 ],
 "office/travel_agent":[
 "Agenție de Călătorii"
@@ -1062,9 +1101,6 @@
 "shop/baby_goods":[
 "Magazin de Produse pentru Bebeluși"
 ],
-"shop/bag":[
-"Magazin de Bagaje"
-],
 "shop/bakery":[
 "Brutărie"
 ],
@@ -1079,9 +1115,6 @@
 ],
 "shop/beauty/tanning":[
 "Salon de Bronzat"
-],
-"shop/bed":[
-"Magazin de Saltele"
 ],
 "shop/beverages":[
 "Magazin de Băuturi"
@@ -1194,6 +1227,9 @@
 ],
 "shop/interior_decoration":[
 "Magazin de Decorații Interioare"
+],
+"shop/kiosk":[
+"Chioșc"
 ],
 "shop/kitchen":[
 "Magazin de Bucătărie"

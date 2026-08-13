@@ -8,7 +8,6 @@ import java.io.IOException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
@@ -24,13 +23,13 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.splashscreen.SplashScreen;
-import androidx.preference.PreferenceManager;
 import de.blau.android.contract.Paths;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.layer.LayerConfig;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.AdvancedPrefDatabase;
-import de.blau.android.resources.DataStyle;
+import de.blau.android.prefs.Preferences;
+import de.blau.android.resources.DataStyleManager;
 import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerSource;
@@ -63,8 +62,7 @@ public class Splash extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         // don't use Preferences here as this will create the Vespucci directory which is bad for migration
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        lightTheme = sharedPrefs.getBoolean(getString(R.string.config_enableLightTheme_key), true);
+        lightTheme = Preferences.lightThemeEnabled(this); // this is static aka is harmless
         setTheme(lightTheme ? R.style.SplashThemeLight : R.style.SplashTheme);
         SplashScreen.Companion.installSplashScreen(this);
         super.onCreate(savedInstanceState);
@@ -141,7 +139,7 @@ public class Splash extends AppCompatActivity {
             new ExecutorTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground(Void param) {
-                    App.getDataStyle(Splash.this);
+                    App.getDataStyleManager(Splash.this);
 
                     Log.d(DEBUG_TAG, "Create/get tile cache");
                     App.getMapTileFilesystemProvider(Splash.this);
@@ -150,6 +148,14 @@ public class Splash extends AppCompatActivity {
                     Log.d(DEBUG_TAG, "Init geocontext");
                     App.initGeoContext(Splash.this);
                     Log.d(DEBUG_TAG, "Init geocontext finished");
+
+                    Log.d(DEBUG_TAG, "Init tag2link");
+                    App.getTag2Link(Splash.this);
+                    Log.d(DEBUG_TAG, "Init tag2link finished");
+                    
+                    Log.d(DEBUG_TAG, "Init OkHttpClient ");
+                    App.getHttpClient();
+                    Log.d(DEBUG_TAG, "Init OkHttpClient  finished");
                     return null;
                 }
             }.execute();
@@ -207,6 +213,7 @@ public class Splash extends AppCompatActivity {
 
         CheckBox style = (CheckBox) layout.findViewById(R.id.safe_style_check);
         CheckBox layers = (CheckBox) layout.findViewById(R.id.safe_layer_check);
+        CheckBox editingState = (CheckBox) layout.findViewById(R.id.safe_editing_state_check);
         CheckBox state = (CheckBox) layout.findViewById(R.id.safe_state_check);
 
         builder.setPositiveButton(R.string.Continue, null);
@@ -219,17 +226,16 @@ public class Splash extends AppCompatActivity {
                 Log.e(DEBUG_TAG, "Starting in safe mode");
                 if (style.isChecked()) {
                     // use minimal data style
-                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-                    prefs.edit().putString(getString(R.string.config_mapProfile_key), DataStyle.getBuiltinStyleName()).commit();
+                    try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(this)) {
+                        db.setStyleState(DataStyleManager.getBuiltinStyleId(), true);
+                    }
                 }
                 if (layers.isChecked()) {
-                    // hide all layers
-                    try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(this)) {
-                        final LayerConfig[] layerConfigs = db.getLayers();
-                        for (LayerConfig config : layerConfigs) {
-                            db.setLayerVisibility(config.getPosition(), false);
-                        }
-                    }
+                    hideAllAlayers();
+                }
+                if (editingState.isChecked()) {
+                    Log.e(DEBUG_TAG, "Removing editing state");
+                    deleteFile(Logic.EDITSTATE_FILENAME);
                 }
                 if (state.isChecked()) {
                     Builder reallyBuilder = ThemeUtils.getAlertDialogBuilder(this, lightTheme);
@@ -250,6 +256,18 @@ public class Splash extends AppCompatActivity {
             });
         });
         dialog.show();
+    }
+
+    /**
+     * Hide all layers
+     */
+    private void hideAllAlayers() {
+        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(this)) {
+            final LayerConfig[] layerConfigs = db.getLayers();
+            for (LayerConfig config : layerConfigs) {
+                db.setLayerVisibility(config.getPosition(), false);
+            }
+        }
     }
 
     /**

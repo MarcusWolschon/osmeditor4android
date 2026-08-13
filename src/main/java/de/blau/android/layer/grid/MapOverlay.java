@@ -23,6 +23,7 @@ import de.blau.android.layer.LayerType;
 import de.blau.android.layer.StyleableLayer;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
+import de.blau.android.resources.DataStyleManager;
 import de.blau.android.util.Density;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
@@ -337,7 +338,7 @@ public class MapOverlay extends StyleableLayer implements DiscardInterface, Conf
     @Override
     public void resetStyling() {
         Log.d(DEBUG_TAG, "resetStyling");
-        DataStyle styles = map.getDataStyle();
+        DataStyleManager styles = map.getDataStyleManager();
         paint = new SerializableTextPaint(styles.getInternal(DataStyle.CROSSHAIRS).getPaint());
         labelH = new SerializableTextPaint(styles.getInternal(DataStyle.LABELTEXT).getPaint());
         labelV = new SerializableTextPaint(labelH);

@@ -25,11 +25,11 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
@@ -41,6 +41,7 @@ import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.RelationMemberPosition;
 import de.blau.android.osm.RelationUtils;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.prefs.keyboard.Shortcuts;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetRole;
@@ -103,7 +104,10 @@ public class RelationMembershipFragment extends SelectableRowsFragment implement
         Util.implementsInterface(parent, PropertyEditorListener.class);
         propertyEditorListener = (PropertyEditorListener) parent;
         setHasOptionsMenu(true);
+
         getActivity().invalidateOptionsMenu();
+
+        actionMap.put(getString(R.string.ACTION_UNDO), new Shortcuts.Action(R.string.action_info, this::doRevert));
     }
 
     @Override
@@ -268,15 +272,27 @@ public class RelationMembershipFragment extends SelectableRowsFragment implement
 
         row.roleEdit.addTextChangedListener(new SanitizeTextWatcher(getActivity(), maxStringLength));
 
-        row.selected.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                parentSelected();
-            } else {
-                deselectRow();
-            }
-        });
+        row.selected.setOnCheckedChangeListener(getOnCheckedChangeListener(row));
 
         return row;
+    }
+
+    /**
+     * Construct the OnCheckedChangeListener for a row
+     * 
+     * @param row the row
+     * @return an OnCheckedChangeListener
+     */
+    @NonNull
+    private OnCheckedChangeListener getOnCheckedChangeListener(@NonNull RelationMembershipRow row) {
+        return (buttonView, isChecked) -> {
+            Log.d(DEBUG_TAG, "onCheckedChangedListener value " + isChecked);
+            if (isChecked) {
+                onRowSelected();
+            } else {
+                onDeselectRow();
+            }
+        };
     }
 
     static class RelationHolder implements Enabled {
@@ -394,6 +410,16 @@ public class RelationMembershipFragment extends SelectableRowsFragment implement
         }
 
         /**
+         * Get the relation for this row
+         * 
+         * @return a relation or null
+         */
+        @Nullable
+        Relation getRelation() {
+            return (Relation) App.getDelegator().getOsmElement(Relation.NAME, relationId);
+        }
+
+        /**
          * Create an ArrayAdapter containing role values for the edited object in a parent Relation
          * 
          * @return an ArrayAdapter holding the possible roles
@@ -459,12 +485,16 @@ public class RelationMembershipFragment extends SelectableRowsFragment implement
          * @param relationHolderList the current parents?
          * @return the RelationMembershipRow object for convenience
          */
-        public RelationMembershipRow setValues(@NonNull String role, @NonNull Relation r, @NonNull String elementType, int position,
+        public RelationMembershipRow setValues(@NonNull String role, @NonNull final Relation r, @NonNull String elementType, int position,
                 @NonNull ArrayAdapter<RelationHolder> relationAdapter, @NonNull List<RelationHolder> relationHolderList) {
             relationId = r.getOsmId();
             roleEdit.setText(role);
             parentEdit.setAdapter(relationAdapter);
             parentEdit.setSelection(getRelationIndex(relationHolderList, r));
+            parentEdit.setOnLongClickListener((View v) -> {
+                ((ControlListener) owner.getActivity()).addPropertyEditor(r);
+                return true;
+            });
             this.elementType = elementType;
             this.position = position;
             return this;
@@ -509,9 +539,14 @@ public class RelationMembershipFragment extends SelectableRowsFragment implement
                 relationId = r.getOsmId();
                 parentEdit.setSelection(relationPos);
                 position = r.getMembers().size(); // last position
+                parentEdit.setOnLongClickListener((View v) -> {
+                    ((ControlListener) owner.getActivity()).addPropertyEditor(r);
+                    return true;
+                });
                 Log.d(DEBUG_TAG, "Set parent relation to " + relationId + " " + r.getDescription());
             } else {
                 relationId = UNSET;
+                parentEdit.setOnLongClickListener(null);
             }
             relationPreset = null; // zap to force it to be re-calculated
             roleEdit.setAdapter(getMembershipRoleAutocompleteAdapter()); // update
@@ -571,7 +606,18 @@ public class RelationMembershipFragment extends SelectableRowsFragment implement
 
         @Override
         public void select() {
-            selected.setChecked(true);
+            setRowSelected(true);
+        }
+
+        /**
+         * Set the row to checked/non-checked state
+         *
+         * @param state target state
+         */
+        public void setRowSelected(boolean state) {
+            selected.setOnCheckedChangeListener(null);
+            selected.setChecked(state);
+            selected.setOnCheckedChangeListener(owner.getOnCheckedChangeListener(this));
         }
 
         // return the status of the checkbox
@@ -582,7 +628,8 @@ public class RelationMembershipFragment extends SelectableRowsFragment implement
 
         @Override
         public void deselect() {
-            selected.setChecked(false);
+            setRowSelected(false);
+            owner.onDeselectRow();
         }
 
         /**
@@ -635,39 +682,22 @@ public class RelationMembershipFragment extends SelectableRowsFragment implement
     }
 
     /**
-     * Start the action mode when a row is selected
+     * iterate over all rows and set the selection status
+     * 
+     * @param change method that sets the selection status
      */
-    private void parentSelected() {
-        synchronized (actionModeCallbackLock) {
-            if (actionModeCallback == null) {
-                actionModeCallback = getActionModeCallback();
-                ((AppCompatActivity) getActivity()).startSupportActionMode(actionModeCallback);
-            }
-        }
-    }
-
     @Override
-    public void selectAllRows() { // select all parents
+    protected void setSelectedRows(@NonNull final ChangeSelectionStatus change) {
         LinearLayout rowLayout = (LinearLayout) getOurView();
         int i = rowLayout.getChildCount();
         while (--i >= 0) {
             RelationMembershipRow row = (RelationMembershipRow) rowLayout.getChildAt(i);
-            if (row.selected.isEnabled()) {
-                row.selected.setChecked(true);
+            final CheckBox selected = row.selected;
+            if (selected.isEnabled()) {
+                row.setRowSelected(change.set(selected.isChecked()));
             }
         }
-    }
-
-    @Override
-    public void deselectAllRows() { // // select all parents
-        LinearLayout rowLayout = (LinearLayout) getOurView();
-        int i = rowLayout.getChildCount();
-        while (--i >= 0) {
-            RelationMembershipRow row = (RelationMembershipRow) rowLayout.getChildAt(i);
-            if (row.selected.isEnabled()) {
-                row.selected.setChecked(false);
-            }
-        }
+        startStopActionModeIfRowSelected();
     }
 
     /**

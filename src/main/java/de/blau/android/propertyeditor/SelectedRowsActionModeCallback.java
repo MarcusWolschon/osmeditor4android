@@ -57,9 +57,11 @@ class SelectedRowsActionModeCallback implements Callback {
 
     static final int MENU_ITEM_DELETE = 1;
 
-    static final int MENU_ITEM_SELECT_ALL   = 13;
-    static final int MENU_ITEM_DESELECT_ALL = 14;
-    static final int MENU_ITEM_HELP         = 20;
+    static final int MENU_ITEM_SELECT_ALL       = 13;
+    static final int MENU_ITEM_DESELECT_ALL     = 14;
+    static final int MENU_ITEM_INVERT_SELECTION = 15;
+    static final int MENU_ITEM_HELP             = 20;
+    static final int MENU_ITEM_INFO             = 21;
 
     ActionMode currentAction;
 
@@ -105,6 +107,8 @@ class SelectedRowsActionModeCallback implements Callback {
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menu.add(EasyEditActionModeCallback.GROUP_BASE, MENU_ITEM_DESELECT_ALL, Menu.CATEGORY_SYSTEM, R.string.menu_deselect_all)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        menu.add(EasyEditActionModeCallback.GROUP_BASE, MENU_ITEM_INVERT_SELECTION, Menu.CATEGORY_SYSTEM, R.string.menu_invert_selection)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menu.add(EasyEditActionModeCallback.GROUP_BASE, MENU_ITEM_HELP, Menu.CATEGORY_SYSTEM, R.string.menu_help)
                 .setAlphabeticShortcut(Util.getShortCut(context, R.string.shortcut_help)).setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_help));
         return true;
@@ -139,6 +143,9 @@ class SelectedRowsActionModeCallback implements Callback {
         case MENU_ITEM_DESELECT_ALL:
             ((PropertyRows) caller).deselectAllRows();
             return true;
+        case MENU_ITEM_INVERT_SELECTION:
+            ((PropertyRows) caller).invertSelectedRows();
+            return true;
         case MENU_ITEM_HELP:
             HelpViewer.start(caller.getActivity(), R.string.help_propertyeditor);
             return true;
@@ -168,7 +175,7 @@ class SelectedRowsActionModeCallback implements Callback {
         propertyEditorListener.enablePresets();
         PropertyRows rowContainer = (PropertyRows) caller;
         rowContainer.deselectHeaderCheckBox();
-        rowContainer.deselectRow();
+        rowContainer.onDeselectRow();
         currentAction = null;
         ((AppCompatActivity) caller.getActivity()).invalidateOptionsMenu();
     }
@@ -176,13 +183,11 @@ class SelectedRowsActionModeCallback implements Callback {
     /**
      * Check if all rows have been de-selected
      * 
-     * @param skipHeaderRow if true skip the header row
      * @return true if no rows are selected
      */
-    public boolean rowsDeselected(boolean skipHeaderRow) {
+    public boolean rowsDeselected() {
         final int size = rows.getChildCount();
-        int initialRowIndex = skipHeaderRow ? 1 : 0;
-        for (int i = initialRowIndex; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             Row row = (Row) rows.getChildAt(i);
             if (row.isSelected()) {
                 // something is still selected
@@ -264,5 +269,25 @@ class SelectedRowsActionModeCallback implements Callback {
                 presetFragment.disable();
             }
         }
+    }
+
+    /**
+     * Get the selected rows
+     * 
+     * @return a List of Row
+     */
+    @NonNull
+    protected <R extends Row> List<R> getSelectedRows() {
+        final int size = rows.getChildCount();
+        List<R> selected = new ArrayList<>();
+        for (int i = 0; i < size; ++i) {
+            View view = rows.getChildAt(i);
+            @SuppressWarnings("unchecked")
+            R row = (R) view;
+            if (row.isSelected()) {
+                selected.add(row);
+            }
+        }
+        return selected;
     }
 }

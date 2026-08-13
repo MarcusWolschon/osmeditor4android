@@ -1,5 +1,6 @@
 package de.blau.android.net;
 
+import static de.blau.android.net.HttpHeaders.USER_AGENT_HEADER;
 import java.io.IOException;
 
 import androidx.annotation.NonNull;
@@ -9,8 +10,6 @@ import okhttp3.Response;
 import okhttp3.internal.Version;
 
 public class UserAgentInterceptor implements Interceptor {
-
-    public static final String USER_AGENT_HEADER = "User-Agent";
 
     private final String userAgent;
     private final String defaultUserAgent;

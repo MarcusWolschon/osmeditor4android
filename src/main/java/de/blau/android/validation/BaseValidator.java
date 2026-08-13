@@ -3,6 +3,7 @@ package de.blau.android.validation;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Locale;
@@ -37,13 +38,42 @@ import de.blau.android.util.GeoContext;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Geometry;
 import de.blau.android.util.KeyValue;
+import de.blau.android.util.Util;
 import de.blau.android.util.collections.MultiHashMap;
 
 public class BaseValidator implements Validator {
 
+    /**
+     * Regex for general tagged issues with the object
+     */
+    static final Pattern FIXME_PATTERN = Pattern.compile("(?i).*\\b(?:fixme|todo)\\b.*");
+
+    /**
+     * Keys that suppress missing keys, this might make more sense as configuration
+     */
+    private static final MultiHashMap<String, KeyValue> MISSING_KEY_SUPPRESSION = new MultiHashMap<>();
+    static {
+        MISSING_KEY_SUPPRESSION.add(Tags.KEY_NAME, new KeyValue(Tags.KEY_NONAME, Tags.VALUE_YES));
+        MISSING_KEY_SUPPRESSION.add(Tags.KEY_NAME, new KeyValue(Tags.KEY_VALIDATE_NO_NAME, Tags.VALUE_YES));
+        MISSING_KEY_SUPPRESSION.add(Tags.KEY_REF, new KeyValue(Tags.KEY_NOREF, Tags.VALUE_YES));
+    }
+
+    /**
+     * String resources for element types
+     */
+    private static final Map<ElementType, Integer> ELEMENT_TYPE_NAMES = new EnumMap<>(ElementType.class);
+    static {
+        ELEMENT_TYPE_NAMES.put(ElementType.NODE, R.string.element_type_node);
+        ELEMENT_TYPE_NAMES.put(ElementType.WAY, R.string.element_type_way);
+        ELEMENT_TYPE_NAMES.put(ElementType.CLOSEDWAY, R.string.element_type_closedway);
+        ELEMENT_TYPE_NAMES.put(ElementType.AREA, R.string.element_type_area);
+        ELEMENT_TYPE_NAMES.put(ElementType.RELATION, R.string.element_type_relation);
+    }
+
     public static final int MAX_CONNECTION_TOLERANCE = 10; // maximum tolerance value for non-connected end nodes
 
-    private static final String[] END_NODE_VALIDATION_KEYS = new String[] { Tags.KEY_HIGHWAY, Tags.KEY_WATERWAY };
+    protected static final String[]   END_NODE_WAY_VALIDATION_KEYS      = new String[] { Tags.KEY_HIGHWAY, Tags.KEY_WATERWAY, Tags.KEY_BOUNDARY };
+    private static final List<String> END_NODE_RELATION_VALIDATION_KEYS = Arrays.asList(Tags.VALUE_MULTIPOLYGON, Tags.VALUE_BOUNDARY, Tags.VALUE_ROUTE);
 
     private Preset[]   presets;
     private GeoContext geoContext;
@@ -81,33 +111,6 @@ public class BaseValidator implements Validator {
     private boolean       unconnectedEndNodeValidation;
     private boolean       degenerateWayValidation;
     private boolean       emptyRelationValidation;
-
-    /**
-     * Regex for general tagged issues with the object
-     */
-    static final Pattern FIXME_PATTERN = Pattern.compile("(?i).*\\b(?:fixme|todo)\\b.*");
-
-    /**
-     * Keys that suppress missing keys, this might make more sense as configuration
-     */
-    private static final MultiHashMap<String, KeyValue> MISSING_KEY_SUPPRESSION = new MultiHashMap<>();
-    static {
-        MISSING_KEY_SUPPRESSION.add(Tags.KEY_NAME, new KeyValue(Tags.KEY_NONAME, Tags.VALUE_YES));
-        MISSING_KEY_SUPPRESSION.add(Tags.KEY_NAME, new KeyValue(Tags.KEY_VALIDATE_NO_NAME, Tags.VALUE_YES));
-        MISSING_KEY_SUPPRESSION.add(Tags.KEY_REF, new KeyValue(Tags.KEY_NOREF, Tags.VALUE_YES));
-    }
-
-    /**
-     * String resources for element types
-     */
-    private static final Map<ElementType, Integer> ELEMENT_TYPE_NAMES = new EnumMap<>(ElementType.class);
-    static {
-        ELEMENT_TYPE_NAMES.put(ElementType.NODE, R.string.element_type_node);
-        ELEMENT_TYPE_NAMES.put(ElementType.WAY, R.string.element_type_way);
-        ELEMENT_TYPE_NAMES.put(ElementType.CLOSEDWAY, R.string.element_type_closedway);
-        ELEMENT_TYPE_NAMES.put(ElementType.AREA, R.string.element_type_area);
-        ELEMENT_TYPE_NAMES.put(ElementType.RELATION, R.string.element_type_relation);
-    }
 
     /**
      * Construct a new instance
@@ -255,20 +258,21 @@ public class BaseValidator implements Validator {
                 continue;
             }
             for (PatternAndAge value : resurveyTags.get(key)) {
-                if ((value.getValue() == null || "".equals(value.getValue()) || value.matches(tags.get(key)))) {
-                    long age = value.getAge();
-                    // timestamp is too old
-                    if (timestamp >= 0 && (now - timestamp > age)) {
-                        status |= Validator.AGE;
-                    } else if (tags.containsKey(Tags.KEY_CHECK_DATE)) {
-                        // check_date tag is too old
-                        status |= checkAge(tags, now, Tags.KEY_CHECK_DATE, age);
-                    } else {
-                        // key specific check_date tag is too old
-                        final String keyCheckDate = Tags.KEY_CHECK_DATE + ":" + key;
-                        if (tags.containsKey(keyCheckDate)) {
-                            status |= checkAge(tags, now, keyCheckDate, age);
-                        }
+                if (!Util.isEmpty(value.getValue()) && !value.matches(tags.get(key))) {
+                    continue;
+                }
+                long age = value.getAge();
+                // timestamp is too old
+                if (timestamp >= 0 && (now - timestamp > age)) {
+                    status |= Validator.AGE;
+                } else if (tags.containsKey(Tags.KEY_CHECK_DATE)) {
+                    // check_date tag is too old
+                    status |= checkAge(tags, now, Tags.KEY_CHECK_DATE, age);
+                } else {
+                    // key specific check_date tag is too old
+                    final String keyCheckDate = Tags.KEY_CHECK_DATE + ":" + key;
+                    if (tags.containsKey(keyCheckDate)) {
+                        status |= checkAge(tags, now, keyCheckDate, age);
                     }
                 }
             }
@@ -337,33 +341,46 @@ public class BaseValidator implements Validator {
      * Check the end nodes of the way for potential mergers
      * 
      * @param w the way we are checking
-     * @param key the key of target ways
+     * @param check function that will return true if the ways should be connected
+     * @param allowIndirect allow indirect connections
      */
-    private void validateEndNodes(@NonNull Way w, @NonNull String key) {
+    private void validateEndNodes(@NonNull Way w, @NonNull CheckIfCandidate check, boolean allowIndirect) {
         Logic logic = App.getLogic();
         int layer = getLayer(w);
         de.blau.android.Map map = logic.getMap();
-        if (unconnectedEndNodeValidation && map != null) {
-            // we try to cache these (tolerance) fairly expensive to calculate values at least as long as the ViewBox
-            // hasn't changed
-            final ViewBox viewBox = map.getViewBox();
-            if (!viewBox.equals(cachedViewBox) && map.getPrefs() != null) {
-                double centerLat = viewBox.getCenterLat();
-                double widthInMeters = GeoMath.haversineDistance(viewBox.getLeft() / 1E7D, centerLat, viewBox.getRight() / 1E7D, centerLat);
-                tolerance = (float) (map.getPrefs().getConnectedNodeTolerance() / widthInMeters * map.getWidth());
-                if (cachedViewBox == null) {
-                    cachedViewBox = new ViewBox(viewBox);
-                } else {
-                    cachedViewBox.set(viewBox);
-                }
-            }
-            try {
-                checkNearbyWays(key, w, logic, layer, w.getFirstNode());
-                checkNearbyWays(key, w, logic, layer, w.getLastNode());
-            } catch (Exception ex) {
-                // ignored
+        if (!unconnectedEndNodeValidation || map == null) {
+            return;
+        }
+        // we try to cache these (tolerance) fairly expensive to calculate values at least as long as the ViewBox
+        // hasn't changed
+        final ViewBox viewBox = map.getViewBox();
+        if (!viewBox.equals(cachedViewBox) && map.getPrefs() != null) {
+            double centerLat = viewBox.getCenterLat();
+            double widthInMeters = GeoMath.haversineDistance(viewBox.getLeft() / 1E7D, centerLat, viewBox.getRight() / 1E7D, centerLat);
+            tolerance = (float) (map.getPrefs().getConnectedNodeTolerance() / widthInMeters * map.getWidth());
+            if (cachedViewBox == null) {
+                cachedViewBox = new ViewBox(viewBox);
+            } else {
+                cachedViewBox.set(viewBox);
             }
         }
+        try {
+            checkNearbyWays(check, allowIndirect, w, logic, layer, w.getFirstNode());
+            checkNearbyWays(check, allowIndirect, w, logic, layer, w.getLastNode());
+        } catch (Exception ex) {
+            // ignored
+        }
+
+    }
+
+    private interface CheckIfCandidate {
+        /**
+         * Check if candidate should be connected to the way we are validating
+         * 
+         * @param candidate the candidate Way
+         * @return true if candidate should be connected
+         */
+        boolean isCandidate(@NonNull Way candidate);
     }
 
     /**
@@ -371,26 +388,27 @@ public class BaseValidator implements Validator {
      * 
      * The warning is suppressed if the node is connected to the nearby way via a (single) further way
      * 
-     * @param tagKey tag key the ways need to have to be candidates
+     * @param check function that will return true if the ways should be connected
+     * @param allowIndirect allow indirect connection
      * @param w the Way we are validating
      * @param logic the current Logic instance
      * @param layer the layer of w
      * @param n the Node we are checking for
-     * 
      * @throws OsmException if something goes wrong creating the bounding box
      */
-    private void checkNearbyWays(@NonNull String tagKey, @NonNull Way w, @NonNull Logic logic, int layer, @NonNull Node n) throws OsmException {
+    private void checkNearbyWays(@NonNull CheckIfCandidate check, boolean allowIndirect, @NonNull Way w, @NonNull Logic logic, int layer, @NonNull Node n)
+            throws OsmException {
         final int lat = n.getLat();
         final int lon = n.getLon();
         if (!App.getDelegator().isInDownload(lon, lat)) { // only check for nodes in download
             return;
         }
         BoundingBox box = GeoMath.createBoundingBoxForCoordinates(lat / 1E7D, lon / 1E7D, tolerance);
-        List<Way> nearbyWays = App.getDelegator().getCurrentStorage().getWays(box);
+        List<Way> nearbyWays = logic.getWays(box);
         List<Way> connectedWays = new ArrayList<>();
         BoundingBox bb = w.getBounds();
         for (Way maybeConnected : new ArrayList<>(nearbyWays)) {
-            if (maybeConnected.equals(w) || !hasTagKey(tagKey, maybeConnected)) {
+            if (maybeConnected.equals(w) || !check.isCandidate(maybeConnected)) {
                 nearbyWays.remove(maybeConnected);
                 continue;
             }
@@ -400,36 +418,14 @@ public class BaseValidator implements Validator {
             }
         }
         for (Way nearbyWay : nearbyWays) {
-            if (!hasConnection(nearbyWay, connectedWays) && layer == getLayer(nearbyWay)) {
-                connectedValidation(logic, tolerance, nearbyWay, n);
-                if ((n.getCachedProblems() & Validator.UNCONNECTED_END_NODE) != 0) {
-                    break;
-                }
+            if (allowIndirect && hasConnection(nearbyWay, connectedWays) || layer != getLayer(nearbyWay)) {
+                continue;
+            }
+            connectedValidation(logic, tolerance, nearbyWay, n);
+            if ((n.getCachedProblems() & Validator.UNCONNECTED_END_NODE) != 0) {
+                return;
             }
         }
-    }
-
-    /**
-     * Check if the way has a specific key or has a parent MP with that key
-     * 
-     * @param key the key we are checking for
-     * @param way the way to check
-     * @return true if the way has a specific key or has a parent MP with that key
-     */
-    private boolean hasTagKey(@NonNull String key, @NonNull Way way) {
-        if (way.hasTagKey(key)) {
-            return true;
-        }
-        // check for MPs
-        List<Relation> parents = way.getParentRelations();
-        if (parents != null) {
-            for (Relation parent : parents) {
-                if (parent.hasTag(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON) && parent.hasTagKey(key)) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     /**
@@ -472,33 +468,34 @@ public class BaseValidator implements Validator {
      * @param node the Node
      */
     private void connectedValidation(@NonNull Logic logic, float tolerance, @NonNull Way way, @NonNull Node node) {
-        if (!way.hasNode(node)) {
-            float jx = logic.lonE7ToX(node.getLon());
-            float jy = logic.latE7ToY(node.getLat());
-            List<Node> wayNodes = way.getNodes();
-            Node firstNode = wayNodes.get(0);
-            float node1X = logic.lonE7ToX(firstNode.getLon());
-            float node1Y = logic.latE7ToY(firstNode.getLat());
-            double nodeDist = Math.hypot(jx - node1X, jy - node1Y); // first node
-            if (nodeDist < tolerance) {
+        if (way.hasNode(node)) {
+            return;
+        }
+        float jx = logic.lonE7ToX(node.getLon());
+        float jy = logic.latE7ToY(node.getLat());
+        List<Node> wayNodes = way.getNodes();
+        Node firstNode = wayNodes.get(0);
+        float node1X = logic.lonE7ToX(firstNode.getLon());
+        float node1Y = logic.latE7ToY(firstNode.getLat());
+        double nodeDist = Math.hypot(jx - node1X, jy - node1Y); // first node
+        if (nodeDist <= tolerance) {
+            addProblem(node, Validator.UNCONNECTED_END_NODE);
+            return;
+        }
+        for (int i = 1, wayNodesSize = wayNodes.size() - 1; i < wayNodesSize; ++i) {
+            Node node2 = wayNodes.get(i);
+            float node2X = logic.lonE7ToX(node2.getLon());
+            float node2Y = logic.latE7ToY(node2.getLat());
+            if (Geometry.isPositionOnLine(tolerance, jx, jy, node1X, node1Y, node2X, node2Y) >= 0) {
                 addProblem(node, Validator.UNCONNECTED_END_NODE);
-                return;
+                break;
             }
-            for (int i = 1, wayNodesSize = wayNodes.size(); i < wayNodesSize; ++i) {
-                Node node2 = wayNodes.get(i);
-                float node2X = logic.lonE7ToX(node2.getLon());
-                float node2Y = logic.latE7ToY(node2.getLat());
-                if (Geometry.isPositionOnLine(tolerance, jx, jy, node1X, node1Y, node2X, node2Y) >= 0) {
-                    addProblem(node, Validator.UNCONNECTED_END_NODE);
-                    break;
-                }
-                node1X = node2X;
-                node1Y = node2Y;
-            }
-            nodeDist = Math.hypot(jx - node1X, jy - node1Y); // last node
-            if (nodeDist < tolerance) {
-                addProblem(node, Validator.UNCONNECTED_END_NODE);
-            }
+            node1X = node2X;
+            node1Y = node2Y;
+        }
+        nodeDist = Math.hypot(jx - node1X, jy - node1Y); // last node
+        if (nodeDist <= tolerance) {
+            addProblem(node, Validator.UNCONNECTED_END_NODE);
         }
     }
 
@@ -689,11 +686,18 @@ public class BaseValidator implements Validator {
                 status |= validateHighway(way, highway);
             }
             if (!way.isClosed()) {
-                for (String key : END_NODE_VALIDATION_KEYS) {
-                    if (hasTagKey(key, way)) {
-                        validateEndNodes(way, key);
+                for (String key : END_NODE_WAY_VALIDATION_KEYS) {
+                    if (way.hasTagKey(key)) {
+                        validateEndNodes(way, w -> w.hasTagKey(key), true);
                         break;
                     }
+                }
+            }
+        }
+        if (way.hasParentRelations()) {
+            for (Relation r : way.getParentRelations()) {
+                if (END_NODE_RELATION_VALIDATION_KEYS.contains(r.getTagWithKey(Tags.KEY_TYPE))) {
+                    validateEndNodes(way, w -> w.hasParentRelation(r), false);
                 }
             }
         }

@@ -1,0 +1,13 @@
+A Vespucci egy fejlett, nyílt forráskódú eszköz az OpenStreetMap adatok szerkesztésére, nem térképnézegető vagy navigációs alkalmazás. Használatához <a href="http://www.openstreetmap.org/">OpenStreetMap-fiókra</a> van szükség.
+
+Letöltheti egy adott terület térképi adatait, és szerkesztheti a térképet. A szerkesztés után az adatokat közvetlenül feltöltheti az OSM kiszolgálókra.
+
+A véletlen módosítások visszavonhatóak, feltöltés előtt pedig az alkalmazás felsorolja az összes változást. A megfelelő címkék megtalálásában segít a címkék automatikus kiegészítése, a JOSM-kompatibilis előbeállítások, a térképobjektumok lefordított weboldalaira mutató linkek és a közeli utcanevek automatikus kiegészítése.
+
+Javasoljuk a Vespucci automatikus frissítésének kikapcsolását, hogy szerkesztéseit még az alkalmazásfrissítések előtt feltölthesse.
+
+További információt és dokumentációt talál a <a href="http://vespucci.io/">vespucci.io</a> oldalon, és az eszközön található súgóban.
+
+Kérjük, ne itt jelentsen be problémákat, és ne itt kérjen támogatást. <a href="http://vespucci.io/tutorials/faq/#why-cant-you-provide-technical-support-on-the-google-play-store-review-section">Itt elolvashatja</a>, hogy a Play Áruház áttekintés részében, miért nem tudunk támogatást nyújtani és problémákat fogadni. <a href="http://vespucci.io/help/en/Introduction/#reporting-problems">Problémákat jelenthet</a> közvetlenül az alkalmazásból GitHub-fiók nélkül is, vagy átléphet közvetlenül <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">a problémakövetőhöz</a>.
+
+Az OpenStreetMap, az OSM és a nagyító logó az <a href="https://osmfoundation.org/">OpenStreetMap Alapítvány</a> védjegyei. Az OpenStreetMap alapítvány nem támogatja a Vespucci alkalmazást, és nincs is vele kapcsolatban.

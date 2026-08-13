@@ -1,9 +1,13 @@
 package de.blau.android.easyedit;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import android.util.Log;
 import android.view.Menu;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +25,9 @@ import de.blau.android.util.SerializableState;
 import de.blau.android.util.Util;
 
 public class WaySplittingActionModeCallback extends AbortableWayActionModeCallback {
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, WaySplittingActionModeCallback.class.getSimpleName().length());
+    private static final String DEBUG_TAG = WaySplittingActionModeCallback.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String CREATE_POLYGONS_KEY = "create polygons";
 
@@ -79,10 +86,12 @@ public class WaySplittingActionModeCallback extends AbortableWayActionModeCallba
             Tip.showDialog(main, R.string.tip_closed_way_splitting_key, R.string.tip_closed_way_splitting);
         } else {
             mode.setTitle(R.string.actionmode_split_way);
-            mode.setSubtitle(R.string.actionmode_split_way_node_selection);
+            mode.setSubtitle(way.nodeCount() == 2 ? R.string.actionmode_split_way_long_click : R.string.actionmode_split_way_node_selection);
             Tip.showDialog(main, R.string.tip_way_splitting_key, R.string.tip_way_splitting);
         }
-        logic.setClickableElements(new HashSet<>(nodes));
+        Set<OsmElement> clickable = new HashSet<>(nodes);
+        clickable.add(way);
+        logic.setClickableElements(clickable);
         logic.setReturnRelations(false);
         return true;
     }
@@ -94,12 +103,26 @@ public class WaySplittingActionModeCallback extends AbortableWayActionModeCallba
         if (!(element instanceof Node)) {
             return false;
         }
+        splitAt((Node) element);
+        return true;
+    }
+
+    /**
+     * Split the way at node
+     * 
+     * @param node the Node to split at
+     */
+    private void splitAt(@Nullable Node node) {
+        if (node == null) {
+            Log.e(DEBUG_TAG, "null node in splitAt");
+            return;
+        }
         if (way.isClosed()) {
-            main.startSupportActionMode(new ClosedWaySplittingActionModeCallback(manager, way, (Node) element, createPolygons));
+            main.startSupportActionMode(new ClosedWaySplittingActionModeCallback(manager, way, node, createPolygons));
         } else {
             splitSafe(Util.wrapInList(way), () -> {
                 try {
-                    List<Result> result = logic.performSplit(main, way, (Node) element, true);
+                    List<Result> result = logic.performSplit(main, way, node, true);
                     checkSplitResult(way, result);
                     manager.finish();
                     logic.setSelectedWay((Way) result.get(0).getElement());
@@ -110,18 +133,55 @@ public class WaySplittingActionModeCallback extends AbortableWayActionModeCallba
                 }
             });
         }
-        return true;
     }
 
     @Override
-    public boolean handleElementLongClick(@NonNull OsmElement element) {
-        super.handleElementLongClick(element);
-        if (way.isClosed()) {
+    public boolean handleElementLongClick(@NonNull OsmElement element, float x, float y) {
+        super.handleElementLongClick(element, x, y);
+        if (way.equals(element)) {
+            // this doesn't lock logic which is likely not necessary
+            try {
+                splitAt(logic.addOnWay(main, Util.wrapInList(way), x, y, true));
+            } catch (StorageException e) {
+                // already toasted and logged
+            }
+            return true;
+        }
+        if (way.isClosed() || way.isNew()) {
             ScreenMessage.toastTopWarning(main, R.string.toast_part_selection_not_supported);
         } else {
             main.startSupportActionMode(new WaySelectPartActionModeCallback(manager, way, (Node) element));
         }
         return true;
+    }
+
+    @Override
+    public List<OsmElement> filterElementsLongClick(List<OsmElement> nodesAndWays) {
+        return preferNodeOverWaysFilter(nodesAndWays);
+    }
+
+    /**
+     * Static filter so that we can call this from other action modes
+     * 
+     * @param nodesAndWays nodesAndWays List of OSMElements to filter
+     * @return if a Node is present return just that otherwise simply the contents
+     */
+    static List<OsmElement> preferNodeOverWaysFilter(List<OsmElement> nodesAndWays) {
+        if (nodesAndWays.size() == 1) {
+            return nodesAndWays;
+        }
+        Node node = null;
+        for (OsmElement e : nodesAndWays) {
+            if (e instanceof Node) {
+                node = (Node) e;
+                break;
+            }
+        }
+        if (node != null) {
+            nodesAndWays.clear();
+            nodesAndWays.add(node);
+        }
+        return nodesAndWays;
     }
 
     @Override

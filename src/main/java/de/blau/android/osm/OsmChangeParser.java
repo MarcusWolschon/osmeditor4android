@@ -9,7 +9,6 @@ import org.xml.sax.SAXException;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import de.blau.android.exception.OsmParseException;
-import de.blau.android.exception.StorageException;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.OsnParser;
 
@@ -162,8 +161,6 @@ public class OsmChangeParser extends OsmParser {
             default:
                 super.endElement(uri, name, qName);
             }
-        } catch (StorageException sex) {
-            throw new SAXException(sex);
         } catch (OsmParseException e) {
             handleException(e);
         }

@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.Preference.OnPreferenceChangeListener;
 import de.blau.android.R;
+import de.blau.android.prefs.keyboard.ShortcutsActivity;
 import de.blau.android.util.LocaleUtils;
 import de.blau.android.util.Util;
 
@@ -46,7 +48,7 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
     public void onResume() {
         Log.d(DEBUG_TAG, "onResume");
         super.onResume();
-        
+
         setUpApiPrefs();
 
         ListPreference cameraAppPref = getPreferenceScreen().findPreference(r.getString(R.string.config_selectCameraApp_key));
@@ -63,6 +65,7 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
         setListPreferenceSummary(R.string.config_theme_key, true);
         setListPreferenceSummary(R.string.config_mapOrientation_key, false);
         setListPreferenceSummary(R.string.config_gps_source_key, false);
+        setListPreferenceSummary(R.string.config_imageLicence_key, false);
         setEditTextPreferenceSummary(R.string.config_gps_source_tcp_key, false);
         setEditTextPreferenceSummary(R.string.config_offsetServer_key, false);
         setEditTextPreferenceSummary(R.string.config_osmoseServer_key, false);
@@ -223,6 +226,24 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
         if (geocoderPref != null) {
             geocoderPref.setOnPreferenceClickListener(preference -> {
                 GeocoderEditorActivity.start(getActivity());
+                return true;
+            });
+        }
+
+        Preference imageStorePref = getPreferenceScreen().findPreference(r.getString(R.string.config_imageStores_key));
+        if (imageStorePref != null) {
+            imageStorePref.setOnPreferenceClickListener(preference -> {
+                ImageStorageEditorActivity.start(getActivity());
+                return true;
+            });
+        }
+
+        Preference keyboadShortcutsPref = getPreferenceScreen().findPreference(r.getString(R.string.config_keyboard_shortcuts_key));
+        if (keyboadShortcutsPref != null) {
+            keyboadShortcutsPref.setOnPreferenceClickListener(preference -> {
+                Log.d(DEBUG_TAG, "onPreferenceClick keyboard shortcut");
+                Intent intent = new Intent(getActivity(), ShortcutsActivity.class);
+                startActivity(intent);
                 return true;
             });
         }

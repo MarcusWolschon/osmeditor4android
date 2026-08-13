@@ -20,9 +20,11 @@ import de.blau.android.HelpViewer;
 import de.blau.android.Logic;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
+import de.blau.android.dialogs.ElementInfo;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.easyedit.EasyEditActionModeCallback;
 import de.blau.android.osm.Node;
+import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationUtils;
 import de.blau.android.osm.Tags;
@@ -79,12 +81,18 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
     public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
         menu.clear();
         Context context = caller.getActivity();
+        if (getSelectedRows().size() == 1 && ((MemberEntry) getSelectedRows().get(0)).downloaded()) {
+            menu.add(Menu.NONE, MENU_ITEM_INFO, Menu.NONE, R.string.menu_copy).setAlphabeticShortcut(Util.getShortCut(context, R.string.shortcut_info))
+                    .setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_information));
+        }
         menu.add(Menu.NONE, SelectedRowsActionModeCallback.MENU_ITEM_DELETE, Menu.NONE, R.string.delete)
                 .setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_delete));
         menu.add(EasyEditActionModeCallback.GROUP_BASE, SelectedRowsActionModeCallback.MENU_ITEM_SELECT_ALL, Menu.CATEGORY_SYSTEM, R.string.menu_select_all)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menu.add(EasyEditActionModeCallback.GROUP_BASE, SelectedRowsActionModeCallback.MENU_ITEM_DESELECT_ALL, Menu.CATEGORY_SYSTEM, R.string.menu_deselect_all)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        menu.add(EasyEditActionModeCallback.GROUP_BASE, SelectedRowsActionModeCallback.MENU_ITEM_INVERT_SELECTION, Menu.CATEGORY_SYSTEM,
+                R.string.menu_invert_selection).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menu.add(EasyEditActionModeCallback.GROUP_BASE, SelectedRowsActionModeCallback.MENU_ITEM_HELP, Menu.CATEGORY_SYSTEM, R.string.menu_help)
                 .setAlphabeticShortcut(Util.getShortCut(context, R.string.shortcut_help)).setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_help));
 
@@ -99,7 +107,7 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
         boolean nonDownloadedSelected = false;
 
         for (MemberEntry member : members) {
-            if (member.selected && !member.downloaded()) {
+            if (member.isSelected() && !member.downloaded()) {
                 nonDownloadedSelected = true;
                 break;
             }
@@ -125,7 +133,7 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
         final List<Integer> selectedPos = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             MemberEntry member = members.get(i);
-            if (member.selected) {
+            if (member.isSelected()) {
                 selected.add(member);
                 selectedPos.add(i);
             }
@@ -152,6 +160,9 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
             return true;
         case SelectedRowsActionModeCallback.MENU_ITEM_DESELECT_ALL:
             ((PropertyRows) caller).deselectAllRows();
+            return true;
+        case SelectedRowsActionModeCallback.MENU_ITEM_INVERT_SELECTION:
+            ((PropertyRows) caller).invertSelectedRows();
             return true;
         case SelectedRowsActionModeCallback.MENU_ITEM_HELP:
             HelpViewer.start(caller.getActivity(), R.string.help_propertyeditor);
@@ -238,50 +249,17 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
             ((RelationMembersFragment) caller).scrollToRow(action == MENU_ITEM_TOP ? 0 : size - 1);
             return true;
         case MENU_ITEM_DOWNLOAD:
-            Progress.showDialog(caller.getActivity(), Progress.PROGRESS_DOWNLOAD);
-            PostAsyncActionHandler handler = () -> {
-                if (currentAction != null) {
-                    for (int j = 0; j < selectedCount; j++) {
-                        MemberEntry row = selected.get(j);
-                        if (!row.downloaded()) {
-                            updateRow(row);
-                            selected.set(j, row);
-                        }
-                    }
-                    currentAction.finish();
-                    Progress.dismissDialog(caller.getActivity(), Progress.PROGRESS_DOWNLOAD);
-                    update();
-                }
-            };
-            final Logic logic = App.getLogic();
-            if (selectedCount < size) {
-                List<Long> nodes = new ArrayList<>();
-                List<Long> ways = new ArrayList<>();
-                List<Long> relations = new ArrayList<>();
-                for (i = 0; i < selectedCount; i++) {
-                    MemberEntry row = selected.get(i);
-                    if (!row.downloaded()) {
-                        switch (row.getType()) {
-                        case Node.NAME:
-                            nodes.add(row.getRef());
-                            break;
-                        case Way.NAME:
-                            ways.add(row.getRef());
-                            break;
-                        case Relation.NAME:
-                            relations.add(row.getRef());
-                            break;
-                        default:
-                            Log.e(DEBUG_TAG, "Unknown member tyoe " + row.getType());
-                        }
-                    }
-                }
-                logic.downloadElements(caller.getActivity(), nodes, ways, relations, handler);
-            } else {
-                logic.downloadElement(caller.getActivity(), Relation.NAME, ((RelationMembersFragment) caller).getOsmId(), true, false, handler);
-            }
-            invalidate();
+            downloadSelected(selected, selectedCount);
             return true;
+        case MENU_ITEM_INFO:
+            List<MemberEntry> selectedRows = getSelectedRows();
+            if (!selectedRows.isEmpty()) {
+                OsmElement e = selectedRows.get(0).getElement();
+                if (e != null) {
+                    ElementInfo.showDialog(caller.getActivity(), e, false, false);
+                }
+            }
+            break;
         default:
             return false;
 
@@ -290,11 +268,63 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
     }
 
     /**
+     * Download any selected members
+     * 
+     * @param selected List of selected MemberEntry
+     * @param selectedCount count
+     */
+    private void downloadSelected(final List<MemberEntry> selected, final int selectedCount) {
+        Progress.showDialog(caller.getActivity(), Progress.PROGRESS_DOWNLOAD);
+        PostAsyncActionHandler handler = () -> {
+            if (currentAction != null) {
+                for (int j = 0; j < selectedCount; j++) {
+                    MemberEntry row = selected.get(j);
+                    if (!row.downloaded()) {
+                        updateRow(row);
+                        selected.set(j, row);
+                    }
+                }
+                currentAction.finish();
+                Progress.dismissDialog(caller.getActivity(), Progress.PROGRESS_DOWNLOAD);
+                update();
+            }
+        };
+        final Logic logic = App.getLogic();
+        List<Long> nodes = new ArrayList<>();
+        List<Long> ways = new ArrayList<>();
+        List<Long> relations = new ArrayList<>();
+        for (int i = 0; i < selectedCount; i++) {
+            MemberEntry row = selected.get(i);
+            if (!row.downloaded()) {
+                final long ref = row.getRef();
+                switch (row.getType()) {
+                case Node.NAME:
+                    nodes.add(ref);
+                    break;
+                case Way.NAME:
+                    ways.add(ref);
+                    break;
+                case Relation.NAME:
+                    relations.add(ref);
+                    break;
+                default:
+                    Log.e(DEBUG_TAG, "Unknown member tyoe " + row.getType());
+                }
+            }
+        }
+        logic.downloadElements(caller.getActivity(), nodes, ways, relations, handler);
+        invalidate();
+    }
+
+    /**
      * Update the connections and notify the adapter
      */
     private void update() {
-        for (int i = 0; i < members.size(); i++) {
-            members.get(i).setPosition(i);
+        final int size = members.size();
+        for (int i = 0; i < size; i++) {
+            final MemberEntry member = members.get(i);
+            member.setPosition(i);
+            member.update();
         }
         ((RelationMembersFragment) caller).setConnections();
         adapter.notifyDataSetChanged();
@@ -304,7 +334,7 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
     public void onDestroyActionMode(ActionMode mode) {
         // don't try to call super here
         for (MemberEntry member : members) {
-            member.selected = false;
+            member.deselect();
         }
         adapter.notifyDataSetChanged();
         onDestroyActionModeCommon();
@@ -313,13 +343,12 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
     /**
      * Check if all rows have been de-selected
      * 
-     * @param skipHeaderRow if true skip the header row
      * @return true if no rows are selected
      */
     @Override
-    public boolean rowsDeselected(boolean skipHeaderRow) {
+    public boolean rowsDeselected() {
         for (MemberEntry entry : members) {
-            if (entry.selected) {
+            if (entry.isSelected()) {
                 // something is still selected
                 return false;
             }
@@ -342,6 +371,23 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
     }
 
     /**
+     * Get the selected rows
+     * 
+     * @return a List of Row
+     */
+    @NonNull
+    @Override
+    protected <R extends Row> List<R> getSelectedRows() {
+        List<R> selected = new ArrayList<>();
+        for (MemberEntry entry : members) {
+            if (entry.isSelected()) {
+                selected.add((R) entry);
+            }
+        }
+        return selected;
+    }
+
+    /**
      * Save the currently selected members
      * 
      * @param outState the Bundle to save the member numbers in to
@@ -352,7 +398,7 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
         final int size = members.size();
         ArrayList<Integer> selectedMembers = new ArrayList<>();
         for (int i = 0; i < size; i++) {
-            if (members.get(i).selected) {
+            if (members.get(i).isSelected()) {
                 selectedMembers.add(i);
             }
         }
@@ -375,7 +421,7 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
         final int size = members.size();
         for (int i : selectedMembers) {
             if (i <= size - 1) {
-                members.get(i).selected = true;
+                members.get(i).select();
             }
         }
     }

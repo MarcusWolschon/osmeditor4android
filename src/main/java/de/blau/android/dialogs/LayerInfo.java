@@ -3,12 +3,12 @@ package de.blau.android.dialogs;
 import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import de.blau.android.R;
 import de.blau.android.listener.DoNothingListener;
+import de.blau.android.util.CustomAlertDialog;
 import de.blau.android.util.InfoDialogFragment;
 import de.blau.android.util.ThemeUtils;
 
@@ -52,7 +52,7 @@ public abstract class LayerInfo extends InfoDialogFragment {
 
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
-        Builder builder = ThemeUtils.getAlertDialogBuilder(getActivity());
+        CustomAlertDialog.Builder builder = ThemeUtils.getCustomAlertDialogBuilder(getActivity());
         DoNothingListener doNothingListener = new DoNothingListener();
         builder.setPositiveButton(R.string.done, doNothingListener);
         builder.setView(createView(null));

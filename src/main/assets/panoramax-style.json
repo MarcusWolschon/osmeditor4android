@@ -71,7 +71,7 @@
         {
             "id": "selected_image",
             "type": "symbol",
-            "source-layer": "image",
+            "source-layer": "pictures",
             "filter": [
                 "==",
                 "id",
@@ -83,7 +83,7 @@
                 "icon-rotate": ["to-number", ["get","heading"]]
             },
             "paint": {
-                "icon-color": "rgba(100, 200, 0, 1)"
+                "icon-color": "rgba(200, 100, 0, 1)"
             }
         }
     ],

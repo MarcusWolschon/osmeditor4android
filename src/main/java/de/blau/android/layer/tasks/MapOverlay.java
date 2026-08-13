@@ -42,6 +42,7 @@ import de.blau.android.osm.Server;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
+import de.blau.android.resources.DataStyleManager;
 import de.blau.android.tasks.MapRouletteFragment;
 import de.blau.android.tasks.MapRouletteTask;
 import de.blau.android.tasks.Note;
@@ -112,6 +113,8 @@ public class MapOverlay extends NonSerializeableLayer
     private Paint   iconPaint;
     private boolean largeDragArea;
 
+    private Preferences prefs;
+
     /**
      * Construct a new task layer
      * 
@@ -120,7 +123,7 @@ public class MapOverlay extends NonSerializeableLayer
     public MapOverlay(@NonNull final Map map) {
         this.map = map;
         Context context = map.getContext();
-        Preferences prefs = map.getPrefs();
+        prefs = map.getPrefs();
         setPrefs(prefs);
         download = new TaskDownloader(prefs.getServer());
         // the following sets up the static icon caches
@@ -154,8 +157,8 @@ public class MapOverlay extends NonSerializeableLayer
             downloadThreadPool.execute(() -> {
                 ViewBox box = new ViewBox(map.getViewBox());
                 box.scale(1.2); // make sides 20% larger
-                box.ensureMinumumSize(minDownloadSize); // enforce a minimum size
                 List<BoundingBox> bboxes = BoundingBox.newBoxes(tasks.getBoundingBoxes(), box);
+                BoundingBox.consolidate(bboxes, (int) (GeoMath.convertMetersToGeoDistance(minDownloadSize) * 1E7));
                 for (BoundingBox b : bboxes) {
                     tasks.addBoundingBox(b);
                     try {
@@ -249,7 +252,7 @@ public class MapOverlay extends NonSerializeableLayer
     @Override
     public List<Task> getClicked(final float x, final float y, final ViewBox viewBox) {
         List<Task> result = new ArrayList<>();
-        final float tolerance = map.getDataStyle().getCurrent().getNodeToleranceValue();
+        final float tolerance = map.getDataStyleManager().getCurrent().getNodeToleranceValue();
         List<Task> tasksInViewBox = tasks.getTasks(viewBox);
         final int width = map.getWidth();
         final int height = map.getHeight();
@@ -340,6 +343,16 @@ public class MapOverlay extends NonSerializeableLayer
     }
 
     @Override
+    public boolean autoPrune() {
+        return prefs.autoPruneTasks();
+    }
+
+    @Override
+    public void setAutoPrune(boolean enable) {
+        prefs.setAutoPruneTasks(enable);
+    }
+
+    @Override
     public void showInfo(FragmentActivity activity) {
         LayerInfo f = new TaskLayerInfo();
         f.setShowsDialog(true);
@@ -422,11 +435,11 @@ public class MapOverlay extends NonSerializeableLayer
         maxDownloadSpeed = prefs.getMaxBugDownloadSpeed() / 3.6f;
         panAndZoomLimit = prefs.getPanAndZoomLimit();
         filter = prefs.taskFilter();
-        autoPruneEnabled = prefs.autoPrune();
+        autoPruneEnabled = prefs.autoPruneData();
         autoPruneTaskLimit = prefs.getAutoPruneTaskLimit();
         autoDownloadBoxLimit = prefs.getAutoPruneBoundingBoxLimit();
         largeDragArea = prefs.largeDragArea();
-        DataStyle styles = map.getDataStyle();
+        DataStyleManager styles = map.getDataStyleManager();
         largDragToleranceRadius = styles.getCurrent().getLargDragToleranceRadius();
         dragAreaPaint = styles.getInternal(DataStyle.NODE_DRAG_RADIUS).getPaint();
         iconPaint = styles.getInternal(DataStyle.SELECTED_NODE).getPaint();

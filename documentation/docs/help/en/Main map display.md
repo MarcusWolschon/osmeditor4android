@@ -51,6 +51,7 @@ The layer dialog supports the following actions on the layer entries:
 * Menu button.
     * Tile based layers: 
         * __Select imagery__ Show a imagery selection dialog, if multiple layers have been used, a most-recently-used list will be displayed above this menu entry, allowing quick layer switching. 
+        * __Update tiles in view__ remove the tiles that are being displayed from the cache allowing them to be updated. Note: overzooming, that is viewing tiles at a higher zoom level then their nominal zoom value, will lead to tiles from a lower zoom level being removed. For example Mapbox Vector tiles typically have a maximum zoom of 14, but you will nearly always be viewing them at a higher zoom.  
         * __Flush tile cache__ Flush the on device cache for this layer.
         * __Background properties__ Set contrast of layer.
         * __Info__ Display information on the currently selected imagery.
@@ -87,9 +88,10 @@ The layer dialog supports the following actions on the layer entries:
         * __Configure...__ Change layer settings
         * __Discard__ Turn this layer off. For the task layer this will free resources if the app is exited and re-started.
     * Data layer:
-        * __Configure...__ Select the API instance, configure the URLs including read-only sources and authentication method. See[OSM API URL](Advanced%20preferences.md#OSM-API-URL)
+        * __Configure...__ Select the API instance, configure the URLs including read-only sources and authentication method. See [OSM API URL](Advanced%20preferences.md#OSM-API-URL)
     * Data and Tasks layers:
-        * __Info__ Display some information on the contents.
+        * __Info__ Display some information on the contents.  
+        * __Auto-prune__ Enable/disable automatically pruning of in memory data. Default: _on_.
         * __Prune__ remove downloaded data from storage that is outside of the current screen and unmodified.
     * All layers:
         * __Discard__ Delete the layer including any saved state.
@@ -100,7 +102,7 @@ The layer dialog supports the following actions on the layer entries:
     * __Add GeoJSON layer__ Loads a GeoJSON layer from a file in to a new GeoJSON layer, this will load CVS files with suitable (WGS84) longitude and latitude columns and write a converted file to the Vespucci directory.
     * __Add background imagery layer__ Adds a tile based imagery layer from the internal configuration, which can be from ELI or JOSM, or a custom imagery layer.
     * __Add overlay imagery layer__ As above but assumes that the layer is partially transparent.
-    * __Enable photo layer__ Enables the photo layer this will display clickable icons for photos that will start an internal or external viewer. Which photos can be displayed depends strongly on your Android version and settings [Advanced preferences](Advanced%20preferences.md).
+    * __Enable photo layer__ Enables the photo layer this will display clickable icons for photos that will start an internal or external viewer. Which photos can be displayed depends strongly on your Android version and settings [Advanced preferences](Advanced%20preferences.md#add-images-to-the-mediastore).
     * __Enable bookmark layer__ Enables a layer displaying saved bookmarks.
     * __Enable Mapillary layer__ Enables the Mapillay layer.
     * __Enable Panoramax layer__ Enables the Panoramax layer.
@@ -187,7 +189,7 @@ To reposition or remove the "on-map" GPS button use the "Follow position button 
 Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the "Transfer" menu item. This will display seven or eight options:
 
  * **Upload data to OSM server...** - review and upload changes to OpenStreetMap, the entry is disabled if you haven't changed anything yet, or there is no network available. See [Uploading your changes](Uploading%20your%20changes.md) for more information *(requires authentication)* *(requires network connectivity)*
- * **Review changes...** - review current changes, and potentially select them for upload.
+ * **Review changes...** - review current changes, and potentially select them for upload. The selection is persistent, that means you can select an OSM element for upload exit the modal and it will be re-selected. Note: if you select an element that requires other elements to be uploaded with them, they will be selected too, and the same if you de-select such an object the dependent elements will be de-selected too. If you select the [Enable split window review screen](Advanced%20preferences.md#enable_split_window_review_screen) option the changes will be shown in a separate window, clicking on an entry with select and zoom to the element on map, the info button will show the regular information modal.
  * **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
  * **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
  * **Query Overpass...** - run a query against a Overpass API server, see [Overpass queries](#overpass_queries). *(requires network connectivity)*
@@ -198,7 +200,7 @@ Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the 
  * **Clear data** - remove any OSM data in memory
  * **File...** - saving and loading OSM data to/from on device files. <a id="file"></a>
     * **Export changes to OSC file** - write a ".osc" format file containing the current edits
-    * **Apply changes from OSC file** - read a ".osc" format file and apply its contents
+    * **Apply changes from OSC file** - read a ".osc" format file and apply its contents, this will attempt to download any missing way nodes
     * **Save to JOSM file...** - save as a JOSM compatible XML format file
     * **Read from JOSM file...** - read a JOSM compatible XML format file, this supports JOSM, regular OSM and Overpass API (if metadata is included) format XML files. The files must be node-way-relation ordered.
     * **Read from PBF file...** - read OSM data from a PBF format file
@@ -236,11 +238,12 @@ Show the user preference screens. The settings are split into two sets: the firs
  * **Calibrate pressure sensor...** - calibrate the conversion from barometric pressure to elevation.
  * **Install EGM** - install a gravitational model of the earth, required for getting height data from the devices GPS. Alternatively you can switch to NMEA input in the "Advanced preferences".
  * **Remove EGM** - remove the EGM.
- * **Import data style...** - import an additional data style from an XML file or from a ZIP archive containing an XML file and icons. This overwrites existing style files with the same name.
  * **Load keys from file...** - load additional keys, for example API keys for background imagery, or other OAuth keys from a file.
+ * **Export configuration...** - export configuration data to a file.
+ * **Import configuration...** - import configuration data from a file. Note that importing database data from a more recent version is not supported.
  * **JS Console** - start the JavaScript console for scripting the application. Note that this needs to be enabled in the "Advanced preferences".
 
-### ![Find](../images/ic_menu_search_holo_light.png) Find
+### ![Find place...](../images/ic_menu_search_holo_light.png) Find
 
 Search for a location and pan to it with the OpenStreetMap Nominatim or Photon service *(requires network connectivity)*
 
@@ -282,6 +285,14 @@ Start the on device help browser.
 ### Authors and licenses
 
 Some information on the licence of Vespucci itself, specific components and a list of all known contributors to the app.
+
+### Privacy
+
+Display the privacy policy.
+
+### Provide feedback
+
+Open an issue on the github software repository. If you don't login to github a semi-anonymous issue will be created, this is not ideal as you will not be notified of responses to the issue. See _[Provide preset feedback](Property%20editor.md#provide-preset-feedback)_ for the same function for the default preset.
 
 ### Debug
 

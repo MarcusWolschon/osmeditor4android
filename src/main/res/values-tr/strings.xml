@@ -81,7 +81,6 @@
   <string name="progress_searching_message">Aranıyor...</string>
   <string name="progress_saving_message">Kaydediliyor...</string>
   <string name="progress_uploading_message">Yükleniyor...</string>
-  <string name="progress_preset_message">Ön ayarları indiriliyor...</string>
   <string name="progress_running_message">Çalıştırılıyor...</string>
   <string name="progress_building_imagery_database">Görüntü veritabanı oluşturuluyor…</string>
   <string name="progress_query_oam">OAM sorgulanıyor</string>
@@ -139,6 +138,7 @@
   <string name="maproulette_task_no_apikey">MapRoulette API anahtarı yok</string>
   <!--Todo dialogs-->
   <string name="todo_comment_legend">Yorum</string>
+  <!--System created todo lists-->
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Dikkat!</string>
   <string name="unsaved_data_message">Devam ederseniz kaydedilmemiş değişiklikleriniz atılır.</string>
@@ -152,8 +152,10 @@
   <string name="imagery_offset_date">Oluşturuldu</string>
   <string name="imagery_offset_zoom">Yakınlaş</string>
   <string name="imagery_offset_distance">Mesafe</string>
+  <!--Position modal-->
   <string name="set_position_datum_label">Jeodezik zaman</string>
   <string name="WGS84">WGS84</string>
+  <!---->
   <string name="tag_editor_name_suggestion">İsim tavsiyesi</string>
   <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">Bu öneri, bazı etiket değerlerini daha bilinir olanlarla değiştirebilir.</string>
@@ -243,6 +245,7 @@
   <string name="js_console_msg_debug">Hata ayıklama kipi!</string>
   <string name="console_output_hint">Çıktı burada görünecek</string>
   <!--Overpass console-->
+  <!--Download missing dialog-->
   <!---->
   <string name="error">Hata</string>
   <string name="warning">Uyarı</string>
@@ -376,9 +379,8 @@
   <string name="undo_location_zoom">Konuma yakınlaştır, sonra geri al</string>
   <!--Value widget dialogs-->
   <!--Feedback activity-->
-  <string name="feedback_with_displayname">OpenStreetMap görünen adınızla gönder</string>
-  <string name="feedback_displayname_hint">OpenStreetMap görünen adı henüz alınmadı</string>
   <string name="feedback_title">Geliştiriciler için geri bildirim</string>
+  <string name="feedback_with_displayname">OpenStreetMap görünen adınızla gönder</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">OpenStreetMap verisini indir</string>
   <!--Clear/Reset GPX Track-->
@@ -463,16 +465,11 @@
   <string name="toast_min_one_geocoder">En az bir coğrafi kodlayıcı seçilmelidir!</string>
   <string name="toast_used_backup">Bozuk durum dosyası, bunun yerine yedekleme dosyası kullanıldı.</string>
   <string name="toast_used_bug_backup">Bozuk hata durumu dosyası, bunun yerine yedekleme dosyası kullanıldı.</string>
-  <string name="toast_split_from">Yol \"dan\" ayrılındı</string>
-  <string name="toast_split_via">Yol \"aracılığıyla\" ayrıldı</string>
-  <string name="toast_split_from_and_via">Yold \"dan\" ve \"aracılığıyla\" ayrıldı</string>
-  <string name="toast_split_to">Yol \"a\" ayrılındı</string>
   <string name="toast_tile_database_issue_short">Döşeme veritabanı sorunu</string>
   <string name="toast_tile_database_issue">Harita döşeme veritabanıyla ilgili ciddi sorun \n \"%1$s\" \nLütfen https://vespucci.io/ adresindeki SSS bölümümüze bakın.</string>
   <string name="toast_invalid_apiurl">Geçersiz API URL\'si</string>
   <string name="toast_invalid_readonlyurl">Geçersiz Salt-Okunur API URL</string>
   <string name="toast_invalid_notesurl">Geçersiz not API URL</string>
-  <string name="toast_invalid_preseturl">Geçersiz önceden ayarlanmış URL</string>
   <string name="toast_invalid_filter_regexp">\"%1$s\"değer=\"%2$s\" anahtarlı filtrede geçersiz normal ifade</string>
   <string name="toast_error_accessing_photo">%1$s fotoğrafına erişilemiyor</string>
   <string name="toast_security_error_accessing_photo">Fotoğrafa erişime izin verilmiyor %1$s</string>
@@ -574,6 +571,7 @@
   <string name="prune">Buda</string>
   <string name="check">Denetle</string>
   <string name="download">İndir</string>
+  <string name="pause">Durdur</string>
   <string name="select">Seçiniz</string>
   <!--Read a file-->
   <string name="read">Oku</string>
@@ -698,14 +696,11 @@
   <string name="no_nominatim_result">Nominatim sunucusu %1$s\'ı bulamadı</string>
   <!--Menu-->
   <string name="menu_move">Taşı</string>
-  <string name="menu_edit">Düzenle</string>
   <string name="menu_add">Yeni</string>
   <string name="menu_config">Tercihler</string>
   <string name="menu_find">Bul</string>
   <string name="menu_help">Yardım</string>
-  <string name="menu_view">Göster</string>
   <string name="menu_erase">Düğümü sil</string>
-  <string name="menu_set_position">Pozisyon</string>
   <string name="menu_split">Böl</string>
   <string name="menu_remove_node_from_way">Düğümü yoldan kaldır</string>
   <string name="menu_extract">Düğümü çıkar</string>
@@ -812,6 +807,7 @@
   <string name="menu_layers_add_photolayer">Fotoğraf katmanını etkinleştir</string>
   <string name="menu_layers_enable_mapillary_layer">Mapillary katmanını etkinleştir</string>
   <string name="menu_layers_configure">Yapılandır…</string>
+  <!--Download along dialog-->
   <!---->
   <string name="menu_tools_apply_local_offset">Kaydedilmiş ofseti görüntülere uygulayın</string>
   <string name="menu_tools_background_contrast">Karşıtlık</string>
@@ -904,6 +900,7 @@
   <string name="config_presetbutton_title">Öntanımlılar</string>
   <string name="config_presetbutton_summary">JOSM uyumlu öntanımlı ekle ve etkinleştir</string>
   <string name="config_built_in_preset">Dahili ön ayar</string>
+  <string name="config_keyboard_shortcuts_title">Klavye kısayolları</string>
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">Doğrulayıcı ayarları</string>
   <string name="config_validatorprefs_summary">Doğrulama kurallarını yapılandırın.</string>
@@ -926,10 +923,6 @@
   <string name="config_showWayIcons_summary">Binaların üzerinde en iyi eşleşen ön ayar simgesini gösterin.</string>
   <string name="config_tagFormEnabled_title">Etiket formunu görüntüle</string>
   <string name="config_tagFormEnabled_summary">Düzenlemek için etiket formunu görüntüle</string>
-  <string name="config_showCameraAction_title">Kamera eylemini göster</string>
-  <string name="config_showCameraAction_summary">Eylem çubuğunda kamera simgesini göster.</string>
-  <string name="config_useInternalPhotoViewer_title">Dahili fotoğraf görüntüleyicisini kullan</string>
-  <string name="config_useInternalPhotoViewer_summary">Dahili fotoğraf görünümünü kullanın, kontrol edilmezse harici bir görüntüleyici kullanılacaktır.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">İndirilmemiş alanları her zaman karartın</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">İndirilmemiş alanları kilitli modda karartır.</string>
   <string name="config_map_orientation_title">Harita ekranı yönü</string>
@@ -961,6 +954,11 @@
   <string name="config_beepVolume_current">%1$d</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>
   <string name="config_longStringLimit_current">%1$d</string>
+  <!--Camera and image settings-->
+  <string name="config_showCameraAction_title">Kamera eylemini göster</string>
+  <string name="config_showCameraAction_summary">Eylem çubuğunda kamera simgesini göster.</string>
+  <string name="config_useInternalPhotoViewer_title">Dahili fotoğraf görüntüleyicisini kullan</string>
+  <string name="config_useInternalPhotoViewer_summary">Dahili fotoğraf görünümünü kullanın, kontrol edilmezse harici bir görüntüleyici kullanılacaktır.</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Veriler ve düzenleme ayarları</string>
   <string name="config_category_editing_summary">Otomatik indirme, kaydetme ve bildirim ayarları.</string>
@@ -998,6 +996,8 @@
   <string name="config_maxCircleSegment_current">%1$d metre</string>
   <string name="config_minCircleSegment_current">%1$d metre</string>
   <string name="config_replaceTolerance_current">%1$d metre</string>
+  <string name="config_minMoveWayNodesWarning_current">%1$d</string>
+  <string name="config_minMoveVisibleWayNodesWarning_current">%1$d</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Otomatik indirme ayarları</string>
   <string name="config_category_auto_download_summary">Veri ve görevi otomatik indirme ayarları</string>
@@ -1090,28 +1090,29 @@
   <string name="manage_presets">Ön ayarları yönet</string>
   <string name="listedit_use_translations">Çevirileri kullan</string>
   <string name="manage_geocoders">Coğrafi kodlayıcıları yönet</string>
+  <string name="geocoder_type">Geocoder türü</string>
   <!--preset downloader messages-->
   <string name="preset_update">Öntanımlıyı güncelle</string>
-  <string name="preset_download_successful">Önayar indirildi</string>
-  <string name="preset_download_failed">Önayar dosyası indirilemedi. Önayar çalışmaz</string>
-  <string name="preset_download_parse_failed">Öntanımlı dosya geçersiz. Öntanımlı çalışmayabilir.</string>
   <string name="preset_download_missing_images">Önayar dosyası indirildi. Ancak, bazı eksik simgeler yoktu.</string>
-  <string name="preset_download_title">Önayar indirici</string>
   <!--preset management-->
+  <!--style downloader messages-->
+  <!--style management-->
+  <!--Image storage management-->
   <!--url handler activity-->
-  <string name="urldialog_add_preset">Önayar ekle</string>
-  <string name="urldialog_preset_exists">Önayar zaten var</string>
-  <string name="urldialog_preset_download_successful">Önayar indirildi</string>
   <string name="urldialog_api_exists">API URL zaten var. Fakat, başka bir tane eklemek isteyebilirsiniz (örn. hesaplar arasında kolay geçmek için)</string>
-  <string name="urldialog_add_api">API ekle</string>
   <string name="urldialog_nodata_text">Yapılandırma URL si geçerli veri içermiyor.</string>
-  <string name="urldialog_add_geocoder">Geocoder ekle</string>
   <!--API configuration-->
   <string name="api_name">API ismi</string>
   <string name="api_url">API URL</string>
   <string name="readonly_url">Salt okunur API URL\'si (isteğe bağlı)</string>
   <string name="notes_url">Notların API URL\'si (isteğe bağlı)</string>
   <string name="copy_of">%1$skopyala</string>
+  <!--image upload dialog-->
+  <string name="image_upload">Yükle</string>
+  <string name="wikimedia_meta_description">Açıklama</string>
+  <string name="wikimedia_meta_source">Kaynak</string>
+  <string name="wikimedia_meta_author">Yazar</string>
+  <string name="wikimedia_meta_category">Kategori</string>
   <!--common terms-->
   <string name="add">Ekle</string>
   <string name="edit">Düzenle</string>
@@ -1124,13 +1125,13 @@
   <string name="Continue">Devam et</string>
   <!---->
   <string name="empty_list">Girdiler yok</string>
-  <string name="geocoder_type">Geocoder türü</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">Öntanımlı</string>
   <string name="api">API</string>
   <string name="undo">Geri al</string>
   <string name="redo">Yinele</string>
   <string name="undo_nothing">geri alınacak bir şey yok</string>
+  <!--background / forground services-->
   <string name="tracking_active_title">Vespucci arkaplan hizmeti</string>
   <string name="tracking_active_title_short">Arkaplan hizmeti etkin</string>
   <string name="tracking_active_text">GPS izini kaydetme veya otomatik indirme</string>
@@ -1253,4 +1254,7 @@
   <!--Element names with id-->
   <!--Tile downloader diagnostics-->
   <string name="tile_unknown_error">Bilinmeyen hata</string>
+  <!--Keyboard Shortcuts UI-->
+  <string name="keyboard_shortcut_save">Kaydet</string>
+  <string name="keyboard_shortcut_reset">Sıfırla</string>
 </resources>

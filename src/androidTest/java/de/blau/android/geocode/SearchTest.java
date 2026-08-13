@@ -22,6 +22,7 @@ import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiSelector;
 import de.blau.android.LayerUtils;
 import de.blau.android.Main;
+import de.blau.android.R;
 import de.blau.android.TestUtils;
 import de.blau.android.exception.IllegalOperationException;
 import de.blau.android.osm.ViewBox;
@@ -102,9 +103,9 @@ public class SearchTest {
     public void nominatim() {
         // http://nominatim.openstreetmap.org/search?q=bergdietikon&viewboxlbrt=-8.6723573%2C24.892276%2C34.6636399%2C66.2221988&format=jsonv2
         mockServer.enqueue("nominatim");
-        if (!TestUtils.clickMenuButton(device, "Find", false, true)) {
+        if (!TestUtils.clickMenuButton(device, main.getString(R.string.menu_find), false, true)) {
             TestUtils.clickOverflowButton(device);
-            TestUtils.clickText(device, false, "Find", true, false);
+            TestUtils.clickText(device, false, main.getString(R.string.menu_find), true, false);
         }
         UiObject searchEditText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/location_search_edit"));
         try {

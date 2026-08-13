@@ -10,10 +10,12 @@
         parent="@style/Theme.SplashScreen">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/vespucci_splash</item>
-        <item name="windowSplashScreenBackground">@color/osm_green</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash_animated</item>
+        <item name="windowSplashScreenAnimationDuration">1000</item>
+        <item name="windowSplashScreenBackground">#719B58</item>
         <item name="postSplashScreenTheme">@style/SplashTheme2</item>
         <item name="error">@color/material_red</item>
+        <item name="warning">@color/material_orange</item>
         <item name="insetColor">@color/osm_green_dark</item>
     </style>
     <style
@@ -22,10 +24,12 @@
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:navigationBarColor">@android:color/white</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/vespucci_splash</item>
-        <item name="windowSplashScreenBackground">@color/osm_green</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash_animated</item>
+        <item name="windowSplashScreenAnimationDuration">1000</item>
+        <item name="windowSplashScreenBackground">#82AA6B</item>
         <item name="postSplashScreenTheme">@style/SplashThemeLight2</item>
         <item name="error">@color/material_red</item>
+        <item name="warning">@color/material_orange</item>
         <item name="insetColor">@color/osm_green_light</item>
     </style>
     <style
@@ -35,6 +39,7 @@
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowBackground">@color/osm_green</item>
         <item name="error">@color/material_red</item>
+        <item name="warning">@color/material_orange</item>
         <item name="insetColor">@color/osm_green_dark</item>
     </style>
     <style
@@ -45,21 +50,7 @@
         <item name="android:navigationBarColor">@android:color/white</item>
         <item name="android:windowBackground">@color/osm_green</item>
         <item name="error">@color/material_red</item>
-        <item name="insetColor">@color/osm_green_light</item>
-    </style>
-    <style
-        name="SplashThemePre21"
-        parent="Theme.AppCompat.NoActionBar">
-        <item name="android:windowBackground">@drawable/splash</item>
-        <item name="error">@color/material_red</item>
-        <item name="insetColor">@color/osm_green_dark</item>
-    </style>
-    <style
-        name="SplashThemeLightPre21"
-        parent="@style/Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@drawable/splash</item>
-        <item name="android:navigationBarColor">@android:color/white</item>
-        <item name="error">@color/material_red</item>
+        <item name="warning">@color/material_orange</item>
         <item name="insetColor">@color/osm_green_light</item>
     </style>
     <style
@@ -132,6 +123,15 @@
         <item name="check">@drawable/baseline_check_black_18</item>
         <item name="add">@drawable/ic_add_white_36dp</item>
         <item name="more">@drawable/ic_more_vert_white_36dp</item>
+    </style>
+    <style
+        name="Theme.customFeedback"
+        parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">false</item>
+        <item name="colorPrimary">@color/osm_green</item>
+        <item name="colorAccent">@color/osm_green</item>
     </style>
     <style
         name="Theme.custom"
@@ -380,6 +380,7 @@
         name="Theme.AlertDialog"
         parent ="@style/Theme.AppCompat.Dialog.Alert">
         <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+        <item name="ListPopupWindowStyle">@style/ListPopupWindowStyle</item>
     </style>
     <style
         name="Theme.DialogDark"
@@ -411,6 +412,7 @@
         name="Theme.AlertDialogLight"
         parent ="@style/Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+        <item name="ListPopupWindowStyle">@style/ListPopupWindowStyleLight</item>
     </style>
     <style
         name="Theme.DialogLight"
@@ -513,7 +515,7 @@
         <item name="not_downloaded_node_small">@drawable/node_small_dark</item>
         <item name="not_downloaded_line_small">@drawable/line_small_dark</item>
         <item name="not_downloaded_relation_small">@drawable/relation_small_dark</item>
-        <item name="propertyeditor_done">@drawable/ic_action_accept_holo_dark</item>
+        <item name="propertyeditor_done">@drawable/done_dark</item>
         <!-- colors -->
         <item name="insetColor">@color/osm_green_dark</item>
         <item name="snack_info">@color/material_teal</item>
@@ -720,7 +722,7 @@
         <item name="not_downloaded_node_small">@drawable/node_small_dark</item>
         <item name="not_downloaded_line_small">@drawable/line_small_dark</item>
         <item name="not_downloaded_relation_small">@drawable/relation_small_dark</item>
-        <item name="propertyeditor_done">@drawable/ic_action_accept_holo_light</item>
+        <item name="propertyeditor_done">@drawable/done_light</item>
         <!-- colors -->
         <item name="insetColor">@color/osm_green_light</item>
         <item name="snack_info">@color/material_teal</item>
@@ -883,8 +885,5 @@
         parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">true</item>
         <item name="color">@android:color/black</item>
-    </style>
-    <style name="Theme.IssueReporterModified" parent="Theme.IssueReporter">
-         <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
     </style>
 </resources>

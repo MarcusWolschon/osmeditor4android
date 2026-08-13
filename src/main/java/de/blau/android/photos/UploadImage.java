@@ -1,0 +1,264 @@
+package de.blau.android.photos;
+
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.util.HashMap;
+import java.util.Map;
+
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.net.Uri;
+import android.util.Log;
+import android.widget.ListView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.FragmentActivity;
+import de.blau.android.App;
+import de.blau.android.ErrorCodes;
+import de.blau.android.R;
+import de.blau.android.dialogs.Progress;
+import de.blau.android.exception.StorageException;
+import de.blau.android.imagestorage.ImageStorage;
+import de.blau.android.imagestorage.PanoramaxStorage;
+import de.blau.android.imagestorage.UploadResult;
+import de.blau.android.imagestorage.WikimediaCommonsStorage;
+import de.blau.android.osm.OsmElement;
+import de.blau.android.prefs.AdvancedPrefDatabase;
+import de.blau.android.prefs.ImageStorageConfiguration;
+import de.blau.android.prefs.Preferences;
+import de.blau.android.util.ContentResolverUtil;
+import de.blau.android.util.ExecutorTask;
+import de.blau.android.util.FileUtil;
+import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.ThemeUtils;
+
+public class UploadImage {
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, UploadImage.class.getSimpleName().length());
+    private static final String DEBUG_TAG = UploadImage.class.getSimpleName().substring(0, TAG_LEN);
+
+    private static final String PROGRESS_TAG = "upload";
+
+    // flag for determining if an upload button had been pressed
+    private static boolean uploading;
+
+    /**
+     * Private constructor
+     */
+    private UploadImage() {
+        // empty
+    }
+
+    /**
+     * Show the upload modal
+     * 
+     * As we can't directly upload contents from a stream we need to create a copy of the file first
+     * 
+     * @param context Android Context
+     * @param prefs current preferences
+     * @param fileUri the Uri of the image we want to upload
+     */
+    public static void dialog(@NonNull Context context, @NonNull Preferences prefs, @NonNull ImageAction action, @NonNull Uri fileUri) {
+        try (InputStream in = context.getContentResolver().openInputStream(fileUri)) {
+            String filename = ContentResolverUtil.getDisplaynameColumn(context, fileUri);
+            File dest = new File(context.getCacheDir(), filename);
+            FileUtil.copy(in, dest);
+            dialog(context, prefs, action, dest, true);
+        } catch (IOException e) {
+            Log.e(DEBUG_TAG, "Copy stream to file failed " + e.getMessage());
+            ScreenMessage.toastTopError(context, context.getString(R.string.image_upload_failed, e.getMessage()));
+        }
+
+    }
+
+    /**
+     * Show the upload modal
+     * 
+     * @param context Android Context
+     * @param prefs current preferences
+     * @param imageFile the image file to upload
+     */
+    public static void dialog(@NonNull Context context, @NonNull Preferences prefs, @NonNull ImageAction action, @NonNull File imageFile) {
+        dialog(context, prefs, action, imageFile, false);
+    }
+
+    /**
+     * Show the upload modal
+     * 
+     * @param context Android Context
+     * @param prefs current preferences
+     * @param imageFile the image file to upload
+     * @param alwaysRemove if true always remove the file
+     */
+    private static void dialog(@NonNull Context context, @NonNull Preferences prefs, @NonNull ImageAction action, @NonNull File imageFile,
+            boolean alwaysRemove) {
+        AlertDialog.Builder builder = ThemeUtils.getAlertDialogBuilder(context, prefs);
+        builder.setTitle(R.string.image_upload_title);
+        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(context)) {
+            final ImageStorageConfiguration[] configurations = db.getImageStores();
+            String[] names = new String[configurations.length];
+            int active = 0;
+            for (int i = 0; i < configurations.length; i++) {
+                names[i] = configurations[i].name;
+                if (configurations[i].active) {
+                    active = i;
+                }
+            }
+            builder.setSingleChoiceItems(names, active, (DialogInterface dialog, int which) -> db.setImageStoreState(configurations[which].id, true));
+
+            builder.setPositiveButton(alwaysRemove ? R.string.image_upload : R.string.image_upload_and_remove, (DialogInterface dialog, int which) -> {
+                uploading = true;
+                ListView lv = ((AlertDialog) dialog).getListView();
+                upload(context, prefs, true, configurations[lv.getCheckedItemPosition()], action, imageFile, alwaysRemove);
+            });
+            if (!alwaysRemove) {
+                builder.setNegativeButton(R.string.image_upload, (DialogInterface dialog, int which) -> {
+                    uploading = true;
+                    ListView lv = ((AlertDialog) dialog).getListView();
+                    upload(context, prefs, false, configurations[lv.getCheckedItemPosition()], action, imageFile, alwaysRemove);
+                });
+            }
+            builder.setNeutralButton(R.string.cancel, null);
+            Dialog dialog = builder.create();
+            dialog.setOnDismissListener((DialogInterface d) -> {
+                if (alwaysRemove && !uploading) {
+                    imageFile.delete(); // NOSONAR
+                }
+            });
+            dialog.show();
+        }
+
+    }
+
+    /**
+     * Actually upload
+     * 
+     * @param context Android Context
+     * @param prefs current preferences
+     * @param imageFile the image file to upload
+     * @param alwaysRemove if true always remove the file
+     */
+    private static void upload(@NonNull Context context, @NonNull Preferences prefs, final boolean remove,
+            @NonNull final ImageStorageConfiguration configuration, @NonNull ImageAction action, @NonNull final File imageFile, boolean alwaysRemove) {
+
+        final ImageStorage imageStore = getImageStore(configuration);
+
+        ExecutorTask<Void, Void, UploadResult> uploader = new ExecutorTask<Void, Void, UploadResult>() {
+
+            @Override
+            protected void onPreExecute() {
+                if (context instanceof FragmentActivity) {
+                    Progress.showDialog((FragmentActivity) context, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
+                }
+            }
+
+            @Override
+            protected UploadResult doInBackground(Void id) {
+                Log.d(DEBUG_TAG, "Uploading");
+                return imageStore.upload(context, imageFile);
+            }
+
+            @Override
+            protected void onPostExecute(UploadResult result) {
+                if (context instanceof FragmentActivity) {
+                    Progress.dismissDialog((FragmentActivity) context, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
+                }
+
+                try {
+                    String url = result.getUrl();
+                    if (url != null && ErrorCodes.OK == result.getError()) {
+                        ScreenMessage.toastTopInfo(context, context.getString(R.string.toast_upload_to_success, configuration.name));
+                        switch (action.getAction()) {
+                        case ADDTOELEMENT:
+                            addTagAndUrl(context, action, imageStore, url);
+                            break;
+                        case ADDTONOTE:
+                        default:
+                            // nothing
+                        }
+                        if (remove) {
+                            imageFile.delete(); // NOSONAR
+                        } else {
+                            TakePicture.indexLocal(context, prefs, imageFile);
+                        }
+                        return;
+                    }
+                    Log.d(DEBUG_TAG, "Upload failed " + result.toString());
+                    switch (result.getError()) {
+                    case ErrorCodes.FORBIDDEN:
+                        ScreenMessage.toastTopError(context, R.string.image_upload_not_authorized);
+                        return;
+                    case ErrorCodes.UPLOAD_PROBLEM:
+                        String message = result.getMessage();
+                        int httpCode = result.getHttpError();
+                        if (imageStore instanceof PanoramaxStorage && httpCode == HttpURLConnection.HTTP_CONFLICT) {
+                            ScreenMessage.toastTopError(context, R.string.image_upload_failed_duplicate_image);
+                            return;
+                        }
+                        ScreenMessage.toastTopError(context,
+                                context.getString(R.string.image_upload_failed_due_to, httpCode, (message != null ? message : ""), url));
+                        return;
+                    default:
+                        // fall through
+                    }
+                    ScreenMessage.toastTopError(context, context.getString(R.string.image_upload_failed, result.getMessage()));
+                } finally {
+                    if (alwaysRemove) {
+                        imageFile.delete(); // NOSONAR
+                    }
+                }
+            }
+        };
+
+        if (imageStore.canSetMetaData()) {
+            imageStore.setMetaData(context, imageFile, uploader::execute);
+            return;
+        }
+        uploader.execute();
+    }
+
+    /**
+     * Add the url to the osm element
+     * 
+     * @param context an Android Context
+     * @param action the action
+     * @param imageStore the ImageStorage instance
+     * @param url the url
+     */
+    private static void addTagAndUrl(@NonNull Context context, @NonNull ImageAction action, @NonNull final ImageStorage imageStore, @NonNull String url) {
+        final String elementType = action.getElementType();
+        if (elementType == null) {
+            Log.e(DEBUG_TAG, "addTagAndUrl null elementType");
+            return;
+        }
+        OsmElement element = App.getDelegator().getOsmElement(elementType, action.getId());
+        if (element == null) {
+            Log.e(DEBUG_TAG, "addTagAndUrl element " + elementType + " " + action.getId() + " not found");
+            return;
+        }
+        Map<String, String> tags = new HashMap<>(element.getTags());
+        imageStore.addTag(url, tags);
+        try {
+            App.getLogic().setTags((FragmentActivity) context, element, tags);
+        } catch (StorageException ex) {
+            // already toasted and logged
+        }
+    }
+
+    private static ImageStorage getImageStore(ImageStorageConfiguration configuration) {
+        switch (configuration.type) {
+        case PANORAMAX:
+            return new PanoramaxStorage(configuration);
+        case WIKIMEDIA_COMMONS:
+            return new WikimediaCommonsStorage(configuration);
+        default:
+            // fall through
+        }
+        throw new IllegalArgumentException("Unknown store type " + configuration.type);
+    }
+}

@@ -1,5 +1,7 @@
 package de.blau.android.osm;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,6 +12,8 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -38,9 +42,7 @@ import android.net.Uri;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
-import de.blau.android.Authorize;
 import de.blau.android.ErrorCodes;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
@@ -60,6 +62,7 @@ import de.blau.android.services.util.MBTileProviderDataBase;
 import de.blau.android.services.util.StreamUtils;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.NoteComment;
+import de.blau.android.util.AuthorisationEnabledActivity;
 import de.blau.android.util.BasicAuthInterceptor;
 import de.blau.android.util.ScreenMessage;
 import okhttp3.Call;
@@ -78,8 +81,8 @@ import se.akerfeldt.okhttp.signpost.SigningInterceptor;
  * @author Simon
  */
 public class Server {
-
-    private static final String DEBUG_TAG = Server.class.getSimpleName().substring(0, Math.min(23, Server.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Server.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Server.class.getSimpleName().substring(0, TAG_LEN);
 
     /**
      * <a href="http://wiki.openstreetmap.org/wiki/API">API</a>-Version.
@@ -99,6 +102,9 @@ public class Server {
     private static final String NEW_VERSION_ATTR    = "new_version";
     private static final String NEW_ID_ATTR         = "new_id";
     private static final String DIFF_RESULT_ELEMENT = "diffResult";
+
+    private static final String GET_ELEMENT      = "%s%s/%d";
+    private static final String GET_ELEMENT_MODE = "/%s";
 
     private static final String HTTP_PUT    = "PUT";
     static final String         HTTP_POST   = "POST";
@@ -177,6 +183,11 @@ public class Server {
     private final boolean compressedUploads;
 
     /**
+     * Use authenticated reads
+     */
+    private final boolean authenticatedReads;
+
+    /**
      * display name of the user and other stuff
      */
     private UserDetails cachedUserDetails;
@@ -216,6 +227,33 @@ public class Server {
      */
     private static final String SERVER_NOTES_PATH = "notes/";
 
+    private interface AddInterceptor {
+        void add(@NonNull OkHttpClient.Builder builder);
+    }
+
+    /**
+     * Add an appropriate Interceptor for authentication
+     * 
+     * @param builder an OkHttpClient.Builder instance
+     */
+    private class AddAuthentication implements AddInterceptor {
+        public void add(@NonNull OkHttpClient.Builder builder) {
+            Log.d(DEBUG_TAG, "Adding interceptor for " + authentication);
+            switch (authentication) {
+            case OAUTH1A:
+                builder.addInterceptor(new SigningInterceptor(oAuthConsumer));
+                break;
+            case OAUTH2:
+                builder.addInterceptor(new OAuth2Interceptor(accesstoken));
+                break;
+            case BASIC:
+                builder.addInterceptor(new BasicAuthInterceptor(username, password));
+            }
+        }
+    }
+
+    private final AddAuthentication addAuthentication;
+
     /**
      * Constructor. Sets {@link #rootOpen} and {@link #createdByTag}.
      * 
@@ -241,6 +279,7 @@ public class Server {
         this.accesstokensecret = api.accesstokensecret;
         this.timeout = api.timeout;
         this.compressedUploads = api.compressedUploads;
+        this.authenticatedReads = api.authenticatedReads;
 
         if (authentication == Auth.OAUTH1A) {
             oAuthConsumer = new OAuth1aHelper().getOkHttpConsumer(context, name);
@@ -250,6 +289,8 @@ public class Server {
         } else {
             oAuthConsumer = null;
         }
+
+        addAuthentication = new AddAuthentication();
 
         Log.d(DEBUG_TAG, "API entry " + name + " with " + this.serverURL);
 
@@ -308,7 +349,7 @@ public class Server {
             parser.setInput(response.body().byteStream(), null);
             cachedUserDetails = UserDetails.fromXml(parser);
             return cachedUserDetails;
-        } catch (XmlPullParserException | IOException | NumberFormatException e) {
+        } catch (XmlPullParserException | IOException | URISyntaxException | IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "Problem accessing user details", e);
         }
         return null;
@@ -345,9 +386,9 @@ public class Server {
             }
         } catch (XmlPullParserException e) {
             Log.e(DEBUG_TAG, "Problem parsing user preferences", e);
-        } catch (MalformedURLException e) {
+        } catch (MalformedURLException | URISyntaxException | IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "Problem retrieving user preferences", e);
-        } catch (IOException | NumberFormatException e) {
+        } catch (IOException e) {
             Log.e(DEBUG_TAG, "Problem accessing user preferences", e);
         }
         return result;
@@ -369,7 +410,7 @@ public class Server {
                 Log.e(DEBUG_TAG, "Problem setting user preferences " + key + "=" + value + " code " + responseCode + " message " + message);
                 throw new OsmServerException(responseCode, message);
             }
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException | IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "Problem setting user preferences " + key, e);
             throw new OsmException(e.getMessage());
         }
@@ -389,7 +430,7 @@ public class Server {
                 Log.e(DEBUG_TAG, "Problem deleting user preferences " + key + " code " + responseCode + " message " + message);
                 throw new OsmServerException(responseCode, message);
             }
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException | IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "Problem deleting user preferences " + key, e);
             throw new OsmException(e.getMessage());
         }
@@ -415,7 +456,7 @@ public class Server {
                 readOnlyCapabilities = result;
             }
             return readOnlyCapabilities; // if retrieving failed return the default
-        } catch (MalformedURLException e) {
+        } catch (MalformedURLException | URISyntaxException | IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "Problem with read-only capabilities URL", e);
         }
         return null;
@@ -451,7 +492,7 @@ public class Server {
                 capabilities = result;
             }
             return capabilities; // if retrieving failed return the default
-        } catch (MalformedURLException e) {
+        } catch (MalformedURLException | URISyntaxException | IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "Problem with capabilities URL", e);
         }
         return capabilities; // if retrieving failed return the default
@@ -465,7 +506,7 @@ public class Server {
      */
     private Capabilities getCapabilities(@NonNull URL capabilitiesURL) {
         //
-        try (InputStream is = openConnection(null, capabilitiesURL, timeout, timeout)) {
+        try (InputStream is = openConnection(null, capabilitiesURL, useAuthenticatedReads(), timeout, timeout)) {
             Log.d(DEBUG_TAG, "getCapabilities using " + capabilitiesURL.toString());
             return Capabilities.parse(xmlParserFactory.newPullParser(), is);
         } catch (XmlPullParserException e) {
@@ -519,12 +560,23 @@ public class Server {
      * @param box the specified bounding box
      * @return the stream
      * @throws IOException thrown general IO problems
+     * @throws URISyntaxException if the url can't be parsed
      */
     @NonNull
-    public InputStream getStreamForBox(@Nullable final Context context, @NonNull final BoundingBox box) throws IOException {
+    public InputStream getStreamForBox(@Nullable final Context context, @NonNull final BoundingBox box) throws IOException, URISyntaxException {
         Log.d(DEBUG_TAG, "getStreamForBox");
-        URL url = new URL(getReadOnlyUrl() + "map?bbox=" + box.toApiString());
-        return openConnection(context, url, timeout, timeout);
+        URL url = new URI(getReadOnlyUrl() + "map?bbox=" + box.toApiString()).toURL();
+        return openConnection(context, url, useAuthenticatedReads(), timeout, timeout);
+    }
+
+    /**
+     * Check if we need to and can use authenticated reads and return an AddInterceptor class if so
+     * 
+     * @return an AddInterceptor that will add an appropriate Interceptor
+     */
+    @Nullable
+    private AddInterceptor useAuthenticatedReads() {
+        return authenticatedReads && (isLoginSet() || !needOAuthHandshake()) ? addAuthentication : null;
     }
 
     /**
@@ -536,13 +588,15 @@ public class Server {
      * @param id the OSM id of the object
      * @return the stream
      * @throws IOException thrown general IO problems
+     * @throws URISyntaxException if the url can't be parsed
      */
     @NonNull
     public InputStream getStreamForElement(@Nullable final Context context, @Nullable final String mode, @NonNull final String type, final long id)
-            throws IOException {
+            throws IOException, URISyntaxException {
         Log.d(DEBUG_TAG, "getStreamForElement");
-        URL url = new URL((hasMapSplitSource() ? getReadWriteUrl() : getReadOnlyUrl()) + type + "/" + id + (mode != null ? "/" + mode : ""));
-        return openConnection(context, url, timeout, timeout);
+        URL url = new URI(String.format(GET_ELEMENT, hasMapSplitSource() ? getReadWriteUrl() : getReadOnlyUrl(), type, id)
+                + (mode != null ? String.format(GET_ELEMENT_MODE, mode) : "")).toURL();
+        return openConnection(context, url, useAuthenticatedReads(), timeout, timeout);
     }
 
     /**
@@ -553,10 +607,12 @@ public class Server {
      * @param ids array containing the OSM ids of the objects
      * @return the stream
      * @throws IOException thrown general IO problems
+     * @throws URISyntaxException if the url can't be parsed
      */
     @NonNull
-    public InputStream getStreamForElements(@Nullable final Context context, @NonNull final String type, final long[] ids) throws IOException {
-        Log.d(DEBUG_TAG, "getStreamForElements");
+    public InputStream getStreamForElements(@Nullable final Context context, @NonNull final String type, final long[] ids)
+            throws IOException, URISyntaxException {
+        Log.d(DEBUG_TAG, "getStreamForElements " + ids.length + " " + type);
 
         StringBuilder urlString = new StringBuilder();
         urlString.append(hasMapSplitSource() ? getReadWriteUrl() : getReadOnlyUrl());
@@ -571,8 +627,8 @@ public class Server {
                 urlString.append(',');
             }
         }
-        URL url = new URL(urlString.toString());
-        return openConnection(context, url, timeout, timeout);
+        URL url = new URI(urlString.toString()).toURL();
+        return openConnection(context, url, useAuthenticatedReads(), timeout, timeout);
     }
 
     /**
@@ -587,7 +643,7 @@ public class Server {
      */
     @NonNull
     public static InputStream openConnection(@Nullable final Context context, @NonNull URL url) throws IOException {
-        return openConnection(context, url, Server.DEFAULT_TIMEOUT, Server.DEFAULT_TIMEOUT);
+        return openConnection(context, url, null, Server.DEFAULT_TIMEOUT, Server.DEFAULT_TIMEOUT);
     }
 
     /**
@@ -595,6 +651,7 @@ public class Server {
      * 
      * @param context Android context
      * @param url the URL
+     * @param addInterceptor adds an interceptor if necessary
      * @param connectTimeout connection timeout in ms
      * @param readTimeout read timeout in ms
      * @return the InputStream
@@ -602,12 +659,16 @@ public class Server {
      * 
      */
     @NonNull
-    public static InputStream openConnection(@Nullable final Context context, @NonNull URL url, int connectTimeout, int readTimeout) throws IOException {
+    public static InputStream openConnection(@Nullable final Context context, @NonNull URL url, @Nullable AddInterceptor addInterceptor, int connectTimeout,
+            int readTimeout) throws IOException {
         Log.d(DEBUG_TAG, "get input stream for  " + url.toString());
         try {
             Request request = new Request.Builder().url(url).build();
             OkHttpClient.Builder builder = App.getHttpClient().newBuilder().connectTimeout(connectTimeout, TimeUnit.MILLISECONDS).readTimeout(readTimeout,
                     TimeUnit.MILLISECONDS);
+            if (addInterceptor != null) {
+                addInterceptor.add(builder);
+            }
             OkHttpClient client = builder.build();
             Call readCall = client.newCall(request);
             Response readCallResponse = readCall.execute();
@@ -710,16 +771,7 @@ public class Server {
 
         OkHttpClient.Builder builder = App.getHttpClient().newBuilder().connectTimeout(timeout, TimeUnit.MILLISECONDS).readTimeout(timeout,
                 TimeUnit.MILLISECONDS);
-        switch (authentication) {
-        case OAUTH1A:
-            builder.addInterceptor(new SigningInterceptor(oAuthConsumer));
-            break;
-        case OAUTH2:
-            builder.addInterceptor(new OAuth2Interceptor(accesstoken));
-            break;
-        case BASIC:
-            builder.addInterceptor(new BasicAuthInterceptor(username, password));
-        }
+        addAuthentication.add(builder);
         // if compressed uploads are supported and compression interceptor
         if ((HTTP_POST.equals(requestMethod) || HTTP_PUT.equals(requestMethod)) && compressedUploads) {
             builder.addInterceptor(new GzipRequestInterceptor());
@@ -770,12 +822,13 @@ public class Server {
      * @param closeOpenChangeset if true attempt to close a potentially open changeset first
      * @param comment value for the comment tag
      * @param source value for the source tag
-     * @param imagery value for the imagery_used tag
+     * @param imagery list of values for the imagery_used tag
      * @param extraTags Additional tags to add
      * @throws IOException on an IO issue
+     * @throws URISyntaxException if the url can't be parsed
      */
-    public void openChangeset(boolean closeOpenChangeset, @Nullable final String comment, @Nullable final String source, @Nullable final String imagery,
-            @Nullable Map<String, String> extraTags) throws IOException {
+    public void openChangeset(boolean closeOpenChangeset, @Nullable final String comment, @Nullable final String source, @Nullable final List<String> imagery,
+            @Nullable Map<String, String> extraTags) throws IOException, URISyntaxException {
 
         if (changesetId != -1) { // potentially still open, check if really the case
             Changeset cs = getChangeset(changesetId);
@@ -795,7 +848,7 @@ public class Server {
             changesetId = -1;
         }
 
-        final XmlSerializable xmlData = new Changeset(generator, comment, source, imagery, extraTags).tagsToXml();
+        final XmlSerializable xmlData = new Changeset(generator, comment, source, imagery, extraTags, getCachedCapabilities()).tagsToXml();
         RequestBody body = new XmlRequestBody() {
             @Override
             public void writeTo(BufferedSink sink) throws IOException {
@@ -825,8 +878,9 @@ public class Server {
      * 
      * @throws MalformedURLException if the URL can't be constructed properly
      * @throws IOException on an IO issue
+     * @throws URISyntaxException if the url can't be parsed
      */
-    public void closeChangeset() throws IOException {
+    public void closeChangeset() throws IOException, URISyntaxException {
         try (Response response = openConnectionForAuthenticatedAccess(getCloseChangesetUrl(changesetId), HTTP_PUT, RequestBody.create(null, ""))) {
             checkResponseCode(response);
         } finally {
@@ -839,9 +893,10 @@ public class Server {
      * 
      * @param id id of the changeset
      * @return a Changeset object
+     * @throws URISyntaxException if the url can't be parsed
      */
     @Nullable
-    public Changeset getChangeset(long id) {
+    public Changeset getChangeset(long id) throws URISyntaxException {
         try (Response response = openConnectionForAuthenticatedAccess(getChangesetUrl(changesetId), HTTP_GET, (RequestBody) null)) {
             checkResponseCode(response);
             return Changeset.parse(xmlParserFactory.newPullParser(), response.body().byteStream());
@@ -857,15 +912,15 @@ public class Server {
      * @param changesetId the id of the changeset
      * @param comment value for the comment tag
      * @param source value for the source tag
-     * @param imagery value for the imagery_used tag
+     * @param imagery list of values for the imagery_used tag
      * @param extraTags Additional tags to add
      * @return a Changeset object
      * @throws IOException on an IO issue
      */
     @Nullable
-    public Changeset updateChangeset(final long changesetId, @Nullable final String comment, @Nullable final String source, @Nullable final String imagery,
-            @Nullable Map<String, String> extraTags) throws IOException {
-        final XmlSerializable xmlData = new Changeset(generator, comment, source, imagery, extraTags).tagsToXml();
+    public Changeset updateChangeset(final long changesetId, @Nullable final String comment, @Nullable final String source,
+            @Nullable final List<String> imagery, @Nullable Map<String, String> extraTags) throws IOException {
+        final XmlSerializable xmlData = new Changeset(generator, comment, source, imagery, extraTags, getCachedCapabilities()).tagsToXml();
         RequestBody body = new XmlRequestBody() {
             @Override
             public void writeTo(BufferedSink sink) throws IOException {
@@ -875,7 +930,7 @@ public class Server {
         try (Response response = openConnectionForAuthenticatedAccess(getChangesetUrl(changesetId), HTTP_PUT, body)) {
             checkResponseCode(response);
             return Changeset.parse(xmlParserFactory.newPullParser(), response.body().byteStream());
-        } catch (IOException | XmlPullParserException e) {
+        } catch (IOException | XmlPullParserException | URISyntaxException | IllegalArgumentException e) {
             Log.d(DEBUG_TAG, "getChangeset got " + e.getMessage());
         }
         return null;
@@ -895,7 +950,7 @@ public class Server {
             oscParser.clearBoundingBoxes(); // this removes the default bounding box
             oscParser.start(response.body().byteStream());
             return oscParser.getStorage();
-        } catch (IOException | SAXException | ParserConfigurationException e) {
+        } catch (IOException | SAXException | ParserConfigurationException | URISyntaxException | IllegalArgumentException e) {
             Log.d(DEBUG_TAG, "getChanges got " + e.getMessage());
         }
         return null;
@@ -966,7 +1021,7 @@ public class Server {
             try (Response response = openConnectionForAuthenticatedAccess(getDiffUploadUrl(changesetId), HTTP_POST, body)) {
                 processDiffUploadResult(delegator, response, xmlParserFactory.newPullParser());
             }
-        } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException e) {
+        } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException | URISyntaxException e) {
             throw new OsmException(e.getMessage());
         }
     }
@@ -1154,9 +1209,10 @@ public class Server {
      * 
      * @return the URL
      * @throws MalformedURLException if the URL we tried to create was malformed
+     * @throws URISyntaxException if the url can't be parsed
      */
-    private URL getCreateChangesetUrl() throws MalformedURLException {
-        return new URL(getReadWriteUrl() + SERVER_CHANGESET_PATH + "create");
+    private URL getCreateChangesetUrl() throws MalformedURLException, URISyntaxException {
+        return new URI(getReadWriteUrl() + SERVER_CHANGESET_PATH + "create").toURL();
     }
 
     /**
@@ -1165,9 +1221,10 @@ public class Server {
      * @param changesetId the id of the changeset
      * @return the URL
      * @throws MalformedURLException if the URL we tried to create was malformed
+     * @throws URISyntaxException if the url can't be parsed
      */
-    private URL getCloseChangesetUrl(long changesetId) throws MalformedURLException {
-        return new URL(getReadWriteUrl() + SERVER_CHANGESET_PATH + changesetId + "/close");
+    private URL getCloseChangesetUrl(long changesetId) throws MalformedURLException, URISyntaxException {
+        return new URI(getReadWriteUrl() + SERVER_CHANGESET_PATH + changesetId + "/close").toURL();
     }
 
     /**
@@ -1176,9 +1233,10 @@ public class Server {
      * @param changesetId the id of the changeset
      * @return the URL
      * @throws MalformedURLException if the URL we tried to create was malformed
+     * @throws URISyntaxException if the url can't be parsed
      */
-    private URL getChangesetUrl(long changesetId) throws MalformedURLException {
-        return new URL(getReadWriteUrl() + SERVER_CHANGESET_PATH + changesetId);
+    private URL getChangesetUrl(long changesetId) throws MalformedURLException, URISyntaxException {
+        return new URI(getReadWriteUrl() + SERVER_CHANGESET_PATH + changesetId).toURL();
     }
 
     /**
@@ -1187,9 +1245,10 @@ public class Server {
      * @param changesetId the id of the changeset
      * @return the URL
      * @throws MalformedURLException if the URL we tried to create was malformed
+     * @throws URISyntaxException if the url can't be parsed
      */
-    private URL getChangesetDownloadUrl(long changesetId) throws MalformedURLException {
-        return new URL(getReadWriteUrl() + SERVER_CHANGESET_PATH + changesetId + "/download");
+    private URL getChangesetDownloadUrl(long changesetId) throws MalformedURLException, URISyntaxException {
+        return new URI(getReadWriteUrl() + SERVER_CHANGESET_PATH + changesetId + "/download").toURL();
     }
 
     /**
@@ -1198,10 +1257,11 @@ public class Server {
      * @param changeSetId the current open changeset id
      * @return the URL
      * @throws MalformedURLException if the URL we tried to create was malformed
+     * @throws URISyntaxException if the url can't be parsed
      */
     @NonNull
-    private URL getDiffUploadUrl(long changeSetId) throws MalformedURLException {
-        return new URL(getReadWriteUrl() + SERVER_CHANGESET_PATH + changeSetId + "/upload");
+    private URL getDiffUploadUrl(long changeSetId) throws MalformedURLException, URISyntaxException {
+        return new URI(getReadWriteUrl() + SERVER_CHANGESET_PATH + changeSetId + "/upload").toURL();
     }
 
     /**
@@ -1209,10 +1269,11 @@ public class Server {
      * 
      * @return the users detail url
      * @throws MalformedURLException if the url couldn't be constructed properly
+     * @throws URISyntaxException if the url can't be parsed
      */
     @NonNull
-    private URL getUserDetailsUrl() throws MalformedURLException {
-        return new URL(getReadWriteUrl() + "user/details");
+    private URL getUserDetailsUrl() throws MalformedURLException, URISyntaxException {
+        return new URI(getReadWriteUrl() + "user/details").toURL();
     }
 
     /**
@@ -1220,10 +1281,11 @@ public class Server {
      * 
      * @return the users preferences url
      * @throws MalformedURLException if the url couldn't be constructed properly
+     * @throws URISyntaxException if the url can't be parsed
      */
     @NonNull
-    private URL getUserPreferencesUrl() throws MalformedURLException {
-        return new URL(getReadWriteUrl() + "user/preferences");
+    private URL getUserPreferencesUrl() throws MalformedURLException, URISyntaxException {
+        return new URI(getReadWriteUrl() + "user/preferences").toURL();
     }
 
     /**
@@ -1232,10 +1294,11 @@ public class Server {
      * @param key the key for the preference
      * @return the users preferences url
      * @throws MalformedURLException if the url couldn't be constructed properly
+     * @throws URISyntaxException if the url can't be parsed
      */
     @NonNull
-    private URL getSingleUserPreferencesUrl(@NonNull String key) throws MalformedURLException {
-        return new URL(getReadWriteUrl() + "user/preferences/" + key);
+    private URL getSingleUserPreferencesUrl(@NonNull String key) throws MalformedURLException, URISyntaxException {
+        return new URI(getReadWriteUrl() + "user/preferences/" + key).toURL();
     }
 
     /**
@@ -1245,10 +1308,11 @@ public class Server {
      * @param comment the comment to add
      * @return the url
      * @throws MalformedURLException if the url couldn't be constructed properly
+     * @throws URISyntaxException if the url can't be parsed
      */
     @NonNull
-    private URL getAddNoteCommentUrl(@NonNull String noteId, @NonNull String comment) throws MalformedURLException {
-        return new URL(getNotesUrl() + SERVER_NOTES_PATH + noteId + "/comment?text=" + comment);
+    private URL getAddNoteCommentUrl(@NonNull String noteId, @NonNull String comment) throws MalformedURLException, URISyntaxException {
+        return new URI(getNotesUrl() + SERVER_NOTES_PATH + noteId + "/comment?text=" + comment).toURL();
     }
 
     /**
@@ -1257,10 +1321,11 @@ public class Server {
      * @param noteId the note id
      * @return the url
      * @throws MalformedURLException if the url couldn't be constructed properly
+     * @throws URISyntaxException if the url can't be parsed
      */
     @NonNull
-    private URL getNoteUrl(@NonNull String noteId) throws MalformedURLException {
-        return new URL(getNotesReadOnlyUrl() + SERVER_NOTES_PATH + noteId);
+    private URL getNoteUrl(@NonNull String noteId) throws MalformedURLException, URISyntaxException {
+        return new URI(getNotesReadOnlyUrl() + SERVER_NOTES_PATH + noteId).toURL();
     }
 
     /**
@@ -1292,11 +1357,12 @@ public class Server {
      * @param area the BoundingBox
      * @return the url
      * @throws MalformedURLException if the url couldn't be constructed properly
+     * @throws URISyntaxException if the url can't be parsed
      */
     @NonNull
-    private URL getNotesForBox(long limit, @NonNull BoundingBox area) throws MalformedURLException {
-        return new URL(getNotesReadOnlyUrl() + "notes?" + "limit=" + limit + "&" + "bbox=" + area.getLeft() / 1E7d + "," + area.getBottom() / 1E7d + ","
-                + area.getRight() / 1E7d + "," + area.getTop() / 1E7d);
+    private URL getNotesForBox(long limit, @NonNull BoundingBox area) throws MalformedURLException, URISyntaxException {
+        return new URI(getNotesReadOnlyUrl() + "notes?" + "limit=" + limit + "&" + "bbox=" + area.getLeft() / 1E7d + "," + area.getBottom() / 1E7d + ","
+                + area.getRight() / 1E7d + "," + area.getTop() / 1E7d).toURL();
     }
 
     /**
@@ -1307,10 +1373,11 @@ public class Server {
      * @param comment the initial comment
      * @return the url
      * @throws MalformedURLException if the url couldn't be constructed properly
+     * @throws URISyntaxException if the url can't be parsed
      */
     @NonNull
-    private URL getAddNoteUrl(double latitude, double longitude, @NonNull String comment) throws MalformedURLException {
-        return new URL(getNotesUrl() + "notes?lat=" + latitude + "&lon=" + longitude + "&text=" + comment);
+    private URL getAddNoteUrl(double latitude, double longitude, @NonNull String comment) throws MalformedURLException, URISyntaxException {
+        return new URI(getNotesUrl() + "notes?lat=" + latitude + "&lon=" + longitude + "&text=" + comment).toURL();
     }
 
     /**
@@ -1319,10 +1386,11 @@ public class Server {
      * @param noteId the note id
      * @return the url
      * @throws MalformedURLException if the url couldn't be constructed properly
+     * @throws URISyntaxException if the url can't be parsed
      */
     @NonNull
-    private URL getCloseNoteUrl(@NonNull String noteId) throws MalformedURLException {
-        return new URL(getNotesUrl() + SERVER_NOTES_PATH + noteId + "/close");
+    private URL getCloseNoteUrl(@NonNull String noteId) throws MalformedURLException, URISyntaxException {
+        return new URI(getNotesUrl() + SERVER_NOTES_PATH + noteId + "/close").toURL();
     }
 
     /**
@@ -1331,10 +1399,11 @@ public class Server {
      * @param noteId the note id
      * @return the url
      * @throws MalformedURLException if the url couldn't be constructed properly
+     * @throws URISyntaxException if the url can't be parsed
      */
     @NonNull
-    private URL getReopenNoteUrl(@NonNull String noteId) throws MalformedURLException {
-        return new URL(getNotesUrl() + SERVER_NOTES_PATH + noteId + "/reopen");
+    private URL getReopenNoteUrl(@NonNull String noteId) throws MalformedURLException, URISyntaxException {
+        return new URI(getNotesUrl() + SERVER_NOTES_PATH + noteId + "/reopen").toURL();
     }
 
     /**
@@ -1342,9 +1411,10 @@ public class Server {
      * 
      * @return the url
      * @throws MalformedURLException if the url couldn't be constructed properly
+     * @throws URISyntaxException if the url can't be parsed
      */
     @NonNull
-    private URL getCapabilitiesUrl() throws MalformedURLException {
+    private URL getCapabilitiesUrl() throws MalformedURLException, URISyntaxException {
         return getCapabilitiesUrl(getReadOnlyUrl());
     }
 
@@ -1353,9 +1423,10 @@ public class Server {
      * 
      * @return a String with the url
      * @throws MalformedURLException if the URL can't be constructed properly
+     * @throws URISyntaxException if the url can't be parsed
      */
     @NonNull
-    private URL getReadOnlyCapabilitiesUrl() throws MalformedURLException {
+    private URL getReadOnlyCapabilitiesUrl() throws MalformedURLException, URISyntaxException {
         return getCapabilitiesUrl(getReadWriteUrl());
     }
 
@@ -1365,14 +1436,15 @@ public class Server {
      * @param url base API url
      * @return a String with the url
      * @throws MalformedURLException if the URL can't be constructed properly
+     * @throws URISyntaxException if the url can't be parsed
      */
     @NonNull
-    private URL getCapabilitiesUrl(@NonNull String url) throws MalformedURLException {
+    private URL getCapabilitiesUrl(@NonNull String url) throws MalformedURLException, URISyntaxException {
         // need to strip version from serverURL
         int apiPos = url.indexOf(SERVER_API_PATH);
         if (apiPos > 0) {
             String noVersionURL = getReadWriteUrl().substring(0, apiPos) + SERVER_API_PATH;
-            return new URL(noVersionURL + "capabilities");
+            return new URI(noVersionURL + "capabilities").toURL();
         }
         throw new MalformedURLException("Invalid API URL: " + getReadWriteUrl());
     }
@@ -1432,12 +1504,13 @@ public class Server {
      * @throws IOException
      * @throws XmlPullParserException
      * @throws NumberFormatException
+     * @throws URISyntaxException if the url can't be parsed
      */
     @Nullable
-    public Note getNote(long id) throws NumberFormatException, XmlPullParserException, IOException {
+    public Note getNote(long id) throws NumberFormatException, XmlPullParserException, IOException, URISyntaxException {
         // http://openstreetbugs.schokokeks.org/api/0.1/getGPX?b=48&t=49&l=11&r=12&limit=100
         Log.d(DEBUG_TAG, "getNote");
-        try (InputStream is = openConnection(null, getNoteUrl(Long.toString(id)), timeout, timeout)) {
+        try (InputStream is = openConnection(null, getNoteUrl(Long.toString(id)), useAuthenticatedReads(), timeout, timeout)) {
             XmlPullParser parser = xmlParserFactory.newPullParser();
             parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
             List<Note> result = Note.parseNotes(parser, null);
@@ -1457,11 +1530,11 @@ public class Server {
     public Collection<Note> getNotesForBox(@NonNull BoundingBox area, long limit) {
         // http://openstreetbugs.schokokeks.org/api/0.1/getGPX?b=48&t=49&l=11&r=12&limit=100
         Log.d(DEBUG_TAG, "getNotesForBox");
-        try (InputStream is = openConnection(null, getNotesForBox(limit, area), timeout, timeout)) {
+        try (InputStream is = openConnection(null, getNotesForBox(limit, area), useAuthenticatedReads(), timeout, timeout)) {
             XmlPullParser parser = xmlParserFactory.newPullParser();
             parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
             return Note.parseNotes(parser, null);
-        } catch (XmlPullParserException | IOException | OutOfMemoryError e) {
+        } catch (XmlPullParserException | IOException | OutOfMemoryError | URISyntaxException | IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "getNotesForBox Exception", e);
             return new ArrayList<>(); // empty list
         }
@@ -1476,8 +1549,9 @@ public class Server {
      * @param comment The first comment for the bug.
      * @throws IOException on an IO error
      * @throws XmlPullParserException
+     * @throws URISyntaxException if the url can't be parsed
      */
-    public void addNote(@NonNull Note bug, @NonNull NoteComment comment) throws XmlPullParserException, IOException {
+    public void addNote(@NonNull Note bug, @NonNull NoteComment comment) throws XmlPullParserException, IOException, URISyntaxException {
         if (bug.isNew()) {
             Log.d(DEBUG_TAG, "adding note");
             // http://openstreetbugs.schokokeks.org/api/0.1/addPOIexec?lat=<Latitude>&lon=<Longitude>&text=<Bug
@@ -1507,8 +1581,9 @@ public class Server {
      * @param comment The comment to add to the bug.
      * @throws IOException on an IO error
      * @throws XmlPullParserException
+     * @throws URISyntaxException if the url can't be parsed
      */
-    public void addComment(@NonNull Note bug, @NonNull NoteComment comment) throws IOException, XmlPullParserException {
+    public void addComment(@NonNull Note bug, @NonNull NoteComment comment) throws IOException, XmlPullParserException, URISyntaxException {
         if (!bug.isNew()) {
             Log.d(DEBUG_TAG, "adding note comment " + bug.getId());
             // http://openstreetbugs.schokokeks.org/api/0.1/editPOIexec?id=<Bug ID>&text=<Comment with author and date>
@@ -1539,7 +1614,7 @@ public class Server {
          * 
          * @param m matcher for the error message that matched
          */
-        void resolve(@NonNull Matcher m) throws IOException, XmlPullParserException;
+        void resolve(@NonNull Matcher m) throws IOException, XmlPullParserException, URISyntaxException;
     }
 
     /**
@@ -1551,9 +1626,10 @@ public class Server {
      * @param resolver code to resolve the conflict
      * @throws IOException if IO goes wrong
      * @throws XmlPullParserException if we can't update the note
+     * @throws URISyntaxException if the url can't be parsed
      */
     private void handleNoteError(@NonNull Note bug, @NonNull Response response, @NonNull Pattern pattern, @NonNull NoteConflict resolver)
-            throws IOException, XmlPullParserException {
+            throws IOException, XmlPullParserException, URISyntaxException {
         int responseCode = response.code();
         if (responseCode == HttpURLConnection.HTTP_CONFLICT) {
             InputStream errorStream = response.body().byteStream();
@@ -1590,8 +1666,9 @@ public class Server {
      * @param bug The bug to close.
      * @throws IOException on an IO error
      * @throws XmlPullParserException
+     * @throws URISyntaxException if the url can't be parsed
      */
-    public void closeNote(@NonNull Note bug) throws IOException, XmlPullParserException {
+    public void closeNote(@NonNull Note bug) throws IOException, XmlPullParserException, URISyntaxException {
         if (!bug.isNew()) {
             Log.d(DEBUG_TAG, "closing note " + bug.getId());
             URL closeNoteUrl = getCloseNoteUrl(Long.toString(bug.getId()));
@@ -1616,8 +1693,9 @@ public class Server {
      * @param bug The bug to close.
      * @throws IOException on an IO error
      * @throws XmlPullParserException
+     * @throws URISyntaxException @throws URISyntaxException if the url can't be parsed
      */
-    public void reopenNote(@NonNull Note bug) throws IOException, XmlPullParserException {
+    public void reopenNote(@NonNull Note bug) throws IOException, XmlPullParserException, URISyntaxException {
         if (!bug.isNew()) {
             Log.d(DEBUG_TAG, "reopen note " + bug.getId());
             URL reopenNoteUrl = getReopenNoteUrl(Long.toString(bug.getId()));
@@ -1683,18 +1761,19 @@ public class Server {
      * @param restartAction the action to do when we've been successfully authenticated
      * @return true if login was already ok else false
      */
-    public static boolean checkOsmAuthentication(@NonNull final FragmentActivity activity, @NonNull final Server server,
+    public static boolean checkOsmAuthentication(@NonNull final AuthorisationEnabledActivity activity, @NonNull final Server server,
             @NonNull PostAsyncActionHandler restartAction) {
         if (server.isLoginSet()) {
             if (server.needOAuthHandshake()) {
-                activity.runOnUiThread(() -> Authorize.startForResult(activity, (resultCode, result) -> {
-                    if (Activity.RESULT_OK == resultCode) {
+                activity.setCallback(result -> {
+                    if (Activity.RESULT_OK == result.getResultCode()) {
                         restartAction.onSuccess();
                     } else {
-                        Log.w(DEBUG_TAG, "Authorized returned with " + resultCode);
+                        Log.w(DEBUG_TAG, "Authorized returned with " + result.getResultCode());
                         restartAction.onError(null);
                     }
-                }));
+                });
+                activity.runOnUiThread(activity::startAuthorisation);
                 if (server.getOAuth()) { // if still set
                     ScreenMessage.barError(activity, R.string.toast_oauth);
                 }

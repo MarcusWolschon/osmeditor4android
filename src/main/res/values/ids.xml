@@ -2,6 +2,7 @@
 <resources>
     <item type="id" name="recentPresets" />
     <item type="id" name="notification_tracker" />
+    <item type="id" name="notification_download" />
     <item type="id" name="map_view" />
     <item type="id" name="preset_view" />
     <item type="id" name="upload_reminder" />

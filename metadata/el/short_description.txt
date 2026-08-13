@@ -1,0 +1,1 @@
+Το Vespucci είναι ο πιο ολοκληρωμένος επεξεργαστής για το OpenStreetMap στο Android.

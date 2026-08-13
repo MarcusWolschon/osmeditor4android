@@ -6,6 +6,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.security.Security;
 import java.util.Random;
 import java.util.TreeMap;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -16,6 +17,7 @@ import org.acra.annotation.AcraCore;
 import org.acra.annotation.AcraDialog;
 import org.acra.annotation.AcraHttpSender;
 import org.acra.sender.HttpSender;
+import org.conscrypt.Conscrypt;
 import org.mozilla.javascript.ImporterTopLevel;
 import org.mozilla.javascript.ScriptableObject;
 import org.nustaq.serialization.FSTConfiguration;
@@ -30,7 +32,6 @@ import android.content.Context;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,7 +41,8 @@ import androidx.multidex.MultiDex;
 import androidx.preference.PreferenceManager;
 import de.blau.android.contract.Paths;
 import de.blau.android.filter.PresetFilter;
-import de.blau.android.net.OkHttpTlsCompat;
+import de.blau.android.javascript.Utils;
+import de.blau.android.net.OkHttpCompat;
 import de.blau.android.net.UserAgentInterceptor;
 import de.blau.android.nsi.Names;
 import de.blau.android.nsi.Names.NameAndTags;
@@ -48,12 +50,13 @@ import de.blau.android.osm.DiscardedTags;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.photos.Photo;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.prefs.keyboard.Shortcuts;
 import de.blau.android.presets.MRUTags;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.Synonyms;
 import de.blau.android.propertyeditor.PropertyEditorActivity;
-import de.blau.android.resources.DataStyle;
+import de.blau.android.resources.DataStyleManager;
 import de.blau.android.services.util.MapTileFilesystemProvider;
 import de.blau.android.tasks.TaskStorage;
 import de.blau.android.util.AreaTags;
@@ -62,6 +65,7 @@ import de.blau.android.util.GeoContext;
 import de.blau.android.util.NotificationCache;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.Tag2Link;
 import de.blau.android.util.TagClipboard;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.MultiHashMap;
@@ -80,14 +84,16 @@ public class App extends Application implements android.app.Application.Activity
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, App.class.getSimpleName().length());
     private static final String DEBUG_TAG = App.class.getSimpleName().substring(0, TAG_LEN);
 
-    private static final String     RHINO_LAZY_LOAD = "lazyLoad";
+    private static final String RHINO_LAZY_LOAD = "lazyLoad";
+
+    private static String           appName;
     private static App              currentInstance;
-    private static StorageDelegator delegator       = new StorageDelegator();
-    private static TaskStorage      taskStorage     = new TaskStorage();
+    private static StorageDelegator delegator      = new StorageDelegator();
+    private static TaskStorage      taskStorage    = new TaskStorage();
     private static OkHttpClient     httpClient;
-    private static final Object     httpClientLock  = new Object();
+    private static final Object     httpClientLock = new Object();
     private static String           userAgent;
-    private static final Random     random          = new Random();
+    private static final Random     random         = new Random();
 
     /**
      * The logic that manipulates the model. (non-UI)
@@ -184,14 +190,26 @@ public class App extends Application implements android.app.Application.Activity
     /**
      * DataStyles
      */
-    private static DataStyle    dataStyle;
-    private static final Object dataStyleLock = new Object();
+    private static DataStyleManager dataStyleManager;
+    private static final Object     dataStyleManagerLock = new Object();
 
     /**
      * Implied area tags
      */
     private static AreaTags     areaTags;
     private static final Object areaTagsLock = new Object();
+
+    /**
+     * Url templates for specific tag keys
+     */
+    private static Tag2Link     tag2Link;
+    private static final Object tag2LinkLock = new Object();
+
+    /**
+     * Keyboard shortcuts
+     */
+    private static Shortcuts    shortcuts;
+    private static final Object shortcutsLock = new Object();
 
     private static Configuration configuration = null;
 
@@ -200,6 +218,16 @@ public class App extends Application implements android.app.Application.Activity
     private ScheduledThreadPoolExecutor autosaveExecutor = new ScheduledThreadPoolExecutor(1);
 
     private static FSTConfiguration singletonConf;
+
+    /**
+     * Get the name of the app this is used besides for the name as the directory where we store public configuration
+     * and files
+     * 
+     * @return the name of the app
+     */
+    public static String getAppName() {
+        return appName;
+    }
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -239,7 +267,7 @@ public class App extends Application implements android.app.Application.Activity
      * Setup misc singletons
      */
     private static void setupMisc(@NonNull App app) {
-        String appName = app.getString(R.string.app_name);
+        appName = app.getString(R.string.app_name);
         String appVersion = app.getString(R.string.app_version);
         userAgent = appName + "/" + appVersion;
         currentInstance = app;
@@ -301,22 +329,34 @@ public class App extends Application implements android.app.Application.Activity
     }
 
     /**
-     * Get the Resources from the current running App instance
+     * Use this is to get strings if a Context might not be available
      * 
-     * Mainly used in situations in which we need to display, potentially translated, text and don't have an Context
-     * available
-     * 
-     * @return a Resources instance
-     * 
-     * @deprecated using this is bad practice and should avoided as far as possible
+     * @param ctx optional context
+     * @param resId resource id
+     * @return a String, empty if the current instance doesn't exist which should never be the case
      */
-    @Deprecated
-    @Nullable
-    public static Resources resources() {
-        if (currentInstance != null) {
-            return currentInstance.getResources();
+    @NonNull
+    public static String getString(@Nullable Context ctx, int resId) {
+        if (ctx != null) {
+            return ctx.getString(resId);
         }
-        return null;
+        return currentInstance != null ? currentInstance.getString(resId) : "";
+    }
+
+    /**
+     * Use this is to get strings if a Context might not be available,
+     * 
+     * @param ctx optional context
+     * @param resId resource id
+     * @param formatArgs arguments for getString
+     * @return a String, empty if the current instance doesn't exist which should never be the case
+     */
+    @NonNull
+    public static String getString(@Nullable Context ctx, int resId, @NonNull Object... formatArgs) {
+        if (ctx != null) {
+            return ctx.getString(resId, formatArgs);
+        }
+        return currentInstance != null ? currentInstance.getString(resId, formatArgs) : "";
     }
 
     /**
@@ -328,7 +368,11 @@ public class App extends Application implements android.app.Application.Activity
     public static OkHttpClient getHttpClient() {
         synchronized (httpClientLock) {
             if (httpClient == null) {
-                OkHttpClient.Builder builder = OkHttpTlsCompat.getBuilder(new OkHttpClient.Builder());
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                    // from Android 10 on google started updating Conscrypt via the play updates
+                    Security.insertProviderAt(Conscrypt.newProvider(), 1);
+                }
+                OkHttpClient.Builder builder = OkHttpCompat.getBuilder(new OkHttpClient.Builder());
                 builder.addNetworkInterceptor(new UserAgentInterceptor(userAgent));
                 httpClient = builder.build();
             }
@@ -719,7 +763,7 @@ public class App extends Application implements android.app.Application.Activity
     public static org.mozilla.javascript.Scriptable getRestrictedRhinoScope(@NonNull Context ctx) {
         synchronized (rhinoLock) {
             if (rhinoScope == null) {
-                org.mozilla.javascript.Context c = rhinoHelper.enterContext();
+                org.mozilla.javascript.Context c = Utils.getRhinoContext(ctx);
                 try {
                     // this is a fairly hackish way of sandboxing, but it does work
                     rhinoScope = new ImporterTopLevel(c);
@@ -786,19 +830,19 @@ public class App extends Application implements android.app.Application.Activity
     }
 
     /**
-     * Get the DataStyle object
+     * Get the DataStyleManager object
      * 
      * @param ctx am Android Context
-     * @return a DataStyle object
+     * @return a DataStyleManager object
      */
     @NonNull
-    public static DataStyle getDataStyle(@NonNull Context ctx) {
-        synchronized (dataStyleLock) {
-            if (dataStyle == null) {
-                dataStyle = new DataStyle(ctx);
-                dataStyle.getStylesFromFiles(ctx);
+    public static DataStyleManager getDataStyleManager(@NonNull Context ctx) {
+        synchronized (dataStyleManagerLock) {
+            if (dataStyleManager == null) {
+                dataStyleManager = new DataStyleManager();
+                dataStyleManager.getStylesFromFiles(ctx);
             }
-            return dataStyle;
+            return dataStyleManager;
         }
     }
 
@@ -815,6 +859,49 @@ public class App extends Application implements android.app.Application.Activity
                 areaTags = new AreaTags(ctx);
             }
             return areaTags;
+        }
+    }
+
+    /**
+     * Get the Tag2Link object
+     * 
+     * @param ctx am Android Context
+     * @return an Tag2Link object
+     */
+    @NonNull
+    public static Tag2Link getTag2Link(@NonNull Context ctx) {
+        synchronized (tag2LinkLock) {
+            if (tag2Link == null) {
+                tag2Link = new Tag2Link(ctx);
+            }
+            return tag2Link;
+        }
+    }
+
+    /**
+     * Get the keyboard shortcuts
+     * 
+     * @param ctx am Android Context
+     * @return an KeyboardShortcuts object
+     */
+    @NonNull
+    public static Shortcuts getKeyboardShortcuts(@NonNull Context ctx) {
+        synchronized (shortcutsLock) {
+            if (shortcuts == null) {
+                shortcuts = new Shortcuts(ctx);
+            }
+            return shortcuts;
+        }
+    }
+
+    /**
+     * Reset the keyboard shortcuts
+     * 
+     * @param ctx am Android Context
+     */
+    public static void resetKeyboardShortcuts() {
+        synchronized (shortcutsLock) {
+            shortcuts = null;
         }
     }
 

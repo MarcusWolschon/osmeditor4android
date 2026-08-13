@@ -29,7 +29,6 @@ import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.PopupMenu.OnMenuItemClickListener;
 import androidx.core.app.ShareCompat;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
@@ -41,6 +40,7 @@ import de.blau.android.R;
 import de.blau.android.contract.MimeTypes;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.InsetAwarePopupMenu;
@@ -52,7 +52,7 @@ import de.blau.android.util.SelectFile;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
-public class ConsoleDialog extends DialogFragment {
+public class ConsoleDialog extends CancelableDialogFragment {
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, ConsoleDialog.class.getSimpleName().length());
     private static final String DEBUG_TAG = ConsoleDialog.class.getSimpleName().substring(0, TAG_LEN);
 

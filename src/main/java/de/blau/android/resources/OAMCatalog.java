@@ -3,6 +3,8 @@ package de.blau.android.resources;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -64,9 +66,10 @@ public class OAMCatalog {
      * 
      * @return a List of OAMCatalog.Entry
      * @throws IOException if reading the entries fails
+     * @throws URISyntaxException if the url can't be parsed
      */
     @Nullable
-    public List<LayerEntry> getEntries(@Nullable Context context, @NonNull String oamServer, @Nullable BoundingBox box) throws IOException {
+    public List<LayerEntry> getEntries(@Nullable Context context, @NonNull String oamServer, @Nullable BoundingBox box) throws IOException, URISyntaxException {
         if (context != null) {
             String[] regexpStrings = context.getResources().getStringArray(R.array.bad_oam_title);
             int length = regexpStrings.length;
@@ -76,11 +79,11 @@ public class OAMCatalog {
             }
         }
 
-        URL url = new URL(oamServer + "meta"
+        URL url = new URI(oamServer + "meta"
                 + (box != null
                         ? "?" + "bbox=" + box.getLeft() / 1E7d + "," + box.getBottom() / 1E7d + "," + box.getRight() / 1E7d + "," + box.getTop() / 1E7d + "&"
                         : "?")
-                + "has_tiled=true");
+                + "has_tiled=true").toURL();
         Log.d(DEBUG_TAG, "query: " + url.toString());
 
         Request request = new Request.Builder().url(url).build();

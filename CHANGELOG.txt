@@ -1,6 +1,254 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
-21.1.0.0:
+22.1.0:
+
+- Fix don't crash if we can't find download
+- Fix protect against a potential NPE when getting activity arguments
+- Fix protect against null way when auto closing
+- Fix don't undo the previous checkpoint if unjoining fails
+- Fix updated OpenStreetMap OAuth2 URL in keys2-default.txt to fix incorrectly directed login url
+- Fix enable Android de-sugaring support to support Clipper2 on older devices
+- Change replace osmbinary dependency by supported version
+- Update default preset and taginfo project file
+- Update translations
+
+22.1.0-1:
+
+- Fix ScrollView in image information modal getting stuck
+- Fix don't limit width of dialogs if we are in multi-window mode
+- Fix re-factor MediaStore indexing
+- Fix protect against JsonNull
+- Fix Panoramax image symbol highlight missing
+- Fix broken NumberPicker styling
+- Fix replace use of a Webview for authorization with a custom tab
+- Fix don't ignore display cutout insets
+- Fix replace IssueReporter library
+- Fix only show the pausing alert if we are still downloading
+- Fix for two node ways long click is the only split option
+- Fix new ways don't have history so no need to select segment on splitting
+- Fix colour info button in review modal too
+- Fix handle panoramax instance configuration with and without trailing ".api" 
+- Fix updating relation member label after download regression
+- Fix ungzip error messages from tile sources before trying to display them
+- Fix improve handling of root certificates on devices prior to Android 14
+- Fix getRole use while editing relations
+- Fix avoid creating tiny bounding boxes
+- Fix Check that all nodes are in a downloaded area before ungluing
+- Fix minimal replacement for googles AlertDialog that is less buggy
+- Fix catch and report exceptions from running conflict resolution actions
+- Fix icon URL in for taginfo
+- Fix reset adapter filter after selection
+- Fix run rebuilding of data style structures after import of data style
+- Fix if no presets are selected, select the default preset
+- Fix table meta data wasn't generated correctly with original sql 
+- Fix regression that stopped panoramax instances being added from instance list
+- Fix update download plugin configuration for synonyms
+- Change move auto-prune configuration to layer control
+- Change bump target SDK to 36
+- Change use Java 21 for CI
+- Change re-factor applicationId and app name handling
+- Change use relative names for activities
+- Change unjoinWay behaviour to not clone nodes
+- Change removed duplication in contributing text, added AI/LLM usage guideline
+- Add support for removing just the tiles in view from the tile cache
+- Add support pasting coordinates to the coordinate fields in "Set position"
+- Add download data along a Way
+- Add support long press way splitting in legacy mode
+- Add support for detecting nearby connection for boundary ways and relations
+- Add support for detecting self-intersection while drawing anarea
+- Add "Add area" option that automatically closes the new way
+- Add support for authenticated reads
+- Add support squaring individual corners of a selected way
+- Add note on configuration import not being backwards compatible
+- Update JosmFilterParser dependency
+- Update root certificates 
+- Update translations
+- Update imagery from ELI
+- Update tag2link
+- Update NSI
+- Update synonyms
+
+22.0.0:
+
+- Fix refactor AbstractReviewDialog to use a RecyclerView (fixes performance issues with lots of edits)
+- Fix various inconsistencies with action modes in split window use
+- Fix refactor undo/redo to ensure selection sync
+- Fix "regression" in data styling
+- Fix allow splitting of two node ways and improve messaging
+- Fix fully support long click splitting for closed ways
+- Fix filter clicked elements in way splitting mode
+- Fix add missing setActive when constructing PresetConfiguration from the DB
+- Fix replacing the PropertyEditor more than twice caused a crash
+- Add support for exporting and importing custom headers for tile sources
+- Add support for detecting self-intersecting polygons
+- Add support the name_template extension to show display_values
+- Change prefer the external file directory for storing new resources
+- Change use a bright colour for boundary ways instead of black
+- Update JosmFilterParser and JosmTemplateParser dependencies
+- Update launcher icon update
+- Update default preset and taginfo project file
+- Update translations
+- Update imagery from ELI
+- Update tag2link
+- Update NSI
+- Update synonyms
+
+22.0.0-1:
+
+- Fix upgrade com.github.Kunzisoft:AndroidClearChroma dependency to fix unrelated views changing colour
+- Fix run notifyDataSetChanged after running validator
+- Fix re-enable return relations after replacing geometry
+- Fix geometric calculation error in ViewBox expansion
+- Fix null value arg to match cache
+- Fix GeoMath bounding box logic
+- Fix refactor the search modal (Nominatim, Photon) to not block
+- Fix avoid CMEs when matching presets while drawing
+- Fix regression when de-selecting a row in the property editor
+- Fix try to stop users from misusing the address interpolation tool
+- Fix don't try to pop selection if stack only has one element
+- Fix take a belt and suspenders approach to avoiding runaway alerts
+- Fix TagFilterActivity crashes when starting split window mode
+- Fix add missing trunk casing and fix typo for unclassifieds
+- Fix correctly support insets and get rid of bogus error message in some preference activities
+- Fix improve handling of synonyms that refer to "two level" presets
+- Fix protect properly against current node not being found
+- Fix deleting a preset should update the displayed preset list
+- Fix use standard locale format for finding synonym files
+- Fix always download individual member elements in relation members tab
+- Fix if a way is specifically clickable always render the highlighting
+- Fix review modal after loading state re-enable upload button if necessary
+- Fix stop addRequiredElements from duplicating elements in upload
+- Fix wrap Panoramax instance list retrieval in ExecutorTask
+- Fix improve authorization messaging for Panoramax
+- Fix handle local inconsistencies that lead to upload conflicts
+- Fix if starting the property editor from main simply replace it
+- Fix display a more specific error for duplicate Panoramax uploads and increase timeouts to 20s
+- Fix workaround AGP 8 / Android 15 bug with per app languages
+- Fix protect against the content resolver not finding the gpx file
+- Fix protect properly against relation loops when adding required elements
+- Fix synchronize access to the way node cache
+- Fix the checked state in normal lifecycle too in review modal
+- Fix don't try to restart a selection mode if nothing is selected
+- Fix don't run existing URLs through tag2link
+- Add ability to show parents and relation members in the info modal
+- Add support for the deprecated attribute for checks in checkgoups
+- Add facility to export/import most configuration
+- Add support for numeric suffixes in tag2link
+- Add hardwire reversing behaviour for railway:turnout_side
+- Add split window mode improvements: improve behaviour with samsung DeX and add option to force tab layout and display a badge indicating the position of the property editor fragment
+- Add support an experimental option for showing review modal in a separate window
+- Add tip about the filename for wikimedia uploads
+- Add option to safe mode to remove selection and UI mode
+- Add a small number of root certificates missing from Android 13 and earlier
+- Add support long clicks to split ways
+- Change refactor style management to be in line with how we handle other user loadable resources
+- Change use a double colon as separator in changeset auto-comments
+- Change re-factor keyboard shortcut handling
+- Change support ignoring subareas in the disambiguation menu
+- Change don't move nodes used in other ways when replacing way geometry
+- Change if an OSC file has references to not available way nodes download them
+- Change disable "Query Overpass" if there is no network connectivity
+- Change enable custom/user CAs
+- Change allow octet-stream as mime type for vector tiles
+- Update default preset and taginfo project file
+- Update pmtiles-reader dependency
+- Update intents documentation
+- Update translations
+
+21.2.0:
+
+- Fix crash when splitting closed way that is a relation member if there are relation related warnings
+- Fix check for null tags
+- Fix protect against degenerate Ways when sorting
+- Fix don't throw exception in thread
+- Fix improve way reversing logic and messaging
+- Fix synchronize all per element rendering related caches
+- Fix counting the number of bounding boxes needs to be locked too
+- Fix regression "Select all" not working in the tag and relations tabs
+- Add addr:housename to address tag preferences
+- Add a warning when a moved way has more than half the nodes hidden
+- Add suppress duplicate toasts (only on Android 11 and later)
+- Change to new NSI distribution location and update
+- Update OH parser
+- Update translations
+- Update tag2link
+- Update synonyms
+- Update imagery from ELI
+- Update default preset and taginfo project file
+
+21.2.3:
+
+- Fix proguard config to retain PopupMenu related classes properly
+- Fix typos in strings.xml
+
+21.2.2:
+
+- Fix disambiguation menu regression when merging node to multiple ways
+- Fix inverted logic when creating the disambiguation menu in some cases
+
+21.2.1:
+
+- Fix wrap welcome text in a ScrollView
+- Fix detect correctly which theme should be used in Splash
+- Fix protect against NPE in onPrepareOptionsMenu
+- Fix protect against android.view.WindowManager.BadTokenException
+- Fix protect against Fragment.getView returning null
+- Fix exclude maxspeed:variable from speed tags
+- Fix call through to super, but don't add the loader twice
+- Fix don't save Context in PresetFilter
+- Fix regression in overpass console by using serializable parse tree
+- Fix if the query times out overpass returns an undocumented <remark> element
+- Fix pause auto-downloads if we receive a 503 and show an appropriate message
+- Fix save list of images in file and not in bundle (avoids TTE)
+- Fix force caching of way node filter results
+- Fix correctness fixes imagery_used tag length
+- Fix actually set imagery list from saved state
+- Fix explicitly set inset listeners when adding additional fragments
+- Fix only allow selection from the nearby POI list in appropriate modes
+- Fix lock everything during task pruning
+- Fix make code that checks how many elements have been uploaded more robust
+- Fix use Canvas.drawLines instead of constructing a Path where possible
+- Fix use the correct view for the inset listeners
+- Fix anchor popup menu on parent view if possible
+- Fix add a CoordinatorLayout to most activities for Snackbar positioning
+- Fix make bars translucent for filter activities
+- Fix add left and right insets to activity layouts
+- Fix save popup related classes
+- Fix run revalidation in thread
+- Fix lock while counting tasks
+- Fix catch exceptions thrown by foreground (tracker) service start up
+- Fix if include way nodes is set, exclude the nodes if the way is excluded
+- Fix catch exception in onInterceptTouchEvent in ExtendedViewPager
+- Fix make sure that performJoinNodeToWays doesn't return null
+- Fix catch RejectedExecutionException everywhere it could be thrown
+- Fix don't compress empty request bodies, this stops the OSM Notes API from choking on a compressed empty req.body
+- Fix ensure that we have enough space to add a further view in WrappingLayout
+- Fix lock inversion
+- Fix refactor Logic locking
+- Fix only allow deep duplication of MP if all elements are downloaded
+- Fix run addRequiredElements on selection in Review modal
+- Add support compressed request bodies for HTTP PUT too
+- Add store chunk number in custom changeset tag
+- Add support for long press on node merge button to reverse behaviour
+- Add when merging nodes assure that the result is at the target node position
+- Add rendering for highway=scramble
+- Add styling for natural=gully
+- Add automatically select/de-select dependent elements in review modal
+- Add save selected state of reviewed elements
+- Add support long press on filter button to switch filter
+- Add support multiple tag filters and associated operations
+- Add use FAB for adding items and add (hidden) overflow button in URLListEditActivity childs
+- Add support for persistent and transient custom changeset tags
+- Add filter overpass results with the JOSM search expression for selection
+- Add support for "invert selection" in property editor tabs
+- Add image storage management and upload for Panoramax/WM Commons
+- Add support tag2link and use it instead of hardwired links in ElementInfo
+- Add configuration for OHM
+- Update default preset and taginfo project file
+- Update translations
+- Update imagery from ELI
+
+21.1.0:
 
 - Fix protect against null extra tags
 - Fix workaround bogus IME insets on Android 5

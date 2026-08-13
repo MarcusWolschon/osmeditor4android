@@ -7,6 +7,7 @@ import static org.robolectric.Shadows.shadowOf;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.util.concurrent.CountDownLatch;
 
 import org.junit.After;
@@ -111,7 +112,7 @@ public class ApiErrorTest {
         main = Robolectric.buildActivity(Main.class).create().resume().get();
         prefDB = new AdvancedPrefDatabase(main);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null), false);
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null), false, false);
         prefDB.selectAPI("Test");
         System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR
         prefs = new Preferences(main);
@@ -161,6 +162,21 @@ public class ApiErrorTest {
         Logic logic = App.getLogic();
         logic.downloadBox(main, new BoundingBox(8.3844600D, 47.3892400D, 8.3879800D, 47.3911300D), false,
                 new FailOnSuccessHandler(signal, ErrorCodes.DOWNLOAD_LIMIT_EXCEEDED));
+        runLooper();
+        SignalUtils.signalAwait(signal, TIMEOUT);
+    }
+
+    /**
+     * Simple bounding box data download error 503
+     */
+    @Test
+    public void dataDownload503() {
+        final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue(CAPABILITIES1_FIXTURE);
+        mockServer.enqueue("503");
+        Logic logic = App.getLogic();
+        logic.downloadBox(main, new BoundingBox(8.3844600D, 47.3892400D, 8.3879800D, 47.3911300D), false,
+                new FailOnSuccessHandler(signal, ErrorCodes.UNAVAILABLE));
         runLooper();
         SignalUtils.signalAwait(signal, TIMEOUT);
     }
@@ -240,6 +256,8 @@ public class ApiErrorTest {
         } catch (OsmServerException e) {
             assertEquals(500, e.getHttpErrorCode());
         } catch (IOException e) {
+            fail(e.getMessage());
+        } catch (URISyntaxException e) {
             fail(e.getMessage());
         }
     }

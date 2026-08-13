@@ -12,9 +12,9 @@ public class ValidatorRulesDatabaseHelper extends SQLiteOpenHelper {
     private static final String DEBUG_TAG = ValidatorRulesDatabaseHelper.class.getSimpleName().substring(0,
             Math.min(23, ValidatorRulesDatabaseHelper.class.getSimpleName().length()));
 
-    private static final String DATABASE_NAME    = "validator_rules";
-    private static final int    DATABASE_VERSION = 3;
-    static final int            ONE_YEAR         = 365;
+    public static final String DATABASE_NAME    = "validator_rules";
+    private static final int   DATABASE_VERSION = 3;
+    static final int           ONE_YEAR         = 365;
 
     /**
      * Construct a new instance

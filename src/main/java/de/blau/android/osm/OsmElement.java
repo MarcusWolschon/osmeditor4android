@@ -17,6 +17,7 @@ import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import ch.poole.osm.josmtemplateparser.Formatter;
@@ -34,11 +35,10 @@ import de.blau.android.validation.Validator;
 
 public abstract class OsmElement implements OsmElementInterface, Serializable, XmlSerializable, JosmXmlSerializable {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 7711945069147743675L;
 
+    private static final String DEBUG_TAG = Relation.class.getSimpleName().substring(0, Math.min(23, Relation.class.getSimpleName().length()));
+    
     public static final long NEW_OSM_ID = -1;
 
     public static final byte STATE_UNCHANGED = 0;
@@ -162,8 +162,10 @@ public abstract class OsmElement implements OsmElementInterface, Serializable, X
      * @return an object of type T or null
      */
     @Nullable
-    public <T> T getFromCache(@NonNull Map<Map<String, String>, T> cache) {
-        return cache.get(tags);
+    public <T> T getFromCache(@NonNull final Map<Map<String, String>, T> cache) {
+        synchronized (cache) { // NOSONAR we actually want to be able to change what we are syncing on
+            return cache.get(tags);
+        }
     }
 
     /**
@@ -173,8 +175,10 @@ public abstract class OsmElement implements OsmElementInterface, Serializable, X
      * @param cache the cache
      * @param o an object of type T
      */
-    public <T> void addToCache(@NonNull Map<Map<String, String>, T> cache, @Nullable T o) {
-        cache.put(tags, o);
+    public <T> void addToCache(@NonNull final Map<Map<String, String>, T> cache, @Nullable T o) {
+        synchronized (cache) { // NOSONAR we actually want to be able to change what we are syncing on
+            cache.put(tags, o);
+        }
     }
 
     /**
@@ -184,8 +188,10 @@ public abstract class OsmElement implements OsmElementInterface, Serializable, X
      * @param cache the cache
      * @return true if there is a mapping
      */
-    public <T> boolean isInCache(@NonNull Map<Map<String, String>, T> cache) {
-        return cache.containsKey(tags);
+    public <T> boolean isInCache(@NonNull final Map<Map<String, String>, T> cache) {
+        synchronized (cache) { // NOSONAR we actually want to be able to change what we are syncing on
+            return cache.containsKey(tags);
+        }
     }
 
     @Override
@@ -430,7 +436,7 @@ public abstract class OsmElement implements OsmElementInterface, Serializable, X
     public boolean isUnchanged() {
         return state == STATE_UNCHANGED;
     }
-    
+
     /**
      * Check if this element has been created
      * 
@@ -709,7 +715,7 @@ public abstract class OsmElement implements OsmElementInterface, Serializable, X
                 wrapper.setElement(this);
                 return ch.poole.osm.josmtemplateparser.Util.listFormat(rs, wrapper.getType(), wrapper, getTags());
             } catch (JosmTemplateParseException e) {
-                // ignore
+                Log.e(DEBUG_TAG,"nameFromTemplate " + e.getMessage());
             }
         }
         return null;
@@ -755,6 +761,9 @@ public abstract class OsmElement implements OsmElementInterface, Serializable, X
      */
     @NonNull
     public List<String> getObjectKeys(@Nullable Context ctx) {
+        if (tags == null) {
+            return new ArrayList<>();
+        }
         Set<String> result = new HashSet<>();
         for (String key : Tags.IMPORTANT_TAGS) {
             if (tags.containsKey(key)) {

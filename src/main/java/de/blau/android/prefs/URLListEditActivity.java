@@ -1,5 +1,8 @@
 package de.blau.android.prefs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -9,14 +12,17 @@ import java.util.Map.Entry;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +33,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,8 +43,17 @@ import androidx.appcompat.widget.ActionMenuView.OnMenuItemClickListener;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.BlendModeColorFilterCompat;
 import androidx.core.graphics.BlendModeCompat;
+import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
+import de.blau.android.contract.Schemes;
+import de.blau.android.dialogs.Progress;
+import de.blau.android.exception.OperationFailedException;
+import de.blau.android.presets.PresetIconManager;
+import de.blau.android.presets.PresetParser;
+import de.blau.android.util.ExecutorTask;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.SelectFile;
+import de.blau.android.util.ThemeUtils;
 
 /**
  * This activity allows the user to edit a list of URLs. Each entry consists of a unique ID, a name and a URL. The user
@@ -53,8 +69,9 @@ import de.blau.android.util.SelectFile;
  */
 public abstract class URLListEditActivity extends ListActivity
         implements OnMenuItemClickListener, android.view.MenuItem.OnMenuItemClickListener, OnItemClickListener {
-    private static final String DEBUG_TAG = URLListEditActivity.class.getSimpleName().substring(0,
-            Math.min(23, URLListEditActivity.class.getSimpleName().length()));
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, URLListEditActivity.class.getSimpleName().length());
+    private static final String DEBUG_TAG = URLListEditActivity.class.getSimpleName().substring(0, TAG_LEN);
 
     static final String ACTION_NEW   = "new";
     static final String EXTRA_NAME   = "name";
@@ -68,6 +85,12 @@ public abstract class URLListEditActivity extends ListActivity
     static final int MENUITEM_EDIT              = 0;
     static final int MENUITEM_DELETE            = 1;
     static final int MENUITEM_ADDITIONAL_OFFSET = 1000;
+
+    protected static final int RESULT_TOTAL_FAILURE       = 0;
+    protected static final int RESULT_TOTAL_SUCCESS       = 1;
+    protected static final int RESULT_IMAGE_FAILURE       = 2;
+    protected static final int RESULT_PRESET_NOT_PARSABLE = 3; // NOSONAR currently unused
+    protected static final int RESULT_DOWNLOAD_CANCELED   = 4;
 
     static final String      LISTITEM_ID_DEFAULT = AdvancedPrefDatabase.ID_DEFAULT;
     final List<ListEditItem> items;
@@ -387,15 +410,17 @@ public abstract class URLListEditActivity extends ListActivity
     /**
      * 
      * @author Jan
+     * @author Simon
      */
     public static class ListEditItem implements Serializable {
-        private static final long serialVersionUID = 7574708515164503468L;
+        private static final long serialVersionUID = 7574708515164503469L;
         final String              id;
         String                    name;
         String                    value;
         String                    value2;
         String                    value3;
         boolean                   boolean0;
+        boolean                   boolean1;
         boolean                   active;
         Serializable              object0;
 
@@ -406,7 +431,7 @@ public abstract class URLListEditActivity extends ListActivity
          * @param value the value
          */
         public ListEditItem(@NonNull String name, @NonNull String value) {
-            this(name, value, null, null, false, null);
+            this(name, value, null, null, false, false, null);
         }
 
         /**
@@ -417,9 +442,10 @@ public abstract class URLListEditActivity extends ListActivity
          * @param value2 further value 2
          * @param value3 further value 3
          * @param boolean0 a boolean
+         * @param boolean1 a 2nd boolean
          * @param object0 a Serializable object
          */
-        public ListEditItem(@NonNull String name, @NonNull String value, @Nullable String value2, @Nullable String value3, boolean boolean0,
+        public ListEditItem(@NonNull String name, @NonNull String value, @Nullable String value2, @Nullable String value3, boolean boolean0, boolean boolean1,
                 Serializable object0) {
             id = java.util.UUID.randomUUID().toString();
             this.value = value;
@@ -427,6 +453,7 @@ public abstract class URLListEditActivity extends ListActivity
             this.value3 = value3;
             this.name = name;
             this.boolean0 = boolean0;
+            this.boolean1 = boolean1;
             this.object0 = object0;
             this.active = false;
         }
@@ -477,13 +504,14 @@ public abstract class URLListEditActivity extends ListActivity
          * @param value3 further value 3
          * @param object0 a Serializable object
          * @param boolean0 a boolean
+         * @param boolean1 a 2nd boolean
          * @param active true if this entry should be active
          */
         public ListEditItem(@NonNull String id, @NonNull String name, @NonNull String value, @Nullable String value2, @Nullable String value3,
-                @NonNull Serializable object0, boolean boolean0, boolean active) {
+                @NonNull Serializable object0, boolean boolean0, boolean boolean1, boolean active) {
             this(id, name, value, value2, value3, boolean0, active);
             this.object0 = object0;
-
+            this.boolean1 = boolean1;
         }
 
         /**
@@ -505,6 +533,7 @@ public abstract class URLListEditActivity extends ListActivity
             this.value3 = value3;
             this.name = name;
             this.boolean0 = boolean0;
+            this.boolean1 = false;
             this.object0 = null;
             this.active = active;
         }
@@ -541,9 +570,7 @@ public abstract class URLListEditActivity extends ListActivity
             } else {
                 v = (ListItem) View.inflate(URLListEditActivity.this, R.layout.list_item, null);
             }
-            v.setText1(getItem(position).name);
-            v.setText2(getItem(position).value);
-            v.setChecked(getItem(position).active);
+            setListItemViews(v, getItem(position));
             v.setMenuButtonListener(view -> {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     view.showContextMenu(0, 0);
@@ -553,6 +580,18 @@ public abstract class URLListEditActivity extends ListActivity
             });
             return v;
         }
+    }
+
+    /**
+     * Overrideable method to set files in the list
+     * 
+     * @param v the ListItem
+     * @param listEditItem the ListEditItem holding the values
+     */
+    protected void setListItemViews(ListItem v, ListEditItem listEditItem) {
+        v.setText1(listEditItem.name);
+        v.setText2(listEditItem.value);
+        v.setChecked(listEditItem.active);
     }
 
     /**
@@ -664,5 +703,173 @@ public abstract class URLListEditActivity extends ListActivity
         public void setMenuButtonListener(@NonNull OnClickListener listener) {
             menuButton.setOnClickListener(listener);
         }
+    }
+
+    /**
+     * Common code for items with a type spinner, name and URL
+     * 
+     * @param layoutRes the layout resource
+     * @param item the item
+     * @param types an array of enums for the spinner
+     * @param selected the selected type or null
+     */
+    protected <E extends Enum<?>> void itemEditDialogWithTypeSpinner(@NonNull final int layoutRes, @Nullable final ListEditItem item, @NonNull E[] types,
+            @Nullable E selected) {
+        final AlertDialog.Builder builder = ThemeUtils.getAlertDialogBuilder(this);
+        final LayoutInflater inflater = ThemeUtils.getLayoutInflater(this);
+        final View mainView = inflater.inflate(layoutRes, null);
+        final TextView editName = (TextView) mainView.findViewById(R.id.listedit_editName);
+        final Spinner typeSpinner = (Spinner) mainView.findViewById(R.id.listedit_type_spinner);
+        final TextView url = (TextView) mainView.findViewById(R.id.listedit_editValue_2);
+
+        ArrayAdapter<E> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, types);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        typeSpinner.setAdapter(adapter);
+
+        if (item != null) {
+            editName.setText(item.name);
+            typeSpinner.setSelection(selected != null ? selected.ordinal() : 0);
+            url.setText(item.value2);
+            if (LISTITEM_ID_DEFAULT.equals(item.id)) {
+                // name and value are not editable
+                editName.setEnabled(false);
+                typeSpinner.setEnabled(false);
+                url.setEnabled(false);
+            }
+        }
+
+        setViewAndButtons(builder, mainView);
+
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+
+        // overriding the handlers
+        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(v -> {
+            String name = editName.getText().toString();
+            @SuppressWarnings("unchecked")
+            String value = ((E) typeSpinner.getSelectedItem()).name();
+            String value2 = url.getText().toString();
+
+            if (item == null || item.id == null) {
+                // new item
+                if (!"".equals(value)) {
+                    finishCreateItem(new ListEditItem(name, value, !"".equals(value2) ? value2 : null, null, false, false, null));
+                }
+            } else {
+                item.name = name;
+                item.value = value;
+                item.value2 = !"".equals(value2) ? value2 : null;
+                finishEditItem(item);
+            }
+            dialog.dismiss();
+        });
+
+        dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setOnClickListener(v -> dialog.dismiss());
+    }
+
+    /**
+     * Download data (XML, icons) for a certain resource or load it from a file
+     * 
+     * @param activity a URLListEditActivity instance
+     * @param db an AdvancedPrefDatabase instance
+     * @param item the item containing the resource to be downloaded
+     * @param defaultFilename default name to use for imported resources
+     * @param parseForIcons parser the XML for icons, currently only of use for presets
+     */
+    static void retrieveData(@NonNull URLListEditActivity activity, @NonNull AdvancedPrefDatabase db, @NonNull final ListEditItem item, String defaultFilename,
+            boolean parseForIcons, @Nullable PostAsyncActionHandler handler) {
+
+        final File dir = db.getResourceDirectory(item.id);
+        // noinspection ResultOfMethodCallIgnored
+        dir.mkdir();
+        if (!dir.isDirectory()) {
+            throw new OperationFailedException("Could not create directory " + dir.getAbsolutePath());
+        }
+        new ExecutorTask<Void, Integer, Integer>() {
+
+            private boolean localFile;
+            private Uri     uri;
+
+            @Override
+            protected void onPreExecute() {
+                uri = Uri.parse(item.value);
+                final String scheme = uri.getScheme();
+                localFile = Schemes.FILE.equals(scheme) || Schemes.CONTENT.equals(scheme);
+                Progress.showDialog(activity, localFile ? Progress.PROGRESS_RESOURCE_LOAD : Progress.PROGRESS_RESOURCE_DOWNLOAD);
+            }
+
+            @Override
+            protected Integer doInBackground(Void args) {
+                int loadResult = localFile ? XmlConfigurationLoader.load(activity, uri, dir, defaultFilename)
+                        : XmlConfigurationLoader.download(item.value, dir, defaultFilename);
+
+                if (loadResult == XmlConfigurationLoader.DOWNLOADED_ERROR) {
+                    return RESULT_TOTAL_FAILURE;
+                }
+
+                if (!parseForIcons) {
+                    return RESULT_TOTAL_SUCCESS;
+                }
+
+                List<String> urls = PresetParser.parseForURLs(dir);
+
+                boolean allImagesSuccessful = true;
+                for (String url : urls) {
+                    if (isCancelled()) {
+                        return RESULT_DOWNLOAD_CANCELED;
+                    }
+                    allImagesSuccessful &= (XmlConfigurationLoader.download(url, dir,
+                            PresetIconManager.hashPath(url)) == XmlConfigurationLoader.DOWNLOADED_XML);
+                }
+                return allImagesSuccessful ? RESULT_TOTAL_SUCCESS : RESULT_IMAGE_FAILURE;
+            }
+
+            @Override
+            protected void onPostExecute(Integer result) {
+                switch (result) {
+                case RESULT_TOTAL_SUCCESS:
+                case RESULT_IMAGE_FAILURE:
+                    if (result == RESULT_IMAGE_FAILURE) {
+                        msgbox(R.string.preset_download_missing_images);
+                    } else {
+                        ScreenMessage.barInfo(activity, localFile ? R.string.resource_load_successful : R.string.resource_download_successful);
+                    }
+                    if (handler != null) {
+                        handler.onSuccess();
+                    }
+                    activity.sendResultIfApplicable(item);
+                    break;
+                case RESULT_TOTAL_FAILURE:
+                    msgbox(localFile ? R.string.resource_load_failed : R.string.resource_download_failed);
+                    if (handler != null) {
+                        handler.onError(null);
+                    }
+                    break;
+                case RESULT_DOWNLOAD_CANCELED:
+                    break; // do nothing
+                default:
+                    break;
+                }
+                Progress.dismissDialog(activity, localFile ? Progress.PROGRESS_RESOURCE_LOAD : Progress.PROGRESS_RESOURCE_DOWNLOAD);
+            }
+
+            /**
+             * Show a simple message box detailing the download result. The activity will end as soon as the box is
+             * closed.
+             * 
+             * @param msgResID string resource id of message
+             */
+            private void msgbox(int msgResID) {
+                AlertDialog.Builder box = ThemeUtils.getAlertDialogBuilder(activity);
+                box.setMessage(activity.getResources().getString(msgResID));
+                box.setOnCancelListener(dialog -> activity.sendResultIfApplicable(item));
+                box.setPositiveButton(R.string.okay, (dialog, which) -> {
+                    dialog.dismiss();
+                    activity.sendResultIfApplicable(item);
+                });
+                box.show();
+            }
+
+        }.execute();
     }
 }

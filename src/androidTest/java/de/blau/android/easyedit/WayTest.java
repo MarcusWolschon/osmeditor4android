@@ -67,7 +67,7 @@ public class WayTest {
         main = mActivityRule.getActivity();
         prefDB = new AdvancedPrefDatabase(context);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", "", null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null), false);
+        prefDB.addAPI("Test", "Test", "", null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null), false, false);
         prefDB.selectAPI("Test");
         Preferences prefs = new Preferences(context);
         prefs.setAutolockDelay(300000L);
@@ -78,6 +78,9 @@ public class WayTest {
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
         logic = App.getLogic();
+        logic.setFilter(null);
+        prefs.enablePresetFilter(false);
+        prefs.enableTagFilter(false);
         logic.deselectAll();
         TestUtils.loadTestData(main, "test2.osm");
         TestUtils.stopEasyEdit(main);
@@ -226,6 +229,33 @@ public class WayTest {
         assertNotNull(way);
         assertEquals(OsmElement.STATE_MODIFIED, way.getState());
     }
+    
+    /**
+     * Select, split at location without node on the way
+     */
+    // @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void splitWithLongClick() {
+        map.getDataLayer().setVisible(true);
+        TestUtils.unlock(device);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
+        TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
+        assertTrue(TestUtils.clickText(device, false, "↓ Path", false, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        Way way = App.getLogic().getSelectedWay();
+        assertNotNull(way);
+        assertEquals(104148456L, way.getOsmId());
+        assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_split), false, false));
+        TestUtils.clickAwayTip(device, context);
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.menu_split), 1000));
+        TestUtils.longClickAtCoordinates(device, map, 8.3900833D, 47.3899508, true);
+        way = App.getLogic().getSelectedWay();
+        assertNotNull(way);
+        assertEquals(OsmElement.STATE_CREATED, way.getState());
+        assertEquals(3, way.nodeCount());
+        assertEquals(36.22, way.length(), 0.2);
+    }
 
     /**
      * Select way, select way nodes
@@ -361,6 +391,8 @@ public class WayTest {
 
         // drag the way
         TestUtils.drag(device, map, 8.3893384, 47.3894888, 8.38939, 47.389550, false, 10);
+        
+        // this seems to be too slow to work assertTrue(TestUtils.findText(device, false, main.getString(R.string.toast_way_nodes_moved, 15), 10000));
 
         int[][] dragged = nodeListToCoordinates(way.getNodes());
 

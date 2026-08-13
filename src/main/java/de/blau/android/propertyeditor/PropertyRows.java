@@ -10,7 +10,7 @@ interface PropertyRows {
     /**
      * Deselect this row
      */
-    void deselectRow();
+    void onDeselectRow();
 
     /**
      * Select all rows
@@ -21,4 +21,14 @@ interface PropertyRows {
      * Deselect all rows
      */
     void deselectAllRows();
+
+    /**
+     * Invert which rows are selected
+     */
+    void invertSelectedRows();
+
+    /**
+     * If a row is selected start the action mode otherwise stop it
+     */
+    void startStopActionModeIfRowSelected();
 }

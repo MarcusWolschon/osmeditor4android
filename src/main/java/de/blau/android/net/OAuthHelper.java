@@ -11,8 +11,7 @@ import android.net.Uri;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
-import de.blau.android.PostAsyncActionHandler;
+import de.blau.android.AsyncResult;
 import de.blau.android.R;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.util.ExecutorTask;
@@ -28,12 +27,26 @@ public abstract class OAuthHelper {
     private static final String DEBUG_TAG = OAuthHelper.class.getSimpleName().substring(0, TAG_LEN);
 
     protected static final int TIMEOUT = 10;
+    
+    /**
+     * Callback interface for OAuth result
+     */
+    public interface Callback {
+        /**
+         * Called when the user successfully authorizes the app and access token is obtained
+         */
+        void onSuccess(@NonNull String accessToken);
+
+        /** Called if an error occurs or the user denies authorization */
+        void onError(@NonNull AsyncResult result);
+    }
 
     public static class OAuthConfiguration {
         private final String name;
         private String       key;
         private String       secret;
         private String       oauthUrl;
+        private String       bearerToken;
 
         public OAuthConfiguration(@NonNull String name) {
             this.name = name;
@@ -91,6 +104,21 @@ public abstract class OAuthHelper {
         public String getOauthUrl() {
             return oauthUrl;
         }
+
+        /**
+         * @return the bearerToken
+         */
+        @Nullable
+        public String getBearerToken() {
+            return bearerToken;
+        }
+
+        /**
+         * @param bearerToken the bearerToken to set
+         */
+        public void setBearerToken(@Nullable String bearerToken) {
+            this.bearerToken = bearerToken;
+        }
     }
 
     /**
@@ -102,7 +130,7 @@ public abstract class OAuthHelper {
         Log.d(DEBUG_TAG, "No matching API for " + apiName + "found");
     }
 
-    abstract ExecutorTask<Void, Void, ?> getAccessTokenTask(@NonNull Context context, @NonNull Uri data, @NonNull PostAsyncActionHandler handler);
+    abstract ExecutorTask<Void, Void, ?> getAccessTokenTask(@NonNull Context context, @NonNull Uri data, @NonNull Callback handler);
 
     /**
      * Set the access tokens
@@ -111,7 +139,8 @@ public abstract class OAuthHelper {
      * @param accessToken the access token
      * @param secret secret if necessary
      */
-    protected void setAccessToken(@NonNull final Context context, @Nullable String accessToken, @Nullable String secret) {
+    public static void setAccessToken(@NonNull final Context context, @Nullable String accessToken, @Nullable String secret) {
+        Log.d(DEBUG_TAG, "set access token");
         try (AdvancedPrefDatabase prefDb = new AdvancedPrefDatabase(context)) {
             prefDb.setAPIAccessToken(accessToken, secret);
             AdvancedPrefDatabase.resetCurrentServer();
@@ -127,7 +156,7 @@ public abstract class OAuthHelper {
      * @throws TimeoutException if the task timeouts
      * @throws ExecutionException if the Task couldn't be exceuted
      */
-    public void getAccessToken(@NonNull final Context context, @NonNull Uri data, @NonNull PostAsyncActionHandler handler)
+    public void getAccessToken(@NonNull final Context context, @NonNull Uri data, @NonNull Callback handler)
             throws TimeoutException, ExecutionException {
         ExecutorTask<Void, Void, ?> requester = getAccessTokenTask(context, data, handler);
         requester.execute();

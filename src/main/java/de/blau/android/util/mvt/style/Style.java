@@ -7,7 +7,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,6 +42,7 @@ import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Schemes;
 import de.blau.android.osm.Server;
 import de.blau.android.resources.DataStyle;
+import de.blau.android.resources.DataStyleManager;
 import de.blau.android.resources.symbols.TriangleDown;
 import de.blau.android.util.ColorUtil;
 import de.blau.android.util.ExecutorTask;
@@ -354,12 +356,12 @@ public class Style implements Serializable {
                             return new Sprites(ctx, sheet, image);
                         }
                     } else {
-                        try (InputStream sheet = Server.openConnection(null, new URL(jsonUri.toString()));
-                                InputStream image = Server.openConnection(null, new URL(imageUri.toString()))) {
+                        try (InputStream sheet = Server.openConnection(null, new URI(jsonUri.toString()).toURL());
+                                InputStream image = Server.openConnection(null, new URI(imageUri.toString()).toURL())) {
                             return new Sprites(ctx, sheet, image);
                         }
                     }
-                } catch (IOException e) {
+                } catch (IOException | URISyntaxException | IllegalArgumentException e) {
                     Log.e(DEBUG_TAG, "getSprites " + e.getMessage());
                 }
                 return null;
@@ -707,7 +709,7 @@ public class Style implements Serializable {
      */
     public void addAutoLayers(@NonNull de.blau.android.Map map, @NonNull String sourceLayer) {
         if (!layerMap.containsKey(sourceLayer)) {
-            DataStyle styles = map.getDataStyle();
+            DataStyleManager styles = map.getDataStyleManager();
             synchronized (layers) {
                 // add default styles
                 Paint paint = new Paint(styles.getInternal(DataStyle.MVT_DEFAULT).getPaint());

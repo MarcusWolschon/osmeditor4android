@@ -54,7 +54,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
-import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -65,6 +64,7 @@ import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.core.view.MenuCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -117,6 +117,7 @@ import de.blau.android.resources.WmsEndpointDatabaseView;
 import de.blau.android.tasks.TaskStorage;
 import de.blau.android.tasks.Todo;
 import de.blau.android.tasks.TransferTasks;
+import de.blau.android.util.AuthorisationEnabledActivity;
 import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.Density;
 import de.blau.android.util.ExecutorTask;
@@ -194,7 +195,10 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
         // right now
         final FloatingActionButton add = (FloatingActionButton) layout.findViewById(R.id.add);
         add.setOnClickListener(v -> {
-            final FragmentActivity activity = getActivity();
+            if (!(getActivity() instanceof AuthorisationEnabledActivity)) {
+                throw new IllegalArgumentException("Expected a AuthorisationEnabledActivity");
+            }
+            final AuthorisationEnabledActivity activity = (AuthorisationEnabledActivity) getActivity();
             final Preferences prefs = App.getLogic().getPrefs();
             PopupMenu popup = new InsetAwarePopupMenu(getActivity(), add);
             final Map map = App.getLogic().getMap();
@@ -347,7 +351,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
      * @param prefs the current Preferences
      * @param map the current map object
      */
-    private void downloadGpxTrack(@NonNull final FragmentActivity activity, @NonNull final Preferences prefs, @NonNull final Map map) {
+    private void downloadGpxTrack(@NonNull final AuthorisationEnabledActivity activity, @NonNull final Preferences prefs, @NonNull final Map map) {
         final Logic logic = App.getLogic();
         final Server server = prefs.getServer();
         ExecutorTask<Void, Void, List<GpxFile>> download = new ExecutorTask<Void, Void, List<GpxFile>>(logic.getExecutorService(), logic.getHandler()) {
@@ -623,14 +627,13 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
         LayoutInflater inflater;
         FragmentActivity activity = getActivity();
         inflater = ThemeUtils.getLayoutInflater(activity);
-        RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.layers_view, container, false);
+        LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.layers_view, container, false);
         tl = (TableLayout) layout.findViewById(R.id.layers_vertical_layout);
         tl.setShrinkAllColumns(false);
         tl.setColumnShrinkable(2, true);
         tl.setStretchAllColumns(false);
         tl.setColumnStretchable(2, true);
         addRows(activity);
-
         return layout;
     }
 
@@ -926,7 +929,11 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
 
         @Override
         public void onClick(View arg0) {
-            final FragmentActivity activity = getActivity();
+            if (!(getActivity() instanceof AuthorisationEnabledActivity)) {
+                throw new IllegalArgumentException("Expected a AuthorisationEnabledActivity");
+            }
+            final AuthorisationEnabledActivity activity = (AuthorisationEnabledActivity) getActivity();
+
             PopupMenu popup = new InsetAwarePopupMenu(activity, button);
             Menu menu = popup.getMenu();
             final Map map = App.getLogic().getMap();
@@ -942,7 +949,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                     if (!currentServerId.equals(id)) {
                         final TileLayerSource tileServer = TileLayerSource.get(activity, id, true);
                         if (tileServer != null) {
-                            MenuItem item = menu.add(tileServer.getName());
+                            MenuItem item = menu.add(1, Menu.NONE, Menu.NONE, tileServer.getName());
                             item.setOnMenuItemClickListener(unused -> {
                                 if (tileServer != null) {
                                     TableRow row = (TableRow) button.getTag();
@@ -957,8 +964,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                         }
                     }
                     if (i == tileServerIds.length - 1) {
-                        MenuItem divider = menu.add("");
-                        divider.setEnabled(false);
+                        MenuCompat.setGroupDividerEnabled(menu, true);
                     }
                 }
 
@@ -1077,13 +1083,20 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                     return true;
                 });
             }
+            // these items are less important, show them at the bottom of the menu
+            if (layer instanceof MapTilesLayer) {
+                MenuItem item = menu.add(R.string.layer_update_tiles_in_view);
+                item.setOnMenuItemClickListener(unused -> {
+                    if (layer != null) {
+                        ((MapTilesLayer<?>) layer).flushTilesInViewCache(activity);
+                    }
+                    return true;
+                });
 
-            if (layer instanceof MapTilesLayer) { // these items are less important, show them at the bottom of the menu
-                MenuItem item = menu.add(R.string.layer_flush_tile_cache);
+                item = menu.add(R.string.layer_flush_tile_cache);
                 item.setOnMenuItemClickListener(unused -> {
                     if (layer != null) {
                         ((MapTilesLayer<?>) layer).flushTileCache(activity, true);
-                        layer.invalidate();
                     }
                     return true;
                 });
@@ -1235,8 +1248,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                 }
             }
             if (layer instanceof de.blau.android.layer.geojson.MapOverlay) {
-                MenuItem item = menu.add(R.string.menu_layers_convert_geojson_todo);
-                item.setOnMenuItemClickListener(unused -> {
+                menu.add(R.string.menu_layers_convert_geojson_todo).setOnMenuItemClickListener(unused -> {
                     Builder builder = ThemeUtils.getAlertDialogBuilder(activity);
                     builder.setTitle(R.string.geojson_todo_title);
                     builder.setPositiveButton(R.string.geojson_todo_default_conversion,
@@ -1268,8 +1280,13 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
             }
 
             if (layer instanceof PruneableInterface) {
-                MenuItem item = menu.add(R.string.prune);
-                item.setOnMenuItemClickListener(unused -> {
+                menu.add(R.string.layer_auto_prune).setCheckable(true).setChecked(((PruneableInterface) layer).autoPrune()).setOnMenuItemClickListener(item -> {
+                    boolean newState = !item.isChecked();
+                    item.setChecked(newState);
+                    ((PruneableInterface) layer).setAutoPrune(newState);
+                    return true;
+                });
+                menu.add(R.string.prune).setOnMenuItemClickListener(unused -> {
                     if (layer != null) {
                         Logic logic = App.getLogic();
                         new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
@@ -1295,8 +1312,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
             }
 
             if (layer instanceof DiscardInterface) {
-                MenuItem item = menu.add(R.string.discard);
-                item.setOnMenuItemClickListener(unused -> {
+                menu.add(R.string.discard).setOnMenuItemClickListener(unused -> {
                     if (layer != null) {
                         try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(activity)) {
                             db.deleteLayer(layer.getIndex(), layer.getType());

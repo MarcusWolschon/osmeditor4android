@@ -36,7 +36,7 @@ import de.blau.android.util.ThemeUtils;
  * @author simon
  *
  */
-public class ReplaceGeometryActionModeCallback extends NonSimpleActionModeCallback {
+public class ReplaceGeometryActionModeCallback extends AbortableWayActionModeCallback {
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, ReplaceGeometryActionModeCallback.class.getSimpleName().length());
     private static final String DEBUG_TAG = ReplaceGeometryActionModeCallback.class.getSimpleName().substring(0, TAG_LEN);
@@ -89,6 +89,7 @@ public class ReplaceGeometryActionModeCallback extends NonSimpleActionModeCallba
     public void onDestroyActionMode(ActionMode mode) {
         super.onDestroyActionMode(mode);
         logic.setClickableElements(null);
+        logic.setReturnRelations(true);
     }
 
     @Override
@@ -105,7 +106,13 @@ public class ReplaceGeometryActionModeCallback extends NonSimpleActionModeCallba
                 final List<Result> result = logic.performReplaceGeometry(main, (Way) target, ((Way) element).getNodes());
                 AlertDialog.Builder builder = ThemeUtils.getAlertDialogBuilder(main);
                 builder.setTitle(R.string.remove_geometry_source);
-                builder.setPositiveButton(R.string.Yes, (dialog, id) -> logic.performEraseWay(main, ((Way) element), true, false));
+                builder.setPositiveButton(R.string.Yes, (dialog, id) -> {
+                    try {
+                        logic.performEraseWay(main, ((Way) element), true, false);
+                    } catch (StorageException ex) {
+                        // already toasted and logged
+                    }
+                });
                 builder.setNegativeButton(R.string.No, null);
                 AlertDialog d = builder.create();
                 d.setOnDismissListener((DialogInterface dialog) -> {

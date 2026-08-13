@@ -42,7 +42,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog.Builder;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
@@ -64,6 +63,7 @@ import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.osm.Wiki;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.prefs.keyboard.Shortcuts;
 import de.blau.android.presets.MRUTags;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetCheckField;
@@ -83,6 +83,7 @@ import de.blau.android.presets.UseLastAsDefaultType;
 import de.blau.android.presets.ValueType;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
+import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ArrayAdapterWithRuler;
 import de.blau.android.util.ClipboardUtils;
 import de.blau.android.util.GeoContext.Properties;
@@ -253,7 +254,9 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
         propertyEditorListener = (PropertyEditorListener) parent;
         presetSelectedListener = (OnPresetSelectedListener) parent;
         setHasOptionsMenu(true);
-        getActivity().invalidateOptionsMenu();
+        FragmentActivity activity = getActivity();
+        activity.invalidateOptionsMenu();
+        actionMap.put(getString(R.string.ACTION_UNDO), new Shortcuts.Action(R.string.action_info, this::doRevert));
     }
 
     @Override
@@ -1161,7 +1164,13 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
                     originalKey = row.getKey();
                     row.keyEdit.setAdapter(getKeyAutocompleteAdapter(preset, rowLayout, row.keyEdit));
                     if (row.getKey().length() == 0) {
-                        row.keyEdit.post(() -> row.keyEdit.showDropDown());
+                        row.keyEdit.post(() -> {
+                            try {
+                                row.keyEdit.showDropDown();
+                            } catch (android.view.WindowManager.BadTokenException btex) {
+                                Log.e(DEBUG_TAG, "onFocusChange " + btex.getMessage());
+                            }
+                        });
                     }
                 } else {
                     String newKey = row.getKey();
@@ -1310,17 +1319,17 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
     private OnCheckedChangeListener getOnCheckedChangeListener(@NonNull TagEditRow row) {
         return (buttonView, isChecked) -> {
             Log.d(DEBUG_TAG, "onCheckedChangedListener value " + isChecked);
-            if (!row.isEmpty()) {
-                if (isChecked) {
-                    tagSelected();
-                } else {
-                    deselectRow();
-                }
-            }
             if (row.isEmpty()) {
                 row.deselect();
+                return;
+            }
+            if (isChecked) {
+                onRowSelected();
+            } else {
+                onDeselectRow();
             }
         };
+
     }
 
     /**
@@ -1529,9 +1538,7 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
 
         @Override
         public void select() {
-            selected.setOnCheckedChangeListener(null);
-            selected.setChecked(true);
-            selected.setOnCheckedChangeListener(owner.getOnCheckedChangeListener(this));
+            setRowSelected(true);
         }
 
         @Override
@@ -1541,7 +1548,20 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
 
         @Override
         public void deselect() {
-            selected.setChecked(false);
+            setRowSelected(false);
+            // check if all have been deselected
+            owner.onDeselectRow();
+        }
+
+        /**
+         * Set the row to checked/non-checked state
+         *
+         * @param state target state
+         */
+        public void setRowSelected(boolean state) {
+            selected.setOnCheckedChangeListener(null);
+            selected.setChecked(state);
+            selected.setOnCheckedChangeListener(owner.getOnCheckedChangeListener(this));
         }
 
         /**
@@ -1601,43 +1621,19 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
         return new TagSelectedActionModeCallback(this, (LinearLayout) getOurView());
     }
 
-    /**
-     * Start the TagSelectedActionModeCallback
-     */
-    private void tagSelected() {
-        synchronized (actionModeCallbackLock) {
-            if (actionModeCallback == null) {
-                actionModeCallback = getActionModeCallback();
-                ((AppCompatActivity) getActivity()).startSupportActionMode(actionModeCallback);
-            }
-        }
-    }
-
     @Override
-    public void selectAllRows() { // select all tags
+    protected void setSelectedRows(@NonNull final ChangeSelectionStatus change) {
         LinearLayout rowLayout = (LinearLayout) getOurView();
         if (loaded) {
             int i = rowLayout.getChildCount();
             while (--i >= 0) {
                 TagEditRow row = (TagEditRow) rowLayout.getChildAt(i);
-                if (row.selected.isEnabled()) {
-                    row.selected.setChecked(true);
+                final CheckBox selected = row.selected;
+                if (selected.isEnabled()) {
+                    row.setRowSelected(change.set(selected.isChecked()));
                 }
             }
-        }
-    }
-
-    @Override
-    public void deselectAllRows() { // deselect all tags
-        LinearLayout rowLayout = (LinearLayout) getOurView();
-        if (loaded) {
-            int i = rowLayout.getChildCount();
-            while (--i >= 0) {
-                TagEditRow row = (TagEditRow) rowLayout.getChildAt(i);
-                if (row.selected.isEnabled()) {
-                    row.selected.setChecked(false);
-                }
-            }
+            startStopActionModeIfRowSelected();
         }
     }
 
@@ -2034,13 +2030,20 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         // disable address prediction for stuff that won't have an address
-        menu.findItem(R.id.tag_menu_address).setVisible(elements.length == 1 && (!(elements[0] instanceof Way) || ((Way) elements[0]).isClosed()));
-        boolean multiSelect = elements.length > 1;
-        menu.findItem(R.id.tag_menu_apply_preset).setEnabled(!multiSelect);
-        menu.findItem(R.id.tag_menu_apply_preset_with_optional).setEnabled(!multiSelect);
-        menu.findItem(R.id.tag_menu_mapfeatures).setEnabled(propertyEditorListener.isConnectedOrConnecting());
-        menu.findItem(R.id.tag_menu_paste).setEnabled(!App.getTagClipboard(getContext()).isEmpty());
-        menu.findItem(R.id.tag_menu_paste_from_clipboard).setEnabled(pasteFromClipboardIsPossible());
+        try {
+            menu.findItem(R.id.tag_menu_address).setVisible(elements.length == 1 && (!(elements[0] instanceof Way) || ((Way) elements[0]).isClosed()));
+            boolean multiSelect = elements.length > 1;
+            menu.findItem(R.id.tag_menu_apply_preset).setEnabled(!multiSelect);
+            menu.findItem(R.id.tag_menu_apply_preset_with_optional).setEnabled(!multiSelect);
+            menu.findItem(R.id.tag_menu_mapfeatures).setEnabled(propertyEditorListener.isConnectedOrConnecting());
+            menu.findItem(R.id.tag_menu_paste).setEnabled(!App.getTagClipboard(getContext()).isEmpty());
+            menu.findItem(R.id.tag_menu_paste_from_clipboard).setEnabled(pasteFromClipboardIsPossible());
+        } catch (NullPointerException npe) {
+            // this should never happen as the menu should have been inflated and the item found, however it does now
+            // and then
+            Log.e(DEBUG_TAG, "onPrepareOptionsMenu " + npe.getMessage());
+            ACRAHelper.nocrashReport(null, "onPrepareOptionsMenu " + npe.getMessage());
+        }
     }
 
     /**
@@ -2481,7 +2484,6 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
     @NonNull
     public List<Map<String, String>> getUpdatedTags() {
         @SuppressWarnings("unchecked")
-
         List<Map<String, String>> oldTags = propertyEditorListener.getOriginalTags();
         // make a (nearly) full copy
         List<Map<String, String>> newTags = new ArrayList<>();

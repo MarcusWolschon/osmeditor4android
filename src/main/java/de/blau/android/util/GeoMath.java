@@ -21,6 +21,8 @@ public final class GeoMath {
 
     protected static final String DEBUG_TAG = GeoMath.class.getSimpleName().substring(0, Math.min(23, GeoMath.class.getSimpleName().length()));
 
+    public static final double OSM_SCALE = 1E7D;
+
     private static final double _180_PI = 180d / Math.PI;
 
     public static final double _360_PI = 360d / Math.PI;
@@ -153,7 +155,7 @@ public final class GeoMath {
      * @see #latToMercator(double)
      */
     public static double latE7ToMercator(final int latE7) {
-        return latToMercator(latE7 / 1E7D);
+        return latToMercator(latE7 / OSM_SCALE);
     }
 
     /**
@@ -163,7 +165,7 @@ public final class GeoMath {
      * @see #latToMercator(double)
      */
     public static int latE7ToMercatorE7(final int latE7) {
-        return (int) Math.round((latToMercator(latE7 / 1E7d) * 1E7d));
+        return (int) Math.round((latToMercator(latE7 / OSM_SCALE) * OSM_SCALE));
     }
 
     /**
@@ -186,7 +188,7 @@ public final class GeoMath {
      * @see #mercatorToLat(double)
      */
     public static double mercatorE7ToLat(final int mer) {
-        return mercatorToLat(mer / 1E7d);
+        return mercatorToLat(mer / OSM_SCALE);
     }
 
     /**
@@ -198,7 +200,7 @@ public final class GeoMath {
      *         #mercatorToLat(double)
      */
     public static int mercatorToLatE7(final double mer) {
-        return (int) Math.round(mercatorToLat(mer) * 1E7d);
+        return (int) Math.round(mercatorToLat(mer) * OSM_SCALE);
     }
 
     /**
@@ -210,7 +212,7 @@ public final class GeoMath {
      *         #mercatorToLat(double)
      */
     public static int mercatorE7ToLatE7(final int mer) {
-        return (int) Math.round(mercatorToLat(mer / 1E7d) * 1E7d);
+        return (int) Math.round(mercatorToLat(mer / OSM_SCALE) * OSM_SCALE);
     }
 
     /**
@@ -222,7 +224,7 @@ public final class GeoMath {
      * @throws OsmException if the bounding box cannot be calculated
      */
     public static BoundingBox createBoundingBoxForCoordinates(IntCoordinates center, final double radius) throws OsmException {
-        return createBoundingBoxForCoordinates(center.lat / 1E7D, center.lon / 1E7D, radius);
+        return createBoundingBoxForCoordinates(center.lat / OSM_SCALE, center.lon / OSM_SCALE, radius);
     }
 
     /**
@@ -250,19 +252,19 @@ public final class GeoMath {
         double top = lat + radiusDegree;
         if (left < -MAX_LON) {
             left = -MAX_LON;
-            right = left + radiusDegree * 2d;
+            right = left + horizontalRadiusDegree * 2d;
         }
         if (right > MAX_LON) {
-            right = MAX_LON_E7;
-            left = right - radiusDegree * 2d;
+            right = MAX_LON;
+            left = right - horizontalRadiusDegree * 2d;
         }
         if (bottom < -MAX_COMPAT_LAT) {
             bottom = -MAX_COMPAT_LAT;
-            top = bottom + horizontalRadiusDegree * 2d;
+            top = bottom + radiusDegree * 2d;
         }
         if (top > MAX_COMPAT_LAT) {
             top = MAX_COMPAT_LAT;
-            bottom = top - horizontalRadiusDegree * 2d;
+            bottom = top - radiusDegree * 2d;
         }
         return new BoundingBox(left, bottom, right, top);
     }
@@ -336,7 +338,7 @@ public final class GeoMath {
      * @return the y screen-coordinate for this latitude value.
      */
     public static float latMercatorE7ToY(final int screenHeight, int screenWidth, final ViewBox viewBox, final int latE7) {
-        return (float) (screenHeight - (latE7 / 1E7D - viewBox.getBottomMercator()) * viewBox.getPixelRadius(screenWidth));
+        return (float) (screenHeight - (latE7 / OSM_SCALE - viewBox.getBottomMercator()) * viewBox.getPixelRadius(screenWidth));
     }
 
     /**
@@ -360,7 +362,7 @@ public final class GeoMath {
      * @return the x screen-coordinate for this longitude value.
      */
     public static float lonToX(final int screenWidth, final BoundingBox viewBox, final double lon) {
-        return (float) ((lon * 1E7D - viewBox.getLeft()) / viewBox.getWidth()) * screenWidth;
+        return (float) ((lon * OSM_SCALE - viewBox.getLeft()) / viewBox.getWidth()) * screenWidth;
     }
 
     /**
@@ -373,7 +375,7 @@ public final class GeoMath {
      * @return latitude representing by the given y-value, multiplied by 1E7
      */
     public static int yToLatE7(final int screenHeight, int screenWidth, final ViewBox viewBox, final float y) {
-        double pixelRadius = screenWidth / (viewBox.getWidth() / 1E7d);
+        double pixelRadius = screenWidth / (viewBox.getWidth() / OSM_SCALE);
         double lat = mercatorToLatE7(viewBox.getBottomMercator() + ((double) screenHeight - y) / pixelRadius);
         return (int) lat;
     }

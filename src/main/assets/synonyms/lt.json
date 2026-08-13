@@ -57,9 +57,6 @@
 "baras",
 "Baras"
 ],
-"amenity/bbq":[
-"Barbekiu/Grilis"
-],
 "amenity/bench":[
 "suolas",
 "suoliukas",
@@ -122,9 +119,6 @@
 "Laikrodis",
 "laikrodis"
 ],
-"amenity/college":[
-"Kolegijos kiemas"
-],
 "amenity/community_centre":[
 "Bendruomenės centras",
 "bendruomenės centras"
@@ -157,9 +151,6 @@
 "geriamas vanduo",
 "Geriamas vanduo",
 "vanduo"
-],
-"amenity/driving_school":[
-"Vairavimo mokykla"
 ],
 "amenity/embassy":[
 "Ambasada"
@@ -202,9 +193,6 @@
 "amenity/internet_cafe":[
 "Interneto kavinė"
 ],
-"amenity/language_school":[
-"Kalbų mokykla"
-],
 "amenity/library":[
 "Biblioteka",
 "skaitykla",
@@ -219,9 +207,6 @@
 "amenity/motorcycle_parking":[
 "motociklų stovėjimo aikštelė",
 "Motociklų stovėjimo aikštelė"
-],
-"amenity/music_school":[
-"Muzikos mokykla"
 ],
 "amenity/nightclub":[
 "Naktinis klubas",
@@ -285,9 +270,6 @@
 "rastoranas",
 "Restoranas"
 ],
-"amenity/school":[
-"Mokyklos kiemas"
-],
 "amenity/shelter":[
 "pastogė",
 "Pastogė"
@@ -326,10 +308,6 @@
 "amenity/townhall":[
 "Rotušė",
 "rotušė"
-],
-"amenity/university":[
-"Universiteto kiemas",
-"universiteto teritorija"
 ],
 "amenity/vending_machine":[
 "Prekybos automatas"
@@ -485,9 +463,6 @@
 "building/dormitory":[
 "Bendrabutis",
 "bendrabutis"
-],
-"building/entrance":[
-"Įėjimas/Išėjimas"
 ],
 "building/farm":[
 "Fermos namas"
@@ -896,9 +871,6 @@
 "highway/turning_circle":[
 "Apsisukimo žiedas"
 ],
-"highway/unclassified":[
-"Mažas/Neklasifikuotas Kelias"
-],
 "historic":[
 "istorinė vieta",
 "Istorinė vietovė"
@@ -1050,9 +1022,6 @@
 ],
 "leisure/dance":[
 "Šokių salė"
-],
-"leisure/dancing_school":[
-"Šokių mokykla"
 ],
 "leisure/dog_park":[
 "šunparkis",
@@ -1519,9 +1488,6 @@
 "shop/baby_goods":[
 "Vaikų prekių parduotuvė"
 ],
-"shop/bag":[
-"Kuprinių/lagaminų parduotuvė"
-],
 "shop/bakery":[
 "Kepykla",
 "kepykla"
@@ -1749,9 +1715,6 @@
 ],
 "shop/pyrotechnics":[
 "Fejerverkų parduotuvė"
-],
-"shop/radiotechnics":[
-"Radijo/elektroninių dalių parduotuvė"
 ],
 "shop/religion":[
 "Religinė parduotuvė"

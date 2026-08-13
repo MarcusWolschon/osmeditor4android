@@ -42,6 +42,7 @@
 <li>Tile based layers:
 <ul>
 <li><strong>Select imagery</strong> Show a imagery selection dialog, if multiple layers have been used, a most-recently-used list will be displayed above this menu entry, allowing quick layer switching.</li>
+<li><strong>Update tiles in view</strong> remove the tiles that are being displayed from the cache allowing them to be updated. Note: overzooming, that is viewing tiles at a higher zoom level then their nominal zoom value, will lead to tiles from a lower zoom level being removed. For example Mapbox Vector tiles typically have a maximum zoom of 14, but you will nearly always be viewing them at a higher zoom.</li>
 <li><strong>Flush tile cache</strong> Flush the on device cache for this layer.</li>
 <li><strong>Background properties</strong> Set contrast of layer.</li>
 <li><strong>Info</strong> Display information on the currently selected imagery.</li>
@@ -101,12 +102,13 @@
 </li>
 <li>Data layer:
 <ul>
-<li><strong>Configure...</strong> Select the API instance, configure the URLs including read-only sources and authentication method. Basic Authentication, OAuth 1.0a and OAuth 2 are supported, however the API instance on openstreetmap.org only supports OAuth 2 since July 2024.</li>
+<li><strong>Configure...</strong> Select the API instance, configure the URLs including read-only sources and authentication method. See <a href="Advanced%20preferences.md#OSM-API-URL">OSM API URL</a></li>
 </ul>
 </li>
 <li>Data and Tasks layers:
 <ul>
 <li><strong>Info</strong> Display some information on the contents.</li>
+<li><strong>Auto-prune</strong> Enable/disable automatically pruning of in memory data. Default: <em>on</em>.</li>
 <li><strong>Prune</strong> remove downloaded data from storage that is outside of the current screen and unmodified.</li>
 </ul>
 </li>
@@ -125,7 +127,7 @@
 <li><strong>Add GeoJSON layer</strong> Loads a GeoJSON layer from a file in to a new GeoJSON layer, this will load CVS files with suitable (WGS84) longitude and latitude columns and write a converted file to the Vespucci directory.</li>
 <li><strong>Add background imagery layer</strong> Adds a tile based imagery layer from the internal configuration, which can be from ELI or JOSM, or a custom imagery layer.</li>
 <li><strong>Add overlay imagery layer</strong> As above but assumes that the layer is partially transparent.</li>
-<li><strong>Enable photo layer</strong> Enables the photo layer this will display clickable icons for photos that will start an internal or external viewer. Which photos can be displayed depends strongly on your Android version and settings <a href="Advanced%20preferences.md">Advanced preferences</a>.</li>
+<li><strong>Enable photo layer</strong> Enables the photo layer this will display clickable icons for photos that will start an internal or external viewer. Which photos can be displayed depends strongly on your Android version and settings <a href="Advanced%20preferences.md#add-images-to-the-mediastore">Advanced preferences</a>.</li>
 <li><strong>Enable bookmark layer</strong> Enables a layer displaying saved bookmarks.</li>
 <li><strong>Enable Mapillary layer</strong> Enables the Mapillay layer.</li>
 <li><strong>Enable Panoramax layer</strong> Enables the Panoramax layer.</li>
@@ -192,7 +194,7 @@
 <p>Select either the transfer icon <img src="../images/menu_transfer.png" alt="Transfer" /> or the &quot;Transfer&quot; menu item. This will display seven or eight options:</p>
 <ul>
 <li><strong>Upload data to OSM server...</strong> - review and upload changes to OpenStreetMap, the entry is disabled if you haven't changed anything yet, or there is no network available. See <a href="Uploading%20your%20changes.md">Uploading your changes</a> for more information <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
-<li><strong>Review changes...</strong> - review current changes, and potentially select them for upload.</li>
+<li><strong>Review changes...</strong> - review current changes, and potentially select them for upload. The selection is persistent, that means you can select an OSM element for upload exit the modal and it will be re-selected. Note: if you select an element that requires other elements to be uploaded with them, they will be selected too, and the same if you de-select such an object the dependent elements will be de-selected too. If you select the <a href="Advanced%20preferences.md#enable_split_window_review_screen">Enable split window review screen</a> option the changes will be shown in a separate window, clicking on an entry with select and zoom to the element on map, the info button will show the regular information modal.</li>
 <li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity)</em></li>
 <li><strong>Clear and download current view</strong> - clear any data in memory and then download the area visible on the screen <em>(requires network connectivity)</em></li>
 <li><strong>Query Overpass...</strong> - run a query against a Overpass API server, see <a href="#overpass_queries">Overpass queries</a>. <em>(requires network connectivity)</em></li>
@@ -204,7 +206,7 @@
 <li><strong>File...</strong> - saving and loading OSM data to/from on device files. <a id="file"></a>
 <ul>
 <li><strong>Export changes to OSC file</strong> - write a &quot;.osc&quot; format file containing the current edits</li>
-<li><strong>Apply changes from OSC file</strong> - read a &quot;.osc&quot; format file and apply its contents</li>
+<li><strong>Apply changes from OSC file</strong> - read a &quot;.osc&quot; format file and apply its contents, this will attempt to download any missing way nodes</li>
 <li><strong>Save to JOSM file...</strong> - save as a JOSM compatible XML format file</li>
 <li><strong>Read from JOSM file...</strong> - read a JOSM compatible XML format file, this supports JOSM, regular OSM and Overpass API (if metadata is included) format XML files. The files must be node-way-relation ordered.</li>
 <li><strong>Read from PBF file...</strong> - read OSM data from a PBF format file</li>
@@ -250,11 +252,12 @@
 <li><strong>Calibrate pressure sensor...</strong> - calibrate the conversion from barometric pressure to elevation.</li>
 <li><strong>Install EGM</strong> - install a gravitational model of the earth, required for getting height data from the devices GPS. Alternatively you can switch to NMEA input in the &quot;Advanced preferences&quot;.</li>
 <li><strong>Remove EGM</strong> - remove the EGM.</li>
-<li><strong>Import data style...</strong> - import an additional data style from an XML file or from a ZIP archive containing an XML file and icons. This overwrites existing style files with the same name.</li>
 <li><strong>Load keys from file...</strong> - load additional keys, for example API keys for background imagery, or other OAuth keys from a file.</li>
+<li><strong>Export configuration...</strong> - export configuration data to a file.</li>
+<li><strong>Import configuration...</strong> - import configuration data from a file. Note that importing database data from a more recent version is not supported.</li>
 <li><strong>JS Console</strong> - start the JavaScript console for scripting the application. Note that this needs to be enabled in the &quot;Advanced preferences&quot;.</li>
 </ul>
-<h3 id="find-find"><img src="../images/ic_menu_search_holo_light.png" alt="Find" /> Find</h3>
+<h3 id="find-place-find"><img src="../images/ic_menu_search_holo_light.png" alt="Find place..." /> Find</h3>
 <p>Search for a location and pan to it with the OpenStreetMap Nominatim or Photon service <em>(requires network connectivity)</em></p>
 <h3 id="search-for-objects">Search for objects</h3>
 <p>Search for OSM objects in the loaded data using JOSMs search/filter expressions. See <a href="http://vespucci.io/tutorials/object_search/">JOSM filter documentation</a> for more information. Besides searching in the loaded data alternatively you can create a Overpass API query and use that to download data.</p>
@@ -274,6 +277,10 @@
 <p>Start the on device help browser.</p>
 <h3 id="authors-and-licenses">Authors and licenses</h3>
 <p>Some information on the licence of Vespucci itself, specific components and a list of all known contributors to the app.</p>
+<h3 id="privacy">Privacy</h3>
+<p>Display the privacy policy.</p>
+<h3 id="provide-feedback">Provide feedback</h3>
+<p>Open an issue on the github software repository. If you don't login to github a semi-anonymous issue will be created, this is not ideal as you will not be notified of responses to the issue. See <em><a href="Property%20editor.md#provide-preset-feedback">Provide preset feedback</a></em> for the same function for the default preset.</p>
 <h3 id="debug">Debug</h3>
 <p>Internal information on the app and a button to force submission of a crash dump.</p>
 

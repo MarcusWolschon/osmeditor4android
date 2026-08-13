@@ -43,6 +43,12 @@ The following operations can be performed on selected tags
  * Copy (system) - copy the tag(s) to the system clipboard in a text representation.
  * Create custom preset - select the tags you want to include, then select "Create custom preset" from the menu and enter a name when you are prompted. The new preset can then be found in the "Auto-preset" group and will be added to the MRU list once applied. The function does not include the values for tags that have _name_ semantics, and will set the current value for combo and multi-select fields as the default value. Note that preset matching will not change if you add a tag with a specific value and matching for that tag is set to only match on the key, or not at all.
 
+Once a row is selected, this and the _Relations_ and _Members_ tab offer menu items 
+
+ * Select all - select all rows
+ * Deselect all - deselect all rows terminating the selection mode
+ * Invert selection - invert the current selection
+
 #### Special auto complete behaviour
 
 If the key of a field is "addr:street" a list of the nearest roads in the downloaded data will be provided.
@@ -101,11 +107,12 @@ Start the on device help browser.
 
 ## Relations Tab
 
-Display of the relations the edited object is a member of and the role in the relation.
+Display of the relations the edited object is a member of and the role in the relation. A long press on the description field will drill "up" and a new property editor will be opened for the relation. Note: during such a drill down operation the property editors are stacked, if you close a stacked property editor you will be returned to the previous one and so on.
 
 The following operation can be performed on selected relations.
 
- * Delete - remove the edited object from this relation.
+ * _Info_ - show a screen with some detailed information on the selected object. *(only available if a single object is selected)*
+ * _Delete_ - remove the edited object from this relation.
 
 ### ![Revert](../images/undolist_undo.png) Revert
 
@@ -129,6 +136,7 @@ Individual member entries can be moved by _drag and drop_ (long press followed b
 
 The following operation can be performed on selected relation members.
 
+ * _Info_ show a screen with some detailed information on the selected object. *(only available if a single downloaded object is selected)*
  * _Delete_ - remove the object from this (the edited) relation.
  * _Move up_ - move the member up one position.
  * _Move down_ - move the member down one position.
@@ -168,7 +176,11 @@ Go to the top of the preset hierarchy.
 
 Go up one level.
 
-### ![Help](../images/menu_help.png) Help
+### Provide preset feedback
+
+Open an issue on the github software repository for the default preset. If you don't login to github a semi-anonymous issue will be created, this is not ideal as you will not be notified of responses to the issue. See _[Provide feedback](Main%20map%20display.md#provide-feedback)_ for the same function for the software.
+
+### ![Help](../images/menu_help.png) Preset help
 
 Start the on device help browser.
 

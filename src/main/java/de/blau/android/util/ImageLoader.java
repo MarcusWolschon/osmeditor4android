@@ -135,4 +135,23 @@ public abstract class ImageLoader implements Serializable {
     public void clearSelection() {
         // empty
     }
+
+    /**
+     * Indicate if we support uploading
+     * 
+     * @return true if we support uploading
+     */
+    public boolean supportsUpload() {
+        return false;
+    }
+
+    /**
+     * Upload the displayed image
+     * 
+     * @param caller the calling Activity
+     * @param uri the Uri or other reference to the photo
+     */
+    public void upload(@NonNull FragmentActivity caller, @NonNull String uri) {
+        // empty
+    }
 }

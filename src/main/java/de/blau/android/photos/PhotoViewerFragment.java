@@ -26,6 +26,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.activity.result.IntentSenderRequest;
@@ -53,6 +54,7 @@ import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.ImageLoader;
 import de.blau.android.util.ImagePagerAdapter;
 import de.blau.android.util.OnPageSelectedListener;
+import de.blau.android.util.SavingHelper;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.SizedDynamicDialogFragment;
 import de.blau.android.util.ThemeUtils;
@@ -76,12 +78,14 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicDia
     public static final String PHOTO_LOADER_KEY = "loader";
     public static final String WRAP_KEY         = "wrap";
 
-    private static final int MENUITEM_BACK    = 0;
-    private static final int MENUITEM_SHARE   = 1;
-    private static final int MENUITEM_GOTO    = 2;
-    private static final int MENUITEM_INFO    = 3;
-    private static final int MENUITEM_DELETE  = 4;
-    private static final int MENUITEM_FORWARD = 5;
+    private static final int MENUITEM_BACK     = 0;
+    private static final int MENUITEM_SHARE    = 1;
+    private static final int MENUITEM_GOTO     = 2;
+    private static final int MENUITEM_INFO     = 3;
+    private static final int MENUITEM_DELETE   = 4;
+    private static final int MENUITEM_FORWARD  = 5;
+    private static final int MENUITEM_UPLOAD   = 6;
+    private static final int MENUITEM_OVERFLOW = 7;
 
     private List<T> photoList = null;
 
@@ -316,6 +320,16 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicDia
             return true;
         }
 
+        @Override
+        public boolean supportsUpload() {
+            return true;
+        }
+
+        @Override
+        public void upload(@NonNull FragmentActivity caller, @NonNull String uri) {
+            UploadImage.dialog(caller, App.getPreferences(caller), new ImageAction(ImageAction.Action.UPLOAD), Uri.parse(uri));
+        }
+
     };
 
     /**
@@ -393,7 +407,8 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicDia
             wrap = getArguments().getBoolean(WRAP_KEY, true);
         } else {
             Log.d(DEBUG_TAG, "Initializing from saved state");
-            photoList = Util.getSerializeable(savedInstanceState, PhotoViewerFragment.PHOTO_LIST_KEY, ArrayList.class);
+            String photoListFilename = savedInstanceState.getString(PhotoViewerFragment.PHOTO_LIST_KEY);
+            photoList = new SavingHelper<ArrayList<T>>().load(getContext(), photoListFilename, true);
             startPos = savedInstanceState.getInt(START_POS_KEY);
             photoLoader = Util.getSerializeable(savedInstanceState, PHOTO_LOADER_KEY, ImageLoader.class);
             wrap = savedInstanceState.getBoolean(WRAP_KEY);
@@ -433,9 +448,21 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicDia
             menu.add(Menu.NONE, MENUITEM_INFO, Menu.NONE, R.string.menu_information).setIcon(R.drawable.outline_info_white_48dp)
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
-        if (photoLoader.supportsDelete()) {
-            menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete).setIcon(R.drawable.ic_delete_forever_white_36dp)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        if (photoLoader.supportsUpload() && photoLoader.supportsDelete() && photoLoader.supportsInfo()) {
+            SubMenu overflow = menu.addSubMenu(Menu.NONE, MENUITEM_OVERFLOW, Menu.NONE, R.string.abc_action_menu_overflow_description)
+                    .setIcon(R.drawable.ic_more_vert_white_36dp);
+            overflow.getItem().setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            overflow.add(Menu.NONE, MENUITEM_UPLOAD, Menu.NONE, R.string.photo_viewer_upload);
+            overflow.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete);
+        } else {
+            if (photoLoader.supportsUpload()) {
+                menu.add(Menu.NONE, MENUITEM_UPLOAD, Menu.NONE, R.string.photo_viewer_upload).setIcon(R.drawable.outline_import_export_white_36)
+                        .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            }
+            if (photoLoader.supportsDelete()) {
+                menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete).setIcon(R.drawable.ic_delete_forever_white_36dp)
+                        .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            }
         }
         itemForward = menu.add(Menu.NONE, MENUITEM_FORWARD, Menu.NONE, R.string.forward).setIcon(R.drawable.ic_arrow_forward_white_36dp);
         itemForward.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
@@ -538,6 +565,11 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicDia
                     photoLoader.delete(caller, getUri(pos).toString());
                 }
                 break;
+            case MENUITEM_UPLOAD:
+                if (loaderPresent) {
+                    photoLoader.upload(caller, getUri(pos).toString());
+                }
+                break;
             default:
                 // do nothing
             }
@@ -551,13 +583,22 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicDia
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.d(DEBUG_TAG, "onSaveInstanceState");
-        outState.putSerializable(PHOTO_LIST_KEY, (ArrayList<T>) photoList);
+        String listFilename = photoListFilename();
+        new SavingHelper<ArrayList<T>>().save(getContext(), listFilename, new ArrayList<>(photoList), true);
+        outState.putString(PhotoViewerFragment.PHOTO_LIST_KEY, listFilename);
         // there seems to be a situation in which this is called before viewPager is created
         outState.putInt(START_POS_KEY, viewPager != null ? viewPager.getCurrentItem() : 0);
         if (!photoLoader.equals(defaultLoader)) {
             outState.putSerializable(PhotoViewerFragment.PHOTO_LOADER_KEY, photoLoader);
         }
         outState.putBoolean(WRAP_KEY, wrap);
+    }
+
+    /**
+     * @return the file name under which we save the list
+     */
+    String photoListFilename() {
+        return photoLoader.getClass().getCanonicalName() + ".res";
     }
 
     /**

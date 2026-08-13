@@ -1,0 +1,296 @@
+package de.blau.android.review;
+
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog.Builder;
+import androidx.appcompat.app.AppCompatDialog;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.ViewGroupCompat;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.AdapterDataObserver;
+import de.blau.android.App;
+import de.blau.android.Main;
+import de.blau.android.R;
+import de.blau.android.Selection;
+import de.blau.android.contract.FileExtensions;
+import de.blau.android.osm.OsmElement;
+import de.blau.android.util.ACRAHelper;
+import de.blau.android.util.ConfigurationChangeAwareActivity;
+import de.blau.android.util.SavingHelper;
+import de.blau.android.util.ScrollingLinearLayoutManager;
+import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
+
+/**
+ * Dialog for review of changes (cut down version of ReviewAndUpload
+ *
+ */
+public class Review extends AbstractReviewDialog {
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Review.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Review.class.getSimpleName().substring(0, TAG_LEN);
+
+    public static final String TAG = "fragment_review";
+
+    static final String STATE_FILENAME = "review_state" + "." + FileExtensions.RES;
+
+    private View         layout;
+    private RecyclerView listView;
+    private Set<String>  checked;
+
+    /**
+     * Instantiate and show the dialog
+     * 
+     * @param activity the calling FragmentActivity
+     */
+    public static void showDialog(@NonNull FragmentActivity activity) {
+        dismissDialog(activity);
+
+        FragmentManager fm = activity.getSupportFragmentManager();
+        Review reviewDialogFragment = newInstance();
+        try {
+            reviewDialogFragment.show(fm, TAG);
+        } catch (IllegalStateException isex) {
+            Log.e(DEBUG_TAG, "showDialog", isex);
+            ACRAHelper.nocrashReport(isex, isex.getMessage());
+        }
+    }
+
+    /**
+     * Dismiss the dialog
+     * 
+     * @param activity the calling FragmentActivity
+     */
+    public static void dismissDialog(@NonNull FragmentActivity activity) {
+        de.blau.android.dialogs.Util.dismissDialog(activity, TAG);
+    }
+
+    /**
+     * Create a new instance of this Fragment
+     * 
+     * @return a new ConfirmUpload instance
+     */
+    @NonNull
+    private static Review newInstance() {
+        Review f = new Review();
+        Bundle args = new Bundle();
+        args.putString(TAG_KEY, TAG);
+        f.setArguments(args);
+        f.setShowsDialog(true);
+        return f;
+    }
+
+    private OnCheckedChangeListener selectAllListener = (CompoundButton buttonView, boolean isChecked) -> {
+        final ValidatorArrayAdapter adapter = (ValidatorArrayAdapter) listView.getAdapter();
+        for (ChangedElement e : adapter.elements) {
+            e.selected = isChecked;
+        }
+        adapter.notifyDataSetChanged();
+    };
+
+    @NonNull
+    @Override
+    public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
+        FragmentActivity activity = getActivity();
+        // inflater needs to be got from a themed view or else all our custom stuff will not style correctly
+        final LayoutInflater inflater = ThemeUtils.getLayoutInflater(activity);
+
+        Builder builder = ThemeUtils.getAlertDialogBuilder(activity);
+        builder.setTitle(R.string.review_changes_title);
+
+        layout = inflater.inflate(R.layout.review_dialog, null);
+
+        builder.setView(layout);
+
+        listView = layout.findViewById(R.id.upload_changes);
+        ScrollingLinearLayoutManager layoutManager = new ScrollingLinearLayoutManager(getActivity(), 10000);
+        listView.setLayoutManager(layoutManager);
+
+        CheckBox checkbox = layout.findViewById(R.id.checkBoxAll);
+        checkbox.setOnCheckedChangeListener(selectAllListener);
+
+        builder.setNegativeButton(R.string.Done, null);
+        builder.setNeutralButton(R.string.review_upload_selected, (DialogInterface dialog, int which) -> upload(activity));
+
+        AppCompatDialog dialog = builder.create();
+        checked = new SavingHelper<HashSet<String>>().load(getContext(), STATE_FILENAME, false);
+        dialog.setOnShowListener((DialogInterface d) -> ((AlertDialog) d).getButton(DialogInterface.BUTTON_NEUTRAL).setEnabled(!Util.isEmpty(checked)));
+
+        return dialog;
+    }
+
+    /**
+     * @param activity
+     */
+    private void upload(FragmentActivity activity) {
+        List<OsmElement> toUpload = new ArrayList<>();
+        for (ChangedElement e : ((ValidatorArrayAdapter) listView.getAdapter()).elements) {
+            if (e.selected) {
+                toUpload.add(e.element);
+            }
+        }
+        ReviewAndUpload.showDialog(activity, App.getDelegator().addRequiredElements(activity, toUpload));
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        if (getShowsDialog()) {
+            return null;
+        }
+        layout = inflater.inflate(R.layout.review_fragment, null);
+
+        listView = layout.findViewById(R.id.upload_changes);
+
+        ScrollingLinearLayoutManager layoutManager = new ScrollingLinearLayoutManager(getActivity(), 10000);
+        listView.setLayoutManager(layoutManager);
+
+        CheckBox checkbox = layout.findViewById(R.id.checkBoxAll);
+        checkbox.setOnCheckedChangeListener(selectAllListener);
+
+        final Button positive = (Button) layout.findViewById(R.id.btn_positive);
+        positive.setOnClickListener((View v) -> upload(getActivity()));
+        checked = new SavingHelper<HashSet<String>>().load(getContext(), STATE_FILENAME, false);
+        positive.setEnabled(!Util.isEmpty(checked));
+        final Button neutral = (Button) layout.findViewById(R.id.btn_neutral);
+        neutral.setOnClickListener((View v) -> createChangesView());
+        ViewGroupCompat.installCompatInsetsDispatch(layout);
+        ViewCompat.setOnApplyWindowInsetsListener(layout, ConfigurationChangeAwareActivity.onApplyWindowInsetslistener);
+        return layout;
+    }
+
+    @Override
+    protected void createChangesView() {
+        addChangesToView(getActivity(), listView, null, DEFAULT_COMPARATOR, getArguments().getString(TAG_KEY), R.layout.changes_list_item_with_checkbox,
+                (OsmElement e) -> checked != null && checked.contains(getElementKey(e)), () -> {
+                    ValidatorArrayAdapter adapter = (ValidatorArrayAdapter) listView.getAdapter();
+                    adapter.registerAdapterDataObserver(new ListObserver());
+                });
+    }
+
+    @Override
+    protected void onClickTextAction(@NonNull final FragmentActivity activity, @NonNull final OsmElement e, String parentTag) {
+        if (activity instanceof Main) {
+            super.onClickTextAction(activity, e, parentTag);
+            return;
+        }
+        // select element on map
+        Intent intent = new Intent(activity, Main.class);
+        intent.setAction(Main.ACTION_SELECT);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        Selection selection = new Selection();
+        selection.add(e);
+        intent.putExtra(Selection.SELECTION_KEY, selection.getIds());
+        activity.startActivity(intent);
+    }
+
+    @Override
+    protected void onClickInfoAction(@NonNull final FragmentActivity activity, @NonNull final OsmElement e, String parentTag) {
+        super.onClickTextAction(activity, e, parentTag);
+    }
+
+    @Override
+    public void onCancel(DialogInterface dialog) {
+        super.onCancel(dialog);
+        saveState();
+    }
+
+    /**
+     * Save the selection state
+     */
+    private void saveState() {
+        Log.d(DEBUG_TAG, "Saving selection state");
+        HashSet<String> state = new HashSet<>();
+        for (ChangedElement e : ((ValidatorArrayAdapter) listView.getAdapter()).elements) {
+            if (e.selected) {
+                state.add(getElementKey(e.element));
+            }
+        }
+        new SavingHelper<HashSet<String>>().save(getContext(), STATE_FILENAME, state, false);
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        saveState();
+    }
+
+    private final class ListObserver extends AdapterDataObserver {
+        @Override
+        public void onChanged() {
+            final ValidatorArrayAdapter validatorArrayAdapter = (ValidatorArrayAdapter) listView.getAdapter();
+            final ChangedElement[] changedElements = validatorArrayAdapter.elements;
+            final int childCount = listView.getChildCount();
+            for (int i = 0; i < childCount; i++) {
+                CheckBox checkBox = (CheckBox) listView.getChildAt(i).findViewById(R.id.checkBox1);
+                if (checkBox != null) {
+                    checkBox.setOnCheckedChangeListener(null);
+                    checkBox.setChecked(changedElements[i].selected);
+                    checkBox.setOnCheckedChangeListener(validatorArrayAdapter.getOnCheckedChangeListener(i));
+                }
+            }
+
+            boolean somethingSelected = false;
+            boolean somethingNotSelected = false;
+            for (ChangedElement e : changedElements) {
+                if (e.selected && !somethingSelected) {
+                    somethingSelected = true;
+                    continue;
+                }
+                if (!e.selected && !somethingNotSelected) {
+                    somethingNotSelected = true;
+                }
+            }
+
+            final CheckBox checkBox = (CheckBox) (getShowsDialog() ? requireDialog().findViewById(R.id.checkBoxAll) : layout.findViewById(R.id.checkBoxAll));
+            if (somethingNotSelected && checkBox.isChecked()) {
+                checkBox.setOnCheckedChangeListener(null);
+                checkBox.setChecked(!somethingNotSelected);
+                checkBox.setOnCheckedChangeListener(selectAllListener);
+            }
+            if (getShowsDialog()) {
+                ((AlertDialog) requireDialog()).getButton(DialogInterface.BUTTON_NEUTRAL).setEnabled(somethingSelected);
+            } else {
+                ((Button) layout.findViewById(R.id.btn_positive)).setEnabled(somethingSelected);
+            }
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.d(DEBUG_TAG, "onSaveInstanceState");
+        saveState();
+    }
+
+    /**
+     * Get an unique key for a specific version of an OsmElement
+     * 
+     * @param e the element
+     * @return an unique string
+     */
+    @NonNull
+    private String getElementKey(@NonNull OsmElement e) {
+        return e.getName() + Long.toString(e.getOsmId()) + "_" + Long.toString(e.getOsmVersion());
+    }
+}

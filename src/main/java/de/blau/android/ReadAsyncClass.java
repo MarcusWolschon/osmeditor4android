@@ -78,7 +78,7 @@ public abstract class ReadAsyncClass extends ExecutorTask<Boolean, Void, AsyncRe
             } catch (OsmException e) {
                 Log.d(DEBUG_TAG, "onPostExecute got " + e.getMessage());
             }
-            map.getDataStyle().updateStrokes(App.getLogic().strokeWidth(viewBox.getWidth()));
+            map.getDataStyleManager().updateStrokes(App.getLogic().strokeWidth(viewBox.getWidth()));
         }
         int code = result.getCode();
         if (code != 0) {

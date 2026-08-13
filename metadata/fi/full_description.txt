@@ -1,0 +1,13 @@
+Vespucci on monipuolinen avoimen lähdekoodin työkalu OpenStreetMap-kartan muokkaamiseen; sitä ei ole tarkoitettu kartan katseluun eikä navigointiin. Vespuccin käyttöä varten tarvitset <a href="http://www.openstreetmap.org/">OpenStreetMap-tunnuksen</a>.
+
+Voit ladata karttadataa haluamaltasi alueelta ja muokata karttaa. Muokkaukset voi lähettää suoraan takaisin OSM:n palvelimille.
+
+Vahingossa tehdyt muutokset voi perua, ja kaikki muutokset näytetään tarkistuksen vuoksi ennen niiden lähettämistä.  Tägien automaattinen täydennys, JOSM-yhteensopivat esivalinnat, linkit karttapiirteiden ohjesivuille ja automaattitäydennys lähistön kadunnimistä auttavat oikeiden tägien valinnassa.
+
+Suosittelemme ottamaan Vespuccin automaattiset päivitykset pois käytöstä, jotta voit lähettää muokkauksesi talteen ennen sovelluksen päivittämistä.
+
+Lisätietoja ja käyttöohjeet voit lukea sivustolta <a href="http://vespucci.io/">vespucci.io</a> sekä sovelluksen omasta ohjetoiminnosta.
+
+Ethän ilmoita ongelmista tai lähetä tukipyyntöjä tänne; lue <a href="http://vespucci.io/tutorials/faq/#why-cant-you-provide-technical-support-on-the-google-play-store-review-section">miksi emme voi antaa tukea emmekä käsitellä vikailmoituksia Play-kaupan arviointi- ja arvosteluosiossa</a>. Voit <a href="http://vespucci.io/help/en/Introduction/#reporting-problems">ilmoittaa ongelmista</a> sovelluksesta käsin ilman github-tiliä tai mennä suoraan <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">virheenseurantaan</a>.
+
+OpenStreetMap, OSM ja suurennuslasilogo ovat <a href="https://osmfoundation.org/">OpenStreetMap-säätiön</a> tavaramerkkejä. OpenStreetMap-säätiö ei tue Vespucci-sovellusta eikä ole mitenkään kytköksissä siihen. 

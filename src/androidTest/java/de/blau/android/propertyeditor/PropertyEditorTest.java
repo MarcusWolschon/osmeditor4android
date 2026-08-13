@@ -31,6 +31,7 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.os.RemoteException;
 import android.view.KeyEvent;
+import android.widget.CheckBox;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -113,7 +114,7 @@ public class PropertyEditorTest {
         System.out.println("mock api url " + mockBaseUrl.toString());
         prefDB = new AdvancedPrefDatabase(context);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null), false);
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null), false, false);
         prefDB.selectAPI("Test");
         prefDB.resetCurrentServer();
         prefs = new Preferences(context);
@@ -782,7 +783,7 @@ public class PropertyEditorTest {
         assertTrue(found);
         found = TestUtils.clickText(device, true, getTranslatedPresetItemName(main, "Charging Station"), true, false);
         assertTrue(found);
-        TestUtils.clickAwayTip(device, main);
+        TestUtils.clickAwayTip(device, main, 5000);
         UiObject2 vehicles = null;
         try {
             vehicles = getField(device, "Types of vehicles which can be charged", 1);
@@ -1018,6 +1019,57 @@ public class PropertyEditorTest {
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         assertTrue(w.hasTag("lanes", "0"));
     }
+    
+    /**
+     * Select way, delete all tags in property editor
+     */
+    // @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void way3() {
+        final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue("capabilities1");
+        mockServer.enqueue("download1");
+        Logic logic = App.getLogic();
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
+        try {
+            signal.await(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+        main.getMap().getDataLayer().setVisible(true);
+        TestUtils.unlock(device);
+        TestUtils.zoomToLevel(device, main, 23);
+        TestUtils.clickAtCoordinates(device, main.getMap(), 8.3848461, 47.3899166, true);
+        TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
+        assertTrue(TestUtils.clickText(device, false, "↖ Kindhauserstrasse", false, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        Way w = App.getLogic().getSelectedWay();
+        assertNotNull(w);
+
+        assertTrue(TestUtils.clickMenuButton(device, "Properties", false, true));
+        waitForPropertyEditor();
+        assertTrue(TestUtils.findText(device, false, "Kindhauserstrasse"));
+      
+        switchToDetailsTab();
+      
+        UiObject o = TestUtils.findObjectWithResourceId(device, false,  device.getCurrentPackageName() + ":id/header_tag_selected");
+        try {
+            o.click();
+        } catch (UiObjectNotFoundException e) {
+            fail();
+        }
+        TestUtils.sleep();
+        try {
+            assertTrue(o.isChecked());
+        } catch (UiObjectNotFoundException e) {
+            fail();
+        }
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.delete), false, false));
+        
+        TestUtils.clickHome(device, true);
+        
+        assertTrue(w.getTags().isEmpty());
+    }
 
     /**
      * Select a node set date
@@ -1209,7 +1261,7 @@ public class PropertyEditorTest {
         TestUtils.clickHome(device, false);
 
         // empty relation dialog
-        assertTrue(TestUtils.findText(device, false, main.getString(R.string.empty_relation_title), 5000));
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.empty_relation_title), 10000));
         assertTrue(r.getMembers().isEmpty());
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.delete), true));
         assertEquals(OsmElement.STATE_DELETED, r.getState());
@@ -1503,7 +1555,7 @@ public class PropertyEditorTest {
     }
 
     /**
-     * Select a relation move member up 2 positions and then down one
+     * Select a relation download member 
      */
     @Test
     public void relationMemberDownload() {
@@ -1535,6 +1587,8 @@ public class PropertyEditorTest {
         selectMember("#35479120");
         clickButtonOrOverflowMenu(main.getString(R.string.download));
 
+        assertTrue(TestUtils.findText(device, true, "highway=service #35479120", 10000, false));
+        
         // exit property editor
         TestUtils.clickUp(device);
         TestUtils.clickHome(device, false);

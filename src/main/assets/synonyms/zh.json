@@ -214,12 +214,6 @@
 "同性戀酒吧",
 "LGBTQ+ 酒吧"
 ],
-"amenity/bbq":[
-"烤爐",
-"烤肉架",
-"烤肉爐",
-"烤架"
-],
 "amenity/bench":[
 "座椅",
 "長板凳",
@@ -300,6 +294,13 @@
 "咖啡店",
 "咖啡館"
 ],
+"amenity/cafe/teahouse":[
+"茶馆",
+"茶楼",
+"茶舍",
+"茶社",
+"茶室"
+],
 "amenity/car_pooling":[
 "拼车站"
 ],
@@ -326,14 +327,6 @@
 "充電站",
 "充电站",
 "充电桩"
-],
-"amenity/childcare":[
-"托管站",
-"託兒所／幼兒護理",
-"托管机构",
-"托儿所",
-"小饭桌",
-"学前班"
 ],
 "amenity/cinema":[
 "电影院",
@@ -369,12 +362,6 @@
 "晷影",
 "晷针",
 "日晷"
-],
-"amenity/college":[
-"學院",
-"學院用地",
-"學院範圍",
-"學院校地"
 ],
 "amenity/community_centre":[
 "社區會堂",
@@ -508,9 +495,6 @@
 "法院",
 "法庭"
 ],
-"amenity/coworking_space":[
-"共同工作空間,共用工作空間"
-],
 "amenity/crematorium":[
 "crematorium",
 "火葬場"
@@ -560,9 +544,6 @@
 "一般科",
 "家醫科",
 "家庭醫學科"
-],
-"amenity/doctors/gynaecology":[
-"婦產科"
 ],
 "amenity/doctors/haematology":[
 "血液科"
@@ -653,12 +634,6 @@
 "amenity/driver_training":[
 "駕訓場",
 "駕駛訓練場"
-],
-"amenity/driving_school":[
-"驾培机构",
-"駕駛學校",
-"駕駛訓練班",
-"駕訓班"
 ],
 "amenity/embassy":[
 "使馆"
@@ -855,28 +830,8 @@
 "卡拉 OK 店",
 "卡拉 ok 店"
 ],
-"amenity/kindergarten":[
-"托兒所 / 幼兒園",
-"托兒所 / 幼兒園範圍",
-"托兒所 / 幼稚園用地",
-"托兒所 / 幼稚園範圍",
-"托兒所 / 幼兒園校地",
-"托兒所 / 幼稚園校地",
-"托兒所 / 幼稚園"
-],
 "amenity/kneipp_water_cure":[
 "水療設施"
-],
-"amenity/language_school":[
-"学校",
-"语言",
-"语校",
-"外语学校",
-"外文",
-"外文学校",
-"语文",
-"外语",
-"語言學校"
 ],
 "amenity/lavoir":[
 "洗衣場",
@@ -949,9 +904,6 @@
 "amenity/motorcycle_rental":[
 "機車出租",
 "摩托車出租"
-],
-"amenity/music_school":[
-"音樂學校"
 ],
 "amenity/nightclub":[
 "夜店",
@@ -1152,12 +1104,6 @@
 "amenity/post_office":[
 "邮局",
 "郵局"
-],
-"amenity/prep_school":[
-"辅导班",
-"辅导学校",
-"培训班",
-"补习班"
 ],
 "amenity/prison":[
 "强制",
@@ -1407,12 +1353,6 @@
 "amenity/sanitary_dump_station":[
 "露營車廁所排污"
 ],
-"amenity/school":[
-"中小學校地",
-"中小學",
-"中小學範圍",
-"中小學用地"
-],
 "amenity/shelter":[
 "遮雨棚",
 "亭子",
@@ -1604,12 +1544,6 @@
 "手推車停放區",
 "手推车停放区",
 "購物車停放區"
-],
-"amenity/university":[
-"大學用地",
-"大學範圍",
-"大學",
-"大學校地"
 ],
 "amenity/vacuum_cleaner":[
 "吸塵器清理站"
@@ -2272,9 +2206,6 @@
 "宿舍",
 "學寮"
 ],
-"building/entrance":[
-"入口／出口"
-],
 "building/farm":[
 "农家",
 "农庄",
@@ -2481,6 +2412,20 @@
 ],
 "cemetery/sector":[
 "公墓分區"
+],
+"climbing/crag":[
+"攀爬",
+"攀岩",
+"攀岩点",
+"峭壁"
+],
+"climbing/route":[
+"攀爬",
+"攀岩",
+"攀爬路线"
+],
+"climbing/route_bottom":[
+"攀岩路線起點"
 ],
 "club":[
 "俱樂部"
@@ -2741,12 +2686,6 @@
 "自動心臟去顫器 (aed)",
 "自動心臟去顫器 (AED)"
 ],
-"emergency/designated":[
-"緊急通道"
-],
-"emergency/destination":[
-"緊急通道"
-],
 "emergency/disaster_response":[
 "民間災害應變站"
 ],
@@ -2797,18 +2736,9 @@
 "emergency/mountain_rescue":[
 "山難救助單位"
 ],
-"emergency/no":[
-"非緊急通行使用"
-],
-"emergency/official":[
-"官方緊急通行使用"
-],
 "emergency/phone":[
 "緊急電話",
 "紧急电话"
-],
-"emergency/private":[
-"私人緊急通行使用"
 ],
 "emergency/siren":[
 "警報"
@@ -2821,9 +2751,6 @@
 ],
 "emergency/water_tank":[
 "消防儲水槽"
-],
-"emergency/yes":[
-"緊急通行使用"
 ],
 "entrance":[
 "入口 / 出口"
@@ -3395,9 +3322,6 @@
 "道路",
 "路"
 ],
-"highway/motorway_junction":[
-"高速公路交流道 / 出口"
-],
 "highway/motorway_link":[
 "高速公路匝道"
 ],
@@ -3619,14 +3543,24 @@
 "環形迴車道",
 "環形迴轉道"
 ],
-"highway/unclassified":[
-"一般/未分級道路"
-],
 "historic":[
 "古蹟",
 "歷史遺跡",
 "史蹟",
 "历史遗迹"
+],
+"historic/aircraft":[
+"老",
+"货机",
+"旧飞机",
+"客机",
+"古",
+"古代",
+"军机",
+"历史",
+"旧",
+"飞机",
+"固定翼"
 ],
 "historic/archaeological_site":[
 "考古遗址",
@@ -3712,6 +3646,12 @@
 "historic/memorial":[
 "紀念物",
 "纪念馆"
+],
+"historic/memorial/blue_plaque-GB-IE":[
+"蓝色",
+"牌匾",
+"藍色紀念牌",
+"蓝牌"
 ],
 "historic/memorial/plaque":[
 "紀念牌"
@@ -3923,16 +3863,6 @@
 "在建",
 "建设区域",
 "建造"
-],
-"landuse/education":[
-"学校",
-"校园",
-"教学",
-"教育用地",
-"教育",
-"高中园",
-"园区",
-"校园用地"
 ],
 "landuse/farm":[
 "農地"
@@ -4168,21 +4098,6 @@
 "leisure/dance":[
 "舞廳",
 "跳舞場所"
-],
-"leisure/dancing_school":[
-"芭蕾",
-"艺术",
-"探戈",
-"学校",
-"学习",
-"舞蹈學校",
-"学院",
-"爵士",
-"舞蹈",
-"跳舞",
-"拉丁舞",
-"舞",
-"培训"
 ],
 "leisure/disc_golf_course":[
 "飞盘高尔夫场",
@@ -4470,10 +4385,6 @@
 "链球场",
 "投掷"
 ],
-"leisure/pitch/athletics/high_jump":[
-"跳高场",
-"跳高"
-],
 "leisure/pitch/athletics/javelin_throw":[
 "标枪场",
 "标枪",
@@ -4529,11 +4440,6 @@
 ],
 "leisure/pitch/beachvolleyball":[
 "沙灘排球場"
-],
-"leisure/pitch/boules":[
-"草地滚球场",
-"地掷球场",
-"滚球场"
 ],
 "leisure/pitch/bowls":[
 "草地滾球場"
@@ -5257,12 +5163,6 @@
 "射电",
 "射电望远镜",
 "望远镜"
-],
-"man_made/torii":[
-"寺庙",
-"鸟居",
-"日式大门",
-"神社"
 ],
 "man_made/tower":[
 "塔"
@@ -6162,9 +6062,6 @@
 "鑽爬",
 "隧道"
 ],
-"playground/water":[
-"戲水設施"
-],
 "playground/zipwire":[
 "滑降台"
 ],
@@ -6245,10 +6142,6 @@
 "水力電廠",
 "水力發電廠",
 "水力发电厂"
-],
-"power/plant/source/method/photovoltaic":[
-"太陽能發電場",
-"太陽能板"
 ],
 "power/plant/source/nuclear":[
 "核能发电厂",
@@ -6700,9 +6593,6 @@
 "shop/baby_goods":[
 "嬰兒用品店"
 ],
-"shop/bag":[
-"包包/行李箱店"
-],
 "shop/bakery":[
 "面包店",
 "麵包店",
@@ -6727,10 +6617,6 @@
 "美黑",
 "日曬沙龍",
 "日光浴沙龙"
-],
-"shop/bed":[
-"床具/寐具店",
-"寢具/床褥店"
 ],
 "shop/beverages":[
 "飲品店",
@@ -7231,9 +7117,6 @@
 "shop/pyrotechnics":[
 "煙火專賣店"
 ],
-"shop/radiotechnics":[
-"無線電/電子設備店"
-],
 "shop/religion":[
 "宗教舖",
 "宗教用品店"
@@ -7375,10 +7258,6 @@
 ],
 "shop/water":[
 "飲用水供應店"
-],
-"shop/water_sports":[
-"水上运动/泳装店",
-"水上活動/游泳用品店"
 ],
 "shop/weapons":[
 "武器店"
@@ -7550,11 +7429,6 @@
 "旅遊景點圖",
 "地圖",
 "位置圖"
-],
-"tourism/information/office":[
-"旅遊中心",
-"資訊服務站",
-"遊客中心"
 ],
 "tourism/information/route_marker":[
 "路線標記",
@@ -7779,6 +7653,11 @@
 "公車路線",
 "巴士路線"
 ],
+"type/route/climbing":[
+"攀爬",
+"攀岩",
+"攀爬路线"
+],
 "type/route/detour":[
 "繞道路線",
 "繞道路綫",
@@ -7817,9 +7696,6 @@
 "type/route/pipeline":[
 "管道路线",
 "管線路線"
-],
-"type/route/piste":[
-"滑雪道路線"
 ],
 "type/route/power":[
 "供電路線",
@@ -7864,6 +7740,15 @@
 ],
 "type/site":[
 "點位"
+],
+"type/site/climbing/area":[
+"攀爬区域"
+],
+"type/site/climbing/crag":[
+"攀爬",
+"攀岩",
+"攀岩点",
+"峭壁"
 ],
 "type/waterway":[
 "水道",

@@ -12,7 +12,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.App;
-import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.exception.NoOAuthConfigurationException;
 import de.blau.android.exception.OsmException;
 import de.blau.android.prefs.API.Auth;
@@ -172,7 +171,7 @@ public class OAuth1aHelper extends OAuthHelper {
     }
 
     @Override
-    protected ExecutorTask<Void, Void, ?> getAccessTokenTask(Context context, Uri data, PostAsyncActionHandler handler) {
+    protected ExecutorTask<Void, Void, ?> getAccessTokenTask(Context context, Uri data, Callback handler) {
         String oauthToken = data.getQueryParameter(OAUTH_TOKEN_PARAMETER);
         final String oauthVerifier = data.getQueryParameter(OAUTH_VERIFIER_PARAMTER);
 
@@ -202,7 +201,7 @@ public class OAuth1aHelper extends OAuthHelper {
             protected void onPostExecute(Boolean success) {
                 Log.d(DEBUG_TAG, "oAuthHandshake onPostExecute");
                 if (success != null && success) {
-                    handler.onSuccess();
+                    handler.onSuccess("");
                 } else {
                     handler.onError(null);
                 }

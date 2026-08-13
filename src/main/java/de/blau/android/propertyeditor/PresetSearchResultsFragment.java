@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -40,7 +39,6 @@ import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetSeparator;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 import de.blau.android.util.ExecutorTask;
-import de.blau.android.util.Screen;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -270,10 +268,7 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
     @Override
     public void onStart() {
         super.onStart();
-        Dialog dialog = getDialog();
-        if (dialog != null) {
-            dialog.getWindow().setLayout((int) (Screen.getScreenSmallDimension(getActivity()) * 0.9), ViewGroup.LayoutParams.WRAP_CONTENT);
-        }
+        de.blau.android.dialogs.Util.limitWindowWidth(this);
     }
 
     @Override

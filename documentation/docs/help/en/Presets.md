@@ -23,7 +23,9 @@ To manage the presets go to the "Preferences" screen, selecting "Presets" will g
 
 Note that the "Built-in preset" cannot be deleted, but it can be disabled.
 
-**Add preset** will add a new preset, you will need to supply an URL for the file containing the preset and a name or select a preset file (click the SD-card icon)  that is available on your device. Vespucci will download the preset and any icons referenced by URL in the file, presets contained in a ZIP-archive are supported too. *(requires network connectivity for downloading)*
+The **+** button will add a new preset, you will need to supply an URL for the file containing the preset and a name or select a preset file (click the SD-card icon)  that is available on your device. Vespucci will download the preset and any icons referenced by URL in the file, presets contained in a ZIP-archive are supported too. *(requires network connectivity for downloading)*
+
+Translation use for a preset that includes translations can be disabled by unchecking the **Use translations** checkbox in the preset configuration (default _checked_) including for the default preset.
 
 **Note: presets are evaluated top to bottom in this list, identically named items in earlier entries will override the later ones.**
 

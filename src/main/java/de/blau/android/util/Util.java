@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -20,6 +21,7 @@ import org.xml.sax.XMLReader;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -49,6 +51,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.browser.customtabs.CustomTabsClient;
+import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.core.content.ContextCompat;
 import androidx.core.text.HtmlCompat;
 import androidx.core.widget.NestedScrollView;
@@ -60,6 +64,7 @@ import ch.poole.poparser.TokenMgrError;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.R;
+import de.blau.android.contract.Schemes;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
@@ -136,8 +141,8 @@ public final class Util {
         while (true) {
             boolean found = false;
             for (OsmElement w : unconnected) {
-                if (!Way.NAME.equals(w.getName())) {
-                    return null; // not all are ways
+                if (!(w instanceof Way) || ((Way) w).getNodes().isEmpty()) {
+                    return null; // not all are proper ways
                 }
                 // this is a bit complicated because we don't want to reverse ways just yet
                 Node firstNode1 = ((Way) result.get(0)).getFirstNode();
@@ -938,6 +943,125 @@ public final class Util {
     public static void runOnUiThread(@NonNull Context ctx, @NonNull final Runnable action) {
         if (ctx instanceof Activity) {
             ((Activity) ctx).runOnUiThread(action);
+        }
+    }
+
+    /**
+     * Add a tag incrementing the numeric suffix of key if there is a collision
+     * 
+     * @param key the key
+     * @param value the value
+     * @param tags the exiting tags
+     */
+    public static void addTagWithNumericSuffix(@NonNull String key, @NonNull String value, @NonNull Map<String, String> tags) {
+        String existing = tags.get(key);
+        if (existing == null) {
+            tags.put(key, value);
+            return;
+        }
+        int index = 0;
+        for (String tag : tags.keySet()) {
+            if (!tag.startsWith(key)) {
+                continue;
+            }
+            String[] parts = tag.split("\\:");
+            if (parts.length == 2) {
+                try {
+                    int temp = Integer.parseInt(parts[1]);
+                    if (temp > index) {
+                        index = temp;
+                    }
+                } catch (NumberFormatException nfex) {
+                    // ignore
+                }
+            }
+        }
+        tags.put(key + Tags.NS_SEP + Integer.toString(index + 1), value);
+    }
+
+    /**
+     * Check if desktop mode is enabled, currently only for DeX
+     * 
+     * @param context an Andrpid context
+     * @return true if desktop mode is enabled.
+     */
+    public static boolean isDesktopModeEnabled(@NonNull Context context) {
+        Configuration config = context.getResources().getConfiguration();
+        try {
+            Class<? extends Configuration> configClass = config.getClass();
+            return configClass.getField("SEM_DESKTOP_MODE_ENABLED").getInt(configClass) == configClass.getField("semDesktopModeEnabled").getInt(config);
+        } catch (NoSuchFieldException | IllegalAccessException | IllegalArgumentException e) {
+            Log.e(DEBUG_TAG, "isDesktopModeEnabled " + e.getMessage());
+        }
+        return false;
+    }
+
+    /**
+     * Check for an url
+     * 
+     * @param url the url
+     * @return true if the check passes
+     */
+    public static boolean isUrl(@Nullable String url) {
+        return url != null && (url.startsWith(Schemes.HTTP + "://") || url.startsWith(Schemes.HTTPS + "://"));
+    }
+
+    /**
+     * Get the 1st element of a list
+     * 
+     * @param <T> element type
+     * @param list the list
+     * @return the 1st element
+     */
+    public static <T extends Object> T getFirst(@NonNull List<T> list) {
+        return list.get(0);
+    }
+
+    /**
+     * Get the last element of a list
+     * 
+     * @param <T> element type
+     * @param list the list
+     * @return the last element
+     */
+    public static <T extends Object> T getLast(@NonNull List<T> list) {
+        return list.get(list.size() - 1);
+    }
+
+    /**
+     * Check if the 1st and last element of a list are the equal
+     * 
+     * @param <T> element type
+     * @param list the list
+     * @return true if 1st and last element of a list are equal
+     */
+    public static <T extends Object> boolean isClosed(@NonNull List<T> list) {
+        return getFirst(list).equals(getLast(list));
+    }
+
+    /**
+     * Launch a custom tab (aka a replacement for a WebView that google likes)
+     * 
+     * Falling back to a browser will likely break OAuth though
+     * 
+     * @param activity the calling activity
+     * @param uri the uri
+     */
+    public static void launchInCustomTabOrBrowser(@NonNull Activity activity, @NonNull Uri uri) {
+        String customTabsPackage = CustomTabsClient.getPackageName(activity, Collections.emptyList());
+        try {
+            if (customTabsPackage != null) {
+                CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().build();
+                customTabsIntent.intent.setPackage(customTabsPackage);
+                customTabsIntent.intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                customTabsIntent.launchUrl(activity, uri);
+            } else {
+                activity.startActivity(new Intent(Intent.ACTION_VIEW, uri));
+            }
+        } catch (ActivityNotFoundException e) {
+            Log.e(DEBUG_TAG, "No browser available for " + uri + " " + e.getMessage());
+            ScreenMessage.barError(activity, activity.getString(R.string.toast_oauth_communication));
+            activity.finish();
         }
     }
 }

@@ -78,7 +78,7 @@ public abstract class StyleableLayer extends MapViewLayer implements StyleableIn
         dirty();
         symbolName = symbol;
         if (symbol != null) {
-            symbolPath = map.getDataStyle().getCurrent().getSymbol(symbol);
+            symbolPath = map.getDataStyleManager().getCurrent().getSymbol(symbol);
         }
     }
 
@@ -131,7 +131,7 @@ public abstract class StyleableLayer extends MapViewLayer implements StyleableIn
                     iconRadius = restoredOverlay.iconRadius;
                     name = restoredOverlay.name;
                     symbolName = restoredOverlay.symbolName;
-                    symbolPath = App.getDataStyle(context).getCurrent().getSymbol(symbolName);
+                    symbolPath = App.getDataStyleManager(context).getCurrent().getSymbol(symbolName);
                     return true;
                 } else {
                     Log.d(DEBUG_TAG, "saved state null");

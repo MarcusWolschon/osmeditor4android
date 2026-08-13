@@ -2,6 +2,7 @@
 package de.blau.android.services.util;
 
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+import static de.blau.android.net.HttpHeaders.ACCEPT_ENCODING_HEADER;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -120,8 +122,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
 
     private class TileLoader extends MapAsyncTileProvider.TileLoader {
 
-        private static final String HTTP_HEADER_ACCEPT_ENCODING = "Accept-Encoding";
-        private static final String GZIP                        = "gzip";
+        private static final String GZIP = "gzip";
 
         /**
          * Construct a new TileLoader
@@ -150,7 +151,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                     } catch (FileNotFoundException | InvalidTileException ex) {
                         mapTileSaver.markAsInvalid(mTile);
                         mCallback.mapTileFailed(sourceId, mTile.zoomLevel, mTile.x, mTile.y, DOESNOTEXIST, ex.getMessage());
-                    } catch (IOException ioe) {
+                    } catch (IOException | URISyntaxException ioe) {
                         // FileNotFound is an expected exception, any other IOException is an error
                         mCallback.mapTileFailed(sourceId, mTile.zoomLevel, mTile.x, mTile.y, IOERR, ioe.getMessage());
                     }
@@ -175,8 +176,9 @@ public class MapTileDownloader extends MapAsyncTileProvider {
          * @param source the TileLayerSource
          * @param mTile the tile
          * @throws IOException if something goes wrong downloading
+         * @throws URISyntaxException
          */
-        private byte[] downloadPMTiles(@NonNull TileLayerSource source, @NonNull MapTile mTile) throws IOException {
+        private byte[] downloadPMTiles(@NonNull TileLayerSource source, @NonNull MapTile mTile) throws IOException, URISyntaxException {
             Reader reader = pmtilesReaderCache.get(mTile.rendererID);
             if (reader == null) {
                 synchronized (pmtilesReaderCache) {
@@ -237,7 +239,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
          */
         private byte[] downloadTile(@NonNull TileLayerSource source, @NonNull MapTile mTile) throws IOException {
             final String tileURLString = buildURL(source, mTile);
-            Builder builder = new Request.Builder().url(tileURLString).header(HTTP_HEADER_ACCEPT_ENCODING, GZIP);
+            Builder builder = new Request.Builder().url(tileURLString).header(ACCEPT_ENCODING_HEADER, GZIP);
             setCustomHeaders(source, builder);
             Request request = builder.build();
             Call tileCall = client.newCall(request);
@@ -292,14 +294,18 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                             break;
                         case MimeTypes.TEXT_TYPE:
                             // this can't be a tile and is likely an error message
-                            throw new FileNotFoundException(mCtx.getString(R.string.tile_error_message, tileURLString, responseBody.string()));
+                            throw new FileNotFoundException(
+                                    mCtx.getString(R.string.tile_error_message, tileURLString, new String(MapTileProvider.unGZip(data), format.charset())));
                         case MimeTypes.APPLICATION_TYPE: // WMS errors, MVT tiles
                             switch (format.subtype().toLowerCase()) {
                             case MimeTypes.WMS_EXCEPTION_XML_SUBTYPE:
                             case MimeTypes.JSON_SUBTYPE:
-                                throw new FileNotFoundException(mCtx.getString(R.string.tile_error_message, tileURLString, responseBody.string()));
+                                MapTileProvider.unGZip(data);
+                                throw new FileNotFoundException(
+                                        mCtx.getString(R.string.tile_error_message, tileURLString, new String(MapTileProvider.unGZip(data), format.charset())));
                             case MimeTypes.MVT_SUBTYPE:
                             case MimeTypes.X_PROTOBUF_SUBTYPE:
+                            case MimeTypes.OCTET_STREAM_SUBTYPE:
                                 byte[] noTileTile = source.getNoTileTile();
                                 if (noTileTile != null && data.length == noTileTile.length && Arrays.equals(data, noTileTile)) {
                                     throw new FileNotFoundException(mCtx.getString(R.string.no_tile_mvt_tile, tileURLString));

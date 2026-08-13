@@ -1,0 +1,13 @@
+Vespucci è uno strumento open source avanzato per la modifica di dati OpenStreetMap, non è un visualizzatore di mappe o un'applicazione di navigazione. Per utilizzarlo è necessario un account <a href="http://www.openstreetmap.org/">OpenStreetMap </a>.
+
+Puoi scaricare i dati della mappa per un'area specifica e modificare la mappa. Dopo la modifica, puoi caricare le modifiche direttamente sui server OSM.
+
+Qualsiasi modifica accidentale può essere annullata e tutte le modifiche vengono mostrate per la revisione prima del caricamento. Il completamento automatico dei tag, preset compatibili con JOSM, collegamenti alle pagine tradotte sulle funzionalità della mappa e anche il completamento automatico dei nomi delle strade vicine aiutano a scegliere il tag corretto da usare.
+
+Raccomandiamo di disabilitare l'aggiornamento automatico per Vespucci, in modo da poter caricare le modifiche prima del caricamento.
+
+Maggiori informazioni e una documentazione possono essere trovati su <a href="http://vespucci.io/">vespucci.io</a>e nella guida di aiuto sul dispositivo.
+
+Non segnalare problemi o chiedere assistenza qua, leggi <a href="http://vespucci.io/tutorials/faq/#why-cant-you-provide-technical-support-on-the-google-play-store-review-section"> per capire perché non possiamo dare assistenza o gestire gli errori sulla sezione delle recensioni del play store</a>. Puoi <a href="http://vespucci.io/help/en/Introduction/#reporting-problems">segnalare gli errori</a> direttamente dall'app senza bisogno di avere un account Github o visitare <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">il bug tracker</a>.
+
+OpenStreetMap, OSM e il logo con la lente di ingrandimento sono marchi registrati della <a href="https://osmfoundation.org/">OpenStreetMap Foundation</a>. L'app Vespucci non è promossa o affiliata con la OpenStreetMap Foundation.

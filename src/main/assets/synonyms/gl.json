@@ -300,13 +300,6 @@
 "Bar de copas LGBTQ+",
 "bar lgbtq"
 ],
-"amenity/bbq":[
-"asador",
-"lume",
-"Barbacoa/Grella",
-"barbacoa",
-"grella"
-],
 "amenity/bench":[
 "Banco",
 "banco",
@@ -464,36 +457,6 @@
 "carga",
 "punto de recarga"
 ],
-"amenity/childcare":[
-"guardería",
-"gardería",
-"xardin infantil",
-"coidadora",
-"nenos",
-"párvulo",
-"gardaría infantil",
-"parvulos",
-"zona",
-"niñera",
-"Gardaría",
-"gardaria",
-"coidado infantil",
-"gardaría",
-"garderia",
-"area",
-"niñeira",
-"área",
-"infantil",
-"preescolar",
-"párvulos",
-"coidado",
-"xardin de infancia",
-"neneira",
-"nenas",
-"xardín de infancia",
-"xardín infantil",
-"bebés"
-],
 "amenity/cinema":[
 "pantalla",
 "cine",
@@ -543,15 +506,6 @@
 "Reloxo de sol",
 "sombra"
 ],
-"amenity/college":[
-"instituto",
-"facultade",
-"escola",
-"universidade",
-"educación superior",
-"Área de educación superior",
-"colexio"
-],
 "amenity/community_centre":[
 "centro comunitario",
 "centro social",
@@ -588,9 +542,6 @@
 "tribunal",
 "xustiza",
 "audiencia"
-],
-"amenity/coworking_space":[
-"Espacio de cotraballo"
 ],
 "amenity/crematorium":[
 "crematorio",
@@ -663,12 +614,6 @@
 "potable",
 "manancial",
 "venero"
-],
-"amenity/driving_school":[
-"escola de condución",
-"carné de conducir",
-"Autoescola",
-"autoescola"
 ],
 "amenity/embassy":[
 "Embaixada"
@@ -890,34 +835,6 @@
 "televisión karaoke",
 "ktv"
 ],
-"amenity/kindergarten":[
-"area",
-"guardería",
-"gardería",
-"xardin infantil",
-"área",
-"infantil",
-"párvulo",
-"preescolar",
-"párvulos",
-"xardin de infancia",
-"parvulos",
-"zona",
-"Área escolar infantil",
-"xardín de infancia",
-"xardín infantil",
-"gardaria",
-"escola infantil",
-"gardaría",
-"garderia"
-],
-"amenity/language_school":[
-"idiomas",
-"escola",
-"Escola de idiomas",
-"colexio",
-"linguas"
-],
 "amenity/lavoir":[
 "lavandería",
 "lavado",
@@ -1047,14 +964,6 @@
 "motocicletas",
 "Aparcadoiro de motos",
 "aparcadoiro"
-],
-"amenity/music_school":[
-"conservatorio",
-"escola de música",
-"academia",
-"música",
-"instrumentos",
-"Escola de música"
 ],
 "amenity/nightclub":[
 "sala de baile",
@@ -1276,9 +1185,6 @@
 "mensaxería",
 "paquetería"
 ],
-"amenity/prep_school":[
-"Preparación para exames / Escola de titoría"
-],
 "amenity/prison":[
 "penitenciaría",
 "prisión",
@@ -1477,18 +1383,6 @@
 "desaugue de caravanas",
 "estanque",
 "Depósito sanitario para autocaravanas"
-],
-"amenity/school":[
-"instituto",
-"eso",
-"escola",
-"ensinanza",
-"educación",
-"bacharelato",
-"primaria",
-"secundaria",
-"Área escolar",
-"colexio"
 ],
 "amenity/shelter":[
 "abrigo",
@@ -1768,11 +1662,6 @@
 "Biblioteca de xoguetes",
 "xoguete",
 "xogo"
-],
-"amenity/university":[
-"campus",
-"Área universitaria",
-"universidade"
 ],
 "amenity/vehicle_inspection":[
 "Inspección de vehículo"
@@ -2367,9 +2256,6 @@
 "residencia",
 "habitacións"
 ],
-"building/entrance":[
-"Entrada/Saída"
-],
 "building/farm":[
 "Casa de campo"
 ],
@@ -2933,12 +2819,6 @@
 "emergency/defibrillator":[
 "Desfibrilador"
 ],
-"emergency/designated":[
-"Acceso de emerxencia designado"
-],
-"emergency/destination":[
-"Acceso de emerxencia como destino"
-],
 "emergency/fire_extinguisher":[
 "Extintor"
 ],
@@ -2986,20 +2866,11 @@
 "emergency/mountain_rescue":[
 "Rescate de montaña"
 ],
-"emergency/no":[
-"Sen acceso de emerxencia"
-],
-"emergency/official":[
-"Acceso de emerxencia oficial"
-],
 "emergency/phone":[
 "emerxencias",
 "teléfono",
 "sos",
 "Teléfono de emerxencia"
-],
-"emergency/private":[
-"Acceso de emerxencia privado"
 ],
 "emergency/siren":[
 "Sirena"
@@ -3018,9 +2889,6 @@
 "cisterna",
 "fogueiras",
 "lumes"
-],
-"emergency/yes":[
-"Acceso de emerxencia permitido"
 ],
 "entrance":[
 "entrada",
@@ -3292,6 +3160,14 @@
 "paso de cebra",
 "paso peatonal"
 ],
+"highway/crossing/traffic_signals":[
+"paso peonil con semáforo",
+"paso con semáforos para peóns",
+"Paso de peóns con semáforo"
+],
+"highway/crossing/uncontrolled":[
+"Paso de peóns marcado"
+],
 "highway/crossing/unmarked":[
 "peonil",
 "Paso de peóns sen marcar",
@@ -3329,6 +3205,9 @@
 "bicicleta",
 "peonal",
 "ciclismo"
+],
+"highway/cycleway/crossing/traffic_signals":[
+"Paso de bicicletas con semáforo"
 ],
 "highway/cycleway/crossing/uncontrolled":[
 "cruzamento de senda ciclista",
@@ -3402,7 +3281,20 @@
 "Pasarela móbil"
 ],
 "highway/footway/crossing":[
-"Paso de peóns"
+"paso peonil",
+"Paso de peóns",
+"paso peonal"
+],
+"highway/footway/crossing/traffic_signals":[
+"paso peonil con semáforo",
+"paso con semáforos para peóns",
+"Paso de peóns con semáforo"
+],
+"highway/footway/crossing/uncontrolled":[
+"paso de peóns marcado",
+"peonil",
+"Paso peonil marcado",
+"peonal"
 ],
 "highway/footway/crossing/unmarked":[
 "peonil",
@@ -3464,14 +3356,6 @@
 "autoestrada",
 "autopista"
 ],
-"highway/motorway_junction":[
-"autovía",
-"autoestrada",
-"entrada",
-"saída",
-"autopista",
-"Saída de autoestrada"
-],
 "highway/motorway_link":[
 "autovía",
 "autoestrada",
@@ -3522,6 +3406,15 @@
 ],
 "highway/path/crossing":[
 "Paso de peóns e de pista de ciclismo"
+],
+"highway/path/crossing/traffic_signals":[
+"Paso de peóns e bicicletas con semáforos"
+],
+"highway/path/crossing/uncontrolled":[
+"Paso marcado para peóns e bicicletas"
+],
+"highway/path/crossing/unmarked":[
+"Paso sen marcar para peóns e bicicletas"
 ],
 "highway/path/informal":[
 "Camiño informal"
@@ -3757,9 +3650,6 @@
 ],
 "highway/turning_loop":[
 "Círculo de xiro (illa)"
-],
-"highway/unclassified":[
-"Estrada menor/Sen clasificar"
 ],
 "historic":[
 "Lugar histórico"
@@ -4296,9 +4186,6 @@
 "leisure/dance":[
 "Sala de baile"
 ],
-"leisure/dancing_school":[
-"Escola de danza"
-],
 "leisure/disc_golf_course":[
 "Golf de disco"
 ],
@@ -4502,9 +4389,6 @@
 ],
 "leisure/pitch/beachvolleyball":[
 "Cancha de voleibol praia"
-],
-"leisure/pitch/boules":[
-"Pista de birlos"
 ],
 "leisure/pitch/bowls":[
 "Campo de bolos",
@@ -6214,9 +6098,6 @@
 "power/plant/source/gas":[
 "Planta de enerxía a gas"
 ],
-"power/plant/source/method/photovoltaic":[
-"Planta de enerxía solar"
-],
 "power/plant/source/nuclear":[
 "Planta de enerxía nuclear"
 ],
@@ -6563,11 +6444,11 @@
 "Ferrovía en construción"
 ],
 "railway/crossing":[
+"Paso a nivel (camiño)",
 "tren",
 "peonil",
 "ferrocarril",
-"peonal",
-"Ferrovía - Cruce de camiño"
+"peonal"
 ],
 "railway/derail":[
 "Calzo descarrilador"
@@ -6600,8 +6481,8 @@
 ],
 "railway/level_crossing":[
 "tren",
-"Ferrovía - Cruce de estrada",
 "estrada",
+"Paso a nivel (estrada)",
 "ferrocarril"
 ],
 "railway/light_rail":[
@@ -6672,7 +6553,7 @@
 ],
 "railway/railway_crossing":[
 "tren",
-"Ferrovía - Cruce de ferrovía",
+"Ferrovía - Cruzamento de ferrovía",
 "ferrocarril"
 ],
 "railway/signal":[
@@ -6810,9 +6691,6 @@
 "Tenda de produtos para meniños",
 "bebés"
 ],
-"shop/bag":[
-"Tenda de maletas"
-],
 "shop/bakery":[
 "Panadaría"
 ],
@@ -6827,9 +6705,6 @@
 ],
 "shop/beauty/tanning":[
 "Salón de bronceado"
-],
-"shop/bed":[
-"Tenda de colchóns/roupa de cama"
 ],
 "shop/beverages":[
 "Tenda de bebidas"
@@ -7349,12 +7224,6 @@
 "pirotecnia",
 "fogos artificiais"
 ],
-"shop/radiotechnics":[
-"electrónica",
-"Tenda de compoñentes electrónicos",
-"compoñentes",
-"radio"
-],
 "shop/religion":[
 "Tenda relixiosa"
 ],
@@ -7546,18 +7415,6 @@
 "Tenda de auga potábel",
 "agua"
 ],
-"shop/water_sports":[
-"bañador",
-"auga",
-"natación",
-"bikini",
-"acuático",
-"goggles",
-"Tenda de deportes acuáticos / natación",
-"biquini",
-"lentes natación",
-"neopreno"
-],
 "shop/weapons":[
 "Armaría"
 ],
@@ -7703,18 +7560,6 @@
 ],
 "tourism/information/map":[
 "Mapa"
-],
-"tourism/information/office":[
-"centro de visistantes",
-"centro de benvida",
-"visitantes",
-"guía turístico",
-"Oficina de información turística",
-"benvida",
-"turismo",
-"oficina turística",
-"centro de información",
-"centro de información turística"
 ],
 "tourism/information/route_marker":[
 "Marcaxe de pista"
@@ -7941,9 +7786,6 @@
 "tubaxe",
 "conduto",
 "rota"
-],
-"type/route/piste":[
-"Ruta / Pista de esquí"
 ],
 "type/route/power":[
 "Ruta de rede eléctrica",

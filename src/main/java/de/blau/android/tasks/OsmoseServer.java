@@ -3,6 +3,8 @@ package de.blau.android.tasks;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,6 +29,10 @@ import okhttp3.ResponseBody;
 
 final class OsmoseServer {
 
+    private static final String FALSE_STATE = "false";
+
+    private static final String DONE_STATE = "done";
+
     private static final String DEBUG_TAG = OsmoseServer.class.getSimpleName().substring(0, Math.min(23, OsmoseServer.class.getSimpleName().length()));
 
     private static final String API03PATH = "/api/0.3/"; // NOSONAR
@@ -42,6 +48,8 @@ final class OsmoseServer {
      * Timeout for connections in milliseconds.
      */
     private static final int TIMEOUT = 45 * 1000;
+
+    private static final String CHANGE_STATE = "%sissue/%s/%s";
 
     /**
      * Private constructor to stop instantiation
@@ -64,8 +72,8 @@ final class OsmoseServer {
         // http://osmose.openstreetmap.fr/de/api/0.2/errors?bbox=8.32,47.33,8.42,47.28&full=true
         try {
             Log.d(DEBUG_TAG, "getBugsForBox");
-            URL url = new URL(getServerURL(server) + "issues?" + "bbox=" + area.getLeft() / 1E7d + "," + area.getBottom() / 1E7d + "," + area.getRight() / 1E7d
-                    + "," + area.getTop() / 1E7d + "&full=true&limit=" + Long.toString(limit));
+            URL url = new URI(getServerURL(server) + "issues?" + "bbox=" + area.getLeft() / 1E7d + "," + area.getBottom() / 1E7d + "," + area.getRight() / 1E7d
+                    + "," + area.getTop() / 1E7d + "&full=true&limit=" + Long.toString(limit)).toURL();
 
             Request request = new Request.Builder().url(url).build();
             OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
@@ -76,7 +84,7 @@ final class OsmoseServer {
                     return OsmoseBug.parseBugs(osmoseCallResponse.body().byteStream());
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException | IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "getBugsForBox got exception " + e.getMessage());
         }
         return new ArrayList<>();
@@ -98,7 +106,8 @@ final class OsmoseServer {
             return new UploadResult(ErrorCodes.BAD_REQUEST);
         }
         try {
-            URL url = new URL(getServerURL(server) + "issue/" + bug.getId() + "/" + (bug.getState() == State.CLOSED ? "done" : "false"));
+            URL url = new URI(
+                    String.format(CHANGE_STATE, getServerURL(server), bug.getId(), (bug.getState() == State.CLOSED ? DONE_STATE : FALSE_STATE))).toURL();
             Log.d(DEBUG_TAG, "changeState " + url.toString());
             Request request = new Request.Builder().url(url).build();
             OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
@@ -120,7 +129,7 @@ final class OsmoseServer {
             }
             bug.setChanged(false);
             App.getTaskStorage().setDirty();
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException | IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "changeState got exception " + e.getMessage());
             UploadResult result = new UploadResult(ErrorCodes.UPLOAD_PROBLEM);
             result.setMessage(e.getMessage());
@@ -144,7 +153,7 @@ final class OsmoseServer {
             if (!SUPPORTED_LANGUAGES.contains(lang)) {
                 lang = "en";
             }
-            URL url = new URL(getServerURL(server) + "items/" + itemId + "/class/" + Integer.toString(classId) + "?langs=" + lang);
+            URL url = new URI(getServerURL(server) + "items/" + itemId + "/class/" + Integer.toString(classId) + "?langs=" + lang).toURL();
             Log.d(DEBUG_TAG, "getMeta " + url.toString());
             Request request = new Request.Builder().url(url).build();
             OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
@@ -158,7 +167,7 @@ final class OsmoseServer {
             } else {
                 Log.e(DEBUG_TAG, "getMeta failes");
             }
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException | IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "getMeta got exception " + e.getMessage());
             return;
         }

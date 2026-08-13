@@ -13,6 +13,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.SocketTimeoutException;
+import java.net.URISyntaxException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,21 +34,18 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.regex.Matcher;
 
 import javax.net.ssl.SSLProtocolException;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.openstreetmap.osmosis.osmbinary.file.BlockInputStream;
-import org.openstreetmap.osmosis.osmbinary.file.BlockReaderAdapter;
 import org.xml.sax.SAXException;
 import org.xmlpull.v1.XmlPullParserException;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
@@ -58,6 +56,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
+import crosby.binary.file.BlockInputStream;
 import de.blau.android.Selection.Ids;
 import de.blau.android.contract.HttpStatusCodes;
 import de.blau.android.contract.Urls;
@@ -94,6 +93,7 @@ import de.blau.android.osm.MergeAction;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.NwrComparator;
 import de.blau.android.osm.OsmChangeParser;
+import de.blau.android.osm.OsmChangeParser.MissingNode;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmGpxApi;
 import de.blau.android.osm.OsmGpxApi.Visibility;
@@ -118,12 +118,16 @@ import de.blau.android.osm.UndoStorage.Checkpoint;
 import de.blau.android.osm.UserDetails;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
+import de.blau.android.osm.WayInterface;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
+import de.blau.android.resources.DataStyleManager;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.Task;
+import de.blau.android.tasks.TaskStorage;
+import de.blau.android.tasks.Todo;
 import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.EditState;
@@ -201,7 +205,7 @@ public class Logic {
     /**
      * Filename of file containing the currently edit state
      */
-    private static final String EDITSTATE_FILENAME = "edit.state";
+    public static final String EDITSTATE_FILENAME = "edit.state";
 
     /** Sorter instance for sorting nodes by distance */
     private static final DistanceSorter<OsmElement, Node> nodeSorter = new DistanceSorter<>();
@@ -209,9 +213,14 @@ public class Logic {
     private static final DistanceSorter<Way, Way>         waySorter  = new DistanceSorter<>();
 
     /**
-     * maximum number of nodes in a way for it still to be moveable, arbitrary number for now
+     * min number of nodes in a way to produce a warning if moved
      */
-    private static final int MAX_NODES_FOR_MOVE = 100;
+    public static final int MIN_NODES_FOR_MOVE_WARNING = 100;
+
+    /**
+     * min number of nodes in a wy to check if enough are visible
+     */
+    public static final int MIN_NODES_FOR_MOVE_VISIBLE_WARNING = 5;
 
     /**
      * maximum depth that we recursively select relations
@@ -226,7 +235,9 @@ public class Logic {
     /**
      * This is used instead of synchronized
      */
-    private ReentrantLock lock = new ReentrantLock();
+    private ReentrantReadWriteLock           lock      = new ReentrantReadWriteLock();
+    private ReentrantReadWriteLock.WriteLock writeLock = lock.writeLock();
+    private ReentrantReadWriteLock.ReadLock  readLock  = lock.readLock();
 
     /**
      * Stores the {@link Preferences} as soon as they are available.
@@ -387,7 +398,7 @@ public class Logic {
     public void setPrefs(@NonNull final Preferences prefs) {
         this.prefs = prefs;
         if (map != null) {
-            DataStyle styles = map.getDataStyle();
+            DataStyleManager styles = map.getDataStyleManager();
             final String dataStyleName = prefs.getDataStyle(styles);
             if (!styles.getCurrent().getName().equals(dataStyleName)) {
                 styles.switchTo(dataStyleName);
@@ -409,7 +420,7 @@ public class Logic {
             r.setStyle(null);
         }
         if (map != null) {
-            DataStyle styles = map.getDataStyle();
+            DataStyleManager styles = map.getDataStyleManager();
             styles.updateStrokes(strokeWidth(viewBox.getWidth()));
             styles.setAntiAliasing(prefs.isAntiAliasingEnabled());
             map.updateStyle();
@@ -479,6 +490,7 @@ public class Logic {
      * 
      * @return the UndoStorage, allowing operations like creation of checkpoints and undo/redo.
      */
+    @NonNull
     public UndoStorage getUndo() {
         return getDelegator().getUndo();
     }
@@ -501,7 +513,7 @@ public class Logic {
      */
     @Nullable
     public String undo(boolean updateUI) {
-        return postUndo(getDelegator(), getDelegator().getUndo().undo(), updateUI);
+        return postUndoRedo(getDelegator(), getUndo().undo(), updateUI);
     }
 
     /**
@@ -512,7 +524,7 @@ public class Logic {
      */
     @Nullable
     public String undo(int checkpoint) {
-        return postUndo(getDelegator(), getDelegator().getUndo().undo(checkpoint), true);
+        return postUndoRedo(getDelegator(), getUndo().undo(checkpoint), true);
     }
 
     /**
@@ -523,7 +535,7 @@ public class Logic {
      * @param updateUI update selection etc
      * @return checkpoint name or null if none available
      */
-    private String postUndo(@NonNull final StorageDelegator delegator, @Nullable Checkpoint undone, boolean updateUI) {
+    private String postUndoRedo(@NonNull final StorageDelegator delegator, @Nullable Checkpoint undone, boolean updateUI) {
         Selection.Ids ids = undone != null ? undone.getSelection() : null;
         if (updateUI && ids != null && map != null && map.getContext() instanceof Main) {
             Main main = (Main) map.getContext();
@@ -556,9 +568,7 @@ public class Logic {
      */
     @Nullable
     public String redo() {
-        String name = getDelegator().getUndo().redo();
-        getDelegator().dirty();
-        return name;
+        return postUndoRedo(getDelegator(), getDelegator().getUndo().redo(), true);
     }
 
     /**
@@ -569,16 +579,14 @@ public class Logic {
      */
     @Nullable
     public String redo(int checkpoint) {
-        String name = getDelegator().getUndo().redo(checkpoint);
-        getDelegator().dirty();
-        return name;
+        return postUndoRedo(getDelegator(), getDelegator().getUndo().redo(checkpoint), true);
     }
 
     /**
      * Undo without creating a redo checkpoint
      */
     public void rollback() {
-        postUndo(getDelegator(), getDelegator().getUndo().undo(false), true);
+        postUndoRedo(getDelegator(), getDelegator().getUndo().undo(false), true);
     }
 
     /**
@@ -663,7 +671,7 @@ public class Logic {
      * @param map the current Map object
      */
     private void onZoomChanged(@NonNull Map map) {
-        map.getDataStyle().updateStrokes(strokeWidth(viewBox.getWidth()));
+        map.getDataStyleManager().updateStrokes(strokeWidth(viewBox.getWidth()));
         if (rotating) {
             showCrosshairsForCentroid();
         } else if (mode == Mode.MODE_ALIGN_BACKGROUND) {
@@ -692,24 +700,13 @@ public class Logic {
      * @param stringId the resource id of the string representing the checkpoint name
      */
     public void createCheckpoint(@Nullable Activity activity, int stringId) {
-        Resources r = getResources(activity);
         final UndoStorage undo = getDelegator().getUndo();
         boolean firstCheckpoint = !undo.canUndo();
-        undo.createCheckpoint(r.getString(stringId), getSelectedIds());
+        undo.createCheckpoint(App.getString(activity, stringId), getSelectedIds());
         getDelegator().recordImagery(map);
         if (firstCheckpoint && activity instanceof AppCompatActivity) {
             ((AppCompatActivity) activity).invalidateOptionsMenu();
         }
-    }
-
-    /**
-     * Get resources for this app
-     * 
-     * @param context a potentially null Android context
-     * @return Resrources
-     */
-    private Resources getResources(@Nullable Context context) {
-        return context != null ? context.getResources() : App.resources();
     }
 
     /**
@@ -730,8 +727,7 @@ public class Logic {
      * @param force if true remove even if not empty
      */
     public void removeCheckpoint(@Nullable Activity activity, int stringId, boolean force) {
-        Resources r = getResources(activity);
-        getDelegator().getUndo().removeCheckpoint(r.getString(stringId), force);
+        getDelegator().getUndo().removeCheckpoint(App.getString(activity, stringId), force);
     }
 
     /**
@@ -742,7 +738,7 @@ public class Logic {
      * @param tags Tags to be set
      * @throws OsmIllegalOperationException if the e isn't in storage
      */
-    public void setTags(@Nullable Activity activity, @NonNull final OsmElement e, @Nullable final java.util.Map<String, String> tags)
+    public void setTags(@Nullable FragmentActivity activity, @NonNull final OsmElement e, @Nullable final java.util.Map<String, String> tags)
             throws OsmIllegalOperationException {
         setTags(activity, e, tags, true);
     }
@@ -756,7 +752,7 @@ public class Logic {
      * @param tags Tags to be set
      * @throws OsmIllegalOperationException if the e isn't in storage
      */
-    public void setTags(@Nullable Activity activity, final String type, final long osmId, @Nullable final java.util.Map<String, String> tags)
+    public void setTags(@Nullable FragmentActivity activity, final String type, final long osmId, @Nullable final java.util.Map<String, String> tags)
             throws OsmIllegalOperationException {
         setTags(activity, type, osmId, tags, true);
     }
@@ -771,7 +767,7 @@ public class Logic {
      * @param createCheckpoint create a checkpoint, except in composite operations this should always be true
      * @throws OsmIllegalOperationException if the e isn't in storage
      */
-    public void setTags(@Nullable Activity activity, final String type, final long osmId, @Nullable final java.util.Map<String, String> tags,
+    public void setTags(@Nullable FragmentActivity activity, final String type, final long osmId, @Nullable final java.util.Map<String, String> tags,
             boolean createCheckpoint) throws OsmIllegalOperationException {
         setTags(activity, getDelegator().getOsmElement(type, osmId), tags, createCheckpoint);
     }
@@ -786,20 +782,31 @@ public class Logic {
      * @param createCheckpoint create a checkpoint, except in composite operations this should always be true
      * @throws OsmIllegalOperationException if the e isn't in storage
      */
-    public void setTags(@Nullable Activity activity, @Nullable OsmElement osmElement, @Nullable final java.util.Map<String, String> tags,
+    public void setTags(@Nullable FragmentActivity activity, @Nullable OsmElement osmElement, @Nullable final java.util.Map<String, String> tags,
             boolean createCheckpoint) throws OsmIllegalOperationException {
         if (osmElement == null) {
             Log.e(DEBUG_TAG, "Attempted to setTags on a non-existing element");
             throw new OsmIllegalOperationException("Element not in storage");
         }
+        if (tags != null) {
+            for (String v : tags.values()) {
+                if (Util.isEmpty(v) || "".equals(v.trim())) {
+                    Log.e(DEBUG_TAG, "Attempted to set empty value in setTags");
+                    throw new OsmIllegalOperationException("Attempting to set an empty tag value");
+                }
+            }
+        }
         try {
-            lock();
+            lockWrites();
             if (createCheckpoint) {
                 createCheckpoint(activity, R.string.undo_action_set_tags);
             }
             getDelegator().setTags(osmElement, tags);
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex, createCheckpoint);
+            throw ex; // rethrow
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -811,16 +818,17 @@ public class Logic {
      * @param osmId OSM-ID of the element.
      * @param parents new parent relations
      * @return false if no element exists for the given osmId/type.
+     * @throws OsmIllegalOperationException
      */
     public boolean updateParentRelations(@Nullable FragmentActivity activity, final String type, final long osmId,
-            final MultiHashMap<Long, RelationMemberPosition> parents) {
+            final MultiHashMap<Long, RelationMemberPosition> parents) throws OsmIllegalOperationException {
         OsmElement osmElement = getDelegator().getOsmElement(type, osmId);
         if (osmElement == null) {
             Log.e(DEBUG_TAG, "Attempted to update relations on a non-existing element");
             return false;
         }
         try {
-            lock();
+            lockWrites();
             List<Relation> originalParents = osmElement.hasParentRelations() ? new ArrayList<>(osmElement.getParentRelations()) : null;
             createCheckpoint(activity, R.string.undo_action_update_relations);
             getDelegator().updateParentRelations(osmElement, parents);
@@ -829,10 +837,10 @@ public class Logic {
             }
             return true;
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -843,23 +851,25 @@ public class Logic {
      * @param osmId The OSM ID of the relation to change.
      * @param members The new list of members to set for the given relation.
      * @return true if the members was updated
+     * @throws OsmIllegalOperationException
      */
-    public boolean updateRelation(@Nullable FragmentActivity activity, long osmId, List<RelationMemberDescription> members) {
+    public boolean updateRelation(@Nullable FragmentActivity activity, long osmId, List<RelationMemberDescription> members)
+            throws OsmIllegalOperationException {
         OsmElement osmElement = getDelegator().getOsmElement(Relation.NAME, osmId);
         if (osmElement == null) {
             Log.e(DEBUG_TAG, "Attempted to update non-existing relation #" + osmId);
             return false;
         }
         try {
-            lock();
+            lockWrites();
             createCheckpoint(activity, R.string.undo_action_update_relations);
             getDelegator().updateRelation((Relation) osmElement, members);
             return true;
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         } finally {
-            unlock();
+            unlockWrites();
         }
 
     }
@@ -878,7 +888,7 @@ public class Logic {
         result.addAll(getClickedWays(x, y));
         if (returnRelations) {
             // add any relations that the elements are members of
-            result.addAll(getParentRelations(result));
+            result.addAll(getParentRelations(result, prefs.ignoreSubareas()));
         }
         if (clickableElements != null) {
             for (OsmElement e : new ArrayList<OsmElement>(result)) {
@@ -894,16 +904,17 @@ public class Logic {
      * Return all the Relations the OsmElements are a member of and parent relations
      * 
      * @param elements the OsmElements to check
+     * @param ignoreSubareas if true don't add subareas to the list
      * @return a List of OsmElement
      */
     @NonNull
-    private List<Relation> getParentRelations(@NonNull List<OsmElement> elements) {
+    private List<Relation> getParentRelations(@NonNull List<OsmElement> elements, boolean ignoreSubareas) {
         // NWR sorting of the elements ensures that the parents of relations
         // are last in the list, for example subarea members in boundaries
         List<OsmElement> toSort = new ArrayList<>(elements);
         Collections.sort(toSort, new NwrComparator());
         List<Relation> relations = new ArrayList<>();
-        getParentRelations(toSort, relations);
+        getParentRelations(toSort, relations, ignoreSubareas);
         return relations;
     }
 
@@ -914,8 +925,9 @@ public class Logic {
      * 
      * @param elements the OsmElements to get the parent Relations of
      * @param relations the List of Relations
+     * @param ignoreSubareas if true don't add subareas to the list
      */
-    private void getParentRelations(@NonNull List<OsmElement> elements, @NonNull List<Relation> relations) {
+    private void getParentRelations(@NonNull List<OsmElement> elements, @NonNull List<Relation> relations, boolean ignoreSubareas) {
         List<OsmElement> nextLevel = new ArrayList<>();
         for (OsmElement e : elements) {
             final List<Relation> parentRelations = e.getParentRelations();
@@ -926,15 +938,19 @@ public class Logic {
             // a better thing to sort on would be the area the relation covers, but number of members is probably
             // a reasonable proxy
             Collections.sort(sortedParents, (Relation r1, Relation r2) -> Integer.compare(r1.getMemberCount(), r2.getMemberCount()));
-            for (Relation r : sortedParents) {
-                if (!relations.contains(r)) { // using a set is likely slower
-                    relations.add(r);
-                    nextLevel.add(r);
+            for (Relation parent : sortedParents) {
+                // ignore relation parents if we are a subarea member of them
+                if (e instanceof Relation && ignoreSubareas && isSubarea(parent, parent.getMember(e))) {
+                    continue;
+                }
+                if (!relations.contains(parent)) { // using a set is likely slower
+                    relations.add(parent);
+                    nextLevel.add(parent);
                 }
             }
         }
         if (!nextLevel.isEmpty()) {
-            getParentRelations(nextLevel, relations);
+            getParentRelations(nextLevel, relations, ignoreSubareas);
         }
     }
 
@@ -950,7 +966,7 @@ public class Logic {
     private java.util.Map<Way, Double> getClickedWaysWithDistances(boolean includeClosed, final float touchX, final float touchY) {
         java.util.Map<Way, Double> result = new HashMap<>();
         boolean showWayIcons = prefs.getShowWayIcons();
-        final DataStyle currentStyle = map.getDataStyle().getCurrent();
+        final DataStyle currentStyle = map.getDataStyleManager().getCurrent();
         final float nodeToleranceValue = currentStyle.getNodeToleranceValue();
         final float wayToleranceValue = wayToleranceForTouch(currentStyle);
         List<Way> ways = getClickableWays();
@@ -1040,7 +1056,7 @@ public class Logic {
      * @return true if we should have an icon
      */
     private boolean areaHasIcon(@NonNull Way way) {
-        final FeatureStyle style = map.getDataStyle().matchStyle(way);
+        final FeatureStyle style = map.getDataStyleManager().matchStyle(way);
         return style.getIconPath() != null || style.getLabelKey() != null;
     }
 
@@ -1076,12 +1092,12 @@ public class Logic {
 
         Handle result = null;
         double bestDistance = Double.MAX_VALUE;
-        final DataStyle currentStyle = map.getDataStyle().getCurrent();
+        final DataStyle currentStyle = map.getDataStyleManager().getCurrent();
         float wayToleranceValue = wayToleranceForTouch(currentStyle);
         float minLenForHandle = currentStyle.getMinLenForHandle();
 
         try {
-            lock();
+            lockReads();
             List<Way> ways = getSelectedWays();
             if (ways == null) {
                 return null;
@@ -1121,7 +1137,7 @@ public class Logic {
                 }
             }
         } finally {
-            unlock();
+            unlockReads();
         }
         return result;
     }
@@ -1138,7 +1154,7 @@ public class Logic {
      */
     @Nullable
     private Double clickDistance(@NonNull Node node, final float x, final float y) {
-        final DataStyle current = map.getDataStyle().getCurrent();
+        final DataStyle current = map.getDataStyleManager().getCurrent();
         return clickDistance(node, x, y, node.isTagged() ? current.getNodeToleranceValue() : wayToleranceForTouch(current));
     }
 
@@ -1196,12 +1212,16 @@ public class Logic {
      */
     @NonNull
     private List<Node> getClickableNodes() {
-        List<Node> nodes = getNodes(map.getViewBox());
+        List<Node> nodes = getDelegator().getNodes(map.getViewBox());
         if (filter == null) {
             return nodes;
         }
         List<Node> filteredNodes = new ArrayList<>();
         for (Node n : nodes) {
+            // force caching of way node results
+            for (Way w : getWaysForNode(n)) {
+                filter.include(w, false);
+            }
             if (filter.include(n, false)) {
                 filteredNodes.add(n);
             }
@@ -1321,11 +1341,17 @@ public class Logic {
     @NonNull
     public Set<OsmElement> findClickableElements(@NonNull BoundingBox viewBox, @NonNull List<OsmElement> excludes) {
         Set<OsmElement> result = new HashSet<>();
-        final Storage currentStorage = getDelegator().getCurrentStorage();
-        result.addAll(currentStorage.getNodes(viewBox));
-        result.addAll(currentStorage.getWays(viewBox));
-        if (returnRelations) {
-            result.addAll(currentStorage.getRelations());
+        final StorageDelegator delegator = getDelegator();
+        try { // we probably could move this to StorageDelegator
+            delegator.lockReads();
+            final Storage currentStorage = delegator.getCurrentStorage();
+            result.addAll(currentStorage.getNodes(viewBox));
+            result.addAll(currentStorage.getWays(viewBox));
+            if (returnRelations) {
+                result.addAll(currentStorage.getRelations());
+            }
+        } finally {
+            delegator.unlockReads();
         }
         for (OsmElement e : excludes) {
             result.remove(e);
@@ -1341,7 +1367,7 @@ public class Logic {
      */
     @NonNull
     public List<Way> getWaysForNode(@NonNull final Node node) {
-        return getDelegator().getCurrentStorage().getWays(node);
+        return getDelegator().getWaysForNode(node);
     }
 
     /**
@@ -1353,22 +1379,12 @@ public class Logic {
     @NonNull
     public List<Way> getFilteredWaysForNode(@NonNull final Node node) {
         List<Way> ways = new ArrayList<>();
-        for (Way w : getDelegator().getCurrentStorage().getWays(node)) {
+        for (Way w : getWaysForNode(node)) {
             if (getFilter() == null || filter.include(w, false)) {
                 ways.add(w);
             }
         }
         return ways;
-    }
-
-    /**
-     * Test if the given Node is an end node of a Way. Isolated nodes not part of a way are not considered an end node.
-     * 
-     * @param node Node to test.
-     * @return true if the Node is an end node of a Way, false otherwise.
-     */
-    public boolean isEndNode(@Nullable final Node node) {
-        return getDelegator().getCurrentStorage().isEndNode(node);
     }
 
     /**
@@ -1409,7 +1425,7 @@ public class Logic {
                 return;
             }
             try {
-                lock();
+                lockReads();
                 Task selectedTask = null;
                 de.blau.android.layer.tasks.MapOverlay taskLayer = map.getTaskLayer();
                 if (taskLayer != null) {
@@ -1425,7 +1441,7 @@ public class Logic {
                 } else if ((selectedNodeCount == 1 || selectedTask != null) && selectedWayCount == 0) { // single node
                                                                                                         // or
                                                                                                         // task dragging
-                    DataStyle currentStyle = map.getDataStyle().getCurrent();
+                    DataStyle currentStyle = map.getDataStyleManager().getCurrent();
                     float tolerance = largeDragArea ? currentStyle.getLargDragToleranceRadius() : currentStyle.getNodeToleranceValue();
                     GeoPoint point = selectedTask != null ? selectedTask : currentSelection.getNode();
                     if (clickDistance(point, x, y, tolerance) != null) {
@@ -1496,20 +1512,20 @@ public class Logic {
                     }
                 }
             } finally {
-                unlock();
+                unlockReads();
             }
         }
         Log.d(DEBUG_TAG, "handleTouchEventDown creating checkpoints");
         if ((draggingNode || draggingWay)) {
             try {
-                lock();
+                lockWrites();
                 if (draggingMultiselect) {
                     createCheckpoint(activity, R.string.undo_action_moveobjects);
                 } else {
                     createCheckpoint(activity, draggingNode ? R.string.undo_action_movenode : R.string.undo_action_moveway);
                 }
             } finally {
-                unlock();
+                unlockWrites();
             }
         }
     }
@@ -1539,11 +1555,11 @@ public class Logic {
      */
     void handleTouchEventUp(final float x, final float y) {
         try {
-            lock();
+            lockReads();
             handleNode = null;
             draggingHandle = false;
         } finally {
-            unlock();
+            unlockReads();
         }
     }
 
@@ -1552,7 +1568,7 @@ public class Logic {
      */
     public void showCrosshairsForCentroid() {
         try {
-            lock();
+            lockReads();
             int[] coords = calcCentroid(selectionStack.getFirst().getAll());
             if (coords.length == 2) {
                 centroidX = lonE7ToX(coords[1]);
@@ -1562,7 +1578,7 @@ public class Logic {
                 Log.e(DEBUG_TAG, "Unable to calcualte centroid for selection");
             }
         } finally {
-            unlock();
+            unlockReads();
         }
     }
 
@@ -1580,7 +1596,7 @@ public class Logic {
      */
     void handleTouchEventMove(@NonNull Main main, final float absoluteX, final float absoluteY, final float relativeX, final float relativeY) {
         try {
-            lock();
+            lockWrites();
             final Selection currentSelection = selectionStack.getFirst();
             if (draggingNode || draggingWay || draggingHandle || draggingNote) {
                 int lat = yToLatE7(absoluteY);
@@ -1588,6 +1604,7 @@ public class Logic {
                 final int selectedWayCount = currentSelection.wayCount();
                 final int selectedNodeCount = currentSelection.nodeCount();
                 // checkpoint created where draggingNode is set
+                final StorageDelegator delegator = getDelegator();
                 if ((draggingNode && ((selectedNodeCount == 1 && selectedWayCount == 0) || selectedWayCount == 1)) || draggingHandle || draggingNote) {
                     if (draggingHandle) { // create node only if we are really dragging
                         if (handleNode == null && selectedHandle != null && selectedWayCount > 0) {
@@ -1596,9 +1613,8 @@ public class Logic {
                             selectedHandle = null;
                         }
                         if (handleNode != null) {
-                            getDelegator().moveNode(handleNode, lat, lon);
+                            delegator.moveNode(handleNode, lat, lon);
                         }
-
                     } else {
                         if (prefs.largeDragArea()) {
                             startY = startY + relativeY;
@@ -1611,7 +1627,7 @@ public class Logic {
                                 draggedNode = currentSelection.getNode();
                             }
                             displayAttachedObjectWarning(main, draggedNode);
-                            getDelegator().moveNode(draggedNode, lat, lon);
+                            delegator.moveNode(draggedNode, lat, lon);
                         } else {
                             de.blau.android.layer.tasks.MapOverlay taskLayer = map.getTaskLayer();
                             if (taskLayer != null) {
@@ -1635,9 +1651,10 @@ public class Logic {
                         nodes.addAll(currentSelection.getNodes());
                     }
                     displayAttachedObjectWarning(main, nodes);
-                    getDelegator().moveNodes(nodes, lat - startLat, lon - startLon);
-                    if (nodes.size() > MAX_NODES_FOR_MOVE && selectedWayCount == 1 && selectedNodeCount == 0) {
-                        ScreenMessage.toastTopWarning(main, main.getString(R.string.toast_way_nodes_moved, nodes.size()));
+                    delegator.moveNodes(nodes, lat - startLat, lon - startLon);
+                    final int nodeCount = nodes.size();
+                    if (selectedWayCount == 1 && selectedNodeCount == 0) {
+                        showMoveWarning(main, nodes, nodeCount);
                     }
                     // update
                     startLat = lat;
@@ -1670,13 +1687,43 @@ public class Logic {
                 main.getEasyEditManager().invalidateOnDownload();
             }
         } catch (OsmIllegalOperationException | StorageException e) {
-            handleDelegatorException(main, e);
+            handleDelegatorException(main, e, true);
         } catch (IllegalOperationException e) { // generated by moving a note
             ScreenMessage.barError(main, e.getMessage());
         } finally {
-            unlock();
+            unlockWrites();
         }
         invalidateMap();
+    }
+
+    /**
+     * If we have moved a long way or a majority of the way nodes are outside of the view box show a warning toast
+     * 
+     * @param main the current Main instance
+     * @param nodes the nodes that are being moved
+     * @param nodeCount the number of nodes
+     */
+    private void showMoveWarning(@NonNull Main main, @NonNull List<Node> nodes, final int nodeCount) {
+        boolean showWarning = nodeCount > prefs.minMoveWayNodesWarning();
+        if (!showWarning && nodeCount > prefs.minMoveWayVisibleNodesWarning()) {
+            // count nodes in view box
+            int visibleNodes = 0;
+            int nodeLimit = nodeCount / 2;
+            for (Node n : nodes) {
+                if (viewBox.contains(n.getLon(), n.getLat())) {
+                    visibleNodes++;
+                }
+                if (visibleNodes > nodeLimit) {
+                    return;
+                }
+            }
+            showWarning = visibleNodes < nodeLimit;
+        }
+        if (showWarning) {
+            String warning = main.getString(R.string.toast_way_nodes_moved, nodeCount);
+            Log.d(DEBUG_TAG, warning);
+            ScreenMessage.toastTopWarning(main, warning);
+        }
     }
 
     /**
@@ -1856,7 +1903,7 @@ public class Logic {
             throws OsmIllegalOperationException {
         Log.d(DEBUG_TAG, "performAdd");
         try {
-            lock();
+            lockWrites();
             if (createCheckpoint) {
                 createCheckpoint(activity, R.string.undo_action_add);
             }
@@ -1906,10 +1953,10 @@ public class Logic {
             setSelectedNode(lSelectedNode);
             setSelectedWay(lSelectedWay);
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -1982,7 +2029,7 @@ public class Logic {
      * @return the created node
      */
     @NonNull
-    public Node performAddNode(@Nullable final Activity activity, double lonD, double latD) {
+    public Node performAddNode(@Nullable final FragmentActivity activity, double lonD, double latD) {
         int lon = (int) (lonD * 1E7D);
         int lat = (int) (latD * 1E7D);
         return performAddNode(activity, lon, lat);
@@ -1997,7 +2044,7 @@ public class Logic {
      * @return the created node
      */
     @NonNull
-    public Node performAddNode(@Nullable final Activity activity, float x, float y) {
+    public Node performAddNode(@Nullable final FragmentActivity activity, float x, float y) {
         return performAddNode(activity, xToLonE7(x), yToLatE7(y));
     }
 
@@ -2010,18 +2057,21 @@ public class Logic {
      * @return the created node
      */
     @NonNull
-    public Node performAddNode(@Nullable final Activity activity, int lonE7, int latE7) {
+    public Node performAddNode(@Nullable final FragmentActivity activity, int lonE7, int latE7) {
         Log.d(DEBUG_TAG, "performAddNode");
         try {
-            lock();
+            lockWrites();
             createCheckpoint(activity, R.string.undo_action_add);
             Node newNode = getDelegator().getFactory().createNodeWithNewId(latE7, lonE7);
             getDelegator().insertElementSafe(newNode);
             outsideOfDownload(activity, lonE7, latE7);
             setSelectedNode(newNode);
             return newNode;
+        } catch (StorageException ex) {
+            handleDelegatorException(activity, ex, true);
+            throw ex; // rethrow
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -2042,7 +2092,7 @@ public class Logic {
     public Node performAddOnWay(@Nullable Activity activity, @Nullable List<Way> ways, final float x, final float y, boolean forceNew)
             throws OsmIllegalOperationException {
         try {
-            lock();
+            lockWrites();
             Node savedSelectedNode = getSelectedNode();
             Node newSelectedNode = addOnWay(activity, ways, x, y, forceNew);
             if (newSelectedNode == null) {
@@ -2052,7 +2102,7 @@ public class Logic {
             setSelectedNode(newSelectedNode);
             return newSelectedNode;
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -2068,13 +2118,14 @@ public class Logic {
      * @throws OsmIllegalOperationException if the operation would create an illegal state
      */
     @Nullable
-    private Node addOnWay(Activity activity, List<Way> ways, final float x, final float y, boolean forceNew) {
+    public Node addOnWay(@Nullable Activity activity, @Nullable List<Way> ways, final float x, final float y, boolean forceNew)
+            throws OsmIllegalOperationException {
         createCheckpoint(activity, R.string.undo_action_add);
         try {
             return getClickedNodeOrCreatedWayNode(ways, x, y, forceNew);
-        } catch (OsmIllegalOperationException e) {
+        } catch (OsmIllegalOperationException | StorageException e) {
             rollback();
-            throw new OsmIllegalOperationException(e);
+            throw e;
         }
     }
 
@@ -2087,7 +2138,7 @@ public class Logic {
      */
     public void performEraseNode(@Nullable final FragmentActivity activity, @NonNull final Node node, boolean createCheckpoint) {
         try {
-            lock();
+            lockWrites();
             if (createCheckpoint) {
                 createCheckpoint(activity, R.string.undo_action_deletenode);
             }
@@ -2096,7 +2147,7 @@ public class Logic {
             invalidateMap();
             outsideOfDownload(activity, node.getLon(), node.getLat());
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -2134,7 +2185,7 @@ public class Logic {
             displayAttachedObjectWarning(activity, node);
             getDelegator().moveNode(node, latE7, lonE7);
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         }
     }
@@ -2150,7 +2201,7 @@ public class Logic {
      */
     public void performEraseWay(@Nullable final FragmentActivity activity, @NonNull final Way way, final boolean deleteOrphanNodes, boolean createCheckpoint) {
         try {
-            lock();
+            lockWrites();
             if (createCheckpoint) {
                 createCheckpoint(activity, R.string.undo_action_deleteway);
             }
@@ -2166,8 +2217,11 @@ public class Logic {
                     }
                 }
             }
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex, true);
+            throw ex; // rethrow
         } finally {
-            unlock();
+            unlockWrites();
         }
         invalidateMap();
     }
@@ -2181,14 +2235,17 @@ public class Logic {
      */
     public void performEraseRelation(@Nullable final FragmentActivity activity, @NonNull final Relation relation, boolean createCheckpoint) {
         try {
-            lock();
+            lockWrites();
             if (createCheckpoint) {
                 createCheckpoint(activity, R.string.undo_action_delete_relation);
             }
             displayAttachedObjectWarning(activity, relation); // needs to be done before removal
             getDelegator().removeRelation(relation);
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex, true);
+            throw ex; // rethrow
         } finally {
-            unlock();
+            unlockWrites();
         }
         invalidateMap();
     }
@@ -2203,7 +2260,7 @@ public class Logic {
      */
     public void performEraseMultipleObjects(@Nullable final FragmentActivity activity, @NonNull List<OsmElement> selection) {
         try {
-            lock();
+            lockWrites();
             // need to make three passes
             createCheckpoint(activity, R.string.undo_action_delete_objects);
             displayAttachedObjectWarning(activity, selection); // needs to be done before removal
@@ -2223,7 +2280,7 @@ public class Logic {
                 }
             }
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -2234,14 +2291,17 @@ public class Logic {
      * 
      * @param activity the calling activity or null
      * @param ex the Exception to handle
+     * @param rollback if true undo the current undo checkpoint
      */
-    private void handleDelegatorException(@Nullable final FragmentActivity activity, @NonNull Exception ex) {
+    private void handleDelegatorException(@Nullable final FragmentActivity activity, @NonNull Exception ex, boolean rollback) {
         if (ex instanceof OsmIllegalOperationException) {
             dismissAttachedObjectWarning(activity);
             if (activity != null) {
                 ScreenMessage.toastTopError(activity, activity.getString(R.string.toast_illegal_operation, ex.getLocalizedMessage()));
             }
-            rollback();
+            if (rollback) {
+                rollback();
+            }
             invalidateMap();
         } else if ((ex instanceof StorageException) && activity != null) {
             ScreenMessage.toastTopError(activity, R.string.toast_out_of_memory);
@@ -2257,21 +2317,20 @@ public class Logic {
      * @param fromEnd create new Way from Nodes after node
      * @return a List of Result objects containing the new Way and any issues
      * @throws OsmIllegalOperationException if the operation failed
-     * @throws StorageException if we ran out of memory
      */
     @NonNull
     public List<Result> performSplit(@Nullable final FragmentActivity activity, @NonNull final Way way, @NonNull final Node node, boolean fromEnd) {
         try {
-            lock();
+            lockWrites();
             createCheckpoint(activity, R.string.undo_action_split_way);
             List<Result> result = getDelegator().splitAtNode(way, node, fromEnd);
             invalidateMap();
             return result;
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -2286,13 +2345,12 @@ public class Logic {
      * @return a List of Result objects containing the original Way in the 1st element and the new Way in the 2ndand any
      *         issues
      * @throws OsmIllegalOperationException if the operation failed
-     * @throws StorageException if we ran out of memory
      */
     @NonNull
     public List<Result> performClosedWaySplit(@Nullable FragmentActivity activity, @NonNull Way way, @NonNull Node node1, @NonNull Node node2,
             boolean createPolygons) {
         try {
-            lock();
+            lockWrites();
             createCheckpoint(activity, R.string.undo_action_split_way);
             displayAttachedObjectWarning(activity, way);
             List<Result> results = getDelegator().splitAtNodes(way, node1, node2, createPolygons);
@@ -2302,10 +2360,10 @@ public class Logic {
             invalidateMap();
             return results;
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -2321,7 +2379,7 @@ public class Logic {
     @NonNull
     public List<Result> performExtractSegment(@Nullable FragmentActivity activity, @NonNull Way way, @NonNull Node node1, @NonNull Node node2) {
         try {
-            lock();
+            lockWrites();
             createCheckpoint(activity, R.string.undo_action_extract_segment);
             displayAttachedObjectWarning(activity, way);
             List<Result> result = null;
@@ -2347,10 +2405,10 @@ public class Logic {
             invalidateMap();
             return result;
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex;
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -2395,12 +2453,15 @@ public class Logic {
      */
     public void performRemoveNodeFromWay(@Nullable FragmentActivity activity, @NonNull Way way, @NonNull Node node) {
         try {
-            lock();
+            lockWrites();
             createCheckpoint(activity, R.string.undo_action_remove_node_from_way);
             displayAttachedObjectWarning(activity, node);
             getDelegator().removeNodeFromWay(way, node);
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex, true);
+            throw ex;
         } finally {
-            unlock();
+            unlockWrites();
         }
         invalidateMap();
     }
@@ -2418,14 +2479,17 @@ public class Logic {
     public void performRemoveEndNodeFromWay(@Nullable FragmentActivity activity, boolean fromEnd, @NonNull Way way, boolean deleteNode,
             boolean createCheckPoint) {
         try {
-            lock();
+            lockWrites();
             if (createCheckPoint) {
                 createCheckpoint(activity, R.string.undo_action_remove_node_from_way);
             }
             displayAttachedObjectWarning(activity, way.getLastNode());
             getDelegator().removeEndNodeFromWay(fromEnd, way, deleteNode);
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex, createCheckPoint);
+            throw ex;
         } finally {
-            unlock();
+            unlockWrites();
         }
         invalidateMap();
     }
@@ -2443,15 +2507,15 @@ public class Logic {
     public List<Result> performMerge(@Nullable final FragmentActivity activity, @NonNull Way mergeInto, @NonNull Way mergeFrom) {
         createCheckpoint(activity, R.string.undo_action_merge_ways);
         try {
-            lock();
+            lockWrites();
             displayAttachedObjectWarning(activity, mergeInto, mergeFrom, true); // needs to be done before merge
             MergeAction action = new MergeAction(getDelegator(), mergeInto, mergeFrom, getSelectedIds());
             return action.mergeWays();
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         } finally {
-            unlock();
+            unlockWrites();
             invalidateMap();
         }
     }
@@ -2466,7 +2530,7 @@ public class Logic {
     @NonNull
     public List<Result> performMerge(@Nullable FragmentActivity activity, @NonNull List<OsmElement> sortedWays) {
         try {
-            lock();
+            lockWrites();
             createCheckpoint(activity, R.string.undo_action_merge_ways);
             displayAttachedObjectWarning(activity, sortedWays, true); // needs to be done before merge
             if (sortedWays.isEmpty()) {
@@ -2502,10 +2566,10 @@ public class Logic {
             }
             return overallResult;
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -2518,7 +2582,7 @@ public class Logic {
      */
     public List<Result> performPolygonMerge(@Nullable FragmentActivity activity, @NonNull List<Way> ways) {
         try {
-            lock();
+            lockWrites();
             createCheckpoint(activity, R.string.undo_action_merge_polygons);
             displayAttachedObjectWarning(activity, ways, true); // needs to be done before merge
             if (!(ways.size() == 2 && ways.get(0).isClosed() && ways.get(1).isClosed())) {
@@ -2527,20 +2591,20 @@ public class Logic {
             MergeAction action = new MergeAction(getDelegator(), ways.get(0), ways.get(1), getSelectedIds());
             return action.mergeSimplePolygons(map);
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
     /**
-     * Orthogonalize a way (aka make angles 90°)
+     * Orthogonalize a way (aka make angles a integer multiple of 90°)
      * 
      * @param activity activity this was called from, if null no warnings will be displayed
      * @param way way to square
      */
-    public void performOrthogonalize(@Nullable FragmentActivity activity, @Nullable Way way) {
+    public <W extends WayInterface> void performOrthogonalize(@Nullable FragmentActivity activity, @Nullable W way) {
         if (way == null || way.getNodes().size() < 3) {
             Log.e(DEBUG_TAG, "performOrthogonalize way " + (way == null ? "is null" : " has " + way.nodeCount()) + " nodes");
             return;
@@ -2549,14 +2613,14 @@ public class Logic {
     }
 
     /**
-     * Orthogonalize multiple ways at once (aka make angles 90°)
+     * Orthogonalize multiple ways at once (aka make angles a integer multiple of 90°)
      * 
      * As this can take a noticeable amount of time, we execute async and display a toast when finished
      * 
      * @param activity activity this was called from, if null no warnings will be displayed
      * @param ways ways to square
      */
-    public void performOrthogonalize(@Nullable FragmentActivity activity, @Nullable List<Way> ways) {
+    public <W extends WayInterface> void performOrthogonalize(@Nullable FragmentActivity activity, @Nullable List<W> ways) {
         if (ways == null || ways.isEmpty()) {
             Log.e(DEBUG_TAG, "performOrthogonalize no ways");
             return;
@@ -2579,7 +2643,7 @@ public class Logic {
             @Override
             protected void onPostExecute(StorageException ex) {
                 if (ex != null) {
-                    handleDelegatorException(activity, ex);
+                    handleDelegatorException(activity, ex, true);
                     return;
                 }
                 invalidateMap();
@@ -2588,7 +2652,7 @@ public class Logic {
                 }
                 if (getFilter() != null && showAttachedObjectWarning()) {
                     Set<Node> nodes = new HashSet<>();
-                    for (Way w : ways) {
+                    for (W w : ways) {
                         nodes.addAll(w.getNodes());
                     }
                     displayAttachedObjectWarning(activity, nodes);
@@ -2612,17 +2676,17 @@ public class Logic {
             return null;
         }
         try {
-            lock();
+            lockWrites();
             createCheckpoint(activity, R.string.undo_action_extract_node);
             displayAttachedObjectWarning(activity, node); // this needs to be done -before- we replace the node
             Node newNode = getDelegator().replaceNode(node);
             invalidateMap();
             return newNode;
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -2652,7 +2716,7 @@ public class Logic {
             return closestElements;
         }
         // fall back to closest ways
-        final float tolerance = wayToleranceForTouch(map.getDataStyle().getCurrent());
+        final float tolerance = wayToleranceForTouch(map.getDataStyleManager().getCurrent());
         for (Way way : getDelegator().getCurrentStorage().getWays()) {
             List<Node> wayNodes = way.getNodes();
             if (way.hasNode(nodeToJoin) || wayNodes.isEmpty()) {
@@ -2682,17 +2746,18 @@ public class Logic {
      * @param activity activity this was called from, if null no warnings will be displayed
      * @param elements List of Node that the Node will be merged to.
      * @param nodeToJoin Node to be merged
+     * @param into true default behaviour nodeToJoin is merged into the nearby nodes
      * @return a List of MergeResult objects containing the result of the merge
      */
     @NonNull
-    public List<Result> performMergeNodes(@Nullable FragmentActivity activity, @NonNull List<OsmElement> elements, @NonNull Node nodeToJoin) {
+    public List<Result> performMergeNodes(@Nullable FragmentActivity activity, @NonNull List<OsmElement> elements, @NonNull Node nodeToJoin, boolean into) {
         Log.d(DEBUG_TAG, "performMergeNodes " + nodeToJoin.getOsmId() + " " + elements.size() + " targets");
         List<Result> overallResult = new ArrayList<>();
         if (elements.isEmpty()) {
             return overallResult;
         }
         try {
-            lock();
+            lockWrites();
             createCheckpoint(activity, R.string.undo_action_join);
             Result result = null;
             for (OsmElement element : elements) {
@@ -2701,7 +2766,8 @@ public class Logic {
                     throw new OsmIllegalOperationException("Trying to join node to itself");
                 }
                 displayAttachedObjectWarning(activity, element, nodeToJoin); // needs to be done before join
-                MergeAction action = new MergeAction(getDelegator(), element, nodeToJoin, getSelectedIds());
+                MergeAction action = into ? new MergeAction(getDelegator(), element, nodeToJoin, getSelectedIds())
+                        : new MergeAction(getDelegator(), nodeToJoin, element, getSelectedIds());
                 try {
                     List<Result> tempResult = action.mergeNodes();
                     if (overallResult.isEmpty()) {
@@ -2714,7 +2780,7 @@ public class Logic {
                         overallResult.addAll(tempResult.subList(1, tempResult.size()));
                     }
                 } catch (OsmIllegalOperationException | StorageException ex) {
-                    handleDelegatorException(activity, ex);
+                    handleDelegatorException(activity, ex, true);
                     throw ex; // rethrow
                 }
                 if (!(result.getElement() instanceof Node)) {
@@ -2722,7 +2788,7 @@ public class Logic {
                 }
             }
         } finally {
-            unlock();
+            unlockWrites();
         }
         invalidateMap();
         return overallResult;
@@ -2742,9 +2808,9 @@ public class Logic {
             return new ArrayList<>();
         }
         List<Result> result = null;
-        final float tolerance = map.getDataStyle().getCurrent().getWayToleranceValue() / 2f;
+        final float tolerance = map.getDataStyleManager().getCurrent().getWayToleranceValue() / 2f;
         try {
-            lock();
+            lockWrites();
             createCheckpoint(activity, R.string.undo_action_join);
             for (OsmElement element : elements) {
                 if (!(element instanceof Way)) {
@@ -2794,7 +2860,7 @@ public class Logic {
                                 tempResult = action.mergeNodes();
                             }
                         } catch (OsmIllegalOperationException | StorageException ex) {
-                            handleDelegatorException(activity, ex);
+                            handleDelegatorException(activity, ex, true);
                             throw ex; // rethrow
                         }
                         break; // need to leave loop !!!
@@ -2816,7 +2882,7 @@ public class Logic {
                 }
             }
         } finally {
-            unlock();
+            unlockWrites();
         }
         invalidateMap();
         return result != null ? result : new ArrayList<>();
@@ -2830,15 +2896,15 @@ public class Logic {
      */
     public void performUnjoinWays(@Nullable FragmentActivity activity, @NonNull Node node) {
         try {
-            lock();
+            lockWrites();
             createCheckpoint(activity, R.string.undo_action_unjoin_ways);
             displayAttachedObjectWarning(activity, node); // needs to be done before unjoin
             getDelegator().unjoinWays(node);
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         } finally {
-            unlock();
+            unlockWrites();
             invalidateMap();
         }
     }
@@ -2849,18 +2915,24 @@ public class Logic {
      * @param activity activity this was called from, if null no warnings will be displayed
      * @param way the Way to unjoin
      * @param primaryKey don't unjoin from ways with the same primary key, but replace the node in them too
+     * @return a list of the unjoined nodes
      */
-    public void performUnjoinWay(@Nullable FragmentActivity activity, @NonNull Way way, @Nullable String primaryKey) {
+    @NonNull
+    public List<Node> performUnjoinWay(@Nullable FragmentActivity activity, @NonNull Way way, @Nullable String primaryKey) {
         try {
-            lock();
+            lockWrites();
+            final StorageDelegator delegator = getDelegator();
             createCheckpoint(activity, R.string.undo_action_unjoin_ways);
+            if (!delegator.isInDownload(way)) {
+                throw new OsmIllegalOperationException(App.getString(activity, R.string.toast_all_way_nodes_download));
+            }
             displayAttachedObjectWarning(activity, way); // needs to be done before unjoin
-            getDelegator().unjoinWay(activity, way, primaryKey);
+            return delegator.unjoinWay(activity, way, primaryKey);
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         } finally {
-            unlock();
+            unlockWrites();
             invalidateMap();
         }
     }
@@ -2878,14 +2950,14 @@ public class Logic {
     @NonNull
     public List<Result> performReverse(@Nullable FragmentActivity activity, @NonNull Way way) {
         try {
-            lock();
+            lockWrites();
             createCheckpoint(activity, R.string.undo_action_reverse_way);
             return getDelegator().reverseWay(way);
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         } finally {
-            unlock();
+            unlockWrites();
             invalidateMap();
         }
     }
@@ -2898,11 +2970,11 @@ public class Logic {
      */
     public void performAppendStart(@Nullable Way way, @Nullable Node node) {
         try {
-            lock();
+            lockWrites();
             setSelectedNode(node);
             setSelectedWay(way);
         } finally {
-            unlock();
+            unlockWrites();
         }
         invalidateMap();
     }
@@ -2924,7 +2996,7 @@ public class Logic {
             throws OsmIllegalOperationException {
         Log.d(DEBUG_TAG, "performAppendAppend");
         try {
-            lock();
+            lockWrites();
             if (createCheckpoint) {
                 createCheckpoint(activity, R.string.undo_action_append);
             }
@@ -2945,16 +3017,20 @@ public class Logic {
             setSelectedNode(lSelectedNode);
             setSelectedWay(lSelectedWay);
         } catch (StorageException e) {
-            rollback();
+            if (createCheckpoint) {
+                rollback();
+            }
             throw e;
         } finally {
-            unlock();
+            unlockWrites();
         }
         invalidateMap();
     }
 
     /**
      * Replace a Ways geometry adding/deleting nodes if necessary
+     * 
+     * To work properly all nodes need to be downloaded including their parent ways
      * 
      * @param activity optional Activity
      * @param target way that will get the new geometry
@@ -2965,8 +3041,11 @@ public class Logic {
     public <T extends GeoPoint> List<Result> performReplaceGeometry(@Nullable final FragmentActivity activity, @NonNull Way target, @NonNull List<T> geometry) {
         StorageDelegator delegator = getDelegator();
         try {
-            lock();
+            lockWrites();
             createCheckpoint(activity, R.string.undo_action_replace_geometry);
+            if (!delegator.isInDownload(target)) {
+                throw new OsmIllegalOperationException(App.getString(activity, R.string.toast_all_way_nodes_download));
+            }
             final int geometrySize = geometry.size();
             delegator.validateWayNodeCount(geometrySize);
             boolean sourceClosed = geometry.get(0).equals(geometry.get(geometrySize - 1));
@@ -3002,14 +3081,34 @@ public class Logic {
                     Result r = new Result(n);
                     r.addIssue(ReplaceIssue.EXTRACTED_NODE);
                     result.add(r);
+                    addElementToTodoList(activity, R.string.replace_geometry_todo_list, r.getElement());
                 }
             }
             return result;
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         } finally {
-            unlock();
+            unlockWrites();
+        }
+    }
+
+    /**
+     * Add an OsmElement to a "system" created todo list //NOSONAR
+     * 
+     * @param ctx an Android context
+     * @param listNameRes a resource id for the name of the list
+     * @param e the OsmElement
+     */
+    private void addElementToTodoList(@NonNull Context ctx, int listNameRes, @Nullable OsmElement e) {
+        if (e == null || ctx == null) {
+            return;
+        }
+        final TaskStorage storage = App.getTaskStorage();
+        String listName = ctx.getString(listNameRes);
+        if (!storage.contains(e, listName)) {
+            Todo todo = new Todo(listName, e);
+            storage.add(todo);
         }
     }
 
@@ -3025,14 +3124,12 @@ public class Logic {
     private Node findTargetNode(@NonNull List<Node> targetNodes, double newLon, double newLat) {
         Node bestTarget = null;
         double bestDistance = Double.MAX_VALUE;
+        double replaceTolerance = prefs != null ? prefs.getReplaceTolerance() : 0D;
         for (Node target : targetNodes) {
             double distance = GeoMath.haversineDistance(target.getLon() / 1E7D, target.getLat() / 1E7D, newLon, newLat);
             if (distance < bestDistance) {
-                if (target.hasTags() && prefs != null && distance > prefs.getReplaceTolerance()) { // only use tagged
-                                                                                                   // nodes if they are
-                                                                                                   // really close to
-                                                                                                   // new
-                    // position
+                if (distance > replaceTolerance && (target.hasTags() || getWaysForNode(target).size() > 1)) {
+                    // only use tagged nodes or further connected ones if they are really close to new position
                     continue;
                 }
                 bestDistance = distance;
@@ -3073,7 +3170,7 @@ public class Logic {
     private Node getClickedNodeOrCreatedWayNode(@Nullable List<Way> ways, final float x, final float y, boolean forceNew) throws OsmIllegalOperationException {
         Node node = null;
         try {
-            lock();
+            lockWrites();
             if (!forceNew) {
                 node = getClickedNode(x, y);
                 if (node != null) {
@@ -3088,7 +3185,7 @@ public class Logic {
             List<Way> savedWays = new ArrayList<>();
             List<Integer> savedWaysNodeIndex = new ArrayList<>();
             double savedDistance = Double.MAX_VALUE;
-            final float tolerance = wayToleranceForTouch(map.getDataStyle().getCurrent());
+            final float tolerance = wayToleranceForTouch(map.getDataStyleManager().getCurrent());
             // create a new node on a way
             for (Way way : ways) {
                 if (filter != null && !filter.include(way, isSelected(way))) {
@@ -3136,7 +3233,7 @@ public class Logic {
                 }
             }
         } finally {
-            unlock();
+            unlockWrites();
         }
         return node;
     }
@@ -3152,6 +3249,7 @@ public class Logic {
      * @return a new created node at lon/lat corresponding to x,y. When x,y does not lay on the line between node1 and
      *         node2 it will return null.
      */
+    @Nullable
     private Node createNodeOnWay(final Node node1, final Node node2, final float x, final float y) {
         // Nodes have to be converted to screen-coordinates, due to a better tolerance-check.
         float node1X = lonE7ToX(node1.getLon());
@@ -3160,7 +3258,7 @@ public class Logic {
         float node2Y = latE7ToY(node2.getLat());
 
         // At first, we check if the x,y is in the bounding box clamping by node1 and node2.
-        if (Geometry.isPositionOnLine(wayToleranceForTouch(map.getDataStyle().getCurrent()), x, y, node1X, node1Y, node2X, node2Y) >= 0) {
+        if (Geometry.isPositionOnLine(wayToleranceForTouch(map.getDataStyleManager().getCurrent()), x, y, node1X, node1Y, node2X, node2Y) >= 0) {
             float[] p = GeoMath.closestPoint(x, y, node1X, node1Y, node2X, node2Y);
             int lat = yToLatE7(p[1]);
             int lon = xToLonE7(p[0]);
@@ -3263,7 +3361,7 @@ public class Logic {
                     }
                 }
                 if (mainMap != null) {
-                    mainMap.getDataStyle().updateStrokes(strokeWidth(viewBox.getWidth()));
+                    mainMap.getDataStyleManager().updateStrokes(strokeWidth(viewBox.getWidth()));
                     // this is always a manual download so make the layer visible
                     de.blau.android.layer.data.MapOverlay<OsmElement> dataLayer = mainMap.getDataLayer();
                     if (dataLayer != null) {
@@ -3311,7 +3409,7 @@ public class Logic {
                 Server server = prefs.getServer();
                 mapBox.makeValidForApi(server.getCachedCapabilities().getMaxArea());
                 AsyncResult result = download(context, server, mapBox, postMerge, handler, true, true);
-                if (prefs.autoPrune() && getDelegator().reachedPruneLimits(prefs.getAutoPruneNodeLimit(), prefs.getAutoPruneBoundingBoxLimit())) {
+                if (prefs.autoPruneData() && getDelegator().reachedPruneLimits(prefs.getAutoPruneNodeLimit(), prefs.getAutoPruneBoundingBoxLimit())) {
                     ViewBox pruneBox = new ViewBox(map.getViewBox());
                     pruneBox.scale(1.6);
                     getDelegator().prune(pruneBox);
@@ -3338,23 +3436,9 @@ public class Logic {
         AsyncResult result = new AsyncResult(ErrorCodes.OK);
         try {
             if (!background) {
-                if (server.hasReadOnly()) {
-                    if (server.hasMapSplitSource()) {
-                        if (!MapSplitSource.intersects(server.getMapSplitSource(), mapBox)) {
-                            return new AsyncResult(ErrorCodes.NO_DATA);
-                        }
-                    } else {
-                        server.getReadOnlyCapabilities();
-                        if (!(server.readOnlyApiAvailable() && server.readOnlyReadableDB())) {
-                            return new AsyncResult(ErrorCodes.API_OFFLINE);
-                        }
-                        server.getCapabilities();
-                    }
-                } else {
-                    server.getCapabilities();
-                    if (!(server.apiAvailable() && server.readableDB())) {
-                        return new AsyncResult(ErrorCodes.API_OFFLINE);
-                    }
+                AsyncResult checkResult = checkDataAvailable(server, mapBox);
+                if (ErrorCodes.OK != checkResult.getCode()) {
+                    return checkResult;
                 }
             }
 
@@ -3383,9 +3467,9 @@ public class Logic {
                 }
             }
             // don't have to lock before we are here
-            lock();
+            lockWrites();
             if (!background) {
-                // Main maybe not available and by extension there may be no valid Map object
+                // Main maybe not be available and by extension there may be no valid Map object
                 Map currentMap = ctx instanceof Main ? ((Main) ctx).getMap() : null;
                 if (currentMap != null) {
                     // set to current or previous
@@ -3419,6 +3503,9 @@ public class Logic {
             case HttpStatusCodes.HTTP_BANDWIDTH_LIMIT_EXCEEDED:
                 result = new AsyncResult(ErrorCodes.DOWNLOAD_LIMIT_EXCEEDED);
                 break;
+            case HttpURLConnection.HTTP_UNAVAILABLE:
+                result = new AsyncResult(ErrorCodes.UNAVAILABLE, e.getMessage());
+                break;
             default:
                 result = new AsyncResult(ErrorCodes.UNKNOWN_ERROR, ctx.getString(R.string.unknown_http_code_message, e.getHttpErrorCode(), e.getMessage()));
             }
@@ -3435,7 +3522,7 @@ public class Logic {
         } catch (Exception e) {
             result = new AsyncResult(ErrorCodes.UNKNOWN_ERROR, e.getMessage());
         } finally {
-            unlock();
+            unlockWrites();
         }
         if (result.getCode() != ErrorCodes.OK) {
             removeBoundingBox(mapBox);
@@ -3445,6 +3532,34 @@ public class Logic {
             Log.e(DEBUG_TAG, "downloadBox problem downloading " + result.getClass() + " " + result.getMessage());
         }
         return result;
+    }
+
+    /**
+     * Check if we can actually access data for download
+     * 
+     * @param server the target Server
+     * @param box the BoundingBox we want data for
+     */
+    @NonNull
+    public AsyncResult checkDataAvailable(@NonNull final Server server, @Nullable final BoundingBox box) {
+        if (server.hasReadOnly()) {
+            if (server.hasMapSplitSource()) {
+                if (box != null && !MapSplitSource.intersects(server.getMapSplitSource(), box)) {
+                    return new AsyncResult(ErrorCodes.NO_DATA);
+                }
+            } else {
+                server.getReadOnlyCapabilities();
+                if (!(server.readOnlyApiAvailable() && server.readOnlyReadableDB())) {
+                    return new AsyncResult(ErrorCodes.API_OFFLINE);
+                }
+            }
+        } else {
+            server.getCapabilities();
+            if (!(server.apiAvailable() && server.readableDB())) {
+                return new AsyncResult(ErrorCodes.API_OFFLINE);
+            }
+        }
+        return new AsyncResult(ErrorCodes.OK);
     }
 
     /**
@@ -3621,7 +3736,9 @@ public class Logic {
         } catch (ParserConfigurationException ex) {
             Log.e(DEBUG_TAG, "getElementWithDeleted problem with parser", ex);
             throw new OsmServerException(ErrorCodes.INVALID_DATA_RECEIVED, ex.getLocalizedMessage());
-        } catch (IOException ex) {
+        } catch (OsmServerException ex) {
+            throw ex;
+        } catch (IOException | URISyntaxException | IllegalArgumentException ex) {
             Log.e(DEBUG_TAG, "getElementWithDeleted no connection", ex);
             throw new OsmServerException(ErrorCodes.NO_CONNECTION, ex.getLocalizedMessage());
         }
@@ -3687,7 +3804,9 @@ public class Logic {
                 } catch (ParserConfigurationException ex) {
                     Log.e(DEBUG_TAG, "getElementsWithDeleted problem with parser", ex);
                     throw new OsmServerException(ErrorCodes.INVALID_DATA_RECEIVED, ex.getLocalizedMessage());
-                } catch (IOException ex) {
+                } catch (OsmServerException osex) {
+                    throw osex;
+                } catch (IOException | URISyntaxException | IllegalArgumentException ex) {
                     Log.e(DEBUG_TAG, "getElementsWithDeleted no connection", ex);
                     throw new OsmServerException(ErrorCodes.NO_CONNECTION, ex.getLocalizedMessage());
                 } catch (Exception ex) {
@@ -3717,10 +3836,11 @@ public class Logic {
      * @throws SAXException parsing error
      * @throws IOException if we can't download the nodes
      * @throws ParserConfigurationException parsing error
+     * @throws URISyntaxException if the url couldn't be parsed
      */
     @NonNull
     private Storage multiFetch(@NonNull final Context ctx, @NonNull final Server server, @NonNull OsmParser osmParser, @NonNull String type,
-            @NonNull long[] ids) throws SAXException, IOException, ParserConfigurationException {
+            @NonNull long[] ids) throws SAXException, IOException, ParserConfigurationException, URISyntaxException {
         int end = 0;
         for (int start = 0; start < Math.min(start + Server.MULTI_FETCH_MAX_ELEMENTS, ids.length); start = end) {
             end = start + Math.min(Server.MULTI_FETCH_MAX_ELEMENTS, ids.length - start);
@@ -3742,9 +3862,10 @@ public class Logic {
      * @throws SAXException parsing error
      * @throws IOException if we can't download the nodes
      * @throws ParserConfigurationException parsing error
+     * @throws URISyntaxException if the url couldn't be parsed
      */
     private void downloadMissingWayNodes(@NonNull final Context ctx, @NonNull final Server server, @NonNull final OsmParser osmParser, @Nullable OsmElement way)
-            throws SAXException, IOException, ParserConfigurationException {
+            throws SAXException, IOException, ParserConfigurationException, URISyntaxException {
         // as the API doesn't return way nodes for this call we need to patch things up here
         if (way == null) {
             throw new OsmServerException(ErrorCodes.NOT_FOUND, "downloadMissingWayNodes null way");
@@ -3815,6 +3936,11 @@ public class Logic {
                 }
                 postLoadHandler.onError(null);
             }
+
+            @Override
+            protected void onBackgroundError(Exception ex) {
+                postLoadHandler.onError(null);
+            }
         };
 
         loader.execute();
@@ -3880,7 +4006,7 @@ public class Logic {
         } catch (OsmServerException e) {
             result = e.getHttpErrorCode();
             Log.e(DEBUG_TAG, "downloadElement problem downloading", e);
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException | IllegalArgumentException e) {
             result = ErrorCodes.NO_CONNECTION;
             Log.e(DEBUG_TAG, "downloadElement no connection", e);
         }
@@ -3934,10 +4060,10 @@ public class Logic {
                 try {
                     final OsmParser osmParser = new OsmParser(true);
                     Server server = getPrefs().getServer();
-                    if (nodes != null && !nodes.isEmpty()) {
+                    if (!Util.isEmpty(nodes)) {
                         multiFetch(ctx, server, osmParser, Node.NAME, toLongArray(nodes));
                     }
-                    if (ways != null && !ways.isEmpty()) {
+                    if (!Util.isEmpty(ways)) {
                         final long[] wayIds = toLongArray(ways);
                         Storage storage = multiFetch(ctx, server, osmParser, Way.NAME, wayIds);
                         for (long wayId : wayIds) {
@@ -3945,7 +4071,7 @@ public class Logic {
                             downloadMissingWayNodes(ctx, server, osmParser, way);
                         }
                     }
-                    if (relations != null && !relations.isEmpty()) {
+                    if (!Util.isEmpty(relations)) {
                         multiFetch(ctx, server, osmParser, Relation.NAME, toLongArray(relations));
                     }
                     getDelegator().mergeData(osmParser.getStorage(), null);
@@ -3957,6 +4083,8 @@ public class Logic {
                         return new AsyncResult(ErrorCodes.OUT_OF_MEMORY);
                     }
                     return new AsyncResult(ErrorCodes.INVALID_DATA_RECEIVED);
+                } catch (StorageException sex) {
+                    return new AsyncResult(ErrorCodes.OUT_OF_MEMORY);
                 } catch (ParserConfigurationException e) {
                     Log.e(DEBUG_TAG, "downloadElements problem parsing", e);
                     return new AsyncResult(ErrorCodes.INVALID_DATA_RECEIVED);
@@ -3965,7 +4093,7 @@ public class Logic {
                     return new AsyncResult(ErrorCodes.UNKNOWN_ERROR, e.getMessageWithDescription());
                 } catch (DataConflictException dce) {
                     return new AsyncResult(ErrorCodes.DATA_CONFLICT);
-                } catch (IOException e) {
+                } catch (IOException | URISyntaxException | IllegalArgumentException e) {
                     Log.e(DEBUG_TAG, "downloadElements problem downloading", e);
                     return new AsyncResult(ErrorCodes.NO_CONNECTION);
                 }
@@ -4017,7 +4145,7 @@ public class Logic {
         }
         final StorageDelegator delegator = getDelegator();
         try {
-            delegator.lock();
+            delegator.lockWrites();
             if (e.getName().equals(Node.NAME)) {
                 delegator.removeNode((Node) e);
             } else if (e.getName().equals(Way.NAME)) {
@@ -4027,7 +4155,7 @@ public class Logic {
             }
             delegator.removeFromUpload(e, OsmElement.STATE_DELETED);
         } finally {
-            delegator.unlock();
+            delegator.unlockWrites();
         }
     }
 
@@ -4042,10 +4170,10 @@ public class Logic {
         createCheckpoint(activity, R.string.undo_action_fix_conflict);
         final StorageDelegator delegator = getDelegator();
         try {
-            delegator.lock();
+            delegator.lockWrites();
             getDelegator().removeFromUpload(e, OsmElement.STATE_UNCHANGED); // this will allow merging to replace it
         } finally {
-            delegator.unlock();
+            delegator.unlockWrites();
         }
         downloadElement(activity, e.getName(), e.getOsmId(), false, true, new PostAsyncActionHandler() {
 
@@ -4274,9 +4402,9 @@ public class Logic {
             protected AsyncResult doInBackground(Boolean arg) {
                 try {
                     Storage storage = new Storage();
-                    try {
-                        BlockReaderAdapter opp = new OsmPbfParser(storage);
-                        new BlockInputStream(is, opp).process();
+                    OsmPbfParser opp = new OsmPbfParser(storage);
+                    try (BlockInputStream bis = new BlockInputStream(is, opp)) {
+                        bis.process();
                         StorageDelegator sd = getDelegator();
                         sd.reset(false);
                         sd.setCurrentStorage(storage); // this sets dirty flag
@@ -4323,7 +4451,21 @@ public class Logic {
                     OsmChangeParser oscParser = new OsmChangeParser();
                     oscParser.clearBoundingBoxes(); // this removes the default bounding box
                     oscParser.start(in);
-                    lock();
+                    lockWrites();
+                    List<Long> missing = new ArrayList<>();
+                    for (Way w : oscParser.getStorage().getWays()) {
+                        for (Node n : w.getNodes()) {
+                            if (n instanceof MissingNode) {
+                                missing.add(n.getOsmId());
+                            }
+                        }
+                    }
+                    if (!missing.isEmpty()) {
+                        Log.d(DEBUG_TAG, "applyOscFile " + missing.size() + " missing nodes");
+                        final OsmParser osmParser = new OsmParser(false);
+                        Server server = getPrefs().getServer();
+                        sd.mergeData(multiFetch(activity, server, osmParser, Node.NAME, toLongArray(missing)), null);
+                    }
                     createCheckpoint((FragmentActivity) context, R.string.undo_action_apply_osc);
                     if (!sd.applyOsc(oscParser.getStorage(), null)) {
                         removeCheckpoint((FragmentActivity) context, R.string.undo_action_apply_osc, true);
@@ -4338,7 +4480,8 @@ public class Logic {
                         TransferTasks.merge(context, App.getTaskStorage(), notes);
                         TransferTasks.addBoundingBoxFromData(App.getTaskStorage(), notes);
                     }
-                } catch (UnsupportedFormatException | IOException | SAXException | ParserConfigurationException e) {
+                } catch (UnsupportedFormatException | IOException | SAXException | ParserConfigurationException | URISyntaxException
+                        | IllegalArgumentException e) {
                     Log.e(DEBUG_TAG, "Problem parsing OSC ", e);
                     return new AsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
                 } catch (IllegalStateException iex) {
@@ -4347,7 +4490,7 @@ public class Logic {
                     return new AsyncResult(sd.isDirty() ? ErrorCodes.OUT_OF_MEMORY_DIRTY : ErrorCodes.OUT_OF_MEMORY);
                 } finally {
                     SavingHelper.close(is);
-                    unlock();
+                    unlockWrites();
                 }
                 return new AsyncResult(ErrorCodes.OK, null);
             }
@@ -4361,8 +4504,9 @@ public class Logic {
      */
     void save(@NonNull final Context context) {
         try {
+            // this is locked in StorageDelegator
             getDelegator().writeToFile(context);
-            lock();
+            lockReads();
             App.getTaskStorage().writeToFile(context);
             if (map != null) {
                 map.saveLayerState(context);
@@ -4370,7 +4514,7 @@ public class Logic {
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "Problem saving", e);
         } finally {
-            unlock();
+            unlockReads();
         }
     }
 
@@ -4400,16 +4544,17 @@ public class Logic {
      */
     void saveEditingState(@NonNull Main main) {
         try {
-            lock();
+            lockReads();
             if (editingStateRead) {
-                EditState editState = new EditState(main, this, main.getImageFileName(), viewBox, main.getFollowGPS(), prefs.getServer().getOpenChangeset());
+                EditState editState = new EditState(main, this, main.getImageFileName(), null, viewBox, main.getFollowGPS(),
+                        prefs.getServer().getOpenChangeset());
                 new SavingHelper<EditState>().save(main, EDITSTATE_FILENAME, editState, false, true);
                 main.getEasyEditManager().saveState();
             } else {
                 Log.w(DEBUG_TAG, "EditingState not loaded skipping save");
             }
         } finally {
-            unlock();
+            unlockReads();
         }
     }
 
@@ -4500,8 +4645,9 @@ public class Logic {
                         // invalid dimensions or similar error
                         viewBox.setBorders(mainMap, new BoundingBox(-GeoMath.MAX_LON, -GeoMath.MAX_COMPAT_LAT, GeoMath.MAX_LON, GeoMath.MAX_COMPAT_LAT));
                     }
-                    mainMap.getDataStyle().updateStrokes(STROKE_FACTOR / viewBox.getWidth()); // safety measure if not
-                                                                                              // done in
+                    mainMap.getDataStyleManager().updateStrokes(STROKE_FACTOR / viewBox.getWidth()); // safety measure
+                                                                                                     // if not
+                    // done in
                     loadEditingState((Main) activity, true);
                 } else {
                     Log.e(DEBUG_TAG, "loadFromFile map is null");
@@ -4671,7 +4817,7 @@ public class Logic {
                     // invalid dimensions or similar error
                     viewBox.setBorders(mainMap, new BoundingBox(-180.0, -GeoMath.MAX_COMPAT_LAT, 180.0, GeoMath.MAX_COMPAT_LAT));
                 }
-                mainMap.getDataStyle().updateStrokes(STROKE_FACTOR / viewBox.getWidth());
+                mainMap.getDataStyleManager().updateStrokes(STROKE_FACTOR / viewBox.getWidth());
                 loadEditingState((Main) activity, true);
                 invalidateMap();
             }
@@ -4742,7 +4888,7 @@ public class Logic {
                     Log.e(DEBUG_TAG, METHOD_UPLOAD, e);
                     result.setError(ErrorCodes.UPLOAD_INCOMPLETE);
                     result.setMessage(e.getLocalizedMessage());
-                } catch (final IOException | NumberFormatException e) {
+                } catch (final IOException | URISyntaxException | IllegalArgumentException | StorageException e) {
                     Log.e(DEBUG_TAG, METHOD_UPLOAD, e);
                     result.setError(ErrorCodes.UPLOAD_PROBLEM);
                     result.setMessage(e.getLocalizedMessage());
@@ -4927,7 +5073,7 @@ public class Logic {
                     result.setHttpError(errorCode);
                     result.setMessage(e.getMessage());
                     Logic.mapErrorCode(errorCode, result);
-                } catch (final IOException e) {
+                } catch (final IOException | URISyntaxException e) {
                     result.setError(ErrorCodes.NO_CONNECTION);
                     Log.e(DEBUG_TAG, "", e);
                 } catch (IllegalArgumentException | IllegalStateException | NullPointerException e) {
@@ -5022,12 +5168,12 @@ public class Logic {
      */
     public void setSelectedNode(@Nullable final Node selectedNode) {
         try {
-            lock();
+            lockWrites();
             selectionStack.getFirst().setNode(selectedNode);
             map.setSelectedNodes(selectionStack.getFirst().getNodes());
             resetFilterCache();
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -5038,11 +5184,11 @@ public class Logic {
      */
     public void addSelectedNode(@NonNull final Node selectedNode) {
         try {
-            lock();
+            lockWrites();
             selectionStack.getFirst().add(selectedNode);
             resetFilterCache();
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -5052,10 +5198,10 @@ public class Logic {
     @Nullable
     public final Node getSelectedNode() {
         try {
-            lock();
+            lockReads();
             return selectionStack.getFirst().getNode();
         } finally {
-            unlock();
+            unlockReads();
         }
     }
 
@@ -5067,10 +5213,10 @@ public class Logic {
     @Nullable
     public List<Node> getSelectedNodes() {
         try {
-            lock();
+            lockReads();
             return selectionStack.getFirst().getNodes();
         } finally {
-            unlock();
+            unlockReads();
         }
     }
 
@@ -5081,10 +5227,10 @@ public class Logic {
      */
     public int selectedNodesCount() {
         try {
-            lock();
+            lockReads();
             return selectionStack.getFirst().nodeCount();
         } finally {
-            unlock();
+            unlockReads();
         }
     }
 
@@ -5095,12 +5241,12 @@ public class Logic {
      */
     public void removeSelectedNode(@NonNull Node node) {
         try {
-            lock();
+            lockWrites();
             if (selectionStack.getFirst().remove(node)) {
                 resetFilterCache();
             }
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -5111,12 +5257,12 @@ public class Logic {
      */
     public void setSelectedWay(@Nullable final Way selectedWay) {
         try {
-            lock();
+            lockWrites();
             selectionStack.getFirst().setWay(selectedWay);
             map.setSelectedWays(selectionStack.getFirst().getWays());
             resetFilterCache();
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -5127,11 +5273,11 @@ public class Logic {
      */
     public void addSelectedWay(@NonNull final Way selectedWay) {
         try {
-            lock();
+            lockWrites();
             selectionStack.getFirst().add(selectedWay);
             resetFilterCache();
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -5141,10 +5287,10 @@ public class Logic {
     @Nullable
     public final Way getSelectedWay() {
         try {
-            lock();
+            lockReads();
             return selectionStack.getFirst().getWay();
         } finally {
-            unlock();
+            unlockReads();
         }
     }
 
@@ -5156,10 +5302,10 @@ public class Logic {
     @Nullable
     public List<Way> getSelectedWays() {
         try {
-            lock();
+            lockReads();
             return selectionStack.getFirst().getWays();
         } finally {
-            unlock();
+            unlockReads();
         }
     }
 
@@ -5170,10 +5316,10 @@ public class Logic {
      */
     public int selectedWaysCount() {
         try {
-            lock();
+            lockReads();
             return selectionStack.getFirst().wayCount();
         } finally {
-            unlock();
+            unlockReads();
         }
     }
 
@@ -5184,12 +5330,12 @@ public class Logic {
      */
     public void removeSelectedWay(@NonNull Way way) {
         try {
-            lock();
+            lockWrites();
             if (selectionStack.getFirst().remove(way)) {
                 resetFilterCache();
             }
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -5201,14 +5347,14 @@ public class Logic {
 
     public void setSelectedRelation(@Nullable final Relation selectedRelation) {
         try {
-            lock();
+            lockWrites();
             selectionStack.getFirst().setRelation(selectedRelation);
             if (selectedRelation != null) {
                 setSelectedRelationMembers(selectedRelation);
             }
             resetFilterCache();
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -5219,7 +5365,7 @@ public class Logic {
      */
     public void removeSelectedRelation(@NonNull Relation relation) {
         try {
-            lock();
+            lockWrites();
             if (selectionStack.getFirst().remove(relation)) {
                 setSelectedRelationNodes(null); // de-select all
                 setSelectedRelationWays(null);
@@ -5232,7 +5378,7 @@ public class Logic {
                 resetFilterCache();
             }
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -5243,12 +5389,12 @@ public class Logic {
      */
     public void addSelectedRelation(@NonNull final Relation selectedRelation) {
         try {
-            lock();
+            lockWrites();
             selectionStack.getFirst().add(selectedRelation);
             setSelectedRelationMembers(selectedRelation);
             resetFilterCache();
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -5260,10 +5406,10 @@ public class Logic {
     @Nullable
     public List<Relation> getSelectedRelations() {
         try {
-            lock();
+            lockReads();
             return selectionStack.getFirst().getRelations();
         } finally {
-            unlock();
+            unlockReads();
         }
     }
 
@@ -5274,10 +5420,10 @@ public class Logic {
      */
     public int selectedRelationsCount() {
         try {
-            lock();
+            lockReads();
             return selectionStack.getFirst().relationCount();
         } finally {
-            unlock();
+            unlockReads();
         }
     }
 
@@ -5288,14 +5434,14 @@ public class Logic {
      */
     public void setSelection(@NonNull List<OsmElement> elements) {
         try {
-            lock();
+            lockWrites();
             Selection currentSelection = selectionStack.getFirst();
             for (OsmElement e : elements) {
                 currentSelection.add(e);
             }
             resetFilterCache();
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -5315,9 +5461,9 @@ public class Logic {
      */
     @NonNull
     public List<OsmElement> getSelectedElements() {
+        List<OsmElement> result = new ArrayList<>();
         try {
-            lock();
-            List<OsmElement> result = new ArrayList<>();
+            lockReads();
             final Selection currentSelection = selectionStack.getFirst();
             List<Node> selectedNodes = currentSelection.getNodes();
             if (selectedNodes != null) {
@@ -5333,7 +5479,7 @@ public class Logic {
             }
             return result;
         } finally {
-            unlock();
+            unlockReads();
         }
     }
 
@@ -5344,10 +5490,10 @@ public class Logic {
      */
     public Ids getSelectedIds() {
         try {
-            lock();
+            lockReads();
             return selectionStack.getFirst().getIds();
         } finally {
-            unlock();
+            unlockReads();
         }
     }
 
@@ -5398,39 +5544,11 @@ public class Logic {
      */
     public boolean isSelected(@Nullable OsmElement e) {
         try {
-            lock();
+            lockReads();
             return e != null && selectionStack.getFirst().contains(e);
         } finally {
-            unlock();
+            unlockReads();
         }
-    }
-
-    /**
-     * Get a list of all nodes currently in storage
-     * 
-     * @return unmodifiable list of all nodes currently loaded
-     */
-    public List<Node> getNodes() {
-        return getDelegator().getCurrentStorage().getNodes();
-    }
-
-    /**
-     * Get a list of all nodes contained in bounding box box currently in storage
-     * 
-     * @param box the bounding box
-     * @return unmodifiable list of all nodes currently loaded contained in box
-     */
-    public List<Node> getNodes(BoundingBox box) {
-        return getDelegator().getCurrentStorage().getNodes(box);
-    }
-
-    /**
-     * Get a list of all modified (created, modified, deleted) nodes currently in storage
-     * 
-     * @return all modified nodes currently loaded
-     */
-    public List<Node> getModifiedNodes() {
-        return getDelegator().getApiStorage().getNodes();
     }
 
     /**
@@ -5541,12 +5659,7 @@ public class Logic {
      * @return a list of all pending changes to upload
      */
     public List<OsmElement> getPendingChangedElements() {
-        try {
-            lock();
-            return getDelegator().listChangedElements();
-        } finally {
-            unlock();
-        }
+        return getDelegator().listChangedElements();
     }
 
     /**
@@ -5562,10 +5675,10 @@ public class Logic {
     @SuppressWarnings("unchecked")
     public <T extends OsmElement> void setClickableElements(Set<T> clickable) {
         try {
-            lock();
+            lockWrites();
             clickableElements = (Set<OsmElement>) clickable;
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -5577,10 +5690,10 @@ public class Logic {
     @Nullable
     public Set<OsmElement> getClickableElements() {
         try {
-            lock();
+            lockReads();
             return clickableElements;
         } finally {
-            unlock();
+            unlockReads();
         }
     }
 
@@ -5686,7 +5799,7 @@ public class Logic {
             getDelegator().addMemberToRelation(to, restriction);
             return restriction;
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         }
     }
@@ -5707,7 +5820,7 @@ public class Logic {
             setRelationType(type, relation);
             return relation;
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         }
     }
@@ -5721,11 +5834,16 @@ public class Logic {
      * @return the new relation
      */
     @NonNull
-    public Relation createRelationFromMembers(@Nullable Activity activity, String type, List<RelationMember> members) {
+    public Relation createRelationFromMembers(@Nullable FragmentActivity activity, String type, List<RelationMember> members) {
         createCheckpoint(activity, R.string.undo_action_create_relation);
-        Relation relation = getDelegator().createAndInsertRelationFromMembers(members);
-        setRelationType(type, relation);
-        return relation;
+        try {
+            Relation relation = getDelegator().createAndInsertRelationFromMembers(members);
+            setRelationType(type, relation);
+            return relation;
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex, true);
+            throw ex; // rethrow
+        }
     }
 
     /**
@@ -5752,7 +5870,7 @@ public class Logic {
         try {
             getDelegator().addMembersToRelation(relation, members);
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         }
     }
@@ -5769,7 +5887,7 @@ public class Logic {
         try {
             getDelegator().addRelationMembersToRelation(relation, members);
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         }
     }
@@ -5789,7 +5907,7 @@ public class Logic {
             getDelegator().removeRelationMembersFromRelation(relation, removeMembers);
             getDelegator().addRelationMembersToRelation(relation, addMembers);
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex; // rethrow
         }
     }
@@ -5876,7 +5994,7 @@ public class Logic {
             return;
         }
         try {
-            lock();
+            lockWrites();
             for (RelationMember rm : r.getMembers()) {
                 OsmElement e = rm.getElement();
                 if (e != null) {
@@ -5889,7 +6007,8 @@ public class Logic {
                         break;
                     case Relation.NAME:
                         // break recursion if already selected or max depth exceeded
-                        if ((selectedRelationRelations == null || !selectedRelationRelations.contains(e)) && depth <= MAX_RELATION_SELECTION_DEPTH) {
+                        if ((selectedRelationRelations == null || !selectedRelationRelations.contains(e)) && depth <= MAX_RELATION_SELECTION_DEPTH
+                                && !isSubarea(r, rm)) {
                             addSelectedRelationRelation((Relation) e, depth);
                         }
                         break;
@@ -5899,8 +6018,19 @@ public class Logic {
                 }
             }
         } finally {
-            unlock();
+            unlockWrites();
         }
+    }
+
+    /**
+     * CHeck if a relation member is a subarea of a parent relation
+     * 
+     * @param parent the parent relation
+     * @param rm the relation member
+     * @return true if rm is a subarea
+     */
+    private boolean isSubarea(@NonNull Relation parent, @Nullable RelationMember rm) {
+        return rm != null && Tags.KEY_BOUNDARY.equals(parent.getTagWithKey(Tags.KEY_TYPE)) && Tags.ROLE_SUBAREA.equals(rm.getRole());
     }
 
     /**
@@ -5954,7 +6084,7 @@ public class Logic {
      */
     public void setSelectedRelationRelations(List<Relation> relations) {
         try {
-            lock();
+            lockWrites();
             selectedRelationRelations = relations;
             if (selectedRelationRelations != null) {
                 for (Relation r : selectedRelationRelations) {
@@ -5962,7 +6092,7 @@ public class Logic {
                 }
             }
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -5983,14 +6113,14 @@ public class Logic {
      */
     private void addSelectedRelationRelation(@NonNull Relation relation, int depth) {
         try {
-            lock();
+            lockWrites();
             if (selectedRelationRelations == null) {
                 selectedRelationRelations = new LinkedList<>();
             }
             selectedRelationRelations.add(relation);
             setSelectedRelationMembers(relation, depth);
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -6001,12 +6131,12 @@ public class Logic {
      */
     public void removeSelectedRelationRelation(@NonNull Relation relation) {
         try {
-            lock();
+            lockWrites();
             if (selectedRelationRelations != null) {
                 selectedRelationRelations.remove(relation);
             }
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -6018,10 +6148,10 @@ public class Logic {
     @Nullable
     public List<Relation> getSelectedRelationRelations() {
         try {
-            lock();
+            lockReads();
             return selectedRelationRelations;
         } finally {
-            unlock();
+            unlockReads();
         }
     }
 
@@ -6030,7 +6160,7 @@ public class Logic {
      */
     public void reselectRelationMembers() {
         try {
-            lock();
+            lockWrites();
             List<Relation> selected = getSelectedRelations();
             if (selected != null && !selected.isEmpty()) {
                 if (selectedRelationNodes != null) {
@@ -6047,7 +6177,7 @@ public class Logic {
                 }
             }
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -6073,10 +6203,10 @@ public class Logic {
     @NonNull
     public Deque<Selection> getSelectionStack() {
         try {
-            lock();
+            lockReads();
             return selectionStack;
         } finally {
-            unlock();
+            unlockReads();
         }
     }
 
@@ -6087,7 +6217,7 @@ public class Logic {
      */
     public void setSelectionStack(@NonNull Deque<Selection> stack) {
         try {
-            lock();
+            lockWrites();
             if (!stack.isEmpty()) { // the stack needs to have at least one element
                 selectionStack.clear();
                 selectionStack.addAll(stack);
@@ -6096,7 +6226,7 @@ public class Logic {
                 Log.e(DEBUG_TAG, "Attempt to set empty selection stack");
             }
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -6105,14 +6235,14 @@ public class Logic {
      */
     private void selectFromTop() {
         try {
-            lock();
+            lockWrites();
             final Selection currentSelection = selectionStack.getFirst();
             map.setSelectedNodes(currentSelection.getNodes());
             map.setSelectedWays(currentSelection.getWays());
             reselectRelationMembers();
             resetFilterCache();
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -6121,7 +6251,7 @@ public class Logic {
      */
     public void popSelection() {
         try {
-            lock();
+            lockWrites();
             if (selectionStack.size() > 1) {
                 selectionStack.pop();
                 selectFromTop();
@@ -6129,7 +6259,7 @@ public class Logic {
                 Log.e(DEBUG_TAG, "Attempt to pop last selection from stack");
             }
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -6138,10 +6268,10 @@ public class Logic {
      */
     public void pushSelection() {
         try {
-            lock();
+            lockWrites();
             pushSelection(new Selection());
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -6152,11 +6282,29 @@ public class Logic {
      */
     public void pushSelection(@NonNull Selection selection) {
         try {
-            lock();
+            lockWrites();
             selectionStack.push(selection);
             selectFromTop();
         } finally {
-            unlock();
+            unlockWrites();
+        }
+    }
+
+    /**
+     * Replace the current selection
+     * 
+     * @selection the new Selection
+     */
+    public void replaceSelection(@NonNull Selection selection) {
+        try {
+            lockWrites();
+            if (selectionStack.size() > 1) {
+                selectionStack.pop();
+            }
+            selectionStack.push(selection);
+            selectFromTop();
+        } finally {
+            unlockWrites();
         }
     }
 
@@ -6256,7 +6404,7 @@ public class Logic {
         try {
             getDelegator().copyToClipboard(elements, centroid[0], centroid[1]);
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             // don't rethrow
         }
     }
@@ -6289,7 +6437,7 @@ public class Logic {
         try {
             getDelegator().cutToClipboard(elements, centroid[0], centroid[1]);
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             // don't rethrow
         }
         invalidateMap();
@@ -6354,11 +6502,16 @@ public class Logic {
      * @return the pasted objects or null if the clipboard was empty
      */
     @Nullable
-    public List<OsmElement> pasteFromClipboard(@Nullable Activity activity, int index, float x, float y) {
+    public List<OsmElement> pasteFromClipboard(@Nullable FragmentActivity activity, int index, float x, float y) {
         createCheckpoint(activity, R.string.undo_action_paste);
-        int lat = yToLatE7(y);
-        int lon = xToLonE7(x);
-        return getDelegator().pasteFromClipboard(index, lat, lon);
+        try {
+            int lat = yToLatE7(y);
+            int lon = xToLonE7(x);
+            return getDelegator().pasteFromClipboard(index, lat, lon);
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex, true);
+            throw ex;
+        }
     }
 
     /**
@@ -6386,7 +6539,7 @@ public class Logic {
             }
             return duplicated;
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             // don't rethrow
         }
         return new ArrayList<>();
@@ -6419,7 +6572,7 @@ public class Logic {
             invalidateMap();
             displayAttachedObjectWarning(activity, way);
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
             throw ex;
         }
     }
@@ -6440,7 +6593,23 @@ public class Logic {
             displayAttachedObjectWarning(activity, nodes);
             return circle;
         } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
+            handleDelegatorException(activity, ex, true);
+            throw ex;
+        }
+    }
+
+    /**
+     * Move tags from member elements to the relation
+     * 
+     * @param ctivity this method was called from, if null no warnings will be displayed
+     * @param relation the target relation
+     */
+    public void moveOuterTags(@Nullable FragmentActivity activity, @NonNull Relation relation) {
+        createCheckpoint(activity, R.string.undo_action_move_tags);
+        try {
+            RelationUtils.moveOuterTags(getDelegator(), relation);
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex, true);
             throw ex;
         }
     }
@@ -6490,20 +6659,6 @@ public class Logic {
      */
     private static StorageDelegator getDelegator() {
         return App.getDelegator();
-    }
-
-    /**
-     * Lock the StorageDelegator
-     */
-    public void getDataLock() {
-        getDelegator().lock();
-    }
-
-    /**
-     * Unlock the StorageDelegator
-     */
-    public void dataUnlock() {
-        getDelegator().unlock();
     }
 
     /**
@@ -6873,23 +7028,37 @@ public class Logic {
     /**
      * Try to set the reading lock
      */
-    public boolean tryLock() {
-        return lock.tryLock();
+    public boolean tryReadLock() {
+        return readLock.tryLock();
+    }
+
+    /**
+     * Set the write lock
+     */
+    void lockWrites() {
+        writeLock.lock();
+    }
+
+    /**
+     * Free the write lock checking if it is currently held
+     */
+    public void unlockWrites() {
+        if (writeLock.isHeldByCurrentThread()) {
+            writeLock.unlock();
+        }
     }
 
     /**
      * Set the reading lock
      */
-    void lock() {
-        lock.lock();
+    void lockReads() {
+        readLock.lock();
     }
 
     /**
-     * Free the reading lock checking if it is currently held
+     * Free the read lock
      */
-    public void unlock() {
-        if (lock.isHeldByCurrentThread()) {
-            lock.unlock();
-        }
+    public void unlockReads() {
+        readLock.unlock();
     }
 }

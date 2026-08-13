@@ -25,15 +25,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
 import de.blau.android.ErrorCodes;
 import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.dialogs.ErrorAlert;
-import de.blau.android.dialogs.ReviewAndUpload;
-import de.blau.android.dialogs.ReviewAndUpload.CustomTagRow;
 import de.blau.android.osm.Capabilities;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -48,7 +45,10 @@ import de.blau.android.osm.UndoStorage.UndoWay;
 import de.blau.android.osm.Way;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
+import de.blau.android.review.ReviewAndUpload;
+import de.blau.android.review.ReviewAndUpload.CustomTagRow;
 import de.blau.android.tasks.TransferTasks;
+import de.blau.android.util.AuthorisationEnabledActivity;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.validation.FormValidation;
 import de.blau.android.validation.NotEmptyValidator;
@@ -71,14 +71,14 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
 
     private static final long DEBOUNCE_TIME = 1000;
 
-    private final FragmentActivity caller;
-    private final EditText         commentField;
-    private final EditText         sourceField;
-    private final CheckBox         closeOpenChangeset;
-    private final CheckBox         closeChangeset;
-    private final CheckBox         requestReview;
-    private LinearLayout           persistentCustomTagLayout;
-    private LinearLayout           transientCustomTagLayout;
+    private final AuthorisationEnabledActivity caller;
+    private final EditText                     commentField;
+    private final EditText                     sourceField;
+    private final CheckBox                     closeOpenChangeset;
+    private final CheckBox                     closeChangeset;
+    private final CheckBox                     requestReview;
+    private LinearLayout                       persistentCustomTagLayout;
+    private LinearLayout                       transientCustomTagLayout;
 
     private final List<FormValidation> validations;
     private final List<OsmElement>     elements;
@@ -117,7 +117,7 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
      * @param requestReview CheckBox for the review_requested tag
      * @param elements List of OsmELement to upload if null all changed elements will be uploaded
      */
-    public UploadListener(@NonNull final FragmentActivity caller, @NonNull final EditText commentField, @NonNull final EditText sourceField,
+    public UploadListener(@NonNull final AuthorisationEnabledActivity caller, @NonNull final EditText commentField, @NonNull final EditText sourceField,
             @Nullable CheckBox closeOpenChangeset, @NonNull final CheckBox closeChangeset, @NonNull CheckBox requestReview,
             @Nullable List<OsmElement> elements) {
 
@@ -393,7 +393,7 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
         StringBuilder summary = new StringBuilder();
         for (String s : actions) {
             if (summary.length() + s.length() + 1 > Capabilities.DEFAULT_MAX_STRING_LENGTH) {
-                result.put(key + (summaryCount > 0 ? summaryCount : ""), summary.toString());
+                result.put(keyWithCount(key, summaryCount), summary.toString());
                 summaryCount++;
                 summary.setLength(0);
             }
@@ -403,8 +403,19 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
             summary.append(s);
         }
         if (summary.length() > 0) {
-            result.put(key + (summaryCount > 0 ? summaryCount : ""), summary.toString());
+            result.put(keyWithCount(key, summaryCount), summary.toString());
         }
+    }
+
+    /**
+     * Add a count to a key if necessary
+     * 
+     * @param key the key
+     * @param count count to add (if not 0
+     * @return the key with a count
+     */
+    private String keyWithCount(@NonNull String key, int count) {
+        return key + (count > 0 ? ":" + count : "");
     }
 
     /**

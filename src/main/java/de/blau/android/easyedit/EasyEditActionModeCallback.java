@@ -13,6 +13,7 @@ import java.util.Set;
 import java.util.SortedMap;
 
 import android.content.DialogInterface;
+import android.graphics.Canvas;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,6 +42,9 @@ import de.blau.android.osm.RelationUtils;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
+import de.blau.android.osm.WaySegment;
+import de.blau.android.prefs.keyboard.Shortcuts;
+import de.blau.android.util.MathUtil;
 import de.blau.android.util.MenuUtil;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.SerializableState;
@@ -63,6 +67,8 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, EasyEditActionModeCallback.class.getSimpleName().length());
     private static final String DEBUG_TAG = EasyEditActionModeCallback.class.getSimpleName().substring(0, TAG_LEN);
+
+    protected final java.util.Map<String, Shortcuts.Action> actionMap = new HashMap<>();
 
     protected int                     helpTopic    = 0;
     MenuUtil                          menuUtil;
@@ -91,6 +97,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
         this.logic = App.getLogic();
         this.manager = manager;
         maxWayNodes = App.getDelegator().getMaxWayNodes();
+        actionMap.put(main.getString(R.string.ACTION_HELP), new Shortcuts.Action(R.string.action_help, this::startHelp));
     }
 
     @Override
@@ -169,9 +176,11 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
      * handling should apply.
      * 
      * @param element the OsmElement that was long clicked
+     * @param x screen X coordinate
+     * @param y screen Y coordinate
      * @return true if the click has been handled, false if default handling should apply
      */
-    public boolean handleElementLongClick(@NonNull OsmElement element) {
+    public boolean handleElementLongClick(@NonNull OsmElement element, float x, float y) {
         return false;
     }
 
@@ -259,15 +268,13 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
     /**
      * Process a short cut keyboard command
      * 
+     * @param metaKey the pressed modifier key
      * @param c the Character
+     * 
      * @return true is an action was found
      */
-    public boolean processShortcut(@NonNull Character c) {
-        if (c == Util.getShortCut(main, R.string.shortcut_help)) {
-            startHelp();
-            return true;
-        }
-        return false;
+    public boolean processShortcut(@NonNull Shortcuts.Modifier metaKey, @NonNull Character c) {
+        return App.getKeyboardShortcuts(main).execute(metaKey, c, actionMap);
     }
 
     /**
@@ -310,6 +317,16 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
             cabBottomBar.setOnMenuItemClickListener(item -> callback.onActionItemClicked(actionMode, item));
         }
         return menu;
+    }
+
+    /**
+     * Default implementation that simply returns the list unchanged
+     * 
+     * @param nodesAndWays List of OSMElements to filter
+     * @return a potentially filtered List of elements
+     */
+    public List<OsmElement> filterElementsLongClick(List<OsmElement> nodesAndWays) {
+        return nodesAndWays;
     }
 
     /**
@@ -541,7 +558,12 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
 
                         @Override
                         public void onSuccess() {
-                            runnable.run();
+                            try {
+                                runnable.run();
+                            } catch (Exception ex) {
+                                // should have already been handled
+                                Log.e(DEBUG_TAG, ex.getMessage());
+                            }
                         }
 
                         @Override
@@ -549,11 +571,24 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
                             ErrorAlert.showDialog(main, result);
                         }
                     }));
-            builder.setNegativeButton(R.string.ignore, (DialogInterface dialog, int which) -> runnable.run());
+            builder.setNegativeButton(R.string.ignore, (DialogInterface dialog, int which) -> {
+                try {
+                    runnable.run();
+                } catch (Exception ex) {
+                    // should have already been handled
+                    Log.e(DEBUG_TAG, ex.getMessage());
+                }
+
+            });
             builder.setNeutralButton(R.string.abort, (DialogInterface dialog, int which) -> manager.finish());
             builder.show();
-        } else {
+            return;
+        }
+        try {
             runnable.run();
+        } catch (Exception ex) {
+            // should have already been handled
+            Log.e(DEBUG_TAG, ex.getMessage());
         }
     }
 
@@ -597,6 +632,85 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
     }
 
     /**
+     * From a List of candidate nodes get Nodes that could be squared and the associated Ways
+     * 
+     * @param logic Logic instance
+     * @param candidateNodes the candidate nodes
+     * @param ways the container for ways, can be null is not used
+     * @param nodes the squarable nodes
+     */
+    protected static void getSquarableNodes(@NonNull Logic logic, @Nullable List<Node> candidateNodes, @Nullable Set<Way> ways, @NonNull Set<Node> nodes) {
+        if (Util.isEmpty(candidateNodes)) {
+            return;
+        }
+        for (Node n : candidateNodes) {
+            List<Way> parents = logic.getWaysForNode(n);
+            for (Way parent : parents) {
+                if (!parent.isEndNode(n) || parent.isClosed()) {
+                    if (ways != null) {
+                        ways.add(parent);
+                    }
+                    nodes.add(n);
+                }
+            }
+        }
+    }
+
+    /**
+     * Given one or more ways and corner nodes, square the corners
+     * 
+     * @param main Main instance
+     * @param logic Logic instance
+     * @param ways the relevant Ways
+     * @param cornerNodes the corners
+     */
+    protected static void orthogonalize(@Nullable Main main, @NonNull Logic logic, @NonNull List<Way> ways, @NonNull List<Node> cornerNodes) {
+        // generate way segments and orthogonalize those
+        List<WaySegment> segments = new ArrayList<>();
+        for (Way w : ways) {
+            // sort the corners as they are in the way
+            List<Node> cornersToSquare = new ArrayList<>();
+            final List<Node> nodes = w.getNodes();
+            final int nodeCount = uniqueNodeCount(w);
+            for (int i = 0; i < nodeCount; i++) {
+                Node n = nodes.get(i);
+                if (cornerNodes.contains(n)) {
+                    cornersToSquare.add(n);
+                }
+            }
+            if (cornersToSquare.isEmpty()) {
+                continue;
+            }
+
+            int cornerCount = cornersToSquare.size();
+            for (int i = 0; i < cornerCount; i++) {
+                Node n = cornersToSquare.get(i);
+                int start = nodes.indexOf(n);
+                // check the next nodes
+                int end = start;
+                while (i < cornerCount - 1 && nodes.get(end + 1).equals(cornersToSquare.get(i + 1))) {
+                    end++;
+                    i++; // NOSONAR
+                }
+                segments.add(new WaySegment(w, MathUtil.mod(start - 1, nodeCount), (end + 1) % nodeCount));
+            }
+        }
+        if (!segments.isEmpty()) {
+            logic.performOrthogonalize(main, segments);
+        }
+    }
+
+    /**
+     * Get the node count of a way without any closing node
+     * 
+     * @param w the way
+     * @return the node count of a way without any closing node
+     */
+    private static int uniqueNodeCount(@NonNull Way w) {
+        return w.nodeCount() - (w.isClosed() ? 1 : 0);
+    }
+
+    /**
      * De-select elements
      * 
      * @param logic the Logic instance
@@ -622,5 +736,15 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
     protected void unexpectedElement(@NonNull String debugTag, @NonNull OsmElement element) {
         Log.e(DEBUG_TAG, element.getName() + " clicked");
         ScreenMessage.toastTopError(main, main.getString(R.string.toast_unexpected_element, element.getDescription(true)));
+    }
+
+    /**
+     * Draw something
+     * 
+     * @param map the current Map instance
+     * @param canvas the Canvas
+     */
+    public void draw(@NonNull de.blau.android.Map map, @NonNull Canvas canvas) {
+        // default is a no op
     }
 }

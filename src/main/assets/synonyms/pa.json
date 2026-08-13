@@ -41,9 +41,6 @@
 "amenity/ferry_terminal":[
 "ਬੇੜੀ ਟਰਮੀਨਲ"
 ],
-"amenity/language_school":[
-"ਭਾਸ਼ਾ ਸਕੂਲ"
-],
 "amenity/library":[
 "ਲਾਇਬ੍ਰੇਰੀ"
 ],
@@ -103,9 +100,6 @@
 ],
 "building_point":[
 "ਇਮਾਰਤ"
-],
-"emergency/destination":[
-"ਐਮਰਜੈਂਸੀ ਪਹੁੰਚ ਮੰਜ਼ਿਲ"
 ],
 "ford":[
 "ਫੋਰਡ"

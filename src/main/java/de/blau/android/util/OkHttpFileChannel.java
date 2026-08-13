@@ -3,6 +3,8 @@ package de.blau.android.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.ByteBuffer;
 import java.util.List;
@@ -28,7 +30,8 @@ import okhttp3.ResponseBody;
  */
 public class OkHttpFileChannel extends UrlFileChannel {
 
-    private static final String DEBUG_TAG = OkHttpFileChannel.class.getSimpleName().substring(0, Math.min(23, OkHttpFileChannel.class.getSimpleName().length()));
+    private static final String DEBUG_TAG = OkHttpFileChannel.class.getSimpleName().substring(0,
+            Math.min(23, OkHttpFileChannel.class.getSimpleName().length()));
 
     private final URL          url;
     private final OkHttpClient client;
@@ -41,11 +44,12 @@ public class OkHttpFileChannel extends UrlFileChannel {
      * @param client an OkHttpClient instant
      * @param tileLayerSource the source
      * @throws MalformedURLException if the URL couldn't be parsed
+     * @throws URISyntaxException if the URI couldn't be parsed
      */
-    public OkHttpFileChannel(@NonNull OkHttpClient client, @NonNull TileLayerSource tileLayerSource) throws MalformedURLException {
+    public OkHttpFileChannel(@NonNull OkHttpClient client, @NonNull TileLayerSource tileLayerSource) throws MalformedURLException, URISyntaxException {
         Log.d(DEBUG_TAG, "Creating channel for " + tileLayerSource.getName());
         this.client = client;
-        this.url = new URL(tileLayerSource.getTileUrl());
+        this.url = new URI(tileLayerSource.getTileUrl()).toURL();
         headers = tileLayerSource.getHeaders();
     }
 
@@ -55,10 +59,11 @@ public class OkHttpFileChannel extends UrlFileChannel {
      * @param client an OkHttpClient instant
      * @param url the URL
      * @throws MalformedURLException if the URL couldn't be parsed
+     * @throws URISyntaxException if the URI couldn't be parsed
      */
-    public OkHttpFileChannel(@NonNull OkHttpClient client, @NonNull String url) throws MalformedURLException {
+    public OkHttpFileChannel(@NonNull OkHttpClient client, @NonNull String url) throws MalformedURLException, URISyntaxException {
         this.client = client;
-        this.url = new URL(url);
+        this.url = new URI(url).toURL();
         headers = null;
     }
 

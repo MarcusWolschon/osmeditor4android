@@ -252,7 +252,7 @@ public class MapOverlay extends NonSerializeableLayer implements DiscardInterfac
     @Override
     public List<Photo> getClicked(final float x, final float y, final ViewBox viewBox) {
         List<Photo> result = new ArrayList<>();
-        final float tolerance = map.getDataStyle().getCurrent().getNodeToleranceValue();
+        final float tolerance = map.getDataStyleManager().getCurrent().getNodeToleranceValue();
         for (Photo p : photos) {
             float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, p.getLon()) - x);
             float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), map.getWidth(), viewBox, p.getLat()) - y);
@@ -313,14 +313,28 @@ public class MapOverlay extends NonSerializeableLayer implements DiscardInterfac
     private void startInternalViewer(@NonNull FragmentActivity activity, @NonNull Photo photo) {
         List<Photo> temp = new ArrayList<>(photos);
         GeoMath.sortGeoPoint(photo, temp, new ViewBox(bb), map.getWidth(), map.getHeight());
-        ArrayList<Photo> shortList = new ArrayList<>(temp.subList(0, Math.min(temp.size(), VIEWER_MAX)));
+        List<Photo> shortList = new ArrayList<>(temp.subList(0, Math.min(temp.size(), VIEWER_MAX)));
         // ensure that the clicked phto is actually in the list and the first one
         shortList.remove(photo);
         shortList.add(0, photo);
+        showPhotosInViewer(activity, shortList);
+    }
+
+    /**
+     * Actually start the correct viewer with a lost of photos
+     * 
+     * @param activity the current Activity
+     * @param list the Photos
+     */
+    @SuppressWarnings("unchecked")
+    public static void showPhotosInViewer(@NonNull FragmentActivity activity, @NonNull List<Photo> list) {
+        if (!(list instanceof ArrayList)) {
+            list = new ArrayList<>(list);
+        }
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-            PhotoViewerFragment.showDialog(activity, shortList, 0, null);
+            PhotoViewerFragment.showDialog(activity, (ArrayList<Photo>) list, 0, null);
         } else {
-            PhotoViewerActivity.start(activity, shortList, 0);
+            PhotoViewerActivity.start(activity, (ArrayList<Photo>) list, 0);
         }
     }
 

@@ -262,11 +262,6 @@
 "meleg",
 "homoszexuális"
 ],
-"amenity/bbq":[
-"Grillezőhely",
-"piknik",
-"grill"
-],
 "amenity/bench":[
 "ülőalkalmatosság",
 "pad",
@@ -385,12 +380,6 @@
 "töltőoszlop",
 "Elektromos töltőállomás"
 ],
-"amenity/childcare":[
-"csecsemőotthon",
-"Bölcsőde",
-"bölcsőde",
-"családi napközi"
-],
 "amenity/cinema":[
 "mozgókép",
 "mozi",
@@ -435,12 +424,6 @@
 "Napóra",
 "gnomón",
 "árnyékóra"
-],
-"amenity/college":[
-"felsőoktatás",
-"Főiskola területe",
-"főiskola",
-"fősuli"
 ],
 "amenity/community_centre":[
 "művelődési ház",
@@ -495,9 +478,6 @@
 "ítélőtábla",
 "ítélőszék",
 "törvényszék"
-],
-"amenity/coworking_space":[
-"Közösségi iroda"
 ],
 "amenity/crematorium":[
 "hamvasztás",
@@ -602,13 +582,6 @@
 "Autós gyakorlópálya",
 "autós iskola",
 "kresz pálya"
-],
-"amenity/driving_school":[
-"Autósiskola",
-"rutinpálya",
-"jogosítvány",
-"kresz",
-"tanpálya"
 ],
 "amenity/embassy":[
 "Külképviselet"
@@ -794,23 +767,9 @@
 "Karaoke-bár",
 "éneklés"
 ],
-"amenity/kindergarten":[
-"ovi terület",
-"iskolai előkészítő területe",
-"óvoda terület",
-"kisdedóvó terület",
-"Óvoda / óvodai terület",
-"bölcsőde terület"
-],
 "amenity/kneipp_water_cure":[
 "Kneipp-kúra",
 "kneipp-taposó"
-],
-"amenity/language_school":[
-"idegen nyelv",
-"Nyelviskola",
-"nyelvoktatás",
-"nyelvtanulás"
 ],
 "amenity/lavoir":[
 "mosószalon",
@@ -891,10 +850,6 @@
 "Motorkerékpár-kölcsönző",
 "kismotor",
 "cruiser"
-],
-"amenity/music_school":[
-"muzsika",
-"Zeneiskola"
 ],
 "amenity/nightclub":[
 "Diszkó",
@@ -1088,12 +1043,6 @@
 "postaközpont",
 "postahivatal",
 "Posta"
-],
-"amenity/prep_school":[
-"autós iskola",
-"tanulópálya",
-"Tesztpálya, tanulópálya",
-"tesztpálya"
 ],
 "amenity/prison":[
 "börtön",
@@ -1315,19 +1264,6 @@
 "wc",
 "ürítés"
 ],
-"amenity/school":[
-"iskola",
-"Iskola területe",
-"közoktatás",
-"gimnázium'",
-"nevelés",
-"akadémia",
-"oktatás",
-"általános iskola",
-"köznevelés",
-"középiskola",
-"tanítás"
-],
 "amenity/shelter":[
 "fedél",
 "esőkunyhó",
@@ -1519,13 +1455,6 @@
 ],
 "amenity/toy_library":[
 "Játékkölcsönző"
-],
-"amenity/university":[
-"felsőoktatás",
-"unversitas",
-"Egyetem területe",
-"kampusz",
-"campus"
 ],
 "amenity/vacuum_cleaner":[
 "hoover",
@@ -2136,9 +2065,6 @@
 "diákszálló",
 "Kollégiumépület"
 ],
-"building/entrance":[
-"Bejárat / Kijárat"
-],
 "building/farm":[
 "Mezőgazdasági épület",
 "tyúkól",
@@ -2672,12 +2598,6 @@
 "Defibrillátor",
 "újraélesztés"
 ],
-"emergency/designated":[
-"Kifejezetten vészhelyzeti használatra"
-],
-"emergency/destination":[
-"Kivéve célforgalom, vészhelyzetben"
-],
 "emergency/fire_alarm":[
 "Tűzriasztó"
 ],
@@ -2729,19 +2649,10 @@
 "emergency/mountain_rescue":[
 "Hegyi mentők"
 ],
-"emergency/no":[
-"Vészhelyzeti használat tilos"
-],
-"emergency/official":[
-"Hivatalosan vészhelyzeti használatra"
-],
 "emergency/phone":[
 "vészhívó",
 "Segélyhívó telefon",
 "vészhelyzeti telefon"
-],
-"emergency/private":[
-"Vészhelyzeti használat: magántulajdon"
 ],
 "emergency/siren":[
 "riasztó",
@@ -2756,9 +2667,6 @@
 "emergency/water_tank":[
 "tűzoltóvíz",
 "Tűzivíztartály"
-],
-"emergency/yes":[
-"Vészhelyzeti használat"
 ],
 "entrance":[
 "Bejárat / Kijárat",
@@ -3119,14 +3027,6 @@
 "út",
 "gyorsforgalmi út"
 ],
-"highway/motorway_junction":[
-"autópálya lehajtó",
-"kijárat",
-"autópálya felhajtó",
-"Autópálya-csomópont / -kijárat",
-"leágazás",
-"elágazás"
-],
 "highway/motorway_link":[
 "kijárat",
 "Autópálya fel- vagy lehajtó",
@@ -3326,11 +3226,6 @@
 "fordulóhely",
 "Megfordulóhurok"
 ],
-"highway/unclassified":[
-"alsóbbrendű út",
-"Egyéb közút",
-"mellékút"
-],
 "historic":[
 "Történelmi hely"
 ],
@@ -3377,6 +3272,9 @@
 "historic/memorial":[
 "Emlékmű",
 "emlékhely"
+],
+"historic/memorial/blue_plaque-GB-IE":[
+"Kék tábla"
 ],
 "historic/memorial/plaque":[
 "Emléktábla"
@@ -3510,9 +3408,6 @@
 "Építési terület",
 "daru",
 "bontás"
-],
-"landuse/education":[
-"Oktatási intézmény területe"
 ],
 "landuse/farm":[
 "Mezőgazdasági terület"
@@ -3719,9 +3614,6 @@
 "táncterem",
 "tánchelyiség"
 ],
-"leisure/dancing_school":[
-"Tánciskola"
-],
 "leisure/disc_golf_course":[
 "frizbi",
 "Koronggolf pálya"
@@ -3915,10 +3807,6 @@
 "röpi",
 "Strandröplabda-pálya",
 "röplabda"
-],
-"leisure/pitch/boules":[
-"bócsa",
-"Pétanque-pálya"
 ],
 "leisure/pitch/bowls":[
 "Gyeptekepálya"
@@ -4428,9 +4316,6 @@
 ],
 "man_made/telescope/radio":[
 "Rádióteleszkóp"
-],
-"man_made/torii":[
-"Sinto templomkapu"
 ],
 "man_made/tower":[
 "magas épület",
@@ -5279,9 +5164,6 @@
 "playground/tunnel_tube":[
 "Játszóalagút"
 ],
-"playground/water":[
-"Játék vízszivattyú vagy -csavar"
-],
 "playground/zipwire":[
 "csúszka",
 "drótkötél",
@@ -5366,9 +5248,6 @@
 ],
 "power/plant/source/hydro":[
 "Vízerőmű"
-],
-"power/plant/source/method/photovoltaic":[
-"Napelempark (fotoelektromos)"
 ],
 "power/plant/source/nuclear":[
 "Atomerőmű"
@@ -5789,12 +5668,6 @@
 "babajáték",
 "babaruha"
 ],
-"shop/bag":[
-"utazótáska",
-"bőrdíszmű és táskabolt",
-"koffer",
-"Táska- és bőröndbolt"
-],
 "shop/bakery":[
 "kifli",
 "péksütemény",
@@ -5824,16 +5697,6 @@
 "szolárium",
 "szoli",
 "Szolárium"
-],
-"shop/bed":[
-"hálószobabútor",
-"ágy",
-"paplan",
-"lepedő",
-"párna",
-"ágynemű",
-"Ágy- és matracbolt",
-"takaró"
 ],
 "shop/beverages":[
 "vodka",
@@ -6464,11 +6327,6 @@
 "pirotechnika",
 "Tűzijátékbolt"
 ],
-"shop/radiotechnics":[
-"Rádiótechnikai bolt",
-"elektronikai alkatrész",
-"mérőműszer"
-],
 "shop/religion":[
 "feszület",
 "vallás",
@@ -6685,14 +6543,6 @@
 "shop/water":[
 "Ivóvíz-bolt"
 ],
-"shop/water_sports":[
-"csónak",
-"Vízisport-bolt",
-"mentőmellény",
-"fürdőruha",
-"szörf",
-"kajak"
-],
 "shop/weapons":[
 "Fegyverbolt",
 "kés",
@@ -6853,11 +6703,6 @@
 "tourism/information/map":[
 "Térkép",
 "térkép"
-],
-"tourism/information/office":[
-"látogatóközpont",
-"Látogatóközpont",
-"információs iroda"
 ],
 "tourism/information/route_marker":[
 "jelzés",
@@ -7110,9 +6955,6 @@
 "gázvezeték",
 "kőolajvezeték",
 "Csővezeték nyomvonala"
-],
-"type/route/piste":[
-"Sípálya/Síútvonal"
 ],
 "type/route/power":[
 "elektromos vezeték útvonala",

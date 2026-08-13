@@ -1,7 +1,9 @@
 package de.blau.android.prefs;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,8 +32,8 @@ public class AdvancedPrefDatabaseTest {
             assertEquals(AdvancedPrefDatabase.ID_DEFAULT, current.id);
             assertEquals("OpenStreetMap", current.name);
             assertEquals(Auth.OAUTH2, current.auth);
-            db.addAPI("test_1", "test_1", current.url, null, null, new AuthParams(current.auth, null, null, null, null), false);
-            db.addAPI("test_2", "test_2", current.url, null, null, new AuthParams(Auth.OAUTH1A, null, null, null, null), false);
+            db.addAPI("test_1", "test_1", current.url, null, null, new AuthParams(current.auth, null, null, null, null), false, false);
+            db.addAPI("test_2", "test_2", current.url, null, null, new AuthParams(Auth.OAUTH1A, null, null, null, null), false, false);
             db.setAPIAccessToken("12345", "67890");
             API[] test1 = db.getAPIs("test_1");
             assertEquals(1, test1.length);
@@ -59,7 +61,7 @@ public class AdvancedPrefDatabaseTest {
             assertEquals(AdvancedPrefDatabase.ID_DEFAULT, current.id);
             assertEquals("OpenStreetMap", current.name);
             assertEquals(Auth.OAUTH2, current.auth);
-            db.addAPI("test_1", "test_1", current.url, null, null, new AuthParams(current.auth, null, null, null, null), false);
+            db.addAPI("test_1", "test_1", current.url, null, null, new AuthParams(current.auth, null, null, null, null), false, false);
             db.setAPIAccessToken("12345", "67890");
 
             API[] test1 = db.getAPIs("test_1");
@@ -71,6 +73,22 @@ public class AdvancedPrefDatabaseTest {
             assertEquals(1, test1.length);
             assertNull(test1[0].accesstoken);
             assertNull(test1[0].accesstokensecret);
+        }
+    }
+    
+    /**
+     * Disable the default preset then try to retrieve all active ones
+     */
+    @Test
+    public void getActivePresetsTest() {
+        final Context ctx = ApplicationProvider.getApplicationContext();
+        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(ctx)) {
+            db.setPresetState(AdvancedPrefDatabase.ID_DEFAULT, false);
+            assertFalse(db.getPreset(AdvancedPrefDatabase.ID_DEFAULT).isActive());
+            PresetConfiguration[] presets = db.getActivePresets();
+            assertEquals(1, presets.length);
+            assertEquals(AdvancedPrefDatabase.ID_DEFAULT, presets[0].id);
+            assertTrue(db.getPreset(AdvancedPrefDatabase.ID_DEFAULT).isActive());
         }
     }
 }

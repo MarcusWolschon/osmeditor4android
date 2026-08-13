@@ -3,6 +3,7 @@ package de.blau.android.resources;
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import android.database.sqlite.SQLiteDatabase;
@@ -151,6 +152,9 @@ public final class OAMCatalogView extends CancelableDialogFragment implements On
                 } catch (final IOException iox) {
                     Log.e(DEBUG_TAG, "Add imagery from oam " + iox.getMessage());
                     Util.toastDowloadError(activity, iox);
+                } catch (URISyntaxException | IllegalArgumentException use) {
+                    Log.e(DEBUG_TAG, "Add imagery from oam " + use.getMessage());
+                    Util.toastDowloadError(activity, new IOException(use));
                 }
                 return list;
             }

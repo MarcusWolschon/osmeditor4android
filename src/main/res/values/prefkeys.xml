@@ -18,6 +18,10 @@
     <string name="config_geojson_symbol_key">geoJsonSymbol</string>
     <string name="config_geojson_label_min_zoom_key">geoJsonLabelMinZoom</string>
     <string name="config_geojson_stroke_width_key">geoJsonStrokeWidth</string>
+    <string name="config_download_along_data_key">downloadAlongData</string>
+    <string name="config_download_along_tasks_key">downloadAlongTasks</string>
+    <string name="config_download_along_buffer_key">downloadAlongBuffer</string>
+    <string name="config_download_along_max_dimension_key">downloadAlongMaxDim</string>
     
     <!-- Preference keys used in the pref editor(s) string & boolean prefs -->
     <string name="config_showStats_key">showStats</string>
@@ -64,9 +68,11 @@
     <string name="config_mapillaryImagesUrlV4_key">mapillaryImagesUrlV4</string>
     <string name="config_mapillaryImages_key">mapillaryImages</string> <!-- no longer used -->
     <string name="config_panoramaxApiUrl_key">panoramaxApiUrl</string>
+    <string name="config_panoramaxInstancesUrl_key">panoramaxInstancesUrl</string>
     <string name="config_showCameraAction_key">showCameraAction</string>
     <string name="config_selectCameraApp_key">selectCameraApp</string>
     <string name="config_useInternalPhotoViewer_key">useInternalPhotoViewer</string>
+    <string name="config_imageStores_key">imageStores</string>
     <string name="config_generateAlerts_key">generateAlerts</string>
     <string name="config_groupAlertsOnly_key">groupAlertsOnly</string>
     <string name="config_enableLightTheme_key">enableLightTheme</string>
@@ -106,12 +112,17 @@
     <string name="config_addToMediaStore_key">addToMediaStore</string>
     <string name="config_wayNodeDragging_key">wayNodeDragging</string>
     <string name="config_splitWindowForPropertyEditor_key">splitWindowForPropertyEditor</string>
+    <string name="config_splitWindowForReview_key">splitWindowForReview</string>
+    <string name="config_tabLayout_key">tabLayout</string>
     <string name="config_newTaskForPropertyEditor_key">newTaskForPropertyEditor</string>
     <string name="config_useImperialUnits_key">useImperialUnits</string>
     <string name="config_supportPresetLabels_key">supportPresetLabels</string>
     <string name="config_zoomWithKeys_key">zoomWithKeys</string>
     <string name="config_poi_keys_key">poiKeys</string>
     <string name="config_autoPrune_key">autoPrune</string>
+    <string name="config_autoPruneTasks_key">autoPruneTasks</string>
+    <string name="config_imageLicence_key">imageLicence</string>
+    <string name="config_keyboard_shortcuts_key">keyboardShortcuts</string>
     <!-- Preference keys used in the pref editor(s) int prefs -->
     <string name="config_maxInlineValues_key">maxInlineValuesInt</string>
     <string name="config_autoLockDelay_key">autoLockDelayInt</string>
@@ -149,6 +160,9 @@
     <string name="config_maxCircleSegment_key">maxCircleSegment</string>
     <string name="config_minCircleSegment_key">minCircleSegment</string>
     <string name="config_replaceTolerance_key">replaceTolerance</string>
+    <string name="config_minMoveWayNodesWarning_key">minMoveWayNodesWarning</string>
+    <string name="config_minMoveVisibleWayNodesWarning_key">minMoveVisibleWayNodesWarning</string>
+    <string name="config_ignoreSubareas_key">ignoreSubareas</string>
     <!-- Last directories used in the file selector -->
     <string name="config_gpxPreferredDir_key">gpxPreferredDir</string>
     <string name="config_osmPreferredDir_key">osmPreferredDir</string>
@@ -157,6 +171,7 @@
     <string name="config_mbtilesPreferredDir_key">mbtilesPreferredDir</string>
     <string name="config_presetsPreferredDir_key">presetsPreferredDir</string>
     <string name="config_msfPreferredDir_key">msfPreferredDir</string>
+    <string name="config_configPreferredDir_key">configPreferredDir</string>
     <!-- Toggle used in the DowloadActivity -->
     <string name="config_allowAllNetworks_key">allowAllNetworks</string>
     <!-- EGM -->

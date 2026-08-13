@@ -86,9 +86,6 @@
 "amenity/bar":[
 "Kroeg"
 ],
-"amenity/bbq":[
-"Braai"
-],
 "amenity/bench":[
 "Bankie"
 ],
@@ -134,9 +131,6 @@
 "amenity/charging_station":[
 "Herlaaistasie"
 ],
-"amenity/childcare":[
-"Kindersorg"
-],
 "amenity/cinema":[
 "silverdoek",
 "movie",
@@ -149,9 +143,6 @@
 ],
 "amenity/clock":[
 "Klok"
-],
-"amenity/college":[
-"Kollegegebied"
 ],
 "amenity/community_centre":[
 "Gemeenskapsentrum"
@@ -173,9 +164,6 @@
 ],
 "amenity/drinking_water":[
 "Drinkwater"
-],
-"amenity/driving_school":[
-"Bestuurskool"
 ],
 "amenity/embassy":[
 "Ambassade"
@@ -219,12 +207,6 @@
 "amenity/internet_cafe":[
 "Internetkafee"
 ],
-"amenity/kindergarten":[
-"Kleuterskoolgebied"
-],
-"amenity/language_school":[
-"Taalskool"
-],
 "amenity/library":[
 "Biblioteek"
 ],
@@ -239,9 +221,6 @@
 ],
 "amenity/motorcycle_parking":[
 "Motorfietsparkering"
-],
-"amenity/music_school":[
-"Musiekskool"
 ],
 "amenity/nightclub":[
 "Nagklub"
@@ -313,9 +292,6 @@
 "amenity/restaurant/seafood":[
 "Seekosrestaurant"
 ],
-"amenity/school":[
-"Skoolgebied"
-],
 "amenity/shelter":[
 "Skuiling"
 ],
@@ -351,9 +327,6 @@
 ],
 "amenity/townhall/city":[
 "Stadsaal"
-],
-"amenity/university":[
-"Universiteitgebied"
 ],
 "amenity/vehicle_inspection":[
 "Voertuiginspeksie"
@@ -471,9 +444,6 @@
 ],
 "building/dormitory":[
 "Studentehuis"
-],
-"building/entrance":[
-"Ingang/Uitgang"
 ],
 "building/farm":[
 "Plaashuis"
@@ -661,12 +631,6 @@
 "emergency/defibrillator":[
 "Defibrillator"
 ],
-"emergency/designated":[
-"Noodtoegang: Toegewys"
-],
-"emergency/destination":[
-"Noodtoegang: Eindbestemming"
-],
 "emergency/fire_extinguisher":[
 "Brandblusser"
 ],
@@ -676,26 +640,14 @@
 "emergency/life_ring":[
 "Reddingsboei"
 ],
-"emergency/no":[
-"Geen noodtoegang"
-],
-"emergency/official":[
-"Noodtoegang: Officieel"
-],
 "emergency/phone":[
 "Noodtelefoon"
-],
-"emergency/private":[
-"Noodtoegang: Privaat"
 ],
 "emergency/siren":[
 "Noodsirene"
 ],
 "emergency/water_tank":[
 "Noodwatertenk"
-],
-"emergency/yes":[
-"Noodtoegang: Ja"
 ],
 "entrance":[
 "Ingang/Uitgang",
@@ -767,9 +719,6 @@
 ],
 "highway/motorway":[
 "Snelweg"
-],
-"highway/motorway_junction":[
-"Snelwegkruising"
 ],
 "highway/motorway_link":[
 "Verbindingsweg van snelweg"
@@ -876,9 +825,6 @@
 ],
 "highway/turning_loop":[
 "Draailus"
-],
-"highway/unclassified":[
-"Ongeklassifiseerde weg"
 ],
 "historic":[
 "Historiese plek"

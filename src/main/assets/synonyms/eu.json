@@ -35,9 +35,6 @@
 "amenity/bar":[
 "Taberna"
 ],
-"amenity/bbq":[
-"Barbakoa/Parrila"
-],
 "amenity/bench":[
 "Bankua",
 "banku",
@@ -80,9 +77,6 @@
 "amenity/charging_station":[
 "Kargatzeko geltokia"
 ],
-"amenity/childcare":[
-"Haurtzendegi/ Ume zaintza"
-],
 "amenity/cinema":[
 "Zinema"
 ],
@@ -98,9 +92,6 @@
 "amenity/clock":[
 "Ordulari"
 ],
-"amenity/college":[
-"Unibertsitate Eremu"
-],
 "amenity/community_centre":[
 "Gizarte-etxea"
 ],
@@ -109,9 +100,6 @@
 ],
 "amenity/courthouse":[
 "Epaitegia"
-],
-"amenity/coworking_space":[
-"Coworking espazioa"
 ],
 "amenity/crematorium":[
 "Errausketa-labe"
@@ -133,9 +121,6 @@
 "edangarria",
 "txorrota",
 "Edateko ur iturria"
-],
-"amenity/driving_school":[
-"Auto-eskola"
 ],
 "amenity/embassy":[
 "Enbaxada"
@@ -177,12 +162,6 @@
 "amenity/internet_cafe":[
 "Internet kafetegi"
 ],
-"amenity/language_school":[
-"hizkuntz",
-"Hizkuntza-eskola",
-"hizkuntza-eskola",
-"akademia"
-],
 "amenity/library":[
 "Liburutegi"
 ],
@@ -194,9 +173,6 @@
 ],
 "amenity/motorcycle_parking":[
 "Motorren aparkalekua"
-],
-"amenity/music_school":[
-"Musika eskola"
 ],
 "amenity/nightclub":[
 "Klub"
@@ -297,9 +273,6 @@
 "mariskoa",
 "Arraina eta itsaski jatetxea"
 ],
-"amenity/school":[
-"Eskola eremu"
-],
 "amenity/shelter":[
 "Aterpetxea"
 ],
@@ -369,9 +342,6 @@
 ],
 "amenity/townhall":[
 "Udaletxea"
-],
-"amenity/university":[
-"Unibertsitatearen eremua"
 ],
 "amenity/vending_machine":[
 "Makina saltzaile"
@@ -477,9 +447,6 @@
 ],
 "building/dormitory":[
 "Erresidentzia"
-],
-"building/entrance":[
-"Sarrera/Irteera"
 ],
 "building/farm":[
 "basetxea",

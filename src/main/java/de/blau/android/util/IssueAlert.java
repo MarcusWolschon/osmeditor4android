@@ -120,7 +120,7 @@ public final class IssueAlert {
         Notifications.initChannel(context, QA_CHANNEL, R.string.qa_channel_name, R.string.qa_channel_description);
         NotificationCompat.Builder mBuilder;
         try {
-            mBuilder = Notifications.builder(context, QA_CHANNEL).setSmallIcon(R.drawable.logo_simplified).setContentTitle(title)
+            mBuilder = Notifications.builder(context, QA_CHANNEL).setSmallIcon(R.drawable.ic_notification_vespucci).setContentTitle(title)
                     .setContentText(message.toString()).setPriority(NotificationCompat.PRIORITY_HIGH).setTicker(ticker).setAutoCancel(true).setGroup(GROUP_DATA)
                     .setColor(ContextCompat.getColor(context, R.color.osm_green));
             Notifications.setGroupAlertBehavior(prefs, mBuilder);
@@ -149,8 +149,10 @@ public final class IssueAlert {
             addGroupNotification(context, QA_CHANNEL, GROUP_DATA, GROUP_DATA_ID, title, mNotificationManager);
 
             // mId allows you to update the notification later on.
-            mNotificationManager.notify(id(e), mBuilder.build());
-            App.getOsmDataNotifications(context).save(mNotificationManager, id(e));
+            if (mNotificationManager.areNotificationsEnabled()) {
+                mNotificationManager.notify(id(e), mBuilder.build());
+                App.getOsmDataNotifications(context).save(mNotificationManager, id(e));
+            }
         } catch (OsmException e1) {
             Log.d(DEBUG_TAG, "Illegal BB created from lat " + eLat + " lon " + eLon + " r " + prefs.getDownloadRadius());
         }
@@ -225,7 +227,7 @@ public final class IssueAlert {
         Notifications.initChannel(context, QA_CHANNEL, R.string.qa_channel_name, R.string.qa_channel_description);
         NotificationCompat.Builder mBuilder;
         try {
-            mBuilder = Notifications.builder(context, QA_CHANNEL).setSmallIcon(R.drawable.logo_simplified).setContentTitle(title).setContentText(message)
+            mBuilder = Notifications.builder(context, QA_CHANNEL).setSmallIcon(R.drawable.ic_notification_vespucci).setContentTitle(title).setContentText(message)
                     .setPriority(NotificationCompat.PRIORITY_HIGH).setTicker(ticker).setAutoCancel(true)
                     .setGroup(b instanceof Note ? GROUP_NOTES : GROUP_OSMOSE).setColor(ContextCompat.getColor(context, R.color.osm_green));
             Notifications.setGroupAlertBehavior(prefs, mBuilder);
@@ -247,8 +249,10 @@ public final class IssueAlert {
         }
         // mId allows you to update the notification later on.
         int id = id(b);
-        mNotificationManager.notify(id, mBuilder.build());
-        App.getTaskNotifications(context).save(mNotificationManager, id);
+        if (mNotificationManager.areNotificationsEnabled()) {
+            mNotificationManager.notify(id, mBuilder.build());
+            App.getTaskNotifications(context).save(mNotificationManager, id);
+        }
     }
 
     /**
@@ -358,16 +362,15 @@ public final class IssueAlert {
      */
     private static void addGroupNotification(@NonNull Context context, @NonNull String channel, @NonNull String group, int groupId, @NonNull String title,
             @NonNull NotificationManagerCompat notificationManager) {
-        if (!hasGroupNotification(notificationManager, groupId)) {
+        if (notificationManager.areNotificationsEnabled() && !hasGroupNotification(notificationManager, groupId)) {
             try {
-                NotificationCompat.Builder groupBuilder = Notifications.builder(context, channel).setSmallIcon(R.drawable.logo_simplified)
+                NotificationCompat.Builder groupBuilder = Notifications.builder(context, channel).setSmallIcon(R.drawable.ic_notification_vespucci)
                         .setContentTitle(title).setPriority(NotificationCompat.PRIORITY_HIGH).setGroup(group).setGroupSummary(true)
                         .setColor(ContextCompat.getColor(context, R.color.osm_green));
                 notificationManager.notify(groupId, groupBuilder.build());
             } catch (RuntimeException re) {
                 // don't do anything
             }
-
         }
     }
 }

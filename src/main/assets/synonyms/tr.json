@@ -146,8 +146,8 @@
 "Hayvan Islah Yeri"
 ],
 "amenity/animal_shelter":[
-"hayvan barınağı",
-"Hayvan Barinağı"
+"Hayvan Barınağı",
+"hayvan barınağı"
 ],
 "amenity/arts_centre":[
 "sanat merkezi",
@@ -168,10 +168,6 @@
 ],
 "amenity/bar/lgbtq":[
 "LGBTQ+ Bar"
-],
-"amenity/bbq":[
-"Mangal Restoranı",
-"mangal restoranı"
 ],
 "amenity/bench":[
 "bank",
@@ -225,10 +221,15 @@
 "kafeterya"
 ],
 "amenity/cafe/bubble_tea":[
-"Bubble Tea Kafe"
+"İnci Çayı Kafesi"
 ],
 "amenity/cafe/coffee_shop":[
 "Kahve Evi"
+],
+"amenity/cafe/teahouse":[
+"kahvehane",
+"Kahvehane",
+"çay ocağı"
 ],
 "amenity/car_pooling":[
 "Araç Havuzlama İstasyonu"
@@ -254,10 +255,6 @@
 "amenity/charging_station":[
 "şarj i̇stasyonu",
 "Şarj İstasyonu"
-],
-"amenity/childcare":[
-"çocuk bakımı",
-"Çocuk Bakımı"
 ],
 "amenity/cinema":[
 "sinema",
@@ -288,11 +285,6 @@
 "amenity/clock/sundial":[
 "Güneş saati"
 ],
-"amenity/college":[
-"üniversite kampüsü",
-"üniversite bahçesi",
-"Üniversite Kampüsü"
-],
 "amenity/community_centre":[
 "toplum merkezi",
 "sosyal merkez",
@@ -313,12 +305,10 @@
 "Kongre Merkezi"
 ],
 "amenity/courthouse":[
+"adliye",
 "Mahkeme",
 "adalet sarayı",
 "mahkeme"
-],
-"amenity/coworking_space":[
-"Ortak Çalışma Alanı"
 ],
 "amenity/crematorium":[
 "Cesed Yakma Yeri",
@@ -352,9 +342,6 @@
 ],
 "amenity/doctors/general":[
 "Primary Care Physician"
-],
-"amenity/doctors/gynaecology":[
-"Obstetrician/Gynecologist"
 ],
 "amenity/doctors/haematology":[
 "Hematologist"
@@ -419,6 +406,10 @@
 "amenity/doctors/urology":[
 "Urologist"
 ],
+"amenity/dog_toilet":[
+"i̇t tuvaleti",
+"Köpek Tuvaleti"
+],
 "amenity/dojo":[
 "dövüş sanatları akademisi",
 "Dövüş Sanatları Akademisi"
@@ -433,10 +424,6 @@
 ],
 "amenity/driver_training":[
 "Driver Training Grounds"
-],
-"amenity/driving_school":[
-"sürücü okulu",
-"Sürücü Kursu"
 ],
 "amenity/embassy":[
 "Büyükelçilik"
@@ -556,14 +543,8 @@
 "amenity/karaoke_box":[
 "Karaoke Kutusu"
 ],
-"amenity/kindergarten":[
-"Anaokulu Sahası"
-],
 "amenity/kneipp_water_cure":[
 "Kneipp Facility"
-],
-"amenity/language_school":[
-"Dil Okulu"
 ],
 "amenity/lavoir":[
 "Yıkama Evi"
@@ -608,10 +589,6 @@
 "amenity/motorcycle_rental":[
 "Motosiklet Kiralama"
 ],
-"amenity/music_school":[
-"Müzik Okulu",
-"müzik merkezi"
-],
 "amenity/nightclub":[
 "Gece Kulübü",
 "gece kulübü"
@@ -623,7 +600,12 @@
 "Bakım Evi"
 ],
 "amenity/parcel_locker":[
-"Parcel Locker"
+"teslimat dolabı",
+"kargo dolabı",
+"gel al",
+"Kargo Dolabı",
+"kargomat",
+"paket"
 ],
 "amenity/parking":[
 "Otopark"
@@ -635,7 +617,11 @@
 "Park & Biniş Arsası"
 ],
 "amenity/parking/street-side":[
-"Street-side Parking"
+"yola bitişik otopark",
+"ol kenarı park yeri",
+"Yola Bitişik Otopark",
+"yol kenarı park",
+"yola bitişik park"
 ],
 "amenity/parking/underground":[
 "Yeraltı Park Yeri"
@@ -729,9 +715,6 @@
 "postane",
 "Postane"
 ],
-"amenity/prep_school":[
-"Sınava Hazırlık / Özel Ders Okulu"
-],
 "amenity/prison":[
 "Cezaevi",
 "cezaevi"
@@ -779,6 +762,9 @@
 "yeri",
 "Geri Dönüşüm Merkezi"
 ],
+"amenity/recycling_container":[
+"Geridönüşüm Kutusu"
+],
 "amenity/refugee_site":[
 "Mülteci Kampı"
 ],
@@ -803,7 +789,7 @@
 "Fransız Restoranı"
 ],
 "amenity/restaurant/georgian":[
-"Georgian Restaurant"
+"Gürcü Restoranı"
 ],
 "amenity/restaurant/german":[
 "Alman Restoranı"
@@ -821,7 +807,7 @@
 "Japon Restoranı"
 ],
 "amenity/restaurant/korean":[
-"Korean Restaurant"
+"Kore Restoranı"
 ],
 "amenity/restaurant/mexican":[
 "Meksika Restoranı"
@@ -833,28 +819,31 @@
 "Pizza Restoranı"
 ],
 "amenity/restaurant/ramen":[
-"Ramen Restaurant"
+"Ramen Restoranı"
 ],
 "amenity/restaurant/seafood":[
 "Deniz Yiyecekleri Restoranı"
 ],
 "amenity/restaurant/spanish":[
-"Spanish Restaurant"
+"İspanyol Restoranı"
 ],
 "amenity/restaurant/steakhouse":[
 "Et Lokantası"
 ],
 "amenity/restaurant/sushi":[
-"Sushi Restoranı"
+"Suşi Restoranı"
 ],
 "amenity/restaurant/thai":[
 "Tayland Restoranı"
 ],
 "amenity/restaurant/turkish":[
-"Türk Restoranı"
+"türk restaurantı",
+"türk",
+"Türk Restoranı",
+"türk mutfağı"
 ],
 "amenity/restaurant/ukrainian":[
-"Ukrainian Restaurant"
+"Ukrayn Restoranı"
 ],
 "amenity/restaurant/vietnamese":[
 "Vietnam Restoranı"
@@ -863,17 +852,15 @@
 "tuvalet atık yeri",
 "Tuvalet Atık Yeri"
 ],
-"amenity/school":[
-"Okul",
-"okul",
-"okul bahçesi"
-],
 "amenity/shelter":[
 "barınak",
 "Barınak"
 ],
 "amenity/shelter/gazebo":[
-"Çardak"
+"kamelya",
+"Çardak",
+"çardak",
+"kameriye"
 ],
 "amenity/shelter/lean_to":[
 "Yan Binaya Yaslı"
@@ -897,8 +884,13 @@
 "Sosyal Merkez"
 ],
 "amenity/social_facility":[
-"Okul Tesisleri",
-"okul tesisleri"
+"sığınmaevi",
+"bakımevi",
+"sosyal tesis",
+"huzurevi",
+"Sosyal Tesis",
+"aşevi",
+"darülaceze"
 ],
 "amenity/social_facility/ambulatory_care":[
 "Ayakta Tedavi"
@@ -955,11 +947,17 @@
 "tiyatro",
 "Tiyatro"
 ],
+"amenity/theatre/type/amphi":[
+"amfi",
+"tiyatro",
+"Amfiteatr",
+"amfiteatr"
+],
 "amenity/ticket_validator":[
 "Ticket Validator"
 ],
 "amenity/toilets":[
-"Restroom",
+"Tuvalet",
 "tuvalet"
 ],
 "amenity/toilets/disposal/flush":[
@@ -984,16 +982,13 @@
 "amenity/trolley_bay":[
 "Cart Corral"
 ],
-"amenity/university":[
-"üniversite kampüsü",
-"üniversite yerleşkesi",
-"Üniversite Yerleşkesi"
-],
 "amenity/vacuum_cleaner":[
 "Elektrikli Süpürge İstasyonu"
 ],
 "amenity/vehicle_inspection":[
-"Araç denetleme"
+"araç muayene i̇stasyonu",
+"oto ekspertiz",
+"Araç Muayene İstasyonu"
 ],
 "amenity/vending_machine":[
 "otomat",
@@ -1080,6 +1075,14 @@
 "Köpek Dışkı Çöpü",
 "köpek dışkı kutusu"
 ],
+"amenity/waste_basket":[
+"çöp kovası",
+"çöp",
+"çöp tenekesi",
+"Çöp Kutusu",
+"çöp kutusu",
+"çöp bidonu"
+],
 "amenity/waste_disposal":[
 "çöp tenekesi",
 "Çöp Tenekesi"
@@ -1147,7 +1150,8 @@
 "Lunapark Su Kaydırağı"
 ],
 "attraction/maze":[
-"Mağara"
+"labirent",
+"Labirent"
 ],
 "attraction/pirate_ship":[
 "Korsan Gemisi Gezisi"
@@ -1255,7 +1259,8 @@
 "Koruma Duvarı"
 ],
 "barrier/height_restrictor":[
-"Yükseklik Kısıtlayıcı"
+"Yükseklik Kısıtlayıcı",
+"yükseklik kısıtlayıcı"
 ],
 "barrier/jersey_barrier":[
 "Jersey Barrier"
@@ -1330,9 +1335,6 @@
 ],
 "barrier/wicket_gate":[
 "Wicket Gate"
-],
-"barrier/yes":[
-"Barrier (Unspecified Type)"
 ],
 "boundary":[
 "Sınır"
@@ -1422,7 +1424,7 @@
 "öğrenci yurdu"
 ],
 "building/entrance":[
-"Giriş/Çıkış"
+"Giriş / Çıkış"
 ],
 "building/farm":[
 "Çiftlik"
@@ -1431,7 +1433,9 @@
 "Çiftlik Binası"
 ],
 "building/fire_station":[
-"Fire Station Building"
+"i̇tfaiye",
+"i̇tfaiye i̇stasyonu",
+"İtfaiye Binası"
 ],
 "building/garage":[
 "Garaj",
@@ -1452,15 +1456,15 @@
 "Sera"
 ],
 "building/hangar":[
-"Hangar"
+"Hangar Binası"
 ],
 "building/hospital":[
 "hastane",
 "Hastane"
 ],
 "building/hotel":[
-"otel",
-"Otel"
+"Otel Binası",
+"otel"
 ],
 "building/house":[
 "ev",
@@ -1475,13 +1479,17 @@
 ],
 "building/industrial":[
 "sanayi binası",
+"sınai bina",
+"endüstriyel bina",
 "Endüstriyel Bina"
 ],
 "building/kindergarten":[
-"Anaokulu Bina"
+"anaokulu binası",
+"kreş binası",
+"Kreş / Anaokulu Binası"
 ],
 "building/manufacture":[
-"Industrial Production Building"
+"Endüstriyel Üretim Binası"
 ],
 "building/mosque":[
 "cami",
@@ -1501,6 +1509,8 @@
 "Devlet Binası"
 ],
 "building/residential":[
+"ev",
+"mesken",
 "Konut",
 "konut"
 ],
@@ -1517,8 +1527,13 @@
 "Bina Kalıntısı"
 ],
 "building/school":[
-"Okul",
-"okul"
+"okul yapısı",
+"ortaokul",
+"okul",
+"Okul Binası",
+"okul binası",
+"i̇lkokul",
+"lise"
 ],
 "building/semidetached_house":[
 "bitişik nizam ev",
@@ -1548,7 +1563,9 @@
 "Domuz Ahırı"
 ],
 "building/synagogue":[
-"Synagogue Building"
+"sinagog",
+"Sinagog Binası",
+"havra"
 ],
 "building/temple":[
 "Tapınak",
@@ -1574,14 +1591,15 @@
 ],
 "building/university":[
 "üniversite",
-"Üniversite"
+"Üniversite Binası"
 ],
 "building/warehouse":[
 "Depo",
 "ambar"
 ],
 "building_part":[
-"Yapı bölümü"
+"Yapı bölümü",
+"yapı parçası"
 ],
 "building_point":[
 "Bina"
@@ -1591,6 +1609,13 @@
 ],
 "cemetery/sector":[
 "Cemetery Section"
+],
+"climbing/route":[
+"tırmanış yolu",
+"tırmanma güzergâhı",
+"tırmanma rotası",
+"tırmanma yolu",
+"Tırmanış Rotası"
 ],
 "club":[
 "bar",
@@ -1621,7 +1646,7 @@
 ],
 "craft/blacksmith":[
 "demirci",
-"Nalbant",
+"Demirci",
 "nalbant"
 ],
 "craft/boatbuilder":[
@@ -1718,7 +1743,9 @@
 "boyacı"
 ],
 "craft/parquet_layer":[
-"Parke Katmanı"
+"parke ustası",
+"Parke Ustası",
+"parkeci"
 ],
 "craft/photographer":[
 "Fotoğrafçı",
@@ -1837,6 +1864,59 @@
 "disused/shop":[
 "Kullanılmayanlar Dükkanı"
 ],
+"education/dancing_school":[
+"dans okulu",
+"vals",
+"bale",
+"tango",
+"Dans Kursu",
+"dans kursu",
+"jive"
+],
+"education/driving_school":[
+"Sürücü Kursu",
+"sürücü kursu",
+"ehliyet kursu"
+],
+"education/kindergarten":[
+"okul öncesi",
+"kreş",
+"anaokulu",
+"Kreş / Anaokulu Alanı"
+],
+"education/language_school":[
+"dil okulu",
+"dil kursu",
+"yabancı dil kursu",
+"Dil Kursu"
+],
+"education/music_school":[
+"müzik kursu",
+"müzik okulu",
+"Müzik Kursu",
+"konservatuar"
+],
+"education/prep_school":[
+"özel öğretim kursu",
+"dershane",
+"Dershane / Özel Öğretim Kursu"
+],
+"education/school":[
+"ortaokul",
+"okul",
+"i̇lkokul",
+"Okul Alanı",
+"okul alanı",
+"lise",
+"okul sahası"
+],
+"education/university":[
+"üniversite",
+"kampüs",
+"Üniversite Yerleşkesi",
+"yüksekokul",
+"yerleşke"
+],
 "embankment":[
 "Toprak Dolgu"
 ],
@@ -1848,17 +1928,15 @@
 "Ambulans İstasyonu"
 ],
 "emergency/assembly_point":[
-"Emergency Assembly Point"
+"toplanma bölgesi",
+"acil durum toplanma alanı",
+"Acil Durum Toplanma Alanı",
+"toplanma noktası",
+"afet ve acil durum toplanma alanı"
 ],
 "emergency/defibrillator":[
 "şok cihazı",
 "Şok Cihazı"
-],
-"emergency/designated":[
-"Acil Erişim"
-],
-"emergency/destination":[
-"Acil Erişim İstikameti"
 ],
 "emergency/fire_alarm":[
 "Yangın Alarmı Arama Kutusu"
@@ -1894,18 +1972,9 @@
 "emergency/mountain_rescue":[
 "Dağ Arama Kurtarma"
 ],
-"emergency/no":[
-"Acil Erişim Yok"
-],
-"emergency/official":[
-"Yetkililere Özel Acil Erişim"
-],
 "emergency/phone":[
 "acil durum telefonu",
 "Acil Durum Telefonu"
-],
-"emergency/private":[
-"Kısıtlı Acil Erişim"
 ],
 "emergency/siren":[
 "Siren"
@@ -1919,20 +1988,27 @@
 "emergency/water_tank":[
 "Acil Su Deposu"
 ],
-"emergency/yes":[
-"Acil Erişim"
-],
 "entrance":[
 "Giriş / Çıkış"
 ],
 "entrance/emergency":[
-"Acil Çıkış"
+"Acil Çıkış",
+"acil çıkış",
+"yangın çıkışı"
 ],
 "entrance/emergency_ward_entrance":[
+"acil servis girişi",
+"acil girişi",
 "Acil Servis Girişi"
 ],
 "entrance/main":[
 "Ana Giriş"
+],
+"entrance/shop":[
+"market girişi",
+"dükkân girişi",
+"Mağaza Girişi",
+"bakkal girişi"
 ],
 "entrance/staircase":[
 "Staircase Entrance"
@@ -2077,9 +2153,6 @@
 "konuşma uzmanı",
 "Konuşma Terapisti"
 ],
-"healthcare/yes":[
-"Healthcare Facility (Unspecified Type)"
-],
 "highway":[
 "Karayolu Özelliği"
 ],
@@ -2096,7 +2169,7 @@
 ],
 "highway/busway":[
 "otobüs yolu",
-"Otobüs Güzerhâhı",
+"Otobüs İçin Ayrılmış Yol",
 "otobüs hattı"
 ],
 "highway/construction":[
@@ -2214,9 +2287,15 @@
 "Yol Ver İşareti",
 "yol ver levhası"
 ],
+"highway/ladder":[
+"merdiven",
+"tırmanma",
+"Dikey Merdiven",
+"çıkmak"
+],
 "highway/living_street":[
-"sokak",
-"Sokak"
+"Yaya Öncelikli Yol",
+"yaya öncelikli yol"
 ],
 "highway/milestone":[
 "Otoyol Kilometre Taşı"
@@ -2229,12 +2308,6 @@
 "otoban",
 "Otoyol",
 "otoyol"
-],
-"highway/motorway_junction":[
-"araç yolu çıkışı",
-"Otoyol Sapağı",
-"otoyol çıkışı",
-"otoyol sapağı"
 ],
 "highway/motorway_link":[
 "otoyola bağlanan yol",
@@ -2419,10 +2492,10 @@
 "dönüş adası"
 ],
 "highway/unclassified":[
-"bilinmeyen yol",
-"Tali Yol",
-"tali yol",
-"önemsiz yol"
+"küçük yol",
+"Tali / Sınıflandırılmamış Yol",
+"uzak yol",
+"şehir dışı yol"
 ],
 "historic":[
 "Tarihi Yer",
@@ -2438,6 +2511,7 @@
 "sınır taşı"
 ],
 "historic/building":[
+"tarihî bina",
 "Tarihi Bina"
 ],
 "historic/castle":[
@@ -2465,6 +2539,9 @@
 "historic/memorial":[
 "anıt",
 "Anıt"
+],
+"historic/memorial/blue_plaque-GB-IE":[
+"Blue Plaque"
 ],
 "historic/memorial/plaque":[
 "Hatıra Plaketi"
@@ -2562,14 +2639,12 @@
 "landuse/construction":[
 "İnşaat Alanı"
 ],
-"landuse/education":[
-"Eğitim kurumları yerleşkesi"
-],
 "landuse/farm":[
 "Tarım Alanı"
 ],
 "landuse/farmland":[
 "tarım alanı",
+"tarla",
 "Tarım Alanı"
 ],
 "landuse/farmyard":[
@@ -2594,7 +2669,9 @@
 "Yeşil alan"
 ],
 "landuse/greenhouse_horticulture":[
-"Sera çiçeçiliği"
+"sera",
+"seracılık",
+"Sera Alanı"
 ],
 "landuse/harbour":[
 "Liman",
@@ -2612,7 +2689,12 @@
 "Hurdalık"
 ],
 "landuse/industrial/slaughterhouse":[
-"Kesimevi"
+"kesimevi",
+"kesimhane",
+"kasaphane",
+"salhane",
+"Kesimevi",
+"mezbaha"
 ],
 "landuse/landfill":[
 "çöp sahası",
@@ -2720,9 +2802,6 @@
 "leisure/dance":[
 "dans salonu",
 "Dans Salonu"
-],
-"leisure/dancing_school":[
-"Dans Okulu"
 ],
 "leisure/disc_golf_course":[
 "Disk Golf Sahası"
@@ -2871,9 +2950,6 @@
 "leisure/pitch/athletics/hammer_throw":[
 "Hammer Throw Ring / Sector"
 ],
-"leisure/pitch/athletics/high_jump":[
-"High Jump Pit"
-],
 "leisure/pitch/athletics/javelin_throw":[
 "Javelin Sector"
 ],
@@ -2905,9 +2981,6 @@
 "leisure/pitch/beachvolleyball":[
 "sahil voleybolu sahası",
 "Sahil Voleybolu Sahası"
-],
-"leisure/pitch/boules":[
-"Boules/Bocce Kortu"
 ],
 "leisure/pitch/bowls":[
 "açıkhava top oyun sahası",
@@ -2953,7 +3026,9 @@ beşe beş futbol"
 "Padel Court"
 ],
 "leisure/pitch/paintball":[
-"Paintball Field"
+"paintball sahası",
+"paintball alanı",
+"Paintball Alanı"
 ],
 "leisure/pitch/pickleball":[
 "Pickleball Court"
@@ -3238,7 +3313,10 @@ beşe beş futbol"
 "İletişim Direği"
 ],
 "man_made/mast/communication/mobile_phone":[
-"Cep Telefonu Direği"
+"Cep Telefonu Direği",
+"baz i̇stasyonu",
+"cep telefonu direği",
+"cep telefonu anteni"
 ],
 "man_made/mast/communication/radio":[
 "Radyo Yayın Direği"
@@ -3298,8 +3376,8 @@ beşe beş futbol"
 "Silo"
 ],
 "man_made/storage_tank":[
-"Depo",
-"depo"
+"depolama tankı",
+"Depolama Tankı"
 ],
 "man_made/storage_tank/water":[
 "Su Tankı"
@@ -3335,9 +3413,6 @@ beşe beş futbol"
 ],
 "man_made/tailings_pond":[
 "Tailings Pond"
-],
-"man_made/torii":[
-"Tore Kapısı"
 ],
 "man_made/tower":[
 "Kule",
@@ -3416,9 +3491,6 @@ beşe beş futbol"
 ],
 "man_made/works/brewery":[
 "Industrial Brewery"
-],
-"man_made/yes":[
-"Man-Made Feature (Unspecified Type)"
 ],
 "marker":[
 "İşaretleyici"
@@ -3727,7 +3799,9 @@ beşe beş futbol"
 "enerji kurumu ofisi"
 ],
 "office/engineer":[
-"Engineering Office"
+"Mühendislik Bürosu",
+"mühendislik bürosu",
+"mühendislik ofisi"
 ],
 "office/estate_agent":[
 "emlak ofisi",
@@ -3826,7 +3900,13 @@ beşe beş futbol"
 "Araştırma Kurumu"
 ],
 "office/security":[
-"Emniyet Amirliği"
+"güvenlik ofisi",
+"güvenlik kulübesi",
+"koruma",
+"özel güvenlik ofisi",
+"Güvenlik Ofisi",
+"güvenlik",
+"bekçi"
 ],
 "office/surveyor":[
 "harita etüt mühendisliği",
@@ -3854,9 +3934,6 @@ beşe beş futbol"
 "office/water_utility":[
 "Su Müdürlüğü",
 "su ve kanalizasyon müdürlüğü"
-],
-"office/yes":[
-"Office (Unspecified Type)"
 ],
 "pipeline":[
 "Pipeline Feature"
@@ -3988,7 +4065,8 @@ beşe beş futbol"
 "Funnel Ball Funnel"
 ],
 "playground/hopscotch":[
-"Hopscotch"
+"seksek",
+"Seksek Alanı"
 ],
 "playground/horizontal_bar":[
 "Barfiks Bar"
@@ -4038,9 +4116,6 @@ beşe beş futbol"
 "playground/tunnel_tube":[
 "Play Tunnel"
 ],
-"playground/water":[
-"Play Water Pump/Screw"
-],
 "playground/zipwire":[
 "Zipline"
 ],
@@ -4079,7 +4154,10 @@ beşe beş futbol"
 "Solar Panel Canopy"
 ],
 "power/generator/method/photovoltaic/location/roof":[
-"Rooftop Solar Panel"
+"çatı ges",
+"Çatı Üstü Güneş Paneli",
+"çatı üstü fotovoltaik panel",
+"çatı üstü güneş paneli"
 ],
 "power/generator/source/hydro":[
 "Su Türbini"
@@ -4112,9 +4190,6 @@ beşe beş futbol"
 ],
 "power/plant/source/hydro":[
 "Hidroelektrik Güç İstasyonu"
-],
-"power/plant/source/method/photovoltaic":[
-"Solar Farm"
 ],
 "power/plant/source/nuclear":[
 "Nükleer Güç Santrali"
@@ -4454,7 +4529,9 @@ beşe beş futbol"
 "Anime / Manga Dükkanı"
 ],
 "shop/antiques":[
-"Antique Shop"
+"antika dükkanı",
+"Antika Dükkanı",
+"antikacı"
 ],
 "shop/appliance":[
 "beyaz eşya mağazası",
@@ -4468,17 +4545,15 @@ beşe beş futbol"
 "bebek malzemeleri mağazası",
 "Bebek Malzemeleri Mağazası"
 ],
-"shop/bag":[
-"çanta/valiz mağazası",
-"Çanta/Valiz Mağazası"
-],
 "shop/bakery":[
 "Fırın",
 "fırın"
 ],
 "shop/bathroom_furnishing":[
-"züccaciye",
-"Züccaciye"
+"banyo mobilyaları",
+"islak hacim ekipmanları",
+"banyo aksesuarları",
+"Banyo Mobilyaları ve Aksesuarları Dükkanı"
 ],
 "shop/beauty":[
 "güzellik salonu",
@@ -4491,10 +4566,6 @@ beşe beş futbol"
 "shop/beauty/tanning":[
 "Bronzlaşma Mağazası",
 "bronzlaşma mağazası"
-],
-"shop/bed":[
-"Yatak Mağazası",
-"yatak mağazası"
 ],
 "shop/beverages":[
 "İçecek Dükkanı",
@@ -4547,8 +4618,14 @@ beşe beş futbol"
 "yedek parça dükkanı"
 ],
 "shop/car_repair":[
+"oto servis",
+"servis",
 "tamirci",
-"Tamirci"
+"araba tamircisi",
+"otomobil tamircisi",
+"tamirhane",
+"araç tamircisi",
+"Araç Tamirhanesi"
 ],
 "shop/caravan":[
 "Karavan Galerisi"
@@ -4585,7 +4662,10 @@ beşe beş futbol"
 "İkinci El Kıyafet Mağazası"
 ],
 "shop/clothes/suits":[
-"Suits Store"
+"kemer",
+"takım elbise",
+"kravat",
+"Takım Elbise Mağazası"
 ],
 "shop/clothes/underwear":[
 "İç Çamaşırı Mağazası"
@@ -4747,12 +4827,19 @@ beşe beş futbol"
 "kuaför",
 "berber"
 ],
+"shop/hairdresser/barber":[
+"berberci",
+"Berber",
+"berber dükkânı",
+"tıraş mekânı"
+],
 "shop/hairdresser_supply":[
 "Kuaför Malzemeleri Mağazası"
 ],
 "shop/hardware":[
-"donanım mağazası",
-"Donanım Mağazası"
+"Hırdavatçı",
+"nalbur",
+"hırdavatçı"
 ],
 "shop/health_food":[
 "Health Food Store"
@@ -4840,6 +4927,11 @@ beşe beş futbol"
 "cep telefonu mağazası",
 "Cep Telefonu Mağazası"
 ],
+"shop/mobile_phone_accessories":[
+"telefon kılıfı",
+"Cep Telefonu Aksesuarları Mağazası",
+"cep telefonu aksesuarları mağazası"
+],
 "shop/model":[
 "Manken Dükkanı"
 ],
@@ -4887,11 +4979,20 @@ beşe beş futbol"
 "Çevrimiçi Perakende Satış Noktası"
 ],
 "shop/paint":[
-"Boyacı",
-"boyacı"
+"Boya Dükkanı",
+"boya satıcısı",
+"boyacı",
+"boya dükkanı"
 ],
 "shop/party":[
 "Parti Malzemeleri Mağazası"
+],
+"shop/pasta":[
+"makarna marketi",
+"kelebek",
+"Makarna Dükkânı",
+"makarna mağazası",
+"burgu"
 ],
 "shop/pastry":[
 "Pastane",
@@ -4929,10 +5030,6 @@ beşe beş futbol"
 "Havai Fişek Mağazası",
 "havai fişek mağazası"
 ],
-"shop/radiotechnics":[
-"Radyocu",
-"radyocu"
-],
 "shop/religion":[
 "dini ürünler mağazası",
 "Dini Ürünler Mağazası"
@@ -4942,6 +5039,14 @@ beşe beş futbol"
 ],
 "shop/repair":[
 "Tamir Dükkanı"
+],
+"shop/rice":[
+"pilav marketi",
+"pilav mağazası",
+"Pirinç Dükkânı",
+"pirinç mağazası",
+"pilav dükkânı",
+"pirinç marketi"
 ],
 "shop/scuba_diving":[
 "Tüple Dalış Mağazası",
@@ -5058,14 +5163,12 @@ beşe beş futbol"
 ],
 "shop/watches":[
 "saatçi",
-"Saatçi"
+"Saat Satıcısı",
+"saat dükkanı",
+"saat satıcısı"
 ],
 "shop/water":[
 "İçme Suyu Mağazası"
-],
-"shop/water_sports":[
-"su sporları mağazası",
-"Su Sporları Mağazası"
 ],
 "shop/weapons":[
 "Silah Mağazası",
@@ -5085,9 +5188,6 @@ beşe beş futbol"
 "shop/wine":[
 "şarap mağazası",
 "Şarap Mağazası"
-],
-"shop/yes":[
-"Shop (Unspecified Type)"
 ],
 "telecom":[
 "Telekom Özelliği"
@@ -5200,9 +5300,6 @@ beşe beş futbol"
 "Harita",
 "harita"
 ],
-"tourism/information/office":[
-"Misafir Merkezi"
-],
 "tourism/information/route_marker":[
 "Patika İşaretçisi"
 ],
@@ -5291,9 +5388,6 @@ beşe beş futbol"
 "traffic_calming/table":[
 "Hız Tabelası"
 ],
-"traffic_calming/yes":[
-"Traffic Calming (Unspecified Type)"
-],
 "traffic_sign":[
 "Trafik Tabelası"
 ],
@@ -5345,22 +5439,28 @@ beşe beş futbol"
 "Sağa Dönüş Yasak"
 ],
 "type/restriction/no_straight_on":[
-"No Straight Ahead"
+"düz devam etmek yasak",
+"Düz Devam Etmek Yasak"
 ],
 "type/restriction/no_u_turn":[
-"No U-Turn"
+"u dönüşü yasak",
+"U Dönüşü Yasak"
 ],
 "type/restriction/only_left_turn":[
-"Left Turn Only"
+"Sadece Sola Dönülebilir",
+"sadece sola dönülebilir"
 ],
 "type/restriction/only_right_turn":[
-"Right Turn Only"
+"Sadece Sağa Dönülebilir",
+"sadece sağa dönülebilir"
 ],
 "type/restriction/only_straight_on":[
-"Straight Ahead Only"
+"sadece düz devam edilebilir",
+"Sadece Düz Devam Edilebilir"
 ],
 "type/restriction/only_u_turn":[
-"U-Turn Only"
+"Sadece U Dönüşü",
+"sadece u dönüşü"
 ],
 "type/route":[
 "güzergah",
@@ -5414,9 +5514,6 @@ beşe beş futbol"
 "Boru Hattı Güzergahı",
 "boru hattı güzergahı",
 "boru hattı rotası"
-],
-"type/route/piste":[
-"Pist/Kayak Rotası"
 ],
 "type/route/power":[
 "elektrik hattı rotası",

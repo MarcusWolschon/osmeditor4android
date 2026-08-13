@@ -3,6 +3,7 @@ package de.blau.android.layer.tiles;
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
 import java.util.Collection;
+import java.util.List;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +21,7 @@ import de.blau.android.R;
 import de.blau.android.dialogs.LayerInfo;
 import de.blau.android.dialogs.TableLayoutUtils;
 import de.blau.android.resources.TileLayerSource;
+import de.blau.android.resources.TileLayerSource.Header;
 import de.blau.android.resources.TileLayerSource.Provider;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.Util;
@@ -98,6 +100,13 @@ public class ImageryLayerInfo extends LayerInfo {
         }
         addAttribution(activity, tableLayout, tp);
         tableLayout.addView(TableLayoutUtils.createRow(activity, R.string.url, null, layer.getOriginalTileUrl(), false, tp));
+        List<Header> headers = layer.getHeaders();
+        if (!Util.isEmpty(headers)) {
+            tableLayout.addView(TableLayoutUtils.createFullRow(activity, activity.getString(R.string.layer_info_custom_headers), tp));
+            for (Header header : headers) {
+                tableLayout.addView(TableLayoutUtils.createRow(activity, header.getName(), null, header.getValue(), false, tp));
+            }
+        }
         return sv;
     }
 

@@ -26,7 +26,6 @@
   <string name="local_object">Локальная версия</string>
   <string name="resolve_by">Разрешить конфликт через…</string>
   <string name="resolve">Разрешить</string>
-  <string name="delete_refering_element">… удаление ссылающегося элемента</string>
   <string name="use_local_version">… использование локальной версии</string>
   <string name="merge_tags_in_to_local">… объединение тегов в локальную версию</string>
   <string name="merge_tags_in_to_server">… объединение тегов в версию сервера</string>
@@ -104,7 +103,6 @@
   <string name="progress_searching_message">Поиск…</string>
   <string name="progress_saving_message">Сохранение…</string>
   <string name="progress_uploading_message">Передача…</string>
-  <string name="progress_preset_message">Загружается заготовка…</string>
   <string name="progress_loading_preset_message">Загрузка заготовки...</string>
   <string name="progress_importing_file_message">Импорт файла…</string>
   <string name="progress_running_message">В процессе...</string>
@@ -184,6 +182,7 @@
   <string name="todo_comment_hint">Необязательный комментарий</string>
   <string name="toast_no_open_todos">Нет открытых задач</string>
   <string name="save_changes_title">Сохранить изменения?</string>
+  <!--System created todo lists-->
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Внимание!</string>
   <string name="unsaved_data_message">Если вы продолжите, ваши несохранённые изменения будут утеряны.</string>
@@ -197,8 +196,10 @@
   <string name="imagery_offset_date">Создано</string>
   <string name="imagery_offset_zoom">Масштаб</string>
   <string name="imagery_offset_distance">Расстояние</string>
+  <!--Position modal-->
   <string name="set_position_datum_label">Геодезическая система координат</string>
   <string name="WGS84">WGS84</string>
+  <!---->
   <string name="tag_editor_name_suggestion">Предложение названия</string>
   <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">Это предложение может заменить некоторые значения тегов более популярными значениями.</string>
@@ -296,7 +297,6 @@
   <string name="other">Другое</string>
   <!--Safe split dialog-->
   <string name="split_safe_title">Отсутствуют члены отношения</string>
-  <string name="split_safe_message">Соседние сегменты отношения не загружены. От них может зависеть порядок членов отношения.</string>
   <!--JS console dialog-->
   <string name="evaluate">Оценить</string>
   <string name="js_console_msg_live">\"Живой\" режим!</string>
@@ -313,6 +313,7 @@
   <string name="select_result">Выбрать результат</string>
   <string name="merge_result">Объединить результат</string>
   <string name="overpass_query_would_overwrite">Результат перезапишет изменения! Запрос отменён.</string>
+  <!--Download missing dialog-->
   <!---->
   <string name="error">Ошибка</string>
   <string name="warning">Предупреждение</string>
@@ -472,9 +473,9 @@
   <string name="undo_location_zoom">Показать место, затем отменить</string>
   <!--Value widget dialogs-->
   <!--Feedback activity-->
-  <string name="feedback_with_displayname">Отправить от имени вашей учётной записи OpenStreetMap</string>
-  <string name="feedback_displayname_hint">Отображаемое имя вашей учётной записи OpenStreetMap еще не получено</string>
   <string name="feedback_title">Отзыв для разработчиков</string>
+  <string name="feedback_with_displayname">Отправить от имени вашей учётной записи OpenStreetMap</string>
+  <string name="feedback_success_title">Успех</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Скачать данные OpenStreetMap</string>
   <!--Clear/Reset GPX Track-->
@@ -494,7 +495,6 @@
   <string name="tip_tag_conflict">Слияние и реверсирование элементов OSM иногда требует изменения атрибутов элементов. Если есть потенциальная ошибка или конфликт, вы будете предупреждены об этом и получите возможность просмотреть рассматриваемые объекты.</string>
   <string name="tip_auto_download">Когда вы запускаете автоматическую загрузку данных или задач OSM, Vespucci использует данные о местоположении для определения текущего положения, даже если приложение не отображается.&lt;p&gt; Явное закрытие приложения или отключение автоматической загрузки остановит использование данных о местоположении в таких случаях.</string>
   <string name="tip_no_redo">Этот режим пока не поддерживает повтор добавления точек.</string>
-  <string name="tip_way_splitting">Нажмите на выбранную точку для определения позиции разделения. Долгое нажатие позволит определить ту часть, которая будет использована для новой линии на следующем шаге.</string>
   <string name="tip_closed_way_splitting">Замкнутая линия должна быть разделена в двух местах. Нажмите на выбранную точку, чтобы определить первую позицию разделения, на следующем шаге вам будет предложено выбрать вторую позицию.</string>
   <string name="tip_disambiguation_menu">Когда несколько элементов OSM или других объектов расположены очень близко друг к другу или элементы являются членами отношений, будет отображаться меню устранения неоднозначности. Затем вы можете выбрать нужный элемент из списка.&lt;p&gt;Если элемент уже выбран, он будет выделен.</string>
   <!--NumberPicker-->
@@ -589,16 +589,11 @@
   <string name="toast_min_one_geocoder">Должен быть выбран как минимум один геокодер!</string>
   <string name="toast_used_backup">Файл состояния испорчен, используется предыдущий сохраненный файл.</string>
   <string name="toast_used_bug_backup">Файл состояния ошибок/заметок испорчен, используется предыдущий сохраненный файл.</string>
-  <string name="toast_split_from">Разделена линия \"из\"</string>
-  <string name="toast_split_via">Разделена линия \"через\"</string>
-  <string name="toast_split_from_and_via">Разделены линии \"из\" и \"через\"</string>
-  <string name="toast_split_to">Разделена линия \"к\"</string>
   <string name="toast_tile_database_issue_short">Ошибка базы подложек карты</string>
   <string name="toast_tile_database_issue">Серьёзная ошибка базы подложки карты:\n\"%1$s\"\nПожалуйста, обратитесь к нашему руководству на http://vespucci.io/</string>
   <string name="toast_invalid_apiurl">Неправильный API URL</string>
   <string name="toast_invalid_readonlyurl">Неправильный API URL только для чтения</string>
   <string name="toast_invalid_notesurl">Неправильный API URL для заметок</string>
-  <string name="toast_invalid_preseturl">Неправильный URL заготовки</string>
   <string name="toast_missing_preset_file">Отсутствует заготовка для \"%1$s\"</string>
   <string name="toast_invalid_filter_regexp">Неправильное регулярное выражение в фильтре с ключом \"%1$s\" и значением \"%2$s\"</string>
   <string name="toast_error_accessing_photo">Нет доступа к фотографии %1$s</string>
@@ -726,6 +721,7 @@
   <string name="prune">Очистка</string>
   <string name="check">Проверка</string>
   <string name="download">Загрузить</string>
+  <string name="pause">Pause</string>
   <string name="ignore">Игнорировать</string>
   <string name="select">Выбрать</string>
   <string name="skip">Пропустить</string>
@@ -861,14 +857,11 @@
   <string name="no_nominatim_result">Сервер Nominatim не нашёл %1$s</string>
   <!--Menu-->
   <string name="menu_move">Подвинуть</string>
-  <string name="menu_edit">Изменить</string>
   <string name="menu_add">Новый</string>
   <string name="menu_config">Настройки</string>
   <string name="menu_find">Поиск</string>
   <string name="menu_help">Справка</string>
-  <string name="menu_view">Вид</string>
   <string name="menu_erase">Удалить точку</string>
-  <string name="menu_set_position">Позиция</string>
   <string name="menu_split">Разделить</string>
   <string name="menu_remove_node_from_way">Удалить точку из линии</string>
   <string name="menu_start_end_way">Начало/Конец линии</string>
@@ -999,6 +992,7 @@
   <string name="menu_layers_enable_mapillary_layer">Показать слой Mapillary</string>
   <string name="menu_layers_configure">Настройка...</string>
   <string name="menu_layers_background_align">Сдвиг слоя...</string>
+  <!--Download along dialog-->
   <!---->
   <string name="menu_tools_apply_local_offset">Применить смещение к снимкам</string>
   <string name="menu_tools_background_contrast">Контраст</string>
@@ -1049,9 +1043,7 @@
   <string name="actionmode_split_closed_way">Разделить замкнутую линию</string>
   <string name="actionmode_rotate">Повернуть</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">Выбрать первую точку</string>
   <string name="actionmode_closed_way_split_2">Выбрать вторую точку</string>
-  <string name="actionmode_split_way_node_selection">Выбрать точку</string>
   <string name="actionmode_select_node_to_append_to">Выбрать точку для добавления</string>
   <string name="actionmode_restriction">Добавить ограничение поворота</string>
   <string name="actionmode_restriction_restart_from">Повторно выбрать сегмент \"from\"</string>
@@ -1114,6 +1106,7 @@
   <string name="config_presetbutton_title">Заготовки</string>
   <string name="config_presetbutton_summary">Добавление и активация JOSM-совместимых заготовок</string>
   <string name="config_built_in_preset">Встроенная заготовка</string>
+  <string name="config_keyboard_shortcuts_title">Горячие клавиши</string>
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">Проверки</string>
   <string name="config_validatorprefs_summary">Настройка правил проверок.</string>
@@ -1138,18 +1131,6 @@
   <string name="config_showWayIcons_summary">Показывать значки наиболее соответствующих заготовок над зданиями</string>
   <string name="config_tagFormEnabled_title">Показать шаблон тега</string>
   <string name="config_tagFormEnabled_summary">Показать шаблон тега для редактирования.</string>
-  <string name="config_showCameraAction_title">Камера на панели</string>
-  <string name="config_showCameraAction_summary">Показывать значок камеры на панели действий.</string>
-  <string name="config_selectCameraApp_title">Приложение камеры</string>
-  <string name="config_selectCameraApp_summary">Выберите приложение камеры</string>
-  <string name="config_system_camera">По умолчанию</string>
-  <string name="config_open_camera">Open Camera</string>
-  <string name="config_fv5_lite">FV5 lite</string>
-  <string name="config_fv5_pro">FV5 pro</string>
-  <string name="config_useInternalPhotoViewer_title">Встроенный просмотр фото</string>
-  <string name="config_useInternalPhotoViewer_summary">Использовать встроенный просмотр фотографий или внешний, если выключено.</string>
-  <string name="config_indexMediaStore_summary">Дополнительно использовать MediaStore для доступа к фотографиям</string>
-  <string name="config_indexMediaStore_title">Использовать MediaStore</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Затенять незагруженные области</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Затемнять незагруженные области в заблокированном режиме. </string>
   <string name="config_map_orientation_title">Ориентация экрана карты</string>
@@ -1190,6 +1171,19 @@
   <string name="config_mapillary_min_zoom_current">%1$d</string>
   <string name="config_nameCap_title">Капитализация названий</string>
   <string name="config_longStringLimit_current">%1$d</string>
+  <!--Camera and image settings-->
+  <string name="config_showCameraAction_title">Камера на панели</string>
+  <string name="config_showCameraAction_summary">Показывать значок камеры на панели действий.</string>
+  <string name="config_selectCameraApp_title">Приложение камеры</string>
+  <string name="config_selectCameraApp_summary">Выберите приложение камеры</string>
+  <string name="config_system_camera">По умолчанию</string>
+  <string name="config_open_camera">Open Camera</string>
+  <string name="config_fv5_lite">FV5 lite</string>
+  <string name="config_fv5_pro">FV5 pro</string>
+  <string name="config_useInternalPhotoViewer_title">Встроенный просмотр фото</string>
+  <string name="config_useInternalPhotoViewer_summary">Использовать встроенный просмотр фотографий или внешний, если выключено.</string>
+  <string name="config_indexMediaStore_summary">Дополнительно использовать MediaStore для доступа к фотографиям</string>
+  <string name="config_indexMediaStore_title">Использовать MediaStore</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Данные и редактирование</string>
   <string name="config_category_editing_summary">Автозагрузка, сохранение изменений, оповещения</string>
@@ -1232,6 +1226,8 @@
   <string name="config_maxCircleSegment_current">%1$d м</string>
   <string name="config_minCircleSegment_current">%1$d м</string>
   <string name="config_replaceTolerance_current">%1$d м</string>
+  <string name="config_minMoveWayNodesWarning_current">%1$d</string>
+  <string name="config_minMoveVisibleWayNodesWarning_current">%1$d</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Автозагрузка</string>
   <string name="config_category_auto_download_summary">Параметры автоматической загрузки данных и задач</string>
@@ -1346,28 +1342,29 @@
   <string name="manage_presets">Управление заготовками</string>
   <string name="listedit_use_translations">Использовать перевод</string>
   <string name="manage_geocoders">Управление геокодерами</string>
+  <string name="geocoder_type">Тип геокодера</string>
   <!--preset downloader messages-->
   <string name="preset_update">Обновить заготовку</string>
-  <string name="preset_download_successful">Заготовка загружена</string>
-  <string name="preset_download_failed">Невозможно загрузить файл с заготовкой. Заготовка не будет работать.</string>
-  <string name="preset_download_parse_failed">Некорректный файл заготовки. Заготовка не будет работать.</string>
   <string name="preset_download_missing_images">Заготовка загружена, но без некоторых значков.</string>
-  <string name="preset_download_title">Загрузка заготовки</string>
   <!--preset management-->
+  <!--style downloader messages-->
+  <!--style management-->
+  <!--Image storage management-->
   <!--url handler activity-->
-  <string name="urldialog_add_preset">Добавить заготовку</string>
-  <string name="urldialog_preset_exists">Эта заготовка уже существует</string>
-  <string name="urldialog_preset_download_successful">Заготовка загружена.</string>
   <string name="urldialog_api_exists">API с таким же URL уже существует. Однако, вы можете добавить ещё (например, чтобы упростить переключение между учётными записями).</string>
-  <string name="urldialog_add_api">Добавить API</string>
   <string name="urldialog_nodata_text">Конфигурационный URL не содержит корректных данных.</string>
-  <string name="urldialog_add_geocoder">Добавить геокодер</string>
   <!--API configuration-->
   <string name="api_name">Название API</string>
   <string name="api_url">API URL</string>
   <string name="readonly_url">API URL только для чтения (необязательно)</string>
   <string name="notes_url">API URL заметок (необязательно)</string>
   <string name="copy_of">Копия %1$s</string>
+  <!--image upload dialog-->
+  <string name="image_upload">Передать на сервер</string>
+  <string name="wikimedia_meta_description">Описание</string>
+  <string name="wikimedia_meta_source">Источник</string>
+  <string name="wikimedia_meta_author">Автор</string>
+  <string name="wikimedia_meta_category">Категория</string>
   <!--common terms-->
   <string name="add">Добавить</string>
   <string name="edit">Изменить</string>
@@ -1380,13 +1377,13 @@
   <string name="Continue">Продолжить</string>
   <!---->
   <string name="empty_list">Нет записей</string>
-  <string name="geocoder_type">Тип геокодера</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">Заготовка</string>
   <string name="api">API</string>
   <string name="undo">Отменить изменение</string>
   <string name="redo">Повторить изменение</string>
   <string name="undo_nothing">нечего отменять</string>
+  <!--background / forground services-->
   <string name="tracking_active_title">Фоновый сервис Vespucci</string>
   <string name="tracking_active_title_short">Фоновый сервис активен</string>
   <string name="tracking_active_text">Vespucci записывает GPS-трек или занят автозагрузкой</string>
@@ -1532,4 +1529,7 @@
   <!--Tile downloader diagnostics-->
   <string name="tile_success">Успех</string>
   <string name="tile_unknown_error">Неизвестная ошибка</string>
+  <!--Keyboard Shortcuts UI-->
+  <string name="keyboard_shortcut_save">Сохранить</string>
+  <string name="keyboard_shortcut_reset">Сбросить</string>
 </resources>

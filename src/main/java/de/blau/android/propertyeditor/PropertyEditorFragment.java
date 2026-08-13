@@ -17,6 +17,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
@@ -34,8 +35,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewGroupCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
@@ -44,15 +47,18 @@ import androidx.viewpager.widget.ViewPager;
 import de.blau.android.App;
 import de.blau.android.ErrorCodes;
 import de.blau.android.Feedback;
+import de.blau.android.HelpViewer;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.address.Address;
 import de.blau.android.contract.Github;
+import de.blau.android.dialogs.ElementInfo;
 import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.exception.DuplicateKeyException;
 import de.blau.android.exception.IllegalOperationException;
 import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.exception.StorageException;
 import de.blau.android.nsi.Names.TagMap;
 import de.blau.android.osm.Capabilities;
 import de.blau.android.osm.OsmElement;
@@ -64,6 +70,7 @@ import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.prefs.keyboard.Shortcuts;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetElement;
 import de.blau.android.presets.PresetElementPath;
@@ -72,6 +79,7 @@ import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 import de.blau.android.propertyeditor.tagform.TagFormFragment;
+import de.blau.android.util.BadgeDrawable;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.GeoContext;
 import de.blau.android.util.NetworkStatus;
@@ -110,8 +118,12 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
     static final String        TAGEDIT_SHOW_PRESETS      = "showPresets";
     static final String        TAGEDIT_EXTRA_TAGS        = "extra";
     static final String        TAGEDIT_PRESETSTOAPPLY    = "presetsToApply";
+    static final String        POSITION                  = "position";
 
     private static final int PREFERENCES_CODE = 5634;
+
+    private static final int PE_COUNT_WARNING = 5;
+    private static final int PE_COUNT_DANGER  = 10;
 
     /** The layout containing the edit rows */
     LinearLayout rowLayout = null;
@@ -171,15 +183,17 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
     private MultiHashMap<Long, RelationMemberPosition> originalParents;
     private ArrayList<RelationMemberDescription>       originalMembers;
 
-    private Preferences        prefs         = null;
+    private Preferences        prefs           = null;
     private ExtendedViewPager  mViewPager;
-    private boolean            usePaneLayout = false;
-    private boolean            isRelation    = false;
+    private boolean            usePaneLayout   = false;
+    private boolean            isRelation      = false;
     private NetworkStatus      networkStatus;
-    private List<String>       isoCodes      = null;
+    private List<String>       isoCodes        = null;
     private ControlListener    controlListener;
     private PageChangeListener pageChangeListener;
     private Capabilities       capabilities;
+    private int                position;
+    private Bundle             actionModeState = new Bundle();
 
     /**
      * Run these actions when we everything is restored
@@ -197,12 +211,13 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
      * @param extraTags additional tags that should be added
      * @param presetItems presets that should be applied
      * @param usePaneLayout option control of layout
+     * @param position current position in the fragment stack
      * @return a suitable Intent
      */
     @NonNull
     public static <M extends Map<String, String> & Serializable, L extends List<PresetElementPath> & Serializable, T extends List<Map<String, String>> & Serializable> PropertyEditorFragment<M, L, T> newInstance(
             @NonNull PropertyEditorData[] dataClass, boolean predictAddressTags, boolean showPresets, @Nullable M extraTags, @Nullable L presetItems,
-            @Nullable Boolean usePaneLayout) {
+            @Nullable Boolean usePaneLayout, int position) {
         PropertyEditorFragment<M, L, T> f = new PropertyEditorFragment<>();
 
         Bundle args = new Bundle();
@@ -212,8 +227,9 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
         args.putSerializable(TAGEDIT_EXTRA_TAGS, extraTags);
         args.putSerializable(TAGEDIT_PRESETSTOAPPLY, presetItems);
         if (usePaneLayout != null) {
-            args.putBoolean(TAGEDIT_SHOW_PRESETS, usePaneLayout);
+            args.putBoolean(PANELAYOUT, usePaneLayout);
         }
+        args.putInt(POSITION, position);
         f.setArguments(args);
         return f;
     }
@@ -224,6 +240,11 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
         Util.implementsInterface(context, ControlListener.class);
         controlListener = (ControlListener) context;
         setHasOptionsMenu(true);
+        FragmentActivity activity = getActivity();
+        actionMap.put(getString(R.string.ACTION_HELP),
+                new Shortcuts.Action(R.string.action_help, () -> HelpViewer.start(activity, R.string.help_propertyeditor)));
+        actionMap.put(getString(R.string.ACTION_INFO), new Shortcuts.Action(R.string.action_info, () -> ElementInfo.showDialog(activity, element)));
+        actionMap.put(getString(R.string.ACTION_KEEP), new Shortcuts.Action(R.string.action_keep, this::updateAndFinish));
     }
 
     @Override
@@ -254,7 +275,8 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
             showPresets = args.getBoolean(TAGEDIT_SHOW_PRESETS);
             extraTags = (M) args.getSerializable(TAGEDIT_EXTRA_TAGS);
             presetsToApply = (L) args.getSerializable(TAGEDIT_PRESETSTOAPPLY);
-            usePaneLayout = args.getBoolean(PANELAYOUT, Screen.isLandscape(getActivity()));
+            usePaneLayout = args.getBoolean(PANELAYOUT, Screen.isLandscape(getActivity())) && !prefs.useTabLayout();
+            position = args.getInt(POSITION);
 
             // if we have a preset to auto apply it doesn't make sense to show the Preset tab except if a group is
             // selected
@@ -267,7 +289,7 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
             Log.d(DEBUG_TAG, "Restoring from savedInstanceState");
             loadData = PropertyEditorData.deserializeArray(Util.getSerializeable(savedInstanceState, TAGEDIT_DATA, Serializable.class));
             usePaneLayout = savedInstanceState.getBoolean(PANELAYOUT); // FIXME this disables layout changes on
-                                                                       // restarting
+            position = savedInstanceState.getInt(POSITION); // restarting
             StorageDelegator delegator = App.getDelegator();
             if (!delegator.isDirty() && delegator.isEmpty()) { // this can mean: need to load state
                 Log.d(DEBUG_TAG, "Loading saved state");
@@ -316,10 +338,17 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
         // Sets the Toolbar to act as the ActionBar for this Activity window.
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
+        LayerDrawable done = (LayerDrawable) ContextCompat.getDrawable(getContext(),
+                ThemeUtils.getResIdFromAttribute(getContext(), R.attr.propertyeditor_done));
+        final StorageDelegator delegator = App.getDelegator();
+        final int apiElementCount = delegator.getApiElementCount();
+        if (position > 1) {
+            BadgeDrawable.setBadgeWithCount(getContext(), done, position, PE_COUNT_WARNING, PE_COUNT_DANGER);
+        }
         // FIXME currently we statically change this, it would be nicer to actually make it dependent on if we have
         // actually changed something
         ActionBar actionbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        actionbar.setHomeAsUpIndicator(ThemeUtils.getResIdFromAttribute(getContext(), R.attr.propertyeditor_done));
+        actionbar.setHomeAsUpIndicator(done);
         actionbar.setDisplayShowTitleEnabled(false);
         actionbar.setDisplayHomeAsUpEnabled(true);
 
@@ -410,21 +439,27 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if (!hidden) {
-            Log.d(DEBUG_TAG, "onHiddenChanged");
-            if (elementDeleted()) {
-                ScreenMessage.toastTopWarning(getContext(), R.string.toast_element_has_been_deleted);
-                App.getLogic().getHandler().post(() -> controlListener.finished(this));
-                return;
+        Log.d(DEBUG_TAG, "onHiddenChanged " + hidden);
+        final SelectableRowsFragment[] fragments = new SelectableRowsFragment[] { tagEditorFragment, relationMembershipFragment, relationMembersFragment };
+        if (hidden) {
+            for (SelectableRowsFragment f : fragments) {
+                if (f != null) {
+                    f.saveActionModeState(actionModeState);
+                    f.finishActionMode();
+                }
             }
-            if (tagEditorFragment != null) {
-                tagEditorFragment.onDataUpdate();
-            }
-            if (relationMembersFragment != null) {
-                relationMembersFragment.onDataUpdate();
-            }
-            if (relationMembershipFragment != null) {
-                relationMembershipFragment.onDataUpdate();
+            return;
+        }
+        if (elementDeleted()) {
+            ScreenMessage.toastTopWarning(getContext(), R.string.toast_element_has_been_deleted);
+            App.getLogic().getHandler().post(() -> controlListener.finished(this));
+            return;
+        }
+        for (SelectableRowsFragment f : fragments) {
+            if (f != null) {
+                ((DataUpdate) f).onDataUpdate();
+                f.onViewStateRestored(actionModeState);
+                f.restartActionMode();
             }
         }
     }
@@ -977,8 +1012,13 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
         }
 
         Logic logic = App.getLogic();
-        if (logic != null) {
-            StorageDelegator d = App.getDelegator();
+        if (logic == null) {
+            Log.e(DEBUG_TAG, "updateAndFinish logic is null");
+            controlListener.finished(this);
+            return;
+        }
+        StorageDelegator d = App.getDelegator();
+        try {
             // Tags
             for (int i = 0; i < elementCount; i++) {
                 if (isDeleted(d, i)) {
@@ -987,11 +1027,7 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
                 }
                 final Map<String, String> tags = currentTags.get(i);
                 if (!originalTags.get(i).equals(tags)) {
-                    try {
-                        logic.setTags(getActivity(), types[i], osmIds[i], tags);
-                    } catch (OsmIllegalOperationException e) {
-                        ScreenMessage.barError(getActivity(), e.getMessage());
-                    }
+                    logic.setTags(getActivity(), types[i], osmIds[i], tags);
                 }
             }
 
@@ -1016,8 +1052,10 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
                     logic.updateParentRelations(getActivity(), types[0], osmIds[0], currentParents);
                 }
             }
-        } else {
-            Log.e(DEBUG_TAG, "updateAndFinish logic is null");
+        } catch (OsmIllegalOperationException e) {
+            ScreenMessage.barError(getActivity(), e.getMessage());
+        } catch (StorageException ex) {
+            // already toasted and logged
         }
 
         // call through to activity that we are done
@@ -1139,6 +1177,7 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
         outState.putInt(CURRENTITEM, mViewPager.getCurrentItem());
         outState.putBoolean(PANELAYOUT, usePaneLayout);
         outState.putSerializable(TAGEDIT_DATA, loadData);
+        outState.putInt(POSITION, position);
         App.getMruTags().save(getContext());
     }
 
@@ -1531,5 +1570,16 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
             capabilities = server.getCachedCapabilities();
         }
         return capabilities;
+    }
+
+    /**
+     * Finish any active action modes
+     */
+    public void finishActionMode() {
+        for (SelectableRowsFragment f : new SelectableRowsFragment[] { tagEditorFragment, relationMembershipFragment, relationMembersFragment }) {
+            if (f != null) {
+                f.finishActionMode();
+            }
+        }
     }
 }

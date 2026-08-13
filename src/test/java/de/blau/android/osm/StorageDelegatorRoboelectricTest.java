@@ -8,26 +8,30 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import android.view.ViewGroup.LayoutParams;
 import androidx.annotation.NonNull;
-import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
+import de.blau.android.Main;
 import de.blau.android.Map;
+import de.blau.android.ShadowWorkManager;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(sdk=33)
+@Config(shadows = { ShadowWorkManager.class }, sdk=33)
 @LargeTest
 public class StorageDelegatorRoboelectricTest {
+    private Main main;
 
     /**
      * Pre test setup
      */
     @Before
     public void setup() {
+        main = Robolectric.buildActivity(Main.class).create().resume().get();
         App.getDelegator().reset(true);
     }
 
@@ -192,7 +196,7 @@ public class StorageDelegatorRoboelectricTest {
      * @return a Map instance
      */
     private Map getMap(@NonNull StorageDelegator d) {
-        Map map = new Map(ApplicationProvider.getApplicationContext());
+        Map map = new Map(main);
         LayoutParams lp = new LayoutParams(1024, 1920);
         map.setLayoutParams(lp);
         map.setViewBox(new ViewBox(d.getLastBox()));

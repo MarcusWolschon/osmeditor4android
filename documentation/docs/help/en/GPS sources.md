@@ -10,7 +10,7 @@ Besides the standard Android Location mechanism, Vespucci supports three other m
 
 The main purpose of this is (internal NMEA being more of an academic exercise) to enable location updates from an external or on device RTKLIB instance. All three sources are unfiltered and the minimum GPS change values are ignored.
 
-In all three cases the only sentences that are supported are $..GGA and $..GNS. Vespucci will prioritize information from NMEA "talkers" as follows: GN (multiple talkers) > GP (GPS) > GL (GLONASS).
+In all three cases the only sentences that are supported are $..GGA and $..GNS. Vespucci will prioritize information from NMEA "talkers" as follows: GN (multiple talkers) > GP (GPS) > GA (GALLILEO) > GB/BD (BEIDOU) > GL (GLONASS) > .. others.
 
 If your NMEA source does not supply speed values limiting the speed at which auto-downloads happen will not work. If no bearing is supplied the magnetic compass (if present) will be used to determine the bearing.
 

@@ -407,20 +407,20 @@ public class UndoStorage implements Serializable {
      * Performs an redo operation, restoring the state at the next redo checkpoint. A new undo checkpoint is
      * automatically created. If no checkpoint is available, an error is logged and the function does nothing.
      * 
-     * @return the name of the redo checkpoint used, or null if no checkpoint was available
+     * @return the redo checkpoint used, or null if no checkpoint was available
      */
     @Nullable
-    public String redo() {
+    public Checkpoint redo() {
         if (!canRedo()) {
             Log.e(DEBUG_TAG, "Attempted to redo, but no redo checkpoints available");
             return null;
         }
-        final Checkpoint lastRedo = redoCheckpoints.getLast();
+        final Checkpoint lastRedo = redoCheckpoints.removeLast();
         String name = lastRedo.getName();
         Checkpoint reundoPoint = new Checkpoint(name, lastRedo.getSelection());
-        redoCheckpoints.removeLast().restore(reundoPoint);
+        lastRedo.restore(reundoPoint);
         undoCheckpoints.add(reundoPoint);
-        return name;
+        return lastRedo;
     }
 
     /**
@@ -428,20 +428,20 @@ public class UndoStorage implements Serializable {
      * automatically created. If no checkpoint is available, an error is logged and the function does nothing.
      * 
      * @param index index of the checkpoint to redo
-     * @return the name of the redo checkpoint used, or null if no checkpoint was available
+     * @return the redo checkpoint used, or null if no checkpoint was available
      */
     @Nullable
-    public String redo(int index) {
+    public Checkpoint redo(int index) {
         if (!canRedo()) {
             Log.e(DEBUG_TAG, "Attempted to redo, but no redo checkpoints available");
             return null;
         }
-        final Checkpoint checkpoint = redoCheckpoints.get(index);
+        final Checkpoint checkpoint = redoCheckpoints.remove(index);
         String name = checkpoint.getName();
         Checkpoint reundoPoint = new Checkpoint(name, checkpoint.getSelection());
-        redoCheckpoints.remove(index).restore(reundoPoint);
+        checkpoint.restore(reundoPoint);
         undoCheckpoints.add(reundoPoint);
-        return name;
+        return checkpoint;
     }
 
     /**
@@ -551,7 +551,7 @@ public class UndoStorage implements Serializable {
             List<UndoElement> list = new ArrayList<>(elements.values());
             final StorageDelegator delegator = App.getDelegator();
             try {
-                delegator.lock();
+                delegator.lockWrites();
                 if (redoCheckpoint != null) {
                     for (UndoElement ue : list) {
                         redoCheckpoint.add(getUptodateElement(ue.element)); // save current state
@@ -578,7 +578,7 @@ public class UndoStorage implements Serializable {
 
                 delegator.fixupBacklinks();
             } finally {
-                delegator.unlock();
+                delegator.unlockWrites();
             }
             return ok;
         }
@@ -1163,7 +1163,7 @@ public class UndoStorage implements Serializable {
      * @return a list of UndoElements empty if nothing found
      */
     @NonNull
-    private List<UndoElement> getElements(@NonNull LinkedList<Checkpoint> checkpoints, @NonNull OsmElement element) {
+    public List<UndoElement> getElements(@NonNull List<Checkpoint> checkpoints, @NonNull OsmElement element) {
         List<UndoElement> result = new ArrayList<>();
         String name = element.getName();
         long osmId = element.getOsmId();

@@ -92,6 +92,7 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
 
     private static final String KEY_KEY               = "key";
     private static final String VALUE_KEY             = "value";
+    private static final String ORIGINAL_VALUE_KEY    = "original_value";
     private static final String TEMPLATES_KEY         = "templates";
     private static final String OH_TEMPLATES_KEY      = "oh_templates";
     private static final String MAX_STRING_LENGTH_KEY = "maxStringLength";
@@ -110,6 +111,7 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
 
     private String            key;
     private String            conditionalRestrictionValue;
+    private String            originalConditionalRestrictionValue;
     private ArrayList<String> templates;
     private ArrayList<String> ohTemplates;
 
@@ -124,7 +126,8 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
     private Set<String> simpleConditionValues     = new LinkedHashSet<>();
     private Set<String> expressionConditionValues = new LinkedHashSet<>();
 
-    private ScrollView sv;
+    private ScrollView      sv;
+    private AppCompatButton save;
 
     private OnSaveListener         saveListener           = null;
     private PropertyEditorListener propertyEditorListener = null;
@@ -198,17 +201,10 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
         LinearLayout conditionalRestrictionLayout = (LinearLayout) inflater.inflate(R.layout.conditionalrestriction, null);
 
         if (savedInstanceState == null) {
-            key = getArguments().getString(KEY_KEY);
-            conditionalRestrictionValue = getArguments().getString(VALUE_KEY);
-            templates = getArguments().getStringArrayList(TEMPLATES_KEY);
-            ohTemplates = getArguments().getStringArrayList(OH_TEMPLATES_KEY);
-            maxStringLength = getArguments().getInt(MAX_STRING_LENGTH_KEY);
+            stateFromBundle(getArguments());
+            originalConditionalRestrictionValue = getArguments().getString(VALUE_KEY);
         } else {
-            key = savedInstanceState.getString(KEY_KEY);
-            conditionalRestrictionValue = savedInstanceState.getString(VALUE_KEY);
-            templates = savedInstanceState.getStringArrayList(TEMPLATES_KEY);
-            ohTemplates = savedInstanceState.getStringArrayList(OH_TEMPLATES_KEY);
-            maxStringLength = savedInstanceState.getInt(MAX_STRING_LENGTH_KEY);
+            stateFromBundle(savedInstanceState);
         }
 
         String nonConditionalKey = null;
@@ -265,13 +261,27 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
         AppCompatButton cancel = (AppCompatButton) conditionalRestrictionLayout.findViewById(R.id.cancel);
         cancel.setOnClickListener(v -> dismiss());
 
-        AppCompatButton save = (AppCompatButton) conditionalRestrictionLayout.findViewById(R.id.save);
+        save = (AppCompatButton) conditionalRestrictionLayout.findViewById(R.id.save);
         save.setOnClickListener(v -> {
             saveListener.save(key, text.getText().toString());
             dismiss();
         });
 
         return conditionalRestrictionLayout;
+    }
+
+    /**
+     * Get arguments/state from a bundle
+     * 
+     * @param bundle the Bundle
+     */
+    private void stateFromBundle(@NonNull Bundle bundle) {
+        key = bundle.getString(KEY_KEY);
+        conditionalRestrictionValue = bundle.getString(VALUE_KEY);
+        templates = bundle.getStringArrayList(TEMPLATES_KEY);
+        ohTemplates = bundle.getStringArrayList(OH_TEMPLATES_KEY);
+        maxStringLength = bundle.getInt(MAX_STRING_LENGTH_KEY);
+        originalConditionalRestrictionValue = bundle.getString(ORIGINAL_VALUE_KEY);
     }
 
     @Override
@@ -304,10 +314,9 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
     private final Runnable rebuild = () -> {
         text.removeTextChangedListener(watcher); // avoid infinite loop
         Editable t = text.getText();
-        if (t != null) {
-            de.blau.android.util.Util.sanitizeString(getContext(), t, maxStringLength);
-        }
-        ConditionalRestrictionParser parser = new ConditionalRestrictionParser(new ByteArrayInputStream(t.toString().getBytes()));
+        de.blau.android.util.Util.sanitizeString(getContext(), t, maxStringLength);
+        String str = t.toString();
+        ConditionalRestrictionParser parser = new ConditionalRestrictionParser(new ByteArrayInputStream(str.getBytes()));
         try {
             restrictions = parser.restrictions();
             removeHighlight(text);
@@ -323,7 +332,19 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
             restrictions = new ArrayList<>();
         }
         buildForm(sv, restrictions);
+        enableSaveButton(str);
     };
+
+    /**
+     * Enable the save button
+     * 
+     * @param str the current restriction string
+     */
+    private void enableSaveButton(@NonNull String str) {
+        if (save != null) {
+            save.setEnabled(originalConditionalRestrictionValue == null || !originalConditionalRestrictionValue.equals(str));
+        }
+    }
 
     /**
      * Initial setup of layout
@@ -666,6 +687,7 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
             view.setSelection(Math.min(pos, text.length()));
         }
         text.addTextChangedListener(watcher);
+        enableSaveButton(conditionalRestrictionValue);
     }
 
     /**
@@ -811,6 +833,7 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
         Log.d(DEBUG_TAG, "onSaveInstanceState");
         outState.putSerializable(KEY_KEY, key);
         outState.putSerializable(VALUE_KEY, text.getText().toString());
+        outState.putSerializable(ORIGINAL_VALUE_KEY, originalConditionalRestrictionValue);
         outState.putSerializable(TEMPLATES_KEY, templates);
         outState.putSerializable(OH_TEMPLATES_KEY, ohTemplates);
         outState.putInt(MAX_STRING_LENGTH_KEY, maxStringLength);

@@ -192,34 +192,49 @@ public final class ThemeUtils {
     }
 
     /**
-     * Get a correctly themed AlerDialog.Builder
+     * Get a correctly themed AlertDialog.Builder
      * 
      * @param context an Android Context
-     * @return a AlerDialog.Builder
+     * @return an AlertDialog.Builder
      */
+    @NonNull
     public static AlertDialog.Builder getAlertDialogBuilder(@NonNull Context context) {
         return getAlertDialogBuilder(context, App.getPreferences(context));
     }
 
     /**
-     * Get a correctly themed AlerDialog.Builder
+     * Get a correctly themed AlertDialog.Builder
      * 
      * @param context an Android Context
      * @param prefs the current Preferences
-     * @return a AlerDialog.Builder
+     * @return an AlertDialog.Builder
      */
+    @NonNull
     public static AlertDialog.Builder getAlertDialogBuilder(@NonNull Context context, @NonNull Preferences prefs) {
         return getAlertDialogBuilder(context, prefs.lightThemeEnabled());
     }
 
     /**
-     * Get a correctly themed AlerDialog.Builder
+     * Get a correctly themed AlertDialog.Builder
      * 
      * @param context an Android Context
      * @param lightTheme use the lightTheme
-     * @return a AlerDialog.Builder
+     * @return an AlertDialog.Builder
      */
+    @NonNull
     public static AlertDialog.Builder getAlertDialogBuilder(@NonNull Context context, boolean lightTheme) {
         return new AlertDialog.Builder(new ContextThemeWrapper(context, lightTheme ? R.style.Theme_AlertDialogLight : R.style.Theme_AlertDialog));
+    }
+
+    /**
+     * Get a correctly themed CustomAlertDialog.Builder
+     * 
+     * @param context an Android Context
+     * @return a CustomAlertDialog.Builder
+     */
+    @NonNull
+    public static CustomAlertDialog.Builder getCustomAlertDialogBuilder(@NonNull Context context) {
+        return new CustomAlertDialog.Builder(
+                new ContextThemeWrapper(context, App.getPreferences(context).lightThemeEnabled() ? R.style.Theme_AlertDialogLight : R.style.Theme_AlertDialog));
     }
 }

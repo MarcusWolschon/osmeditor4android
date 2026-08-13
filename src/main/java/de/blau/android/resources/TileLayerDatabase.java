@@ -20,6 +20,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.resources.TileLayerSource.Category;
 import de.blau.android.resources.TileLayerSource.Header;
 import de.blau.android.resources.TileLayerSource.Provider;
@@ -32,7 +33,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     protected static final String DEBUG_TAG = TileLayerDatabase.class.getSimpleName().substring(0, TAG_LEN);
 
     public static final String DATABASE_NAME    = "tilelayers";
-    private static final int   DATABASE_VERSION = 9;
+    private static final int   DATABASE_VERSION = 10;
 
     public static final String SOURCE_ELI          = "eli";    // editor-layer-index
     public static final String SOURCE_JOSM_IMAGERY = "josm";   // josm.openstreetmap.de/wiki/maps
@@ -78,7 +79,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     private static final String RIGHT_FIELD     = "right";
     private static final String TOP_FIELD       = "top";
 
-    private static final String HEADERS_TABLE      = "headers";
+    public static final String  HEADERS_TABLE      = "headers";
     private static final String HEADER_NAME_FIELD  = "name";
     private static final String HEADER_VALUE_FIELD = "value";
 
@@ -115,7 +116,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
                     + " left INTEGER DEFAULT NULL, bottom INTEGER DEFAULT NULL, right INTEGER DEFAULT NULL, top INTEGER DEFAULT NULL,"
                     + " FOREIGN KEY(id) REFERENCES layers(id) ON DELETE CASCADE)");
             db.execSQL("CREATE INDEX coverages_idx ON coverages(id)");
-            createHeadersTable(db);
+            createHeadersTable(db, HEADERS_TABLE);
         } catch (SQLException e) {
             Log.w(DEBUG_TAG, "Problem creating database", e);
         }
@@ -148,7 +149,13 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
             db.execSQL("ALTER TABLE layers ADD COLUMN tile_type TEXT DEFAULT NULL");
         }
         if (oldVersion <= 8) {
-            createHeadersTable(db);
+            createHeadersTable(db, HEADERS_TABLE);
+        }
+        if (oldVersion <= 9) {
+            createHeadersTable(db, AdvancedPrefDatabase.TEMP_TABLE);
+            AdvancedPrefDatabase.migrateTable(db, HEADERS_TABLE, AdvancedPrefDatabase.TEMP_TABLE);
+            db.execSQL("DROP INDEX " + AdvancedPrefDatabase.TEMP_TABLE + "_idx");
+            db.execSQL("CREATE INDEX " + HEADERS_TABLE + "_idx ON " + HEADERS_TABLE + "(id)");
         }
     }
 
@@ -157,10 +164,10 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      * 
      * @param db a writable database instance
      */
-    private void createHeadersTable(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE headers (id TEXT NOT NULL, name TEXT NOT NULL, value TEXT NOT NULL,"
-                + " FOREIGN KEY(id) REFERENCES layers(id) ON DELETE CASCADE)");
-        db.execSQL("CREATE INDEX headers_idx ON headers(id)");
+    private void createHeadersTable(@NonNull SQLiteDatabase db, @NonNull String table) {
+        db.execSQL("CREATE TABLE " + table + " (id TEXT NOT NULL, name TEXT NOT NULL, value TEXT NOT NULL,"
+                + " FOREIGN KEY(id) REFERENCES layers(id) ON DELETE CASCADE, PRIMARY KEY (id, name))");
+        db.execSQL("CREATE INDEX " + table + "_idx ON " + table + "(id)");
     }
 
     @Override

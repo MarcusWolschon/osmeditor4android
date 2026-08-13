@@ -7,12 +7,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.util.CancelableDialogFragment;
 import de.blau.android.util.ThemeUtils;
 
 /**
@@ -20,7 +20,7 @@ import de.blau.android.util.ThemeUtils;
  * warning, suppressing it and undoing the change.
  *
  */
-public class AttachedObjectWarning extends DialogFragment {
+public class AttachedObjectWarning extends CancelableDialogFragment {
 
     private static final String DEBUG_TAG = AttachedObjectWarning.class.getSimpleName().substring(0,
             Math.min(23, AttachedObjectWarning.class.getSimpleName().length()));

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -50,6 +51,7 @@ import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.Task.State;
+import de.blau.android.util.AuthorisationEnabledActivity;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.IssueAlert;
@@ -183,7 +185,7 @@ public final class TransferTasks {
      * @param server current server configuration
      * @param postUploadHandler execute code after an upload
      */
-    public static void upload(@NonNull final FragmentActivity activity, @NonNull final Server server,
+    public static void upload(@NonNull final AuthorisationEnabledActivity activity, @NonNull final Server server,
             @Nullable final PostAsyncActionHandler postUploadHandler) {
         final String PROGRESS_TAG = "tasks";
 
@@ -324,7 +326,7 @@ public final class TransferTasks {
             Logic.mapErrorCode(errorCode, result);
         } catch (XmlPullParserException e) {
             result.setError(ErrorCodes.INVALID_DATA_RECEIVED);
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException | IllegalArgumentException e) {
             result.setError(ErrorCodes.NO_CONNECTION);
         }
         return result;
@@ -343,7 +345,7 @@ public final class TransferTasks {
      * @param postUploadHandler execute code after an upload
      * @return true if upload was successful
      */
-    public static boolean uploadNote(@NonNull final FragmentActivity activity, @NonNull final Server server, @NonNull final Note note,
+    public static boolean uploadNote(@NonNull final AuthorisationEnabledActivity activity, @NonNull final Server server, @NonNull final Note note,
             @Nullable final NoteComment comment, final boolean close, @Nullable final PostAsyncActionHandler postUploadHandler) {
         Log.d(DEBUG_TAG, "uploadNote");
         PostAsyncActionHandler restartAction = () -> {
@@ -417,9 +419,10 @@ public final class TransferTasks {
      * @throws NumberFormatException
      * @throws XmlPullParserException
      * @throws IOException
+     * @throws URISyntaxException
      */
     @Nullable
-    public static Note downloadNote(@NonNull Server server, long id) throws NumberFormatException, XmlPullParserException, IOException {
+    public static Note downloadNote(@NonNull Server server, long id) throws NumberFormatException, XmlPullParserException, IOException, URISyntaxException {
         Note note = server.getNote(id);
         if (note != null) {
             App.getTaskStorage().add(note);
@@ -439,7 +442,7 @@ public final class TransferTasks {
      * @return true if successful
      */
     @SuppressLint("InlinedApi")
-    public static boolean updateMapRouletteTask(@NonNull final FragmentActivity activity, @NonNull Server server, @NonNull String maprouletteServer,
+    public static boolean updateMapRouletteTask(@NonNull final AuthorisationEnabledActivity activity, @NonNull Server server, @NonNull String maprouletteServer,
             @NonNull final MapRouletteTask task, final boolean quiet, @Nullable final PostAsyncActionHandler postUploadHandler) {
         Log.d(DEBUG_TAG, "updateMapRouletteTask");
         final PostAsyncActionHandler restartAction = () -> {

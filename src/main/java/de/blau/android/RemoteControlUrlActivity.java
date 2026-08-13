@@ -3,7 +3,7 @@ package de.blau.android;
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
 import java.io.Serializable;
-import java.net.URL;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -289,7 +289,7 @@ public class RemoteControlUrlActivity extends UrlActivity {
                 }
                 String title = data.getQueryParameter(TITLE_PARAMETER);
                 if (title == null) {
-                    title = new URL(url).getHost() + " " + DateFormatter.getFormattedString("YYYY-MM-DD HH:mm");
+                    title = new URI(url).toURL().getHost() + " " + DateFormatter.getFormattedString("YYYY-MM-DD HH:mm");
                 }
                 List<String> ids = Arrays.asList(TileLayerSource.getIds(null, false, null, null));
                 String id = TileLayerSource.nameToId(title);

@@ -51,13 +51,13 @@ public class FeedbackTest {
         context = instrumentation.getTargetContext();
         main = mActivityRule.getActivity();
         KeyDatabaseHelper.replaceOrDeleteKey(new KeyDatabaseHelper(main).getWritableDatabase(), Feedback.VESPUCCI_REPORTER_ENTRY, EntryType.API_KEY, "123",
-                false, false, null, null);
+                false, false, null, null, null);
         ;
         mockServer = new MockWebServerPlus();
         HttpUrl mockBaseUrl = mockServer.server().url("/api/0.6/");
         prefDB = new AdvancedPrefDatabase(context);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null), false);
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null), false, false);
         prefDB.selectAPI("Test");
         prefDB.resetCurrentServer();
         Preferences prefs = new Preferences(context);

@@ -65,4 +65,17 @@ public class ViewBoxTest {
         assertEquals(45, center[1], 0.01);
     }
 
+    @Test
+    public void expansionSouthernHeisphereTest() throws Exception {
+        // Sydney, Australia: Lat -34.0, Lon 151.0
+        ViewBox viewBox = new ViewBox(151.0, -34.0, 151.1, -33.9);
+        viewBox.expand(1000.0);
+
+        // Verification should use the most pole-ward latitude (-34.0)
+        double delta = de.blau.android.util.GeoMath.convertMetersToGeoDistance(1000.0);
+        double expectedDeltaHE7 = (delta / Math.cos(Math.toRadians(34.0))) * 1E7D;
+
+        assertEquals(151.0 * 1E7 - expectedDeltaHE7, viewBox.getLeft(), 100);
+        assertEquals(151.1 * 1E7 + expectedDeltaHE7, viewBox.getRight(), 100);
+    }
 }

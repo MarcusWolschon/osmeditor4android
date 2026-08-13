@@ -3,7 +3,9 @@ package de.blau.android.easyedit;
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import android.annotation.SuppressLint;
 import android.util.Log;
@@ -19,6 +21,7 @@ import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.dialogs.ElementIssueDialog;
 import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.exception.StorageException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
@@ -28,6 +31,7 @@ import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
+import de.blau.android.prefs.keyboard.Shortcuts;
 import de.blau.android.util.BentleyOttmannForOsm;
 import de.blau.android.util.Coordinates;
 import de.blau.android.util.GeoMath;
@@ -64,6 +68,7 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
      */
     public MultiSelectWithGeometryActionModeCallback(@NonNull EasyEditManager manager, @NonNull List<OsmElement> elements) {
         super(manager, elements);
+        setupKeyboardActions();
     }
 
     /**
@@ -74,6 +79,31 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
      */
     public MultiSelectWithGeometryActionModeCallback(@NonNull EasyEditManager manager, @Nullable OsmElement element) {
         super(manager, element);
+        setupKeyboardActions();
+    }
+
+    /**
+     * Set up keyboard actions
+     */
+    private void setupKeyboardActions() {
+        actionMap.put(main.getString(R.string.ACTION_COPY), new Shortcuts.Action(R.string.action_copy, () -> {
+            logic.copyToClipboard(main, selection);
+            manager.finish();
+        }));
+        actionMap.put(main.getString(R.string.ACTION_CUT), new Shortcuts.Action(R.string.action_cut, () -> {
+            logic.cutToClipboard(main, selection);
+            manager.finish();
+        }));
+        actionMap.put(main.getString(R.string.ACTION_UNDO), new Shortcuts.Action(R.string.action_undo, () -> undoListener.onClick(null)));
+        actionMap.put(main.getString(R.string.ACTION_DELETE), new Shortcuts.Action(R.string.action_delete, () -> menuDelete(false)));
+        actionMap.put(main.getString(R.string.ACTION_SQUARE), new Shortcuts.Action(R.string.action_square, this::orthogonalize));
+        actionMap.put(main.getString(R.string.ACTION_MERGE), new Shortcuts.Action(R.string.action_merge, () -> {
+            if (sortedWays != null) {
+                mergeWays();
+                return;
+            }
+            Sound.beep();
+        }));
     }
 
     @Override
@@ -122,7 +152,11 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
                 .setItemVisibility((count > 1 && sortedWays != null && !canMergePolygons) || (count == 2 && canMergePolygons), mergeItem, false);
 
         List<Way> selectedWays = logic.getSelectedWays();
-        updated |= ElementSelectionActionModeCallback.setItemVisibility(selectedWays != null && !selectedWays.isEmpty(), orthogonalizeItem, false);
+        List<Node> selectedNodes = logic.getSelectedNodes();
+
+        Set<Node> squarableNodes = new HashSet<>();
+        getSquarableNodes(logic, selectedNodes, null, squarableNodes);
+        updated |= ElementSelectionActionModeCallback.setItemVisibility(!Util.isEmpty(selectedWays) || !Util.isEmpty(squarableNodes), orthogonalizeItem, false);
 
         updated |= ElementSelectionActionModeCallback.setItemVisibility(intersect(selectedWays), intersectItem, false);
 
@@ -190,57 +224,61 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
         if (super.onActionItemClicked(mode, item)) {
             return true;
         }
-        switch (item.getItemId()) {
-        case ElementSelectionActionModeCallback.MENUITEM_DELETE:
-            menuDelete(false);
-            break;
-        case ElementSelectionActionModeCallback.MENUITEM_COPY:
-            logic.copyToClipboard(main, selection);
-            mode.finish();
-            break;
-        case ElementSelectionActionModeCallback.MENUITEM_CUT:
-            logic.cutToClipboard(main, selection);
-            mode.finish();
-            break;
-        case MENUITEM_RELATION:
-            ElementSelectionActionModeCallback.buildPresetSelectDialog(main,
-                    p -> main.startSupportActionMode(new EditRelationMembersActionModeCallback(manager,
-                            p != null ? p.getPath(App.getCurrentRootPreset(main).getRootGroup()) : null, selection)),
-                    ElementType.RELATION, R.string.select_relation_type_title, Tags.KEY_TYPE, null).show();
-            break;
-        case MENUITEM_ADD_RELATION_MEMBERS:
-            ElementSelectionActionModeCallback.buildRelationSelectDialog(main, r -> {
-                Relation relation = (Relation) App.getDelegator().getOsmElement(Relation.NAME, r);
-                if (relation != null) {
-                    main.startSupportActionMode(new EditRelationMembersActionModeCallback(manager, relation, selection));
+        try {
+            switch (item.getItemId()) {
+            case ElementSelectionActionModeCallback.MENUITEM_DELETE:
+                menuDelete(false);
+                break;
+            case ElementSelectionActionModeCallback.MENUITEM_COPY:
+                logic.copyToClipboard(main, selection);
+                mode.finish();
+                break;
+            case ElementSelectionActionModeCallback.MENUITEM_CUT:
+                logic.cutToClipboard(main, selection);
+                mode.finish();
+                break;
+            case MENUITEM_RELATION:
+                ElementSelectionActionModeCallback.buildPresetSelectDialog(main,
+                        p -> main.startSupportActionMode(new EditRelationMembersActionModeCallback(manager,
+                                p != null ? p.getPath(App.getCurrentRootPreset(main).getRootGroup()) : null, selection)),
+                        ElementType.RELATION, R.string.select_relation_type_title, Tags.KEY_TYPE, null).show();
+                break;
+            case MENUITEM_ADD_RELATION_MEMBERS:
+                ElementSelectionActionModeCallback.buildRelationSelectDialog(main, r -> {
+                    Relation relation = (Relation) App.getDelegator().getOsmElement(Relation.NAME, r);
+                    if (relation != null) {
+                        main.startSupportActionMode(new EditRelationMembersActionModeCallback(manager, relation, selection));
+                    }
+                }, -1, R.string.select_relation_title, null, null, selection).show();
+                break;
+            case MENUITEM_ORTHOGONALIZE:
+                orthogonalize();
+                break;
+            case MENUITEM_MERGE:
+                if (canMergePolygons(selection)) {
+                    mergePolygons();
+                } else {
+                    mergeWays();
                 }
-            }, -1, R.string.select_relation_title, null, null, selection).show();
-            break;
-        case MENUITEM_ORTHOGONALIZE:
-            orthogonalizeWays();
-            break;
-        case MENUITEM_MERGE:
-            if (canMergePolygons(selection)) {
-                mergePolygons();
-            } else {
-                mergeWays();
+                break;
+            case MENUITEM_INTERSECT:
+                intersectWays();
+                break;
+            case MENUITEM_CREATE_CIRCLE:
+                createCircle();
+                break;
+            case MENUITEM_ROTATE:
+                deselectOnExit = false;
+                main.startSupportActionMode(new RotationActionModeCallback(manager));
+                break;
+            case MENUITEM_EXTRACT_SEGMENT:
+                extractSegment();
+                break;
+            default:
+                return false;
             }
-            break;
-        case MENUITEM_INTERSECT:
-            intersectWays();
-            break;
-        case MENUITEM_CREATE_CIRCLE:
-            createCircle();
-            break;
-        case MENUITEM_ROTATE:
-            deselectOnExit = false;
-            main.startSupportActionMode(new RotationActionModeCallback(manager));
-            break;
-        case MENUITEM_EXTRACT_SEGMENT:
-            extractSegment();
-            break;
-        default:
-            return false;
+        } catch (StorageException ex) {
+            // already toasted and logged
         }
         return true;
     }
@@ -298,24 +336,29 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
         List<Way> ways = logic.getSelectedWays();
         if (ways != null && !ways.isEmpty()) {
             List<Coordinates> intersections = BentleyOttmannForOsm.findIntersections(ways);
-            if (!intersections.isEmpty()) {
-                Map map = logic.getMap();
-                int width = map.getWidth();
-                float x = GeoMath.lonToX(width, logic.getViewBox(), intersections.get(0).x);
-                float y = GeoMath.latMercatorToY(map.getHeight(), width, logic.getViewBox(), intersections.get(0).y);
-                final Node node = logic.performAddOnWay(main, ways, x, y, true);
-                if (node != null) {
-                    logic.getHandler().post(() -> {
-                        List<Way> waysWithNode = logic.getWaysForNode(node);
-                        selection.removeAll(waysWithNode);
+            if (intersections.isEmpty()) {
+                ScreenMessage.toastTopError(main, R.string.toast_no_intersection_found);
+                return;
+            }
+            Map map = logic.getMap();
+            int width = map.getWidth();
+            float x = GeoMath.lonToX(width, logic.getViewBox(), intersections.get(0).x);
+            float y = GeoMath.latMercatorToY(map.getHeight(), width, logic.getViewBox(), intersections.get(0).y);
+            final Node node = logic.performAddOnWay(main, ways, x, y, true);
+            if (node != null) {
+                logic.getHandler().post(() -> {
+                    List<Way> waysWithNode = logic.getWaysForNode(node);
+                    selection.removeAll(waysWithNode);
+                    try {
                         logic.performJoinNodeToWays(main, selection, node);
                         main.zoomTo(node);
                         manager.finish();
                         manager.editElement(node);
-                    });
-                } else {
-                    ScreenMessage.toastTopError(main, R.string.toast_no_intersection_found);
-                }
+                    } catch (StorageException ex) {
+                        // already toasted and logged
+                        manager.finish();
+                    }
+                });
             }
         }
     }
@@ -324,26 +367,39 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
      * Create a circle from selected nodes
      */
     private void createCircle() {
-        try {
-            logic.getHandler().post(() -> {
+        logic.getHandler().post(() -> {
+            try {
                 Way circle = logic.createCircle(main, logic.getSelectedNodes());
                 manager.finish();
                 manager.editElement(circle);
                 main.performTagEdit(circle, null, false, true);
-            });
-        } catch (OsmIllegalOperationException | IllegalStateException e) {
-            ScreenMessage.barError(main, e.getLocalizedMessage());
-        }
+            } catch (OsmIllegalOperationException | IllegalStateException e) {
+                logic.getHandler().post(() -> ScreenMessage.barError(main, e.getLocalizedMessage()));
+            } catch (StorageException ex) {
+                // already toasted and logged
+            }
+        });
     }
 
     /**
-     * Orthogonalize any selected Ways
+     * Orthogonalize / square / straighten
      */
-    private void orthogonalizeWays() {
+    private void orthogonalize() {
         List<Way> selectedWays = logic.getSelectedWays();
-        if (selectedWays != null && !selectedWays.isEmpty()) {
-            logic.performOrthogonalize(main, selectedWays);
+        List<Node> selectedNodes = logic.getSelectedNodes();
+        if (Util.isEmpty(selectedWays) && !Util.isEmpty(selectedNodes)) {
+            Set<Way> ways = new HashSet<>();
+            Set<Node> nodes = new HashSet<>();
+            getSquarableNodes(logic, selectedNodes, ways, nodes);
+            orthogonalize(main, logic, new ArrayList<>(ways), new ArrayList<>(nodes));
+            return;
         }
+
+        if (Util.isEmpty(selectedNodes)) {
+            logic.performOrthogonalize(main, selectedWays);
+            return;
+        }
+        orthogonalize(main, logic, selectedWays, selectedNodes);
     }
 
     /**
@@ -431,11 +487,12 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
         // check for relation membership
         if (!deleteFromRelations) {
             for (OsmElement e : selection) {
-                if (e.hasParentRelations()) {
-                    ThemeUtils.getAlertDialogBuilder(main).setTitle(R.string.delete).setMessage(R.string.delete_elements_from_relation_description)
-                            .setPositiveButton(R.string.delete, (dialog, which) -> menuDelete(true)).show();
-                    return;
+                if (!e.hasParentRelations()) {
+                    continue;
                 }
+                ThemeUtils.getAlertDialogBuilder(main).setTitle(R.string.delete).setMessage(R.string.delete_elements_from_relation_description)
+                        .setPositiveButton(R.string.delete, (dialog, which) -> menuDelete(true)).show();
+                return;
             }
         }
 
@@ -446,37 +503,14 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
                 origParents.addAll(temp);
             }
         }
-        logic.performEraseMultipleObjects(main, selection);
 
-        // check for new empty relations
-        ElementSelectionActionModeCallback.checkEmptyRelations(main, origParents);
-        manager.finish();
-    }
-
-    @Override
-    public boolean processShortcut(Character c) {
-        if (c == Util.getShortCut(main, R.string.shortcut_copy)) {
-            logic.copyToClipboard(main, selection);
-            manager.finish();
-            return true;
-        } else if (c == Util.getShortCut(main, R.string.shortcut_cut)) {
-            logic.cutToClipboard(main, selection);
-            manager.finish();
-            return true;
-        } else if (c == Util.getShortCut(main, R.string.shortcut_undo)) {
-            undoListener.onClick(null);
-            return true;
-        } else if (c == Util.getShortCut(main, R.string.shortcut_merge)) {
-            if (sortedWays != null) {
-                mergeWays();
-            } else {
-                Sound.beep();
-            }
-            return true;
-        } else if (c == Util.getShortCut(main, R.string.shortcut_square)) {
-            orthogonalizeWays();
-            return true;
+        try {
+            logic.performEraseMultipleObjects(main, selection);
+            // check for new empty relations
+            ElementSelectionActionModeCallback.checkEmptyRelations(main, origParents);
+        } catch (StorageException ex) {
+            // already toasted and logged
         }
-        return super.processShortcut(c);
+        manager.finish();
     }
 }

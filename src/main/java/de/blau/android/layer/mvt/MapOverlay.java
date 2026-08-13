@@ -41,6 +41,7 @@ import de.blau.android.layer.tiles.util.MapTileProvider;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.resources.DataStyle;
+import de.blau.android.resources.DataStyleManager;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.services.util.MapTile;
 import de.blau.android.util.GeoJSONConstants;
@@ -120,7 +121,7 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
             return new ArrayList<>();
         }
         Rect rect = getScreenRectForTile(new Rect(), map.getWidth(), map.getHeight(), map, mapTile.zoomLevel, mapTile.y, mapTile.x, true, 0, 0);
-        final float tolerance = map.getDataStyle().getCurrent().getNodeToleranceValue() * 256 / rect.width();
+        final float tolerance = map.getDataStyleManager().getCurrent().getNodeToleranceValue() * 256 / rect.width();
         final float scaledX = (x - rect.left) * 256 / rect.width();
         final float scaledY = (y - rect.top) * 256 / rect.height();
         Style style = ((VectorTileRenderer) tileRenderer).getStyle();
@@ -371,7 +372,7 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
     public void setPointSymbol(@NonNull String layerName, @Nullable String symbol) {
         Symbol style = (Symbol) ((VectorTileRenderer) tileRenderer).getLayer(layerName, Type.SYMBOL);
         if (style != null) {
-            style.setSymbol(symbol, map.getDataStyle());
+            style.setSymbol(symbol, map.getDataStyleManager());
             flushTileCache();
         }
     }
@@ -476,9 +477,9 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
                 for (Layer layer : style.getLayers()) {
                     if (layer instanceof Symbol) {
                         // these need a DataStyle that isn't present when de-serializing
-                        final DataStyle dataStyle = map.getDataStyle();
-                        ((Symbol) layer).setSymbol(((Symbol) layer).getSymbol(), dataStyle);
-                        ((Symbol) layer).setLabelFont(dataStyle.getInternal(DataStyle.LABELTEXT_NORMAL).getPaint().getTypeface());
+                        final DataStyleManager dataStyles = map.getDataStyleManager();
+                        ((Symbol) layer).setSymbol(((Symbol) layer).getSymbol(), dataStyles);
+                        ((Symbol) layer).setLabelFont(dataStyles.getInternal(DataStyle.LABELTEXT_NORMAL).getPaint().getTypeface());
                     }
                 }
                 ((VectorTileRenderer) tileRenderer).setStyle(style);

@@ -220,4 +220,56 @@
         <item>@string/authentication_oauth1a_entry</item>
         <item>@string/authentication_oauth2_entry</item>
     </string-array>
+    <string name="licence_cc_by_4">Creative Commons Attribution 4.0</string>
+    <string name="licence_cc_by_3">Creative Commons Attribution 3.0</string>
+    <string name="licence_cc_by_sa_4">Creative Commons Attribution-ShareAlike 4.0</string>
+    <string name="licence_cc_by_sa_3">Creative Commons Attribution-ShareAlike 3.0</string>
+    <string name="licence_cc_zero">Creative Commons Zero</string>
+    <string name="licence_pd">Public Domain</string>
+    <string name="licence_gpl">GNU General Public License</string>
+    <string name="licence_mit">MIT License</string>
+    <string name="licence_bsd">BSD License</string>
+    <string name="licence_cc_by_4_short">CC BY 4.0</string>
+    <string name="licence_cc_by_3_short">CC BY 3.0</string>
+    <string name="licence_cc_by_sa_4_short">CC BY-SA 4.0</string>
+    <string name="licence_cc_by_sa_3_short">CC BY-SA 3.0</string>
+    <string name="licence_cc_zero_short">CC0</string>
+    <string name="licence_pd_short">PD</string>
+    <string name="licence_gpl_short">GPL</string>
+    <string name="licence_mit_short">MIT</string>
+    <string name="licence_bsd_short">BSD</string>
+    <string-array translatable="false" name="licence_entries">
+        <item>@string/licence_cc_by_4</item>
+        <item>@string/licence_cc_by_3</item>
+        <item>@string/licence_cc_by_sa_4</item>
+        <item>@string/licence_cc_by_sa_3</item>
+        <item>@string/licence_cc_zero</item>
+        <item>@string/licence_pd</item>
+        <item>@string/licence_gpl</item>
+        <item>@string/licence_mit</item>
+        <item>@string/licence_bsd</item>
+    </string-array>
+    <string-array translatable="false" name="licence_entries_short">
+        <item>@string/licence_cc_by_4_short</item>
+        <item>@string/licence_cc_by_3_short</item>
+        <item>@string/licence_cc_by_sa_4_short</item>
+        <item>@string/licence_cc_by_sa_3_short</item>
+        <item>@string/licence_cc_zero_short</item>
+        <item>@string/licence_pd_short</item>
+        <item>@string/licence_gpl_short</item>
+        <item>@string/licence_mit_short</item>
+        <item>@string/licence_bsd_short</item>
+    </string-array>
+    <string translatable="false" name="licence_cc_by_4_value">{{Self|Cc-by-4.0}}</string>
+    <string-array translatable="false" name="licence_values">
+        <item>@string/licence_cc_by_4_value</item>
+        <item>{{Self|Cc-by-3.0}}</item>
+        <item>{{Self|Cc-by-sa-4.0}}</item>
+        <item>{{Self|Cc-by-sa-3.0}}</item>
+        <item>{{Self|Cc-zero}}</item>
+        <item>{{Self|PD}}</item>
+        <item>{{Self|GPL}}</item>
+        <item>{{Self|MIT}}</item>
+        <item>{{Self|BSD}}</item>
+    </string-array>
  </resources>

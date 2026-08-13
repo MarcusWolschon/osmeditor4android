@@ -242,14 +242,6 @@
 "lgbq-bar",
 "homobar"
 ],
-"amenity/bbq":[
-"bbq",
-"Barbecue/Grill",
-"barbecue",
-"steengrill",
-"spit",
-"grill"
-],
 "amenity/bench":[
 "bank",
 "bankje",
@@ -395,14 +387,6 @@
 "Oplaadstation",
 "elektrisch"
 ],
-"amenity/childcare":[
-"Kinderdagverblijf",
-"peuter",
-"crèche",
-"kinderkribbe",
-"baby",
-"kribbe"
-],
 "amenity/cinema":[
 "Bioscoop",
 "theater",
@@ -445,18 +429,6 @@
 "zonnewijzer",
 "zonnetijd",
 "Zonnewijzer"
-],
-"amenity/college":[
-"Campus van beroepsschool",
-"buso",
-"speciaal onderwijs",
-"vmbo",
-"middelbaar",
-"secundair onderwijs",
-"onderwijs",
-"buo",
-"bso",
-"bijzonder onderwijs"
 ],
 "amenity/community_centre":[
 "feestzaal",
@@ -525,9 +497,6 @@
 "Rechtbank",
 "gerechtshof"
 ],
-"amenity/coworking_space":[
-"Gedeelde kantoorruimte"
-],
 "amenity/crematorium":[
 "verassingscentrum",
 "Crematorium",
@@ -584,13 +553,6 @@
 "huisarts",
 "Huisarts",
 "huisdokter"
-],
-"amenity/doctors/gynaecology":[
-"vrouw",
-"vrouwenarts",
-"Verloskundige/Gynaecoloog",
-"bevalling",
-"gynaecoloog"
 ],
 "amenity/doctors/haematology":[
 "anemie",
@@ -745,13 +707,6 @@
 "trainingscentrum",
 "rijles",
 "slipcursus"
-],
-"amenity/driving_school":[
-"autorijschool",
-"autoschool",
-"Rijschool",
-"rijinstructeur",
-"rijlessen"
 ],
 "amenity/embassy":[
 "Ambassade"
@@ -975,20 +930,11 @@
 "karaoke",
 "Karaokehokje"
 ],
-"amenity/kindergarten":[
-"Gebied van Crèche/Kleuterschool"
-],
 "amenity/kneipp_water_cure":[
 "kneipp",
 "voetbad",
 "Kneipp-faciliteit",
 "hydrotherapie"
-],
-"amenity/language_school":[
-"school",
-"Taalschool",
-"vertalen",
-"taal"
 ],
 "amenity/lavoir":[
 "wasserij",
@@ -1091,11 +1037,6 @@
 "moto",
 "Motorfietsverhuur"
 ],
-"amenity/music_school":[
-"conservatorium",
-"Muziekschool",
-"muziekacademie"
-],
 "amenity/nightclub":[
 "dancing",
 "bar",
@@ -1161,8 +1102,8 @@
 ],
 "amenity/parking_space":[
 "individuele parkeerplaats",
-"Parkeerplaats",
-"parkeervak"
+"parkeervak",
+"Parkeervak"
 ],
 "amenity/parking_space/disabled":[
 "Gehandicaptenparkeerplaats"
@@ -1305,12 +1246,6 @@
 "postbus",
 "postnl",
 "posterijen"
-],
-"amenity/prep_school":[
-"Studiebegeleiding",
-"huiswerk",
-"begeleiding",
-"voorbereidingsschool"
 ],
 "amenity/prison":[
 "Gevangenisgebied",
@@ -1610,16 +1545,6 @@
 "beerput",
 "zwerfwagen"
 ],
-"amenity/school":[
-"school",
-"basisschool",
-"secundair onderwijs",
-"middelbaar",
-"Schoolgebied",
-"onderwijs",
-"voortgezet onderwijs",
-"lager onderwijs"
-],
 "amenity/shelter":[
 "beschutting",
 "bescherming",
@@ -1871,12 +1796,6 @@
 "opstelplaats",
 "winkelwagen",
 "terugbrengen"
-],
-"amenity/university":[
-"hogeschool",
-"onderwijs",
-"universiteit",
-"hoger onderwijs"
 ],
 "amenity/vacuum_cleaner":[
 "stofzuiger",
@@ -2633,9 +2552,6 @@
 "home",
 "studentenkot"
 ],
-"building/entrance":[
-"Ingang/Uitgang"
-],
 "building/farm":[
 "Boerderijhuis",
 "gebouw van boerderij",
@@ -3254,12 +3170,6 @@
 "reanimeren",
 "Defibrillator"
 ],
-"emergency/designated":[
-"Toegang voor hulpdiensten: geadviseerd"
-],
-"emergency/destination":[
-"Toegang voor hulpdiensten: bestemmingsverkeer"
-],
 "emergency/disaster_response":[
 "hulpverlening",
 "rampenhulpverlening",
@@ -3337,18 +3247,9 @@
 "reddingsdienst",
 "redding"
 ],
-"emergency/no":[
-"Toegang voor hulpdiensten: nee"
-],
-"emergency/official":[
-"Toegang voor hulpdiensten: officiële voorkeursweg"
-],
 "emergency/phone":[
 "noodtelefoon",
 "Praatpaal"
-],
-"emergency/private":[
-"Toegang voor hulpdiensten: privé"
 ],
 "emergency/siren":[
 "luchtalarm",
@@ -3383,9 +3284,6 @@
 "wateropslag",
 "reservoir",
 "Noodwatertank"
-],
-"emergency/yes":[
-"Toegang voor hulpdiensten: ja"
 ],
 "entrance":[
 "deur",
@@ -3844,15 +3742,6 @@
 "snelweg",
 "autostrade"
 ],
-"highway/motorway_junction":[
-"snelweg",
-"Op-/Afrit van autosnelweg",
-"autosnelweg",
-"autostrade",
-"kruispunt",
-"afslag",
-"afrit"
-],
 "highway/motorway_link":[
 "snelweg",
 "Verbindingsweg van autosnelweg",
@@ -4155,14 +4044,6 @@
 "pijpekop",
 "keerplein"
 ],
-"highway/unclassified":[
-"niet-geclassificeerde weg",
-"straat",
-"gemeentelijke weg",
-"ongeclassificeerde weg",
-"Kleine openbare weg",
-"gemeenteweg"
-],
 "historic":[
 "geschiedkundige site",
 "historische plaats",
@@ -4244,6 +4125,9 @@
 "historic/memorial":[
 "gedenkteken",
 "Gedenkteken"
+],
+"historic/memorial/blue_plaque-GB-IE":[
+"Blue plaque"
 ],
 "historic/memorial/plaque":[
 "bord",
@@ -4429,13 +4313,6 @@
 "Bouwterrein",
 "werf",
 "werfzone"
-],
-"landuse/education":[
-"educatie",
-"kindcentrum",
-"campus",
-"Gebied van een onderwijsinstelling",
-"schoolgebied"
 ],
 "landuse/farm":[
 "Landbouwgrond"
@@ -4667,12 +4544,6 @@
 "Danszaal",
 "jive"
 ],
-"leisure/dancing_school":[
-"conservatorium",
-"Dansschool",
-"dansconservatorium",
-"dansonderwijs"
-],
 "leisure/disc_golf_course":[
 "disk",
 "ultimate",
@@ -4896,9 +4767,6 @@
 "leisure/pitch/athletics/hammer_throw":[
 "Baan voor kogelslingeren"
 ],
-"leisure/pitch/athletics/high_jump":[
-"Hoogspringmat"
-],
 "leisure/pitch/athletics/javelin_throw":[
 "Speerwerpsector"
 ],
@@ -4938,15 +4806,6 @@
 "Beachvolleybalveld",
 "strandvolleybalveld",
 "zandveld"
-],
-"leisure/pitch/boules":[
-"bocce",
-"Jeu-de-boules-veld",
-"pétanque",
-"jeu de boules",
-"petanqueveld",
-"petanquebaan",
-"lyonnaise"
 ],
 "leisure/pitch/bowls":[
 "Bowls-baan",
@@ -5546,12 +5405,6 @@
 "man_made/telescope/radio":[
 "Radiotelescoop"
 ],
-"man_made/torii":[
-"Torii",
-"vogelzitstok",
-"japanse poort",
-"shintō schrijn"
-],
 "man_made/tower":[
 "Toren"
 ],
@@ -5763,18 +5616,18 @@
 "talud"
 ],
 "natural/scrub":[
-"savanne",
+"brush",
+"struweel",
 "Scrubland",
-"pampa",
 "ruigte",
-"kreupelhout",
-"prairie"
+"kreupelhout"
 ],
 "natural/shingle":[
 "Kiezelstrand"
 ],
 "natural/shrub":[
-"Scrubland"
+"struik",
+"Struik"
 ],
 "natural/sinkhole":[
 "Zinkgat"
@@ -6497,9 +6350,6 @@
 "playground/tunnel_tube":[
 "Speeltunnel"
 ],
-"playground/water":[
-"Speelwaterpomp/schroef"
-],
 "playground/zipwire":[
 "ziplijn",
 "Tokkelbaan"
@@ -6630,10 +6480,6 @@
 "power/plant/source/hydro":[
 "hydro-elektrische elektriciteitscentrale",
 "Hydro-elektrische centrale"
-],
-"power/plant/source/method/photovoltaic":[
-"zonnepaneelpark",
-"Zonnepark"
 ],
 "power/plant/source/nuclear":[
 "Nucleaire centrale",
@@ -7167,14 +7013,6 @@
 "kledijwinkel",
 "Babyartikelenwinkel"
 ],
-"shop/bag":[
-"Zak-/Reiskofferwinkel",
-"bagage",
-"reiskofferwinkel",
-"zakken",
-"kofferwinkel",
-"zakwinkel"
-],
 "shop/bakery":[
 "banketbakkerij",
 "Bakker",
@@ -7205,14 +7043,6 @@
 "zonnebankcentrum",
 "Zonnebank",
 "bruinen"
-],
-"shop/bed":[
-"bedwinkel",
-"Bed-/Matrassenwinkel",
-"beddenwinkel",
-"matrassenzaak",
-"matrassenwinkel",
-"beddenzaak"
 ],
 "shop/beverages":[
 "drankhandel",
@@ -7960,11 +7790,6 @@
 "nieuwjaar",
 "buskruit"
 ],
-"shop/radiotechnics":[
-"radiotechniek",
-"Winkel voor radio- en elektronische componenten",
-"satelliet-tv"
-],
 "shop/religion":[
 "kerk",
 "kruisbeelden",
@@ -8167,14 +7992,6 @@
 "waterwinkel",
 "flessenwaterwinkel"
 ],
-"shop/water_sports":[
-"zwemwinkel",
-"Watersport-/Zwemwinkel",
-"watersportzaak",
-"watersportgerief",
-"zwemgerief",
-"watersportwinkel"
-],
 "shop/weapons":[
 "munitie",
 "wapens",
@@ -8372,10 +8189,6 @@
 "Kaart",
 "plattegrond",
 "plan"
-],
-"tourism/information/office":[
-"Toerismekantoor",
-"bezoekerscentrum"
 ],
 "tourism/information/route_marker":[
 "routebordje",
@@ -8732,10 +8545,6 @@
 "pijplijnroute",
 "pijplijntraject",
 "pijpleidingsroute"
-],
-"type/route/piste":[
-"skipiste",
-"Piste of skiroute"
 ],
 "type/route/power":[
 "elektriciteitslijntraject",

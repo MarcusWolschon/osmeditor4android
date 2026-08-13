@@ -39,9 +39,9 @@ public final class SearchIndexUtils {
 
     private static final Pattern DEACCENT_PATTERN = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
 
-    private static final int OFFSET_MATCH_SUBSTRING             = 10;
+    public static final int  OFFSET_MATCH_SUBSTRING             = 10;
     private static final int OFFSET_MATCH_START                 = 15;
-    private static final int OFFSET_EXACT_MATCH_WITHOUT_ACCENTS = 20;
+    public static final int  OFFSET_EXACT_MATCH_WITHOUT_ACCENTS = 20;
     private static final int OFFSET_EXACT_MATCH_WITH_ACCENTS    = 30;
     private static final int MAN_MADE_PENALTY                   = 5;
 
@@ -169,7 +169,6 @@ public final class SearchIndexUtils {
         for (IndexSearchResult isr : App.getSynonyms(ctx).search(ctx, normalizedTerm, type, maxDistance)) {
             rawResult.put(isr, isr);
         }
-
         // search in presets
         List<MultiHashMap<String, PresetItem>> presetSeachIndices = new ArrayList<>();
         presetSeachIndices.add(App.getTranslatedPresetSearchIndex(ctx));
@@ -200,7 +199,7 @@ public final class SearchIndexUtils {
                         for (PresetItem pi : presetItems) {
                             if ((type == null || pi.appliesTo(type)) && pi.appliesIn(country)) {
                                 IndexSearchResult isr = new IndexSearchResult(rescale(term, normalizedTerm, weight, pi), pi);
-                                addToResult(rawResult, isr.weight, isr);
+                                addToResult(rawResult, isr.getWeight(), isr);
                             }
                         }
                     }
@@ -247,9 +246,9 @@ public final class SearchIndexUtils {
                             IndexSearchResult isr = new IndexSearchResult(rescale(term, normalizedTerm, distance, namePi), namePi);
                             // penalize results that aren't shops etc
                             if (namePi.hasKey(Tags.KEY_MAN_MADE)) {
-                                isr.weight += MAN_MADE_PENALTY;
+                                isr.setWeight(isr.getWeight() + MAN_MADE_PENALTY);
                             }
-                            addToResult(rawResult, isr.weight, isr);
+                            addToResult(rawResult, isr.getWeight(), isr);
                         }
                     }
                 }
@@ -262,7 +261,7 @@ public final class SearchIndexUtils {
         List<PresetElement> result = new ArrayList<>();
         final int size = Math.min(tempResult.size(), limit);
         for (int i = 0; i < size; i++) {
-            result.add(tempResult.get(i).item);
+            result.add(tempResult.get(i).getItem());
         }
         Log.d(DEBUG_TAG, "found " + size + " results");
         return result;
@@ -278,8 +277,8 @@ public final class SearchIndexUtils {
     public static void addToResult(@NonNull Map<IndexSearchResult, IndexSearchResult> result, int weight, @NonNull IndexSearchResult isr) {
         IndexSearchResult tempIsr = result.get(isr);
         if (tempIsr != null) {
-            if (tempIsr.weight > weight) {
-                tempIsr.weight = weight;
+            if (tempIsr.getWeight() > weight) {
+                tempIsr.setWeight(weight);
             }
         } else {
             result.put(isr, isr);

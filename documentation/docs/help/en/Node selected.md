@@ -46,7 +46,7 @@ If a way node is selected that is a member of multiple ways this will create add
 
 ### ![Merge](../images/tag_menu_merge.png) Merge 
 
-Merge the selected node with a way (as a new way node) or with an existing node. To make this tool appear in the toolbar, select a node and move it next to a way. If there are multiple possible target nodes or ways a disambiguation context menu will be shown.
+Merge the selected node with a way (as a new way node) or with an existing node. To make this tool appear in the toolbar, select a node and move it next to a way. If there are multiple possible target nodes or ways a disambiguation context menu will be shown. Default behaviour is to merge the selected node in to the nearby node, long pressing the button will merge the nearby node in to the selected one. This behaviour is only available in the merge button is visible and not from the overflow menu. Merging will try to maintain as much object history as possible and will swap the actual OSM nodes if necessary, the node position will however always be set from the original target node.
 
 ### ![Extract](../images/extract_node.png) Extract node
 
@@ -60,6 +60,10 @@ Start creating a turn restriction with this node as "via" member. This action is
 ### ![Rotate](../images/ic_menu_rotate.png) Rotate
 
 If the node has a direction tag with a degree value, rotate the node by dragging the display roughly in a circle.
+
+### ![Orthogonalize](../images/menu_ortho.png) Square
+
+Available for non-end nodes of ways. Change angles that are near 90° or 180° to 90° or 180° respectively. The threshold over which angles are not changed can be set in the [Advanced preferences](Advanced%20preferences.md).
 
 ### ![Copy](../images/ic_menu_copy_holo_light.png) Copy
 
@@ -93,9 +97,9 @@ Create a relation and add this object as the first element. The relation type ca
 
 Select a relation and add this object as a member. Further objects can be added until the check button is clicked, then the tag editor will be started on the relation. 
 
-### ![Position](../images/menu_gps.png) Position
+### ![Set position](../images/menu_gps.png) Set position
 
-Manually set longitude and latitude values for the coordinates of this node.
+Manually enter new decimal coordinates for the element or paste them in to either of the fields. If the pasted text contains both longitude and latitude both fields will be filled, a single coordinate will just fill the target field. Supported formats include decimal and DMS, see the [Go to coordinates](Main%20map%20display.md#location) documentation for more information. 
 
 ### ![Info](../images/tag_menu_mapfeatures.png) Info
 
@@ -116,6 +120,15 @@ Add the current selection to an existing or new todo list.
 ### Replace geometry
 
 Move the tags of current node to a (in a second step) selected way and merge the current node in to one of the target ways to preserve history.
+
+### Add new image
+
+Start the camera app and upload the resulting image, adding an appropriate tag to the OSM element. Currently Panoramax and Wikimedia Commons targets are supported, 
+you do need to configure and authorize access to the servers in the [Advanced preferences](Advanced%20preferences.md#image-storage).
+
+### Add existing image
+
+As [Add new image](#add-new-image) but allows you to select an existing image for upload.
 
 ### Upload element
 

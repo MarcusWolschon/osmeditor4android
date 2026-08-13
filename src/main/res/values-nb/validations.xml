@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="validations_entries">
+        <item>Objektalder</item>
+        <item>FIXME merkelapper</item>
+        <item>Manglende merkelapper</item>
+        <item>Hovedvei</item>
+        <item>Ingen relasjonstype</item>
+        <item>britiske måleenheter mangler</item>
+        <item>Ugyldig objekt</item>
+        <item>Umerket objekt</item>
+        <item>Ikke forbundet endenode</item>
+        <item>Ødelagt vei</item>
+        <item>Tom relasjon</item>
+        <item>Manglende medlemsrelasjon rolle</item>
+        <item>Relasjon i loop</item>
+        <item>ikke-standard element-type</item>
+    </string-array>
+    </resources>

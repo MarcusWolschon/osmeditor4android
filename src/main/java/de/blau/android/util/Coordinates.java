@@ -31,6 +31,16 @@ public class Coordinates implements IPoint {
     }
 
     /**
+     * Copy Constructor
+     * 
+     * @param c a Coordinates object
+     */
+    public Coordinates(@NonNull Coordinates c) {
+        this.x = c.x;
+        this.y = c.y;
+    }
+
+    /**
      * Set new coordinates
      * 
      * @param x screen x coordinate
@@ -152,6 +162,7 @@ public class Coordinates implements IPoint {
      * @param scale the scaling factor
      * @return a new object with the result of the operation
      */
+    @NonNull
     public static Coordinates normalize(@NonNull Coordinates v, double scale) {
         Coordinates result = new Coordinates(v.x, v.y);
         double length = v.length();
@@ -159,6 +170,20 @@ public class Coordinates implements IPoint {
             result.x = result.x / length;
             result.y = result.y / length;
         }
+        result.x = result.x * scale;
+        result.y = result.y * scale;
+        return result;
+    }
+
+    /**
+     * Scale by a factor
+     * 
+     * @param scale the scaling factor
+     * @return a new object with the result of the operation
+     */
+    @NonNull
+    public Coordinates scale(double scale) {
+        Coordinates result = new Coordinates(this);
         result.x = result.x * scale;
         result.y = result.y * scale;
         return result;

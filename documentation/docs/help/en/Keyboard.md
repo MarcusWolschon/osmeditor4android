@@ -3,7 +3,9 @@
 
 ## Shortcuts
 
-The alphabetic menu shortcuts should be usable with `<Ctrl>` + letter.
+The default shortcuts use `<Ctrl>` as a modifier key, the mappings can be changed in the [Keyboard shortcuts preference](Advanced%20preferences.md#Keyboard§20shortcuts)
+
+Mouse/trackpad/trackball scroll wheels will zoom in and out.
 
 ### General ###
 
@@ -11,7 +13,7 @@ The alphabetic menu shortcuts should be usable with `<Ctrl>` + letter.
   
   __h__ Help
   
-  __&lt;Esc&gt;__ Back button
+  __&lt;Esc&gt;__ Back button, _not remappable_
 
 ### Main display ###
 
@@ -23,15 +25,15 @@ The alphabetic menu shortcuts should be usable with `<Ctrl>` + letter.
   
   __b__ Download notes/bugs for current view (merges with existing) 
 
-  __+__ Zoom in
+  __+__ Zoom in (default with no modifier key)
   
-  __Volume +__ Zoom in
+  __Volume +__ Zoom in _not remappable_ can be disabled in the [Advanced preferences](Advanced%20preferences.md)
   
-  __-__ Zoom out
+  __-__ Zoom out (default with no modifier key) can be disabled in the [Advanced preferences](Advanced%20preferences.md)
   
-  __Volume -__ Zoom out
+  __Volume -__ Zoom out _not remappable_
   
-  __Arrow keys__ Pan in the respective direction
+  __Arrow keys__ Pan in the respective direction _not remappable_
 
 ### Element selected
 
@@ -49,7 +51,7 @@ The alphabetic menu shortcuts should be usable with `<Ctrl>` + letter.
   
   __r__ Delete
   
-  __&lt;Del&gt;__ Delete
+  __&lt;Del&gt;__ Delete (without modifier)
 
 ### Node selected
 
@@ -77,6 +79,10 @@ The alphabetic menu shortcuts should be usable with `<Ctrl>` + letter.
 
 ### Property editor
 
+  __k__ Keep changes and exit
+
+  __i__ Element information
+ 
   __c__ Copy
   
   __x__ Cut 

@@ -42,6 +42,18 @@
 "Plakatbox",
 "city-light"
 ],
+"advertising/sign":[
+"werbung",
+"Werbeschild",
+"schild",
+"reklameschild",
+"banner",
+"logo",
+"werbeschild",
+"werbelogo",
+"werbetafel",
+"ladenfront"
+],
 "advertising/totem":[
 "Werbemast",
 "werbemasten"
@@ -412,6 +424,13 @@
 "tropf",
 "macchiato"
 ],
+"amenity/cafe/teahouse":[
+"teestube",
+"tee",
+"teeraum",
+"teezeremonie",
+"Teehaus"
+],
 "amenity/car_pooling":[
 "mitfahren",
 "car sharing",
@@ -442,19 +461,27 @@
 "glücksspiel"
 ],
 "amenity/charging_station":[
-"pedelecs und e-bikes.",
-"ladestation",
+"schnellladepunkt",
 "ladestation für elektrofahrzeuge",
 "plug-in hybridfahrzeuge",
-"e-tankstelle",
+"normalladesäule",
 "stromtankstelle",
+"schnellladestelle",
+"ladesäule",
+"ladestation",
+"ladestelle",
+"normalladestelle",
+"schnellladesäule",
+"pedelecs und e-bikes",
+"e-tankstelle",
+"normalladepunkt",
 "Ladestation für Elektrofahrzeuge",
 "ladestation für elektroautos"
 ],
 "amenity/childcare":[
-"kindergarten",
 "kinderkrippe",
-"Kinderkrippenbetreuung, Kindertagesstätte"
+"Kinderbetreuung",
+"hort"
 ],
 "amenity/cinema":[
 "lichtspieltheater",
@@ -503,13 +530,7 @@
 ],
 "amenity/clock/sundial":[
 "Sonnenuhr",
-"sonneuhr"
-],
-"amenity/college":[
-"collegegelände",
-"schulgelände",
-"universitätsgelände",
-"Hochschulgelände"
+"sonnenuhr"
 ],
 "amenity/community_centre":[
 "bürgerhaus",
@@ -519,6 +540,15 @@
 "stadthalle",
 "stadteilzentrum",
 "gemeinschaftszentrum"
+],
+"amenity/community_centre/chitalishte_BG":[
+"gemeindezentrum",
+"soziokulturelles zentrum",
+"kulturzentrum",
+"lesezimmer",
+"bürgerzentrum",
+"Chitalishte",
+"kulturhaus"
 ],
 "amenity/community_centre/club_home":[
 "vereinsgebäude",
@@ -636,9 +666,6 @@
 "amtsgericht",
 "gericht"
 ],
-"amenity/coworking_space":[
-"Coworking-Räumlichkeiten"
-],
 "amenity/crematorium":[
 "krematorium",
 "feuerhalle",
@@ -650,6 +677,16 @@
 "stomatologe",
 "zahnarzt",
 "dentist"
+],
+"amenity/device_charging_station":[
+"ladestation",
+"usb",
+"stecker",
+"steckdose",
+"laden",
+"ladegerät",
+"Ladestation für Elektrogeräte",
+"aufladen"
 ],
 "amenity/dive_centre":[
 "Tauchschule",
@@ -712,9 +749,17 @@
 "allgemeinmediziner"
 ],
 "amenity/doctors/gynaecology":[
+"obstetrik",
+"geburtshilfe",
+"hebarzt",
+"frauenmedizin",
 "gynäkologe",
+"geburtshelfer",
 "Gynäkologe",
-"gynäkologie"
+"frauenheilkunde",
+"gynäkologie",
+"geburtskunde",
+"tokologie"
 ],
 "amenity/doctors/haematology":[
 "blut",
@@ -942,10 +987,6 @@
 "fahrsicherheitsanlage",
 "Verkehrsübungsplatz",
 "sht"
-],
-"amenity/driving_school":[
-"fahrschule",
-"Fahrschule"
 ],
 "amenity/embassy":[
 "Botschaft"
@@ -1230,13 +1271,11 @@
 "karaoke raum",
 "Karaoke-Box"
 ],
-"amenity/kindergarten":[
-"kindergarten",
-"kinderkrippe",
-"hort",
-"vorschule",
-"kindertagesstätte",
-"Kindergarten, Kindergartengelände"
+"amenity/kitchen":[
+"kochen",
+"Gemeinschaftsküche",
+"küche",
+"koch"
 ],
 "amenity/kneipp_water_cure":[
 "wasserkur",
@@ -1255,10 +1294,6 @@
 "kneippbecken",
 "barfußlaufen",
 "kneippkur"
-],
-"amenity/language_school":[
-"Sprachschule",
-"sprachschule"
 ],
 "amenity/lavoir":[
 "waschstelle",
@@ -1357,15 +1392,6 @@
 "Motorradverleih",
 "cruiser",
 "beiwagen"
-],
-"amenity/music_school":[
-"musikunterricht",
-"geige",
-"klavier",
-"musikschule",
-"gitarre",
-"Musikschule",
-"schlagzeug"
 ],
 "amenity/nightclub":[
 "disko",
@@ -1616,16 +1642,6 @@
 "poststelle",
 "Postfiliale"
 ],
-"amenity/prep_school":[
-"Nachhilfeanbieter",
-"hausaufgaben",
-"repetitorium",
-"nachhilfe",
-"vorbereitungsschule",
-"schülerhilfe",
-"lernhilfe",
-"studienkreis"
-],
 "amenity/prison":[
 "jva",
 "gefängnisanlage",
@@ -1784,6 +1800,32 @@
 "Griechisches Restaurant",
 "griechisches restaurant"
 ],
+"amenity/restaurant/hotpot":[
+"budae jjigae",
+"lau",
+"hotpot",
+"nabemono",
+"sichaun",
+"teochew",
+"jjigae",
+"teoswa",
+"yao hon",
+"peking",
+"kimchi jjigae",
+"sin jum",
+"guangdong",
+"Hot Pot Restaurant",
+"sukiyaki",
+"fondue",
+"shabu shabu",
+"schmortopf",
+"china",
+"mu kratha",
+"jeongol",
+"kanton",
+"chhnang pleurng",
+"eintop"
+],
 "amenity/restaurant/indian":[
 "Indisches Restaurant",
 "indisches restaurant"
@@ -1867,25 +1909,17 @@
 "campingtoilette",
 "toilettenentsorgungsanlage"
 ],
-"amenity/school":[
-"gymnasium",
-"ganztagsschule",
-"grundschule",
-"schule",
-"mittelschule",
-"schulhof",
-"gemeinschaftsschule",
-"realschule",
-"förderschule",
-"Schule, Schulgelände",
-"gesamtschule"
-],
 "amenity/shelter":[
 "wetterpilz",
 "schutzdach",
 "unterstand",
 "wetterschutz",
 "Wetterschutz"
+],
+"amenity/shelter/field_shelter":[
+"tierunterstand",
+"überdachung",
+"Weidezelt"
 ],
 "amenity/shelter/gazebo":[
 "salettl",
@@ -1942,6 +1976,25 @@
 "seniorenwohnen",
 "altenwohnen",
 "seniorenwohnheim",
+"seniorenpflege"
+],
+"amenity/social_facility/day_care":[
+"tagespflegeklinik",
+"behindertenpflege",
+"altenpflege",
+"altenhilfe",
+"altentagespflege",
+"altenbetreuung",
+"tagesklinik",
+"behindertenbetreuung",
+"seniorenhilfe",
+"Tagespflege",
+"behindertenhilfe",
+"behindertentagespflege",
+"tagesbetreuung",
+"tagespflege",
+"seniorentagespflege",
+"seniorenbetreuung",
 "seniorenpflege"
 ],
 "amenity/social_facility/food_bank":[
@@ -2123,12 +2176,6 @@
 "stellplatz",
 "Abstellplatz für Einkaufswagen",
 "einkaufswagenhaus"
-],
-"amenity/university":[
-"Universitätsgelände",
-"universitätscampus",
-"universitätsgelände",
-"hochschule"
 ],
 "amenity/vacuum_cleaner":[
 "Auto-Staubsauganlage",
@@ -2340,6 +2387,10 @@
 "wiegeanlage",
 "brückenwaage",
 "Brückenwaage, LKW-Waage"
+],
+"animal/horse_walker":[
+"pferdeführanlage",
+"Führanlage"
 ],
 "area":[
 "areal",
@@ -2900,7 +2951,7 @@
 "Wohnheim"
 ],
 "building/entrance":[
-"Eingang/Ausgang (veralteter Tag)"
+"Eingang / Ausgang"
 ],
 "building/farm":[
 "Bauernhaus",
@@ -3087,12 +3138,12 @@
 ],
 "building/static_caravan":[
 "wohnwagen",
-"Dauercamper",
 "mobilheim",
 "wohnmobil",
 "mobile home",
 "wohnwagensiedlung",
-"saisoncamping"
+"saisoncamping",
+"Mobilheim"
 ],
 "building/sty":[
 "Schweinestall",
@@ -3118,7 +3169,10 @@
 "hauszeile"
 ],
 "building/train_station":[
-"Bahnhofsgebäude"
+"hauptbahnhof",
+"bahnhofgebäude",
+"Bahnhofsgebäude",
+"bahnhof"
 ],
 "building/transportation":[
 "Gebäude für den öffentlichen Verkehr",
@@ -3165,6 +3219,23 @@
 "Friedhofsabschnitt",
 "grab",
 "kirchhof"
+],
+"climbing/crag":[
+"klippe",
+"kletterwand",
+"klettergipfel",
+"Kletterfelsen",
+"kletterfels"
+],
+"climbing/route":[
+"klettersteig",
+"kletterpfad",
+"Kletterroute",
+"kletterlinie"
+],
+"climbing/route_bottom":[
+"Unteres Ende der Kletterroute",
+"beginn der kletterroute"
 ],
 "club":[
 "Verein",
@@ -3616,6 +3687,9 @@
 "Disc Golf Abschlagplatz",
 "abschlagplatz"
 ],
+"disused/aeroway":[
+"Unbenutzte Flugbahn-Feature"
+],
 "disused/amenity":[
 "nicht benutzte Einrichtung"
 ],
@@ -3624,6 +3698,106 @@
 ],
 "disused/shop":[
 "geschlossener Laden"
+],
+"education":[
+"kurse",
+"ausbildung",
+"klasse",
+"lehre",
+"übung",
+"training",
+"Bildungseinrichtung",
+"lernen",
+"bildung"
+],
+"education/college":[
+"berufsschule",
+"hochschule",
+"fachhochschule",
+"Hochschulgelände"
+],
+"education/dancing_school":[
+"tanzsport",
+"ballettunterricht",
+"tanzunterricht",
+"ballettschule",
+"tanzkurs",
+"paartanz",
+"tanzstudio",
+"ballettstudio",
+"gesellschaftstanz",
+"Tanzschule",
+"tanzschule",
+"walzer"
+],
+"education/driving_school":[
+"fahrkurs",
+"fahrschule",
+"fahrunterricht",
+"führerschein",
+"Fahrschule"
+],
+"education/kindergarten":[
+"kindergarten",
+"kinderkrippe",
+"hort",
+"Kindergartengelände",
+"vorschule",
+"kindertagesstätte"
+],
+"education/language_school":[
+"sprachkurs",
+"Sprachschule",
+"sprachunterricht",
+"sprachtest",
+"fremdsprache",
+"sprachschule"
+],
+"education/music_school":[
+"musikunterricht",
+"geige",
+"klavier",
+"musikschule",
+"gitarre",
+"instrument",
+"Musikschule",
+"schlagzeug"
+],
+"education/prep_school":[
+"Nachhilfeanbieter",
+"hausaufgaben",
+"repetitorium",
+"nachhilfe",
+"vorbereitungsschule",
+"schülerhilfe",
+"lernhilfe",
+"studienkreis"
+],
+"education/school":[
+"Schulgelände",
+"gymnasium",
+"ganztagsschule",
+"grundschule",
+"schule",
+"mittelschule",
+"schulhof",
+"gemeinschaftsschule",
+"realschule",
+"förderschule",
+"gesamtschule"
+],
+"education/university":[
+"Universitätsgelände",
+"uni",
+"hochschulgelände",
+"campus",
+"universitätscampus",
+"hochschulcampus",
+"universitätsgelände",
+"hochschule"
+],
+"education/yes":[
+"Bildungseinrichtung (unbestimmter Typ)"
 ],
 "embankment":[
 "künstliche Böschung"
@@ -3654,12 +3828,6 @@
 "defibrillator",
 "schockgeber",
 "Defibrillator"
-],
-"emergency/designated":[
-"Rettungsweg"
-],
-"emergency/destination":[
-"Notzufahrt ohne Notdurchfahrt"
 ],
 "emergency/disaster_response":[
 "thw",
@@ -3760,20 +3928,11 @@
 "rettung am berg",
 "Bergrettung"
 ],
-"emergency/no":[
-"keine Notzufahrt"
-],
-"emergency/official":[
-"offizielle Notzufahrt"
-],
 "emergency/phone":[
 "notruf-telefon",
 "notrufsäule",
 "notfallsäule",
 "Notruftelefon"
-],
-"emergency/private":[
-"private Notzufahrt"
 ],
 "emergency/siren":[
 "sirene",
@@ -3799,9 +3958,6 @@
 "löschwasser",
 "löschteich",
 "Löschwasser"
-],
-"emergency/yes":[
-"Notzufahrt erlaubt"
 ],
 "entrance":[
 "einfahrt",
@@ -4365,6 +4521,20 @@
 "Vorfahrt gewähren",
 "vorrang gewähren-zeichen"
 ],
+"highway/hitchhiking":[
+"autostopp",
+"nimm-mich-mit-häusle",
+"mitfahrerbank",
+"mitfahrbänkle",
+"Mitfahrbank",
+"trampen",
+"anhalter",
+"mitfahrbank",
+"mitfahrbankerl",
+"mitfahrbänkli",
+"mitfahrgelegenheit",
+"anhalterbank"
+],
 "highway/ladder":[
 "Leiter",
 "anstellleiter",
@@ -4402,14 +4572,10 @@
 "Autobahn"
 ],
 "highway/motorway_junction":[
-"autobahnabfahrt (kreuzungspunkt)",
 "ausfahrt",
-"autobahnanschluss",
-"autobahnkreuz",
-"anschlussstelle",
-"autobahnzubringer",
 "abfahrt",
-"Autobahnkreuzungspunkt"
+"autobahnabfahrt",
+"Autobahnausfahrt"
 ],
 "highway/motorway_link":[
 "autobahnanschlussstelle",
@@ -4791,6 +4957,10 @@
 "Historische Stätte",
 "historische stätte"
 ],
+"historic/aircraft":[
+"flugzeug",
+"Historisches Flugzeug"
+],
 "historic/archaeological_site":[
 "archäologische stätte",
 "ausgrabungsstätte",
@@ -4870,6 +5040,10 @@
 "denkmal",
 "mahnmal",
 "Denkmal"
+],
+"historic/memorial/blue_plaque-GB-IE":[
+"blaue plakette",
+"Blue Plaque"
 ],
 "historic/memorial/plaque":[
 "gedenktafel",
@@ -5039,6 +5213,26 @@
 "garnelen",
 "gewässerbewirtschaftung"
 ],
+"landuse/aquaculture/fish":[
+"karpfen",
+"tilapia",
+"barsch",
+"Fischzucht",
+"fischteich",
+"lachs",
+"ftw",
+"forellenteichwirtschaft",
+"stör",
+"fischteichanlage",
+"fischfarm",
+"ktw",
+"karpfenteichwirtschaft",
+"forelle",
+"fischzucht",
+"fischbrutanstalt",
+"teichwirtschaft",
+"fischaufzucht"
+],
 "landuse/basin":[
 "Becken"
 ],
@@ -5077,23 +5271,13 @@
 "entwicklung"
 ],
 "landuse/education":[
-"lernzentrum",
+"bildungseinrichtungen",
 "campus",
 "bildungscampus",
-"berufsschulcampus",
-"bildungszentrum",
-"bildungskomplex",
-"lernkomplex",
-"berufsschulzentrum",
-"schulzentrum",
 "schulcampus",
-"schulkomplex",
-"ausbildungskomplex",
-"berufsschulkomplex",
-"lerncampus",
-"ausbildungszentrum",
-"ausbildungscampus",
-"Gelände für Bildungseinrichtungen"
+"schulzentrum",
+"schulgelände",
+"Bildungsbereich"
 ],
 "landuse/farm":[
 "Ackerland"
@@ -5229,6 +5413,13 @@
 "obstwiese",
 "obstgarten"
 ],
+"landuse/olive_grove":[
+"olivenanbau",
+"olivenproduktion",
+"olivenhof",
+"olivenöl",
+"Olivenhain"
+],
 "landuse/orchard":[
 "streuobstwiese",
 "Obstplantage",
@@ -5283,11 +5474,14 @@
 "Reservoir"
 ],
 "landuse/residential":[
+"wohnfläche",
 "wohngebiet",
+"wohnsiedlungsfläche",
 "siedlungsraum",
 "ortslage",
 "wohngegend",
 "Wohngebiet",
+"landnutzung wohnen",
 "wohnregion",
 "siedlungsfläche"
 ],
@@ -5297,7 +5491,7 @@
 "Wohnblockanlage"
 ],
 "landuse/residential/trailer_park":[
-"Wohnwagenpark",
+"Wohnwagensiedlung",
 "wohnwagenpark"
 ],
 "landuse/retail":[
@@ -5436,11 +5630,6 @@
 "tanzlokal",
 "ballettstudio",
 "tanzboden"
-],
-"leisure/dancing_school":[
-"ballettstudio",
-"Tanzschule",
-"tanzschule"
 ],
 "leisure/disc_golf_course":[
 "discgolfplatz",
@@ -5775,6 +5964,17 @@
 "beachvolleyballplatz",
 "Beachvolleyballfeld"
 ],
+"leisure/pitch/biathlon":[
+"schießen",
+"schussbahn",
+"biathlon",
+"stehendschießen",
+"liegendschießen",
+"zielscheibe",
+"schießbahn",
+"schießstand",
+"Biathlon Schießstand"
+],
 "leisure/pitch/boules":[
 "bouleplatz",
 "boccia-platz",
@@ -6069,6 +6269,13 @@
 "Stadion",
 "arena"
 ],
+"leisure/summer_camp":[
+"sommerlager",
+"ferienspiele",
+"ferienlager",
+"zeltlager",
+"Sommercamp"
+],
 "leisure/swimming_area":[
 "natürlicher badebereich",
 "naturbad",
@@ -6212,6 +6419,28 @@
 "teppichklopfer",
 "teppichreinigung"
 ],
+"man_made/ceremonial_gate":[
+"torii",
+"ehrentor",
+"tor",
+"Zeremonientor",
+"paifang",
+"triumphtor",
+"eingangstor",
+"tempeltor",
+"pailou"
+],
+"man_made/ceremonial_gate/paifang":[
+"pinyin",
+"chinesisches tor",
+"Paifang",
+"pailou"
+],
+"man_made/ceremonial_gate/torii":[
+"Torii",
+"shinto schrein",
+"japanisches tor"
+],
 "man_made/charge_point":[
 "ladesäule",
 "Ladepunkt",
@@ -6335,6 +6564,10 @@ schuhreinigungsstation",
 "Gasometer",
 "gasometer",
 "gaslagertank"
+],
+"man_made/geoglyph":[
+"glifos",
+"Geoglyphe"
 ],
 "man_made/goods_conveyor":[
 "förderanlage",
@@ -6712,11 +6945,6 @@ schuhreinigungsstation",
 "radioteleskop",
 "Radioteleskop"
 ],
-"man_made/torii":[
-"Torii",
-"shinto schrein",
-"japanisches tor"
-],
 "man_made/tower":[
 "turm",
 "Turm"
@@ -6901,6 +7129,12 @@ schuhreinigungsstation",
 "felsdurchbruch",
 "felsbogen",
 "naturbrücke"
+],
+"natural/arete":[
+"firngrat",
+"berggrat",
+"gebirgsgrat",
+"Grat"
 ],
 "natural/bare_rock":[
 "blanker fels",
@@ -7909,7 +8143,11 @@ schuhreinigungsstation",
 "Dorf"
 ],
 "playground":[
-"Spielplatzgerät"
+"spielgeräte",
+"spielplatzausstattung",
+"Spielplatzgerät",
+"spielplatzgeräte",
+"kinderspielgeräte"
 ],
 "playground/activitypanel":[
 "spielewand",
@@ -8005,6 +8243,14 @@ schuhreinigungsstation",
 "Spielhaus",
 "kinderhaus"
 ],
+"playground/pump":[
+"wasserpumpe",
+"wasserspiel",
+"wasserspielanlage",
+"Spielplatzwasserpumpe",
+"wasserspielgerät",
+"pumpe"
+],
 "playground/roundabout":[
 "kinderkarussell",
 "ringelspiel",
@@ -8076,9 +8322,9 @@ schuhreinigungsstation",
 "wasserspiel",
 "wasserspielanlage",
 "wasserspielgerät",
+"Wasserspielgerät (nicht spezifiziert)",
 "matschanlage",
 "pumpe",
-"Wasserspielgerät",
 "wasserbahn"
 ],
 "playground/zipwire":[
@@ -8238,22 +8484,6 @@ schuhreinigungsstation",
 "wasserturbine",
 "pumpspeicher"
 ],
-"power/plant/source/method/photovoltaic":[
-"solarpaneel",
-"pv",
-"solarstromanlage",
-"solarpark",
-"solargenerator",
-"sonnenenergie",
-"solaranlage",
-"photovoltaikanlage",
-"Photovoltaikanlage",
-"solarmodul",
-"pva",
-"freiflächensolaranlagen",
-"pv-anlage",
-"photovoltaik-freiflächenanlage"
-],
 "power/plant/source/nuclear":[
 "nuklear",
 "Atomkraftwerk",
@@ -8290,6 +8520,17 @@ schuhreinigungsstation",
 "freiflächensolaranlagen",
 "solargenerator",
 "sonnenenergie"
+],
+"power/plant/source/solar/photovoltaic":[
+"fotovoltaikkraftwerk",
+"photovoltaikanlage",
+"photovoltaische solaranlage",
+"solarpark",
+"pv-kraftwerk",
+"pv-anlage",
+"photovoltaik-freiflächenanlage",
+"photovoltaikkraftwerk",
+"Solarpark"
 ],
 "power/plant/source/waste":[
 "müllverbrennung",
@@ -8694,6 +8935,11 @@ schuhreinigungsstation",
 "eisenbahnsignal",
 "Eisenbahnsignal"
 ],
+"railway/signal_box":[
+"Stellwerk",
+"signalstellwerk",
+"blockstelle"
+],
 "railway/station":[
 "Eisenbahnhaltestelle"
 ],
@@ -8798,10 +9044,11 @@ schuhreinigungsstation",
 "Gefahrenleuchtfeuer"
 ],
 "seamark/beacon_lateral":[
-"Seitliche Tonne",
 "seitliche tonne",
+"seitliche bake",
 "lateraltonne",
-"laterales seezeichen"
+"laterales seezeichen",
+"Seitliche Bake"
 ],
 "seamark/buoy_lateral":[
 "Seitliche Tonne",
@@ -8883,13 +9130,13 @@ schuhreinigungsstation",
 ],
 "shop/bag":[
 "handtaschen",
+"Taschen / Koffergeschäft",
 "koffer",
 "umhängetaschen",
 "taschen",
 "reisegepäck",
 "reisetaschen",
-"rollkoffer",
-"Taschengeschäft"
+"rollkoffer"
 ],
 "shop/bakery":[
 "Bäckerei",
@@ -8926,9 +9173,9 @@ schuhreinigungsstation",
 ],
 "shop/bed":[
 "matratzenladen",
+"Betten / Matratzengeschäft",
 "schlafzimmerbedarf",
 "matratzengeschäft",
-"Betten/Matratzengeschäft",
 "schlafzimmereinrichtungsgeschäft",
 "bettengeschäft"
 ],
@@ -9281,6 +9528,13 @@ schuhreinigungsstation",
 "LGBTQ+ Erotikgeschäft",
 "lgbtq+ erotikgeschäft"
 ],
+"shop/esoteric":[
+"Esoterischer Laden",
+"kristall",
+"woo",
+"anhänger",
+"ätherisches öl"
+],
 "shop/fabric":[
 "Stoffgeschäft",
 "stoffgeschäft",
@@ -9599,6 +9853,15 @@ herrenfriseur"
 "Mobiltelefonladen",
 "handygeschäft"
 ],
+"shop/mobile_phone_accessories":[
+"displayschutzfolie",
+"Geschäft für Handyzubehör",
+"speicherkarte",
+"schutzhülle",
+"powerbank",
+"kopfhörer",
+"ladegerät"
+],
 "shop/model":[
 "handwerk",
 "spielzeug",
@@ -9753,6 +10016,21 @@ herrenfriseur"
 "fotogeschäft",
 "fotograf"
 ],
+"shop/piercing":[
+"durchstechen",
+"durchbohren",
+"piercing",
+"ohrloch",
+"Piercing-Studio",
+"ohrstecker",
+"bohren",
+"bauchnabel",
+"stechen",
+"körperschmuck",
+"durchdringen",
+"nase",
+"ohrstechen"
+],
 "shop/pottery":[
 "töpferwarenladen",
 "topf",
@@ -9785,9 +10063,9 @@ herrenfriseur"
 "Feuerwerksgeschäft"
 ],
 "shop/radiotechnics":[
-"elektronikladen",
-"Radio/Elektronik-Geschäft",
-"radio/elektro-laden"
+"radio / elektro-laden",
+"Radio / Elektronik-Geschäft",
+"elektronikladen"
 ],
 "shop/religion":[
 "religionsbedarfsladen",
@@ -10041,6 +10319,7 @@ herrenfriseur"
 ],
 "shop/water_sports":[
 "schwimmbedarf",
+"schwimmsport",
 "Wassersportgeschäft",
 "wassersportladen"
 ],
@@ -10245,14 +10524,11 @@ herrenfriseur"
 "sehenswürdigkeitenkarte"
 ],
 "tourism/information/office":[
-"begrüßungszentrum",
-"reiseleiter",
-"Besucherzentrum",
-"besucherinformationszentrum",
+"touristeninformation",
 "informationsbüro",
 "tourismusbüro",
 "touristeninformationszentrum",
-"besucherzentrum"
+"Touristeninformation"
 ],
 "tourism/information/route_marker":[
 "wegmarkierung",
@@ -10262,6 +10538,12 @@ herrenfriseur"
 "tourism/information/terminal":[
 "informationsterminal",
 "Informationsterminal"
+],
+"tourism/information/visitor_centre":[
+"begrüßungszentrum",
+"Besucherzentrum",
+"besucherinformationszentrum",
+"besucherzentrum"
 ],
 "tourism/motel":[
 "Motel",
@@ -10427,6 +10709,9 @@ herrenfriseur"
 "wechselverkehrszeichen",
 "Wechselverkehrszeichen"
 ],
+"type/associatedStreet":[
+"Zugeordnete Straße"
+],
 "type/boundary":[
 "Grenze",
 "grenze"
@@ -10551,6 +10836,12 @@ herrenfriseur"
 "Buslinie",
 "stadtbuslinie"
 ],
+"type/route/climbing":[
+"klettersteig",
+"kletterpfad",
+"Kletterroute",
+"kletterlinie"
+],
 "type/route/detour":[
 "Umleitungsstrecke",
 "umleitungsstrecke"
@@ -10654,6 +10945,18 @@ herrenfriseur"
 "grundstück",
 "stelle"
 ],
+"type/site/climbing/area":[
+"Klettergebiet",
+"kletterareal",
+"kletterzone"
+],
+"type/site/climbing/crag":[
+"klippe",
+"kletterwand",
+"klettergipfel",
+"Kletterfelsen",
+"kletterfels"
+],
 "type/waterway":[
 "graben",
 "damm",
@@ -10665,6 +10968,18 @@ herrenfriseur"
 ],
 "waterway":[
 "Wasserstraßen..."
+],
+"waterway/access_point":[
+"ruderboot",
+"paddelboard",
+"Wasserstraßen-Zugangspunkt",
+"wasserung",
+"einbootung",
+"boot",
+"ausbootung",
+"portage",
+"kanu",
+"kajak"
 ],
 "waterway/boatyard":[
 "bootswerft",

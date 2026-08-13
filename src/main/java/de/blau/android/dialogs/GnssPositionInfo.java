@@ -3,6 +3,7 @@ package de.blau.android.dialogs;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.util.Locale;
+import java.util.Map;
 import java.util.TreeMap;
 
 import android.location.Location;
@@ -24,6 +25,7 @@ import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.exception.StorageException;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Tags;
@@ -193,43 +195,57 @@ public class GnssPositionInfo extends InfoDialogFragment {
         try {
             Logic logic = App.getLogic();
             Node node = logic.performAddNode(getActivity(), lon, lat);
-            TreeMap<String, String> tags = new TreeMap<>(node.getTags());
-            if (location instanceof ExtendedLocation) {
-                ExtendedLocation loc = (ExtendedLocation) location;
-                Preferences prefs = logic.getPrefs();
-                if (loc.hasBarometricHeight()) {
-                    if (prefs.useBarometricHeight()) {
-                        tags.put(Tags.KEY_ELE, String.format(Locale.US, "%.3f", loc.getBarometricHeight()));
-                        tags.put(Tags.KEY_SOURCE_ELE, Tags.VALUE_BAROMETER);
-                    }
-                    tags.put(Tags.KEY_ELE_BAROMETRIC, String.format(Locale.US, "%.3f", loc.getBarometricHeight()));
-                }
-                if (loc.hasGeoidHeight()) {
-                    if (!prefs.useBarometricHeight()) {
-                        tags.put(Tags.KEY_ELE, String.format(Locale.US, "%.3f", loc.getGeoidHeight()));
-                        tags.put(Tags.KEY_SOURCE, Tags.VALUE_GNSS);
-                    }
-                    tags.put(Tags.KEY_ELE_GEOID, String.format(Locale.US, "%.3f", loc.getGeoidHeight()));
-                }
-                if (loc.hasGeoidCorrection()) {
-                    tags.put("note:ele", "geoid correction " + String.format(Locale.US, "%.3f", loc.getGeoidCorrection()));
-                }
-                if (loc.hasHdop()) {
-                    tags.put(Tags.KEY_GNSS_HDOP, String.format(Locale.US, "%.1f", loc.getHdop()));
-                }
-            }
-            if (location != null && location.hasAltitude()) { // location may have gone
-                tags.put(Tags.KEY_ELE_ELLIPSOID, String.format(Locale.US, "%.3f", location.getAltitude()));
-            }
-
-            logic.setTags(getActivity(), node, tags);
+            logic.setTags(getActivity(), node, addLocationTags(logic, node));
             if (getActivity() instanceof Main) {
                 ((Main) getActivity()).edit(node);
             }
         } catch (OsmIllegalOperationException e) {
             ScreenMessage.barError(getActivity(), e.getLocalizedMessage());
             Log.d(DEBUG_TAG, "Caught exception " + e);
+        } catch (StorageException ex) {
+            // already toasted and logged
         }
+    }
+
+    /**
+     * Add tags generated from the location information
+     * 
+     * @param logic the current Logic instance
+     * @param node the Node
+     * @return a Map containing the tags
+     */
+    @NonNull
+    private Map<String, String> addLocationTags(@NonNull Logic logic, @NonNull Node node) {
+        Map<String, String> tags = new TreeMap<>(node.getTags());
+        if (location != null && location.hasAltitude()) { // location may have gone
+            tags.put(Tags.KEY_ELE_ELLIPSOID, String.format(Locale.US, "%.3f", location.getAltitude()));
+        }
+        if (!(location instanceof ExtendedLocation)) {
+            return tags;
+        }
+        ExtendedLocation loc = (ExtendedLocation) location;
+        Preferences prefs = logic.getPrefs();
+        if (loc.hasBarometricHeight()) {
+            if (prefs.useBarometricHeight()) {
+                tags.put(Tags.KEY_ELE, String.format(Locale.US, "%.3f", loc.getBarometricHeight()));
+                tags.put(Tags.KEY_SOURCE_ELE, Tags.VALUE_BAROMETER);
+            }
+            tags.put(Tags.KEY_ELE_BAROMETRIC, String.format(Locale.US, "%.3f", loc.getBarometricHeight()));
+        }
+        if (loc.hasGeoidHeight()) {
+            if (!prefs.useBarometricHeight()) {
+                tags.put(Tags.KEY_ELE, String.format(Locale.US, "%.3f", loc.getGeoidHeight()));
+                tags.put(Tags.KEY_SOURCE, Tags.VALUE_GNSS);
+            }
+            tags.put(Tags.KEY_ELE_GEOID, String.format(Locale.US, "%.3f", loc.getGeoidHeight()));
+        }
+        if (loc.hasGeoidCorrection()) {
+            tags.put("note:ele", "geoid correction " + String.format(Locale.US, "%.3f", loc.getGeoidCorrection()));
+        }
+        if (loc.hasHdop()) {
+            tags.put(Tags.KEY_GNSS_HDOP, String.format(Locale.US, "%.1f", loc.getHdop()));
+        }
+        return tags;
     }
 
     Runnable update = new Runnable() { // NOSONAR

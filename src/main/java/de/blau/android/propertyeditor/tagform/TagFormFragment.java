@@ -58,6 +58,7 @@ import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.osm.Wiki;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.prefs.keyboard.Shortcuts;
 import de.blau.android.presets.MatchType;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetCheckField;
@@ -200,6 +201,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         presetSelectedListener = (OnPresetSelectedListener) parent;
         setHasOptionsMenu(true);
         getActivity().invalidateOptionsMenu();
+
+        actionMap.put(getString(R.string.ACTION_UNDO), new Shortcuts.Action(R.string.action_undo, this::doRevert));
     }
 
     @Override
@@ -566,6 +569,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         LinkedHashMap<String, String> allTags = tagListener.getKeyValueMapSingle(true);
         LinkedHashMap<String, String> result = new LinkedHashMap<>();
         Properties prop = App.getGeoContext(getContext()).getProperties(propertyEditorListener.getIsoCodes());
+        if (prop == null) {
+            return;
+        }
         String[] languages = prop.getLanguages();
         if (languages == null) {
             return;
@@ -1353,7 +1359,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     public void updateDialogRow(@NonNull String key, @NonNull final Map<String, String> tags) {
         View row = getRow(key);
         if (row instanceof CheckGroupDialogRow) {
-            ((CheckGroupDialogRow) row).setSelectedValues(tags);
+            ((CheckGroupDialogRow) row).setSelectedValues(getContext(), tags);
             ((DialogRow) row).setChanged(true);
         }
     }

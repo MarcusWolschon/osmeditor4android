@@ -111,9 +111,10 @@ public final class Search {
                         JosmFilterParser parser = new JosmFilterParser(new ByteArrayInputStream(text.getBytes()));
                         StringBuilder result = new StringBuilder();
                         result.append(OVERPASS_HEADER);
-                        result.append(Overpass.transform(parser.condition(useRegexp)));
+                        final Condition condition = parser.condition(useRegexp);
+                        result.append(Overpass.transform(condition));
                         result.append(OVERPASS_FOOTER);
-                        Main.showOverpassConsole(activity, result.toString());
+                        Main.showOverpassConsole(activity, result.toString(), condition);
                         logic.pushObjectSearch(text);
                         dismiss();
                     } catch (UnsupportedOperationException | ParseException pex) {

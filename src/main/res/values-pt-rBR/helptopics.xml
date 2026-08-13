@@ -18,6 +18,7 @@
     <string name="help_advanced_preferences">Preferências avançadas</string>
     <string name="help_custom_imagery">Imagem personalizada</string>
     <string name="help_presets">Pré-definições</string>
+    <string name="help_styles">Estilos</string>
     <string name="help_conflictresolution">Resolução de conflitos</string>
     <string name="help_gpssources">Fontes de GPS</string>
     <string name="help_keyboard">Teclado</string>
@@ -73,7 +74,8 @@
         <item>@string/help_preferences</item>
         <item>@string/help_advanced_preferences</item>
         <item>@string/help_custom_imagery</item>
-    	<item>@string/help_presets</item>	
+    	<item>@string/help_presets</item>
+        <item>@string/help_styles</item>	
         <item>@string/help_rotate</item>
     	<item>@string/help_aligningbackgroundiamgery</item>
     	<item>@string/help_conflictresolution</item>
@@ -89,6 +91,8 @@
         <item>@string/help_voice_commands</item>
         <item>@string/help_add_route_segment</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_212</item>
+        <item>@string/help_upgrade_211</item>
         <item>@string/help_upgrade_210</item>
         <item>@string/help_upgrade_202</item>
         <item>@string/help_upgrade_201</item>
@@ -142,7 +146,8 @@
         <item>Preferences</item>
         <item>Advanced preferences</item>
         <item>Custom imagery</item>
-    	<item>Presets</item>	
+    	<item>Presets</item>
+        <item>Styles</item>	
         <item>Rotating elements</item>
     	<item>Aligning background imagery</item>
     	<item>Conflict resolution</item>
@@ -157,6 +162,8 @@
         <item>Address mode</item>
         <item>Voice commands</item>
         <item>Add route segment</item>
+        <item>22.0.0 Release notes</item>
+        <item>21.2.0 Release notes</item>
         <item>21.1.0 Release notes</item>
         <item>21.0.0 Release notes</item>
         <item>20.2.0 Release notes</item>

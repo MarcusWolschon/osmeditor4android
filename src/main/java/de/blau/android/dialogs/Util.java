@@ -5,11 +5,15 @@ import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -19,6 +23,7 @@ import de.blau.android.R;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.util.ACRAHelper;
+import de.blau.android.util.Screen;
 import de.blau.android.util.ScreenMessage;
 
 public final class Util {
@@ -43,7 +48,11 @@ public final class Util {
      * @param tag the tag of the DialogFragment we want to remove
      */
     public static void dismissDialog(@NonNull FragmentActivity activity, @NonNull String tag) {
-        dismiss(activity.getSupportFragmentManager(), tag);
+        try {
+            dismiss(activity.getSupportFragmentManager(), tag);
+        } catch (IllegalStateException isex) {
+            Log.e(DEBUG_TAG, "dismissDialog " + tag, isex);
+        }
     }
 
     /**
@@ -53,7 +62,12 @@ public final class Util {
      * @param tag the tag of the DialogFragment we want to remove
      */
     public static void dismissDialog(@NonNull Fragment fragment, @NonNull String tag) {
-        dismiss(fragment.getChildFragmentManager(), tag);
+        // note getChildFragmentManager can throw an ISE too
+        try {
+            dismiss(fragment.getChildFragmentManager(), tag);
+        } catch (IllegalStateException isex) {
+            Log.e(DEBUG_TAG, "dismissDialog " + tag, isex);
+        }
     }
 
     /**
@@ -62,14 +76,14 @@ public final class Util {
      * @param fm the FragmentManager
      * @param tag the tag
      */
-    static void dismiss(FragmentManager fm, @NonNull String tag) {
-        FragmentTransaction ft = fm.beginTransaction();
-        Fragment fragment = fm.findFragmentByTag(tag);
-        if (fragment != null) {
-            ft.remove(fragment);
-        }
+    private static void dismiss(FragmentManager fm, @NonNull String tag) {
         try {
-            ft.commit();
+            FragmentTransaction ft = fm.beginTransaction();
+            Fragment fragment = fm.findFragmentByTag(tag);
+            if (fragment != null) {
+                ft.remove(fragment);
+            }
+            ft.commitNowAllowingStateLoss();
         } catch (IllegalStateException isex) {
             Log.e(DEBUG_TAG, "dismissDialog " + tag, isex);
         }
@@ -81,7 +95,7 @@ public final class Util {
      * @param elements a List of OsmELement
      * @param bundle the target bundle
      */
-    static void putElementsInBundle(@NonNull List<OsmElement> elements, @NonNull Bundle bundle) {
+    public static void putElementsInBundle(@NonNull List<OsmElement> elements, @NonNull Bundle bundle) {
         ArrayList<Long> ids = new ArrayList<>();
         ArrayList<String> types = new ArrayList<>();
         for (OsmElement e : elements) {
@@ -128,7 +142,7 @@ public final class Util {
      * @param context an Android context
      * @param bundle the Bundle
      */
-    static List<OsmElement> getElements(@NonNull Context context, @NonNull Bundle bundle) {
+    public static List<OsmElement> getElements(@NonNull Context context, @NonNull Bundle bundle) {
         try {
             return de.blau.android.dialogs.Util.getElementsFromBundle(bundle);
         } catch (IllegalStateException ise) {
@@ -138,4 +152,28 @@ public final class Util {
             return new ArrayList<>();
         }
     }
+
+    /**
+     * Check if we have saved state for a key
+     * 
+     * @param savedState the Bundle holding state or null
+     * @param key the key
+     * @return true if there is state available
+     */
+    public static boolean hasState(@Nullable Bundle savedState, @NonNull String key) {
+        return savedState != null && savedState.containsKey(key);
+    }
+
+    /**
+     * Limit the dialogs width if we are on a very wide device
+     * 
+     * @param fragment the DialogFragment
+     */
+    public static void limitWindowWidth(@NonNull DialogFragment fragment) {
+        Dialog dialog = fragment.getDialog();
+        if (dialog != null && (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M || !fragment.getActivity().isInMultiWindowMode())) {
+            dialog.getWindow().setLayout((int) (Screen.getScreenSmallDimension(fragment.getActivity()) * 0.9), ViewGroup.LayoutParams.WRAP_CONTENT);
+        }
+    }
+
 }

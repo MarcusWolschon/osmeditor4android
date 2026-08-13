@@ -32,6 +32,7 @@ public class MultiHashMap<K, V> implements Serializable {
     private static final long serialVersionUID = 1L;
     private Map<K, Set<V>>    map;
     private boolean           sorted;
+    private boolean           ordered;
 
     /** Creates a regular, unsorted MultiHashMap */
     public MultiHashMap() {
@@ -55,6 +56,7 @@ public class MultiHashMap<K, V> implements Serializable {
      */
     public MultiHashMap(boolean sorted, boolean ordered) {
         this.sorted = sorted;
+        this.ordered = ordered;
         if (sorted) {
             map = new TreeMap<>();
         } else if (ordered) {
@@ -108,7 +110,13 @@ public class MultiHashMap<K, V> implements Serializable {
     private Set<V> getSet(@NonNull K key) {
         Set<V> values = map.get(key);
         if (values == null) {
-            values = (sorted ? new TreeSet<>() : new HashSet<>());
+            if (sorted) {
+                values = new TreeSet<>();
+            } else if (ordered) {
+                values = new LinkedHashSet<>();
+            } else {
+                values = new HashSet<>();
+            }
             map.put(key, values);
         }
         return values;

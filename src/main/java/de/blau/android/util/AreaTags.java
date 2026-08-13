@@ -12,7 +12,6 @@ import java.util.Map.Entry;
 
 import com.google.gson.stream.JsonReader;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
@@ -55,7 +54,6 @@ public class AreaTags {
      * @param fileName the name of the file
      * @return a Map
      */
-    @SuppressLint("NewApi") // StandardCharsets is desugared for APIs < 19.
     @NonNull
     private Map<String, Boolean> getTagMap(@NonNull AssetManager assetManager, @NonNull String fileName) {
         Map<String, Boolean> result = new HashMap<>();

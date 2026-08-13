@@ -4,7 +4,8 @@ import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,8 +44,8 @@ import de.blau.android.dialogs.Progress;
 import de.blau.android.osm.Server;
 import de.blau.android.resources.TileLayerDialog.OnUpdateListener;
 import de.blau.android.resources.WmsCapabilities.Layer;
-import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.CancelableDialogFragment;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.OnTextChangedWatcher;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
@@ -189,10 +190,10 @@ public class WmsEndpointDatabaseView extends CancelableDialogFragment implements
                     }
 
                     @Override
-                    protected WmsCapabilities doInBackground(Void params) throws IOException, ParserConfigurationException, SAXException {
+                    protected WmsCapabilities doInBackground(Void params) throws IOException, ParserConfigurationException, SAXException, URISyntaxException {
                         String url = Util.appendQuery(sanitize(endpoint.getTileUrl()),
                                 REQUEST_PARAM + "=" + GET_CAPABILITIES_REQUEST + "&" + SERVICE_PARAM + "=wms");
-                        try (InputStream is = Server.openConnection(activity, new URL(url))) {
+                        try (InputStream is = Server.openConnection(activity, new URI(url).toURL())) {
                             return new WmsCapabilities(is);
                         }
                     }

@@ -17,6 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.WeakHashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -79,6 +80,7 @@ import de.blau.android.presets.PresetIconManager;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
+import de.blau.android.resources.DataStyleManager;
 import de.blau.android.util.Coordinates;
 import de.blau.android.util.Density;
 import de.blau.android.util.GeoMath;
@@ -105,8 +107,8 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MapOverlay.class.getSimpleName().length());
     private static final String DEBUG_TAG = MapOverlay.class.getSimpleName().substring(0, TAG_LEN);
 
-    public static final List<Integer> PAUSE_AUTO_DOWNLOAD = Collections
-            .unmodifiableList(Arrays.asList(ErrorCodes.CORRUPTED_DATA, ErrorCodes.DATA_CONFLICT, ErrorCodes.OUT_OF_MEMORY, ErrorCodes.DOWNLOAD_LIMIT_EXCEEDED));
+    public static final List<Integer> PAUSE_AUTO_DOWNLOAD = Collections.unmodifiableList(Arrays.asList(ErrorCodes.CORRUPTED_DATA, ErrorCodes.DATA_CONFLICT,
+            ErrorCodes.OUT_OF_MEMORY, ErrorCodes.DOWNLOAD_LIMIT_EXCEEDED, ErrorCodes.UNAVAILABLE));
 
     private static final int ICON_THREAD_POOL_SIZE = 2;
     public static final int  DATA_THREAD_POOL_SIZE = 3;
@@ -140,7 +142,7 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
     private final StorageDelegator delegator;
     private Context                context;
     private final Validator        validator;
-    private final DataStyle        styles;
+    private final DataStyleManager styles;
 
     /**
      * Preference related fields
@@ -175,28 +177,28 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
     /**
      * Stores icons that apply to a certain "thing". This can be e.g. a node or a SortedMap of tags.
      */
-    private final WeakHashMap<java.util.Map<String, String>, Bitmap> iconCache = new WeakHashMap<>();
+    private final java.util.Map<java.util.Map<String, String>, Bitmap> iconCache = new WeakHashMap<>();
 
     /**
      * Stores icons that apply to a certain "thing". This can be e.g. a node or a SortedMap of tags. This stores icons
      * for areas
      */
-    private final WeakHashMap<java.util.Map<String, String>, Bitmap> areaIconCache = new WeakHashMap<>();
+    private final java.util.Map<java.util.Map<String, String>, Bitmap> areaIconCache = new WeakHashMap<>();
 
     /**
      * Stores strings that apply to a certain "thing". This can be e.g. a node or a SortedMap of tags.
      */
-    private final WeakHashMap<java.util.Map<String, String>, String> labelCache = new WeakHashMap<>();
+    private final java.util.Map<java.util.Map<String, String>, String> labelCache = new WeakHashMap<>();
 
     /**
      * Store direction values in degrees
      */
-    private final WeakHashMap<java.util.Map<String, String>, Float> directionCache = new WeakHashMap<>();
+    private final java.util.Map<java.util.Map<String, String>, Float> directionCache = new WeakHashMap<>();
 
     /**
      * Cache for any preset matching during one draw pass
      */
-    private final HashMap<java.util.Map<String, String>, PresetItem> matchCache = new HashMap<>();
+    private final java.util.Map<java.util.Map<String, String>, PresetItem> matchCache = new ConcurrentHashMap<>(100, 0.75f, 3);
 
     /**
      * Stores custom icons
@@ -364,7 +366,7 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
         validator = App.getDefaultValidator(context);
         download = new DataDownloader(context, prefs.getServer(), validator);
 
-        styles = App.getDataStyle(context);
+        styles = App.getDataStyleManager(context);
 
         iconRadius = Density.dpToPx(context, ICON_SIZE_DP / 2);
         houseNumberRadius = Density.dpToPx(context, HOUSE_NUMBER_RADIUS);
@@ -429,8 +431,8 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
             Context ctx = map.getContext();
             List<BoundingBox> bbList = new ArrayList<>(delegator.getBoundingBoxes());
             box.scale(1.2); // make sides 20% larger
-            box.ensureMinumumSize(minDownloadSize); // enforce a minimum size
             List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, box);
+            BoundingBox.consolidate(bboxes, (int) (GeoMath.convertMetersToGeoDistance(minDownloadSize) * 1E7));
             final Logic logic = App.getLogic();
             for (BoundingBox b : bboxes) {
                 try {
@@ -441,7 +443,8 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
                             map.postInvalidate();
                         }, true, true);
                         final int code = result.getCode();
-                        if (PAUSE_AUTO_DOWNLOAD.contains(code)) {
+                        // only show the alert if we are still downloading
+                        if (PAUSE_AUTO_DOWNLOAD.contains(code) && prefs.getPanAndZoomAutoDownload()) {
                             prefs.setPanAndZoomAutoDownload(false);
                             setPrefs(prefs);
                             if (ctx instanceof FragmentActivity) {
@@ -471,16 +474,17 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
         final Logic logic = App.getLogic();
         tmpDrawingEditMode = logic.getMode();
         tmpFilter = logic.getFilter();
-        try {
-            if (logic.tryLock()) {
+
+        if (logic.tryReadLock()) {
+            try {
                 tmpDrawingSelectedNodes = logic.getSelectedNodes();
                 tmpDrawingSelectedWays = logic.getSelectedWays();
                 tmpClickableElements = logic.getClickableElements();
                 tmpDrawingSelectedRelationWays = logic.getSelectedRelationWays();
                 tmpDrawingSelectedRelationNodes = logic.getSelectedRelationNodes();
+            } finally {
+                logic.unlockReads();
             }
-        } finally {
-            logic.unlock();
         }
         tmpPresets = App.getCurrentPresets(context);
         tmpLocked = logic.isUiLocked();
@@ -490,15 +494,17 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
         inNodeIconZoomRange = zoomLevel > currentStyle.getIconZoomLimit();
 
         viewBox.set(map.getViewBox());
-        try {
-            if (delegator.tryLock()) {
+
+        if (delegator.tryReadLock()) {
+            try {
                 delegator.getCurrentStorage().getBoundingBoxes(boundingBoxResult);
-            } else {
-                Log.w(DEBUG_TAG, "BoundingBoxes already locked, reusing existing data");
+            } finally {
+                delegator.unlockReads();
             }
-        } finally {
-            delegator.unlock();
+        } else {
+            Log.w(DEBUG_TAG, "BoundingBoxes already locked, reusing existing data");
         }
+
         downloadedBoxes.clear();
         for (BoundingBox box : boundingBoxResult) {
             if (box.intersects(viewBox)) {
@@ -531,18 +537,18 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
 
         // first find all nodes and ways that we need to display
         // if the delegator is locked re-render what we already have
-        try {
-            if (delegator.tryLock()) {
+        if (delegator.tryReadLock()) {
+            try {
                 nodesResult.clear();
                 waysResult.clear();
                 final Storage currentStorage = delegator.getCurrentStorage();
                 currentStorage.getNodes(viewBox, nodesResult);
                 currentStorage.getWays(viewBox, waysResult);
-            } else {
-                Log.w(DEBUG_TAG, "Delegator already locked, rerendering existing data");
+            } finally {
+                delegator.unlockReads();
             }
-        } finally {
-            delegator.unlock();
+        } else {
+            Log.w(DEBUG_TAG, "Delegator already locked, rerendering existing data");
         }
 
         // the following should guarantee that if the selected node is off screen but the handle not, the handle gets
@@ -1203,6 +1209,9 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
         PresetItem match = matchCache.get(tags);
         if (match == null && !matchCache.containsKey(tags)) {
             match = Preset.findBestMatch(context, tmpPresets, e.getTags(), null, e, false);
+            if (match == null) {
+                return null;
+            }
             matchCache.put(tags, match);
         }
         return match;
@@ -1289,7 +1298,7 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
     @Nullable
     public Bitmap getIcon(@NonNull OsmElement element) {
         boolean isWay = element instanceof Way;
-        WeakHashMap<java.util.Map<String, String>, Bitmap> tempCache = isWay ? areaIconCache : iconCache;
+        java.util.Map<java.util.Map<String, String>, Bitmap> tempCache = isWay ? areaIconCache : iconCache;
         Bitmap icon = element.getFromCache(tempCache); // may be null!
         if (icon == null) {
             try {
@@ -1309,7 +1318,7 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
      * @param cache the relevant cache
      */
     @TargetApi(26)
-    private void retrieveIcon(@NonNull OsmElement element, boolean isWay, @NonNull WeakHashMap<java.util.Map<String, String>, Bitmap> cache) {
+    private void retrieveIcon(@NonNull OsmElement element, boolean isWay, @NonNull java.util.Map<java.util.Map<String, String>, Bitmap> cache) {
         BitmapDrawable iconDrawable = null;
 
         // icon not cached, ask the preset/style, render to a bitmap and cache result
@@ -1337,9 +1346,7 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
                 temp.recycle();
             }
         }
-        synchronized (MapOverlay.this) {
-            element.addToCache(cache, icon);
-        }
+        element.addToCache(cache, icon);
         map.postInvalidate();
     }
 
@@ -1461,8 +1468,11 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
                                                    // a better idea to do so
                 && tmpDrawingSelectedWays != null && tmpDrawingSelectedWays.contains(way);
         boolean isMemberOfSelectedRelation = tmpDrawingInEditRange && tmpDrawingSelectedRelationWays != null && tmpDrawingSelectedRelationWays.contains(way);
+        boolean isClickable = tmpClickableElements != null && tmpClickableElements.contains(way);
 
-        if (zoomLevel < style.getMinVisibleZoom() || (style.dontRender() && !(isSelected || isMemberOfSelectedRelation))) {
+        if (zoomLevel < style.getMinVisibleZoom() || (style.dontRender() && !(isSelected || isMemberOfSelectedRelation || isClickable))) {
+            // always validate
+            way.hasProblem(context, validator);
             return;
         }
 
@@ -1494,7 +1504,7 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
         if (drawTolerance) {
             if (showTolerance && tmpClickableElements == null) {
                 canvas.drawLines(linePoints, 0, pointsSize, wayTolerancePaint);
-            } else if (tmpClickableElements != null && tmpClickableElements.contains(way)) {
+            } else if (isClickable) {
                 canvas.drawLines(linePoints, 0, pointsSize, wayTolerancePaint2);
             }
         }
@@ -1837,7 +1847,7 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
         panAndZoomDownLoad = prefs.getPanAndZoomAutoDownload();
         minDownloadSize = prefs.getDownloadRadius() * 2;
         maxDownloadSpeed = prefs.getMaxBugDownloadSpeed() / 3.6f;
-        autoPruneEnabled = prefs.autoPrune();
+        autoPruneEnabled = prefs.autoPruneData();
         autoPruneNodeLimit = prefs.getAutoPruneNodeLimit();
         autoDownloadBoxLimit = prefs.getAutoPruneBoundingBoxLimit();
         panAndZoomLimit = prefs.getPanAndZoomLimit();
@@ -1965,6 +1975,16 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
         ViewBox pruneBox = new ViewBox(viewBox);
         pruneBox.scale(1.6);
         delegator.prune(pruneBox);
+    }
+
+    @Override
+    public boolean autoPrune() {
+        return prefs.autoPruneData();
+    }
+
+    @Override
+    public void setAutoPrune(boolean enable) {
+        prefs.setAutoPruneData(enable);
     }
 
     @Override

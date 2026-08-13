@@ -23,6 +23,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.prefs.keyboard.Shortcuts;
 import de.blau.android.tasks.NoteFragment;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
@@ -63,6 +64,11 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
         this.y = y;
         clickedNodes = logic.getClickedNodes(x, y);
         clickedNonClosedWays = logic.getClickedWays(false, x, y); //
+
+        actionMap.put(main.getString(R.string.ACTION_ELEMENT_PASTE), new Shortcuts.Action(R.string.action_help, () -> {
+            logic.hideCrosshairs();
+            SimpleActionModeCallback.paste(main, manager, startX, startY);
+        }));
     }
 
     @Override
@@ -117,7 +123,7 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
      */
     @Override
     public boolean handleClick(float x, float y) {
-        PathCreationActionModeCallback pcamc = new PathCreationActionModeCallback(manager, logic.lonE7ToX(startLon), logic.latE7ToY(startLat));
+        PathCreationActionModeCallback pcamc = new PathCreationActionModeCallback(manager, logic.lonE7ToX(startLon), logic.latE7ToY(startLat), false);
         main.startSupportActionMode(pcamc);
         pcamc.handleClick(x, y);
         logic.hideCrosshairs();
@@ -163,6 +169,9 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
             }
         } catch (OsmIllegalOperationException e) {
             finishOnException(e);
+        } catch (StorageException ex) {
+            // already toasted and logged
+            manager.finish();
         }
     }
 
@@ -192,7 +201,7 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
             }
             return true;
         case MENUITEM_NEWNODEWAY:
-            main.startSupportActionMode(new PathCreationActionModeCallback(manager, x, y));
+            main.startSupportActionMode(new PathCreationActionModeCallback(manager, x, y, false));
             logic.hideCrosshairs();
             return true;
         case MENUITEM_SPLITWAY:
@@ -217,6 +226,9 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
                     }
                 } catch (OsmIllegalOperationException e) {
                     finishOnException(e);
+                } catch (StorageException ex) {
+                    // already toasted and logged
+                    manager.finish();
                 }
             }
             return true;
@@ -229,6 +241,10 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
             } catch (OsmIllegalOperationException e1) {
                 ScreenMessage.barError(main, e1.getLocalizedMessage());
                 Log.d(DEBUG_TAG, "Caught exception " + e1);
+            } catch (StorageException ex) {
+                // already toasted and logged
+                manager.finish();
+                return true;
             }
             Node lastSelectedNode = logic.getSelectedNode();
             if (lastSelectedNode != null) {
@@ -258,6 +274,7 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
             break;
         }
         return false;
+
     }
 
     /**
@@ -267,15 +284,5 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
     public void onDestroyActionMode(ActionMode mode) {
         logic.setSelectedNode(null);
         super.onDestroyActionMode(mode);
-    }
-
-    @Override
-    public boolean processShortcut(Character c) {
-        if (c == Util.getShortCut(main, R.string.shortcut_paste)) {
-            logic.hideCrosshairs();
-            SimpleActionModeCallback.paste(main, manager, startX, startY);
-            return true;
-        }
-        return false;
     }
 }

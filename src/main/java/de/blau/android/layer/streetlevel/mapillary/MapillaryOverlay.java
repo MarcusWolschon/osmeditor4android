@@ -131,28 +131,28 @@ public class MapillaryOverlay extends AbstractImageOverlay {
 
     @Override
     public void onSelected(FragmentActivity activity, de.blau.android.util.mvt.VectorTileDecoder.Feature f) {
-        if (isPoint(f)) {
-            // we ignore anything except the images for now
-            java.util.Map<String, Object> attributes = f.getAttributes();
-            String sequenceId = (String) attributes.get(SEQUENCE_ID_KEY);
-            Long id = (Long) attributes.get(ID_KEY);
-            if (id != null && sequenceId != null) {
-                ArrayList<String> keys = mapillaryState != null ? mapillaryState.sequenceCache.get(sequenceId) : null;
-                if (keys == null) {
-                    try {
-                        Thread t = new Thread(null, new MapillarySequenceFetcher(activity, mapillarySequencesUrl, sequenceId, id, apiKey),
-                                "Mapillary Sequence");
-                        t.start();
-                    } catch (SecurityException | IllegalThreadStateException | IllegalStateException e) {
-                        Log.e(DEBUG_TAG, "Unable to run SequenceFetcher " + e.getMessage());
-                        return;
-                    }
-                } else {
-                    showImages(activity, id, keys);
+        if (!isPoint(f)) {
+            return;
+        }
+        // we ignore anything except the images for now
+        java.util.Map<String, Object> attributes = f.getAttributes();
+        String sequenceId = (String) attributes.get(SEQUENCE_ID_KEY);
+        Long id = (Long) attributes.get(ID_KEY);
+        if (id != null && sequenceId != null) {
+            ArrayList<String> keys = mapillaryState != null ? mapillaryState.sequenceCache.get(sequenceId) : null;
+            if (keys == null) {
+                try {
+                    Thread t = new Thread(null, new MapillarySequenceFetcher(activity, mapillarySequencesUrl, sequenceId, id, apiKey), "Mapillary Sequence");
+                    t.start();
+                } catch (SecurityException | IllegalThreadStateException | IllegalStateException e) {
+                    Log.e(DEBUG_TAG, "Unable to run SequenceFetcher " + e.getMessage());
+                    return;
                 }
-                setSelected(f);
-                mapillaryState.sequenceId = sequenceId;
+            } else {
+                showImages(activity, id, keys);
             }
+            setSelected(f);
+            mapillaryState.sequenceId = sequenceId;
         }
     }
 

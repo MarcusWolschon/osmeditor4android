@@ -30,7 +30,7 @@
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="20dp">
             <TextView
                 android:id="@+id/set_position_lat_label"
                 android:layout_width="wrap_content"
@@ -52,11 +52,21 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
+            <ImageButton
+                android:id="@+id/swap"
+                android:padding="10dp"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"      
+                android:layout_below="@id/set_position_lat"
+                android:layout_alignRight="@+id/set_position_lat"
+                android:background="@android:color/transparent"
+                android:description="@string/set_position_swap"
+                android:src="?attr/menu_reverse" />
             <TextView
                 android:id="@+id/set_position_lon_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/set_position_lat"
+                android:layout_below="@id/swap"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:text="@string/location_lon_label"

@@ -4,6 +4,7 @@ import static de.blau.android.osm.DelegatorUtil.toE7;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -18,13 +19,14 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import android.content.Context;
-import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.ShadowWorkManager;
+import de.blau.android.UnitTestUtils;
+import de.blau.android.exception.OsmException;
 import de.blau.android.osm.DelegatorUtil;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement.ElementType;
@@ -37,20 +39,23 @@ import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
-import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
+import de.blau.android.resources.DataStyleManager;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(shadows = { ShadowWorkManager.class }, sdk = 33)
 @LargeTest
 public class BaseValidatorTest {
 
+    private Main main;
+
     /**
      * Pre-test setup
      */
     @Before
     public void setup() {
-        Robolectric.buildActivity(Main.class).create().resume();
+        main = Robolectric.buildActivity(Main.class).create().resume().get();
+        App.getDelegator().reset(true);
     }
 
     /**
@@ -58,7 +63,7 @@ public class BaseValidatorTest {
      */
     @Test
     public void relationTest() {
-        Validator v = App.getDefaultValidator(ApplicationProvider.getApplicationContext());
+        Validator v = App.getDefaultValidator(main);
         StorageDelegator d = new StorageDelegator();
         OsmElementFactory factory = d.getFactory();
         Relation r = factory.createRelationWithNewId();
@@ -83,13 +88,13 @@ public class BaseValidatorTest {
     public void suppressedMissingTest() {
         Logic logic = App.newLogic();
         // this needs a lot of setup as highway validation relies on a valid map object
-        DataStyle styles = App.getDataStyle(ApplicationProvider.getApplicationContext());
-        styles.getStylesFromFiles(ApplicationProvider.getApplicationContext());
-        de.blau.android.Map map = new de.blau.android.Map(ApplicationProvider.getApplicationContext());
+        DataStyleManager styles = App.getDataStyleManager(main);
+        styles.getStylesFromFiles(main);
+        de.blau.android.Map map = new de.blau.android.Map(main);
         logic.setMap(map, false);
-        map.setPrefs(ApplicationProvider.getApplicationContext(), new Preferences(ApplicationProvider.getApplicationContext()));
+        map.setPrefs(main, new Preferences(main));
         //
-        Validator v = App.getDefaultValidator(ApplicationProvider.getApplicationContext());
+        Validator v = App.getDefaultValidator(main);
         StorageDelegator d = App.getDelegator();
         OsmElementFactory factory = d.getFactory();
         Way w = factory.createWayWithNewId();
@@ -127,7 +132,7 @@ public class BaseValidatorTest {
      */
     @Test
     public void nonStandardTypeTest() {
-        final Context ctx = ApplicationProvider.getApplicationContext();
+        final Context ctx = main;
         Validator v = App.getDefaultValidator(ctx);
         StorageDelegator d = new StorageDelegator();
         OsmElementFactory factory = d.getFactory();
@@ -148,7 +153,7 @@ public class BaseValidatorTest {
      */
     @Test
     public void nonStandardTypeTest2() {
-        final Context ctx = ApplicationProvider.getApplicationContext();
+        final Context ctx = main;
         Validator v = App.getDefaultValidator(ctx);
         StorageDelegator d = new StorageDelegator();
         Way w = DelegatorUtil.addWayToStorage(d, true);
@@ -156,11 +161,81 @@ public class BaseValidatorTest {
         tags.put("golf", "bunker");
         tags.put(Tags.KEY_NATURAL, "sand");
         d.setTags(w, tags);
-        assertTrue(App.getDataStyle(ctx).switchTo(Preferences.DEFAULT_MAP_STYLE));
-        FeatureStyle style = App.getDataStyle(ctx).matchStyle(w);  
+        assertTrue(App.getDataStyleManager(ctx).switchTo(Preferences.DEFAULT_MAP_STYLE));
+        FeatureStyle style = App.getDataStyleManager(ctx).matchStyle(w);
         assertTrue(style.isArea());
         PresetItem pi = Preset.findBestMatch(App.getCurrentPresets(ctx), tags, null, null);
         assertFalse(pi.appliesTo().contains(ElementType.AREA));
         assertEquals(Validator.OK, v.validate(w));
+    }
+
+    /**
+     * Unjoin a previously connected highway
+     */
+    @Test
+    public void nearbyConnectionTest() {
+        StorageDelegator d = UnitTestUtils.loadTestData(getClass(), "nearby-validation.osm");
+        try {
+            d.addBoundingBox(d.getCurrentStorage().calcBoundingBoxFromData());
+        } catch (OsmException e) {
+            fail(e.getMessage());
+        }
+
+        Node n = (Node) d.getOsmElement(Node.NAME, -2);
+        Logic l = App.getLogic();
+        de.blau.android.Map map = l.getMap();
+        map.getViewBox().fitToBoundingBox(map, d.getLastBox());
+
+        final List<Way> waysForNode = l.getWaysForNode(n);
+        assertEquals(2, waysForNode.size());
+        Validator v = App.getDefaultValidator(main);
+        assertEquals(Validator.OK, n.hasProblem(main, v));
+        l.performUnjoinWays(main, n);
+        // validating the ways will set the node error code
+        assertEquals(Validator.OK, waysForNode.get(0).hasProblem(main, v));
+        assertEquals(Validator.OK, waysForNode.get(1).hasProblem(main, v));
+        assertEquals(Validator.UNCONNECTED_END_NODE, n.hasProblem(main, v) & Validator.UNCONNECTED_END_NODE);
+    }
+
+    /**
+     * Unjoin previously connected boundary members
+     */
+    @Test
+    public void nearbyConnectionTest2() {
+        StorageDelegator d = UnitTestUtils.loadTestData(getClass(), "nearby-validation.osm");
+        try {
+            d.addBoundingBox(d.getCurrentStorage().calcBoundingBoxFromData());
+        } catch (OsmException e) {
+            fail(e.getMessage());
+        }
+
+        Node n = (Node) d.getOsmElement(Node.NAME, -2);
+        Logic l = App.getLogic();
+        de.blau.android.Map map = l.getMap();
+        map.getViewBox().fitToBoundingBox(map, d.getLastBox());
+
+        final List<Way> waysForNode = l.getWaysForNode(n);
+        assertEquals(2, waysForNode.size());
+        // remove tags
+        waysForNode.get(0).setTags(new HashMap<>());
+        waysForNode.get(1).setTags(new HashMap<>());
+        // add to relation
+        OsmElementFactory factory = d.getFactory();
+        Relation r = factory.createRelationWithNewId();
+        Map<String, String> relationTags = new HashMap<>();
+        relationTags.put(Tags.KEY_TYPE, Tags.VALUE_BOUNDARY);
+        l.setTags(main, r, relationTags);
+        
+        d.insertElementSafe(r);
+        d.addMemberToRelation(new RelationMember(Tags.ROLE_OUTER, waysForNode.get(0)), r);
+        d.addMemberToRelation(new RelationMember(Tags.ROLE_OUTER, waysForNode.get(1)), r);
+
+        Validator v = App.getDefaultValidator(main);
+        assertEquals(Validator.OK, n.hasProblem(main, v));
+        l.performUnjoinWays(main, n);
+        // validating the ways will set the node error code
+        assertEquals(Validator.OK, waysForNode.get(0).hasProblem(main, v));
+        assertEquals(Validator.OK, waysForNode.get(1).hasProblem(main, v));
+        assertEquals(Validator.UNCONNECTED_END_NODE, n.hasProblem(main, v) & Validator.UNCONNECTED_END_NODE);
     }
 }

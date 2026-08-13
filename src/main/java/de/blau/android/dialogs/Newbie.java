@@ -12,14 +12,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
-import de.blau.android.Authorize;
 import de.blau.android.HelpViewer;
 import de.blau.android.Main;
 import de.blau.android.R;
@@ -28,7 +25,8 @@ import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.resources.TileLayerSource.Category;
-import de.blau.android.util.CancelableDialogFragment;
+import de.blau.android.util.AuthorisationEnabledDialogFragment;
+import de.blau.android.util.CustomAlertDialog;
 import de.blau.android.util.OnPageSelectedListener;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -38,7 +36,7 @@ import de.blau.android.views.ExtendedViewPager;
  * Display a dialog giving new users minimal instructions
  *
  */
-public class Newbie extends CancelableDialogFragment {
+public class Newbie extends AuthorisationEnabledDialogFragment {
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Newbie.class.getSimpleName().length());
     private static final String DEBUG_TAG = Newbie.class.getSimpleName().substring(0, TAG_LEN);
@@ -107,8 +105,7 @@ public class Newbie extends CancelableDialogFragment {
         if (!(activity instanceof Main)) {
             throw new ClassCastException(activity.toString() + " can only be called from Main");
         }
-        Builder builder = ThemeUtils.getAlertDialogBuilder(activity);
-        builder.setIcon(null);
+        CustomAlertDialog.Builder builder = ThemeUtils.getCustomAlertDialogBuilder(activity);
         builder.setTitle(R.string.welcome_title);
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(activity);
         final View layout = inflater.inflate(R.layout.welcome_tabs, null);
@@ -128,7 +125,7 @@ public class Newbie extends CancelableDialogFragment {
             pager.setCurrentItem(savedInstanceState.getInt(PAGER_POS_KEY, 0));
         }
         pager.addOnPageChangeListener((OnPageSelectedListener) position -> {
-            AlertDialog dialog = ((AlertDialog) getDialog());
+            CustomAlertDialog dialog = ((CustomAlertDialog) getDialog());
             if (dialog == null) {
                 Log.e(DEBUG_TAG, "Dialog null");
                 return;
@@ -165,7 +162,7 @@ public class Newbie extends CancelableDialogFragment {
                     dismiss();
 
                     if (authorize.isChecked()) {
-                        Authorize.startForResult(activity, null);
+                        startAuthorisation();
                     }
                 });
                 negative.setText(R.string.back);
@@ -180,7 +177,7 @@ public class Newbie extends CancelableDialogFragment {
         builder.setNegativeButton(R.string.skip, null);
         builder.setPositiveButton(R.string.next, null);
         builder.setNeutralButton(R.string.read_introduction, null);
-        AlertDialog dialog = builder.create();
+        CustomAlertDialog dialog = builder.create();
         dialog.setOnShowListener((DialogInterface d) -> {
             Button neutral = dialog.getButton(DialogInterface.BUTTON_NEUTRAL);
             neutral.setOnClickListener((View v) -> {

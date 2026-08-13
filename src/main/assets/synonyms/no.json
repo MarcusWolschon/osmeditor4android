@@ -128,9 +128,6 @@
 "homsebar",
 "LHBTQ+-bar"
 ],
-"amenity/bbq":[
-"Grill"
-],
 "amenity/bench":[
 "Benk"
 ],
@@ -221,9 +218,6 @@
 "amenity/courthouse":[
 "Tinghus"
 ],
-"amenity/coworking_space":[
-"Rom for medarbeider"
-],
 "amenity/crematorium":[
 "Krematorium"
 ],
@@ -239,9 +233,6 @@
 "amenity/doctors/dermatology":[
 "Hudlege"
 ],
-"amenity/doctors/gynaecology":[
-"Fødselslege/Gynekolog"
-],
 "amenity/doctors/plastic_surgery":[
 "Plastisk kirurg"
 ],
@@ -250,9 +241,6 @@
 ],
 "amenity/drinking_water":[
 "Drikkevann"
-],
-"amenity/driving_school":[
-"Trafikkskole"
 ],
 "amenity/embassy":[
 "Ambassade"
@@ -332,12 +320,6 @@
 "amenity/internet_cafe":[
 "Internettkafé"
 ],
-"amenity/kindergarten":[
-"Førskole- / Barnehageområde"
-],
-"amenity/language_school":[
-"Språkskole"
-],
 "amenity/lavoir":[
 "Vaskehus"
 ],
@@ -364,9 +346,6 @@
 ],
 "amenity/motorcycle_parking":[
 "Motorsykkelparkering"
-],
-"amenity/music_school":[
-"Musikkskole"
 ],
 "amenity/nightclub":[
 "Nattklubb"
@@ -572,9 +551,6 @@
 "amenity/sanitary_dump_station":[
 "Bobil-tømmestasjon"
 ],
-"amenity/school":[
-"Skoleområde"
-],
 "amenity/shelter":[
 "Skur"
 ],
@@ -649,9 +625,6 @@
 ],
 "amenity/toy_library":[
 "Lekebibliotek"
-],
-"amenity/university":[
-"Universitetsområde"
 ],
 "amenity/vending_machine":[
 "Automat"
@@ -944,9 +917,6 @@
 ],
 "building/dormitory":[
 "Sovesal"
-],
-"building/entrance":[
-"Inngang/utgang"
 ],
 "building/farm":[
 "Gårdshus"
@@ -1266,9 +1236,6 @@
 "emergency/defibrillator":[
 "Defibrillator"
 ],
-"emergency/designated":[
-"Dedikert nødtilgang"
-],
 "emergency/fire_alarm":[
 "Brannalarm-telefonboks"
 ],
@@ -1293,20 +1260,11 @@
 "emergency/lifeguard":[
 "Livvakt"
 ],
-"emergency/no":[
-"Nødtilgang nei"
-],
-"emergency/official":[
-"Nødtilgang offisiell"
-],
 "emergency/phone":[
 "Nødtelefon"
 ],
 "emergency/siren":[
 "Sirene"
-],
-"emergency/yes":[
-"Nødtilgang ja"
 ],
 "entrance":[
 "Inngang / Utgang"
@@ -1500,9 +1458,6 @@
 "highway/motorway":[
 "Motorvei"
 ],
-"highway/motorway_junction":[
-"Motorveikryss / Avkjøring"
-],
 "highway/motorway_link":[
 "motorveiforbindelse",
 "Motorveirampe"
@@ -1633,9 +1588,6 @@
 "highway/turning_loop":[
 "Snuplass"
 ],
-"highway/unclassified":[
-"Mindre/uklassifisert vei"
-],
 "historic":[
 "Historisk sted"
 ],
@@ -1741,9 +1693,6 @@
 "landuse/construction":[
 "Byggeplass"
 ],
-"landuse/education":[
-"Utdanningsområde"
-],
 "landuse/farm":[
 "Jordbruksland"
 ],
@@ -1843,9 +1792,6 @@
 "leisure/dance":[
 "Dansesal"
 ],
-"leisure/dancing_school":[
-"Danseskole"
-],
 "leisure/disc_golf_course":[
 "Diskgolfbane"
 ],
@@ -1929,9 +1875,6 @@
 ],
 "leisure/pitch/beachvolleyball":[
 "Strandvolleyballbane"
-],
-"leisure/pitch/boules":[
-"Boule-/bocciabane"
 ],
 "leisure/pitch/chess":[
 "Stort sjakkbrett"
@@ -2670,9 +2613,6 @@
 "power/plant/source/hydro":[
 "Vannkraftverk"
 ],
-"power/plant/source/method/photovoltaic":[
-"Solcellepark"
-],
 "power/plant/source/nuclear":[
 "Atomkraftverk"
 ],
@@ -2973,9 +2913,6 @@
 "shop/baby_goods":[
 "Babyutstyrsbutikk"
 ],
-"shop/bag":[
-"Veskebutikk"
-],
 "shop/bakery":[
 "Bakeri"
 ],
@@ -2993,9 +2930,6 @@
 ],
 "shop/beauty/tanning":[
 "Solstudio"
-],
-"shop/bed":[
-"Sengebutikk"
 ],
 "shop/beverages":[
 "Øl- og vinutsalg"
@@ -3358,9 +3292,6 @@
 "shop/pyrotechnics":[
 "Fyrverkerihandel"
 ],
-"shop/radiotechnics":[
-"Elektronikkbutikk"
-],
 "shop/religion":[
 "Religiøs butikk"
 ],
@@ -3466,9 +3397,6 @@
 "shop/water":[
 "Drikkevannbutikk"
 ],
-"shop/water_sports":[
-"Vannsport/Svømmebutikk"
-],
 "shop/weapons":[
 "Våpenbutikk"
 ],
@@ -3570,9 +3498,6 @@
 ],
 "tourism/information/map":[
 "Kart"
-],
-"tourism/information/office":[
-"Besøkssenter"
 ],
 "tourism/information/route_marker":[
 "Stimarkør"
@@ -3759,9 +3684,6 @@
 ],
 "type/route/pipeline":[
 "Rørledningsrute"
-],
-"type/route/piste":[
-"Skiløype"
 ],
 "type/route/power":[
 "Kraftlinje"

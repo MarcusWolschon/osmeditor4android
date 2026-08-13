@@ -58,7 +58,7 @@ abstract class EditTextValidator implements AfterTextChangedWatcher, FormValidat
     /**
      * Clear any error
      */
-    private void clearError() {
+    public void clearError() {
         editText.setError(null);
     }
 }

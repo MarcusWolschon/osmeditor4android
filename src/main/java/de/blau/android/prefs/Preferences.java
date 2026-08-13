@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.PreferenceManager;
 import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.contract.Urls;
@@ -27,6 +28,7 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.resources.DataStyle;
+import de.blau.android.resources.DataStyleManager;
 import de.blau.android.resources.TileLayerSource.Category;
 import de.blau.android.resources.symbols.TriangleDown;
 import de.blau.android.util.Sound;
@@ -58,7 +60,6 @@ public class Preferences {
     private boolean           largeDragArea;
     private final boolean     tagFormEnabled;
     private String            scaleLayer;
-    private String            mapProfile;
     private final String      followGPSbutton;
     private final String      mapOrientation;
     private int               gpsInterval;
@@ -69,7 +70,8 @@ public class Preferences {
     private int               mapillaryCacheSize;            // in MB
     private int               downloadRadius;                // in m
     private float             maxDownloadSpeed;              // in km/h
-    private final boolean     autoPrune;
+    private boolean           autoPruneData;
+    private boolean           autoPruneTasks;
     private final int         autoPruneBoundingBoxLimit;
     private final int         autoPruneNodeLimit;
     private final int         autoPruneTaskLimit;
@@ -97,6 +99,7 @@ public class Preferences {
     private String            mapillaryImagesUrlV4;
     private final int         mapillaryMinZoom;
     private String            panoramaxApiUrl;
+    private String            panoramaxInstancesUrl;
     private final boolean     showCameraAction;
     private final String      cameraApp;
     private final boolean     useInternalPhotoViewer;
@@ -137,6 +140,8 @@ public class Preferences {
     private final int         autoNameCap;
     private boolean           wayNodeDragging;
     private final boolean     splitWindowForPropertyEditor;
+    private boolean           splitWindowForReview;
+    private final boolean     useTabLayout;
     private boolean           newTaskForPropertyEditor;
     private final boolean     useImperialUnits;
     private final boolean     supportPresetLabels;
@@ -155,6 +160,10 @@ public class Preferences {
     private final double      minCircleSegment;
     private final Set<String> poiKeys;
     private final double      replaceTolerance;
+    private String            imageLicence;
+    private final int         minMoveWayNodesWarning;
+    private final int         minMoveWayVisibleNodesWarning;
+    private boolean           ignoreSubareas;
 
     public static final String DEFAULT_MAP_STYLE     = "Color Round Nodes";
     public static final String DEFAULT_PEN_MAP_STYLE = "Pen Round Nodes";
@@ -193,7 +202,8 @@ public class Preferences {
 
         downloadRadius = getIntPref(R.string.config_extTriggeredDownloadRadius_key, de.blau.android.layer.data.MapOverlay.DEFAULT_AUTO_DOWNLOAD_RADIUS);
         maxDownloadSpeed = getIntPref(R.string.config_maxDownloadSpeed_key, 10);
-        autoPrune = prefs.getBoolean(r.getString(R.string.config_autoPrune_key), true);
+        autoPruneData = prefs.getBoolean(r.getString(R.string.config_autoPrune_key), true);
+        autoPruneTasks = prefs.getBoolean(r.getString(R.string.config_autoPruneTasks_key), true);
         autoPruneBoundingBoxLimit = getIntPref(R.string.config_autoPruneBoundingBoxLimit_key, de.blau.android.layer.data.MapOverlay.DEFAULT_DOWNLOADBOX_LIMIT);
         autoPruneNodeLimit = getIntPref(R.string.config_autoPruneNodeLimit_key, de.blau.android.layer.data.MapOverlay.DEFAULT_AUTOPRUNE_NODE_LIMIT);
         autoPruneTaskLimit = getIntPref(R.string.config_autoPruneTaskLimit_key, de.blau.android.layer.tasks.MapOverlay.DEFAULT_AUTOPRUNE_TASK_LIMIT);
@@ -220,7 +230,6 @@ public class Preferences {
         emptyCommentWarning = prefs.getBoolean(r.getString(R.string.config_emptyCommentWarning_key), true);
         splitActionBarEnabled = prefs.getBoolean(r.getString(R.string.config_splitActionBarEnabled_key), true);
         scaleLayer = prefs.getString(r.getString(R.string.config_scale_key), r.getString(R.string.scale_metric));
-        mapProfile = prefs.getString(r.getString(R.string.config_mapProfile_key), null);
         gpsSource = prefs.getString(r.getString(R.string.config_gps_source_key), r.getString(R.string.gps_source_internal));
         gpsTcpSource = prefs.getString(r.getString(R.string.config_gps_source_tcp_key), "127.0.0.1:1958");
         gpsDistance = getIntPref(R.string.config_gps_distance_key, 2);
@@ -251,6 +260,7 @@ public class Preferences {
         mapillaryMinZoom = getIntPref(R.string.config_mapillary_min_zoom_key, AbstractImageOverlay.DEFAULT_MIN_ZOOM);
 
         panoramaxApiUrl = prefs.getString(r.getString(R.string.config_panoramaxApiUrl_key), Urls.DEFAULT_PANORAMAX_API_URL);
+        panoramaxInstancesUrl = prefs.getString(r.getString(R.string.config_panoramaxInstancesUrl_key), Urls.DEFAULT_PANORAMAX_INSTANCES_URL);
 
         showCameraAction = prefs.getBoolean(r.getString(R.string.config_showCameraAction_key), true);
         cameraApp = prefs.getString(r.getString(R.string.config_selectCameraApp_key), "");
@@ -328,6 +338,11 @@ public class Preferences {
         wayNodeDragging = prefs.getBoolean(r.getString(R.string.config_wayNodeDragging_key), false);
 
         splitWindowForPropertyEditor = prefs.getBoolean(r.getString(R.string.config_splitWindowForPropertyEditor_key), false);
+
+        splitWindowForReview = prefs.getBoolean(r.getString(R.string.config_splitWindowForReview_key), false);
+
+        useTabLayout = prefs.getBoolean(r.getString(R.string.config_tabLayout_key), false);
+
         newTaskForPropertyEditor = prefs.getBoolean(r.getString(R.string.config_newTaskForPropertyEditor_key), false);
 
         useImperialUnits = prefs.getBoolean(r.getString(R.string.config_useImperialUnits_key), false);
@@ -343,6 +358,13 @@ public class Preferences {
         poiKeys = prefs.getStringSet(r.getString(R.string.config_poi_keys_key), new HashSet<>(Arrays.asList(r.getStringArray(R.array.poi_keys_defaults))));
 
         replaceTolerance = getFloatFromStringPref(R.string.config_replaceTolerance_key, 1.0f);
+
+        imageLicence = prefs.getString(r.getString(R.string.config_imageLicence_key), r.getString(R.string.licence_cc_by_4_value));
+
+        minMoveWayNodesWarning = getIntPref(R.string.config_minMoveWayNodesWarning_key, Logic.MIN_NODES_FOR_MOVE_WARNING);
+        minMoveWayVisibleNodesWarning = getIntPref(R.string.config_minMoveVisibleWayNodesWarning_key, Logic.MIN_NODES_FOR_MOVE_VISIBLE_WARNING);
+
+        ignoreSubareas = prefs.getBoolean(r.getString(R.string.config_ignoreSubareas_key), true);
     }
 
     /**
@@ -493,20 +515,20 @@ public class Preferences {
     /**
      * Get the current data rendering style
      * 
-     * Side effect: if the currently configured style doesn't exist, we fallback to an existing one, and set the current
+     * Side effect: if the currently configured style doesn't exist, we fallback to the builtin one, and set the current
      * style to that
      * 
      * @param currentStyles current styles
      * @return the name of the current data rendering style
      */
     @NonNull
-    public String getDataStyle(@NonNull DataStyle currentStyles) {
-        // check if we actually still have the profile
-        if (currentStyles.getStyle(mapProfile) == null) {
-            Log.w(DEBUG_TAG, "Style " + mapProfile + " missing, replacing by default");
-            setDataStyle(currentStyles.getStyle(DEFAULT_MAP_STYLE) == null ? DataStyle.getBuiltinStyleName() : DEFAULT_MAP_STYLE);
+    public String getDataStyle(@NonNull DataStyleManager currentStyles) {
+        StyleConfiguration activeStyle = advancedPrefs.getActiveStyle();
+        if (activeStyle == null || currentStyles.getStyle(activeStyle.name) == null) {
+            Log.e(DEBUG_TAG, "getDataStyle activeStyle null or style missing");
+            return DataStyleManager.getBuiltinStyleName();
         }
-        return mapProfile;
+        return activeStyle.name;
     }
 
     /**
@@ -515,8 +537,12 @@ public class Preferences {
      * @param dataStyle the name of the current data rendering style
      */
     public void setDataStyle(@NonNull String dataStyle) {
-        mapProfile = dataStyle;
-        prefs.edit().putString(r.getString(R.string.config_mapProfile_key), dataStyle).commit();
+        StyleConfiguration styleConfiguration = advancedPrefs.getStyleForName(dataStyle);
+        if (styleConfiguration == null) {
+            Log.e(DEBUG_TAG, "Style not found for name " + dataStyle);
+            return;
+        }
+        advancedPrefs.setStyleState(styleConfiguration.id, true);
     }
 
     /**
@@ -691,12 +717,41 @@ public class Preferences {
     }
 
     /**
-     * Check if autoPrune is enabled
+     * Check if autoPrune of data is enabled
      * 
      * @return true if autoPrune is enabled
      */
-    public boolean autoPrune() {
-        return autoPrune;
+    public boolean autoPruneData() {
+        return autoPruneData;
+    }
+
+    /**
+     * Enable/disable data auto pruning
+     * 
+     * @param enabled if true auto pruning is enabled
+     */
+    public void setAutoPruneData(boolean enabled) {
+        autoPruneData = enabled;
+        prefs.edit().putBoolean(r.getString(R.string.config_autoPrune_key), enabled).commit();
+    }
+
+    /**
+     * Check if autoPrune of tasks is enabled
+     * 
+     * @return true if autoPrune is enabled
+     */
+    public boolean autoPruneTasks() {
+        return autoPruneTasks;
+    }
+
+    /**
+     * Enable/disable data auto pruning
+     * 
+     * @param enabled if true auto pruning is enabled
+     */
+    public void setAutoPruneTasks(boolean enabled) {
+        autoPruneTasks = enabled;
+        prefs.edit().putBoolean(r.getString(R.string.config_autoPruneTasks_key), enabled).commit();
     }
 
     /**
@@ -961,6 +1016,25 @@ public class Preferences {
     public void setPanoramaxApiUrl(@NonNull String url) {
         this.panoramaxApiUrl = url;
         prefs.edit().putString(r.getString(R.string.config_panoramaxApiUrl_key), url).commit();
+    }
+
+    /**
+     * Get the configured panoramax instances url
+     * 
+     * @return the API url
+     */
+    public String getPanoramaxInstancesUrl() {
+        return panoramaxInstancesUrl;
+    }
+
+    /**
+     * Set the configured panoramax instances url
+     * 
+     * @param url the API url
+     */
+    public void setPanoramaxInstancesUrl(@NonNull String url) {
+        this.panoramaxInstancesUrl = url;
+        prefs.edit().putString(r.getString(R.string.config_panoramaxInstancesUrl_key), url).commit();
     }
 
     /**
@@ -1774,6 +1848,34 @@ public class Preferences {
     }
 
     /**
+     * Enable or disable using split window / separate activity for the REview screen
+     * 
+     * @param enabled the value to set
+     */
+    public void setSplitWindowForReview(boolean enabled) {
+        splitWindowForReview = enabled;
+        prefs.edit().putBoolean(r.getString(R.string.config_splitWindowForReview_key), enabled).commit();
+    }
+
+    /**
+     * Check if we should try to use split window functionality for the ReviewFragment
+     * 
+     * @return true if we should use split windows
+     */
+    public boolean useSplitWindowForReview() {
+        return splitWindowForReview;
+    }
+
+    /**
+     * Always use tab layout for the property editor
+     * 
+     * @return true if we should use the tab layout
+     */
+    public boolean useTabLayout() {
+        return useTabLayout;
+    }
+
+    /**
      * Enable or disable using FLAG_ACTIVITY_NEW_TASK for the PropertyEditor
      * 
      * @param enabled if true set FLAG_ACTIVITY_NEW_TASK for the PropertyEditor
@@ -2083,6 +2185,137 @@ public class Preferences {
 
     public void setApplyWithOptionalTags(@NonNull Context ctx, @NonNull PresetItem item, boolean enable) {
         putBoolean(USE_OPTIONAL_PREF + getPresetElementPath(ctx, item), enable);
+    }
+
+    /**
+     * Get the current image licence template
+     * 
+     * @return a String with the template
+     */
+    @NonNull
+    public String getImageLicence() {
+        return imageLicence;
+    }
+
+    /**
+     * Set the current image licence
+     * 
+     * @param licence the new image licence
+     */
+    public void setImageLicence(@NonNull String licence) {
+        this.imageLicence = licence;
+        putString(R.string.config_imageLicence_key, licence);
+    }
+
+    /**
+     * Get the minimum number of way nodes that will cause a warning to be displayed when the way is moved
+     * 
+     * @return the minimum number of way nodes that will cause a warning to be displayed when the way is moved
+     */
+    public int minMoveWayNodesWarning() {
+        return minMoveWayNodesWarning;
+    }
+
+    /**
+     * Get the minimum number of way nodes that will cause the check for how many are visible and potentially a warning
+     * to be displayed when the way is moved
+     * 
+     * @return the minimum number of way nodes that will cause the check for how many are visible and potentially a
+     *         warning to be displayed when the way is moved
+     */
+    public int minMoveWayVisibleNodesWarning() {
+        return minMoveWayVisibleNodesWarning;
+    }
+
+    /**
+     * Check if we should ignore subareas in the disambiguation menu or not
+     * 
+     * @return true if we should ignore subareas
+     */
+    public boolean ignoreSubareas() {
+        return ignoreSubareas;
+    }
+
+    /**
+     * Set the ignore subareas pref
+     * 
+     * @param ignore value to set
+     */
+    public void setIgnoreSubAreas(boolean ignore) {
+        ignoreSubareas = ignore;
+        prefs.edit().putBoolean(r.getString(R.string.config_ignoreSubareas_key), ignore).commit();
+    }
+
+    /**
+     * Configuration for the download along functionality
+     * 
+     * @param on if true downloads data
+     */
+    public void setDownloadAlongData(boolean on) {
+        prefs.edit().putBoolean(r.getString(R.string.config_download_along_data_key), on).commit();
+    }
+
+    /**
+     * Configuration for the download along functionality
+     * 
+     * @return true if data should be downloaded
+     */
+    public boolean getDownloadAlongData() {
+        return prefs.getBoolean(r.getString(R.string.config_download_along_data_key), true);
+    }
+
+    /**
+     * Configuration for the download along functionality
+     * 
+     * @param on if true downloads tasks
+     */
+    public void setDownloadAlongTasks(boolean on) {
+        prefs.edit().putBoolean(r.getString(R.string.config_download_along_tasks_key), on).commit();
+    }
+
+    /**
+     * Configuration for the download along functionality
+     * 
+     * @return true if tasks should be downloaded
+     */
+    public boolean getDownloadAlongTasks() {
+        return prefs.getBoolean(r.getString(R.string.config_download_along_tasks_key), false);
+    }
+
+    /**
+     * Configuration for the download along functionality
+     * 
+     * @param buffer the buffer dimension
+     */
+    public void setDownloadAlongBuffer(int buffer) {
+        prefs.edit().putInt(r.getString(R.string.config_download_along_buffer_key), buffer).commit();
+    }
+
+    /**
+     * Configuration for the download along functionality
+     * 
+     * @return the buffer dimensions
+     */
+    public int getDownloadAlongBuffer() {
+        return prefs.getInt(r.getString(R.string.config_download_along_buffer_key), 20);
+    }
+
+    /**
+     * Configuration for the download along functionality
+     * 
+     * @param dim the max bounding box dimensions
+     */
+    public void setDownloadAlongMaxDimension(int dim) {
+        prefs.edit().putInt(r.getString(R.string.config_download_along_max_dimension_key), dim).commit();
+    }
+
+    /**
+     * Configuration for the download along functionality
+     * 
+     * @return the max bounding box dimensions
+     */
+    public int getDownloadAlongMaxDimension() {
+        return prefs.getInt(r.getString(R.string.config_download_along_max_dimension_key), 100);
     }
 
     /**

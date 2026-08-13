@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
@@ -425,6 +426,9 @@ public abstract class Layer implements Serializable {
      */
     private boolean compare(@NonNull String function, @Nullable Object left, @NonNull JsonElement jsonElement) {
         int result;
+        if (jsonElement instanceof JsonNull) {
+            return false;
+        }
         if (left instanceof String) {
             result = ((String) left).compareTo(jsonElement.getAsString());
         } else if (left instanceof Integer) {

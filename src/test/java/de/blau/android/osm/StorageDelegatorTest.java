@@ -21,31 +21,43 @@ import java.util.TreeMap;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.xml.sax.SAXException;
 
-import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
 import de.blau.android.Logic;
+import de.blau.android.Main;
+import de.blau.android.R;
+import de.blau.android.ShadowWorkManager;
 import de.blau.android.UnitTestUtils;
 import de.blau.android.exception.DataConflictException;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.osm.UndoStorage.Checkpoint;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.DataStyle;
+import de.blau.android.resources.DataStyleManager;
 import de.blau.android.util.Coordinates;
 import de.blau.android.util.Geometry;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.MultiHashMap;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(sdk = 33)
+@Config(shadows = { ShadowWorkManager.class }, sdk=33)
 @LargeTest
 public class StorageDelegatorTest {
+    
+    private Main main;
+    
+    @Before
+    public void setup() {
+        main = Robolectric.buildActivity(Main.class).create().resume().get();
+    }
 
     /**
      * Test way rotation
@@ -125,7 +137,7 @@ public class StorageDelegatorTest {
     public void cutUndo() {
         StorageDelegator d = App.getDelegator();
         Logic logic = App.newLogic();
-        logic.setMap(new de.blau.android.Map(ApplicationProvider.getApplicationContext()), true);
+        logic.setMap(new de.blau.android.Map(main), true);
         Way w = DelegatorUtil.addWayToStorage(d, true);
         Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
         assertNotNull(temp);
@@ -241,7 +253,7 @@ public class StorageDelegatorTest {
             assertEquals(originalNodes.get(i).getLon(), dupNodes.get(i).getLon());
         }
     }
-    
+
     /**
      * Test duplication with missing member, should throw an exception
      */
@@ -254,7 +266,7 @@ public class StorageDelegatorTest {
         d.insertElementSafe(r);
         try {
             d.duplicate(Util.wrapInList(r), true);
-        } catch (OsmIllegalOperationException ex ) {
+        } catch (OsmIllegalOperationException ex) {
             // expected
             return;
         }
@@ -797,7 +809,7 @@ public class StorageDelegatorTest {
     public void mergeNodes3() {
         StorageDelegator d = new StorageDelegator();
         OsmElementFactory factory = d.getFactory();
-        Node n1 = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
+        Node n1 = factory.createNodeWithNewId(toE7(51.476), toE7(0.005));
         d.insertElementSafe(n1);
         Node n2 = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
         d.insertElementSafe(n2);
@@ -808,6 +820,28 @@ public class StorageDelegatorTest {
         assertFalse(result.get(0).hasIssue());
         assertNull(d.getOsmElement(Node.NAME, n1.getOsmId()));
         assertNotNull(d.getOsmElement(Node.NAME, n2.getOsmId()));
+        assertEquals(toE7(0.005), n2.lon);
+    }
+
+    /**
+     * Merge two nodes
+     */
+    @Test
+    public void mergeNodes3_1() {
+        StorageDelegator d = new StorageDelegator();
+        OsmElementFactory factory = d.getFactory();
+        Node n1 = factory.createNodeWithNewId(toE7(51.476), toE7(0.005));
+        d.insertElementSafe(n1);
+        Node n2 = factory.createNodeWithNewId(toE7(51.476), toE7(0.006));
+        d.insertElementSafe(n2);
+        n2.setOsmId(1234L);
+        MergeAction action = new MergeAction(d, n2, n1, null);
+        List<Result> result = action.mergeNodes();
+        assertFalse(result.isEmpty());
+        assertFalse(result.get(0).hasIssue());
+        assertNull(d.getOsmElement(Node.NAME, n1.getOsmId()));
+        assertNotNull(d.getOsmElement(Node.NAME, n2.getOsmId()));
+        assertEquals(toE7(0.006), n2.lon);
     }
 
     /**
@@ -1209,12 +1243,6 @@ public class StorageDelegatorTest {
         final Node n2 = w.getNodes().get(2);
         d.addNodeToWay(n2, w2);
 
-        Relation r = d.getFactory().createRelationWithNewId();
-        RelationMember member = new RelationMember("test", n2);
-        r.addMember(member);
-        d.insertElementSafe(r);
-        n2.addParentRelation(r);
-
         assertEquals(2, d.getApiWayCount());
         assertEquals(w.nodeCount(), d.getApiNodeCount());
         d.unjoinWay(null, w2, null);
@@ -1223,8 +1251,6 @@ public class StorageDelegatorTest {
         assertNotEquals(n2, lastNode);
         assertEquals(2, d.getApiWayCount());
         assertEquals(w.nodeCount() + 2, d.getApiNodeCount());
-
-        assertTrue(lastNode.hasParentRelation(r.getOsmId()));
     }
 
     /**
@@ -1288,6 +1314,80 @@ public class StorageDelegatorTest {
 
         assertEquals(2, d.getApiWayCount());
         assertEquals(w.nodeCount() + 3, d.getApiNodeCount());
+    }
+
+    /**
+     * Unjoin two ways one node has tags and is a relation member, check that that doesn't get copied
+     */
+    @Test
+    public void unjoinWayWithTaggedNode() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = DelegatorUtil.addWayToStorage(d, false);
+        final Node n1 = w.getNodes().get(1);
+        Way w2 = d.createAndInsertWay(n1);
+        final Node n2 = w.getNodes().get(2);
+        d.addNodeToWay(n2, w2);
+
+        Map<String, String> tags = new TreeMap<>();
+        tags.put(Tags.KEY_AMENITY, "bench");
+        n2.setTags(tags);
+
+        Relation r = d.getFactory().createRelationWithNewId();
+        RelationMember member = new RelationMember("test", n2);
+        r.addMember(member);
+        d.insertElementSafe(r);
+        n2.addParentRelation(r);
+
+        assertEquals(2, d.getApiWayCount());
+        assertEquals(w.nodeCount(), d.getApiNodeCount());
+        d.unjoinWay(null, w2, null);
+        assertNotEquals(n1, w2.getFirstNode());
+        final Node lastNode = w2.getLastNode();
+        assertNotEquals(n2, lastNode);
+        assertEquals(2, d.getApiWayCount());
+        assertEquals(w.nodeCount() + 2, d.getApiNodeCount());
+
+        assertFalse(lastNode.hasTagWithValue(Tags.KEY_AMENITY, "bench"));
+        assertFalse(lastNode.hasParentRelation(r.getOsmId()));
+    }
+
+    /**
+     * Unjoin two ways at one node that has tags and is a relation member
+     */
+    @Test
+    public void unjoinWaysAtTaggedNode() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = DelegatorUtil.addWayToStorage(d, false);
+        final Node n1 = w.getNodes().get(1);
+        Way w2 = d.createAndInsertWay(n1);
+        final Node n2 = w.getNodes().get(2);
+        d.addNodeToWay(n2, w2);
+
+        Map<String, String> tags = new TreeMap<>();
+        tags.put(Tags.KEY_AMENITY, "bench");
+        n1.setTags(tags);
+
+        Relation r = d.getFactory().createRelationWithNewId();
+        RelationMember member = new RelationMember("test", n1);
+        r.addMember(member);
+        d.insertElementSafe(r);
+        n1.addParentRelation(r);
+
+        assertEquals(2, d.getApiWayCount());
+        assertEquals(w.nodeCount(), d.getApiNodeCount());
+
+        d.unjoinWays(n1);
+
+        final Node firstNode = w2.getFirstNode();
+
+        assertTrue(firstNode.hasTagWithValue(Tags.KEY_AMENITY, "bench"));
+        assertTrue(firstNode.hasParentRelation(r.getOsmId()));
+        
+        final Node oNode =  w.getNodes().get(1);
+        assertTrue(oNode.hasTagWithValue(Tags.KEY_AMENITY, "bench"));
+        assertTrue(oNode.hasParentRelation(r.getOsmId()));
+        
+        assertNotEquals(firstNode, oNode);
     }
 
     /**
@@ -1453,6 +1553,35 @@ public class StorageDelegatorTest {
     }
 
     /**
+     * Split closed way that is part of a not completely downloaded route
+     */
+    @Test
+    public void splitClosedWithIncompleteRouteRelation() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = DelegatorUtil.addWayToStorage(d, true);
+        assertTrue(w.isClosed());
+
+        Relation r = w.getParentRelations().get(0);
+        // add dummy members before and after the way we are splitting
+        r.addMemberBefore(r.getMember(w), new RelationMember(Way.NAME, 12345, ""));
+        r.addMemberAfter(r.getMember(w), new RelationMember(Way.NAME, 12346, ""));
+        Map<String, String> routeTag = new HashMap<>();
+        routeTag.put(Tags.KEY_TYPE, Tags.VALUE_ROUTE);
+        r.setTags(routeTag);
+
+        Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
+        assertNotNull(temp);
+        Node n1 = w.getNodes().get(1);
+        Node n2 = w.getNodes().get(2);
+        List<Result> results = d.splitAtNodes(w, n1, n2, false);
+        assertNotNull(results);
+        assertEquals(3, results.size());
+        Result relationResult = results.get(2);
+        assertEquals(r, relationResult.getElement());
+        assertTrue(relationResult.getIssues().contains(SplitIssue.SPLIT_ROUTE_ORDERING));
+    }
+
+    /**
      * Split way at node with route relation
      */
     @Test
@@ -1511,10 +1640,10 @@ public class StorageDelegatorTest {
     public void splitWithRouteRelationLimit() {
         App.newLogic();
         Logic logic = App.getLogic();
-        Preferences prefs = new Preferences(ApplicationProvider.getApplicationContext());
+        Preferences prefs = new Preferences(main);
         Server server = prefs.getServer();
-        DataStyle styles = App.getDataStyle(ApplicationProvider.getApplicationContext());
-        styles.getStylesFromFiles(ApplicationProvider.getApplicationContext());
+        DataStyleManager styles = App.getDataStyleManager(main);
+        styles.getStylesFromFiles(main);
         try {
             server.getCachedCapabilities().setMaxRelationMembers(1);
             logic.setPrefs(prefs);
@@ -1726,10 +1855,10 @@ public class StorageDelegatorTest {
     public void addMemberToRelationLimit() {
         App.newLogic();
         Logic logic = App.getLogic();
-        Preferences prefs = new Preferences(ApplicationProvider.getApplicationContext());
+        Preferences prefs = new Preferences(main);
         Server server = prefs.getServer();
-        DataStyle styles = App.getDataStyle(ApplicationProvider.getApplicationContext());
-        styles.getStylesFromFiles(ApplicationProvider.getApplicationContext());
+        DataStyleManager styles = App.getDataStyleManager(main);
+        styles.getStylesFromFiles(main);
         try {
             server.getCachedCapabilities().setMaxRelationMembers(1);
             logic.setPrefs(prefs);
@@ -1756,7 +1885,7 @@ public class StorageDelegatorTest {
     @Test
     public void createCircle() {
         Logic logic = App.newLogic();
-        logic.setMap(new de.blau.android.Map(ApplicationProvider.getApplicationContext()), true);
+        logic.setMap(new de.blau.android.Map(main), true);
         StorageDelegator d = new StorageDelegator();
         OsmElementFactory factory = d.getFactory();
         Node n1 = factory.createNodeWithNewId(toE7(48.7779677), toE7(9.1812482));
@@ -1781,7 +1910,7 @@ public class StorageDelegatorTest {
     @Test
     public void arrangeInCircle() {
         Logic logic = App.newLogic();
-        logic.setMap(new de.blau.android.Map(ApplicationProvider.getApplicationContext()), true);
+        logic.setMap(new de.blau.android.Map(main), true);
         StorageDelegator d = new StorageDelegator();
         OsmElementFactory factory = d.getFactory();
         Node n1 = factory.createNodeWithNewId(toE7(48.7779677), toE7(9.1812482));
@@ -1880,11 +2009,28 @@ public class StorageDelegatorTest {
         assertNotNull(newNode);
         List<OsmElement> toUpload = new ArrayList<>();
         toUpload.add(newNode);
-        sd.addRequiredElements(ApplicationProvider.getApplicationContext(), toUpload);
+        sd.addRequiredElements(main, toUpload);
         assertTrue(toUpload.contains(newNode));
         assertTrue(toUpload.contains(sd.getOsmElement(Way.NAME, 28075087L)));
     }
-    
+
+    /**
+     * Newly created way node upload should force upload of way, check that way isn't duplicated if already present
+     */
+    @Test
+    public void uploadNewWayNodeTest2() {
+        StorageDelegator sd = UnitTestUtils.loadTestData(getClass(), "selective-upload1.osm");
+        Node newNode = (Node) sd.getOsmElement(Node.NAME, -1L);
+        assertNotNull(newNode);
+        List<OsmElement> toUpload = new ArrayList<>();
+        toUpload.add(newNode);
+        toUpload.add(sd.getOsmElement(Way.NAME, 28075087L));
+        sd.addRequiredElements(main, toUpload);
+        assertEquals(2, toUpload.size());
+        assertTrue(toUpload.contains(newNode));
+        assertTrue(toUpload.contains(sd.getOsmElement(Way.NAME, 28075087L)));
+    }
+
     /**
      * Upload of modified way needs to include newly created node
      */
@@ -1895,11 +2041,11 @@ public class StorageDelegatorTest {
         assertNotNull(modifiedWay);
         List<OsmElement> toUpload = new ArrayList<>();
         toUpload.add(modifiedWay);
-        sd.addRequiredElements(ApplicationProvider.getApplicationContext(), toUpload);
+        sd.addRequiredElements(main, toUpload);
         assertTrue(toUpload.contains(modifiedWay));
         assertTrue(toUpload.contains(sd.getOsmElement(Node.NAME, -1L)));
     }
-    
+
     /**
      * Upload of modified relation needs to include newly created way
      */
@@ -1910,10 +2056,112 @@ public class StorageDelegatorTest {
         assertNotNull(modifiedRelation);
         List<OsmElement> toUpload = new ArrayList<>();
         toUpload.add(modifiedRelation);
-        sd.addRequiredElements(ApplicationProvider.getApplicationContext(), toUpload);
+        sd.addRequiredElements(main, toUpload);
         assertTrue(toUpload.contains(modifiedRelation));
         assertTrue(toUpload.contains(sd.getOsmElement(Way.NAME, -1L)));
         assertTrue(toUpload.contains(sd.getOsmElement(Node.NAME, -2L)));
         assertTrue(toUpload.contains(sd.getOsmElement(Node.NAME, -3L)));
+    }
+
+    /**
+     * As above but check that we protect against relation loops
+     */
+    @Test
+    public void uploadModifiedRelationTest2() {
+        StorageDelegator sd = UnitTestUtils.loadTestData(getClass(), "selective-upload2.osm");
+        Relation modifiedRelation = (Relation) sd.getOsmElement(Relation.NAME, 29169L);
+        assertNotNull(modifiedRelation);
+        Relation loop = sd.createAndInsertRelation(Util.wrapInList(modifiedRelation));
+        loop.addMember(new RelationMember("", loop));
+        modifiedRelation.addMember(new RelationMember("", loop));
+
+        List<OsmElement> toUpload = new ArrayList<>();
+        toUpload.add(modifiedRelation);
+        sd.addRequiredElements(main, toUpload);
+        assertTrue(toUpload.contains(modifiedRelation));
+        assertTrue(toUpload.contains(loop));
+        assertTrue(toUpload.contains(sd.getOsmElement(Way.NAME, -1L)));
+        assertTrue(toUpload.contains(sd.getOsmElement(Node.NAME, -2L)));
+        assertTrue(toUpload.contains(sd.getOsmElement(Node.NAME, -3L)));
+    }
+
+    /**
+     * Reverse a way
+     */
+    @Test
+    public void reverseWay1() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = DelegatorUtil.addWayToStorage(d, false);
+        Node firstNode = w.getFirstNode();
+        Node lastNode = w.getLastNode();
+        SortedMap<String, String> tags = new TreeMap<>(w.getTags());
+        tags.put(Tags.KEY_HIGHWAY, "residential");
+        tags.put(Tags.KEY_ONEWAY, Tags.VALUE_YES);
+        w.setTags(tags);
+        List<Result> result = d.reverseWay(w);
+        assertEquals(1, result.size());
+        assertEquals(1, result.get(0).getIssues().size());
+        assertEquals(ReverseIssue.ONEWAY_DIRECTION_REVERSED, new ArrayList<Issue>(result.get(0).getIssues()).get(0));
+        assertTrue(w.hasTag(Tags.KEY_ONEWAY, Tags.VALUE_YES)); // shouldn't change
+        assertEquals(lastNode, w.getFirstNode());
+        assertEquals(firstNode, w.getLastNode());
+    }
+
+    /**
+     * Reverse a way
+     */
+    @Test
+    public void reverseWay2() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = DelegatorUtil.addWayToStorage(d, false);
+        Node firstNode = w.getFirstNode();
+        Node lastNode = w.getLastNode();
+        SortedMap<String, String> tags = new TreeMap<>(w.getTags());
+        tags.put(Tags.KEY_HIGHWAY, "residential");
+        tags.put(Tags.KEY_SIDEWALK + ":left", Tags.VALUE_YES);
+        w.setTags(tags);
+        List<Result> result = d.reverseWay(w);
+        assertEquals(1, result.size());
+        assertEquals(1, result.get(0).getIssues().size());
+        assertEquals(ReverseIssue.TAGS_REVERSED, new ArrayList<Issue>(result.get(0).getIssues()).get(0));
+        w.hasTag(Tags.KEY_SIDEWALK + ":right", Tags.VALUE_YES);
+        assertEquals(lastNode, w.getFirstNode());
+        assertEquals(firstNode, w.getLastNode());
+    }
+
+    /**
+     * Reverse a way
+     */
+    @Test
+    public void reverseWay3() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = DelegatorUtil.addWayToStorage(d, false);
+        Node firstNode = w.getFirstNode();
+        Node lastNode = w.getLastNode();
+        SortedMap<String, String> tags = new TreeMap<>(w.getTags());
+        tags.put(Tags.KEY_HIGHWAY, "residential");
+        tags.put(Tags.KEY_ONEWAY, Tags.VALUE_NO);
+        w.setTags(tags);
+        List<Result> result = d.reverseWay(w);
+        assertEquals(0, result.size());
+        assertEquals(lastNode, w.getFirstNode());
+        assertEquals(firstNode, w.getLastNode());
+    }
+
+    @Test
+    public void undoLast() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = DelegatorUtil.addWayToStorage(d, true);
+        assertEquals(OsmElement.STATE_CREATED, w.getState());
+        UndoStorage undo = d.getUndo();
+        undo.createCheckpoint("Test checkpoint", null);
+        d.removeWay(w);
+        assertEquals(OsmElement.STATE_DELETED, w.getState());
+        d.undoLast(main, w);
+        assertEquals(OsmElement.STATE_CREATED, w.getState());
+        List<Checkpoint> checkpoints = d.getUndo().getUndoCheckpoints(w);
+        assertEquals(3, checkpoints.size());
+        assertEquals("Test checkpoint", checkpoints.get(1).getName());
+        assertEquals(main.getString(R.string.undo_action_fix_conflict), checkpoints.get(2).getName());
     }
 }

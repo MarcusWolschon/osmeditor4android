@@ -7,14 +7,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Locale.Builder;
 import java.util.Map;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
-import android.app.LocaleConfig;
 import android.content.Context;
-import android.os.Build;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +22,7 @@ import de.blau.android.R;
 
 public final class LocaleUtils {
 
+    private static final String LOCALE    = "locale";
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, LocaleUtils.class.getSimpleName().length());
     private static final String DEBUG_TAG = LocaleUtils.class.getSimpleName().substring(0, TAG_LEN);
 
@@ -815,44 +815,6 @@ public final class LocaleUtils {
         return loc.toLanguageTag();
     }
 
-    // The following code is
-    //
-    // Copyright 2014 The Chromium Authors. All rights reserved.
-    // Use of this source code is governed by a BSD-style license that can be
-    // found in the LICENSE file.
-    // https://chromium.googlesource.com/chromium/+/refs/heads/trunk/LICENSE
-
-    /**
-     * This function creates a Locale object from xx-XX style string where xx is language code and XX is a country code.
-     * This works for API level lower than 21.
-     * 
-     * @param languageTag the language code string
-     * @return the locale that best represents the language tag.
-     */
-    @NonNull
-    public static Locale forLanguageTagCompat(@NonNull String languageTag) {
-        String[] tag = languageTag.split("-");
-        if (tag.length == 0) {
-            return new Locale("");
-        }
-        String language = tag[0];
-        if ((language.length() != 2 && language.length() != 3)) {
-            return new Locale("");
-        }
-        if (tag.length == 1) {
-            return new Locale(language);
-        }
-        String country = tag[1];
-        if (country.length() != 2 && country.length() != 3) {
-            return new Locale(language);
-        }
-        if (tag.length == 2) {
-            return new Locale(language, country);
-        }
-        String variant = tag[2];
-        return new Locale(language, country, variant);
-    }
-
     /**
      * This function creates a Locale object from xx-XX style string where xx is language code and XX is a country code.
      * 
@@ -893,21 +855,18 @@ public final class LocaleUtils {
     /**
      * Get a list of supported locales for the app
      * 
-     * For devices prior to Android 13 this reads and parses locales_config.xml directly, note that since we are using
-     * automatic generation of the file it has a different name.
+     * Don't use the built-in parsing of the config file with LocaleConfig(context).getSupportedLocales()as that is
+     * broken anyway
      * 
      * @param context an Android Context
      * @return a LocaleListCompat
      */
     public static LocaleListCompat getSupportedLocales(@NonNull Context context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            return LocaleListCompat.wrap(new LocaleConfig(context).getSupportedLocales());
-        }
         List<String> locales = new ArrayList<>();
         try {
-            XmlPullParser parser = context.getResources().getXml(R.xml._generated_res_locale_config);
+            XmlPullParser parser = context.getResources().getXml(R.xml.res_locale_config);
             while (parser.getEventType() != XmlPullParser.END_DOCUMENT) {
-                if (parser.getEventType() == XmlPullParser.START_TAG && "locale".equals(parser.getName())) {
+                if (parser.getEventType() == XmlPullParser.START_TAG && LOCALE.equals(parser.getName())) {
                     locales.add(parser.getAttributeValue(0));
                 }
                 parser.next();
@@ -927,6 +886,6 @@ public final class LocaleUtils {
     @NonNull
     public static Locale localeFromAndroidLocaleTag(@NonNull String localeString) {
         String[] code = localeString.split(ANDROID_LOCALE_SEPARATOR);
-        return code.length == 1 ? new Locale(code[0]) : new Locale(code[0], code[1]);
+        return code.length == 1 ? Locale.forLanguageTag(code[0]) : new Builder().setLanguage(code[0]).setRegion(code[1]).build();
     }
 }

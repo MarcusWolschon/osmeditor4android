@@ -3,6 +3,7 @@ package de.blau.android.dialogs;
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -230,7 +231,7 @@ public class UploadRetry extends CancelableDialogFragment {
             }
 
             @Override
-            protected Integer doInBackground(Long id) throws NumberFormatException, XmlPullParserException, IOException {
+            protected Integer doInBackground(Long id) throws NumberFormatException, XmlPullParserException, IOException, URISyntaxException {
 
                 Server server = prefs.getServer();
                 // get the osmChange xml for the changeset

@@ -24,8 +24,8 @@ public class LocaleUtilsTest {
         java = Locale.forLanguageTag("in");
         assertEquals("id", LocaleUtils.toLanguageTag(java));
 
-        Locale ny = LocaleUtils.forLanguageTagCompat("no-NO-NY");
-        assertEquals("nn-NO", LocaleUtils.toLanguageTag(ny));
+        Locale ny = LocaleUtils.forLanguageTag("no-NO-NY");
+        assertEquals("no-NO", LocaleUtils.toLanguageTag(ny));
     }
 
     /**
@@ -37,7 +37,7 @@ public class LocaleUtilsTest {
 
         Locale locale = LocaleUtils.forLanguageTag("de-CH");
         assertEquals(java, locale);
-        locale = LocaleUtils.forLanguageTagCompat("de-CH");
+        locale = LocaleUtils.forLanguageTag("de-CH");
         assertEquals(java, locale);
 
         java = Locale.forLanguageTag("");

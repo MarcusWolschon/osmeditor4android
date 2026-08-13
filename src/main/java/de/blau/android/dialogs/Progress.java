@@ -32,18 +32,20 @@ public class Progress extends CancelableDialogFragment {
     public static final int PROGRESS_SAVING                    = 5;
     public static final int PROGRESS_OAUTH                     = 6;
     public static final int PROGRESS_UPLOADING                 = 7;
-    public static final int PROGRESS_PRESET                    = 8;
-    public static final int PROGRESS_RUNNING                   = 9;
-    public static final int PROGRESS_BUILDING_IMAGERY_DATABASE = 10;
-    public static final int PROGRESS_QUERY_OAM                 = 11;
-    public static final int PROGRESS_PRUNING                   = 12;
-    public static final int PROGRESS_MIGRATION                 = 13;
-    public static final int PROGRESS_LOADING_PRESET            = 14;
-    public static final int PROGRESS_IMPORTING_FILE            = 15;
-    public static final int PROGRESS_DOWNLOAD_TASKS            = 16;
-    public static final int PROGRESS_DOWNLOAD_SEQUENCE         = 17;
-    public static final int PROGRESS_DETERMINING_STATUS        = 18;
-    public static final int PROGRESS_UPDATING                  = 19;
+    public static final int PROGRESS_RESOURCE_LOAD             = 8;
+    public static final int PROGRESS_RESOURCE_DOWNLOAD         = 9;
+    public static final int PROGRESS_RUNNING                   = 10;
+    public static final int PROGRESS_BUILDING_IMAGERY_DATABASE = 11;
+    public static final int PROGRESS_QUERY_OAM                 = 12;
+    public static final int PROGRESS_PRUNING                   = 13;
+    public static final int PROGRESS_MIGRATION                 = 14;
+    public static final int PROGRESS_LOADING_PRESET            = 15;
+    public static final int PROGRESS_IMPORTING_FILE            = 16;
+    public static final int PROGRESS_DOWNLOAD_TASKS            = 17;
+    public static final int PROGRESS_DOWNLOAD_SEQUENCE         = 18;
+    public static final int PROGRESS_DETERMINING_STATUS        = 19;
+    public static final int PROGRESS_UPDATING                  = 20;
+    public static final int PROGRESS_CALCULATING               = 21;
 
     private int    dialogType;
     private String messageArg;
@@ -97,7 +99,7 @@ public class Progress extends CancelableDialogFragment {
      * @param activity the calling FragmentActivity
      * @param dialogType an int indicating which heading to show
      */
-    public static void dismissDialog(@NonNull FragmentActivity activity, int dialogType) {
+    public static void dismissDialog(@Nullable FragmentActivity activity, int dialogType) {
         dismissDialog(activity, dialogType, null);
     }
 
@@ -109,7 +111,11 @@ public class Progress extends CancelableDialogFragment {
      *            spinners
      * @param tag a String identifying the dialog we want to dismiss or null
      */
-    public static void dismissDialog(@NonNull FragmentActivity activity, int dialogType, @Nullable String tag) {
+    public static void dismissDialog(@Nullable FragmentActivity activity, int dialogType, @Nullable String tag) {
+        if (activity == null) {
+            Log.e(DEBUG_TAG, "dismissDialog called with null Activity");
+            return;
+        }
         tag = getTag(dialogType) + (tag != null ? "-" + tag : "");
         de.blau.android.dialogs.Util.dismissDialog(activity, tag);
     }
@@ -127,7 +133,8 @@ public class Progress extends CancelableDialogFragment {
         dismissDialog(activity, PROGRESS_SAVING);
         dismissDialog(activity, PROGRESS_OAUTH);
         dismissDialog(activity, PROGRESS_UPLOADING);
-        dismissDialog(activity, PROGRESS_PRESET);
+        dismissDialog(activity, PROGRESS_RESOURCE_LOAD);
+        dismissDialog(activity, PROGRESS_RESOURCE_DOWNLOAD);
         dismissDialog(activity, PROGRESS_RUNNING);
         dismissDialog(activity, PROGRESS_BUILDING_IMAGERY_DATABASE);
         dismissDialog(activity, PROGRESS_QUERY_OAM);
@@ -139,6 +146,7 @@ public class Progress extends CancelableDialogFragment {
         dismissDialog(activity, PROGRESS_DOWNLOAD_SEQUENCE);
         dismissDialog(activity, PROGRESS_DETERMINING_STATUS);
         dismissDialog(activity, PROGRESS_UPDATING);
+        dismissDialog(activity, PROGRESS_CALCULATING);
     }
 
     /**
@@ -164,8 +172,10 @@ public class Progress extends CancelableDialogFragment {
             return "dialog_progress_oauth";
         case PROGRESS_UPLOADING:
             return "dialog_progress_uploading";
-        case PROGRESS_PRESET:
-            return "dialog_progress_preset";
+        case PROGRESS_RESOURCE_LOAD:
+            return "dialog_progress_resource_load";
+        case PROGRESS_RESOURCE_DOWNLOAD:
+            return "dialog_progress_resource_download";
         case PROGRESS_RUNNING:
             return "dialog_progress_running";
         case PROGRESS_BUILDING_IMAGERY_DATABASE:
@@ -188,6 +198,8 @@ public class Progress extends CancelableDialogFragment {
             return "dialog_progress_determining_status";
         case PROGRESS_UPDATING:
             return "dialog_progress_updating";
+        case PROGRESS_CALCULATING:
+            return "dialog_progress_calculating";
         default:
             Log.w(DEBUG_TAG, "Unknown dialog type " + dialogType);
         }

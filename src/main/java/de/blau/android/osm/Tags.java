@@ -188,7 +188,12 @@ public final class Tags {
     public static final String KEY_BRAND_WIKIPEDIA = "brand:wikipedia";
     public static final String KEY_BRAND_WIKIDATA  = "brand:wikidata";
 
-    public static final String KEY_RAILWAY = "railway";
+    // image tags
+    public static final String KEY_PANORAMAX = "panoramax";
+
+    public static final String KEY_RAILWAY              = "railway";
+    public static final String KEY_RAILWAY_TURNOUT_SIDE = "railway:turnout_side";
+
     //
     public static final String KEY_SOURCE   = "source";
     public static final String VALUE_SURVEY = "survey";
@@ -221,6 +226,7 @@ public final class Tags {
     public static final String KEY_BOUNDARY           = "boundary";
     public static final String ROLE_OUTER             = "outer";
     public static final String ROLE_INNER             = "inner";
+    public static final String ROLE_SUBAREA           = "subarea";
 
     /**
      * Check if a relation member element should be treated as a via element
@@ -258,6 +264,7 @@ public final class Tags {
     public static final String KEY_MAXSPEED = "maxspeed";
     public static final String KEY_MINSPEED = "minspeed";
     public static final String MPH          = " mph";
+    public static final String VARIABLE     = "variable";
 
     /**
      * Check if the key has something to do with a vehicle speed
@@ -266,7 +273,8 @@ public final class Tags {
      * @return true is a speed related key
      */
     public static boolean isSpeedKey(@Nullable final String key) {
-        return key != null && (key.startsWith(KEY_MAXSPEED) || key.startsWith(KEY_MINSPEED)) && !(key.contains(KEY_SOURCE) || key.contains(KEY_TYPE));
+        return key != null && (key.startsWith(KEY_MAXSPEED) || key.startsWith(KEY_MINSPEED))
+                && !(key.contains(KEY_SOURCE) || key.contains(KEY_TYPE) || key.contains(VARIABLE));
     }
 
     public static final String KEY_ACCESS        = "access";
@@ -402,8 +410,9 @@ public final class Tags {
     public static final String VALUE_NO    = "no";
     public static final String VALUE_FALSE = "false";
     //
-    public static final String KEY_WIKIPEDIA = "wikipedia";
-    public static final String KEY_WIKIDATA  = "wikidata";
+    public static final String KEY_WIKIPEDIA         = "wikipedia";
+    public static final String KEY_WIKIDATA          = "wikidata";
+    public static final String KEY_WIKIMEDIA_COMMONS = "wikimedia_commons";
 
     public static final String KEY_OPENING_HOURS    = "opening_hours";
     public static final String KEY_SERVICE_TIMES    = "service_times";
@@ -435,10 +444,10 @@ public final class Tags {
     }
 
     // keys where the values are URLs
-    private static final String KEY_WEBSITE         = "website";
-    private static final String KEY_CONTACT_WEBSITE = "contact:website";
-    public static final String  HTTP_PREFIX         = "http://";
-    public static final String  HTTPS_PREFIX        = "https://";
+    public static final String KEY_WEBSITE         = "website";
+    public static final String KEY_CONTACT_WEBSITE = "contact:website";
+    public static final String HTTP_PREFIX         = "http://";
+    public static final String HTTPS_PREFIX        = "https://";
 
     /**
      * Check if this is a key that expects an URL

@@ -60,7 +60,7 @@ public class AuthorizationTest {
         mockServer = new MockWebServerPlus();
         HttpUrl mockUrl = mockServer.server().url("/");
         try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(main)) {
-            KeyDatabaseHelper.replaceOrDeleteKey(keyDatabase.getWritableDatabase(), "OpenStreetMap sandbox", EntryType.API_OAUTH2_KEY, "1111111111", false, true, "empty", mockUrl.toString());
+            KeyDatabaseHelper.replaceOrDeleteKey(keyDatabase.getWritableDatabase(), "OpenStreetMap sandbox", EntryType.API_OAUTH2_KEY, "1111111111", false, true, "empty", mockUrl.toString(), null);
         }
         mockApiServer = new MockWebServerPlus();
         HttpUrl mockApiBaseUrl = mockApiServer.server().url("/api/0.6/");
@@ -68,7 +68,7 @@ public class AuthorizationTest {
 
         prefDB = new AdvancedPrefDatabase(context);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockApiBaseUrl.toString(), null, null, new AuthParams(API.Auth.OAUTH2, "user", "pass", null, null), false);
+        prefDB.addAPI("Test", "Test", mockApiBaseUrl.toString(), null, null, new AuthParams(API.Auth.OAUTH2, "user", "pass", null, null), false, false);
         prefDB.selectAPI("Test");
         prefDB.resetCurrentServer();
         Preferences prefs = new Preferences(context);
@@ -104,7 +104,7 @@ public class AuthorizationTest {
     @Test
     public void startAuthorization() {
         ActivityMonitor monitor = instrumentation.addMonitor(Authorize.class.getName(), null, false);
-
+        mockServer.enqueue("loaded");
         if (!TestUtils.clickMenuButton(device, main.getString(R.string.menu_tools), false, true)) {
             TestUtils.clickOverflowButton(device);
             TestUtils.clickText(device, false, main.getString(R.string.menu_tools), true, false);
@@ -113,7 +113,7 @@ public class AuthorizationTest {
         TestUtils.clickText(device, false, main.getString(R.string.menu_tools_oauth_authorisation), true, false);
         instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         instrumentation.removeMonitor(monitor);
-        mockServer.enqueue("loaded");
+        
         assertTrue(TestUtils.findText(device, false, "OpenStreetMap sandbox", 10000));
         assertTrue(TestUtils.clickText(device, false, "OpenStreetMap sandbox", true));
         assertTrue(TestUtils.findText(device, false, "Loaded", 10000));

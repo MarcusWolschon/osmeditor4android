@@ -31,7 +31,6 @@
   <string name="local_object">Version locale</string>
   <string name="resolve_by">Résoudre le conflit en…</string>
   <string name="resolve">Résoudre</string>
-  <string name="delete_refering_element">… en supprimant l’élément de référence</string>
   <string name="use_local_version">... en utilisant la version locale</string>
   <string name="merge_tags_in_to_local">… fusionner les attributs dans la version locale</string>
   <string name="merge_tags_in_to_server">… fusionner les attributs dans la version serveur</string>
@@ -129,7 +128,6 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="progress_searching_message">Recherche…</string>
   <string name="progress_saving_message">Sauvegarde…</string>
   <string name="progress_uploading_message">Envoi…</string>
-  <string name="progress_preset_message">Téléchargement des modèles d\'attributs…</string>
   <string name="progress_loading_preset_message">Chargement des modèles d\'attributs...</string>
   <string name="progress_importing_file_message">Importation du fichier...</string>
   <string name="progress_running_message">Lancement…</string>
@@ -220,6 +218,7 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="toast_no_open_todos">Pas de tâche ouverte</string>
   <string name="toast_no_todos_in_list">Pas de tâche dans la liste sélectionnée</string>
   <string name="save_changes_title">Enregistrer les modifications ?</string>
+  <!--System created todo lists-->
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Attention !</string>
   <string name="unsaved_data_message">Vos modifications non enregistrées seront abandonnées si vous continuez.</string>
@@ -233,8 +232,10 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="imagery_offset_date">Créé</string>
   <string name="imagery_offset_zoom">Zoom</string>
   <string name="imagery_offset_distance">Distance</string>
+  <!--Position modal-->
   <string name="set_position_datum_label">Système géodésique</string>
   <string name="WGS84">WGS84</string>
+  <!---->
   <string name="tag_editor_name_suggestion">Suggestion de nom</string>
   <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">Cette suggestion peut remplacer certaines valeurs d\'attributs par des valeurs plus courantes.</string>
@@ -334,7 +335,6 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="other">Autre</string>
   <!--Safe split dialog-->
   <string name="split_safe_title">Il manque des membres de la relation</string>
-  <string name="split_safe_message">Les chemins voisins membres de la relation ne sont pas téléchargés. Conserver l\'ordre des membres de la relation peut dépendre de ceci.</string>
   <!--JS console dialog-->
   <string name="evaluate">Evaluer</string>
   <string name="js_console_msg_live">Mode direct</string>
@@ -351,6 +351,7 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="select_result">Sélectionner le résultat</string>
   <string name="merge_result">Fusionner le résultat</string>
   <string name="overpass_query_would_overwrite">Le résultat écraserait les changements ! Requête annulée.</string>
+  <!--Download missing dialog-->
   <!---->
   <string name="error">Erreur</string>
   <string name="warning">Avertissement</string>
@@ -517,9 +518,9 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="undo_location_zoom">Zoomer sur l\'emplacement puis annuler</string>
   <!--Value widget dialogs-->
   <!--Feedback activity-->
-  <string name="feedback_with_displayname">Envoyer avec votre nom d\'affichage OpenStreetMap</string>
-  <string name="feedback_displayname_hint">Nom d\'affichage OpenStreetMap pas encore récupéré</string>
   <string name="feedback_title">Retours pour les développeurs</string>
+  <string name="feedback_with_displayname">Envoyer avec votre nom d\'affichage OpenStreetMap</string>
+  <string name="feedback_success_title">Réussite</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Télécharger les données d\'OpenStreetMap</string>
   <!--Clear/Reset GPX Track-->
@@ -543,7 +544,6 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="tip_mode_switching">Le bouton de verouillage permet également de changer de mode, un appui long affichera le menu avec les différentes options.&lt;p&gt; Vous pouvez trouver plus d\'informations sur les modes de Vespucci dans l\'aide.</string>
   <string name="tip_empty_gpx_download">En raison d\'une bizarrerie dans l\'API OSM, le point de départ de la trace GPX doit être visible pour qu\'elle puisse être trouvée pour être téléchargée.</string>
   <string name="tip_no_redo">Ce mode ne supporte pas actuellement le ré-ajout de nœuds.</string>
-  <string name="tip_way_splitting">Sélectionnez un noeud en surbrillance pour indiquer l\'emplacement de séparation. Un appui long permettra de définir quelle partie servira de nouvelle voie dans une étape suivante.</string>
   <string name="tip_disambiguation_menu">Lorsque plusieurs éléments sont proches ou qu\'ils font partie de relations, le menu de sélection s\'affichera. Vous pouvez alors sélectionner précisément l\'élément dans la liste.&lt;p&gt;Si un élément est déjà sélectionné, il apparaitra en surbrillance.</string>
   <string name="tip_file_import">Sur les appareils équipés d\' Android 10 ou supérieur, l\'application doit copier les fichiers pour y avoir l\'accès total. Les copies sont disponibles dans &lt;i&gt;Downloads/Vespucci/imports&lt;/i&gt;. Si nécessaire, vous pouvez supprimer les fichiers initiaux et conserver uniquement les copies.</string>
   <string name="tip_wms_tile_size">Les serveurs WMS peuvent fournir des tuiles plus grandes que 256x256. Pour une configuration plus performante, pensez à utiliser du 512x512.</string>
@@ -635,16 +635,11 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="toast_min_one_geocoder">Au moins un géocodeur doit être sélectionné !</string>
   <string name="toast_used_backup">Le fichier est corrompu. Utilisation du fichier de sauvegarde.</string>
   <string name="toast_used_bug_backup">Le fichier des bugs est corrompu. Utilisation du fichier de sauvegarde.</string>
-  <string name="toast_split_from">Voie « from » coupée</string>
-  <string name="toast_split_via">Voie « via » coupée</string>
-  <string name="toast_split_from_and_via">Voies « from » et « via » coupées</string>
-  <string name="toast_split_to">Voie « to » coupée</string>
   <string name="toast_tile_database_issue_short">Problème avec la base des tuiles</string>
   <string name="toast_tile_database_issue">Problème sérieux avec la base de données des tuiles\n« %1$s »\nConsultez notre FAQ sur https://vespucci.io/</string>
   <string name="toast_invalid_apiurl">URL d\'API invalide</string>
   <string name="toast_invalid_readonlyurl">URL d\'API en lecture seule invalide</string>
   <string name="toast_invalid_notesurl">URL d\'API des notes invalide</string>
-  <string name="toast_invalid_preseturl">URL des modèles invalide</string>
   <string name="toast_invalid_filter_regexp">Expression régulière invalide dans le filtre avec la clef « %1$s » et la valeur « %2$s »</string>
   <string name="toast_error_accessing_photo">Impossible d\'accéder à la photo %1$s</string>
   <string name="toast_no_photo_found">Aucune photo trouvée</string>
@@ -763,6 +758,7 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="check">Vérifier</string>
   <string name="download">Télécharger</string>
   <string name="abort">Annuler</string>
+  <string name="pause">Pause</string>
   <string name="ignore">Ignorer</string>
   <string name="select">Sélectionner</string>
   <string name="skip">Sauter</string>
@@ -893,14 +889,11 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="no_nominatim_result">Le serveur Nominatim n\'a pas trouvé %1$s</string>
   <!--Menu-->
   <string name="menu_move">Naviguer</string>
-  <string name="menu_edit">Déplacer</string>
   <string name="menu_add">Ajouter</string>
   <string name="menu_config">Paramètres</string>
   <string name="menu_find">Rechercher</string>
   <string name="menu_help">Aide</string>
-  <string name="menu_view">Vue</string>
   <string name="menu_erase">Supprimer le nœud</string>
-  <string name="menu_set_position">Position</string>
   <string name="menu_split">Scinder</string>
   <string name="menu_remove_node_from_way">Supprimer un nœud d\'un chemin</string>
   <string name="menu_start_end_way">Début/Fin du chemin</string>
@@ -1039,6 +1032,7 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="menu_layers_enable_bookmarkslayer">Activer le calque de favoris</string>
   <string name="menu_layers_configure">Configurer…</string>
   <string name="menu_layers_background_align">Aligner l\'imagerie...</string>
+  <!--Download along dialog-->
   <!---->
   <string name="menu_tools_apply_local_offset">Appliquer le décalage enregistré à l\'imagerie</string>
   <string name="menu_tools_background_contrast">Contraste</string>
@@ -1090,9 +1084,7 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="actionmode_split_closed_way">Séparer le chemin fermé</string>
   <string name="actionmode_rotate">Pivoter</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">Sélectionner le 1er nœud</string>
   <string name="actionmode_closed_way_split_2">Sélectionner le 2nd nœud</string>
-  <string name="actionmode_split_way_node_selection">Sélectionner le nœud</string>
   <string name="actionmode_split_way_select_part">Sélectionner une partie du nouveau chemin</string>
   <string name="actionmode_select_node_to_append_to">Sélectionner le nœud à ajouter</string>
   <string name="actionmode_restriction">Ajouter une interdiction de tourner</string>
@@ -1155,6 +1147,7 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="config_presetbutton_title">Modèles d\'attributs</string>
   <string name="config_presetbutton_summary">Ajouter et activer des modèles d\'attributs de JOSM</string>
   <string name="config_built_in_preset">Modèle inclus</string>
+  <string name="config_keyboard_shortcuts_title">Raccourcis clavier</string>
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">Paramètres du validateur</string>
   <string name="config_validatorprefs_summary">Configurer les règles de validation</string>
@@ -1180,18 +1173,6 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="config_tagFormEnabled_title">Afficher le formulaire d\'attributs</string>
   <string name="config_tagFormEnabled_summary">Afficher le formulaire d\'attributs pour l\'édition</string>
   <string name="config_supportPresetLabels_title">Afficher les noms depuis les modèles</string>
-  <string name="config_showCameraAction_title">Icône caméra</string>
-  <string name="config_showCameraAction_summary">Ajouter l\'icône caméra sur la barre d\'action</string>
-  <string name="config_selectCameraApp_title">Application photo</string>
-  <string name="config_selectCameraApp_summary">Sélectionner l\'application appareil photo à utiliser.</string>
-  <string name="config_system_camera">Valeur système par défaut</string>
-  <string name="config_open_camera">Ouvrir l\'appareil photo</string>
-  <string name="config_fv5_lite">FV5 léger</string>
-  <string name="config_fv5_pro">FV5 pro</string>
-  <string name="config_useInternalPhotoViewer_title">Utiliser la visionneuse d\'images intégrée</string>
-  <string name="config_useInternalPhotoViewer_summary">Utiliser la visionneuse d\'images intégrées, sinon Vespucci utilisera une visionneuse externe.</string>
-  <string name="config_indexMediaStore_summary">Utiliser également le MediaStore pour accéder aux photos</string>
-  <string name="config_indexMediaStore_title">Utiliser le MediaStore</string>
   <string name="config_followGPSbutton_title">Position du bouton de recentrage GPS</string>
   <string name="config_followGPSbutton_summary">Positionner le bouton « recentrer sur ma position »</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Toujours assombrir les zones non téléchargées</string>
@@ -1239,6 +1220,19 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="config_zoomWithKeys_summary">Autoriser l\'utilisation des touches de volume pour zoomer et dézoomer.</string>
   <string name="config_poi_keys_title">Affichage des POIs proches</string>
   <string name="config_poi_keys_summary">Sélectionner les POIs à afficher dans la fenêtre des POIs proches.</string>
+  <!--Camera and image settings-->
+  <string name="config_showCameraAction_title">Icône caméra</string>
+  <string name="config_showCameraAction_summary">Ajouter l\'icône caméra sur la barre d\'action</string>
+  <string name="config_selectCameraApp_title">Application photo</string>
+  <string name="config_selectCameraApp_summary">Sélectionner l\'application appareil photo à utiliser.</string>
+  <string name="config_system_camera">Valeur système par défaut</string>
+  <string name="config_open_camera">Ouvrir l\'appareil photo</string>
+  <string name="config_fv5_lite">FV5 léger</string>
+  <string name="config_fv5_pro">FV5 pro</string>
+  <string name="config_useInternalPhotoViewer_title">Utiliser la visionneuse d\'images intégrée</string>
+  <string name="config_useInternalPhotoViewer_summary">Utiliser la visionneuse d\'images intégrées, sinon Vespucci utilisera une visionneuse externe.</string>
+  <string name="config_indexMediaStore_summary">Utiliser également le MediaStore pour accéder aux photos</string>
+  <string name="config_indexMediaStore_title">Utiliser le MediaStore</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Paramètres de données et de modifications</string>
   <string name="config_category_editing_summary">Paramètres de téléchargement automatique, de sauvegardes et de notifications.</string>
@@ -1288,6 +1282,8 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="config_minCircleSegment_summary">Distance minimum entre deux nœuds d\'un cercle</string>
   <string name="config_minCircleSegment_current">%1$d mètres</string>
   <string name="config_replaceTolerance_current">%1$d mètres</string>
+  <string name="config_minMoveWayNodesWarning_current">%1$d</string>
+  <string name="config_minMoveVisibleWayNodesWarning_current">%1$d</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Paramètres du téléchargement automatique</string>
   <string name="config_category_auto_download_summary">Les paramètres pour le téléchargement automatique des données et des tâches</string>
@@ -1402,28 +1398,29 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="manage_presets">Gérer les modèles d\'attributs</string>
   <string name="listedit_use_translations">Utiliser des traductions</string>
   <string name="manage_geocoders">Gérer les géocodeurs</string>
+  <string name="geocoder_type">Type de géocodeur</string>
   <!--preset downloader messages-->
   <string name="preset_update">Mettre à jour les modèles d\'attributs</string>
-  <string name="preset_download_successful">Modèles d\'attributs téléchargés avec succès</string>
-  <string name="preset_download_failed">Le fichier de modèles n\'a pas pu être téléchargé. Il ne fonctionnera pas.</string>
-  <string name="preset_download_parse_failed">Le modèles d\'attributs est invalide. Il ne sera pas pris en compte.</string>
   <string name="preset_download_missing_images">Le fichier de modèles a été téléchargé. Cependant, le téléchargement de certaines icônes a échoué.</string>
-  <string name="preset_download_title">Gestionnaire de téléchargement des modèles</string>
   <!--preset management-->
+  <!--style downloader messages-->
+  <!--style management-->
+  <!--Image storage management-->
   <!--url handler activity-->
-  <string name="urldialog_add_preset">Ajouter un modèle d\'attributs</string>
-  <string name="urldialog_preset_exists">Ce modèle d\'attributs existe déjà</string>
-  <string name="urldialog_preset_download_successful">Modèle d\'attributs téléchargé.</string>
   <string name="urldialog_api_exists">Une API avec cette URL existe déjà. Néanmoins, vous pouvez en ajouter une nouvelle (p. ex. pour changer facilement de compte).</string>
-  <string name="urldialog_add_api">Ajouter une API</string>
   <string name="urldialog_nodata_text">L\'URL de configuration ne contient pas de données valides.</string>
-  <string name="urldialog_add_geocoder">Ajouter un géocodeur</string>
   <!--API configuration-->
   <string name="api_name">Nom de l\'API</string>
   <string name="api_url">URL de l\'API</string>
   <string name="readonly_url">URL de l\'API en lecture seule (facultatif)</string>
   <string name="notes_url">URL de l\'API des notes (facultatif)</string>
   <string name="copy_of">Copie de %1$s</string>
+  <!--image upload dialog-->
+  <string name="image_upload">Envoyer</string>
+  <string name="wikimedia_meta_description">Description</string>
+  <string name="wikimedia_meta_source">Source</string>
+  <string name="wikimedia_meta_author">Auteur</string>
+  <string name="wikimedia_meta_category">Catégorie</string>
   <!--common terms-->
   <string name="add">Ajouter</string>
   <string name="edit">Modifier</string>
@@ -1436,13 +1433,13 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="Continue">Poursuivre</string>
   <!---->
   <string name="empty_list">Pas d\'entrées</string>
-  <string name="geocoder_type">Type de géocodeur</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">Modèles d\'attributs</string>
   <string name="api">API</string>
   <string name="undo">Annuler</string>
   <string name="redo">Refaire</string>
   <string name="undo_nothing">Plus rien à annuler</string>
+  <!--background / forground services-->
   <string name="tracking_active_title">Service en tâche de fond de Vespucci</string>
   <string name="tracking_active_title_short">Service de tâche de fond actif</string>
   <string name="tracking_active_text">Enregistrement d\'une trace GPS ou téléchargement automatique</string>
@@ -1579,4 +1576,7 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="tile_success">Réussite</string>
   <string name="tile_fail">Échec</string>
   <string name="tile_unknown_error">Erreur inconnue</string>
+  <!--Keyboard Shortcuts UI-->
+  <string name="keyboard_shortcut_save">Sauvegarder…</string>
+  <string name="keyboard_shortcut_reset">Réinitialiser</string>
 </resources>

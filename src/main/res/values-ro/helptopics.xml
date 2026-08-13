@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="help_app_label">Ajutor</string>
+    <string name="help_preferences">Preferinţe</string>
+    <string name="help_advanced_preferences">Setări avansate</string>
+    <string name="help_presets">Presetări</string>
+    <string name="help_keyboard">Tastatură</string>
+    <string name="help_upgrade_220">Note de lansare 22.0</string>
+    <string name="help_upgrade_212">Note de lansare 21.2</string>
+    <string name="help_upgrade_211">Note de lansare 21.1</string>
+    <string name="help_upgrade_210">Note de lansare 21.0</string>
+    <string name="help_upgrade_202">Note de lansare 20.2</string>
+    <string name="help_upgrade_201">Note de lansare 20.1</string>
+    <string name="help_upgrade_200">Note de lansare 20.0</string>
+    <string name="help_upgrade_193">Note de lansare 19.3</string>
+    <string name="help_upgrade_192">Note de lansare 19.2</string>
+    <string name="help_upgrade_191">Note de lansare 19.1</string>
+    <string name="help_upgrade_190">Note de lansare 19.0</string>
+    <string name="help_upgrade_181">Note de lansare 18.1</string>
+    <string name="help_upgrade_180">Note de lansare 18.0</string>
+    <string name="help_upgrade_171">Note de lansare 17.1</string>
+    <string name="help_upgrade_170">Note de lansare 17.0</string>
+    <string name="help_upgrade_161">Note de lansare 16.1</string>
+    <string name="help_upgrade_160">Note de lansare 16.0</string>
+    <string name="help_upgrade_152">Note de lansare 15.2</string>
+    <string name="help_upgrade_151">Note de lansare 15.1</string>
+    <string name="help_upgrade_150">Note de lansare 15.0</string>
+    <string name="help_upgrade_141">Note de lansare 14.1</string>
+    <string name="help_upgrade_140">Note de lansare 14.0</string>
+    <string name="help_upgrade_131">Note de lansare 13.1</string>
+    <string name="help_upgrade_130">Note de lansare 13.0</string>
+    <string name="help_upgrade_121">Note de lansare 12.1</string>
+    <string name="help_upgrade_120">Note de lansare 12.0</string>
+    <string name="help_upgrade_112">Note de lansare 11.2</string>
+    <string name="help_upgrade_111">Note de lansare 11.1</string>
+    <string name="help_upgrade_110">Note de lansare 11.0</string>
+    <string name="help_upgrade_102">Note de lansare 10.2</string>
+    <string name="help_upgrade_101">Note de lansare 10.1</string>
+    <string name="help_upgrade_100">Note de lansare 10.0</string>
+    <string name="help_upgrade_099">Note de lansare 0.9.9</string>
+    <string name="help_upgrade_098">Note de lansare 0.9.8</string>
+    <string name="help_upgrade_097">Note de lansare 0.9.7</string>
+    <string name="help_upgrade_096">Note de lansare 0.9.6</string>
+    <array translatable="false" name="help_tableofcontents">
+        <item>@string/help_introduction</item>
+        <item>@string/help_safe_mode</item>
+        <item>@string/help_main</item>
+        <item>@string/help_simple_actions</item>
+        <item>@string/help_propertyeditor</item>
+        <item>@string/help_nodeselection</item>
+    	<item>@string/help_wayselection</item>
+    	<item>@string/help_relationselection</item>
+        <item>@string/help_addrelationmember</item>
+    	<item>@string/help_multiselect</item>
+    	<item>@string/help_longclick</item>
+        <item>@string/help_pathcreation</item>
+        <item>@string/help_uploading</item>
+        <item>@string/help_preferences</item>
+        <item>@string/help_advanced_preferences</item>
+        <item>@string/help_custom_imagery</item>
+    	<item>@string/help_presets</item>
+        <item>@string/help_styles</item>	
+        <item>@string/help_rotate</item>
+    	<item>@string/help_aligningbackgroundiamgery</item>
+    	<item>@string/help_conflictresolution</item>
+    	<item>@string/help_gpssources</item>
+    	<item>@string/help_keyboard</item>
+    	<item>@string/help_tagfilter</item>
+    	<item>@string/help_presetfilter</item>
+    	<item>@string/help_opening_hours</item>
+        <item>@string/help_newnoteselection</item>
+        <item>@string/help_tag_only_mode</item>
+        <item>@string/help_indoor_mode</item>
+        <item>@string/help_address_mode</item>
+        <item>@string/help_voice_commands</item>
+        <item>@string/help_add_route_segment</item>
+    	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_220</item>
+        <item>@string/help_upgrade_212</item>
+        <item>@string/help_upgrade_211</item>
+        <item>@string/help_upgrade_210</item>
+        <item>@string/help_upgrade_202</item>
+        <item>@string/help_upgrade_201</item>
+        <item>@string/help_upgrade_200</item>
+        <item>@string/help_upgrade_193</item>
+        <item>@string/help_upgrade_192</item>
+        <item>@string/help_upgrade_191</item>
+        <item>@string/help_upgrade_190</item>
+        <item>@string/help_upgrade_181</item>
+        <item>@string/help_upgrade_180</item>
+        <item>@string/help_upgrade_171</item>
+        <item>@string/help_upgrade_170</item>
+        <item>@string/help_upgrade_161</item>
+        <item>@string/help_upgrade_160</item>
+        <item>@string/help_upgrade_152</item>
+        <item>@string/help_upgrade_151</item>
+        <item>@string/help_upgrade_150</item>
+        <item>@string/help_upgrade_141</item>
+        <item>@string/help_upgrade_140</item>
+        <item>@string/help_upgrade_131</item>
+        <item>@string/help_upgrade_130</item>
+        <item>@string/help_upgrade_121</item>
+        <item>@string/help_upgrade_120</item>
+        <item>@string/help_upgrade_112</item>
+        <item>@string/help_upgrade_111</item>
+        <item>@string/help_upgrade_110</item>
+        <item>@string/help_upgrade_102</item>
+        <item>@string/help_upgrade_101</item>
+    	<item>@string/help_upgrade_100</item>
+    	<item>@string/help_upgrade_099</item>
+    	<item>@string/help_upgrade_098</item>
+    	<item>@string/help_upgrade_097</item>
+    	<item>@string/help_upgrade_096</item>
+        <item>@string/help_privacy</item>
+    </array>
+<!--    The following array needs to mirror the positions in the above one -->
+    <array translatable="false" name="help_files">
+        <item>Introduction</item>
+        <item>Safe mode</item>
+        <item>Main map display</item>
+        <item>Simple actions</item>
+        <item>Property editor</item>
+        <item>Node selected</item>
+    	<item>Way selected</item>
+    	<item>Relation selected</item>
+        <item>Edit relation members</item>
+    	<item>Multiselect</item>
+    	<item>Creating new objects</item>
+        <item>Adding way nodes</item>
+        <item>Uploading your changes</item>
+        <item>Preferences</item>
+        <item>Advanced preferences</item>
+        <item>Custom imagery</item>
+    	<item>Presets</item>
+        <item>Styles</item>	
+        <item>Rotating elements</item>
+    	<item>Aligning background imagery</item>
+    	<item>Conflict resolution</item>
+    	<item>GPS sources</item>
+    	<item>Keyboard</item>
+    	<item>Tag filter</item>
+    	<item>Preset filter</item>
+    	<item>Opening hours</item>
+        <item>New Note selected</item>
+        <item>Tag only mode</item>
+        <item>Indoor mode</item>
+        <item>Address mode</item>
+        <item>Voice commands</item>
+        <item>Add route segment</item>
+        <item>22.1.0 Release notes</item>
+        <item>22.0.0 Release notes</item>
+        <item>21.2.0 Release notes</item>
+        <item>21.1.0 Release notes</item>
+        <item>21.0.0 Release notes</item>
+        <item>20.2.0 Release notes</item>
+        <item>20.1.0 Release notes</item>
+        <item>20.0.0 Release notes</item>
+        <item>19.3.0 Release notes</item>
+        <item>19.2.0 Release notes</item>
+        <item>19.1.0 Release notes</item>
+        <item>19.0.0 Release notes</item>
+        <item>18.1.0 Release notes</item>
+        <item>18.0.0 Release notes</item>
+        <item>17.1.0 Release notes</item>
+        <item>17.0.0 Release notes</item>
+        <item>16.1.0 Release notes</item>
+        <item>16.0.0 Release notes</item>
+        <item>15.2.0 Release notes</item>
+        <item>15.1.0 Release notes</item>
+        <item>15.0.0 Release notes</item>
+        <item>14.1.0 Release notes</item>
+        <item>14.0.0 Release notes</item>
+        <item>13.1.0 Release notes</item>
+        <item>13.0.0 Release notes</item>
+        <item>12.1.0 Release notes</item>
+        <item>12.0.0 Release notes</item>
+        <item>11.2.0 Release notes</item>
+        <item>11.1.0 Release notes</item>
+        <item>11.0.0 Release notes</item>
+        <item>10.2.0 Release notes</item>
+    	<item>10.1.0 Release notes</item>
+    	<item>10.0.0 Release notes</item>
+    	<item>0.9.9 Release notes</item>
+    	<item>0.9.8 Release notes</item>
+    	<item>0.9.7 Release notes</item>
+    	<item>0.9.6 Release notes</item>
+        <item>Privacy</item>
+    </array>
+</resources>

@@ -217,7 +217,7 @@ public class TodoTest {
             mockServer = new MockWebServerPlus();
             HttpUrl mockBaseUrl = mockServer.server().url("/api/0.6/");
             prefDB.deleteAPI("Test");
-            prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null), false);
+            prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null), false, false);
             prefDB.selectAPI("Test");
             Preferences prefs = new Preferences(context);
             main.getMap().setPrefs(main, prefs);
@@ -258,7 +258,7 @@ public class TodoTest {
             mockServer = new MockWebServerPlus();
             HttpUrl mockBaseUrl = mockServer.server().url("/api/0.6/");
             prefDB.deleteAPI("Test");
-            prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null), false);
+            prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, new AuthParams(API.Auth.BASIC, "user", "pass", null, null), false, false);
             prefDB.selectAPI("Test");
             Preferences prefs = new Preferences(context);
             main.getMap().setPrefs(main, prefs);
