@@ -121,13 +121,13 @@ public class MergeAction {
 
         // replace references to mergeFrom node in ways with mergeInto
         try {
-            delegator.lock();
+            delegator.lockWrites();
             Storage currentStorage = delegator.getCurrentStorage();
             for (Way way : currentStorage.getWays((Node) mergeFrom)) {
                 delegator.replaceNodeInWay((Node) mergeFrom, (Node) mergeInto, way);
             }
         } finally {
-            delegator.unlock();
+            delegator.unlockWrites();
         }
         // if we swapped from and into, set position from original into
         if (origCoords != null) {
@@ -275,10 +275,10 @@ public class MergeAction {
         w1.addNodes(newNodes, atBeginning);
         w1.updateState(OsmElement.STATE_MODIFIED);
         try {
-            delegator.lock();
+            delegator.lockWrites();
             delegator.getApiStorage().insertElementSafe(w1);
         } finally {
-            delegator.unlock();
+            delegator.unlockWrites();
         }
         delegator.onElementChanged(null, w1);
         mergeElementsRelations(w1, w2);
@@ -367,12 +367,12 @@ public class MergeAction {
         // undo - mergeInto way saved here, mergeFrom way will not be changed directly and will be saved in removeWay
         delegator.dirty();
         try {
-            delegator.lock();
+            delegator.lockWrites();
             UndoStorage undo = delegator.getUndo();
             undo.save(p1);
             undo.save(p2);
         } finally {
-            delegator.unlock();
+            delegator.unlockWrites();
         }
 
         List<List<Node>> outputRings = new ArrayList<>();
@@ -558,11 +558,11 @@ public class MergeAction {
                 Map<String, String> tags = RelationUtils.addTypeTag(Tags.VALUE_MULTIPOLYGON, result.getTags());
                 delegator.setTags(result, tags);
                 try {
-                    delegator.lock();
+                    delegator.lockWrites();
                     delegator.getUndo().createCheckpoint(map.getContext().getString(R.string.undo_action_move_tags), selection);
                     delegator.recordImagery(map);
                 } finally {
-                    delegator.unlock();
+                    delegator.unlockWrites();
                 }
                 RelationUtils.moveOuterTags(delegator, (Relation) result);
             }
@@ -589,7 +589,7 @@ public class MergeAction {
      */
     private void removeUntaggedNodes(@NonNull List<Node> list) {
         try {
-            delegator.lock();
+            delegator.lockWrites();
             Storage currentStorage = delegator.getCurrentStorage();
             for (Node n : list) {
                 if (!n.hasTags() && currentStorage.getWays(n).isEmpty()) {
@@ -597,7 +597,7 @@ public class MergeAction {
                 }
             }
         } finally {
-            delegator.unlock();
+            delegator.unlockWrites();
         }
     }
 
@@ -735,7 +735,7 @@ public class MergeAction {
         List<Relation> toRelations = mergeInto.getParentRelations() != null ? mergeInto.getParentRelations() : new ArrayList<>();
         Set<OsmElement> changedElements = new HashSet<>();
         try {
-            delegator.lock();
+            delegator.lockWrites();
             UndoStorage undo = delegator.getUndo();
             Storage apiStorage = delegator.getApiStorage();
             for (Relation r : fromRelations) {
@@ -759,7 +759,7 @@ public class MergeAction {
                 }
             }
         } finally {
-            delegator.unlock();
+            delegator.unlockWrites();
         }
         delegator.onElementChanged(null, new ArrayList<>(changedElements));
     }

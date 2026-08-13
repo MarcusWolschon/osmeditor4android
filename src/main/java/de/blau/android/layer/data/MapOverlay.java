@@ -474,16 +474,17 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
         final Logic logic = App.getLogic();
         tmpDrawingEditMode = logic.getMode();
         tmpFilter = logic.getFilter();
-        try {
-            if (logic.tryLock()) {
+
+        if (logic.tryReadLock()) {
+            try {
                 tmpDrawingSelectedNodes = logic.getSelectedNodes();
                 tmpDrawingSelectedWays = logic.getSelectedWays();
                 tmpClickableElements = logic.getClickableElements();
                 tmpDrawingSelectedRelationWays = logic.getSelectedRelationWays();
                 tmpDrawingSelectedRelationNodes = logic.getSelectedRelationNodes();
+            } finally {
+                logic.unlockReads();
             }
-        } finally {
-            logic.unlock();
         }
         tmpPresets = App.getCurrentPresets(context);
         tmpLocked = logic.isUiLocked();
@@ -493,15 +494,17 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
         inNodeIconZoomRange = zoomLevel > currentStyle.getIconZoomLimit();
 
         viewBox.set(map.getViewBox());
-        try {
-            if (delegator.tryLock()) {
+
+        if (delegator.tryReadLock()) {
+            try {
                 delegator.getCurrentStorage().getBoundingBoxes(boundingBoxResult);
-            } else {
-                Log.w(DEBUG_TAG, "BoundingBoxes already locked, reusing existing data");
+            } finally {
+                delegator.unlockReads();
             }
-        } finally {
-            delegator.unlock();
+        } else {
+            Log.w(DEBUG_TAG, "BoundingBoxes already locked, reusing existing data");
         }
+
         downloadedBoxes.clear();
         for (BoundingBox box : boundingBoxResult) {
             if (box.intersects(viewBox)) {
@@ -534,18 +537,18 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
 
         // first find all nodes and ways that we need to display
         // if the delegator is locked re-render what we already have
-        try {
-            if (delegator.tryLock()) {
+        if (delegator.tryReadLock()) {
+            try {
                 nodesResult.clear();
                 waysResult.clear();
                 final Storage currentStorage = delegator.getCurrentStorage();
                 currentStorage.getNodes(viewBox, nodesResult);
                 currentStorage.getWays(viewBox, waysResult);
-            } else {
-                Log.w(DEBUG_TAG, "Delegator already locked, rerendering existing data");
+            } finally {
+                delegator.unlockReads();
             }
-        } finally {
-            delegator.unlock();
+        } else {
+            Log.w(DEBUG_TAG, "Delegator already locked, rerendering existing data");
         }
 
         // the following should guarantee that if the selected node is off screen but the handle not, the handle gets
@@ -1981,7 +1984,7 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
 
     @Override
     public void setAutoPrune(boolean enable) {
-       prefs.setAutoPruneData(enable);
+        prefs.setAutoPruneData(enable);
     }
 
     @Override
