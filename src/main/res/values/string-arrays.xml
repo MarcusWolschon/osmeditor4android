@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Arrays - in a separate file as these need to be 100% translated for use -->
-    <string-array name="gpx_visibility">
-        <item>private</item>
-        <item>public</item>
+    <string-array name="gpx_visibility_values" translatable="false">
         <item>trackable</item>
         <item>identifiable</item>
+    </string-array>
+    <string name="gpx_visibility_trackable">trackable</string>
+    <string name="gpx_visibility_identifiable">identifiable</string>
+    <string-array name="gpx_visibility" translatable="false">
+        <item>@string/gpx_visibility_trackable</item>
+        <item>@string/gpx_visibility_identifiable</item>
     </string-array>
     <string-array name="gps_source">
         <item>Internal</item>
