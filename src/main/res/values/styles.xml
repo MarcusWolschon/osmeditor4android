@@ -254,7 +254,7 @@
         <item name="menu_culvert">@drawable/culvert_white</item>
         <item name="menu_steps">@drawable/steps_white</item>
         <item name="menu_follow">@drawable/follow_white</item>
-        <item name="undolist_undo">@drawable/undo_white_1</item>
+        <item name="undolist_undo">@drawable/undo_white</item>
         <item name="undolist_redo">@drawable/undo_white</item>
         <item name="alert_dialog">@drawable/warning_white</item>
         <item name="lightbulb_dialog">@drawable/lightbulb_white</item>
@@ -339,7 +339,7 @@
         <item name="menu_culvert">@drawable/culvert_black</item>
         <item name="menu_steps">@drawable/steps_black</item>
         <item name="menu_follow">@drawable/follow_black</item>
-        <item name="undolist_undo">@drawable/undo_black_1</item>
+        <item name="undolist_undo">@drawable/undo_black</item>
         <item name="undolist_redo">@drawable/redo_black</item>
         <item name="alert_dialog">@drawable/warning_black</item>
         <item name="lightbulb_dialog">@drawable/lightbulb_black</item>
