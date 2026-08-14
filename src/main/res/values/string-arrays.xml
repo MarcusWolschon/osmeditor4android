@@ -2,8 +2,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Arrays - in a separate file as these need to be 100% translated for use -->
     <string-array name="gpx_visibility">
-        <item>private</item>
-        <item>public</item>
         <item>trackable</item>
         <item>identifiable</item>
     </string-array>
