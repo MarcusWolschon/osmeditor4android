@@ -45,7 +45,7 @@ public class RotationActionModeCallback extends AbortableActionModeCallback {
         FloatingActionButton button = main.getSimpleActionsButton();
         button.setOnClickListener(v -> manager.startElementSelectionMode());
         savedButton = button.getDrawable();
-        button.setImageResource(R.drawable.check_white_1);
+        button.setImageResource(R.drawable.check_white);
         mode.setTitle(R.string.actionmode_rotate);
         mode.setSubtitle(null);
         return true;

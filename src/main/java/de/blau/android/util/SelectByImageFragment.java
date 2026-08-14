@@ -183,10 +183,10 @@ public class SelectByImageFragment extends SizedDynamicDialogFragment implements
         itemBackward.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         itemBackward.setEnabled(true);
         itemBackward.setIcon(R.drawable.back_white);
-        MenuItem itemForward = menu.add(Menu.NONE, MENUITEM_FORWARD, Menu.NONE, R.string.forward).setIcon(R.drawable.forward_white_1);
+        MenuItem itemForward = menu.add(Menu.NONE, MENUITEM_FORWARD, Menu.NONE, R.string.forward).setIcon(R.drawable.forward_white);
         itemForward.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         itemForward.setEnabled(true);
-        itemForward.setIcon(R.drawable.forward_white_1);
+        itemForward.setIcon(R.drawable.forward_white);
         menuView.setOnMenuItemClickListener(this);
         return layout;
     }

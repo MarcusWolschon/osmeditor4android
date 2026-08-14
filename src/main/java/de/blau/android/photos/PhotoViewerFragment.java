@@ -441,11 +441,11 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicDia
         Menu menu = menuView.getMenu();
         itemBackward = menu.add(Menu.NONE, MENUITEM_BACK, Menu.NONE, R.string.back).setIcon(R.drawable.back_white);
         itemBackward.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        menu.add(Menu.NONE, MENUITEM_SHARE, Menu.NONE, R.string.share).setIcon(R.drawable.share_white_1).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menu.add(Menu.NONE, MENUITEM_SHARE, Menu.NONE, R.string.share).setIcon(R.drawable.share_white).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         menu.add(Menu.NONE, MENUITEM_GOTO, Menu.NONE, R.string.photo_viewer_goto).setIcon(R.drawable.map_white)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         if (photoLoader.supportsInfo()) {
-            menu.add(Menu.NONE, MENUITEM_INFO, Menu.NONE, R.string.menu_information).setIcon(R.drawable.info_white_1)
+            menu.add(Menu.NONE, MENUITEM_INFO, Menu.NONE, R.string.menu_information).setIcon(R.drawable.info_white)
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
         if (photoLoader.supportsUpload() && photoLoader.supportsDelete() && photoLoader.supportsInfo()) {
@@ -464,7 +464,7 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicDia
                         .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
             }
         }
-        itemForward = menu.add(Menu.NONE, MENUITEM_FORWARD, Menu.NONE, R.string.forward).setIcon(R.drawable.forward_white_1);
+        itemForward = menu.add(Menu.NONE, MENUITEM_FORWARD, Menu.NONE, R.string.forward).setIcon(R.drawable.forward_white);
         itemForward.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         menuView.setOnMenuItemClickListener(this);
         prepareMenu();
@@ -483,7 +483,7 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicDia
         final boolean forwardEnabled = multiple && (wrap || pos < size - 1);
         itemForward.setEnabled(forwardEnabled);
         // for whatever reason drawables with state lists don't seem to work in menus
-        itemForward.setIcon(forwardEnabled ? R.drawable.forward_white_1 : R.drawable.forward_dim);
+        itemForward.setIcon(forwardEnabled ? R.drawable.forward_white : R.drawable.forward_dim);
         final boolean backwardEnabled = multiple && (wrap || pos > 0);
         itemBackward.setEnabled(backwardEnabled);
         itemBackward.setIcon(backwardEnabled ? R.drawable.back_white : R.drawable.back_dim);

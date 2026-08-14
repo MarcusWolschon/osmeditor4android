@@ -228,7 +228,7 @@ public class ImageryAlignmentActionModeCallback implements Callback {
         button.setOnClickListener(v -> saveAndFinish());
         savedButtonDrawable = button.getDrawable();
         savedButtonEnabled = button.isEnabled();
-        button.setImageResource(R.drawable.check_white_1);
+        button.setImageResource(R.drawable.check_white);
         main.enableSimpleActionsButton();
         if (!prefs.areSimpleActionsEnabled()) {
             main.showSimpleActionsButton();

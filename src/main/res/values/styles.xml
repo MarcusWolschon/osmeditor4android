@@ -101,7 +101,7 @@
         <item name="menu_help">@drawable/help_dark</item>
         <item name="check">@drawable/check_white</item>
         <item name="add">@drawable/zoom_in_light</item>
-        <item name="more">@drawable/more_black_1</item>
+        <item name="more">@drawable/more_black</item>
     </style>
     <style
         name="Theme.AppCompatPrefsLight"
@@ -147,9 +147,9 @@
         <item name="error">@color/material_red</item>
         <!-- icons -->
         <item name="menu_help">@drawable/help_dark</item>
-        <item name="more_small">@drawable/more_black_2</item>
+        <item name="more_small">@drawable/more_white</item>
         <item name="add">@drawable/zoom_in_light</item>
-        <item name="more">@drawable/more_black_1</item>
+        <item name="more">@drawable/more_black</item>
     </style>
     <style
         name="Theme.customLight"
@@ -216,7 +216,7 @@
         <!-- icons -->
         <item name="menu_gps">@drawable/location_found_white</item>
         <item name="menu_config">@drawable/settings_white</item>
-        <item name="menu_find">@drawable/search_white_1</item>
+        <item name="menu_find">@drawable/search_white</item>
         <item name="menu_help">@drawable/help_dark</item>
         <item name="menu_undo">@drawable/undo_white</item>
         <item name="menu_delete">@drawable/discard_dark</item>
@@ -266,10 +266,10 @@
         <item name="layer_visible">@drawable/visible_on_white</item>
         <item name="layer_not_visible">@drawable/visible_off_white</item>
         <item name="zoom_to_layer_extent">@drawable/show_full_layer_white</item>
-        <item name="more_small">@drawable/more_black_2</item>
+        <item name="more_small">@drawable/more_white</item>
         <item name="information_small">@drawable/info_white</item>
         <item name="snap">@drawable/snap_dark</item>
-        <item name="search_small">@drawable/search_white_2</item>
+        <item name="search_small">@drawable/search_white</item>
         <!-- styles -->
         <item name="ActionButton">@style/ActionButtonDark</item>
         <item name="EditText">@style/EditTextDark</item>
@@ -301,7 +301,7 @@
         <!-- icons -->
         <item name="menu_gps">@drawable/location_found_black</item>
         <item name="menu_config">@drawable/settings_black</item>
-        <item name="menu_find">@drawable/search_black_1</item>
+        <item name="menu_find">@drawable/search_black</item>
         <item name="menu_help">@drawable/help_light</item>
         <item name="menu_undo">@drawable/undo_black</item>
         <item name="menu_delete">@drawable/discard_light</item>
@@ -354,7 +354,7 @@
         <item name="more_small">@drawable/more_black</item>
         <item name="information_small">@drawable/info_black</item>
         <item name="snap">@drawable/snap_light</item>
-        <item name="search_small">@drawable/search_black_2</item>
+        <item name="search_small">@drawable/search_black</item>
         <!-- styles -->
         <item name="ActionButton">@style/ActionButtonLight</item>
         <item name="EditText">@style/EditTextLight</item>
@@ -390,7 +390,7 @@
         <item name="alert_dialog">@drawable/warning_white</item>
         <item name="lightbulb_dialog">@drawable/lightbulb_white</item>
         <item name="share">@drawable/share_white</item>
-        <item name="search_small">@drawable/search_white_2</item>
+        <item name="search_small">@drawable/search_white</item>
         <!-- -->
         <item name="StaticText">@style/DialogStaticText</item>
         <item name="autoCompleteTextViewStyle">@style/Widget.AppCompat.AutoCompleteTextView</item>
@@ -422,7 +422,7 @@
         <item name="alert_dialog">@drawable/warning_black</item>
         <item name="lightbulb_dialog">@drawable/lightbulb_black</item>
         <item name="share">@drawable/share_black</item>
-        <item name="search_small">@drawable/search_black_2</item>
+        <item name="search_small">@drawable/search_black</item>
         <!-- -->
         <item name="StaticText">@style/StaticTextLight</item>
         <item name="autoCompleteTextViewStyle">@style/Widget.AppCompat.Light.AutoCompleteTextView</item>
@@ -492,8 +492,8 @@
         <item name="menu_sort">@drawable/sort_by_size_white</item>
         <item name="menu_reverse_order">@drawable/low_priority_white</item>
         <item name="menu_download">@drawable/download_white</item>
-        <item name="edit">@drawable/edit_white_1</item>
-        <item name="clear">@drawable/clear_white_1</item>
+        <item name="edit">@drawable/edit_white</item>
+        <item name="clear">@drawable/clear_white</item>
         <item name="search">@drawable/search_white</item>
         <item name="node_small">@drawable/node_small_dark</item>
         <item name="line_small">@drawable/line_small_dark</item>
@@ -549,7 +549,7 @@
         <item name="menu_preset_top">@drawable/preset_top_white</item>
         <item name="menu_help">@drawable/help_dark</item>
         <item name="add">@drawable/zoom_in_light</item>
-        <item name="more">@drawable/more_black_1</item>
+        <item name="more">@drawable/more_black</item>
         <!-- colors -->
         <item name="insetColor">@color/osm_green_dark</item>
         <item name="snack_info">@color/material_teal</item>
@@ -699,7 +699,7 @@
         <item name="menu_sort">@drawable/sort_by_size_black</item>
         <item name="menu_reverse_order">@drawable/low_priority_black</item>
         <item name="menu_download">@drawable/download_black</item>
-        <item name="edit">@drawable/edit_black_1</item>
+        <item name="edit">@drawable/edit_black</item>
         <item name="clear">@drawable/clear_black</item>
         <item name="search">@drawable/search_black</item>
         <item name="node_small">@drawable/node_small_light</item>

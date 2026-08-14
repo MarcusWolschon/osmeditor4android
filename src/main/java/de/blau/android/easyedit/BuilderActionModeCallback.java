@@ -45,7 +45,7 @@ public abstract class BuilderActionModeCallback extends EasyEditActionModeCallba
         FloatingActionButton button = main.getSimpleActionsButton();
         button.setOnClickListener(v -> finishBuilding());
         savedButton = button.getDrawable();
-        button.setImageResource(R.drawable.check_white_1);
+        button.setImageResource(R.drawable.check_white);
         if (!prefs.areSimpleActionsEnabled()) {
             main.showSimpleActionsButton();
         }
