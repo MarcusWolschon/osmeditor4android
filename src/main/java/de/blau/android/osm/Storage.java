@@ -20,6 +20,7 @@ import de.blau.android.util.collections.LongOsmElementMap;
 /**
  * Container for OSM data
  * 
+ * Note that none of the methods are thread safe
  *
  */
 public class Storage implements Serializable {
@@ -29,13 +30,10 @@ public class Storage implements Serializable {
 
     private static final long serialVersionUID = 3838107046050083566L;
 
-    private final LongOsmElementMap<Node> nodes;
-
-    private final LongOsmElementMap<Way> ways;
-
+    private final LongOsmElementMap<Node>     nodes;
+    private final LongOsmElementMap<Way>      ways;
     private final LongOsmElementMap<Relation> relations;
-
-    private final List<BoundingBox> bboxes;
+    private final List<BoundingBox>           bboxes;
 
     private transient LongHashSet nodeIsRef;
 
@@ -392,21 +390,17 @@ public class Storage implements Serializable {
      */
     @NonNull
     public List<BoundingBox> getBoundingBoxes() {
-        synchronized (bboxes) {
-            return Collections.unmodifiableList(bboxes);
-        }
+        return Collections.unmodifiableList(bboxes);
     }
 
     /**
-     * Fill a list of
+     * Get the current bounding boxes
      * 
-     * @param boxes
+     * @param boxes List to fill
      */
-    public void getBoundingBoxes(List<BoundingBox> boxList) {
+    public void getBoundingBoxes(@NonNull List<BoundingBox> boxList) {
         boxList.clear();
-        synchronized (bboxes) {
-            boxList.addAll(bboxes);
-        }
+        boxList.addAll(bboxes);
     }
 
     /**
@@ -415,10 +409,8 @@ public class Storage implements Serializable {
      * @param bbox bounding box to add
      */
     public void setBoundingBox(@NonNull final BoundingBox bbox) {
-        synchronized (bboxes) {
-            bboxes.clear();
-            bboxes.add(bbox);
-        }
+        bboxes.clear();
+        bboxes.add(bbox);
     }
 
     /**
@@ -427,10 +419,8 @@ public class Storage implements Serializable {
      * @param bbox bounding box to add
      */
     void addBoundingBox(@NonNull final BoundingBox bbox) {
-        synchronized (bboxes) {
-            if (!bboxes.contains(bbox)) {
-                bboxes.add(bbox);
-            }
+        if (!bboxes.contains(bbox)) {
+            bboxes.add(bbox);
         }
     }
 
@@ -439,21 +429,17 @@ public class Storage implements Serializable {
      * 
      * @param box bounding box to remove
      */
-    public void deleteBoundingBox(@NonNull BoundingBox box) {
-        synchronized (bboxes) {
-            bboxes.remove(box);
-        }
+    void deleteBoundingBox(@NonNull BoundingBox box) {
+        bboxes.remove(box);
     }
 
     /**
      * Null entries shouldn't exist, but if they do this will remove them
      */
-    public void removeNullBoundingboxes() {
+    void removeNullBoundingboxes() {
         int count = 0;
-        synchronized (bboxes) {
-            while (bboxes.remove(null)) {
-                count++;
-            }
+        while (bboxes.remove(null)) {
+            count++;
         }
         Log.e(DEBUG_TAG, "Removed " + count + " null bounding boxes");
     }
@@ -465,11 +451,9 @@ public class Storage implements Serializable {
      */
     @NonNull
     BoundingBox getLastBox() {
-        synchronized (bboxes) {
-            int s = bboxes.size();
-            if (s > 0) {
-                return bboxes.get(s - 1);
-            }
+        int s = bboxes.size();
+        if (s > 0) {
+            return bboxes.get(s - 1);
         }
         Log.e(DEBUG_TAG, "Bounding box list empty");
         return ViewBox.getMaxMercatorExtent(); // full extent
@@ -479,9 +463,7 @@ public class Storage implements Serializable {
      * Clear bounding box list
      */
     public void clearBoundingBoxList() {
-        synchronized (bboxes) {
-            bboxes.clear();
-        }
+        bboxes.clear();
     }
 
     /**
@@ -571,7 +553,7 @@ public class Storage implements Serializable {
      * @return the map indexing nodes
      */
     @NonNull
-    public LongOsmElementMap<Node> getNodeIndex() {
+    LongOsmElementMap<Node> getNodeIndex() {
         return nodes;
     }
 
@@ -581,7 +563,7 @@ public class Storage implements Serializable {
      * @return the map indexing ways
      */
     @NonNull
-    public LongOsmElementMap<Way> getWayIndex() {
+    LongOsmElementMap<Way> getWayIndex() {
         return ways;
     }
 
@@ -591,7 +573,7 @@ public class Storage implements Serializable {
      * @return the map indexing relations
      */
     @NonNull
-    public LongOsmElementMap<Relation> getRelationIndex() {
+    LongOsmElementMap<Relation> getRelationIndex() {
         return relations;
     }
 
@@ -600,7 +582,7 @@ public class Storage implements Serializable {
      * <p>
      * This is required since elements will change their id when being saved to the OSM database the first time.
      */
-    public void rehash() {
+    void rehash() {
         nodes.rehash();
         ways.rehash();
         relations.rehash();
@@ -642,7 +624,7 @@ public class Storage implements Serializable {
      * 
      * @param id the Nodes id
      */
-    public synchronized void addNodeRef(long id) {
+    void addNodeRef(long id) {
         if (nodeIsRef == null) {
             nodeIsRef = new LongHashSet();
         }
@@ -673,7 +655,7 @@ public class Storage implements Serializable {
      * 
      * @param elements the List of OsmElements to add
      */
-    public void addChangedElements(@NonNull List<OsmElement> elements) {
+    void addChangedElements(@NonNull List<OsmElement> elements) {
         for (OsmElement e : elements) {
             if (!e.isUnchanged()) {
                 insertElementUnsafe(e);

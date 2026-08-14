@@ -131,7 +131,7 @@ public class LogicTest {
         Storage storage = App.getDelegator().getCurrentStorage();
         if (storage.getBoundingBoxes().isEmpty()) {
             try {
-                storage.setBoundingBox(storage.calcBoundingBoxFromData());
+                App.getDelegator().addBoundingBox(storage.calcBoundingBoxFromData());
             } catch (OsmException e) {
                 fail(e.getMessage());
             }

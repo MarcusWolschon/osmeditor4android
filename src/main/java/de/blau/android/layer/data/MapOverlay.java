@@ -1944,7 +1944,7 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
 
     @Override
     public BoundingBox getExtent() {
-        List<BoundingBox> boxes = delegator.getCurrentStorage().getBoundingBoxes();
+        List<BoundingBox> boxes = delegator.getBoundingBoxes();
         if (!boxes.isEmpty()) {
             return BoundingBox.union(new ArrayList<>(boxes));
         } else if (prefs.getServer().hasMapSplitSource()) {

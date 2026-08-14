@@ -451,18 +451,24 @@ public class MultiSelectWithGeometryActionModeCallback extends MultiSelectAction
     @NonNull
     public List<Way> getWaysForNodes(@NonNull final Node node1, @NonNull final Node node2) {
         List<Way> result = new ArrayList<>();
-        final Storage currentStorage = App.getDelegator().getCurrentStorage();
-        List<Way> ways1 = currentStorage.getWays(node1);
-        List<Way> ways2 = currentStorage.getWays(node2);
-        if (ways1.size() < ways2.size()) {
-            List<Way> temp = ways2;
-            ways2 = ways1;
-            ways1 = temp;
-        }
-        for (Way w : ways1) {
-            if (ways2.contains(w)) {
-                result.add(w);
+        final StorageDelegator delegator = App.getDelegator();
+        try {
+            delegator.lockReads();
+            final Storage currentStorage = delegator.getCurrentStorage();
+            List<Way> ways1 = currentStorage.getWays(node1);
+            List<Way> ways2 = currentStorage.getWays(node2);
+            if (ways1.size() < ways2.size()) {
+                List<Way> temp = ways2;
+                ways2 = ways1;
+                ways1 = temp;
             }
+            for (Way w : ways1) {
+                if (ways2.contains(w)) {
+                    result.add(w);
+                }
+            }
+        } finally {
+            delegator.unlockReads();
         }
         return result;
     }

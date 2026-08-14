@@ -176,6 +176,14 @@ public class Map extends SurfaceView implements IMapView {
     private final boolean          hardwareLayerType;
     private final DataStyleManager styles;
 
+    // debugging stats
+    private String      debugText      = "";
+    private String      debugRelations = "";
+    private String      debugWays      = "";
+    private String      debugNodes     = "";
+    private final Paint debugTextPaint;
+    private final float debugTextSize;
+
     /**
      * Construct a new Map object that orchestrates the layer drawing and related rendering
      * 
@@ -192,6 +200,9 @@ public class Map extends SurfaceView implements IMapView {
         canvasBounds = new Rect();
 
         styles = App.getDataStyleManager(context);
+
+        debugTextPaint = styles.getInternal(DataStyle.INFOTEXT).getPaint();
+        debugTextSize = debugTextPaint.getTextSize();
 
         setFocusable(true);
         setFocusableInTouchMode(true);
@@ -874,31 +885,42 @@ public class Map extends SurfaceView implements IMapView {
      */
     private void paintStats(@NonNull final Canvas canvas, final float fps) {
         int pos = 1;
-        String text = "";
-        Paint infotextPaint = styles.getInternal(DataStyle.INFOTEXT).getPaint();
-        float textSize = infotextPaint.getTextSize();
 
         BoundingBox viewBox = getViewBox();
 
-        text = "viewBox: " + viewBox.toString();
-        canvas.drawText(text, 5, getHeight() - textSize * pos++, infotextPaint);
-        text = "Relations (current/API) :" + delegator.getCurrentStorage().getRelations().size() + "/" + delegator.getApiRelationCount();
-        canvas.drawText(text, 5, getHeight() - textSize * pos++, infotextPaint);
-        text = "Ways (current/API) :" + delegator.getCurrentStorage().getWays().size() + "/" + delegator.getApiWayCount();
-        canvas.drawText(text, 5, getHeight() - textSize * pos++, infotextPaint);
-        text = "Nodes (current/Waynodes/API) :" + delegator.getCurrentStorage().getNodes().size() + "/" + delegator.getCurrentStorage().getWayNodes().size()
-                + "/" + delegator.getApiNodeCount();
-        canvas.drawText(text, 5, getHeight() - textSize * pos++, infotextPaint);
-        if (fps < 10) {
-            text = "fps: " + String.format(Locale.US, "%.1f", fps);
-        } else {
-            text = "fps: " + (int) (fps);
+        debugText = "viewBox: " + viewBox.toString();
+        canvas.drawText(debugText, 5, getHeight() - debugTextSize * pos++, debugTextPaint);
+
+        if (delegator.tryReadLock()) {
+            try {
+                final int relationCount = delegator.getCurrentStorage().getRelations().size();
+                final int wayCount = delegator.getCurrentStorage().getWays().size();
+                final int nodeCount = delegator.getCurrentStorage().getNodes().size();
+                final int wayNodeCount = delegator.getCurrentStorage().getWayNodes().size();
+                final int apiRelationCount = delegator.getApiRelationCount();
+                final int apiWayCount = delegator.getApiWayCount();
+                final int apiNodeCount = delegator.getApiNodeCount();
+
+                debugRelations = "Relations (current/API) :" + relationCount + "/" + apiRelationCount;
+                debugWays = "Ways (current/API) :" + wayCount + "/" + apiWayCount;
+                debugNodes = "Nodes (current/Waynodes/API) :" + nodeCount + "/" + wayNodeCount + "/" + apiNodeCount;
+            } finally {
+                delegator.unlockReads();
+            }
         }
-        canvas.drawText(text, 5, getHeight() - textSize * pos++, infotextPaint);
-        text = "hardware acceleration: " + (canvas.isHardwareAccelerated() ? "on" : "off");
-        canvas.drawText(text, 5, getHeight() - textSize * pos++, infotextPaint);
-        text = "zoom level: " + zoomLevel;
-        canvas.drawText(text, 5, getHeight() - textSize * pos, infotextPaint);
+        canvas.drawText(debugRelations, 5, getHeight() - debugTextSize * pos++, debugTextPaint);
+        canvas.drawText(debugWays, 5, getHeight() - debugTextSize * pos++, debugTextPaint);
+        canvas.drawText(debugNodes, 5, getHeight() - debugTextSize * pos++, debugTextPaint);
+        if (fps < 10) {
+            debugText = "fps: " + String.format(Locale.US, "%.1f", fps);
+        } else {
+            debugText = "fps: " + (int) (fps);
+        }
+        canvas.drawText(debugText, 5, getHeight() - debugTextSize * pos++, debugTextPaint);
+        debugText = "hardware acceleration: " + (canvas.isHardwareAccelerated() ? "on" : "off");
+        canvas.drawText(debugText, 5, getHeight() - debugTextSize * pos++, debugTextPaint);
+        debugText = "zoom level: " + zoomLevel;
+        canvas.drawText(debugText, 5, getHeight() - debugTextSize * pos, debugTextPaint);
     }
 
     /**
