@@ -439,13 +439,13 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicDia
 
         menuView = (ActionMenuView) layout.findViewById(R.id.photoMenuView);
         Menu menu = menuView.getMenu();
-        itemBackward = menu.add(Menu.NONE, MENUITEM_BACK, Menu.NONE, R.string.back).setIcon(R.drawable.ic_arrow_back_white_36dp);
+        itemBackward = menu.add(Menu.NONE, MENUITEM_BACK, Menu.NONE, R.string.back).setIcon(R.drawable.back_white);
         itemBackward.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        menu.add(Menu.NONE, MENUITEM_SHARE, Menu.NONE, R.string.share).setIcon(R.drawable.ic_share_white_36dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        menu.add(Menu.NONE, MENUITEM_GOTO, Menu.NONE, R.string.photo_viewer_goto).setIcon(R.drawable.ic_map_white_36dp)
+        menu.add(Menu.NONE, MENUITEM_SHARE, Menu.NONE, R.string.share).setIcon(R.drawable.share_white_1).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menu.add(Menu.NONE, MENUITEM_GOTO, Menu.NONE, R.string.photo_viewer_goto).setIcon(R.drawable.map_white)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         if (photoLoader.supportsInfo()) {
-            menu.add(Menu.NONE, MENUITEM_INFO, Menu.NONE, R.string.menu_information).setIcon(R.drawable.outline_info_white_48dp)
+            menu.add(Menu.NONE, MENUITEM_INFO, Menu.NONE, R.string.menu_information).setIcon(R.drawable.info_white_1)
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
         if (photoLoader.supportsUpload() && photoLoader.supportsDelete() && photoLoader.supportsInfo()) {
@@ -456,15 +456,15 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicDia
             overflow.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete);
         } else {
             if (photoLoader.supportsUpload()) {
-                menu.add(Menu.NONE, MENUITEM_UPLOAD, Menu.NONE, R.string.photo_viewer_upload).setIcon(R.drawable.outline_import_export_white_36)
+                menu.add(Menu.NONE, MENUITEM_UPLOAD, Menu.NONE, R.string.photo_viewer_upload).setIcon(R.drawable.sync_white)
                         .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
             }
             if (photoLoader.supportsDelete()) {
-                menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete).setIcon(R.drawable.ic_delete_forever_white_36dp)
+                menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete).setIcon(R.drawable.delete_forever_white)
                         .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
             }
         }
-        itemForward = menu.add(Menu.NONE, MENUITEM_FORWARD, Menu.NONE, R.string.forward).setIcon(R.drawable.ic_arrow_forward_white_36dp);
+        itemForward = menu.add(Menu.NONE, MENUITEM_FORWARD, Menu.NONE, R.string.forward).setIcon(R.drawable.forward_white_1);
         itemForward.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         menuView.setOnMenuItemClickListener(this);
         prepareMenu();
@@ -483,10 +483,10 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicDia
         final boolean forwardEnabled = multiple && (wrap || pos < size - 1);
         itemForward.setEnabled(forwardEnabled);
         // for whatever reason drawables with state lists don't seem to work in menus
-        itemForward.setIcon(forwardEnabled ? R.drawable.ic_arrow_forward_white_36dp : R.drawable.ic_arrow_forward_dimmed_36dp);
+        itemForward.setIcon(forwardEnabled ? R.drawable.forward_white_1 : R.drawable.forward_dim);
         final boolean backwardEnabled = multiple && (wrap || pos > 0);
         itemBackward.setEnabled(backwardEnabled);
-        itemBackward.setIcon(backwardEnabled ? R.drawable.ic_arrow_back_white_36dp : R.drawable.ic_arrow_back_dimmed_36dp);
+        itemBackward.setIcon(backwardEnabled ? R.drawable.back_white : R.drawable.back_dim);
     }
 
     private class PhotoPagerAdapter<S extends Serializable> extends ImagePagerAdapter<S> {

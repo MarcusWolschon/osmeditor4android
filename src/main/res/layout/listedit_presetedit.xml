@@ -50,7 +50,7 @@
             android:paddingRight="5dp"
             android:background="@android:color/transparent"
             app:tint="?attr/colorAccent"
-            android:src="@drawable/baseline_sd_storage_black_18dp" />
+            android:src="@drawable/sd_card_black" />
     </RelativeLayout>
     <EditText
         android:id="@+id/listedit_editValue"

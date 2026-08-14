@@ -39,7 +39,7 @@ public enum Mode {
     /**
      * Address adding mode
      */
-    MODE_ADDRESS(R.string.mode_address, "ADDRESS", true, true, true, true, null, R.drawable.unlocked_address_white, new FilterModeConfig() {
+    MODE_ADDRESS(R.string.mode_address, "ADDRESS", true, true, true, true, null, R.drawable.address_white_1, new FilterModeConfig() {
 
         @Override
         public Set<SimpleAction> enabledSimpleActions() {
@@ -141,7 +141,7 @@ public enum Mode {
         public <L extends List<PresetElementPath> & Serializable> L getPresetItems(@NonNull Context ctx, @NonNull OsmElement e) {
             return (L) new ArrayList<PresetElementPath>();
         }
-    }), MODE_CORRECT(R.string.mode_correct, "CORRECT", true, true, true, false, null, R.drawable.unlocked_correct_white, new ModeConfig() {
+    }), MODE_CORRECT(R.string.mode_correct, "CORRECT", true, true, true, false, null, R.drawable.bug_white_1, new ModeConfig() {
 
         @Override
         public void setup(final Main main, final Logic logic) {

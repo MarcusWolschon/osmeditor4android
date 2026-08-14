@@ -179,14 +179,14 @@ public class SelectByImageFragment extends SizedDynamicDialogFragment implements
         ActionMenuView menuView = (ActionMenuView) layout.findViewById(R.id.photoMenuView);
         Menu menu = menuView.getMenu();
 
-        MenuItem itemBackward = menu.add(Menu.NONE, MENUITEM_BACK, Menu.NONE, R.string.back).setIcon(R.drawable.ic_arrow_back_white_36dp);
+        MenuItem itemBackward = menu.add(Menu.NONE, MENUITEM_BACK, Menu.NONE, R.string.back).setIcon(R.drawable.back_white);
         itemBackward.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         itemBackward.setEnabled(true);
-        itemBackward.setIcon(R.drawable.ic_arrow_back_white_36dp);
-        MenuItem itemForward = menu.add(Menu.NONE, MENUITEM_FORWARD, Menu.NONE, R.string.forward).setIcon(R.drawable.ic_arrow_forward_white_36dp);
+        itemBackward.setIcon(R.drawable.back_white);
+        MenuItem itemForward = menu.add(Menu.NONE, MENUITEM_FORWARD, Menu.NONE, R.string.forward).setIcon(R.drawable.forward_white_1);
         itemForward.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         itemForward.setEnabled(true);
-        itemForward.setIcon(R.drawable.ic_arrow_forward_white_36dp);
+        itemForward.setIcon(R.drawable.forward_white_1);
         menuView.setOnMenuItemClickListener(this);
         return layout;
     }

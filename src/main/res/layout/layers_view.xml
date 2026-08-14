@@ -49,7 +49,7 @@
             android:layout_alignParentEnd="true"
             android:layout_gravity="top"
             android:clickable="true"
-            android:src="@drawable/ic_action_new_holo_dark"
+            android:src="@drawable/new_white"
             app:backgroundTint="?attr/colorAccent"
             app:fabSize="mini"
             app:useCompatPadding="true" />
