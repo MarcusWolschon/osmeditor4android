@@ -98,9 +98,9 @@
         <item name="snack_error">@color/material_red</item>
         <item name="error">@color/material_red</item>
         <!-- icons -->
-        <item name="menu_help">@drawable/help_dark</item>
+        <item name="menu_help">@drawable/help_white</item>
         <item name="check">@drawable/check_white</item>
-        <item name="add">@drawable/zoom_in_light</item>
+        <item name="add">@drawable/zoom_in_black</item>
         <item name="more">@drawable/more_black</item>
     </style>
     <style
@@ -119,9 +119,9 @@
         <item name="snack_error">@color/material_red</item>
         <item name="error">@color/material_red</item>
         <!-- icons -->
-        <item name="menu_help">@drawable/help_light</item>
+        <item name="menu_help">@drawable/help_black</item>
         <item name="check">@drawable/check_black</item>
-        <item name="add">@drawable/zoom_in_dark</item>
+        <item name="add">@drawable/zoom_in_white</item>
         <item name="more">@drawable/ic_more_vert_white_36dp</item>
     </style>
     <style
@@ -146,9 +146,9 @@
         <item name="snack_error">@color/material_red</item>
         <item name="error">@color/material_red</item>
         <!-- icons -->
-        <item name="menu_help">@drawable/help_dark</item>
+        <item name="menu_help">@drawable/help_white</item>
         <item name="more_small">@drawable/more_white</item>
-        <item name="add">@drawable/zoom_in_light</item>
+        <item name="add">@drawable/zoom_in_black</item>
         <item name="more">@drawable/more_black</item>
     </style>
     <style
@@ -165,9 +165,9 @@
         <item name="snack_error">@color/material_red</item>
         <item name="error">@color/material_red</item>
         <!-- icons -->
-        <item name="menu_help">@drawable/help_light</item>
+        <item name="menu_help">@drawable/help_black</item>
         <item name="more_small">@drawable/more_black</item>
-        <item name="add">@drawable/zoom_in_dark</item>
+        <item name="add">@drawable/zoom_in_white</item>
         <item name="more">@drawable/ic_more_vert_white_36dp</item>
     </style>
     <style
@@ -217,26 +217,26 @@
         <item name="menu_gps">@drawable/location_found_white</item>
         <item name="menu_config">@drawable/settings_white</item>
         <item name="menu_find">@drawable/search_white</item>
-        <item name="menu_help">@drawable/help_dark</item>
+        <item name="menu_help">@drawable/help_white</item>
         <item name="menu_undo">@drawable/undo_white</item>
-        <item name="menu_delete">@drawable/discard_dark</item>
+        <item name="menu_delete">@drawable/discard_white</item>
         <item name="menu_cut">@drawable/cut_white</item>
-        <item name="menu_copy">@drawable/copy_dark</item>
+        <item name="menu_copy">@drawable/copy_white</item>
         <item name="menu_duplicate">@drawable/duplicate_white</item>
         <item name="menu_paste">@drawable/paste_white</item>
         <item name="menu_save">@drawable/save_white</item>
         <item name="menu_rotate">@drawable/rotate_right_dark</item>
-        <item name="menu_transfer">@drawable/sync_dark</item>
+        <item name="menu_transfer">@drawable/sync_white</item>
         <item name="upload">@drawable/upload_dark</item>
         <item name="menu_merge">@drawable/merge_dark</item>
         <item name="menu_unjoin">@drawable/split_white</item>
         <item name="menu_split">@drawable/split_way_white</item>
         <item name="menu_append">@drawable/new_white</item>
-        <item name="menu_reverse">@drawable/repeat_white</item>
-        <item name="menu_information">@drawable/about_dark</item>
+        <item name="menu_reverse">@drawable/switch_way_direction_white</item>
+        <item name="menu_information">@drawable/info_white_1</item>
         <item name="menu_history">@drawable/time_white</item>
         <item name="menu_tags">@drawable/labels_white</item>
-        <item name="menu_camera">@drawable/take_picture_dark</item>
+        <item name="menu_camera">@drawable/take_picture_white</item>
         <item name="menu_address">@drawable/address_white</item>
         <item name="menu_multi_select">@drawable/multi_select_white</item>
         <item name="menu_ortho">@drawable/orthogonalize_white</item>
@@ -258,9 +258,9 @@
         <item name="undolist_redo">@drawable/undo_white</item>
         <item name="alert_dialog">@drawable/warning_white</item>
         <item name="lightbulb_dialog">@drawable/lightbulb_white</item>
-        <item name="mic">@drawable/mic_dark</item>
+        <item name="mic">@drawable/mic_white</item>
         <item name="search">@drawable/search_white</item>
-        <item name="add">@drawable/zoom_in_light</item>
+        <item name="add">@drawable/zoom_in_black</item>
         <item name="remove">@drawable/zoom_out_black</item>
         <item name="name">@drawable/name_white</item>
         <item name="layer_visible">@drawable/visible_on_white</item>
@@ -302,26 +302,26 @@
         <item name="menu_gps">@drawable/location_found_black</item>
         <item name="menu_config">@drawable/settings_black</item>
         <item name="menu_find">@drawable/search_black</item>
-        <item name="menu_help">@drawable/help_light</item>
+        <item name="menu_help">@drawable/help_black</item>
         <item name="menu_undo">@drawable/undo_black</item>
-        <item name="menu_delete">@drawable/discard_light</item>
+        <item name="menu_delete">@drawable/discard_black</item>
         <item name="menu_cut">@drawable/cut_dark</item>
-        <item name="menu_copy">@drawable/copy_light</item>
+        <item name="menu_copy">@drawable/copy_black</item>
         <item name="menu_duplicate">@drawable/duplicate_black</item>
         <item name="menu_paste">@drawable/paste_black</item>
         <item name="menu_save">@drawable/save_black</item>
         <item name="menu_rotate">@drawable/rotate_right_light</item>
-        <item name="menu_transfer">@drawable/sync_light</item>
+        <item name="menu_transfer">@drawable/sync_black</item>
         <item name="upload">@drawable/upload_light</item>
         <item name="menu_merge">@drawable/merge_light</item>
         <item name="menu_unjoin">@drawable/split_black</item>
         <item name="menu_split">@drawable/split_way_black</item>
         <item name="menu_append">@drawable/new_black</item>
-        <item name="menu_reverse">@drawable/repeat_black</item>
-        <item name="menu_information">@drawable/about_light</item>
+        <item name="menu_reverse">@drawable/switch_way_direction_black</item>
+        <item name="menu_information">@drawable/info_black</item>
         <item name="menu_history">@drawable/time_black</item>
         <item name="menu_tags">@drawable/labels_black</item>
-        <item name="menu_camera">@drawable/take_picture_light</item>
+        <item name="menu_camera">@drawable/take_picture_black</item>
         <item name="menu_address">@drawable/address_black</item>
         <item name="menu_multi_select">@drawable/multi_select_black</item>
         <item name="menu_ortho">@drawable/orthogonalize_black</item>
@@ -343,9 +343,9 @@
         <item name="undolist_redo">@drawable/redo_black</item>
         <item name="alert_dialog">@drawable/warning_black</item>
         <item name="lightbulb_dialog">@drawable/lightbulb_black</item>
-        <item name="mic">@drawable/mic_light</item>
+        <item name="mic">@drawable/mic_black</item>
         <item name="search">@drawable/search_black</item>
-        <item name="add">@drawable/zoom_in_dark</item>
+        <item name="add">@drawable/zoom_in_white</item>
         <item name="remove">@drawable/zoom_out_white</item>
         <item name="name">@drawable/name_black</item>
         <item name="layer_visible">@drawable/visible_on_black</item>
@@ -475,19 +475,19 @@
         <item name="SplitterHandleV">@drawable/splitter_handle_v_dark</item>
         <item name="SplitterHandleH">@drawable/splitter_handle_h_dark</item>
         <!-- icons -->
-        <item name="menu_help">@drawable/help_dark</item>
+        <item name="menu_help">@drawable/help_white</item>
         <item name="menu_undo">@drawable/undo_white</item>
-        <item name="menu_delete">@drawable/discard_dark</item>
+        <item name="menu_delete">@drawable/discard_white</item>
         <item name="menu_cut">@drawable/cut_white</item>
-        <item name="menu_copy">@drawable/copy_dark</item>
+        <item name="menu_copy">@drawable/copy_white</item>
         <item name="menu_paste">@drawable/paste_white</item>
-        <item name="menu_information">@drawable/about_dark</item>
+        <item name="menu_information">@drawable/info_white_1</item>
         <item name="menu_address">@drawable/address_white</item>
         <item name="menu_apply_preset">@drawable/preset_white</item>
         <item name="menu_apply_preset_with_optional">@drawable/apply_preset_white</item>
         <item name="menu_preset_up">@drawable/preset_up_white</item>
         <item name="menu_preset_top">@drawable/preset_top_white</item>
-        <item name="menu_up">@drawable/collapse_dark</item>
+        <item name="menu_up">@drawable/collapse_white</item>
         <item name="menu_down">@drawable/expand_white</item>
         <item name="menu_sort">@drawable/sort_by_size_white</item>
         <item name="menu_reverse_order">@drawable/low_priority_white</item>
@@ -544,11 +544,11 @@
         <item name="Layout">@style/Layout</item>
         <item name="ListPopupWindowStyle">@style/ListPopupWindowStyle</item>
         <!-- icons -->
-        <item name="menu_delete">@drawable/discard_dark</item>
+        <item name="menu_delete">@drawable/discard_white</item>
         <item name="menu_preset_up">@drawable/preset_up_white</item>
         <item name="menu_preset_top">@drawable/preset_top_white</item>
-        <item name="menu_help">@drawable/help_dark</item>
-        <item name="add">@drawable/zoom_in_light</item>
+        <item name="menu_help">@drawable/help_white</item>
+        <item name="add">@drawable/zoom_in_black</item>
         <item name="more">@drawable/more_black</item>
         <!-- colors -->
         <item name="insetColor">@color/osm_green_dark</item>
@@ -682,19 +682,19 @@
         <item name="SplitterHandleV">@drawable/splitter_handle_v_light</item>
         <item name="SplitterHandleH">@drawable/splitter_handle_h_light</item>
         <!-- icons -->
-        <item name="menu_help">@drawable/help_light</item>
+        <item name="menu_help">@drawable/help_black</item>
         <item name="menu_undo">@drawable/undo_black</item>
-        <item name="menu_delete">@drawable/discard_light</item>
+        <item name="menu_delete">@drawable/discard_black</item>
         <item name="menu_cut">@drawable/cut_dark</item>
-        <item name="menu_copy">@drawable/copy_light</item>
+        <item name="menu_copy">@drawable/copy_black</item>
         <item name="menu_paste">@drawable/paste_black</item>
-        <item name="menu_information">@drawable/about_light</item>
+        <item name="menu_information">@drawable/info_black_1</item>
         <item name="menu_address">@drawable/address_black</item>
         <item name="menu_apply_preset">@drawable/preset_black</item>
         <item name="menu_apply_preset_with_optional">@drawable/apply_preset_black</item>
         <item name="menu_preset_up">@drawable/preset_up_black</item>
         <item name="menu_preset_top">@drawable/preset_top_black</item>
-        <item name="menu_up">@drawable/collapse_light</item>
+        <item name="menu_up">@drawable/collapse_black</item>
         <item name="menu_down">@drawable/expand_black</item>
         <item name="menu_sort">@drawable/sort_by_size_black</item>
         <item name="menu_reverse_order">@drawable/low_priority_black</item>
@@ -752,11 +752,11 @@
         <item name="Layout">@style/LayoutLight</item>
         <item name="ListPopupWindowStyle">@style/ListPopupWindowStyleLight</item>
         <!-- icons -->
-        <item name="menu_delete">@drawable/discard_light</item>
+        <item name="menu_delete">@drawable/discard_black</item>
         <item name="menu_preset_up">@drawable/preset_up_black</item>
         <item name="menu_preset_top">@drawable/preset_top_black</item>
-        <item name="menu_help">@drawable/help_light</item>
-        <item name="add">@drawable/zoom_in_dark</item>
+        <item name="menu_help">@drawable/help_black</item>
+        <item name="add">@drawable/zoom_in_white</item>
         <item name="more">@drawable/ic_more_vert_white_36dp</item>
         <!-- colors -->
         <item name="insetColor">@color/osm_green_light</item>
