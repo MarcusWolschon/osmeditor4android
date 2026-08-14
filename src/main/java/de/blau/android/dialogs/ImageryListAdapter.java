@@ -59,7 +59,7 @@ public class ImageryListAdapter extends RecyclerView.Adapter<ImageryListAdapter.
     final OnCheckedChangeListener onCheckedChangeListener = (buttonView, isChecked) -> {
         ImageryViewHolder holder = (ImageryViewHolder) buttonView.getTag();
         if (holder != null) {
-            int position = holder.getAdapterPosition();
+            int position = holder.getBindingAdapterPosition();
             currentId = ids[position];
             groupChangeListener.onCheckedChanged(null, position);
         }

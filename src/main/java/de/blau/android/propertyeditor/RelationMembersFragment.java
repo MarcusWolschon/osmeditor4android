@@ -288,8 +288,8 @@ public class RelationMembersFragment extends SelectableRowsFragment implements P
         @Override
         public boolean onMove(RecyclerView rv, ViewHolder dragged, ViewHolder target) {
             dragged.itemView.setBackgroundColor(0xffff0000);
-            final int draggedPos = dragged.getAdapterPosition();
-            final int targetPos = target.getAdapterPosition();
+            final int draggedPos = dragged.getBindingAdapterPosition();
+            final int targetPos = target.getBindingAdapterPosition();
             Collections.swap(membersInternal, draggedPos, targetPos);
             for (int i = 0; i < membersInternal.size(); i++) {
                 membersInternal.get(i).setPosition(i);

@@ -54,7 +54,7 @@ public class RelationListAdapter extends RecyclerView.Adapter<RelationListAdapte
     final OnCheckedChangeListener onCheckedChangeListener = (buttonView, isChecked) -> {
         RadioButtonViewHolder holder = (RadioButtonViewHolder) buttonView.getTag();
         if (holder != null) {
-            int position = holder.getAdapterPosition();
+            int position = holder.getBindingAdapterPosition();
             currentId = ids.get(position);
             groupChangeListener.onCheckedChanged(null, position);
         }
