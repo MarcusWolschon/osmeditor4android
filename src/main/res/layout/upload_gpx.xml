@@ -60,6 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:entries="@array/gpx_visibility"
+        android:entryValues="@array/gpx_visibility_values"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignBottom="@id/upload_gpx_visibility_label"
