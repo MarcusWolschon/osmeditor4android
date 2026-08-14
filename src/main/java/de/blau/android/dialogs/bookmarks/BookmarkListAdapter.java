@@ -75,12 +75,12 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
 
             // Handles view tap
             view.setOnClickListener(v -> {
-                adapterPosition = getAdapterPosition();
+                adapterPosition = getBindingAdapterPosition();
                 listener.onGoListener(adapterPosition);
             });
             // Handles options menu tap
             options.setOnClickListener(v -> {
-                adapterPosition = getAdapterPosition();
+                adapterPosition = getBindingAdapterPosition();
                 showOptions(options);
             });
         }
