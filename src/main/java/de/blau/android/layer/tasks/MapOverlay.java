@@ -208,14 +208,14 @@ public class MapOverlay extends NonSerializeableLayer
         int w = map.getWidth();
         int h = map.getHeight();
 
-        try {
-            if (tasks.tryLock()) {
+        if (tasks.tryReadLock()) {
+            try {
                 tasks.getTasks(bb, taskList);
-            } else {
-                Log.w(DEBUG_TAG, "Task storage already locked, rerendering existing data");
+            } finally {
+                tasks.unlockReads();
             }
-        } finally {
-            tasks.unlock();
+        } else {
+            Log.w(DEBUG_TAG, "Task storage already locked, rerendering existing data");
         }
 
         for (Task t : taskList) {
