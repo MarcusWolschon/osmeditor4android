@@ -3200,33 +3200,33 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @return true if the state was read successfully
      */
     public boolean readFromFile(@NonNull Context context, @NonNull String filename) {
+        StorageDelegator newDelegator = savingHelper.load(context, filename, true);
+        if (newDelegator == null) {
+            Log.d(DEBUG_TAG, "saved state null");
+            return false;
+        }
         try {
-            lockWrites();
-            StorageDelegator newDelegator = savingHelper.load(context, filename, true);
-            if (newDelegator != null) {
-                Log.d(DEBUG_TAG, "read saved state");
-                currentStorage = newDelegator.currentStorage;
-                if (currentStorage.getBoundingBoxes().isEmpty()) { // can happen if data was added before load
-                    try {
-                        currentStorage.setBoundingBox(currentStorage.calcBoundingBoxFromData());
-                    } catch (OsmException e) {
-                        Log.e(DEBUG_TAG, "readFromFile got " + e.getMessage());
-                    }
+            Log.d(DEBUG_TAG, "read saved state");
+            final Storage newStorage = newDelegator.currentStorage;
+            if (newStorage.getBoundingBoxes().isEmpty()) { // can happen if data was added before load
+                try {
+                    newStorage.setBoundingBox(newStorage.calcBoundingBoxFromData());
+                } catch (OsmException e) {
+                    Log.e(DEBUG_TAG, "readFromFile got " + e.getMessage());
                 }
-                apiStorage = newDelegator.apiStorage;
-                undo = newDelegator.undo;
-                clipboards = new MRUList<>(newDelegator.clipboards);
-                factory = newDelegator.factory;
-                imagery = newDelegator.imagery;
-                dirty = false; // data was just read, i.e. memory and file are in sync
-                return true;
-            } else {
-                Log.d(DEBUG_TAG, "saved state null");
-                return false;
             }
+            lockWrites();
+            currentStorage = newStorage;
+            apiStorage = newDelegator.apiStorage;
+            undo = newDelegator.undo;
+            clipboards = new MRUList<>(newDelegator.clipboards);
+            factory = newDelegator.factory;
+            imagery = newDelegator.imagery;
+            dirty = false; // data was just read, i.e. memory and file are in sync
         } finally {
             unlockWrites();
         }
+        return true;
     }
 
     /**
@@ -3349,7 +3349,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             }
             server.openChangeset(closeOpenChangeset, comment, tmpSource, imagery, extraTags);
             try {
-                lockReads();
+                lockWrites(); // this could be finer grain
                 int startCount = apiStorage.getElementCount();
                 if (fullUpload) {
                     server.diffUpload(this, apiStorage);
@@ -3368,7 +3368,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 uploadedCount = startCount - apiStorage.getElementCount();
                 elementCount = elementCount - uploadedCount;
             } finally {
-                unlockReads();
+                unlockWrites();
             }
             if (closeChangeset || split) { // always close when splitting
                 server.closeChangeset();
@@ -4446,17 +4446,41 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     @NonNull
     public BoundingBox getLastBox() {
-        return currentStorage.getLastBox();
+        try {
+            lockReads();
+            return currentStorage.getLastBox();
+        } finally {
+            unlockReads();
+        }
     }
 
     /**
-     * Get the list of clipboards
+     * Get an unmodifiable list of clipboards
      * 
      * @return the clipboards
      */
     @NonNull
     public List<ClipboardStorage> getClipboards() {
-        return clipboards;
+        try {
+            lockReads();
+            return Collections.unmodifiableList(clipboards);
+        } finally {
+            unlockReads();
+        }
+    }
+
+    /**
+     * Move the ClipboardStorage at position c to the top
+     * 
+     * @param c the position of the ClipboardStorage to move
+     */
+    public void moveClipboardToTop(int c) {
+        try {
+            lockWrites();
+            clipboards.push(clipboards.get(c));
+        } finally {
+            unlockWrites();
+        }
     }
 
     /**

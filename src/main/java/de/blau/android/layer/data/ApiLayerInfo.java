@@ -68,15 +68,20 @@ public class ApiLayerInfo extends LayerInfo {
         TableLayout t2 = (TableLayout) sv.findViewById(R.id.element_info_vertical_layout_2);
         t2.addView(TableLayoutUtils.createFullRowTitle(activity, getString(R.string.data_in_memory), tp));
         t2.addView(TableLayoutUtils.createRow(activity, "", getString(R.string.total), getString(R.string.changed), tp));
-        Storage currentStorage = delegator.getCurrentStorage();
-        t2.addView(TableLayoutUtils.createRow(activity, getString(R.string.nodes), Integer.toString(currentStorage.getNodes().size()),
-                Integer.toString(delegator.getApiNodeCount()), tp, -1, -1));
-        t2.addView(TableLayoutUtils.createRow(activity, getString(R.string.ways), Integer.toString(currentStorage.getWays().size()),
-                Integer.toString(delegator.getApiWayCount()), tp, -1, -1));
-        t2.addView(TableLayoutUtils.createRow(activity, getString(R.string.relations), Integer.toString(currentStorage.getRelations().size()),
-                Integer.toString(delegator.getApiRelationCount()), tp, -1, -1));
-        t2.addView(TableLayoutUtils.createRow(activity, getString(R.string.bounding_boxes), Integer.toString(currentStorage.getBoundingBoxes().size()), null,
-                tp, -1, -1));
+        delegator.lockReads();
+        try {
+            Storage currentStorage = delegator.getCurrentStorage();
+            t2.addView(TableLayoutUtils.createRow(activity, getString(R.string.nodes), Integer.toString(currentStorage.getNodes().size()),
+                    Integer.toString(delegator.getApiNodeCount()), tp, -1, -1));
+            t2.addView(TableLayoutUtils.createRow(activity, getString(R.string.ways), Integer.toString(currentStorage.getWays().size()),
+                    Integer.toString(delegator.getApiWayCount()), tp, -1, -1));
+            t2.addView(TableLayoutUtils.createRow(activity, getString(R.string.relations), Integer.toString(currentStorage.getRelations().size()),
+                    Integer.toString(delegator.getApiRelationCount()), tp, -1, -1));
+            t2.addView(TableLayoutUtils.createRow(activity, getString(R.string.bounding_boxes), Integer.toString(currentStorage.getBoundingBoxes().size()),
+                    null, tp, -1, -1));
+        } finally {
+            delegator.unlockReads();
+        }
         return sv;
     }
 

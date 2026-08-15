@@ -1255,10 +1255,16 @@ public class Logic {
     public List<OsmElement> getClickedEndNodes(final float x, final float y) {
         List<OsmElement> result = new ArrayList<>();
         List<OsmElement> allNodes = getClickedNodes(x, y);
-        for (OsmElement osmElement : allNodes) {
-            if (getDelegator().getCurrentStorage().isEndNode((Node) osmElement)) {
-                result.add(osmElement);
+        final StorageDelegator delegator = getDelegator();
+        try {
+            delegator.lockReads();
+            for (OsmElement osmElement : allNodes) {
+                if (delegator.getCurrentStorage().isEndNode((Node) osmElement)) {
+                    result.add(osmElement);
+                }
             }
+        } finally {
+            delegator.unlockReads();
         }
         return result;
     }
@@ -3572,12 +3578,18 @@ public class Logic {
      * @see #downloadBox(activity, BoundingBox, boolean)
      */
     void redownload(@NonNull final FragmentActivity activity, boolean reset, @Nullable PostAsyncActionHandler postLoadHandler) {
-        List<BoundingBox> boxes = new ArrayList<>(getDelegator().getBoundingBoxes());
+        final StorageDelegator delegator = getDelegator();
+        List<BoundingBox> boxes = new ArrayList<>(delegator.getBoundingBoxes());
         if (reset) {
-            getDelegator().reset(false);
+            delegator.reset(false);
         } else {
-            getDelegator().pruneAll();
-            getDelegator().getCurrentStorage().clearBoundingBoxList();
+            delegator.pruneAll();
+            try {
+                delegator.lockWrites();
+                delegator.getCurrentStorage().clearBoundingBoxList();
+            } finally {
+                delegator.unlockWrites();
+            }
         }
         final Validator validator = App.getDefaultValidator(activity);
         final PostMergeHandler postMerge = (OsmElement e) -> e.hasProblem(activity, validator);
@@ -3621,7 +3633,7 @@ public class Logic {
                     ACRAHelper.nocrashReport(ex, ex.getMessage());
                 }
                 for (BoundingBox box : boxes) { // recreate the boundingbox list
-                    getDelegator().addBoundingBox(box);
+                    delegator.addBoundingBox(box);
                 }
                 if (postLoadHandler != null) {
                     postLoadHandler.onError(null);
@@ -4238,14 +4250,15 @@ public class Logic {
                     try (final InputStream in = new BufferedInputStream(is)) {
                         osmParser.start(in);
                     }
+                    Storage newStorage = osmParser.getStorage();
+                    if (!add && newStorage.getBoundingBoxes().isEmpty()) {
+                        // ensure a valid bounding box
+                        newStorage.setBoundingBox(newStorage.calcBoundingBoxFromData());
+                    }
                     StorageDelegator sd = getDelegator();
                     sd.reset(false);
-                    sd.setCurrentStorage(osmParser.getStorage()); // this sets dirty flag
+                    sd.setCurrentStorage(newStorage); // this sets dirty flag
                     sd.fixupApiStorage();
-                    if (!add && sd.getBoundingBoxes().isEmpty()) {
-                        // ensure a valid bounding box
-                        sd.addBoundingBox(sd.getCurrentStorage().calcBoundingBoxFromData());
-                    }
                     if (map != null) {
                         viewBox.fitToBoundingBox(map, sd.getLastBox()); // set to current or previous
                     }

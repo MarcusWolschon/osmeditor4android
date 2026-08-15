@@ -27,12 +27,12 @@ import de.blau.android.layer.LayerType;
 import de.blau.android.osm.ClipboardStorage;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.StorageDelegator;
 import de.blau.android.tasks.NoteFragment;
 import de.blau.android.util.InsetAwarePopupMenu;
 import de.blau.android.util.NumberDrawable;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
-import de.blau.android.util.collections.MRUList;
 import de.blau.android.voice.Commands;
 
 public class SimpleActionModeCallback extends EasyEditActionModeCallback implements android.view.MenuItem.OnMenuItemClickListener {
@@ -421,7 +421,9 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
      * @param menu the Menu to add the buttons to
      */
     static void setUpClipboardButtons(@NonNull EasyEditManager manager, @NonNull Context ctx, @NonNull Menu menu) {
-        final List<ClipboardStorage> clipboards = App.getDelegator().getClipboards();
+        final StorageDelegator delegator = App.getDelegator();
+
+        final List<ClipboardStorage> clipboards = delegator.getClipboards();
         final Drawable bgEmpty = AppCompatResources.getDrawable(ctx, R.drawable.clipboard_bg);
         final Drawable bgOrange = AppCompatResources.getDrawable(ctx, R.drawable.clipboard_bg_orange);
         int count = 0;
@@ -433,7 +435,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
                     setIconBackground(mi, bgEmpty);
                 }
                 setIconBackground(menuItem, bgOrange);
-                ((MRUList<ClipboardStorage>) clipboards).push(clipboards.get(c));
+                delegator.moveClipboardToTop(c);
                 manager.invalidate();
                 return true;
             });
@@ -457,6 +459,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
             }
             count++;
         }
+
     }
 
     /**

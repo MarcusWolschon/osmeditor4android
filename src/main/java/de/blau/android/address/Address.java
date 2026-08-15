@@ -389,6 +389,7 @@ public final class Address implements Serializable {
                 String houseNumberValue = newAddress.tags.get(Tags.KEY_ADDR_HOUSENUMBER);
                 if (isEmpty(houseNumberValue) && street != null) {
                     try {
+                        storageDelegator.lockReads();
                         long streetId = hasPlace ? 0L : es.getStreetId(street);
                         SortedMap<Integer, Address> houseNumbers = getHouseNumbers(street, streetId, side, lastAddresses);
                         if (houseNumbers.size() == 0) { // try to seed lastAddresses from OSM data
@@ -407,6 +408,8 @@ public final class Address implements Serializable {
                         newAddress.tags = predictNumber(context, newAddress, tags, street, streetId, side, houseNumbers, null);
                     } catch (OsmException e) {
                         Log.d(DEBUG_TAG, "predictAddressTags got " + e.getMessage());
+                    } finally {
+                        storageDelegator.unlockReads();
                     }
                 }
             }
@@ -419,28 +422,33 @@ public final class Address implements Serializable {
         if (elementType.equals(Node.NAME)) {
             boolean isOnBuilding = false;
             // we can't call wayForNodes here because Logic may not be around
-            Node node = (Node) storageDelegator.getOsmElement(Node.NAME, elementOsmId);
-            if (node != null) { // null shouldn't happen
-                for (Way w : storageDelegator.getCurrentStorage().getWays(node)) {
-                    if (w.hasTagKey(Tags.KEY_BUILDING)) {
-                        isOnBuilding = true;
-                    } else if (w.getParentRelations() != null) { // need to check relations too
-                        for (Relation r : w.getParentRelations()) {
-                            if (r.hasTagKey(Tags.KEY_BUILDING) || r.hasTag(Tags.KEY_TYPE, Tags.VALUE_BUILDING)) {
-                                isOnBuilding = true;
-                                break;
+            try {
+                storageDelegator.lockReads();
+                Node node = (Node) storageDelegator.getOsmElement(Node.NAME, elementOsmId);
+                if (node != null) { // null shouldn't happen
+                    for (Way w : storageDelegator.getCurrentStorage().getWays(node)) {
+                        if (w.hasTagKey(Tags.KEY_BUILDING)) {
+                            isOnBuilding = true;
+                        } else if (w.getParentRelations() != null) { // need to check relations too
+                            for (Relation r : w.getParentRelations()) {
+                                if (r.hasTagKey(Tags.KEY_BUILDING) || r.hasTag(Tags.KEY_TYPE, Tags.VALUE_BUILDING)) {
+                                    isOnBuilding = true;
+                                    break;
+                                }
                             }
                         }
+                        if (isOnBuilding) {
+                            break;
+                        }
                     }
-                    if (isOnBuilding) {
-                        break;
+                    if (isOnBuilding && !newAddress.tags.containsKey(Tags.KEY_ENTRANCE)) {
+                        newAddress.tags.put(Tags.KEY_ENTRANCE, Tags.VALUE_YES);
                     }
+                } else {
+                    Log.e(DEBUG_TAG, "Node " + elementOsmId + " is null");
                 }
-                if (isOnBuilding && !newAddress.tags.containsKey(Tags.KEY_ENTRANCE)) {
-                    newAddress.tags.put(Tags.KEY_ENTRANCE, Tags.VALUE_YES);
-                }
-            } else {
-                Log.e(DEBUG_TAG, "Node " + elementOsmId + " is null");
+            } finally {
+                storageDelegator.unlockReads();
             }
         }
 
