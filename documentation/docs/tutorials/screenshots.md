@@ -7,8 +7,12 @@ hide:
 
 ### Downloading and installing presets
 
-* [![ ](videos/install_downloaded_default_preset.png)](videos/install_downloaded_default_preset.mp4) Replace the default preset.
-* [![ ](videos/update_downloaded_default_preset.png)](videos/update_downloaded_default_preset.mp4) Update the downloaded preset.
+[![ ](videos/install_downloaded_default_preset.png)](videos/install_downloaded_default_preset.mp4) Replace the default preset.<br/>
+[![ ](videos/update_downloaded_default_preset.png)](videos/update_downloaded_default_preset.mp4) Update the downloaded preset.<br/>
+
+### Downloading and configuring offline data
+
+[![ ](videos/download_and_configure_offline_data.png)](videos/download_and_configure_offline_data.mp4)<br/>
 
 # Screenshots
 
