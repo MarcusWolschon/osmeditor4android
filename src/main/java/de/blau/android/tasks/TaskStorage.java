@@ -11,7 +11,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import android.app.Activity;
 import android.content.Context;
@@ -56,7 +56,9 @@ public class TaskStorage implements Serializable, DataStorage {
     /**
      * when reading state lockout writing/reading
      */
-    private transient ReentrantLock lock = new ReentrantLock();
+    private transient ReentrantReadWriteLock           lock      = new ReentrantReadWriteLock();
+    private transient ReentrantReadWriteLock.WriteLock writeLock = lock.writeLock();
+    private transient ReentrantReadWriteLock.ReadLock  readLock  = lock.readLock();
 
     public static final String FILENAME = "tasks" + "." + FileExtensions.RES;
 
@@ -76,14 +78,14 @@ public class TaskStorage implements Serializable, DataStorage {
      */
     public void reset() {
         try {
-            lock();
+            lockWrites();
             tasks = new RTree<>(30, 100);
             boxes = new RTree<>(2, 20);
             challenges.clear();
             osmoseMeta = null;
             dirty = true;
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -94,10 +96,10 @@ public class TaskStorage implements Serializable, DataStorage {
      */
     public int count() {
         try {
-            lock();
+            lockReads();
             return tasks.count();
         } finally {
-            unlock();
+            unlockReads();
         }
     }
 
@@ -110,22 +112,22 @@ public class TaskStorage implements Serializable, DataStorage {
      */
     public void add(@NonNull Task t) {
         try {
-            lock();
+            lockWrites();
             tasks.insert(t);
             dirty = true;
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
     @Override
     public void addBoundingBox(@NonNull BoundingBox b) {
         try {
-            lock();
+            lockWrites();
             boxes.insert(b);
             dirty = true;
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -138,11 +140,11 @@ public class TaskStorage implements Serializable, DataStorage {
      */
     public void delete(@NonNull Task t) {
         try {
-            lock();
+            lockWrites();
             tasks.remove(t);
             dirty = true;
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -156,11 +158,11 @@ public class TaskStorage implements Serializable, DataStorage {
     @Override
     public void deleteBoundingBox(@NonNull BoundingBox b) {
         try {
-            lock();
+            lockWrites();
             boxes.remove(b);
             dirty = true;
         } finally {
-            unlock();
+            unlockWrites();
         }
     }
 
@@ -174,10 +176,10 @@ public class TaskStorage implements Serializable, DataStorage {
     public boolean contains(@NonNull Task t) {
         Collection<Task> queryResult = new ArrayList<>();
         try {
-            lock();
+            lockReads();
             tasks.query(queryResult, t.getLon(), t.getLat());
         } finally {
-            unlock();
+            unlockReads();
         }
         Log.d(DEBUG_TAG, "candidates for contain " + queryResult.size());
         for (Task t2 : queryResult) {
@@ -198,10 +200,10 @@ public class TaskStorage implements Serializable, DataStorage {
     public Task get(@NonNull Task t) {
         Collection<Task> queryResult = new ArrayList<>();
         try {
-            lock();
+            lockReads();
             tasks.query(queryResult, t.getLon(), t.getLat());
         } finally {
-            unlock();
+            unlockReads();
         }
         Log.d(DEBUG_TAG, "candidates for get " + queryResult.size());
         for (Task t2 : queryResult) {
@@ -221,12 +223,12 @@ public class TaskStorage implements Serializable, DataStorage {
     public List<Task> getTasks() {
         List<Task> queryResult = new ArrayList<>();
         try {
-            lock();
+            lockReads();
             tasks.query(queryResult);
             Log.d(DEBUG_TAG, "getTasks result count (no BB) " + queryResult.size());
             return queryResult;
         } finally {
-            unlock();
+            unlockReads();
         }
     }
 
@@ -240,12 +242,12 @@ public class TaskStorage implements Serializable, DataStorage {
     public List<Task> getTasks(@NonNull BoundingBox box) {
         List<Task> queryResult = new ArrayList<>();
         try {
-            lock();
+            lockReads();
             tasks.query(queryResult, box.getBounds());
             Log.d(DEBUG_TAG, "getTasks result count " + queryResult.size());
             return queryResult;
         } finally {
-            unlock();
+            unlockReads();
         }
     }
 
@@ -260,9 +262,14 @@ public class TaskStorage implements Serializable, DataStorage {
      */
     @NonNull
     public List<Task> getTasks(@NonNull BoundingBox box, @NonNull List<Task> queryResult) {
-        queryResult.clear();
-        tasks.query(queryResult, box.getBounds());
-        return queryResult;
+        try {
+            lockReads();
+            queryResult.clear();
+            tasks.query(queryResult, box.getBounds());
+            return queryResult;
+        } finally {
+            unlockReads();
+        }
     }
 
     /**
@@ -284,7 +291,7 @@ public class TaskStorage implements Serializable, DataStorage {
             Log.i(DEBUG_TAG, "storage not dirty, skipping save");
             return;
         }
-        if (lock.tryLock()) {
+        if (readLock.tryLock()) {
             try {
                 if (savingHelper.save(ctx, FILENAME, this, true)) {
                     dirty = false;
@@ -295,7 +302,7 @@ public class TaskStorage implements Serializable, DataStorage {
                     }
                 }
             } finally {
-                lock.unlock();
+                readLock.unlock();
             }
         } else {
             Log.i(DEBUG_TAG, "bug state being read, skipping save");
@@ -311,22 +318,22 @@ public class TaskStorage implements Serializable, DataStorage {
      * @return true if the saved state was successfully read
      */
     public boolean readFromFile(@NonNull Context context) {
-        try {
-            lock.lock();
-            TaskStorage newStorage = savingHelper.load(context, FILENAME, true);
-            if (newStorage != null) {
+        TaskStorage newStorage = savingHelper.load(context, FILENAME, true);
+        if (newStorage != null) {
+            try {
+                lockWrites();
                 Log.d(DEBUG_TAG, "read saved state");
                 tasks = newStorage.tasks;
                 boxes = newStorage.boxes;
                 challenges = newStorage.challenges;
                 dirty = false; // data was just read, i.e. memory and file are in sync
                 return true;
-            } else {
-                Log.d(DEBUG_TAG, "saved state null");
-                return false;
+            } finally {
+                unlockWrites();
             }
-        } finally {
-            lock.unlock();
+        } else {
+            Log.d(DEBUG_TAG, "saved state null");
+            return false;
         }
     }
 
@@ -334,7 +341,12 @@ public class TaskStorage implements Serializable, DataStorage {
      * Set the state of the storage to dirty (needs to be saved)
      */
     public void setDirty() {
-        dirty = true;
+        try {
+            lockWrites();
+            dirty = true;
+        } finally {
+            unlockWrites();
+        }
     }
 
     /**
@@ -343,7 +355,12 @@ public class TaskStorage implements Serializable, DataStorage {
      * @return a new temporary (negative) id
      */
     public long getNextId() {
-        return newId--;
+        try {
+            lockWrites();
+            return newId--;
+        } finally {
+            unlockWrites();
+        }
     }
 
     @Override
@@ -362,11 +379,11 @@ public class TaskStorage implements Serializable, DataStorage {
     public List<BoundingBox> getBoundingBoxes(@NonNull List<BoundingBox> result) {
         try {
             result.clear();
-            lock();
+            lockReads();
             boxes.query(result);
             return result;
         } finally {
-            unlock();
+            unlockReads();
         }
     }
 
@@ -380,22 +397,22 @@ public class TaskStorage implements Serializable, DataStorage {
     public List<BoundingBox> getBoundingBoxes(@NonNull BoundingBox box) {
         List<BoundingBox> queryResult = new ArrayList<>();
         try {
-            lock();
+            lockReads();
             boxes.query(queryResult, box.getBounds());
             Log.d(DEBUG_TAG, "getBoundingBoxes result count " + queryResult.size());
             return queryResult;
         } finally {
-            unlock();
+            unlockReads();
         }
     }
 
     @Override
     public boolean reachedPruneLimits(int dataLimit, int boxLimit) {
         try {
-            lock();
+            lockReads();
             return boxes.count() > boxLimit || count() > dataLimit;
         } finally {
-            unlock();
+            unlockReads();
         }
     }
 
@@ -403,7 +420,7 @@ public class TaskStorage implements Serializable, DataStorage {
     public void prune(@NonNull BoundingBox box) {
         Log.d(DEBUG_TAG, "pruning tasks");
         try {
-            lock();
+            lockWrites();
             for (Task b : getTasks()) {
                 if (!(b instanceof Todo) && !b.hasBeenChanged() && !box.contains(b.getLon(), b.getLat())) {
                     tasks.remove(b);
@@ -412,7 +429,7 @@ public class TaskStorage implements Serializable, DataStorage {
             Log.d(DEBUG_TAG, "pruning boxes");
             BoundingBox.prune(this, box);
         } finally {
-            unlock();
+            unlockWrites();
         }
         dirty = true;
     }
@@ -455,13 +472,13 @@ public class TaskStorage implements Serializable, DataStorage {
     public void move(@NonNull Task t, int newLatE7, int newLonE7) {
         if (t.isNew()) {
             try {
-                lock();
+                lockWrites();
                 tasks.remove(t);
                 ((Note) t).move(newLatE7, newLonE7);
                 tasks.insert(t);
                 setDirty();
             } finally {
-                unlock();
+                unlockWrites();
             }
         } else {
             throw new IllegalOperationException("Can only move new Notes, not " + t.getDescription());
@@ -476,10 +493,10 @@ public class TaskStorage implements Serializable, DataStorage {
     public OsmoseMeta getOsmoseMeta() {
         if (osmoseMeta == null) {
             try {
-                lock();
+                lockReads();
                 osmoseMeta = new OsmoseMeta();
             } finally {
-                unlock();
+                unlockReads();
             }
         }
         return osmoseMeta;
@@ -639,23 +656,37 @@ public class TaskStorage implements Serializable, DataStorage {
     /**
      * Try to set the reading lock
      */
-    public boolean tryLock() {
-        return lock.tryLock();
+    public boolean tryReadLock() {
+        return readLock.tryLock();
     }
 
     /**
-     * Set the reading lock
+     * Set the read lock
      */
-    public void lock() {
-        lock.lock();
+    void lockReads() {
+        readLock.lock();
     }
 
     /**
-     * Free the reading lock checking if it is currently held
+     * Free the read lock
      */
-    public void unlock() {
-        if (lock.isHeldByCurrentThread()) {
-            lock.unlock();
+    public void unlockReads() {
+        readLock.unlock();
+    }
+
+    /**
+     * Set the write lock
+     */
+    void lockWrites() {
+        writeLock.lock();
+    }
+
+    /**
+     * Free the write lock checking if it is currently held
+     */
+    void unlockWrites() {
+        if (writeLock.isHeldByCurrentThread()) {
+            writeLock.unlock();
         }
     }
 
