@@ -131,8 +131,10 @@ public abstract class ImageLoader implements Serializable {
 
     /**
      * Clear any selection
+     * 
+     * @param context the current Context
      */
-    public void clearSelection() {
+    public void clearSelection(@NonNull Context context) {
         // empty
     }
 

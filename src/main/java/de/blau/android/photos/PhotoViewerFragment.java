@@ -171,6 +171,14 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicDia
         return null;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (photoLoader != null) {
+            photoLoader.clearSelection(getContext());
+        }
+    }
+
     ImageLoader defaultLoader = new ImageLoader() {
         private static final long serialVersionUID = 2L;
 
