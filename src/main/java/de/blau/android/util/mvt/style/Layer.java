@@ -55,16 +55,17 @@ public abstract class Layer implements Serializable {
     private static final String LAYER_CAP_ROUND                       = "round";
     private static final String LAYER_CAP_BUTT                        = "butt";
 
-    private static final String LAYER_FILTER_ANY    = "any";
-    private static final String LAYER_FILTER_ALL    = "all";
-    private static final String LAYER_FILTER_NOT_IN = "!in";
-    private static final String LAYER_FILTER_IN     = "in";
-    private static final String LAYER_FILTER_GT_EQ  = ">=";
-    private static final String LAYER_FILTER_GT     = ">";
-    private static final String LAYER_FILTER_LT_EQ  = "<=";
-    private static final String LAYER_FILTER_LT     = "<";
-    private static final String LAYER_FILTER_NOT_EQ = "!=";
-    private static final String LAYER_FILTER_EQ     = "==";
+    private static final String LAYER_FILTER_ANY      = "any";
+    public static final String  LAYER_FILTER_ALL      = "all";
+    private static final String LAYER_FILTER_NOT_IN   = "!in";
+    private static final String LAYER_FILTER_IN       = "in";
+    public static final String  LAYER_FILTER_DISABLED = "disabled";
+    private static final String LAYER_FILTER_GT_EQ    = ">=";
+    private static final String LAYER_FILTER_GT       = ">";
+    private static final String LAYER_FILTER_LT_EQ    = "<=";
+    private static final String LAYER_FILTER_LT       = "<";
+    private static final String LAYER_FILTER_NOT_EQ   = "!=";
+    private static final String LAYER_FILTER_EQ       = "==";
 
     private static final String LAYER_EXPRESSION_NOT_HAS    = "!has";
     private static final String LAYER_EXPRESSION_HAS        = "has";
@@ -410,6 +411,8 @@ public abstract class Layer implements Serializable {
                 }
             }
             return false;
+        case LAYER_FILTER_DISABLED:
+            return true;
         default:
             Object result = evaluateExpression(expression, feature);
             return result instanceof Boolean ? (Boolean) result : result != null;
@@ -427,6 +430,7 @@ public abstract class Layer implements Serializable {
     private boolean compare(@NonNull String function, @Nullable Object left, @NonNull JsonElement jsonElement) {
         int result;
         if (jsonElement instanceof JsonNull) {
+            Log.e(DEBUG_TAG, iD + " function " + function + " unexpected JsonNull left is " + left);
             return false;
         }
         if (left instanceof String) {

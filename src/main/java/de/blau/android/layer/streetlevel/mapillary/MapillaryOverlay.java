@@ -249,18 +249,17 @@ public class MapillaryOverlay extends AbstractImageOverlay {
      * @param id the image id
      */
     void setSelected(long id) {
-        if (selectedFilter == null) {
-            Style style = ((VectorTileRenderer) tileRenderer).getStyle();
-            Layer layer = style.getLayer(SELECTED_IMAGE_LAYER);
-            if (layer instanceof Symbol) {
-                selectedFilter = layer.getFilter();
-            }
+        Style style = ((VectorTileRenderer) tileRenderer).getStyle();
+        Layer layer = style.getLayer(SELECTED_IMAGE_LAYER);
+        if (selectedFilter == null && layer instanceof Symbol) {
+            selectedFilter = layer.getFilter();
         }
         if (selectedFilter != null && selectedFilter.size() == 3) {
             if (mapillaryState == null) {
                 mapillaryState = new State();
             }
             mapillaryState.imageId = id;
+            layer.setVisible(id != 0);
             selectedFilter.set(2, new JsonPrimitive(id));
             map.invalidate();
             dirty();
@@ -270,6 +269,10 @@ public class MapillaryOverlay extends AbstractImageOverlay {
     @Override
     public void selectImage(int pos) {
         synchronized (this) {
+            if (pos < 1) {
+                setSelected(0);
+                return;
+            }
             if (mapillaryState != null && mapillaryState.sequenceId != null) {
                 List<String> ids = mapillaryState.sequenceCache.get(mapillaryState.sequenceId);
                 if (ids != null) {

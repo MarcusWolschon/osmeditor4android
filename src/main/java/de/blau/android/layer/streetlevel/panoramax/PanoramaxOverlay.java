@@ -93,6 +93,7 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
         private final java.util.Map<String, String>         urlCache      = new HashMap<>();
         private long                                        startDate     = 0L;
         private long                                        endDate       = new Date().getTime();
+        private int                                         viewerOffset  = 0;
 
         /**
          * Add a sequence to the sequence cache, if the cache capacity is exceeded, entries will be removed from the url
@@ -221,7 +222,7 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
     }
 
     /**
-     * Try to determine the sequence id from the atributes
+     * Try to determine the sequence id from the attributes
      * 
      * @param attributes the attributes
      * @return the id or null if it can't be found
@@ -251,7 +252,9 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
     private void showImages(@NonNull FragmentActivity activity, @NonNull String id, @NonNull List<String> ids) {
         int pos = ids.indexOf(id);
         // sequences can be very large, we show an excerpt of ~200 around the current position
-        ArrayList<String> tempIds = new ArrayList<>(ids.subList(Math.max(0, pos - MAX_IMAGE_IDS), Math.min(pos + MAX_IMAGE_IDS, ids.size())));
+        panoramaxState.viewerOffset = Math.max(0, pos - MAX_IMAGE_IDS);
+        ArrayList<String> tempIds = new ArrayList<>(ids.subList(panoramaxState.viewerOffset, Math.min(pos + MAX_IMAGE_IDS, ids.size())));
+
         pos = tempIds.indexOf(id);
         java.util.Map<String, String> tempUrlCache = new HashMap<>();
         for (String tempId : tempIds) {
@@ -393,19 +396,20 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
      * @param id the image id
      */
     void setSelected(@Nullable String id) {
-        if (selectedFilter == null) {
-            Style style = ((VectorTileRenderer) tileRenderer).getStyle();
-            Layer layer = style.getLayer(SELECTED_IMAGE_LAYER);
-            if (layer instanceof Symbol) {
-                selectedFilter = layer.getFilter();
-            }
+        Log.d(DEBUG_TAG, "select image id " + id);
+        Style style = ((VectorTileRenderer) tileRenderer).getStyle();
+        Layer layer = style.getLayer(SELECTED_IMAGE_LAYER);
+        if (selectedFilter == null && layer instanceof Symbol) {
+            selectedFilter = layer.getFilter();
         }
         if (selectedFilter != null && selectedFilter.size() == 3) {
             if (panoramaxState == null) {
                 panoramaxState = new State();
             }
             panoramaxState.imageId = id;
-            selectedFilter.set(2, id != null ? new JsonPrimitive(id) : null);
+            final boolean hasId = id != null;
+            layer.setVisible(hasId);
+            selectedFilter.set(2, hasId ? new JsonPrimitive(id) : null);
             map.invalidate();
             dirty();
         }
@@ -413,11 +417,18 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
 
     @Override
     public void selectImage(int pos) {
+        Log.d(DEBUG_TAG, "select image " + pos);
         synchronized (this) {
+            if (pos < 0) {
+                // de-select
+                setSelected((String) null);
+                return;
+            }
             if (panoramaxState != null && panoramaxState.sequenceId != null) {
+                Log.d(DEBUG_TAG, "select image using sequence " + panoramaxState.sequenceId);
                 List<String> ids = panoramaxState.sequenceCache.get(panoramaxState.sequenceId);
                 if (ids != null) {
-                    String id = ids.get(pos);
+                    String id = ids.get(pos + panoramaxState.viewerOffset);
                     if (id != null) {
                         setSelected(id);
                         return;
@@ -425,6 +436,7 @@ public class PanoramaxOverlay extends AbstractImageOverlay {
                 }
                 Log.e(DEBUG_TAG, "position " + pos + " not found in sequence " + panoramaxState.sequenceId);
             }
+            Log.e(DEBUG_TAG, "selectImage no " + (panoramaxState == null ? "state" : "sequenceId"));
         }
     }
 

@@ -167,17 +167,26 @@ public abstract class NetworkImageLoader extends ImageLoader {
 
     @Override
     public void showOnMap(Context context, int index) {
-        if (!App.isPropertyEditorRunning()) {
-            Intent intent = new Intent(context, Main.class);
-            intent.setAction(Main.ACTION_IMAGE_SELECT);
-            intent.putExtra(SET_POSITION_KEY, index);
-            String key = ids.get(index);
-            if (key != null && coordinates.containsKey(key)) {
-                intent.putExtra(COORDINATES_KEY, coordinates.get(key));
-            }
-            intent.putExtra(LAYER_TYPE_KEY, getLayerType());
-            context.startActivity(intent);
+        if (App.isPropertyEditorRunning()) {
+            return;
         }
+        Intent intent = new Intent(context, Main.class);
+        intent.setAction(Main.ACTION_IMAGE_SELECT);
+        intent.putExtra(SET_POSITION_KEY, index);
+        String key = ids.get(index);
+        if (key != null && coordinates.containsKey(key)) {
+            intent.putExtra(COORDINATES_KEY, coordinates.get(key));
+        }
+        intent.putExtra(LAYER_TYPE_KEY, getLayerType());
+        context.startActivity(intent);
+    }
+
+    @Override
+    public void clearSelection(Context context) {
+        Intent intent = new Intent(context, Main.class);
+        intent.setAction(Main.ACTION_IMAGE_SELECT);
+        intent.putExtra(SET_POSITION_KEY, -1);
+        context.startActivity(intent);
     }
 
     /**

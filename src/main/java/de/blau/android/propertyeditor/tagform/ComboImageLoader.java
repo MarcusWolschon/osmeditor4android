@@ -5,6 +5,7 @@ import java.util.List;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 
+import android.content.Context;
 import android.util.Log;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -86,7 +87,7 @@ public class ComboImageLoader extends ImageLoader {
     }
 
     @Override
-    public void clearSelection() {
+    public void clearSelection(Context context) {
         update(new StringWithDescription(""));
     }
 }

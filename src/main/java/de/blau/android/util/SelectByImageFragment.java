@@ -124,7 +124,7 @@ public class SelectByImageFragment extends SizedDynamicDialogFragment implements
         DoNothingListener doNothingListener = new DoNothingListener();
         builder.setNeutralButton(R.string.done, doNothingListener);
         builder.setPositiveButton(R.string.select, (DialogInterface dialog, int which) -> imageLoader.onSelected(getCurrentPosition()));
-        builder.setNegativeButton(R.string.clear, (dialog, which) -> imageLoader.clearSelection());
+        builder.setNegativeButton(R.string.clear, (dialog, which) -> imageLoader.clearSelection(getActivity()));
         builder.setView(createView(savedInstanceState));
         return builder.create();
     }
