@@ -420,7 +420,11 @@ Minimum interval in minutes between saves of GPX recordings. Default: _5 minutes
 
 ### Report app crashes
 
-Submit ACRA crash dumps to the Vespucci developers. You will still be asked on a per event basis if you want to submit a specific crash dump, if you set this to _off_ the functionality is completely disabled. Default: _on_.
+Submit ACRA crash dumps to the Vespucci developers. You will still be asked on a per event basis if you want to submit a specific crash dump, if you set this to _off_ the functionality is completely disabled. If sending the report fails a copy will be stored locally in the "crashes" directory, but ACRA will continue to try to send the report to our analytics platform. Default: _on_.
+
+###  Additionally save reports locally
+
+Besides attempting to report a crash dump, save the files locally in the "crashes" directory for your analysis. Default: _off_.
 
 ### Enable hardware acceleration
 

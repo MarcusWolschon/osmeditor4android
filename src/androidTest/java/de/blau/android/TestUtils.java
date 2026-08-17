@@ -74,6 +74,28 @@ public final class TestUtils {
     private TestUtils() {
         // empty
     }
+    
+    /**
+     * Turn off wifi and mobile connections
+     * 
+     * @param device the UiDevice
+     * @throws IOException 
+     */
+    public static void turnOffNetwork(@NonNull UiDevice device ) throws IOException {
+        device.executeShellCommand("svc wifi disable");
+        device.executeShellCommand("svc data disable");
+    }
+    
+    /**
+     * Turn off wifi and mobile connections
+     * 
+     * @param device the UiDevice
+     * @throws IOException 
+     */
+    public static void turnOnNetwork(@NonNull UiDevice device ) throws IOException {
+        device.executeShellCommand("svc wifi enable");
+        device.executeShellCommand("svc data enable");
+    }
 
     /**
      * Grant permissions by clicking on the dialogs, currently only works for English and German

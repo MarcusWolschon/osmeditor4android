@@ -736,10 +736,17 @@
         android:key="config_category_misc"
         android:title="@string/config_category_misc">
         <androidx.preference.CheckBoxPreference
-            android:defaultValue="true" android:key="acra.enable"
+            android:defaultValue="true" 
+            android:key="acra.enable"
             android:summaryOff="@string/pref_acra_disabled"
             android:summaryOn="@string/pref_acra_enabled"
             android:title="@string/pref_enable_acra" />
+        <androidx.preference.CheckBoxPreference
+            android:defaultValue="false" 
+            android:key="acra.save_locally"
+            android:summaryOff="@string/pref_acra_save_locally_disabled"
+            android:summaryOn="@string/pref_acra_save_locally_enabled"
+            android:title="@string/pref_acra_save_locally" />
         <androidx.preference.CheckBoxPreference
             android:defaultValue="false"
             android:key="@string/config_showStats_key"
