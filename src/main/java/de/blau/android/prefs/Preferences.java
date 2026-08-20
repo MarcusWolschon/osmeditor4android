@@ -370,7 +370,7 @@ public class Preferences {
     /**
      * Enable/disable acra
      * 
-     * @param b if true anable acra
+     * @param b if true enable acra
      * 
      */
     public void enableAcra(boolean b) {

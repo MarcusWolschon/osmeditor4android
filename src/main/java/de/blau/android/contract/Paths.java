@@ -20,12 +20,13 @@ public final class Paths {
     public static final String DIRECTORY_PATH_STYLES             = "styles";
     public static final String DIRECTORY_PATH_IMAGERY            = "imagery";
     public static final String DIRECTORY_PATH_OTHER              = "other";
+    public static final String DIRECTORY_PATH_CRASHES            = "crashes";
     public static final String DIRECTORY_PATH_STORAGE            = "/storage";       // NOSONAR
     public static final String DIRECTORY_PATH_AUTOPRESET         = "autopreset";
     public static final String DIRECTORY_PATH_TILE_CACHE         = "/tiles/";        // NOSONAR
     public static final String DIRECTORY_PATH_TILE_CACHE_CLASSIC = "/andnav2/tiles/";// NOSONAR
     public static final String DIRECTORY_PATH_GPX                = "GPX";
     public static final String DIRECTORY_PATH_AUTOSAVE           = "Autosave";
-    
-    public static final String DELIMITER                         = "/";
+
+    public static final String DELIMITER = "/";
 }

@@ -38,7 +38,7 @@ public final class Urls {
     public static final String DEFAULT_MAPILLARY_SEQUENCES_URL_V4 = "https://graph.mapillary.com/image_ids?sequence_id=%s&access_token=%s&fields=id";
 
     public static final String DEFAULT_OSM_WIKI = "https://wiki.openstreetmap.org/";
-    
+
     public static final String DEFAULT_PANORAMAX_INSTANCES_URL = "https://explore.panoramax.fr/api/instances";
 
     // currently not configurable
@@ -55,12 +55,14 @@ public final class Urls {
 
     public static final String EGM96 = "https://github.com/simonpoole/egm96/raw/master/src/main/resources/EGM96.dat";
 
-    public static final String GITHUB = "https://github.com/";
+    public static final String GITHUB   = "https://github.com/";
     public static final String CODEBERG = "https://codeberg.org/";
-    public static final String FORGEJO = "https://forgejo.org/";
-    public static final String GITEA = "https://gitea.io/";
+    public static final String FORGEJO  = "https://forgejo.org/";
+    public static final String GITEA    = "https://gitea.io/";
 
     public static final String REMOTE_ICON_LOCATION = "https://simonpoole.github.io/beautified-JOSM-preset/icons/png/";
 
     public static final String WIKIMEDIA_REGISTRATION_URL = "https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration/propose/oauth2";
+
+    public static final String ACRARIUM_URL = "https://acrarium.vespucci.io/";
 }
