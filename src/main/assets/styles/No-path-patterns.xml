@@ -289,6 +289,12 @@
                 <interval length="4.0" />
             </dash>
         </feature>
+        <feature type="way" tags="highway=via_ferrata" widthFactor="0.6" color="ffc69c49" >
+            <dash phase="1.0">
+                <interval length="1.0" />
+                <interval length="5.0" />
+            </dash>
+        </feature>
         <feature type="way" tags="highway=cycleway" widthFactor="0.6" color="fff48f42" >
             <feature type="way" tags="bridge=yes" casingStyle="minor_ways_bridge_casing" />
         </feature>
