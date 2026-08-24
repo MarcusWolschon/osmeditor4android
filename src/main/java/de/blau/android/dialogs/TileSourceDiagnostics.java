@@ -171,4 +171,9 @@ public class TileSourceDiagnostics extends CancelableDialogFragment {
         builder.setView(sv);
         return builder.create();
     }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putSerializable(TILE_KEY, tile);
+    }
 }
