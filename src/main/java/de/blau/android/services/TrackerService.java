@@ -479,7 +479,13 @@ public class TrackerService extends Service {
         notificationBuilder.setSmallIcon(R.drawable.ic_notification_vespucci).setOngoing(true).setUsesChronometer(true).setContentIntent(pendingAppIntent)
                 .setColor(ContextCompat.getColor(this, R.color.osm_green))
                 .addAction(R.drawable.ic_notification_vespucci, getString(R.string.exit_title), pendingExitIntent);
-        ServiceCompat.startForeground(this, R.id.notification_tracker, notificationBuilder.build(), ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION);
+        try {
+            ServiceCompat.startForeground(this, R.id.notification_tracker, notificationBuilder.build(), ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION);
+        } catch (SecurityException sex) {
+            Log.e(DEBUG_TAG, "Starting gpx foreground service failed with " + sex.getMessage());
+            ScreenMessage.toastTopError(TrackerService.this, getString(R.string.gps_service_start_failure, sex.getMessage()));
+            return false;
+        }
         init();
         if (externalListener != null) {
             externalListener.onStateChanged();

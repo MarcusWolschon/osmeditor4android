@@ -355,7 +355,13 @@ public class DownloadService extends Service {
             return false;
         }
         NotificationCompat.Builder notificationBuilder = buildNotification(false, 0, 0);
-        ServiceCompat.startForeground(this, R.id.notification_download, notificationBuilder.build(), ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC);
+        try {
+            ServiceCompat.startForeground(this, R.id.notification_download, notificationBuilder.build(), ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC);
+        } catch (SecurityException sex) {
+            Log.e(DEBUG_TAG, "Starting download foreground service failed with " + sex.getMessage());
+            ScreenMessage.toastTopError(DownloadService.this, getString(R.string.download_service_start_failure, sex.getMessage()));
+            return false;
+        }
         return true;
     }
 
