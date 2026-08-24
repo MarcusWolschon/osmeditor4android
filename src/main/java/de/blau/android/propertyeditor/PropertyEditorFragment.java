@@ -279,7 +279,7 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
 
             // if we have a preset to auto apply it doesn't make sense to show the Preset tab except if a group is
             // selected
-            if (presetsToApply != null && !presetsToApply.isEmpty()) {
+            if (presetsToApply != null && !presetsToApply.isEmpty() && presetsToApply.get(0) != null) {
                 PresetElement alternativeRootElement = Preset.getElementByPath(App.getCurrentRootPreset(getContext()).getRootGroup(), presetsToApply.get(0));
                 showPresets = alternativeRootElement instanceof PresetGroup;
             }

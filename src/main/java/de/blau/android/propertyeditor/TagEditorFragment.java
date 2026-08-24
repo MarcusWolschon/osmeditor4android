@@ -367,6 +367,9 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
                 Preset preset = App.getCurrentRootPreset(activity);
                 PresetGroup rootGroup = preset.getRootGroup();
                 for (PresetElementPath pp : presetsToApply) {
+                    if (pp == null) {
+                        continue;
+                    }
                     // can't use the listener here as onAttach will not have happened
                     PresetElement pi = Preset.getElementByPath(rootGroup, pp, propertyEditorListener.getIsoCodes(), false);
                     if (pi instanceof PresetItem) {
