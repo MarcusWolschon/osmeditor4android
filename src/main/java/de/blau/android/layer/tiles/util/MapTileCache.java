@@ -1,6 +1,8 @@
 // Created by plusminus on 17:58:57 - 25.09.2008
 package de.blau.android.layer.tiles.util;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,20 +18,11 @@ import de.blau.android.services.util.MapTile;
  *
  */
 public class MapTileCache<T> {
-    // ===========================================================
-    // Constants
-    // ===========================================================
 
-    // ===========================================================
-    // Fields
-    // ===========================================================
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MapTileCache.class.getSimpleName().length());
+    private static final String DEBUG_TAG = MapTileCache.class.getSimpleName().substring(0, TAG_LEN);
 
-    private static final String      DEBUG_TAG = MapTileCache.class.getSimpleName().substring(0, Math.min(23, MapTileCache.class.getSimpleName().length()));
     private final LRUMapTileCache<T> mCachedTiles;
-
-    // ===========================================================
-    // Constructors
-    // ===========================================================
 
     /**
      * Construct a new cache of default size
@@ -48,10 +41,6 @@ public class MapTileCache<T> {
         mCachedTiles = new LRUMapTileCache<>(aMaximumCacheBytes);
     }
 
-    // ===========================================================
-    // Getter & Setter
-    // ===========================================================
-
     /**
      * Get a tile from the cache
      * 
@@ -59,7 +48,7 @@ public class MapTileCache<T> {
      * @return the tile or null if not found
      */
     @Nullable
-    public synchronized T getMapTile(@NonNull final MapTile aTile) {
+    public T getMapTile(@NonNull final MapTile aTile) {
         return mCachedTiles.get(aTile.toId());
     }
 
@@ -71,7 +60,7 @@ public class MapTileCache<T> {
      * @param owner a ref to the owner
      * @return true if there was no previous mapping for this tile
      */
-    public synchronized boolean putTile(@NonNull final MapTile aTile, @NonNull final T aImage, final long owner) {
+    public boolean putTile(@NonNull final MapTile aTile, @NonNull final T aImage, final long owner) {
         return mCachedTiles.put(aTile.toId(), aImage, true, owner) != null;
     }
 
@@ -84,17 +73,9 @@ public class MapTileCache<T> {
      * @param recycleable treue if the Bitmap can be recycled
      * @return true if there was no previous mapping for this tile
      */
-    public synchronized boolean putTile(@NonNull final MapTile aTile, @NonNull final T aImage, final boolean recycleable, final long owner) {
+    public boolean putTile(@NonNull final MapTile aTile, @NonNull final T aImage, final boolean recycleable, final long owner) {
         return mCachedTiles.put(aTile.toId(), aImage, recycleable, owner) != null;
     }
-
-    // ===========================================================
-    // Methods from SuperClass/Interfaces
-    // ===========================================================
-
-    // ===========================================================
-    // Methods
-    // ===========================================================
 
     /**
      * Returns a suitable default for the cache size.
@@ -139,8 +120,4 @@ public class MapTileCache<T> {
     public String getCacheUsageInfo() {
         return "Size " + mCachedTiles.cacheSizeBytes() + " of maximum " + mCachedTiles.getMaxCacheSize() + " #entries " + mCachedTiles.size();
     }
-
-    // ===========================================================
-    // Inner and Anonymous Classes
-    // ===========================================================
 }
