@@ -10,6 +10,7 @@
 	<color name="ccc_beige">#f6e497</color>
 	<color name="ccc_white">#fcfae1</color>
 	<color name="ccc_ocher">#bd8d46</color>
+    <color name="blue_highlight">#46adbd</color>
 	<color name="grey">#0F0F0F</color>
 	<color name="light_grey">#eeeeee</color>
 	<color name="dark_grey">#aaaaaa</color>

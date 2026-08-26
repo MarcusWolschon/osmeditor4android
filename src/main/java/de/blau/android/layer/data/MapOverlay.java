@@ -250,10 +250,14 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
     /** Caches the Paint used for node tolerance */
     private Paint nodeTolerancePaint;
     private Paint nodeTolerancePaint2;
+    private Paint nodeToleranceModifiedPaint;
+    private Paint nodeToleranceModifiedPaint2;
 
     /** Caches the Paint used for way tolerance */
     private Paint wayTolerancePaint;
     private Paint wayTolerancePaint2;
+    private Paint wayToleranceModifiedPaint;
+    private Paint wayToleranceModifiedPaint2;
 
     private Paint nodeDragRadiusPaint;
 
@@ -1046,10 +1050,18 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
 
         // draw tolerance
         if (drawTolerance && (!filterMode || (filterMode && filteredObject))) {
-            if (showTolerance && tmpClickableElements == null) {
-                drawNodeTolerance(canvas, isTagged, x, y, nodeTolerancePaint);
-            } else if (tmpClickableElements != null && tmpClickableElements.contains(node)) {
-                drawNodeTolerance(canvas, isTagged, x, y, nodeTolerancePaint2);
+            if (!node.isUnchanged()) {
+                if (tmpClickableElements == null) {
+                    drawNodeTolerance(canvas, isTagged, x, y, nodeToleranceModifiedPaint);
+                } else if (tmpClickableElements.contains(node)) {
+                    drawNodeTolerance(canvas, isTagged, x, y, nodeToleranceModifiedPaint2);
+                }
+            } else {
+                if (showTolerance && tmpClickableElements == null) {
+                    drawNodeTolerance(canvas, isTagged, x, y, nodeTolerancePaint);
+                } else if (tmpClickableElements != null && tmpClickableElements.contains(node)) {
+                    drawNodeTolerance(canvas, isTagged, x, y, nodeTolerancePaint2);
+                }
             }
         }
 
@@ -1501,11 +1513,17 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
         FeatureStyle labelFontStyleSmall = labelTextStyleSmall;
 
         // draw way tolerance
-        if (drawTolerance) {
-            if (showTolerance && tmpClickableElements == null) {
-                canvas.drawLines(linePoints, 0, pointsSize, wayTolerancePaint);
-            } else if (isClickable) {
+        if (!way.isUnchanged()) {
+            if (isClickable) {
+                canvas.drawLines(linePoints, 0, pointsSize, wayToleranceModifiedPaint2);
+            } else {
+                canvas.drawLines(linePoints, 0, pointsSize, wayToleranceModifiedPaint);
+            }
+        } else if (drawTolerance) {
+            if (isClickable) {
                 canvas.drawLines(linePoints, 0, pointsSize, wayTolerancePaint2);
+            } else if (showTolerance) {
+                canvas.drawLines(linePoints, 0, pointsSize, wayTolerancePaint);
             }
         }
 
@@ -1865,9 +1883,13 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
         // changes when style changes
         nodeTolerancePaint = styles.getInternal(DataStyle.NODE_TOLERANCE).getPaint();
         nodeTolerancePaint2 = styles.getInternal(DataStyle.NODE_TOLERANCE_2).getPaint();
+        nodeToleranceModifiedPaint = styles.getInternal(DataStyle.NODE_TOLERANCE_MODIFIED).getPaint();
+        nodeToleranceModifiedPaint2 = styles.getInternal(DataStyle.NODE_TOLERANCE_MODIFIED_2).getPaint();
         wayTolerancePaint = styles.getInternal(DataStyle.WAY_TOLERANCE).getPaint();
+        wayToleranceModifiedPaint = styles.getInternal(DataStyle.WAY_TOLERANCE_MODIFIED).getPaint();
         nodeToleranceRadius = wayTolerancePaint.getStrokeWidth() / 2;
         wayTolerancePaint2 = styles.getInternal(DataStyle.WAY_TOLERANCE_2).getPaint();
+        wayToleranceModifiedPaint2 = styles.getInternal(DataStyle.WAY_TOLERANCE_MODIFIED_2).getPaint();
         labelBackground = styles.getInternal(DataStyle.LABELTEXT_BACKGROUND).getPaint();
 
         // general node style

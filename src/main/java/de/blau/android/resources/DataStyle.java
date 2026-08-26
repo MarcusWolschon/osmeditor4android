@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.List;
@@ -68,6 +69,8 @@ public final class DataStyle extends DefaultHandler {
     public static final String VIEWBOX                       = "viewbox";
     public static final String WAY_TOLERANCE                 = "way_tolerance";
     public static final String WAY_TOLERANCE_2               = "way_tolerance_2";
+    public static final String WAY_TOLERANCE_MODIFIED        = "way_tolerance_modified";
+    public static final String WAY_TOLERANCE_MODIFIED_2      = "way_tolerance_modified_2";
     public static final String WAY                           = "way";
     public static final String SELECTED_WAY                  = "selected_way";
     public static final String SELECTED_RELATION_WAY         = "selected_relation_way";
@@ -75,6 +78,8 @@ public final class DataStyle extends DefaultHandler {
     public static final String HIDDEN_WAY                    = "hidden_way";
     public static final String NODE_TOLERANCE                = "node_tolerance";
     public static final String NODE_TOLERANCE_2              = "node_tolerance_2";
+    public static final String NODE_TOLERANCE_MODIFIED       = "node_tolerance_modified";
+    public static final String NODE_TOLERANCE_MODIFIED_2     = "node_tolerance_modified_2";
     public static final String NODE_UNTAGGED                 = "node_untagged";
     public static final String NODE_THIN                     = "node_thin";
     public static final String NODE_TAGGED                   = "node_tagged";
@@ -162,6 +167,9 @@ public final class DataStyle extends DefaultHandler {
     private static final String PRESET                = "preset";
     private static final String OFFSET_ATTR           = "offset";
     private static final String TEXT_COLOR_ATTR       = "textColor";
+
+    private static final List NODE_TOLERANCES = Arrays.asList(NODE_TOLERANCE, NODE_TOLERANCE_2, NODE_TOLERANCE_MODIFIED, NODE_TOLERANCE_MODIFIED_2);
+    private static final List WAY_TOLERANCES  = Arrays.asList(WAY_TOLERANCE, WAY_TOLERANCE_2, WAY_TOLERANCE_MODIFIED, WAY_TOLERANCE_MODIFIED_2);
 
     private static final int  DEFAULT_MIN_VISIBLE_ZOOM     = 15;
     public static final float DEFAULT_GPX_STROKE_WIDTH     = 4.0f;
@@ -945,6 +953,20 @@ public final class DataStyle extends DefaultHandler {
         fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, wayToleranceValue));
         internalStyles.put(WAY_TOLERANCE_2, fp);
 
+        fp = new FeatureStyle(WAY_TOLERANCE_MODIFIED, baseWayStyle);
+        fp.setColor(ContextCompat.getColor(ctx, R.color.blue_highlight));
+        fp.setUpdateWidth(false);
+        fp.getPaint().setAlpha(TOLERANCE_ALPHA);
+        fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, wayToleranceValue));
+        internalStyles.put(WAY_TOLERANCE_MODIFIED, fp);
+
+        fp = new FeatureStyle(WAY_TOLERANCE_MODIFIED_2, baseWayStyle);
+        fp.setColor(ContextCompat.getColor(ctx, R.color.blue_highlight));
+        fp.setUpdateWidth(false);
+        fp.getPaint().setAlpha(TOLERANCE_ALPHA_2);
+        fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, wayToleranceValue));
+        internalStyles.put(WAY_TOLERANCE_MODIFIED_2, fp);
+
         fp = new FeatureStyle(SELECTED_NODE);
         int cccBeige = ContextCompat.getColor(ctx, R.color.ccc_beige);
         fp.setColor(cccBeige);
@@ -1052,6 +1074,30 @@ public final class DataStyle extends DefaultHandler {
         fp.getPaint().setAlpha(TOLERANCE_ALPHA_2);
         fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, nodeToleranceValue));
         internalStyles.put(NODE_TOLERANCE_2, fp);
+
+        fp = new FeatureStyle(NODE_TOLERANCE_MODIFIED);
+        fp.setColor(ContextCompat.getColor(ctx, R.color.blue_highlight));
+        fp.setUpdateWidth(false);
+        fp.getPaint().setStyle(Style.FILL);
+        fp.getPaint().setAlpha(TOLERANCE_ALPHA);
+        fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, nodeToleranceValue));
+        internalStyles.put(NODE_TOLERANCE_MODIFIED, fp);
+
+        fp = new FeatureStyle(NODE_TOLERANCE_2);
+        fp.setColor(ContextCompat.getColor(ctx, R.color.ccc_ocher));
+        fp.setUpdateWidth(false);
+        fp.getPaint().setStyle(Style.FILL);
+        fp.getPaint().setAlpha(TOLERANCE_ALPHA_2);
+        fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, nodeToleranceValue));
+        internalStyles.put(NODE_TOLERANCE_2, fp);
+
+        fp = new FeatureStyle(NODE_TOLERANCE_MODIFIED_2);
+        fp.setColor(ContextCompat.getColor(ctx, R.color.blue_highlight));
+        fp.setUpdateWidth(false);
+        fp.getPaint().setStyle(Style.FILL);
+        fp.getPaint().setAlpha(TOLERANCE_ALPHA_2);
+        fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, nodeToleranceValue));
+        internalStyles.put(NODE_TOLERANCE_MODIFIED_2, fp);
 
         fp = new FeatureStyle(INFOTEXT);
         fp.setColor(Color.BLACK);
@@ -1379,9 +1425,9 @@ public final class DataStyle extends DefaultHandler {
                         float strokeWidth = Density.dpToPx(ctx, Float.parseFloat(strokeWidthString));
                         tempFeatureStyle.setStrokeWidth(strokeWidth);
                         // special case if we are setting internal tolerance values
-                        if (type.equals(NODE_TOLERANCE)) {
+                        if (NODE_TOLERANCES.contains(type)) {
                             nodeToleranceValue = strokeWidth;
-                        } else if (type.equals(WAY_TOLERANCE)) {
+                        } else if (WAY_TOLERANCES.contains(type)) {
                             wayToleranceValue = strokeWidth;
                         }
                     }

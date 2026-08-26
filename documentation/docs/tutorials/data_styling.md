@@ -1,5 +1,5 @@
 ## Vespucci Data Styling
-_Documentation for Vespucci 22.1 Style file format version 0.3.3_
+_Documentation for Vespucci 22.2 Style file format version 0.3.3_
 
 The data styling configuration is not a work of art, it was created ad hoc (in other words it is an awful hack) to allow slightly more flexible configuration of the rendering.
 
@@ -70,16 +70,20 @@ Name                          | Description
 gps_track                     | Default style for GPX tracks
 infotext                      | 
 attribution_text              | Text style for attribution notices on the map
-viewbox                       |
+viewbox                       | Colour for the viewbox background (dimmed for non-downloaded areas)
 way_tolerance                 | Styling for area around a way for touch purposes
-way_tolerance_2               | 
+way_tolerance_2               | Same as above but less transparent for highlighting selectable ways
+way_tolerance_modified        | Styling for area around a modified or newly created way
+way_tolerance_modified_2      | Same as above but less transparent for highlighting selectable ways
 way                           | Default way style
 selected_way                  | Selected way style
 selected_relation_way         | Style for relation member ways when the relation is selected
 problem_way                   | Style for a way with an issue
 hidden_way                    | Style for faint way rendering (used when filters are active)
 node_tolerance                | Styling for area around a node for touch purposes
-node_tolerance_2              | 
+node_tolerance_2              | Same as above but less transparent for highlighting selectable nodes
+node_tolerance_modified       | Styling for area around a modified or newly created node
+node_tolerance_modified_2     | Same as above but less transparent for highlighting selectable nodes
 node_untagged                 | Styling for an untagged node
 node_thin                     | 
 node_tagged                   | Style for a tagged node without icon
