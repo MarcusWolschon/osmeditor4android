@@ -3,7 +3,7 @@ _2024 Tomáš Hnyk_
 
 Vespucci is able to use OSM data stored on your device so you can map in areas without internet coverage and upload your changes later. To do that, follow these steps:
 
-1) If you are lucky and the region you are interested in is included [here](https://mapsplit.poole.ch), you can download the needed data offline through the app. Within reason more areas can be added if there is interest and you ask nicely.
+1) If you are lucky and the region you are interested in is included [here](https://mapsplit.poole.ch), you can simply download the needed data offline through the app. Within reason more areas can be added if there is interest and you ask nicely. To do this:
 
 a) In Vespucci, first tap the two-arrows-in-opposing-directions icon and then select **File...**
 <img src="../images/offline_guide_1.jpg" width="250"/>
@@ -14,16 +14,16 @@ b) Select **Download data for offline use...**
 
 c) A view of https://mapsplit.poole.ch will open, just tap on the desired region and Vespucci will download it. Then go to Step 6.
 
-2) If your region is not included, you first need to download the area you are interested in. This service is helpful: https://download.geofabrik.de.
+2) However, if your region is not included, you first need to download the area you are interested in. This service is helpful: [https://download.geofabrik.de](https://download.geofabrik.de).
 Get the appropriate osb.pbf file and save it to your working directory on your computer.
 
 3) Then you need to use the mapsplit tool that can be downloaded from [Github](https://github.com/simonpoole/mapsplit/tags). Choose the file that has "all" in its name and save it to the same directory where you saved the PBF file.
 
-4) Then run this command on you computer (you need to have a working java installation):
+4) Then run this command on you computer (you need to have a working Java installation):
 
         java -Xmx6G -jar mapsplit-all-0.4.0.jar -tvMm  -i slovenia-latest.osm.pbf -o slovenia.msf -f 2000 -z 14 -O 2000 -s 200000000,20000000,2000000
 
-In this example, Slovenia PBF file is used. Replace the appropriate filename for your area. Possibly adjust he mapsplit version to the latest. You can adjust the number after `-z` to select the maximal zoom that will be used. It is also possible to use a .poly file to only get a specific subarea like a city. Instructions to do that are on the Mapsplit Github page. For getting the appropriate .poly files, https://osm-boundaries.com/map is recommended. However, in practice, you can usually just use whole countries and do not bother with .poly files. Once you have the .msf file, transfer it to your phone.
+In this example, Slovenia PBF file is used. Replace the appropriate filename for your area. Possibly adjust he mapsplit version to the latest. You can adjust the number after `-z` to select the maximal zoom that will be used. It is also possible to use a .poly file to only get a specific subarea like a city. Instructions to do that are on the Mapsplit Github page. For getting the appropriate .poly files, [https://osm-boundaries.com/map](https://osm-boundaries.com/map) is recommended. However, in practice, you can usually just use whole countries and not bother with .poly files. Once you have the .msf file, transfer it to your phone.
 
 5) In Vespucci:
 
@@ -39,9 +39,9 @@ c) Choose an appropriate **API name**, under **API URL**, fill in what the other
 
 <img src="../images/offline_guide_5.jpg" width="250"/>
 
-Note that Vespucci copies the file due to [peculiar Android design](https://github.com/MarcusWolschon/osmeditor4android/issues/2455), so you can delete the .msf file afterwards.
+Note that Vespucci makes a copy of the file due to [peculiar Android design](https://github.com/MarcusWolschon/osmeditor4android/issues/2455), so you can delete the .msf file afterwards.
 
-6) Now to switch to using offline source instead of downloading OSM data from the internet, choose the tickbox next to your new source, in our case Slovenia:
+6) Finally, to switch to using offline source instead of downloading OSM data from the internet, choose the tickbox next to your new source, in our case Slovenia:
 
 <img src="../images/offline_guide_6.jpg" width="250"/>
 
