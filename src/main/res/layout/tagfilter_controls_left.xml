@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"   
         android:layout_margin="0dp"
         android:clickable="true"
-        android:src="@drawable/ic_filter_list_black_36dp"
+        android:src="@drawable/filter_black"
         android:theme="@style/Theme.customMain"
         app:backgroundTint="?attr/colorControlNormal"
         app:fabSize="mini"

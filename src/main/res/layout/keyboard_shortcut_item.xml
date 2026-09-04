@@ -46,7 +46,7 @@
         android:layout_marginStart="16dp"
         android:background="@android:color/transparent"
         app:tint="?attr/colorAccent"
-        android:src="@drawable/baseline_sd_storage_black_18dp"
+        android:src="@drawable/sd_card_black"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

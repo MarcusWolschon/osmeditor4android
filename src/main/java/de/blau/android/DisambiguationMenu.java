@@ -381,25 +381,25 @@ public class DisambiguationMenu {
             if (type != null) {
                 switch (type) {
                 case NODE:
-                    return ContextCompat.getDrawable(context, R.drawable.element_node);
+                    return ContextCompat.getDrawable(context, R.drawable.icon_node);
                 case WAY:
-                    return ContextCompat.getDrawable(context, R.drawable.element_way);
+                    return ContextCompat.getDrawable(context, R.drawable.icon_way);
                 case RELATION:
-                    return ContextCompat.getDrawable(context, R.drawable.element_relation);
+                    return ContextCompat.getDrawable(context, R.drawable.icon_relation);
                 case BUG:
-                    return ContextCompat.getDrawable(context, R.drawable.bug_small);
+                    return ContextCompat.getDrawable(context, R.drawable.icon_bug);
                 case NOTE:
-                    return ContextCompat.getDrawable(context, R.drawable.note_small);
+                    return ContextCompat.getDrawable(context, R.drawable.icon_note);
                 case TODO:
-                    return ContextCompat.getDrawable(context, R.drawable.todo_small);
+                    return ContextCompat.getDrawable(context, R.drawable.icon_todo);
                 case MAPROULETTE:
-                    return ContextCompat.getDrawable(context, R.drawable.maproulette_small);
+                    return ContextCompat.getDrawable(context, R.drawable.icon_maproulette);
                 case GEOJSON:
-                    return ContextCompat.getDrawable(context, R.drawable.geojson);
+                    return ContextCompat.getDrawable(context, R.drawable.icon_geojson);
                 case GPX:
-                    return ContextCompat.getDrawable(context, R.drawable.gpx);
+                    return ContextCompat.getDrawable(context, R.drawable.icon_gpx);
                 case IMAGE:
-                    return ContextCompat.getDrawable(context, R.drawable.photo_small);
+                    return ContextCompat.getDrawable(context, R.drawable.icon_photo);
                 case MAPILLARY:
                     return ContextCompat.getDrawable(context, R.drawable.mapillary_small);
                 case PANORAMAX:
