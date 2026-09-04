@@ -9,6 +9,8 @@ import android.text.TextUtils.TruncateAt;
 import android.text.method.LinkMovementMethod;
 import android.text.style.StyleSpan;
 import android.text.util.Linkify;
+import android.text.util.Linkify.TransformFilter;
+import android.util.Patterns;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -377,6 +379,18 @@ public final class TableLayoutUtils {
         return tr;
     }
 
+    private static final Linkify.MatchFilter matchFilter = (CharSequence s, int start, int end) -> {
+        // Reject if not preceded by whitespace
+        if (start > 0 && !Character.isWhitespace(s.charAt(start - 1))) {
+            return false;
+        }
+        // Reject if not followed by whitespace
+        if (end < s.length() && !Character.isWhitespace(s.charAt(end))) {
+            return false;
+        }
+        return true;
+    };
+
     /**
      * Add a new cell to a TableRow
      * 
@@ -394,11 +408,13 @@ public final class TableLayoutUtils {
         if (cellText != null) {
             cell.setText(cellText);
             cell.setMinEms(FIRST_CELL_WIDTH);
-            boolean hasLink = Linkify.addLinks(cell, Linkify.WEB_URLS);
+            SpannableString spannable = new SpannableString(cell.getText());
+            boolean hasLink = Linkify.addLinks(spannable, Patterns.WEB_URL, null, matchFilter, null);
 
             // note order of the following seems to be relevant to enable both selecting and clicking the link
             cell.setTextIsSelectable(true);
             if (isUrl || hasLink) {
+                cell.setText(spannable);
                 cell.setMovementMethod(LinkMovementMethod.getInstance());
             }
 

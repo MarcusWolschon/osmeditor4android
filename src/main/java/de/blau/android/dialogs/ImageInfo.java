@@ -127,7 +127,7 @@ public class ImageInfo extends InfoDialogFragment {
             String path = ContentResolverUtil.getPath(getContext(), uri);
             Log.i(DEBUG_TAG, "path " + path + " uri " + uri.toString());
             if (path != null) {
-                tl.addView(TableLayoutUtils.createRow(activity, R.string.File, path, tp));
+                tl.addView(TableLayoutUtils.createRow(activity, R.string.File, path, false, tp));
             }
             if (showUri || path == null) {
                 tl.addView(TableLayoutUtils.createRow(activity, R.string.URI, uri.toString(), tp));
