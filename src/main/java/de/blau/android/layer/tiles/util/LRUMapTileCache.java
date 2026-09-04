@@ -337,31 +337,30 @@ public class LRUMapTileCache<T> {
     }
 
     /**
-     * 
+     * Unlock writes
      */
     private void unlockWrites() {
         writeLock.unlock();
     }
 
     /**
-     * 
+     * Lock writes
      */
     private void lockWrites() {
         writeLock.lock();
     }
 
     /**
-     * 
+     * Unlock reads
      */
     private void unlockReads() {
         readLock.unlock();
     }
 
     /**
-     * 
+     * Lock reads
      */
     private void lockReads() {
-        System.out.println("locking reads");
         readLock.lock();
     }
 }
