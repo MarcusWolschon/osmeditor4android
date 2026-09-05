@@ -35,7 +35,8 @@ public class CustomSender extends HttpSender {
             if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean(ACRA_SAVE_LOCALLY_KEY, false)) {
                 saveToPublicStorage(report);
             }
-        } catch (ReportSenderException e) {
+        } catch (ReportSenderException e) {           
+            Log.e(DEBUG_TAG, e.getMessage() + " - " +  e.getCause().getMessage());
             // Network transmission failed; save the backup copy locally
             saveToPublicStorage(report);
             // Re-throw so ACRA scheduler knows it failed and handles retries later
