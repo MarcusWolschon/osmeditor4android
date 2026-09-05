@@ -16,10 +16,10 @@ import java.util.concurrent.TimeUnit;
 import org.acra.ACRA;
 import org.acra.annotation.AcraCore;
 import org.acra.annotation.AcraDialog;
-import org.acra.annotation.AcraHttpSender;
 import org.acra.config.CoreConfiguration;
 import org.acra.config.CoreConfigurationBuilder;
 import org.acra.config.HttpSenderConfigurationBuilder;
+import org.acra.security.TLS;
 import org.acra.sender.HttpSender;
 import org.acra.sender.ReportSender;
 import org.acra.sender.ReportSenderFactory;
@@ -83,7 +83,6 @@ import okhttp3.OkHttpClient;
 
 @AcraCore(resReportSendSuccessToast = R.string.report_success, resReportSendFailureToast = R.string.report_failure, logcatArguments = { "-t", "500", "-v",
         "time" })
-@AcraHttpSender(httpMethod = HttpSender.Method.POST, uri = ACRARIUM_URL, resCertificate = R.raw.isrg_root_x1)
 @AcraDialog(resText = R.string.crash_dialog_text, resCommentPrompt = R.string.crash_dialog_comment_prompt, resTheme = R.style.Theme_AppCompat_Light_Dialog)
 
 public class App extends Application implements android.app.Application.ActivityLifecycleCallbacks {
@@ -265,9 +264,10 @@ public class App extends Application implements android.app.Application.Activity
 
     @Override
     public void onCreate() {
-
+        // ACRA network configuration
         CoreConfigurationBuilder builder = new CoreConfigurationBuilder(this).setReportFormat(org.acra.data.StringFormat.JSON);
-        builder.getPluginConfigurationBuilder(HttpSenderConfigurationBuilder.class).setUri(ACRARIUM_URL).setEnabled(true);
+        builder.getPluginConfigurationBuilder(HttpSenderConfigurationBuilder.class).setHttpMethod(HttpSender.Method.POST).setUri(ACRARIUM_URL)
+                .setTlsProtocols(new TLS[] { TLS.V1_2, TLS.V1_3 }).setEnabled(true);
         builder.setReportSenderFactoryClasses(CustomSenderFactory.class);
 
         // Initialize ACRA with the custom configuration
