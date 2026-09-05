@@ -15,7 +15,9 @@ import java.util.concurrent.TimeUnit;
 import org.acra.ACRA;
 import org.acra.annotation.AcraCore;
 import org.acra.annotation.AcraDialog;
-import org.acra.annotation.AcraHttpSender;
+import org.acra.config.CoreConfigurationBuilder;
+import org.acra.config.HttpSenderConfigurationBuilder;
+import org.acra.security.TLS;
 import org.acra.sender.HttpSender;
 import org.conscrypt.Conscrypt;
 import org.mozilla.javascript.ImporterTopLevel;
@@ -78,7 +80,6 @@ import okhttp3.OkHttpClient;
 
 @AcraCore(resReportSendSuccessToast = R.string.report_success, resReportSendFailureToast = R.string.report_failure, logcatArguments = { "-t", "500", "-v",
         "time" })
-@AcraHttpSender(httpMethod = HttpSender.Method.POST, uri = "https://acrarium.vespucci.io/", resCertificate = R.raw.isrg_root_x1)
 @AcraDialog(resText = R.string.crash_dialog_text, resCommentPrompt = R.string.crash_dialog_comment_prompt, resTheme = R.style.Theme_AppCompat_Light_Dialog)
 
 public class App extends Application implements android.app.Application.ActivityLifecycleCallbacks {
@@ -247,7 +248,14 @@ public class App extends Application implements android.app.Application.Activity
 
     @Override
     public void onCreate() {
-        ACRA.init(this);
+        // ACRA network configuration
+        CoreConfigurationBuilder builder = new CoreConfigurationBuilder(this).setReportFormat(org.acra.data.StringFormat.JSON);
+        builder.getPluginConfigurationBuilder(HttpSenderConfigurationBuilder.class).setHttpMethod(HttpSender.Method.POST)
+                .setUri("https://acrarium.vespucci.io/").setTlsProtocols(TLS.V1_2, TLS.V1_3).setEnabled(true);
+
+        // Initialize ACRA with the custom configuration
+        ACRA.init(this, builder);
+     
         super.onCreate();
         registerActivityLifecycleCallbacks(this);
         setupMisc(this);
