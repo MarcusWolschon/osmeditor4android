@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.107.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,road_marking,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.108.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,golf,ford,harbour,hazard,noexit,indoor,indoormark,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing,road_marking,disused:amenity,disused:building,disused:highway,disused:leisure,disused:man_made,disused:military,disused:railway,disused:shop,abandoned:amenity,abandoned:building,abandoned:highway,abandoned:leisure,abandoned:man_made,abandoned:military,abandoned:railway,abandoned:shop">
 <!--
     Icons have been derived from mainly from
   
@@ -1732,6 +1732,9 @@
         <preset_link preset_name="Contact"/>
         <preset_link preset_name="Contact ('contact:*')"/>
         <preset_link preset_name="Address"/>
+    </chunk>
+    <chunk id="self_checkout">
+        <combo key="seld_checkout" text="Self checkout" values="yes,only,no" display_values="Yes,Only,No" values_sort="false" match="key"/>   
     </chunk>
     <chunk id="link_contact_address_payment">
         <!-- this should likely be renamed to contact_commercial or similar -->
@@ -11473,7 +11476,7 @@
             </optional>
         </item> <!-- Marker -->
         <item name="Manhole" icon="icons/png/man_made_manhole.png" type="node" preset_name_label="true">
-            <link wiki="Key:manhole"/>
+            <link wiki="Key:man_made=manhole"/>
             <space/>
             <key key="man_made" value="manhole"/>
             <combo key="manhole" text="Type" values="drain,gas,heat,power,rainwater,sewer,telecom,water" display_values="Drain,Gas,Heat,Power,Rainwater,Sewer,Telecom,Water" values_context="manhole" values_searchable="true"/>
@@ -12810,6 +12813,7 @@
             <reference ref="organic"/>
             <reference ref="bulk_purchase"/>
             <reference ref="post_office_optional"/>
+            <reference ref="self_checkout"/>
             <reference ref="link_contact_address_payment"/>
             <reference ref="baby_feeding"/>
             <reference ref="kids_area"/>
@@ -12823,6 +12827,7 @@
             <reference ref="fast_food"/>
             <reference ref="bulk_purchase"/>
             <reference ref="post_office_optional"/>
+            <reference ref="self_checkout"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Convenience Store -->
         <item name="General store" icon="icons/png/shopping_convenience.png" gtype="node,closedway,multipolygon" preset_name_label="true">
@@ -12889,6 +12894,7 @@
             <space/>
             <key key="shop" value="frozen_food"/>
             <reference ref="name_operator_oh_wheelchair_level"/>
+            <reference ref="self_checkout"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Frozen food -->
         <item name="Deli (Fine Food)" icon="icons/png/shopping_deli_29042.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -12962,6 +12968,7 @@
             <key key="shop" value="greengrocer"/>
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="organic"/>
+            <reference ref="self_checkout"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Greengrocer -->
         <item name="Farm Stand" icon="icons/png/shopping_farm_29062.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -13001,6 +13008,7 @@
             <space/>
             <key key="shop" value="alcohol"/>
             <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="self_checkout"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Alcohol -->
         <item name="Beverages" icon="icons/png/shopping_beverages_29007.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -13008,6 +13016,7 @@
             <space/>
             <key key="shop" value="beverages"/>
             <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="self_checkout"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Beverages -->
         <item name="Wine" icon="icons/png/shopping_wine_29203.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -13032,6 +13041,7 @@
             <space/>
             <key key="shop" value="nutrition_supplements"/>
             <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="self_checkout"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Nutrition supplements -->
         <item name="Health food" icon="icons/png/shopping_health_food.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -13041,6 +13051,7 @@
             <reference ref="organic"/>
             <reference ref="bulk_purchase"/>
             <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="self_checkout"/>
             <reference ref="link_contact_address_payment"/>
             <preset_link preset_name="Diet"/>
         </item> <!-- Health food -->
@@ -13063,6 +13074,7 @@
             <reference ref="clothes"/>
             <combo key="second_hand" text="Second hand" values="only,yes,no" display_values="Only,Yes,No"/>
             <reference ref="organic"/>
+            <reference ref="self_checkout"/>
             <reference ref="link_contact_address_payment"/>
             <reference ref="baby_feeding"/>
             <reference ref="kids_area"/>
@@ -13173,6 +13185,7 @@
             <space/>
             <key key="shop" value="computer"/>
             <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="self_checkout"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Computer -->
         <item name="Consumer electronics" icon="icons/png/shopping_electronics_29047.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -13180,6 +13193,7 @@
             <space/>
             <key key="shop" value="electronics"/>
             <reference ref="name_oh_wheelchair_level_toilets"/>
+            <reference ref="self_checkout"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Computer -->
         <item name="Mobile Phone" icon="icons/png/shopping_mobile_phone.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -13271,6 +13285,7 @@
             <space/>
             <key key="shop" value="kitchen"/>
             <reference ref="name_brand_operator_oh_wheelchair_level"/>
+            <reference ref="self_checkout"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Kitchen -->
         <item name="Houseware" icon="icons/png/shopping_houseware_29181.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -13406,6 +13421,7 @@
             <space/>
             <key key="shop" value="stationery"/>
             <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="self_checkout"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Stationery -->
         <item name="Copy Shop" icon="icons/png/shopping_copyshop.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -13453,6 +13469,7 @@
             <space/>
             <key key="shop" value="chemist"/>
             <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="self_checkout"/>
             <reference ref="link_contact_address_payment"/>
             <reference ref="baby_feeding"/>
             <reference ref="kids_area"/>
@@ -13462,6 +13479,7 @@
             <space/>
             <key key="shop" value="cosmetics"/>
             <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="self_checkout"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Cosmetics -->
         <item name="Perfumery" icon="icons/png/shopping_perfumery.png" type="node,closedway" preset_name_label="true">
@@ -13608,6 +13626,7 @@
             <key key="shop" value="sports"/>
             <reference ref="sport"/>
             <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="self_checkout"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Sports -->
         <item name="Water sports" icon="icons/png/shopping_water_sports_29208.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -13615,6 +13634,7 @@
             <space/>
             <key key="shop" value="water_sports"/>
             <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="self_checkout"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Water sports -->
         <item name="Fishing" icon="icons/png/shopping_fishing_29064.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -13711,6 +13731,7 @@
             <space/>
             <key key="shop" value="garden_centre"/>
             <reference ref="name_brand_oh_wheelchair_level"/>
+            <reference ref="self_checkout"/>
             <reference ref="link_contact_address_payment"/>
             <reference ref="kids_area"/>
         </item> <!-- Garden Centre -->
@@ -13720,6 +13741,7 @@
             <space/>
             <key key="shop" value="doityourself"/>
             <reference ref="name_brand_oh_wheelchair_level"/>
+            <reference ref="self_checkout"/>
             <reference ref="link_contact_address_payment"/>
             <reference ref="kids_area"/>
         </item> <!-- Do-It-Yourself Store -->
@@ -13728,6 +13750,7 @@
             <space/>
             <key key="shop" value="hardware"/>
             <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="self_checkout"/>
             <reference ref="link_contact_address_payment"/>
             <reference ref="kids_area"/>
         </item> <!-- Hardware -->
