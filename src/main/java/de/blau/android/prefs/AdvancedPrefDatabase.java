@@ -218,6 +218,18 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
                 + " (id TEXT PRIMARY KEY, name TEXT, url TEXT, readonlyurl TEXT, notesurl TEXT, user TEXT, pass TEXT, preset TEXT, showicon INTEGER DEFAULT 1, oauth INTEGER DEFAULT 0, accesstoken TEXT, accesstokensecret TEXT, timeout INTEGER DEFAULT "
                 + Server.DEFAULT_TIMEOUT + ", compresseduploads INTEGER DEFAULT 0, authenticatedreads INTEGER DEFAULT 0)");
     }
+    
+    /**
+     * Create the table for apis, v21
+     * 
+     * @param db a writable SQLIteDatabase
+     * @param table the table name
+     */
+    private void createApisTable21(@NonNull SQLiteDatabase db, @NonNull String table) {
+        db.execSQL(CREATE_TABLE + table
+                + " (id TEXT PRIMARY KEY, name TEXT, url TEXT, readonlyurl TEXT, notesurl TEXT, user TEXT, pass TEXT, preset TEXT, showicon INTEGER DEFAULT 1, oauth INTEGER DEFAULT 0, accesstoken TEXT, accesstokensecret TEXT, timeout INTEGER DEFAULT "
+                + Server.DEFAULT_TIMEOUT + ", compresseduploads INTEGER DEFAULT 0)");
+    }
 
     /**
      * Create the table for presets
@@ -343,7 +355,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
             addDefaultImageStoreEntries(db);
         }
         if (oldVersion <= 21) {
-            createApisTable(db, TEMP_TABLE);
+            createApisTable21(db, TEMP_TABLE);
             migrateTable(db, APIS_TABLE, TEMP_TABLE);
             createPresetsTable(db, TEMP_TABLE);
             migrateTable(db, PRESETS_TABLE, TEMP_TABLE);
