@@ -277,8 +277,8 @@ android {
  
     defaultConfig {
         applicationId "de.blau.android"
-        versionCode 3501
-        versionName "22.1.0.0"
+        versionCode 3502
+        versionName "22.1.1.0"
         resValue "string", "app_version", versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

@@ -1,5 +1,20 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+22.1.1:
+
+- Fix database migration caused crash when upgrading from 22.0 or earlier
+- Fix ACRA tries to use TLS 1.1 this causes issues on newer Android versions
+- Fix protect against null preset path
+- Fix actually save tile in onSaveInstanceState
+- Fix starting a foreground service can throw a SecurityException, catch it
+- Add rendering for highway=via_ferrata
+- Change remove entries for public and private GPX visibility
+- Update root certificates 
+- Update default preset
+- Update translations
+- Update tag2link
+- Update imagery from ELI
+
 22.1.0:
 
 - Fix don't crash if we can't find download
