@@ -75,7 +75,7 @@ public class AdvancedPrefDatabaseTest {
             assertNull(test1[0].accesstokensecret);
         }
     }
-    
+
     /**
      * Disable the default preset then try to retrieve all active ones
      */

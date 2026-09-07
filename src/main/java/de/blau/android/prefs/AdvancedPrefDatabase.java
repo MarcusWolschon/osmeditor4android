@@ -56,7 +56,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     private final SharedPreferences sharedPrefs;
     private final String            selectedApi;
 
-    private static final int DATA_VERSION = 24;
+    static final int DATA_VERSION = 24;
 
     static final String DATABASE_NAME = "AdvancedPrefs";
 
