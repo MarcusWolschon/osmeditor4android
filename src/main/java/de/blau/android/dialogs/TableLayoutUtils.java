@@ -9,7 +9,6 @@ import android.text.TextUtils.TruncateAt;
 import android.text.method.LinkMovementMethod;
 import android.text.style.StyleSpan;
 import android.text.util.Linkify;
-import android.text.util.Linkify.TransformFilter;
 import android.util.Patterns;
 import android.view.Gravity;
 import android.view.View;
@@ -385,10 +384,7 @@ public final class TableLayoutUtils {
             return false;
         }
         // Reject if not followed by whitespace
-        if (end < s.length() && !Character.isWhitespace(s.charAt(end))) {
-            return false;
-        }
-        return true;
+        return end >= s.length() || Character.isWhitespace(s.charAt(end));
     };
 
     /**

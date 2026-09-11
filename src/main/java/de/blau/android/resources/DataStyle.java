@@ -168,8 +168,8 @@ public final class DataStyle extends DefaultHandler {
     private static final String OFFSET_ATTR           = "offset";
     private static final String TEXT_COLOR_ATTR       = "textColor";
 
-    private static final List NODE_TOLERANCES = Arrays.asList(NODE_TOLERANCE, NODE_TOLERANCE_2, NODE_TOLERANCE_MODIFIED, NODE_TOLERANCE_MODIFIED_2);
-    private static final List WAY_TOLERANCES  = Arrays.asList(WAY_TOLERANCE, WAY_TOLERANCE_2, WAY_TOLERANCE_MODIFIED, WAY_TOLERANCE_MODIFIED_2);
+    private static final List<String> NODE_TOLERANCES = Arrays.asList(NODE_TOLERANCE, NODE_TOLERANCE_2, NODE_TOLERANCE_MODIFIED, NODE_TOLERANCE_MODIFIED_2);
+    private static final List<String> WAY_TOLERANCES  = Arrays.asList(WAY_TOLERANCE, WAY_TOLERANCE_2, WAY_TOLERANCE_MODIFIED, WAY_TOLERANCE_MODIFIED_2);
 
     private static final int  DEFAULT_MIN_VISIBLE_ZOOM     = 15;
     public static final float DEFAULT_GPX_STROKE_WIDTH     = 4.0f;

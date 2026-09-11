@@ -267,7 +267,7 @@ public class App extends Application implements android.app.Application.Activity
         // ACRA network configuration
         CoreConfigurationBuilder builder = new CoreConfigurationBuilder(this).setReportFormat(org.acra.data.StringFormat.JSON);
         builder.getPluginConfigurationBuilder(HttpSenderConfigurationBuilder.class).setHttpMethod(HttpSender.Method.POST).setUri(ACRARIUM_URL)
-                .setTlsProtocols(new TLS[] { TLS.V1_2, TLS.V1_3 }).setEnabled(true);
+                .setTlsProtocols(TLS.V1_2, TLS.V1_3).setEnabled(true);
         builder.setReportSenderFactoryClasses(CustomSenderFactory.class);
 
         // Initialize ACRA with the custom configuration
