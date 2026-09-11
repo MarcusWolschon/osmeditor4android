@@ -1079,13 +1079,15 @@ public class Main extends AuthorisationEnabledActivity
     }
 
     /**
-     * @param logic
+     * Start zoom to the selected element and then start the appropriate element selection mode
+     * 
+     * @param logic the current Logic instance
      */
-    private void zoomToSelected(final Logic logic) {
+    private void zoomToSelected(@NonNull final Logic logic) {
         final List<OsmElement> selectedElements = logic.getSelectedElements();
         zoomTo(selectedElements);
         if (Mode.MODE_EASYEDIT == logic.getMode() && !selectedElements.isEmpty()) {
-            getEasyEditManager().editElements();
+            getEasyEditManager().startElementSelectionMode();
         }
         invalidateMap();
     }
