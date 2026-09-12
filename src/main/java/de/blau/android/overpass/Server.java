@@ -313,6 +313,8 @@ public final class Server {
                 osmParser.start(in);
             } catch (ParserConfigurationException pcex) {
                 throw new IOException(pcex);
+            } catch (StorageException sex) {
+                throw new IOException(sex);
             }
             return osmParser.getStorage();
         }
