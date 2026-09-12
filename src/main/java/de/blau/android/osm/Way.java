@@ -18,6 +18,7 @@ import com.github.micycle1.clipper2.core.Point64;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import de.blau.android.osm.UndoStorage.UndoNode;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Geometry;
 import de.blau.android.util.rtree.BoundedObject;
@@ -147,20 +148,60 @@ public class Way extends StyledOsmElement implements WayInterface, BoundedObject
      */
     private void toXml(@NonNull final XmlSerializer s, @Nullable Long changeSetId, boolean josm)
             throws IllegalArgumentException, IllegalStateException, IOException {
+        checkForNodes();
         s.startTag("", NAME);
         attributesToXml(s, changeSetId, josm);
-        if (nodes != null) {
-            for (Node node : nodes) {
-                s.startTag("", NODE);
-                s.attribute("", REF, Long.toString(node.getOsmId()));
-                s.endTag("", NODE);
-            }
-        } else {
-            Log.i(DEBUG_TAG, "Way without nodes");
-            throw new IllegalArgumentException("Way " + getOsmId() + " has no nodes");
+        for (Node node : nodes) {
+            s.startTag("", NODE);
+            s.attribute("", REF, Long.toString(node.getOsmId()));
+            s.endTag("", NODE);
         }
         tagsToXml(s);
         s.endTag("", NAME);
+    }
+
+    /**
+     * Check if we have nodes, else throw an exception
+     */
+    private void checkForNodes() {
+        if (nodes == null) {
+            Log.i(DEBUG_TAG, "Way without nodes");
+            throw new IllegalArgumentException("Way " + getOsmId() + " has no nodes");
+        }
+    }
+
+    @Override
+    public void toAugmentedXml(XmlSerializer s, boolean original, UndoStorage undo) throws IllegalArgumentException, IllegalStateException, IOException {
+        checkForNodes();
+        s.startTag("", NAME);
+        attributesToXml(s, null, false);
+        if (!isDeleted()) {
+            getBounds().toXml(s, null);
+            wayNodesToAugmentedXml(s, original, undo);
+            tagsToXml(s);
+        }
+        s.endTag("", NAME);
+    }
+
+    /**
+     * Outptu way nodes in augemented diff format
+     * 
+     * @param s the serializer
+     * @param original if true try to output the original coords
+     * @param undo UndoStorage instance for when original is true
+     * @throws IOException is serializing fails
+     */
+    public void wayNodesToAugmentedXml(@NonNull XmlSerializer s, boolean original, UndoStorage undo) throws IOException {
+        for (Node node : nodes) {
+            s.startTag("", NODE);
+            s.attribute("", REF, Long.toString(node.getOsmId()));
+            GeoPoint point = original && undo != null ? (UndoNode) undo.getOriginal(node) : node;
+            if (point == null) {
+                point = node;
+            }
+            Node.coordToXmlAttr(s, point.getLat(), point.getLon());
+            s.endTag("", NODE);
+        }
     }
 
     /**
