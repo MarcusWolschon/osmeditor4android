@@ -3731,7 +3731,7 @@ public class Logic {
      * @throws OsmServerException if something goes wrong
      */
     @Nullable
-    public OsmElement getElementWithDeletedSync(final Context ctx, final String type, final long id) throws OsmServerException {
+    public OsmElement getElementWithDeletedSync(@NonNull final Context ctx, @NonNull final String type, final long id) throws OsmServerException {
         try {
             final Server server = getPrefs().getServer();
             final OsmParser osmParser = new OsmParser(true);
@@ -3753,6 +3753,9 @@ public class Logic {
         } catch (IOException | URISyntaxException | IllegalArgumentException ex) {
             Log.e(DEBUG_TAG, "getElementWithDeleted no connection", ex);
             throw new OsmServerException(ErrorCodes.NO_CONNECTION, ex.getLocalizedMessage());
+        } catch (StorageException ex) {
+            Log.e(DEBUG_TAG, "getElementWithDeleted", ex);
+            throw new OsmServerException(ErrorCodes.OUT_OF_MEMORY, ex.getLocalizedMessage());
         }
     }
 
@@ -3852,7 +3855,7 @@ public class Logic {
      */
     @NonNull
     private Storage multiFetch(@NonNull final Context ctx, @NonNull final Server server, @NonNull OsmParser osmParser, @NonNull String type,
-            @NonNull long[] ids) throws SAXException, IOException, ParserConfigurationException, URISyntaxException {
+            @NonNull long[] ids) throws SAXException, IOException, ParserConfigurationException, URISyntaxException, StorageException {
         int end = 0;
         for (int start = 0; start < Math.min(start + Server.MULTI_FETCH_MAX_ELEMENTS, ids.length); start = end) {
             end = start + Math.min(Server.MULTI_FETCH_MAX_ELEMENTS, ids.length - start);
@@ -3877,7 +3880,7 @@ public class Logic {
      * @throws URISyntaxException if the url couldn't be parsed
      */
     private void downloadMissingWayNodes(@NonNull final Context ctx, @NonNull final Server server, @NonNull final OsmParser osmParser, @Nullable OsmElement way)
-            throws SAXException, IOException, ParserConfigurationException, URISyntaxException {
+            throws SAXException, IOException, ParserConfigurationException, URISyntaxException, StorageException {
         // as the API doesn't return way nodes for this call we need to patch things up here
         if (way == null) {
             throw new OsmServerException(ErrorCodes.NOT_FOUND, "downloadMissingWayNodes null way");
@@ -4021,6 +4024,9 @@ public class Logic {
         } catch (IOException | URISyntaxException | IllegalArgumentException e) {
             result = ErrorCodes.NO_CONNECTION;
             Log.e(DEBUG_TAG, "downloadElement no connection", e);
+        } catch (StorageException e) {
+            result = ErrorCodes.OUT_OF_MEMORY;
+            Log.e(DEBUG_TAG, "downloadElemen out of memory", e);
         }
         return result;
     }

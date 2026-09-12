@@ -53,6 +53,7 @@ import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIOException;
 import de.blau.android.exception.OsmServerException;
+import de.blau.android.exception.StorageException;
 import de.blau.android.net.GzipRequestInterceptor;
 import de.blau.android.net.OAuth1aHelper;
 import de.blau.android.net.OAuth2Interceptor;
@@ -950,7 +951,7 @@ public class Server {
             oscParser.clearBoundingBoxes(); // this removes the default bounding box
             oscParser.start(response.body().byteStream());
             return oscParser.getStorage();
-        } catch (IOException | SAXException | ParserConfigurationException | URISyntaxException | IllegalArgumentException e) {
+        } catch (IOException | SAXException | ParserConfigurationException | URISyntaxException | IllegalArgumentException | StorageException e) {
             Log.d(DEBUG_TAG, "getChanges got " + e.getMessage());
         }
         return null;
