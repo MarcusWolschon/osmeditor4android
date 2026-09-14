@@ -4547,7 +4547,10 @@ public class Main extends AuthorisationEnabledActivity
             // FIXME this doesn't seem to work as expected
             App.getLogic().setZoom(getMap(), Ui.ZOOM_FOR_ZOOMTO);
         } else {
-            map.getViewBox().fitToBoundingBox(getMap(), e.getBounds());
+            BoundingBox b = e.getBounds();
+            if (b != null) {
+                map.getViewBox().fitToBoundingBox(getMap(), b);
+            }
         }
         map.getViewBox().moveTo(getMap(), lonE7, latE7);
     }
