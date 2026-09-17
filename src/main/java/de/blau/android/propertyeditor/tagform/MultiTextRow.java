@@ -479,7 +479,7 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow, TagChange
                 row.post(() -> ScreenMessage.barWarning(row, R.string.toast_phone_number_reformatted, BaseTransientBottomBar.LENGTH_LONG));
             }
         }
-        int currentCount = splitValues.size();
+        int currentCount = splitValues != null ? splitValues.size() : 0; // need to retest for null here
         int start = notEmpty ? currentCount : 0;
         boolean hasValueCount = row.valueCount > 0 && row.valueCountKey != null;
         int end = hasValueCount ? row.valueCount : (notEmpty ? currentCount + 1 : 1);
