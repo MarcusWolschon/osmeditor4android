@@ -8,6 +8,7 @@ import android.util.Log;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
@@ -68,6 +69,14 @@ public class InvalidLogin extends AuthorisationEnabledDialogFragment {
         return f;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        authorisationLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            // nothing
+        });
+    }
+
     @NonNull
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
@@ -82,13 +91,5 @@ public class InvalidLogin extends AuthorisationEnabledDialogFragment {
             builder.setPositiveButton(R.string.wrong_login_data_re_authenticate, (dialog, which) -> startAuthorisation());
         }
         return builder.create();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        authorisationLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-            // nothing
-        });
     }
 }
