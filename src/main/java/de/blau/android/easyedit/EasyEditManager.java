@@ -629,6 +629,7 @@ public class EasyEditManager {
     /**
      * @return the current instance of Main
      */
+    @NonNull
     public Main getMain() {
         return main;
     }

@@ -4310,7 +4310,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         OsmElement apiElement = apiStorage.getOsmElement(rm.getType(), rm.getRef());
         if (apiElement != null && apiElement.getState() == OsmElement.STATE_DELETED) {
             logAndSendReport("mergeData/applyOsc deleted " + rm.getType() + " in downloaded relation " + r.getOsmId());
-            fixupBacklinks(); // nexessary as we've removed the original ones from the elements
+            fixupBacklinks(); // necessary as we've removed the original ones from the elements
             return true; // can't resolve conflicts, upload first
         }
         return false;
