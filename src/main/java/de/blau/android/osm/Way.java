@@ -374,16 +374,24 @@ public class Way extends StyledOsmElement implements WayInterface, BoundedObject
      * 
      * @return the first Node
      */
+    @NonNull
     public Node getFirstNode() {
+        if (nodes.isEmpty()) {
+            throw new IllegalStateException("getFirstNode no nodes in way");
+        }
         return nodes.get(0);
     }
 
     /**
      * Get the last Node of this Way
      * 
-     * @return the last Ndoe
+     * @return the last Node
      */
+    @NonNull
     public Node getLastNode() {
+        if (nodes.isEmpty()) {
+            throw new IllegalStateException("getLastNode no nodes in way");
+        }
         return nodes.get(nodes.size() - 1);
     }
 
