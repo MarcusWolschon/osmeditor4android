@@ -2,7 +2,7 @@ _Before we start: most screens have links in the menu to the on-device help syst
 
 # Vespucci の導入
 
-Vespucci は、デスクトップエディタが提供する大半の機能をサポートする、フル機能の OpenStreetMap エディタです。Google の Android 2.3 から 14.0 （4.1 以前は最早サポートされません）と AOSP ベースの派生物でうまくテストされています。注意事項：モバイルデバイスの性能はデスクトップに追いついていますが、特に古いデバイスではメモリが限られており、かなり遅くなる傾向にあります。Vespucci を使用する際にはこれを念頭に置き、編集するエリアを適切なサイズに保つなどしてください。
+Vespucci は、デスクトップエディタが提供する大半の機能をサポートする、フル機能の OpenStreetMap エディタです。Google の Android 2.3 から 14.0 （4.1 以前は最早サポートされません）と AOSP ベースの派生物で試験に成功しました。注意事項：携帯端末の性能はデスクトップ機に追いついていますが、特に古い端末では使用可能なメモリが限定的で、かなり遅くなる傾向にあります。Vespucci を使用する際にはこれを念頭に置き、編集箇所を適切な範囲に保つなどしてください。
 
 ## Vespucci での編集
 
@@ -125,11 +125,11 @@ OpenStreetMap は他の地理データのシステムとは異なり、現在「
 
 選択したウェイ上で十分にズームインすると、十分な長さのウェイのセグメントの中央に小さな「x」が現れます。その「x」をドラッグするとその位置のウェイ内にノードを作成します。注意: 誤操作によるノード作成を避けるために、この操作の反応域はかなり小さくなっています。
 
-#### 切り取り、コピー&ペースト
+#### 切り取り、コピー、貼り付け
 
-You can copy selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version, thus can only be pasted once. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.
+選択したノードやウェイは、コピーして、新しい位置に一回または複数回貼り付けることができます。切り取ったものにはosmでのidとバージョンが保持されるので、一回だけ貼り付けることが可能です。貼り付ける際には貼り付けたい位置で長押しします (その位置を示す十字が現れます) 。その後、メニューから「貼り付け」を選択できます。 
 
-#### 住所を効果的に追加する
+#### 効率的な住所追加
 
 Vespucci supports functionality that makes surveying addresses more efficient by predicting house numbers (left and right sides of streets separately) and automatically adding _addr:street_ or _addr:place_ tags based on the last used value and proximity. In the best case this allows adding an address without any typing at all.   
 
@@ -143,7 +143,7 @@ To add individual address nodes directly while in the default "Simple mode" swit
 
 住居番号の予測入力が機能するには典型的には道路の両側に最低2つの住居番号が必要で、データ中に多くの番号があるほどベターです。
 
-Consider using this with one of the [Auto-download](#download) modes.  
+この機能には [自動ダウンロード](#download) 方式を使用することを考慮してください。  
 
 #### 進行方向制限を追加する
 
@@ -173,7 +173,7 @@ Authorizing Vespucci to access your account on your behalf requires you to one t
 
 #### アップロード時の競合を解決する
 
-Vespucci にはシンプルな競合リゾルバがあります。しかしながら、重大な問題がありそうな場合には、変更内容を However if you suspect that there are major issues with your edits, export your changes to a .osc ファイル (「転送」メニュー内の「エクスポート」メニュー項目)にエクスポートしてJOSMで修正してアップロードしてください。詳細なヘルプは [conflict resolution](Conflict%20resolution.md)参照。  
+Vespucci には簡便な競合解決手段があります。しかしながら、重大な問題がありそうな場合には、変更内容を .osc ファイル (「転送」メニュー内の「出力」項目)に出力してJOSMで修正してアップロードしてください。詳細なヘルプは [競合解決](Conflict%20resolution.md)参照。  
 
 ### Nearby point-of-interest display
 
@@ -181,19 +181,19 @@ A nearby point-of-interest display can be shown by pulling the handle in the mid
 
 More information on this and other available functionality on the main display can be found here [Main map display](Main%20map%display.md).
 
-## Using GPS and GPX tracks
+## GPXとGPX経路を使用する
 
-With standard settings Vespucci will try to enable GPS (and other satellite based navigation systems) and will fallback to determining the position via so called "network location" if this is not possible. This behaviour assumes that you in normal use have your Android device itself configured to only use GPX generated locations (to avoid tracking), that is you have the euphemistically named "Improve Location Accuracy" option turned off. If you want to enable the option but want to avoid Vespucci falling back to "network location", you should turn the corresponding option in the [Advanced preferences](Advanced%20preferences.md) off. 
+標準設定でVespucciはGPS(と他の衛星測位システム)の有効化を試み、これが不可能な場合は代替手段として、いわゆる「ネットワークの位置」によって位置を特定します。これは通常、「正確な位置情報を使用する」と婉曲的に名付けられた設定項目が無効化されていると仮定して動作します。つまり、(trackingを防ぐために)GPXが生成した位置情報だけを使用するようにAndroid自体が設定されていると仮定して動作します。もしも、この設定項目を有効化したいが、Vespucciが代替手段として「ネットワークの位置」を使用することを防ぎたい場合は、[高度な設定](Advanced%20preferences.md)内で関連設定項目を無効化する必要があります。 
 
 Touching the ![GPS](../images/menu_gps.png) button (normally on the left hand side of the map display) will center the screen on the current position and as you move the map display will be panned to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.
 
-To record a GPX track and display it on your device select "Start GPX track" item in the ![GPS](../images/menu_gps.png) menu. This will add layer to the display with the current recorded track, you can upload and export the track from the entry in the [layer control](Main%20map%20display.md). Further layers can be added from local GPX files and tracks downloaded from the OSM API.
+GPX経路を記録して端末上に表示するには、![GPS](../images/menu_gps.png)メニュー内の「GPX記録を開始」を選択します。これは、現在の記録された経路を表示するレイヤーを追加し、[レイヤー制御](Main%20map%20display.md)内の項目からアップロードと出力ができるようになります。更にレイヤーには、端末内のGPXファイルと、OSM APIからダウンロードした経路を追加することが可能です。
 
-Note: by default Vespucci will not record elevation data with your GPX track, this is due to some Android specific issues. To enable elevation recording, either install a gravitational model, or, simpler, go to the [Advanced preferences](Advanced%20preferences.md) and configure NMEA input.
+注意点: 初期設定では、VespucciはGPX経路に標高情報を記録しません。これは、いくつかのAndroidで固有の問題が原因です。標高の記録を有効化するには、地球重力モデルをインストールするか、単純な方法では[高度な設定](Advanced%20preferences.md)内でNMEA入力を設定します。
 
-### How to export a GPX track?
+### GPX経路を出力するには?
 
-Open the layer menu, then click the 3-dots menu next to "GPX recording", then select **Export GPX track...**. Choose in which folder to export the track, then give it a name suffixed with `.gpx` (example: MyTrack.gpx).
+レイヤーメニューを開き、そして「GPX記録」の横の3点メニューをクリックして、そして**GPX経路を出力…**を選択します。経路を出力するフォルダーを選択して、そして末尾が `.gpx` となる名前を与えます(例:私の経路.gpx)。
 
 ## Notes, Bugs and Todos
 
@@ -226,7 +226,7 @@ Mapping indoors is challenging due to the high number of objects that very often
 
 <a id="c-mode"></a>
 
-## Cモード
+## C方式
 
 C方式では、警告フラグセットを持つ物体だけが表示され、特定の問題を持っていたり設定可能な確認項目に一致する物体を簡単に選び出せます。物体が選択され、属性編集がC方式で起動されると、最一致のプリセットが自動的に適用されます。
 
@@ -234,13 +234,13 @@ C方式では、警告フラグセットを持つ物体だけが表示され、�
 
 ### 構成チェック
 
-All validations can be disabled/enabled in the "Validator settings/Enabled validations" in the [preferences](Preferences.md). 
+すべての妥当性検査は、[設定](Preferences.md)内の「妥当性検査設定/有効な諸妥当性検査」で有効化または無効化可能です。 
 
 The configuration for "Re-survey" entries allows you to set a time after which a tag combination should be re-surveyed. "Check" entries are tags that should be present on objects as determined by matching presets. Entries can be edited by clicking them, the green menu button allows adding of entries.
 
 #### 再調査エントリー
 
-再調査エントリーには次のようなプロパティがあります:
+再調査エントリーには次のような諸属性があります:
 
 * **Key** - Key of the tag of interest.
 * **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
@@ -264,23 +264,23 @@ This check works by first determining the matching preset and then checking if *
 
 ### タグベースのフィルター
 
-The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here [Tag filter](Tag%20filter.md).
+フィルターはメインメニューから有効化可能で、フィルターを変更するにはフィルターのアイコンを触れます。更なるドキュメントは[タグフィルター](Tag%20filter.md)内で閲覧可能です。
 
 ### プリセットベースのフィルター
 
-An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here [Preset filter](Preset%20filter.md).
+上記の方法とは別に、物体を個々のプリセットまたはプリセット集ごとにフィルタリングすることもできます。フィルターアイコンを触れると、Vespucciの他の箇所で使用されているものと同様のプリセット選択ダイアログが表示されます。個々のプリセットは通常クリックで選択でき、プリセット集は長押しで選択できます(通常クリックするとプリセット集内に入ります)。詳細については、こちらの[プリセットフィルター](Preset%20filter.md)をご覧ください。
 
 ## Vespucci をカスタマイズする
 
-Many aspects of the app can be customized, if you are looking for something specific and can't find it, [the Vespucci website](https://vespucci.io/) is searchable and contains additional information over what is available on device.
+アプリの多くの部分は改変可能です。何かの改変方法を探していて見つからない場合は、[Vespucciウェブサイト](https://vespucci.io/)で探すことが可能です。端末上で利用可能な追加の情報があります。
 
 <a id="layers"></a>
 
-### Layer settings
+### レイヤー設定
 
-Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.
+レイヤー設定はレイヤー制御(画面上部の右隅にあるハンバーガーメニュー「≡」)から変更可能で、すべての他の設定は、メインメニュー設定ボタンから到達可能です。レイヤーは有効化、無効化、一時的非表示が可能です。
 
-Available layer types:
+利用可能な種別:
 
 * Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.
 * Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.
@@ -301,7 +301,7 @@ More information can be found in the section on the [map display](Main%20map%20d
 
 The full description can be found here [Preferences](Preferences.md)
 
-#### 高度な独自設定
+#### 高度な設定
 
 * Full screen mode. On devices without hardware buttons Vespucci can run in full screen mode, that means that "virtual" navigation buttons will be automatically hidden while the map is displayed, providing more space on the screen for the map. Depending on your device this may work well or not,  In _Auto_ mode we try to determine automatically if using full screen mode is sensible or not, setting it to _Force_ or _Never_ skips the automatic check and full screen mode will always be used or always not be used respectively. On devices running Android 11 or higher the _Auto_ mode will never turn full screen mode on as Androids gesture navigation provides a viable alternative to it. Default: _Auto_.  
 * Node icons. Default: _on_.

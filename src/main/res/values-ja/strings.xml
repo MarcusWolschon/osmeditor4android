@@ -48,6 +48,7 @@
   <string name="local_reference_inconsistency">端末内での参照が不一致です。参照された要素の削除を取り消すことは安全な選択肢ですが、これをバグとして報告してください。</string>
   <string name="delete_locally">端末内で削除</string>
   <string name="undelete_on_server">サーバー上で\n復元</string>
+  <string name="error_running_action">%2$s で動作 %1$s がエラー</string>
   <!--Upload retry-->
   <string name="upload_retry_title">アップロード失敗</string>
   <string name="upload_retry_message_no_open_changeset">変更セットを開くのに失敗しました。\n\n再試行は安全です。</string>
@@ -198,7 +199,7 @@
   <string name="upload_source_label">情報源:</string>
   <string name="upload_close_open_changeset_label">最初に、開かれた変更セットを閉じてください:</string>
   <string name="upload_close_changeset_label">変更セットを閉じる：</string>
-  <string name="upload_request_review_label">レビューを依頼:</string>
+  <string name="upload_request_review_label">確認を依頼:</string>
   <string name="upload_validation_error_empty_comment">コメントは空にできません</string>
   <string name="upload_validation_error_empty_source">情報源は空にできません</string>
   <string name="upload_empty_comment_warning_label">コメントが空の場合の警告</string>
@@ -280,6 +281,7 @@
   <!--Position modal-->
   <string name="set_position_datum_label">測地データ</string>
   <string name="WGS84">WGS84</string>
+  <string name="toast_coordinate_parsing_failed">%1$s を解析できません　</string>
   <string name="set_position_swap">緯度と経度を入れ替える</string>
   <!---->
   <string name="tag_editor_name_suggestion">名称の提案</string>
@@ -507,6 +509,7 @@
   <string name="layer_tasks">課題</string>
   <string name="layer_data">OSMデータ</string>
   <string name="layer_data_name">%1$s データ</string>
+  <string name="layer_update_tiles_in_view">表示中のタイルを更新</string>
   <string name="layer_flush_tile_cache">タイルキャッシュを全削除</string>
   <string name="layer_change_style">様式を変更…</string>
   <string name="layer_load_style">様式を読み込み…</string>
@@ -616,6 +619,7 @@
   <string name="tip_longpress_simple_mode">簡単方式では長押ししても何も行いません。物体の作成する際に長押しで行いたい場合は、メインメニュー内で簡単方式を無効にしてください。</string>
   <string name="tip_gpx_no_elevation">バージョン15から、初期設定ではGPX経路に標高情報を含めなくなりました。&lt;p&gt;標高の記録を有効化するには、ツールメニューから&lt;b&gt;地球重力モデル(EGM)のインストール&lt;/b&gt;でジオイドをインストールするか、NMEA入力に切り替えてください。</string>
   <string name="tip_tag_conflict">OSMの要素を結合または反転すると、しばしば要素上の属性を変更する必要があり、これによって潜在的にエラーまたは衝突が生ずると注意喚起され、設問内で物体の確認をする機会が提供されます。</string>
+  <string name="tip_replace_geometry">ウェイの形状を変更する際、既存のノードの位置を移動させる必要があることがよくあります。これらのノードにタグが付けられている場合、つまりそれ自体が物体を表しているか、他のウェイに接続されている場合、これは望ましくない結果となる可能性があります。&lt;p&gt;この問題を回避するため、ウェイの元の位置から一定の許容半径内にないノードを抽出し、警告を表示します。許容半径(初期設定では1m)は、詳細設定で調整できます。</string>
   <string name="tip_gpx_recording">GPX記録を開始すると、Vespucciはこのアプリが表示されていないときにも、GPX記録のために位置情報を収集します。&lt;p&gt;その場合、アプリを明確に閉じるか、GPX記録を切ることによって、位置情報の利用を止めることができます。</string>
   <string name="tip_auto_download">OSMデータや課題の自動ダウンロードを開始すると、Vespucciはアプリが表示されていないときにも、現在地を特定するために位置情報を利用します。&lt;p&gt;その場合、アプリを明確に閉じるか、自動ダウンロードを切ることによって、位置情報の利用を止めることができます。</string>
   <string name="tip_no_redo">この方式では現在、ノードの追加を元に戻すことに対応していません。</string>
@@ -623,7 +627,8 @@
   <string name="tip_closed_way_splitting">閉じたウェイは2箇所で分割されます。強調表示されたノードを触れて、1番目の分割箇所を決定してください。次に、2番目の分割箇所を尋ねます。</string>
   <string name="tip_disambiguation_menu">互いにとても近い複数のOSMの要素もしくは他の物体、または、リレーションのメンバーは、明確にメニューに表示されます。あなたは、ここで一覧から特定の要素を選択できます。&lt;p&gt;要素が現在既に選択されている場合は、強調表示されます。</string>
   <string name="tip_wms_tile_size">WMS (Web Map Service)は256x256より大きなタイルに対応します。より効率的にするために、512x512を使用する設定を検討してください。</string>
-  <string name="tip_empty_comment_warning">Vespucciは、あなたが何をアップロードするかの自動的に生成された摘要を常に追加します。&lt;p&gt;ただし、あなたは他のマッパーのために、どんな編集であるかを述べた短文を追加することを検討するべきままです。</string>
+  <string name="tip_empty_comment_warning">Vespucciは、あなたが何をアップロードするかの自動的に生成された摘要を常に追加します。&lt;p&gt;ただし、従前通りあなたは他のマッパーのために、どんな編集であるかを述べた短文を追加することを検討するべきです。</string>
+  <string name="tip_wikimedia_filename">常に、説明的かつ独自のファイル名にしてください。特に、カメラが自動生成したファイル名は使用しないでください。そうしないと、ウィキメディアによってアップロードが拒否されます。</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -706,7 +711,7 @@
   <string name="toast_unknown_voice_command">申し訳ありませんが、現時点では「%1$s」を理解できません</string>
   <string name="toast_inconsistent_state">矛盾した状態が検知されました。改善のため、エラー報告をご送信ください。</string>
   <string name="toast_camera_error">カメラアプリを起動できません: %1$s</string>
-  <string name="toast_no_voice">音声認識の装置がありません</string>
+  <string name="toast_no_voice">音声認識機構がありません</string>
   <string name="toast_storage_error">%1$s はVespucciによって書き込めません。\nこれは、権限不足または端末の技術的問題である可能性があります。</string>
   <string name="toast_no_suitable_storage">タイルシステムからタイルデータベース用の適切な位置が返ってきませんでした。</string>
   <string name="toast_min_one_preset">少なともプリセットをひとつ選ばなければなりません！</string>
@@ -749,6 +754,7 @@
   <string name="toast_unsupported_format">サポート対象外の形式: %1$s</string>
   <string name="toast_unsupported_operation">非対応の操作</string>
   <string name="toast_returning_less_than_found">見つかったエントリー中 %1$d / %2$d を返しています</string>
+  <string name="toast_not_mbtiles">MBTilesまたはPMTiles形式のファイルではありません</string>
   <string name="toast_using_network_location">ネットワークの位置を使用</string>
   <string name="toast_using_gps_location">GPS/GNSSの位置を使用</string>
   <string name="toast_using_gps_disabled_tracking_stopped">GPS/GNSS測位は無効化されました。経路記録の停止をご検討ください。</string>
@@ -801,11 +807,14 @@
   <string name="toast_error_loading_style">様式を読み込めません: %1$s</string>
   <string name="toast_only_one_source_supported">1つの様式につき1つの発信源のみ対応</string>
   <string name="toast_style_file_too_large">提供されたその様式は大きすぎで、しかも恐らくはMapbox-GL様式ではないでしょう。</string>
+  <string name="toast_imagery_offset_download_failed">オフセットのダウンロードに失敗: %1$s</string>
+  <string name="toast_download_server_version_failed">%1$s でサーバーの版のダウンロードに失敗しました</string>
   <string name="toast_error_element_too_large">属性編集には要素が大きすぎます</string>
   <string name="toast_api_key_missing">%1$s 用のAPIキーがありません</string>
   <string name="toast_no_track_points">経路点なし</string>
   <string name="toast_no_way_points">ウェイの点なし</string>
   <string name="toast_import_destination_exists">取り込んだ宛先は既に存在します。</string>
+  <string name="toast_part_selection_not_supported">ウェイ区間選択は、閉じたウェイまたは新規ウェイでは機能しません</string>
   <string name="toast_element_has_been_deleted">要素は削除されました</string>
   <string name="toast_updating_tags">タグを更新中…</string>
   <string name="toast_error_loading_egm">地球重力モデルの読み込み中にエラー %1$s</string>
@@ -818,6 +827,10 @@
   <string name="toast_panoramax_instance_list_error">panoramaxインスタンス一覧を取得できません\n%1$s</string>
   <string name="toast_authorisation_successful">認証成功!</string>
   <string name="toast_authorisation_failed">認証失敗\n%1$s</string>
+  <string name="toast_way_self_intersects">それ単体で交差する一つのウェイ</string>
+  <plurals name="toast_unglued_nodes">
+    <item quantity="other">%1$d 個の接着されていないノード　</item>
+  </plurals>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">発信源MapSplitには最小と最大の拡大が設定されている必要があります</string>
   <string name="error_pbf_no_version">PBFファイル内のバージョン情報が欠落しています</string>
@@ -848,7 +861,8 @@
   <string name="check">小切手</string>
   <string name="download">ダウンロード</string>
   <string name="abort">中止</string>
-  <string name="pause">Pause</string>
+  <string name="pause">一時中断</string>
+  <string name="resume">再開</string>
   <string name="ignore">無視</string>
   <string name="select">選択</string>
   <string name="skip">スキップ</string>
@@ -959,6 +973,7 @@
   <string name="location_load_dismiss">地図を表示</string>
   <string name="location_nan_title">問題がある入力!</string>
   <string name="location_nan_message">小数形式で座標を挿入してください(例:\"52.333572\",\"8.741185\")。緯度は-85.0から+85.0の間に置く必要があります。軽度は-175.0から+175.0の間に置く必要があります。</string>
+  <string name="location_olc">OLC</string>
   <!--Strings in barometer calibration-->
   <string name="barometer_calibration_label">基準値:</string>
   <string name="barometer_calibration_current_height">現在の高度 (m)</string>
@@ -978,6 +993,8 @@
   <string name="allow_all_networks">全ネットワークを許可</string>
   <!--Strings in Go to coordinates-->
   <string name="go_to_coordinates_title">座標へ移動</string>
+  <string name="go_to_coordinates_hint">座標(経緯)またはOLCを入力</string>
+  <string name="unparseable_coordinates">解析不可能な座標</string>
   <string name="network_required">位置情報の照会にネットワークが必要です</string>
   <string name="no_nominatim_server">設定済みのNominatimサーバーがありません</string>
   <string name="no_nominatim_result">Nominatimサーバーで%1$sが見つかりませんでした</string>
@@ -1033,7 +1050,7 @@
   <string name="menu_transfer_load_replace">消去して表示領域を読み込む</string>
   <string name="menu_transfer_query_overpass">Overpassに問い合わせ...</string>
   <string name="menu_transfer_upload">データをOSMサーバーへアップロード…</string>
-  <string name="menu_transfer_review">変更点の確認…</string>
+  <string name="menu_transfer_review">変更点を確認…</string>
   <string name="menu_transfer_update">データを更新</string>
   <string name="menu_transfer_data_clear">データを消去</string>
   <string name="menu_transfer_close_changeset">現在の変更セットを閉じる</string>
@@ -1150,6 +1167,8 @@
   <string name="tag_filter_load">読み込み…</string>
   <string name="tag_filter_new">新規…</string>
   <string name="tag_filter_name">フィルター名</string>
+  <string name="tag_filter_clear_confirmation">本当にフィルターの諸項目を全消去しますか?</string>
+  <string name="tag_filter_delete_confirmation">本当にフィルターを削除しますか?</string>
   <!--element action mode menu-->
   <string name="menu_tags">属性</string>
   <!--ELement entry in context menu-->
@@ -1202,6 +1221,9 @@
   <string name="actionmode_restriction_restart_via">「via」セグメントを再選択</string>
   <string name="actionmode_restriction_to">「to」セグメントを追加</string>
   <string name="actionmode_restriction_restart_to">「to」セグメントを再選択</string>
+  <plurals name="actionmode_object_count">
+    <item quantity="other">%1$d 個の物体</item>
+  </plurals>
   <string name="select_primary_key">使用する第一キーを選択</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">ノードを追加</string>
@@ -1213,7 +1235,7 @@
   <string name="add_way_node_instruction">次のノードの位置をタップしてください</string>
   <string name="menu_add_map_note">地図メモを追加</string>
   <string name="simple_add_note">画面上の位置をタップしてください</string>
-  <string name="menu_paste_object">オブジェクトを貼り付け</string>
+  <string name="menu_paste_object">物体を貼り付け</string>
   <string name="simple_paste">画面上の位置をタップしてください</string>
   <string name="menu_paste_multiple">複数回貼り付け</string>
   <string name="simple_paste_multiple">画面上の位置をタップしてください</string>
@@ -1506,6 +1528,10 @@
   <string name="config_voiceCommandsEnabled_summary">音声コマンドの支援を有効にします。</string>
   <string name="config_splitWindowForPropertyEditor_summary">利用可能な場合は、分離されたウィンドウ内に属性編集画面を表示します。</string>
   <string name="config_splitWindowForPropertyEditor_title">属性編集画面の分離を有効化</string>
+  <string name="config_splitWindowForReview_summary">利用可能な場合は、分離されたウィンドウ内に確認画面を表示します。</string>
+  <string name="config_splitWindowForReview_title">確認画面の分離を有効化</string>
+  <string name="config_tabLayout_summary">常に属性編集のタブとして配置します。これは主に、デスクトップモードで動作している端末で、そうでなければペインとして配置される場合に役立ちます。</string>
+  <string name="config_tabLayout_title">属性編集のタブ配置を強制</string>
   <string name="config_newTaskForPropertyEditor_summary">属性編集を起動する際にFLAG_ACTIVITY_NEW_TASKを設定します。特定のランチャーのアプリを再開するときの挙動を改善するかもしれません。</string>
   <string name="config_newTaskForPropertyEditor_title">属性編集で「新しい課題」モードを使う</string>
   <!---->
