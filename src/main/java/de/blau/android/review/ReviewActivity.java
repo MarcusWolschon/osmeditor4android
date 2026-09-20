@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.R;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.AuthorisationEnabledActivity;
 import de.blau.android.util.ConfigurationChangeAwareActivity;
 
 /**
@@ -22,7 +23,7 @@ import de.blau.android.util.ConfigurationChangeAwareActivity;
  * @author simon
  *
  */
-public class ReviewActivity extends ConfigurationChangeAwareActivity {
+public class ReviewActivity extends AuthorisationEnabledActivity {
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, ReviewActivity.class.getSimpleName().length());
     private static final String DEBUG_TAG = ReviewActivity.class.getSimpleName().substring(0, TAG_LEN);
 
