@@ -1,5 +1,15 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+22.1.2:
+
+- Fix ReviewActivity needs to extend AuthorisationEnabledActivity or else it will crash
+- Fix registering Activity in onStart will now cause an error
+- Fix protect against getBounds returning null
+- Fix regression in split window property editor mode
+- Update translations
+- Update default preset
+- Update imagery from ELI
+
 22.1.1:
 
 - Fix database migration caused crash when upgrading from 22.0 or earlier
