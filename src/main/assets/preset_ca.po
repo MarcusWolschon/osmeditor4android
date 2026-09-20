@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
-"POT-Creation-Date: 2026-09-17 10:34+0200\n"
+"POT-Creation-Date: 2026-09-20 11:14+0200\n"
 "PO-Revision-Date: 2015-06-19 16:53+0000\n"
 "Last-Translator: Pau Nofuentes Sendra, 2023-2025\n"
 "Language-Team: Catalan (http://app.transifex.com/openstreetmap/presets/language/ca/)\n"
@@ -26245,8 +26245,8 @@ msgstr "Universitat"
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1855(list_entry:display_value|value:vinyl)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1868(list_entry:display_value|value:vinyl)
 msgctxt "building"
-msgid "Vinly"
-msgstr ""
+msgid "Vinyl"
+msgstr "Vinil"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10853(list_entry:display_value|group:Buildings|preset:Building|value:warehouse)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10907(list_entry:display_value|group:Buildings|preset:Building_part|value:warehouse)
