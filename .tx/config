@@ -58,7 +58,7 @@ file_filter  = src/main/res/values-<lang>/strings.xml
 source_file  = src/main/res/values/strings.xml
 source_lang  = en
 minimum_perc = 50
-lang_map     = pt_BR: pt-rBR, he: iw, pa_PK: pa-rPK, zh_TW: zh-rTW, zh_HK: zh-rHK, zh_CN: zh-rCN, sv_SE: sv-rSE, id: in, ca_ES: ca-rES, cs: cs-rCZ
+lang_map     = pt_BR: pt-rBR, he: iw, pa_PK: pa-rPK, zh_TW: zh-rTW, zh_HK: zh-rHK, zh_CN: zh-rCN, sv_SE: sv-rSE, id: in, ca_ES: ca-rES, cs: cs-rCZ, id_ID: id-rID
 
 [o:openstreetmap:p:vespucci:r:scalexml]
 file_filter  = src/main/res/values-<lang>/scale.xml
@@ -86,7 +86,7 @@ file_filter  = src/main/res/values-<lang>/voice.xml
 source_file  = src/main/res/values/voice.xml
 source_lang  = en
 minimum_perc = 100
-lang_map     = sv_SE: sv-rSE, id: in, he: iw, zh_TW: zh-rTW, pt_BR: pt-rBR, zh_CN: zh-rCN, pa_PK: pa-rPK, cs: cs-rCZ, zh_HK: zh-rHK, ca_ES: ca-rES
+lang_map     = sv_SE: sv-rSE, id: in, he: iw, zh_TW: zh-rTW, pt_BR: pt-rBR, zh_CN: zh-rCN, pa_PK: pa-rPK, cs: cs-rCZ, zh_HK: zh-rHK, ca_ES: ca-rES, id_ID: id-rID
 
 [o:openstreetmap:p:vespucci:r:titletxt]
 file_filter  = metadata/<lang>/title.txt
