@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Arrays - in a separate file as these need to be 100% translated for use -->
-    <string-array name="gpx_visibility">
-        <item>privat</item>
-        <item>öffentlich</item>
-        <item>nachverfolgbar</item>
-        <item>erkennbar</item>
-    </string-array>
+    <string name="gpx_visibility_trackable">nachverfolgbar</string>
+    <string name="gpx_visibility_identifiable">erkennbar</string>
     <string-array name="gps_source">
         <item>Intern</item>
         <item>Internes NMEA</item>
@@ -83,8 +78,8 @@
     <string name="licence_cc_zero">Creative Commons Zero</string>
     <string name="licence_pd">Public Domain</string>
     <string name="licence_gpl">GNU General Public License</string>
-    <string name="licence_mit">MIT License</string>
-    <string name="licence_bsd">BSD License</string>
+    <string name="licence_mit">MIT-Lizenz</string>
+    <string name="licence_bsd">BSD-Lizenz</string>
     <string name="licence_cc_by_4_short">CC BY 4.0</string>
     <string name="licence_cc_by_3_short">CC BY 3.0</string>
     <string name="licence_cc_by_sa_4_short">CC BY-SA 4.0</string>

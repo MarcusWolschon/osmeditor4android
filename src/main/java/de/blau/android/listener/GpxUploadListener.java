@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.ErrorCodes;
 import de.blau.android.Logic;
+import de.blau.android.R;
 import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.gpx.Track;
 import de.blau.android.osm.OsmGpxApi.Visibility;
@@ -20,8 +21,6 @@ import de.blau.android.osm.Server;
  * @author simon
  */
 public class GpxUploadListener implements OnClickListener {
-
-    private static final String DEBUG_TAG = GpxUploadListener.class.getSimpleName().substring(0, Math.min(23, GpxUploadListener.class.getSimpleName().length()));
 
     private final FragmentActivity caller;
     private final Track            track;
@@ -52,23 +51,8 @@ public class GpxUploadListener implements OnClickListener {
      */
     @Override
     public void onClick(final DialogInterface dialog, final int which) {
-        Visibility visibility = Visibility.PRIVATE;
-        switch (visibilitySpinner.getSelectedItemPosition()) {
-        case 0:
-            // already set to private
-            break;
-        case 1:
-            visibility = Visibility.PUBLIC;
-            break;
-        case 2:
-            visibility = Visibility.TRACKABLE;
-            break;
-        case 3:
-            visibility = Visibility.IDENTIFIABLE;
-            break;
-        default:
-            Log.e(DEBUG_TAG, "Unknown spinner value " + visibilitySpinner.getSelectedItemPosition());
-        }
+        String[] valuesArray = caller.getResources().getStringArray(R.array.gpx_visibility_values);
+        Visibility visibility = Visibility.valueOf(valuesArray[visibilitySpinner.getSelectedItemPosition()]);
 
         final Logic logic = App.getLogic();
         final Server server = logic.getPrefs().getServer();
