@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Arrays - in a separate file as these need to be 100% translated for use -->
-    <string-array name="gpx_visibility">
-        <item>Privado</item>
-        <item>Público</item>
-        <item>Rastreable</item>
-        <item>Identificable</item>
-    </string-array>
+    <string name="gpx_visibility_trackable">Rastreable</string>
+    <string name="gpx_visibility_identifiable">Identificable</string>
     <string-array name="gps_source">
         <item>Interno</item>
         <item>NMEA interno</item>

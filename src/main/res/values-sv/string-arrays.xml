@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Arrays - in a separate file as these need to be 100% translated for use -->
-    <string-array name="gpx_visibility">
-        <item>privat</item>
-        <item>offentlig</item>
-        <item>spårbar</item>
-        <item>identifierare</item>
-    </string-array>
+    <string name="gpx_visibility_trackable">spårbar</string>
+    <string name="gpx_visibility_identifiable">identifierare</string>
     <string-array name="gps_source">
         <item>Intern</item>
         <item>Intern NMEA</item>
