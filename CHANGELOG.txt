@@ -2,6 +2,7 @@
 
 22.1.2:
 
+- Fix GPX upload regression
 - Fix ReviewActivity needs to extend AuthorisationEnabledActivity or else it will crash
 - Fix registering Activity in onStart will now cause an error
 - Fix protect against getBounds returning null
