@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Arrays - in a separate file as these need to be 100% translated for use -->
-    <string-array name="gpx_visibility">
-        <item>خاص</item>
-        <item>عام</item>
-        <item>قابل للتتبع</item>
-        <item>متعارف عليها</item>
-    </string-array>
     <string-array name="gps_source">
         <item>داخلي</item>
         <item>NMEA الداخلية</item>
