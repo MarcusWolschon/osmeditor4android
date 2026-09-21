@@ -169,19 +169,21 @@ public class PhotoIndex extends SQLiteOpenHelper {
         indexDirectories();
         Logic logic = App.getLogic();
         Preferences prefs = logic != null ? logic.getPrefs() : null;
-        if (prefs != null) {
-            final boolean accessMediaLocation = Util.permissionGranted(context, Manifest.permission.ACCESS_MEDIA_LOCATION);
-            Log.d(DEBUG_TAG, "ACCESS_MEDIA_LOCATION permission " + accessMediaLocation);
-            if (prefs.scanMediaStore() && (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q || accessMediaLocation)) {
-                indexMediaStore();
-            } else {
-                // delete scanned photos from index
-                try (SQLiteDatabase db = getWritableDatabase()) {
-                    db.delete(PHOTOS_TABLE, SOURCE_COLUMN + "= ?", new String[] { MEDIA_STORE });
-                    updateSources(db, MEDIA_STORE, null, "", 0);
-                }
+        if (prefs == null) {
+            Log.e(DEBUG_TAG, "createOrUpdateIndex no prefs");
+        }
+        final boolean accessMediaLocation = Util.permissionGranted(context, Manifest.permission.ACCESS_MEDIA_LOCATION);
+        Log.d(DEBUG_TAG, "ACCESS_MEDIA_LOCATION permission " + accessMediaLocation);
+        if (prefs.scanMediaStore() && (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q || accessMediaLocation)) {
+            indexMediaStore();
+        } else {
+            // delete scanned photos from index
+            try (SQLiteDatabase db = getWritableDatabase()) {
+                db.delete(PHOTOS_TABLE, SOURCE_COLUMN + "= ?", new String[] { MEDIA_STORE });
+                updateSources(db, MEDIA_STORE, null, "", 0);
             }
         }
+
     }
 
     /**
@@ -241,6 +243,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
                 "(" + MediaColumns.MIME_TYPE + " = ? OR " + MediaColumns.MIME_TYPE + " = ? ) AND " + MediaColumns.DATE_ADDED + " >= ? ",
                 new String[] { MimeTypes.JPEG, MimeTypes.HEIC, Long.toString(lastScanned) }, null)) {
             Log.d(DEBUG_TAG, "Media store update has " + cursor.getCount() + " entries");
+            int indexedCount = 0;
             // Cache column indices.
             int idColumn = cursor.getColumnIndexOrThrow(BaseColumns._ID);
             int displayNameColumn = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DISPLAY_NAME);
@@ -255,9 +258,16 @@ public class PhotoIndex extends SQLiteOpenHelper {
                         addPhoto(context, db, photoUri, cursor.getString(displayNameColumn));
                     }
                 }
+                indexedCount++;
+                if (indexedCount % 100 == 0) {
+                    Log.d(DEBUG_TAG, "processed " + indexedCount + " entries");
+                }
             }
+            Log.d(DEBUG_TAG, "Media store update completed");
+            updateSources(db, MEDIA_STORE, volume, mediaStoreVersion, System.currentTimeMillis());
+        } catch (Exception ex) {
+            Log.e(DEBUG_TAG, "Media store update got an exception " + ex.getMessage());
         }
-        updateSources(db, MEDIA_STORE, volume, mediaStoreVersion, System.currentTimeMillis());
     }
 
     /**
@@ -508,7 +518,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
             Photo p = new Photo(context, uri, displayName);
             insertPhoto(db, p, displayName, MEDIA_STORE);
             return p;
-        } catch (NumberFormatException | IOException e) {
+        } catch (IOException | IllegalArgumentException e) {
             // ignore silently, broken pictures are not our business
         }
         return null;
