@@ -2,7 +2,6 @@ package de.blau.android.listener;
 
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.Spinner;
 import androidx.annotation.NonNull;
