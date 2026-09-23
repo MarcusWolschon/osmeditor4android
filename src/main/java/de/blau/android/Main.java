@@ -1280,41 +1280,42 @@ public class Main extends AuthorisationEnabledActivity
         final int zoom = geoData.getZoom() + 1; // in practical terms this works better
         Log.d(DEBUG_TAG, "got position from geo: url " + geoData + " storage dirty is " + App.getDelegator().isDirty());
         final int downloadRadius = prefs.getDownloadRadius();
-        if (downloadRadius != 0) { // download
-            try {
-                BoundingBox bbox = GeoMath.createBoundingBoxForCoordinates(lat, lon, downloadRadius);
-                List<BoundingBox> bboxes = BoundingBox.newBoxes(new ArrayList<>(App.getDelegator().getBoundingBoxes()), bbox);
-                PostAsyncActionHandler handler = () -> {
-                    if (hasZoom) {
-                        viewBox.setZoom(getMap(), zoom);
-                        viewBox.moveTo(getMap(), lonE7, latE7);
-                    } else {
-                        viewBox.fitToBoundingBox(map, bbox);
-                    }
-                    map.invalidate();
-                    logic.saveEditingState(Main.this);
-                };
-                if (!bboxes.isEmpty()) { // we should really loop over bboxes here
-                    logic.downloadBox(this, bbox, true, handler);
-                    if (map.getTaskLayer() != null) {
-                        // always add bugs for now
-                        downLoadBugs(bbox);
-                    }
-                } else {
-                    handler.onSuccess();
-                }
-            } catch (OsmException e) {
-                Log.d(DEBUG_TAG, "processIntents got " + e.getMessage());
+        if (downloadRadius == 0 || !(isConnected() || prefs.getServer().hasReadOnly())) {
+            Log.d(DEBUG_TAG, "moving to position");
+            if (hasZoom) {
+                viewBox.setZoom(getMap(), zoom);
             }
+            viewBox.moveTo(getMap(), lonE7, latE7);
+            map.invalidate();
+            logic.saveEditingState(this);
             return;
         }
-        Log.d(DEBUG_TAG, "moving to position");
-        if (hasZoom) {
-            viewBox.setZoom(getMap(), zoom);
+        // try download
+        try {
+            BoundingBox bbox = GeoMath.createBoundingBoxForCoordinates(lat, lon, downloadRadius);
+            List<BoundingBox> bboxes = BoundingBox.newBoxes(new ArrayList<>(App.getDelegator().getBoundingBoxes()), bbox);
+            PostAsyncActionHandler handler = () -> {
+                if (hasZoom) {
+                    viewBox.setZoom(getMap(), zoom);
+                    viewBox.moveTo(getMap(), lonE7, latE7);
+                } else {
+                    viewBox.fitToBoundingBox(map, bbox);
+                }
+                map.invalidate();
+                logic.saveEditingState(Main.this);
+            };
+            if (!bboxes.isEmpty()) { // we should really loop over bboxes here
+                logic.downloadBox(this, bbox, true, handler);
+                if (map.getTaskLayer() != null) {
+                    // always add bugs for now
+                    downLoadBugs(bbox);
+                }
+            } else {
+                handler.onSuccess();
+            }
+        } catch (OsmException e) {
+            Log.d(DEBUG_TAG, "processIntents got " + e.getMessage());
         }
-        viewBox.moveTo(getMap(), lonE7, latE7);
-        map.invalidate();
-        logic.saveEditingState(this);
     }
 
     /**
