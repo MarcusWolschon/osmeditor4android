@@ -83,9 +83,9 @@ __geo URLs__
 geo:*lat*,*lon*?z=*zoom_level*
 
 *lat*,*lon*: WGS84 coordinates
-*zoom\_level*: zoom level, not supported
+*zoom\_level*: zoom level
 
-Partial implementation of geo URLs, only WGS84 coordinates are supported, an area of the size of the current auto-download area is downloaded around the specified location.
+Partial implementation of geo URLs, only WGS84 coordinates are supported, an area of the size of the current auto-download area is downloaded around the specified location if there is either Internet connectivity or offline data available, otherwise just pan and zoom to the coordinates (behaviour change per 22.2 previously we always attempted to download).
 
 ## Notes on JOSM style remote control
 
