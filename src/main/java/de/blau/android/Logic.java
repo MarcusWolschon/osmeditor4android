@@ -130,6 +130,7 @@ import de.blau.android.tasks.TaskStorage;
 import de.blau.android.tasks.Todo;
 import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.ACRAHelper;
+import de.blau.android.util.ActivityUpdate;
 import de.blau.android.util.EditState;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
@@ -5012,6 +5013,9 @@ public class Logic {
                     Log.e(DEBUG_TAG, "Unexpected exception in upload " + ex.getMessage());
                     ACRAHelper.nocrashReport(ex, ex.getMessage());
                 } finally {
+                    if (activity instanceof ActivityUpdate) {
+                        ((ActivityUpdate) activity).updateMenu();
+                    }
                     invalidateCurrentFocus(activity);
                 }
             }

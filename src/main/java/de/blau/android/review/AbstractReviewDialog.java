@@ -134,10 +134,12 @@ public abstract class AbstractReviewDialog extends MaxHeightDialogFragment {
      * @param parentTag tag of parent dialog
      * @param itemResource the layout resource for the item
      * @param s a Selected call back or null
-     * @param postAsync run this after sorting and adapter setup have completed
+     * @param preAsync run this after adapter setup has completed
+     * @param postAsync run this after sorting and validation
      */
     protected void addChangesToView(@NonNull final FragmentActivity activity, @NonNull final RecyclerView changesView, @Nullable List<OsmElement> elements,
-            @NonNull Comparator<ChangedElement> comparator, @Nullable String parentTag, int itemResource, @Nullable Selected s, Runnable postAsync) {
+            @NonNull Comparator<ChangedElement> comparator, @Nullable String parentTag, int itemResource, @Nullable Selected s, Runnable preAsync,
+            @Nullable Runnable postAsync) {
 
         ExtendedValidator validator = new ExtendedValidator(activity, App.getDefaultValidator(activity));
         final ChangedElement[] changes = getPendingChanges(activity.getResources(), elements == null ? App.getLogic().getPendingChangedElements() : elements);
@@ -149,6 +151,9 @@ public abstract class AbstractReviewDialog extends MaxHeightDialogFragment {
             @Override
             protected void onPreExecute() {
                 Progress.showDialog(getActivity(), Progress.PROGRESS_UPDATING, PROGRESS_STATUS_TAG);
+                if (preAsync != null) {
+                    preAsync.run();
+                }
             }
 
             @Override
@@ -164,6 +169,12 @@ public abstract class AbstractReviewDialog extends MaxHeightDialogFragment {
                 }
                 validatorAdapter.notifyDataSetChanged();
                 return null;
+            }
+
+            @Override
+            protected void onBackgroundError(Exception e) {
+                Log.e(DEBUG_TAG, "onBackgroundError " + e.getMessage());
+                Progress.dismissDialog(getActivity(), Progress.PROGRESS_UPDATING, PROGRESS_STATUS_TAG);
             }
 
             @Override

@@ -11,10 +11,11 @@ import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.ActivityUpdate;
 import de.blau.android.util.AuthorisationEnabledActivity;
-import de.blau.android.util.ConfigurationChangeAwareActivity;
 
 /**
  * 
@@ -23,9 +24,11 @@ import de.blau.android.util.ConfigurationChangeAwareActivity;
  * @author simon
  *
  */
-public class ReviewActivity extends AuthorisationEnabledActivity {
+public class ReviewActivity extends AuthorisationEnabledActivity implements ActivityUpdate {
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, ReviewActivity.class.getSimpleName().length());
     private static final String DEBUG_TAG = ReviewActivity.class.getSimpleName().substring(0, TAG_LEN);
+
+    private static final String FRAGMENT_TAG = Review.class.getName() + ReviewActivity.class.getName();
 
     /**
      * Start a new activity with the REview fragment as the contents
@@ -59,14 +62,30 @@ public class ReviewActivity extends AuthorisationEnabledActivity {
         } else {
             Log.d(DEBUG_TAG, "Initializing from saved state");
         }
-        String tag = Review.class.getName() + this.getClass().getName();
-        Review reviewFragment = (Review) getSupportFragmentManager().findFragmentByTag(tag);
+
+        Review reviewFragment = (Review) getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
         if (reviewFragment == null) {
             reviewFragment = new Review();
             Bundle args = new Bundle();
             reviewFragment.setArguments(args);
 
-            getSupportFragmentManager().beginTransaction().replace(android.R.id.content, reviewFragment, tag).commit();
+            getSupportFragmentManager().beginTransaction().replace(android.R.id.content, reviewFragment, FRAGMENT_TAG).commit();
+        }
+    }
+
+    @Override
+    public void updateMenu() {
+        Log.d(DEBUG_TAG, "updateMenu");
+        Intent intent = new Intent(this, Main.class);
+        intent.setAction(Main.ACTION_MENU_UPDATE);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+        intent.setAction(Main.ACTION_MAP_UPDATE);
+        startActivity(intent);
+        Review reviewFragment = (Review) getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
+        if (reviewFragment != null) {
+            reviewFragment.createChangesView();
+            reviewFragment.notifyDataSetChanged();
         }
     }
 }
