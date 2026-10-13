@@ -189,6 +189,7 @@ import de.blau.android.tasks.TodoFragment;
 import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ActivityResultHandler;
+import de.blau.android.util.ActivityUpdate;
 import de.blau.android.util.AuthorisationEnabledActivity;
 import de.blau.android.util.BadgeDrawable;
 import de.blau.android.util.ContentResolverUtil;
@@ -223,8 +224,8 @@ import de.blau.android.views.ZoomControls;
  * @author mb
  * @author Simon Poole
  */
-public class Main extends AuthorisationEnabledActivity
-        implements ServiceConnection, TrackerLocationListener, UpdateViewListener, de.blau.android.geocode.SearchItemSelectedCallback, ActivityResultHandler {
+public class Main extends AuthorisationEnabledActivity implements ServiceConnection, TrackerLocationListener, UpdateViewListener,
+        de.blau.android.geocode.SearchItemSelectedCallback, ActivityResultHandler, ActivityUpdate {
 
     /**
      * Tag used for Android-logging.
@@ -257,6 +258,7 @@ public class Main extends AuthorisationEnabledActivity
     public static final String ACTION_PUSH_SELECTION        = "de.blau.android.PUSH_SELECTION";
     public static final String ACTION_POP_SELECTION         = "de.blau.android.POP_SELECTION";
     public static final String ACTION_CLEAR_SELECTION_STACK = "de.blau.android.CLEAR_SELECTION_STACK";
+    public static final String ACTION_MENU_UPDATE           = "de.blau.android.MENU_UPDATE";
 
     /**
      * Alpha value for floating action buttons workaround We should probably find a better place for this
@@ -1020,6 +1022,9 @@ public class Main extends AuthorisationEnabledActivity
                 case ACTION_MAP_UPDATE:
                     invalidateMap();
                     break;
+                case ACTION_MENU_UPDATE:
+                    updateMenu();
+                    break;
                 case ACTION_SELECT:
                     Selection.Ids ids = Util.getSerializableExtra(intent, Selection.SELECTION_KEY, Ids.class);
                     Selection selection = new Selection();
@@ -1076,6 +1081,11 @@ public class Main extends AuthorisationEnabledActivity
                 processShortcutExtras();
             }
         }
+    }
+
+    @Override
+    public void updateMenu() {
+        invalidateOptionsMenu();
     }
 
     /**

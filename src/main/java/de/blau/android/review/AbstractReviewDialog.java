@@ -167,6 +167,12 @@ public abstract class AbstractReviewDialog extends MaxHeightDialogFragment {
             }
 
             @Override
+            protected void onBackgroundError(Exception e) {
+                Log.e(DEBUG_TAG, "onBackgroundError " + e.getMessage());
+                Progress.dismissDialog(getActivity(), Progress.PROGRESS_UPDATING, PROGRESS_STATUS_TAG);
+            }
+
+            @Override
             protected void onPostExecute(Void ignored) {
                 Progress.dismissDialog(getActivity(), Progress.PROGRESS_UPDATING, PROGRESS_STATUS_TAG);
                 if (postAsync != null) {
