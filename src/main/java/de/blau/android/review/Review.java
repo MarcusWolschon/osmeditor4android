@@ -109,6 +109,13 @@ public class Review extends AbstractReviewDialog {
         adapter.notifyDataSetChanged();
     };
 
+    /**
+     * Notify the adapter that something has changed
+     */
+    protected void notifyDataSetChanged() {
+        ((ValidatorArrayAdapter) listView.getAdapter()).notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
@@ -173,7 +180,10 @@ public class Review extends AbstractReviewDialog {
         checked = new SavingHelper<HashSet<String>>().load(getContext(), STATE_FILENAME, false);
         positive.setEnabled(!Util.isEmpty(checked));
         final Button neutral = (Button) layout.findViewById(R.id.btn_neutral);
-        neutral.setOnClickListener((View v) -> createChangesView());
+        neutral.setOnClickListener((View v) -> {
+            notifyDataSetChanged();
+            createChangesView();
+        });
         ViewGroupCompat.installCompatInsetsDispatch(layout);
         ViewCompat.setOnApplyWindowInsetsListener(layout, ConfigurationChangeAwareActivity.onApplyWindowInsetslistener);
         return layout;
