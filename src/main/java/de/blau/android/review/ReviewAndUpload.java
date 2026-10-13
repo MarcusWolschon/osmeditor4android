@@ -345,7 +345,7 @@ public class ReviewAndUpload extends AbstractReviewDialog {
         final RecyclerView listView = (RecyclerView) requireDialog().findViewById(R.id.upload_changes);
         ScrollingLinearLayoutManager layoutManager = new ScrollingLinearLayoutManager(getActivity(), 10000);
         listView.setLayoutManager(layoutManager);
-        addChangesToView(getActivity(), listView, elements, DEFAULT_COMPARATOR, getArguments().getString(TAG_KEY), R.layout.changes_list_item, null, null);
+        addChangesToView(getActivity(), listView, elements, DEFAULT_COMPARATOR, getArguments().getString(TAG_KEY), R.layout.changes_list_item, null, null, null);
     }
 
     /**

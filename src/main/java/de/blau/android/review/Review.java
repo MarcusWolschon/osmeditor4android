@@ -195,7 +195,7 @@ public class Review extends AbstractReviewDialog {
                 (OsmElement e) -> checked != null && checked.contains(getElementKey(e)), () -> {
                     ValidatorArrayAdapter adapter = (ValidatorArrayAdapter) listView.getAdapter();
                     adapter.registerAdapterDataObserver(new ListObserver());
-                });
+                }, null);
     }
 
     @Override
@@ -261,7 +261,7 @@ public class Review extends AbstractReviewDialog {
             }
 
             boolean somethingSelected = false;
-            boolean somethingNotSelected = false;
+            boolean somethingNotSelected = changedElements.length == 0;
             for (ChangedElement e : changedElements) {
                 if (e.selected && !somethingSelected) {
                     somethingSelected = true;
