@@ -141,6 +141,12 @@
                 <interval length="1.0" />
             </dash>
         </feature>
+        <feature type="way" tags="waterway=flowline" >
+            <dash phase="1.0">
+                <interval length="0.1" />
+                <interval length="1.0" />
+            </dash>
+        </feature>
         <feature type="way" tags="waterway=riverbank" updateWidth="true" widthFactor="1.0" color="ff0000ff" style="STROKE" cap="BUTT" join="MITER" arrowStyle="" />
         <feature type="way" tags="waterway=weir" widthFactor="2.0" color="ff0000ff" arrowStyle="" />
     </feature>
