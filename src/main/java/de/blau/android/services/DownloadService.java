@@ -182,6 +182,16 @@ public class DownloadService extends Service {
         return START_STICKY;
     }
 
+    @Override
+    public void onTimeout(int startId, int fgsType) {
+        super.onTimeout(startId, fgsType);
+        if (downloaderRunning()) {
+            downloader.abort();
+        }
+        stopSelf(startId);
+        Log.d(DEBUG_TAG, "System enforced timeout requires shutdown");
+    }
+
     /**
      * Check if we have a running downloader task
      * 
