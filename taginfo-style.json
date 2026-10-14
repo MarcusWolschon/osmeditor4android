@@ -127,6 +127,9 @@
 {"description":"Data rendering","key": "railway","value": "tram","object_types": ["way"]},
 {"description":"Data rendering","key": "route","object_types": ["way"]},
 {"description":"Data rendering","key": "shop","object_types": ["way"]},
+{"description":"Data rendering","key": "sidewalk:both","value": "yes","object_types": ["way"]},
+{"description":"Data rendering","key": "sidewalk:left","value": "yes","object_types": ["way"]},
+{"description":"Data rendering","key": "sidewalk:right","value": "yes","object_types": ["way"]},
 {"description":"Data rendering","key": "sidewalk","value": "both","object_types": ["way"]},
 {"description":"Data rendering","key": "sidewalk","value": "left","object_types": ["way"]},
 {"description":"Data rendering","key": "sidewalk","value": "right","object_types": ["way"]},
@@ -143,5 +146,6 @@
 {"description":"Data rendering","key": "two_sided","value": "yes","object_types": ["way"]},
 {"description":"Data rendering","key": "type","value": "multipolygon","object_types": ["relation"]},
 {"description":"Data rendering","key": "waterway","object_types": ["way"]},
+{"description":"Data rendering","key": "waterway","value": "flowline","object_types": ["way"]},
 {"description":"Data rendering","key": "waterway","value": "riverbank","object_types": ["way"]},
 {"description":"Data rendering","key": "waterway","value": "weir","object_types": ["way"]}]}
