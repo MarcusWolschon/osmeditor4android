@@ -62,6 +62,8 @@ public class DownloadService extends Service {
     private static final String ACTION_RESUME = "de.blau.android.RESUME";
     private static final String ACTION_PAUSE  = "de.blau.android.PAUSE";
 
+    private static final long IDLE_TIMEOUT = 5 * 60 * 1000L; // 5 minutes
+
     private final DownloaderBinder mBinder = new DownloaderBinder();
 
     private WakeLock                  wakeLock = null;
@@ -75,9 +77,35 @@ public class DownloadService extends Service {
     private DownloaderTask            downloader;
     private final List<BoundingBox>   boxes    = new ArrayList<>();
     private NotificationManagerCompat notificationManager;
-    private Handler                   handler;
+    private final Handler             handler  = new Handler(Looper.getMainLooper());
     private boolean                   downloadData;
     private boolean                   downloadTasks;
+
+    private final Runnable stopService = () -> {
+        Log.i(DEBUG_TAG, "Idle timeout ... ");
+        synchronized (DownloadService.this) {
+            if (downloaderRunning()) {
+                Log.i(DEBUG_TAG, " busy, rescheduling. ");
+                sheduleTimeout();
+            }
+            Log.i(DEBUG_TAG, " shutting down.");
+            stop();
+        }
+    };
+
+    /**
+     * Schedule a timeout
+     */
+    private void sheduleTimeout() {
+        handler.postDelayed(stopService, IDLE_TIMEOUT);
+    }
+
+    /**
+     * Cancel any timeouts
+     */
+    private void cancelTimeout() {
+        handler.removeCallbacks(stopService);
+    }
 
     @Override
     public void onCreate() {
@@ -105,13 +133,12 @@ public class DownloadService extends Service {
         pendingResumeIntent = PendingIntentCompat.getForegroundService(this, 0, resumeIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         notificationManager = NotificationManagerCompat.from(DownloadService.this);
-
-        handler = new Handler(Looper.getMainLooper());
     }
 
     @Override
     public void onDestroy() {
         Log.d(DEBUG_TAG, "onDestroy");
+        cancelTimeout();
         super.onDestroy();
         stop();
         notificationManager.cancel(R.id.notification_download);
@@ -123,6 +150,7 @@ public class DownloadService extends Service {
             Log.e(DEBUG_TAG, "Received null intent"); //
             return START_NOT_STICKY; // NOTE not clear how or if we should return an error here
         }
+        cancelTimeout();
         if (!started) {
             Log.d(DEBUG_TAG, intent.toString());
             started = true;
@@ -179,6 +207,7 @@ public class DownloadService extends Service {
         default:
             Log.e(DEBUG_TAG, "Unknown action " + intent.getAction());
         }
+
         return START_STICKY;
     }
 
@@ -188,7 +217,7 @@ public class DownloadService extends Service {
         if (downloaderRunning()) {
             downloader.abort();
         }
-        stopSelf(startId);
+        stop();
         Log.d(DEBUG_TAG, "System enforced timeout requires shutdown");
     }
 
@@ -310,6 +339,7 @@ public class DownloadService extends Service {
             }
             if (boxCount == 0 && !abort) {
                 ScreenMessage.toastTopInfo(DownloadService.this, R.string.download_completed_successfully);
+                sheduleTimeout();
             }
             if (paused) {
                 ScreenMessage.toastTopInfo(DownloadService.this, R.string.download_paused);
