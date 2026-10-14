@@ -3495,6 +3495,18 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     }
 
     /**
+     * Exports changes as an augmented diff file.
+     */
+    public void exportAugmentedDiff(OutputStream outputStream) throws Exception {
+        try {
+            lockReads();
+            OsmXml.writeAugmentedDiff(getCurrentStorage(), getApiStorage(), getUndo(), outputStream, App.getUserAgent());
+        } finally {
+            unlockReads();
+        }
+    }
+
+    /**
      * Merge additional data with existing, copy to a new storage because this may fail
      * 
      * This may throw an IllegalStateException if existing data was inconsistent
