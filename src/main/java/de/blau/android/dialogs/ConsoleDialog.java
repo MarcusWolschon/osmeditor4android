@@ -193,7 +193,7 @@ public class ConsoleDialog extends CancelableDialogFragment {
             Button negative = ((AlertDialog) d).getButton(DialogInterface.BUTTON_NEGATIVE);
             negative.setOnClickListener(view -> runScript(dialog, callback, output, dismissOnRun, checkbox1, checkbox2));
             Button positive = ((AlertDialog) d).getButton(DialogInterface.BUTTON_POSITIVE);
-            Drawable more = ThemeUtils.getTintedDrawable(activity, R.drawable.ic_more_vert_black_24dp, R.attr.colorAccent);
+            Drawable more = ThemeUtils.getTintedDrawable(activity, R.drawable.more_black, R.attr.colorAccent);
             positive.setCompoundDrawablesWithIntrinsicBounds(null, null, more, null);
             positive.setText("");
             positive.setOnClickListener(view -> {
