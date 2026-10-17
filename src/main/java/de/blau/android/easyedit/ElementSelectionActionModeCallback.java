@@ -143,6 +143,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     private MenuItem taskMenuItem;
     private MenuItem todoCloseAndNextItem;
     private MenuItem todoSkipAndNextItem;
+    private MenuItem uploadExistingImageItem;
 
     Preferences prefs;
 
@@ -252,7 +253,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             menu.add(GROUP_BASE, MENUITEM_ADD_NEW_IMAGE, Menu.CATEGORY_SYSTEM | 10, R.string.menu_add_new_image)
                     .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_camera));
         }
-        menu.add(GROUP_BASE, MENUITEM_ADD_EXISTING_IMAGE, Menu.CATEGORY_SYSTEM | 10, R.string.menu_add_existing_image);
+        uploadExistingImageItem = menu.add(GROUP_BASE, MENUITEM_ADD_EXISTING_IMAGE, Menu.CATEGORY_SYSTEM | 10, R.string.menu_add_existing_image);
 
         uploadItem = menu.add(GROUP_BASE, MENUITEM_UPLOAD, Menu.CATEGORY_SYSTEM | 10, R.string.menu_upload_element);
 
@@ -330,6 +331,9 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             String ele = element.getTagWithKey(Tags.KEY_ELE);
             updated |= setItemVisibility(ele != null && !"".equals(ele), calibrateItem, true);
         }
+
+        updated |= setItemVisibility(Util.permissionGranted(main, Main.STORAGE_PERMISSION), uploadExistingImageItem, true);
+
         return updated;
     }
 
