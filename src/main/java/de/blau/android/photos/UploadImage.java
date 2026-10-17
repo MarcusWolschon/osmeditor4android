@@ -13,6 +13,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.widget.ListView;
 import androidx.annotation.NonNull;
@@ -44,8 +46,12 @@ public class UploadImage {
 
     private static final String PROGRESS_TAG = "upload";
 
+    private static final int TOAST_DELAY = 1000;
+
     // flag for determining if an upload button had been pressed
     private static boolean uploading;
+
+    private static final Handler handler = new Handler(Looper.getMainLooper());
 
     /**
      * Private constructor
@@ -71,9 +77,12 @@ public class UploadImage {
             dialog(context, prefs, action, dest, true);
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "Copy stream to file failed " + e.getMessage());
-            ScreenMessage.toastTopError(context, context.getString(R.string.image_upload_failed, e.getMessage()));
+            // the file picker will typically be visible now and we need to give a sec for it to disapear
+            handler.postDelayed(() -> ScreenMessage.toastTopError(context, context.getString(R.string.image_upload_failed, e.getMessage())), TOAST_DELAY);
+        } catch (SecurityException e) {
+            Log.e(DEBUG_TAG, "Copy stream to file failed " + e.getMessage());
+            handler.postDelayed(() -> ScreenMessage.toastTopError(context, context.getString(R.string.toast_permission_denied, e.getMessage())), TOAST_DELAY);
         }
-
     }
 
     /**
