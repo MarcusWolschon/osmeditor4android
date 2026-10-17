@@ -252,8 +252,14 @@ public final class RelationUtils {
      * @param ring the input ring
      * @return a List of Nodes
      */
+    @NonNull
     private static List<Node> getNodesForRing(@NonNull List<RelationMember> ring) {
         final Way firstRingWay = (Way) ring.get(0).getElement();
+        if (firstRingWay == null) {
+            // this probably can't happen in reality
+            Log.e(DEBUG_TAG, "getNodesForRing missing ring way");
+            return new ArrayList<>();
+        }
         if (firstRingWay.isClosed()) {
             List<Node> nodes = firstRingWay.getNodes();
             return nodes.subList(0, nodes.size() - 1); // de-dup last node
