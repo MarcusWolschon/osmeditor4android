@@ -506,6 +506,18 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicDia
         public Object instantiateItem(ViewGroup container, int position) {
             View itemView = mLayoutInflater.inflate(R.layout.photo_viewer_item, container, false);
             SubsamplingScaleImageView view = itemView.findViewById(R.id.photoView);
+            view.setOnImageEventListener(new SubsamplingScaleImageView.DefaultOnImageEventListener() {
+                @Override
+                public void onImageLoadError(Exception e) {
+                    Context context = container.getContext();
+                    // This is triggered if access is denied, file doesn't exist, or decoding fails
+                    if (e instanceof SecurityException || e.getMessage().contains("Permission")) {
+                        ScreenMessage.toastTopError(context, context.getString(R.string.toast_permission_denied, e.getMessage()));
+                        return;
+                    }
+                    ScreenMessage.toastTopError(context, context.getString(R.string.toast_unable_to_load_image, e.getMessage()));
+                }
+            });
             try {
                 S item = images.get(position);
                 if (item instanceof Photo) {

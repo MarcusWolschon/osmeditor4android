@@ -928,6 +928,7 @@
     <string name="toast_panoramax_image_not_in_sequence_error">Image id %1$s not found in sequence</string>
     <string name="toast_panoramax_sequence_exception">Unable to retrieve panoramax sequence\n%1$s</string>
     <string name="toast_panoramax_instance_list_error">Unable to retrieve panoramax instance list\n%1$s</string>
+    <string name="toast_unable_to_load_image">Unable to load image\n%1$s</string>
     <string name="toast_authorisation_successful">Authorisation successful!</string>
     <string name="toast_authorisation_failed">Authorisation failed\n%1$s</string>
     <string name="toast_way_self_intersects">The way intersects with itself</string>
