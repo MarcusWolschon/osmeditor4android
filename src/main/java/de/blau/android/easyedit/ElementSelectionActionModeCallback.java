@@ -15,6 +15,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -72,6 +73,7 @@ import de.blau.android.tasks.Task.State;
 import de.blau.android.tasks.TaskStorage;
 import de.blau.android.tasks.Todo;
 import de.blau.android.tasks.TodoFragment;
+import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.SelectFile;
@@ -141,6 +143,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     private MenuItem taskMenuItem;
     private MenuItem todoCloseAndNextItem;
     private MenuItem todoSkipAndNextItem;
+    private MenuItem uploadExistingImageItem;
 
     Preferences prefs;
 
@@ -250,7 +253,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             menu.add(GROUP_BASE, MENUITEM_ADD_NEW_IMAGE, Menu.CATEGORY_SYSTEM | 10, R.string.menu_add_new_image)
                     .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_camera));
         }
-        menu.add(GROUP_BASE, MENUITEM_ADD_EXISTING_IMAGE, Menu.CATEGORY_SYSTEM | 10, R.string.menu_add_existing_image);
+        uploadExistingImageItem = menu.add(GROUP_BASE, MENUITEM_ADD_EXISTING_IMAGE, Menu.CATEGORY_SYSTEM | 10, R.string.menu_add_existing_image);
 
         uploadItem = menu.add(GROUP_BASE, MENUITEM_UPLOAD, Menu.CATEGORY_SYSTEM | 10, R.string.menu_upload_element);
 
@@ -328,6 +331,9 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             String ele = element.getTagWithKey(Tags.KEY_ELE);
             updated |= setItemVisibility(ele != null && !"".equals(ele), calibrateItem, true);
         }
+
+        updated |= setItemVisibility(Util.permissionGranted(main, Main.STORAGE_PERMISSION), uploadExistingImageItem, true);
+
         return updated;
     }
 
@@ -486,6 +492,14 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
 
                 @Override
                 public boolean read(FragmentActivity currentActivity, Uri fileUri) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                        Uri photoUri = ContentResolverUtil.getMediaUri(main, fileUri);
+                        if (photoUri != null) {
+                            UploadImage.dialog(main, prefs, getImageActionForSelection(), photoUri);
+                            return true;
+                        }
+                        Log.e(DEBUG_TAG, "no MediaStore URI found trying direct upload");
+                    }
                     UploadImage.dialog(main, prefs, getImageActionForSelection(), fileUri);
                     return true;
                 }

@@ -95,11 +95,11 @@ Add the current selection to an existing or new todo list.
 ### Add new image
 
 Start the camera app and upload the resulting image, adding an appropriate tag to the OSM element. Currently Panoramax and Wikimedia Commons targets are supported, 
-you do need to configure and authorize access to the servers in the [Advanced preferences](Advanced%20preferences.md#image-storage).
+you do need to configure and authorize access to the servers in the [Advanced preferences](Advanced%20preferences.md#image-storage). *(requires network connectivity)*
 
 ### Add existing image
 
-As [Add new image](#add-new-image) but allows you to select an existing image for upload.
+As [Add new image](#add-new-image) but allows you to select an existing image for upload. *(requires network connectivity)* *(requires storage/photo permissions)*
 
 ### Upload element
 

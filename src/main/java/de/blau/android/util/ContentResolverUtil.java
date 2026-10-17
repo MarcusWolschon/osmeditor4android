@@ -20,6 +20,7 @@ import android.os.Environment;
 import android.provider.BaseColumns;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.provider.MediaStore.MediaColumns;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,6 +38,7 @@ public final class ContentResolverUtil {
     private static final String PUBLIC_DOWNLOADS          = "content://downloads/public_downloads";
     private static final String RAW_PREFIX                = Schemes.RAW + ":";
     private static final String DOWNLOADS_DOCUMENTS       = "com.android.providers.downloads.documents";
+    private static final String MEDIA_DOCUMENTS           = "com.android.providers.media.documents";
     private static final String EXTERNALSTORAGE_DOCUMENTS = "com.android.externalstorage.documents";
     public static final String  VOLUME_EXTERNAL           = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ? MediaStore.VOLUME_EXTERNAL : "external";
 
@@ -131,7 +133,7 @@ public final class ContentResolverUtil {
      */
     @SuppressWarnings("NewApi")
     @Nullable
-    private static String getPathFromDocumentUri(@NonNull Context context, @Nullable String scheme, @NonNull Uri uri) {
+    public static String getPathFromDocumentUri(@NonNull Context context, @Nullable String scheme, @NonNull Uri uri) {
         if (isExternalStorageDocument(uri)) {
             Log.i(DEBUG_TAG, "isExternalStorageDocument");
             final String docId = DocumentsContract.getDocumentId(uri);
@@ -164,6 +166,99 @@ public final class ContentResolverUtil {
         } else if (Schemes.CONTENT.equals(scheme)) {
             Log.i(DEBUG_TAG, "content scheme");
             return getDataColumn(context, uri, null, null);
+        }
+        return null;
+    }
+
+    /**
+     * Get a mediastore URI from an URI returned from the system file picker that provides access to the original file
+     * without redactions, only necessary for Android >= 10
+     * 
+     * @param context an Android Context
+     * @param pickedUri the picked URI
+     * @return a suitable URI or null
+     */
+    @Nullable
+    public static Uri getMediaUri(@NonNull Context context, @NonNull Uri pickedUri) {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            try {
+                Uri mediaStoreUri = MediaStore.getMediaUri(context, pickedUri);
+                if (mediaStoreUri != null) {
+                    return MediaStore.setRequireOriginal(mediaStoreUri);
+                }
+            } catch (IllegalArgumentException e) {
+                // Fallback to manual query if the framework matching fails
+            }
+        }
+
+        ContentResolver contentResolver = context.getContentResolver();
+
+        if (!DocumentsContract.isDocumentUri(context, pickedUri)) {
+            Log.e(DEBUG_TAG, "getMediaUri not a document URI");
+            return null;
+        }
+        String authority = pickedUri.getAuthority();
+        String documentId = DocumentsContract.getDocumentId(pickedUri);
+
+        if (documentId == null || !documentId.contains(":")) {
+            Log.e(DEBUG_TAG, "getMediaUri not a valid document URI");
+            return null;
+        }
+
+        String[] split = documentId.split(":");
+        long fileId = -1;
+        String resolvedVolumeName = null;
+
+        if (EXTERNALSTORAGE_DOCUMENTS.equals(authority)) {
+            String relativePathAndFile = split[1]; // e.g., "DCIM/test3.jpg"
+
+            // Separate display name from directory structure
+            String displayName = relativePathAndFile;
+            String relativePathDir = "";
+
+            if (relativePathAndFile.contains("/")) {
+                final int lastSlash = relativePathAndFile.lastIndexOf("/") + 1;
+                displayName = relativePathAndFile.substring(lastSlash);
+                // MediaStore expects directories to end with a trailing slash "/"
+                relativePathDir = relativePathAndFile.substring(0, lastSlash);
+            }
+
+            // Query using VOLUME_EXTERNAL to search both internal and external cards simultaneously
+            Uri queryUri = MediaStore.Files.getContentUri(MediaStore.VOLUME_EXTERNAL);
+            String[] projection = { BaseColumns._ID, MediaColumns.VOLUME_NAME };
+
+            // Query matching both the file name and its relative path structure
+            String selection = MediaColumns.DISPLAY_NAME + " = ? AND " + MediaColumns.RELATIVE_PATH + " = ?";
+            String[] selectionArgs = { displayName, relativePathDir };
+
+            try (Cursor cursor = contentResolver.query(queryUri, projection, selection, selectionArgs, null)) {
+                if (cursor != null && cursor.moveToFirst()) {
+                    fileId = cursor.getLong(cursor.getColumnIndexOrThrow(BaseColumns._ID));
+                    resolvedVolumeName = cursor.getString(cursor.getColumnIndexOrThrow(MediaColumns.VOLUME_NAME));
+                }
+            }
+        } else if (MEDIA_DOCUMENTS.equals(authority)) {
+            try {
+                fileId = Long.parseLong(split[1]);
+                Uri queryUri = MediaStore.Files.getContentUri(MediaStore.VOLUME_EXTERNAL);
+                String[] projection = { MediaColumns.VOLUME_NAME };
+                String selection = BaseColumns._ID + " = ?";
+                String[] selectionArgs = { String.valueOf(fileId) };
+
+                try (Cursor cursor = contentResolver.query(queryUri, projection, selection, selectionArgs, null)) {
+                    if (cursor != null && cursor.moveToFirst()) {
+                        resolvedVolumeName = cursor.getString(cursor.getColumnIndexOrThrow(MediaColumns.VOLUME_NAME));
+                    }
+                }
+            } catch (NumberFormatException e) {
+                Log.e(DEBUG_TAG, "getMediaUri " + e.getMessage());
+            }
+        }
+
+        if (fileId != -1 && resolvedVolumeName != null) {
+            Uri mediaStoreUri = ContentUris.withAppendedId(MediaStore.Images.Media.getContentUri(resolvedVolumeName), fileId);
+            return Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ? MediaStore.setRequireOriginal(mediaStoreUri) : mediaStoreUri;
         }
         return null;
     }
