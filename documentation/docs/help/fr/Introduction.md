@@ -181,7 +181,7 @@ A nearby point-of-interest display can be shown by pulling the handle in the mid
 
 More information on this and other available functionality on the main display can be found here [Main map display](Main%20map%display.md).
 
- ## En utilisant les traces GPS et GPX
+## Utilisation du GPS et des traces GPX
 
 With standard settings Vespucci will try to enable GPS (and other satellite based navigation systems) and will fallback to determining the position via so called "network location" if this is not possible. This behaviour assumes that you in normal use have your Android device itself configured to only use GPX generated locations (to avoid tracking), that is you have the euphemistically named "Improve Location Accuracy" option turned off. If you want to enable the option but want to avoid Vespucci falling back to "network location", you should turn the corresponding option in the [Advanced preferences](Advanced%20preferences.md) off. 
 
@@ -191,11 +191,11 @@ To record a GPX track and display it on your device select "Start GPX track" ite
 
 Note: by default Vespucci will not record elevation data with your GPX track, this is due to some Android specific issues. To enable elevation recording, either install a gravitational model, or, simpler, go to the [Advanced preferences](Advanced%20preferences.md) and configure NMEA input.
 
-### How to export a GPX track?
+### Comment exporter une trace GPX
 
 Open the layer menu, then click the 3-dots menu next to "GPX recording", then select **Export GPX track...**. Choose in which folder to export the track, then give it a name suffixed with `.gpx` (example: MyTrack.gpx).
 
-## Notes, Bugs and Todos
+## Notes, bugs et tâches
 
 Vespucci supporte le téléchargement, les commentaires et la fermeture des notes OSM (précédemment connues sous le nom de bugs OSM) et des fonctions équivalentes pour les « bugs » produits par [l'outil d'assurance qualité Osmose](http://osmose.openstreetmap.fr/fr/map/). Les deux doivent être téléchargés explicitement ou vous pouvez utiliser la fonction de téléchargement automatique pour accéder aux éléments proches de vous. Une fois modifié ou fermé, vous pouvez soit envoyer un bug ou une note immédiatement, soit les envoyer tous d'un coup. 
 
@@ -310,7 +310,7 @@ Vous pouvez trouver les descriptions complètes ici [Paramètres](Preferences.md
 
 Une description complète est disponible ici [Paramètres avancés](Advanced%20preferences.md)
 
-## Reporting and Resolving Issues
+## Signalement et résolution de problèmes
 
 Si Vespucci plante, ou qu'il détecte un état incohérent, il vous demandera d'envoyer un rapport de plantage. Faîtes-le si cela arrive, mais une seule fois par situation spécifique. Si vous voulez donner plus d'informations ou ouvrir un rapport de bug pour une demande de fonctionnalités, faîtes-le ici : [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). La fonction « faire un retour » du menu principal ouvrira un nouveau ticket et inclura les informations utiles sur l'appareil et l'appli en vous évitant de les écrire vous-même.
 

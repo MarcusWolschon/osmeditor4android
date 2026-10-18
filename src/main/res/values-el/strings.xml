@@ -45,6 +45,7 @@
   <string name="still_in_use_by_elements">Ακόμη σε χρήση από στοιχεία</string>
   <string name="delete_locally">Διαγραφή\nτοπικά</string>
   <string name="undelete_on_server">Αναίρεση διαγραφής\nστο διακομιστή</string>
+  <string name="error_running_action">Η ενέργεια %1$s έβγαλε σφάλμα %2$s</string>
   <!--Upload retry-->
   <string name="upload_retry_title">Το ανέβασμα απέτυχε</string>
   <string name="upload_retry_message_no_open_changeset">Το άνοιγμα του συνόλου αλλαγών απέτυχε.\n\nΕίναι ασφαλές να ξαναδοκιμάσετε.</string>
@@ -71,6 +72,8 @@
   <string name="bounding_box_too_large_title">Η περιοχή λήψης είναι πολύ μεγάλη</string>
   <string name="api_offline_title">API εκτός σύνδεσης</string>
   <string name="out_of_memory_title">Η μνήμη εξαντλήθηκε</string>
+  <string name="invalid_data_received_title">Ελήφθησαν μη έγκυρα δεδομένα</string>
+  <string name="invalid_data_read_title">Διαβάστηκαν μη έγκυρα δεδομένα</string>
   <string name="file_write_failed_title">Αδυναμία εγγραφής στο αρχείο</string>
   <string name="file_write_failed_message">Το Vespucci δεν μπορεί να αλλάξει ή να αποθηκεύσει το αρχείο.</string>
   <string name="applying_osc_failed_title">Απέτυχε η εφαρμογή του αρχείου OSC</string>
@@ -114,6 +117,8 @@
   <string name="progress_searching_message">Γίνεται αναζήτηση…</string>
   <string name="progress_saving_message">Γίνεται αποθήκευση…</string>
   <string name="progress_uploading_message">Γίνεται αποστολή...</string>
+  <string name="progress_resource_download_message">Γίνεται λήψη πηγής…</string>
+  <string name="progress_resource_load_message">Φόρτωμα πηγής…</string>
   <string name="progress_loading_preset_message">Φόρτωμα προρύθμισης…</string>
   <string name="progress_importing_file_message">Γίνεται εισαγωγή αρχείου...</string>
   <string name="progress_running_message">Λειτουργία...</string>
@@ -124,6 +129,7 @@
   <string name="progress_migration">Μετεγκατάσταση…</string>
   <string name="progress_determining_status_message">Προσδιορισμός κατάστασης…</string>
   <string name="progress_updating_message">Ενημέρωση…</string>
+  <string name="progress_calculating_message">Γίνεται υπολογισμός…</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" διαγράφηκε</string>
   <string name="changes_changed">\"%1$s\" άλλαξε</string>
@@ -151,6 +157,7 @@
   <string name="unknown_object">άγνωστο αντικείμενο</string>
   <!--Review changes dialog-->
   <string name="review_upload_selected">Ανέβασμα επιλεγμένων</string>
+  <string name="review_update">Ενημέρωση</string>
   <!--Upload GPX-->
   <string name="upload_gpx_title">Μεταφόρτωση ίχνους GPX</string>
   <string name="upload_gpx_description_label">Περιγραφή</string>
@@ -211,6 +218,7 @@
   <string name="unsaved_data_message">Οι μη αποθηκευμένες αλλαγές θα απορριφθούν εάν προχωρήσετε.</string>
   <string name="unsaved_data_proceed">Απόρριψη και συνέχεια</string>
   <!--Imagery offset dialog-->
+  <string name="imagery_offset_title">Απόκλιση εικόνας</string>
   <string name="imagery_offset_description">Περιγραφή</string>
   <string name="imagery_offset_not_found">Δε βρέθηκαν αποκλίσεις σε ακτίνα 10 χιλιομέτρων!</string>
   <string name="imagery_offset_author">Δημιουργός</string>
@@ -277,6 +285,8 @@
   <!--Tile layer info dialog-->
   <string name="attribution">Αναφορά δημιουργού</string>
   <!--GPX info dialog-->
+  <string name="track_points">Σημεία ίχνους</string>
+  <string name="way_points">Σημεία γραμμής</string>
   <!--Image information dialog-->
   <string name="image_information_title">Πληροφορίες εικόνας</string>
   <string name="created_by">Δημιουργήθηκε από</string>
@@ -318,9 +328,19 @@
   <string name="evaluate">Αξιολόγηση</string>
   <string name="js_console_msg_live">Ζωντανή λειτουργία!</string>
   <string name="js_console_msg_debug">Λειτουργία αποσφαλμάτωσης!</string>
+  <string name="console_input_hint">Εισάγετε κώδικα εδώ</string>
+  <string name="console_output_hint">Η έξοδος θα εμφανιστεί εδώ</string>
+  <string name="save_code">Αποθήκευση κώδικα…</string>
+  <string name="load_code">Φόρτωση κώδικα…</string>
+  <string name="share_code">Κοινοποίηση κώδικα…</string>
   <!--Overpass console-->
   <string name="run">Εκτέλεση</string>
   <!--Download missing dialog-->
+  <plurals name="download_missing_styles">
+    <item quantity="one">ένα στυλ</item>
+    <item quantity="other">%1$d στυλ</item>
+  </plurals>
+  <string name="download_missing_error">Σφάλμα λήψης %1$s</string>
   <!---->
   <string name="error">Σφάλμα</string>
   <string name="warning">Προειδοποίηση</string>
@@ -346,21 +366,25 @@
   <string name="add_resurvey_entry">Προσθήκη καταχώρησης επανέρευνας</string>
   <string name="add_check_entry">Προσθήκη καταχώρησης ελέγχου</string>
   <!--Safe mode dialog-->
+  <string name="safe_layer_label">Απενεργοποίηση όλων των επιπέδων</string>
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Κενή σχέση</string>
   <string name="add_members">Προσθήκη μελών</string>
   <string name="leave_empty">Αφήστε κενό</string>
   <!--GPX waypoint dialog-->
+  <string name="waypoint_title">Σημείο διαδρομής GPX</string>
   <string name="waypoint_description">WPT: %1$s</string>
   <string name="description">Περιγραφή</string>
   <string name="created">Δημιουργήθηκε</string>
   <string name="altitude">Υψόμετρο</string>
+  <string name="create_osm_object">Δημιουργία αντικειμένου OSM</string>
   <string name="waypoint_link">Σύνδεσμος</string>
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Προσαρμοσμένες εικόνες</string>
   <string name="oam_layer_title">Εικόνες ΟΑΜ</string>
   <string name="edit_layer_title">Επεξεργασία καταγραφής επιπέδου</string>
   <string name="add_layer_title">Προσθήκη καταγραφής επιπέδου</string>
+  <string name="select_layer_title">Επιλογή επιπέδου</string>
   <string name="overlay">Επικάλυψη</string>
   <string name="coverage">Κάλυψη</string>
   <string name="coverage_top">Πάνω</string>
@@ -406,12 +430,17 @@
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">Ελάχιστη εστίαση</string>
   <string name="layer_info_max_zoom">Ανώτερη εστίαση</string>
+  <string name="layer_info_start_date">Ημερομηνία αρχής</string>
+  <string name="layer_info_end_date">Ημερομηνία τέλους</string>
   <string name="layer_info_terms">Όροι</string>
   <string name="layer_info_privacy_policy">Πολιτική απορρήτου</string>
+  <string name="projection">Προβολή</string>
   <string name="errors">Σφάλματα</string>
+  <string name="layer_info_layer_not_available">Μη διαθέσιμες πληροφορίες επιπέδου</string>
   <!--Mapillary layer-->
   <string name="mapillary_image">%1$s</string>
   <!--Date range dialog-->
+  <string name="date_range_title">Ορισμός εύρους ημερομηνιών</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Διαγραφή φωτογραφίας</string>
   <string name="photo_viewer_delete_button">Μόνιμη διαγραφή</string>
@@ -446,6 +475,20 @@
   <string name="undo_location_zoom">Κάντε ζουμ στην τοποθεσία, έπειτα αναίρεση</string>
   <!--Value widget dialogs-->
   <!--Feedback activity-->
+  <string name="feedback_title_hint">Τίτλος</string>
+  <string name="feedback_description_hint">Παρακαλούμε περιγράψτε το πρόβλημα ή το αίτημα λειτουργίας με λεπτομέρειες</string>
+  <string name="feedback_who_is_sending">Ποιός το στέλνει αυτό;</string>
+  <string name="feedback_login_osm">Σύνδεση με το OpenStreetMap</string>
+  <string name="feedback_with_displayname">Αποστολή με το εμφανιζόμενο όνομα σας στο OpenStreetMap</string>
+  <string name="feedback_displayname_hint">Εμφανιζόμενο όνομα στο OpenStreetMap</string>
+  <string name="feedback_send">Αποστολή</string>
+  <string name="feedback_device_info">Συμπερίληψη πληροφοριών συσκευής</string>
+  <string name="feedback_anonymous">Αποστολή ανώνυμα</string>
+  <string name="feedback_device_info_format">Έκδοση εφαρμογής: %1$s (%2$d)\nΈκδοση Android: %3$s (API %4$d)\nΣυσκευή: %5$s %6$s</string>
+  <string name="feedback_reporter_label">\n\nΑναφέρων χρήστης: %1$s</string>
+  <string name="feedback_error_code">Σφάλμα: %1$d %2$s</string>
+  <string name="github_login_with_github">Σύνδεση με το GitHub (προαιρετικό)</string>
+  <string name="feedback_title_required">Απαιτείται τίτλος</string>
   <string name="feedback_success_title">Επιτυχία</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Κατεβάστε τα δεδομένα του OpenStreetMap</string>
@@ -473,6 +516,7 @@
   <string name="toast_unable_to_persist_permissions">Αδυναμία διατήρησης αδειών</string>
   <string name="toast_name_empty">Επιλέξτε ένα όνομα</string>
   <string name="toast_url_empty">Εισάγετε ένα URL</string>
+  <string name="toast_styleable_layer_exists">Υπάρχει επίπεδο για %1$s </string>
   <string name="toast_no_changes">Δεν έχετε αλλάξει τίποτα ως τώρα…</string>
   <string name="clear_anyway">Διαγραφή οπωσδήποτε;</string>
   <string name="toast_upload_success">Μεταφορτώθηκε στο διακομιστή OSM.</string>
@@ -510,13 +554,20 @@
   <string name="coordinates_out_of_range">Γεωγραφικό μήκος πρέπει να είναι εντός -180°/+180°, γεωγραφικό πλάτος εντός -85°/85°</string>
   <string name="toast_nothing_found">Δεν βρέθηκαν αποτελέσματα</string>
   <string name="toast_file_not_found">%1$s δεν βρέθηκε.</string>
+  <string name="toast_camera_error">Δεν ήταν δυνατή η εκκίνηση της εφαρμογής κάμερας: %1$s</string>
   <string name="toast_no_voice">Δεν υπάρχει συσκευή αναγνώρισης φωνής</string>
   <string name="toast_no_suitable_storage">Το σύστημα δεν επέστρεψε μία κατάλληλη θέση για τη βάση δεδομένων των πλακιδίων.</string>
   <string name="toast_min_one_preset">Πρέπει να επιλεγεί τουλάχιστον μία προκαθορισμένη ρύθμιση!</string>
   <string name="toast_min_one_geocoder">Πρέπει να επιλεγεί τουλάχιστον ένας γεωγραφικός κωδικοποιητής!</string>
+  <string name="toast_split_from">Διαχωρισμός γραμμής \"από\"</string>
+  <string name="toast_split_via">Διαχωρισμός γραμμής \"μέσω\"</string>
+  <string name="toast_split_from_and_via">Διαχωρισμός γραμμών \"από\" και \"μέσω\"</string>
+  <string name="toast_split_to">Διαχωρισμός γραμμής \"προς\"</string>
   <string name="toast_tile_database_issue_short">Πρόβλημα βάσης δεδομένων πλακιδίων</string>
   <string name="toast_invalid_apiurl">Άκυρη διεύθυνση API</string>
   <string name="toast_invalid_readonlyurl">Άκυρη διεύθυνση API Μόνο Για Ανάγνωση</string>
+  <string name="toast_invalid_notesurl">Μη έγκυρο URL API σημειώσεων</string>
+  <string name="toast_invalid_url">Μη έγκυρο URL</string>
   <string name="toast_invalid_filter_regexp">Άκυρη κανονική έκφραση στο φίλτρο με κλειδί=\"%1$s\" τιμή=\"%2$s\"</string>
   <string name="toast_no_photo_found">Δεν βρέθηκε φωτογραφία</string>
   <string name="toast_security_error_accessing_photo">Δεν επιτρέπεται η πρόσβαση στη φωτογραφία %1$s</string>
@@ -556,6 +607,13 @@
   <string name="toast_members_not_downloaded">Κάποια μέλη της σχέσης δεν λήφθηκαν</string>
   <string name="toast_restart_required">Πρέπει να επανεκκινήσετε το Vespucci για να εφαρμοστούν οι αλλαγές</string>
   <string name="toast_out_of_memory">ΕΞΑΝΤΛΗΘΗΚΕ Η ΜΝΗΝΗ!</string>
+  <string name="toast_split_first_segment">Διαχωρισμός πρώτου τμήματος</string>
+  <string name="toast_split_first_and_next_segment">Διαχωρισμός πρώτου και επόμενου τμήματος</string>
+  <string name="toast_split_next_segment">Διαχωρισμός επόμενου τμήματος</string>
+  <string name="toast_nothing_changed">Τίποτα δεν άλλαξε</string>
+  <string name="toast_error_saving_bookmark">Αδύνατη η αποθήκευση του σελιδοδείκτη</string>
+  <string name="toast_error_loading_style">Αδύνατη η φόρτωση του στυλ: %1$s</string>
+  <string name="toast_only_one_source_supported">Υποστηρίζεται μόνο μια πηγή ανά στυλ</string>
   <string name="toast_no_intersection_found">Δεν βρέθηκε διασταύρωση</string>
   <string name="toast_api_key_missing">Δεν βρέθηκε κλειδί API για %1$s</string>
   <string name="toast_no_track_points">Χωρίς σημεία ίχνους</string>
@@ -566,6 +624,7 @@
   <string name="toast_updating_tags">Ενημέρωση ετικετών…</string>
   <string name="toast_updating_parents">Ενημέρωση γονέων…</string>
   <string name="toast_updating_members">Ενημέρωση μελών…</string>
+  <string name="toast_error_loading_egm">Σφάλμα φόρτωσης EGM %1$s</string>
   <string name="toast_note_not_found">Η σημείωση #%1$d δεν βρέθηκε</string>
   <string name="toast_pressure_calibration">Νέος ύψος %1$fμ\nΤρέχουσα πίεση %2$fhPa\nΠίεση αναφοράς %3$fhPa\"</string>
   <string name="toast_no_compass">Η συσκευή δεν έχει πυξίδα!</string>
@@ -600,9 +659,11 @@
   <string name="download">Λήψη</string>
   <string name="abort">Ματαίωση</string>
   <string name="pause">Pause</string>
+  <string name="resume">Συνέχιση</string>
   <string name="ignore">Αγνόηση</string>
   <string name="select">Επιλογή</string>
   <string name="skip">Παράλειψη</string>
+  <string name="submit">Υποβολή</string>
   <string name="more_information">Περισσότερες πληροφορίες</string>
   <string name="osm_tags">Ετικέτες OSM</string>
   <!--Read a file-->
@@ -636,6 +697,7 @@
   <string name="tag_menu_reset_address_prediction">Επαναφορά πρόβλεψης διεύθυνσης</string>
   <string name="tag_menu_exit_no_save">Έξοδος χωρίς αποθήκευση</string>
   <string name="tag_menu_delete_unassociated_tags">Διαγραφή μη σχετκών ετικετών</string>
+  <string name="tag_menu_copy_system">Αντιγραφή (σύστημα)</string>
   <string name="tag_menu_top">Μετάβαση στην κορυφή</string>
   <string name="tag_menu_bottom">Μετάβαση στον πάτο</string>
   <string name="tag_value_hint">Πληκτρολόγηση τιμής</string>
@@ -675,6 +737,7 @@
   <string name="apply_with_last_values">Εφαρμογή με τις τελευταίες τιμές</string>
   <string name="apply_with_optional_tags">Εφαρμογή με προαιρετικές ετικέτες</string>
   <!--Custom preset creation-->
+  <string name="create_preset_default_name">Προσαρμοσμένο %1$s</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Επιλέξτε ακτίνα:</string>
   <string name="location_default_radius">300μ</string>
@@ -693,6 +756,7 @@
   <string name="location_search_label">Αναζήτηση:</string>
   <string name="location_load_button">Φόρτωση</string>
   <string name="location_load_dismiss">Μετάβαση στο χάρτη</string>
+  <string name="location_nan_title">Εσφαλμένη είσοδος!</string>
   <string name="location_olc">OLC</string>
   <!--Strings in barometer calibration-->
   <string name="barometer_calibration_label">Χρήση</string>
@@ -707,12 +771,15 @@
   <!--Strings in Go to coordinates-->
   <string name="go_to_coordinates_title">Πήγαινε σε συντεταγμένες</string>
   <string name="go_to_coordinates_hint">Εισάγετε συντεταγμένες (lat lon) ή ένα OLC</string>
+  <string name="no_nominatim_result">Ο διακομιστής Nominatim δεν βρήκε %1$s</string>
   <!--Menu-->
   <string name="menu_move">Μετακίνηση</string>
+  <string name="menu_edit">Επεξεργασία…</string>
   <string name="menu_add">Νέο</string>
   <string name="menu_config">Προτιμήσεις</string>
   <string name="menu_find">Εύρεση</string>
   <string name="menu_help">Βοήθεια</string>
+  <string name="menu_view">Προβολή…</string>
   <string name="menu_erase">Διαγραφή κόμβου</string>
   <string name="menu_split">Διαίρεση</string>
   <string name="menu_remove_node_from_way">Αφαίρεση κόμβου από γραμμή</string>
@@ -749,7 +816,13 @@
   <string name="menu_gps_add_bookmark">Προσθήκη σελιδοδείκτη…</string>
   <string name="menu_transfer">Γίνεται μεταφορά…</string>
   <string name="menu_transfer_download_current">Λήψη τρέχουσας προβολής</string>
+  <string name="menu_transfer_download_replace">Καθαρισμός και λήψη τρέχουσας προβολής</string>
+  <string name="menu_transfer_load_current">Φόρτωση τρέχουσας προβολής</string>
+  <string name="menu_transfer_load_replace">Καθαρισμός και φόρτωση τρέχουσας προβολής</string>
   <string name="menu_transfer_upload">Μεταφόρωση δεδομένων στο διακομιστή OSM…</string>
+  <string name="menu_transfer_review">Έλεγχος αλλαγών…</string>
+  <string name="menu_transfer_update">Ενημέρωση δεδομένων</string>
+  <string name="menu_transfer_data_clear">Καθαρισμός δεδομένων</string>
   <string name="menu_transfer_close_changeset">Κλείσιμο τρέχουσας ομάδας αλλαγών</string>
   <string name="menu_transfer_file">Αρχείο…</string>
   <string name="menu_transfer_export">Εξαγωγή αλλαγών σε αρχείο OSC</string>

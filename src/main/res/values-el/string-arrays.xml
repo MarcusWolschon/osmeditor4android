@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="gpx_visibility_trackable">ανιχνεύσιμο</string>
+    <string name="gpx_visibility_identifiable">αναγνωρίσιμο</string>
+    <string-array name="gps_source">
+        <item>Εσωτερικό</item>
+        <item>Εσωτερικό NMEA</item>
+        <item>NMEA από πελάτη TCP</item>
+        <item>NMEA από διακομιστή TCP</item>
+    </string-array>
+    <string-array name="bug_state">
+        <item>Ανοιχτό</item>
+        <item>Κλειστό</item>
+        <item>Ψευδώς θετικό</item>
+    </string-array>
+    <string-array name="note_state">
+        <item>Ανοιχτή</item>
+        <item>Κλειστή</item>
+    </string-array>
+    <string-array name="maproulette_state">
+        <item>Ανοιχτό</item>
+        <item>Κλειστό</item>
+        <item>Ψευδώς θετικό</item>
+        <item>Παραβλέφθηκε</item> 
+        <item>Διαγράφηκε</item>
+        <item>Ήδη διορθωμένο</item>
+        <item>Πολύ δύσκολο</item>
+    </string-array>
+    <string-array name="todo_state">
+        <item>Ανοιχτό</item>
+        <item>Κλειστό</item>
+        <item>Παραβλέφθηκε</item> 
+    </string-array>
+    <string-array name="followGPSbutton_entries">
+        <item>Αριστερά</item>
+        <item>Δεξιά</item>
+        <item>Κανένα</item>
+    </string-array>
+    <string-array name="map_orientation_entries">
+        <item>Αυτόματο</item>
+        <item>Κλειδωμένο</item>
+        <item>Κατακόρυφος</item>
+        <item>Οριζόντιος</item>
+    </string-array>
+    <string-array name="tagfilter_type_entries">
+        <item>\'Ολα</item>
+        <item>Κόμβοι</item>
+        <item>Γραμμές</item>
+        <item>Γραμμές+</item>
+        <item>Σχέσεις</item>
+        <item>Σχέσεις+</item>
+    </string-array>
+    <!-- The entries need to match the order of the CheckStatus enum -->
+    <string-array name="checkstatus_entries">
+        <item>HTTP</item>
+        <item>HTTPS</item>
+        <item>Ο τομέας δεν υπάρχει</item>
+        <item>Ο τομέας δεν είναι προσιτός</item>
+        <item>Παραμορφωμένο URL</item>
+        <item>Μη έγκυρο αίτημα</item>
+    </string-array>
+    <!-- automatic name tag capitalization -->
+    <string-array translatable="true" name="name_cap_entries">
+        <item>Χωρίς χρήση κεφαλαίων</item>
+        <item>Χρήση κεφαλαίων λέξης</item>
+        <item>Χρήση κεφαλαίων πρότασης</item>
+    </string-array>
+    <string name="theme_follow_entry">Ρύθμιση συστήματος</string>
+    <string name="theme_light_entry">Φωτεινό</string>
+    <string name="theme_dark_entry">Σκοτεινό</string>
+    <string name="authentication_basic_entry">Σύνδεση - Κωδικός</string>
+    <string name="authentication_oauth1a_entry">OAuth 1a</string>
+    <string name="authentication_oauth2_entry">OAuth 2</string>
+    <string name="licence_cc_by_4">Creative Commons Αναφορά 4.0</string>
+    <string name="licence_cc_by_3">Creative Commons Αναφορά 3.0</string>
+    <string name="licence_cc_by_sa_4">Creative Commons Αναφορά-Παρόμοια Διανομή 4.0</string>
+    <string name="licence_cc_by_sa_3">Creative Commons Αναφορά-Παρόμοια Διανομή 3.0</string>
+    <string name="licence_cc_zero">Creative Commons Zero</string>
+    <string name="licence_pd">Κοινό Κτήμα</string>
+    <string name="licence_gpl">Γενική Άδεια Δημόσιας Χρήσης GNU</string>
+    <string name="licence_mit">Άδεια MIT</string>
+    <string name="licence_bsd">Άδεια BSD</string>
+    <string name="licence_cc_by_4_short">CC BY 4.0</string>
+    <string name="licence_cc_by_3_short">CC BY 3.0</string>
+    <string name="licence_cc_by_sa_4_short">CC BY-SA 4.0</string>
+    <string name="licence_cc_by_sa_3_short">CC BY-SA 3.0</string>
+    <string name="licence_cc_zero_short">CC0</string>
+    <string name="licence_pd_short">PD</string>
+    <string name="licence_gpl_short">GPL</string>
+    <string name="licence_mit_short">MIT</string>
+    <string name="licence_bsd_short">BSD</string>
+    </resources>

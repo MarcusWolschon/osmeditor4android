@@ -100,7 +100,7 @@
 <p>You can copy selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version, thus can only be pasted once. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select &quot;Paste&quot; from the menu.</p>
 <h4 id="αποτελεσματική-προσθήκη-διευθύνσεων">Αποτελεσματική Προσθήκη Διευθύνσεων</h4>
 <p>Vespucci supports functionality that makes surveying addresses more efficient by predicting house numbers (left and right sides of streets separately) and automatically adding <em>addr:street</em> or <em>addr:place</em> tags based on the last used value and proximity. In the best case this allows adding an address without any typing at all.</p>
-<p>Adding the tags can be triggered by pressing <img src="../images/address.png" alt="Address" />:</p>
+<p>Η προσθήκη των ετικετών μπορεί να γίνει πατώντας <img src="../images/address.png" alt="Διεύθυνση" />:</p>
 <ul>
 <li>after a long press (in non-simple mode only): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add an &quot;entrance=yes&quot; tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.</li>
 <li>in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.</li>
@@ -130,7 +130,7 @@
 <h3 id="προβολή-κοντινών-σημείων-ενδιαφέροντος">Προβολή κοντινών σημείων-ενδιαφέροντος</h3>
 <p>A nearby point-of-interest display can be shown by pulling the handle in the middle and top of the bottom menu bar up.</p>
 <p>More information on this and other available functionality on the main display can be found here <a href="Main%20map%display.md">Main map display</a>.</p>
-<h2 id="using-gps-and-gpx-tracks">Using GPS and GPX tracks</h2>
+<h2 id="χρησιμοποιώντας-gps-και-ίχνη-gpx">Χρησιμοποιώντας GPS και ίχνη GPX</h2>
 <p>With standard settings Vespucci will try to enable GPS (and other satellite based navigation systems) and will fallback to determining the position via so called &quot;network location&quot; if this is not possible. This behaviour assumes that you in normal use have your Android device itself configured to only use GPX generated locations (to avoid tracking), that is you have the euphemistically named &quot;Improve Location Accuracy&quot; option turned off. If you want to enable the option but want to avoid Vespucci falling back to &quot;network location&quot;, you should turn the corresponding option in the <a href="Advanced%20preferences.md">Advanced preferences</a> off.</p>
 <p>Touching the <img src="../images/menu_gps.png" alt="GPS" /> button (normally on the left hand side of the map display) will center the screen on the current position and as you move the map display will be panned to maintain this.  Moving the screen manually or editing will cause the &quot;follow GPS&quot; mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the &quot;follow&quot; mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.</p>
 <p>To record a GPX track and display it on your device select &quot;Start GPX track&quot; item in the <img src="../images/menu_gps.png" alt="GPS" /> menu. This will add layer to the display with the current recorded track, you can upload and export the track from the entry in the <a href="Main%20map%20display.md">layer control</a>. Further layers can be added from local GPX files and tracks downloaded from the OSM API.</p>
@@ -188,9 +188,9 @@
 <h2 id="προσαρμογή-του-vespucci">Προσαρμογή του Vespucci</h2>
 <p>Many aspects of the app can be customized, if you are looking for something specific and can't find it, <a href="https://vespucci.io/">the Vespucci website</a> is searchable and contains additional information over what is available on device.</p>
 <p><a id="layers"></a></p>
-<h3 id="layer-settings">Layer settings</h3>
+<h3 id="ρυθμίσεις-επιπέδου">Ρυθμίσεις επιπέδου</h3>
 <p>Layer settings can be changed via the layer control (&quot;hamburger&quot; menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.</p>
-<p>Available layer types:</p>
+<p>Διαθέσιμοι τύποι επιπέδων:</p>
 <ul>
 <li>Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.</li>
 <li>Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the &quot;standard style&quot; map from openstreetmap.org.</li>
@@ -202,13 +202,13 @@
 <li>GPX layer - Displays GPX tracks and way points, multiple layers can be added from files, during recording the generate GPX track is displayed in its own one . Default: none.</li>
 <li>Grid - Displays a scale along the sides of the map or a grid. Default: on.</li>
 </ul>
-<p>More information can be found in the section on the <a href="Main%20map%20display.md">map display</a>.</p>
-<h4 id="preferences">Preferences</h4>
+<p>Περισσότερες πληροφορίες μπορούν να βρεθούν στην ενότητα στην <a href="Main%20map%20display.md">εμφάνιση χάρτη</a>.</p>
+<h4 id="προτιμήσεις">Προτιμήσεις</h4>
 <ul>
 <li>Keep screen on. Default: off.</li>
 <li>Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.</li>
 </ul>
-<p>The full description can be found here <a href="Preferences.md">Preferences</a></p>
+<p>Η πλήρης περιγραφή μπορεί να βρεθεί εδώ <a href="Preferences.md">Προτιμήσεις</a></p>
 <h4 id="σύνθετες-προτιμήσεις">Σύνθετες προτιμήσεις</h4>
 <ul>
 <li>Full screen mode. On devices without hardware buttons Vespucci can run in full screen mode, that means that &quot;virtual&quot; navigation buttons will be automatically hidden while the map is displayed, providing more space on the screen for the map. Depending on your device this may work well or not,  In <em>Auto</em> mode we try to determine automatically if using full screen mode is sensible or not, setting it to <em>Force</em> or <em>Never</em> skips the automatic check and full screen mode will always be used or always not be used respectively. On devices running Android 11 or higher the <em>Auto</em> mode will never turn full screen mode on as Androids gesture navigation provides a viable alternative to it. Default: <em>Auto</em>.</li>
@@ -216,7 +216,7 @@
 <li>Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).</li>
 <li>Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.</li>
 </ul>
-<p>The full description can be found here <a href="Advanced%20preferences.md">Advanced preferences</a></p>
+<p>Η πλήρης περιγραφή μπορεί να βρεθεί εδώ <a href="Advanced%20preferences.md">Προχωρημένες προτιμήσεις</a></p>
 <h2 id="αναφορά-και-επίλυση-ζητημάτων">Αναφορά και Επίλυση Ζητημάτων</h2>
 <p>If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>. The &quot;Provide feedback&quot; function from the main menu will open a new issue and include the relevant app and device information without extra typing.</p>
 <p>If you are experiencing difficulties starting the app after a crash, you can try to start it in <em>Safe</em> mode on devices that support short cuts: long press on the app icon and then select <em>Safe</em> from the menu.</p>
