@@ -1,5 +1,24 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+22.1.3:
+
+- Fix toast the reason an image can't be loaded in the image viewer
+- Fix disable "Add existing image" if permissions are not present
+- Fix improve behaviour of "upload existing image"
+- Fix implement a 5 minute idle timeout for the DownloadService
+- Fix stop service if system calls onTimeout
+- Fix set up the adapter data observer before re-validating the data
+- Fix improve syncronisation between the ReviewActivity and Main
+- Fix MediaStore indexing could abort on images without coordinates
+- Add styling for waterway=flowline
+- Add styling for sidewalk:left and sidewalk:right and sidewalk:both
+- Update OSM sandbox client id for 3rd party builds
+- Update default preset
+- Update imagery from ELI
+- Update tag2link
+- Update translations
+- Update NSI
+
 22.1.2:
 
 - Fix GPX upload regression
