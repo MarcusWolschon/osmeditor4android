@@ -894,6 +894,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:gtfs:route_id:FR-IDF-IDFM",
+    "url": "https://me-deplacer.iledefrance-mobilites.fr/fiches-horaires/bus/line:$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:hashtags",
     "url": "http://seiga.nicovideo.jp/tag/$1",
     "source": "wikidata:P3303",
@@ -2058,6 +2064,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:ref:chargepoint",
+    "url": "https://driver.chargepoint.com/stations/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:ref:cin",
     "url": "https://api-bdsr.ministeroturismo.gov.it/ui/user/strutturecin/$1",
     "source": "osmwiki:P8",
@@ -2244,6 +2256,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:ref:FR:BAN",
+    "url": "https://adresse.data.gouv.fr/carte-base-adresse-nationale?id=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
     "key": "Key:ref:FR:CEF",
     "url": "https://messes.info/lieu/$1",
     "source": "osmwiki:P8",
@@ -2281,14 +2299,20 @@
   },
   {
     "key": "Key:ref:FR:MemorialGenWeb",
-    "url": "https://www.memorialgenweb.org/memorial3/html/fr/resultcommune.php?idsource=$1",
-    "source": "osmwiki:P8",
-    "rank": "normal"
+    "url": "https://www.memorialgenweb.org/monument/$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
   },
   {
     "key": "Key:ref:FR:MemorialGenWeb",
     "url": "https://www.memorialgenweb.org/memorial3/html/fr/resultcommune.php?idsource=$1",
     "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:FR:MemorialGenWeb",
+    "url": "https://www.memorialgenweb.org/monument/$1",
+    "source": "osmwiki:P8",
     "rank": "normal"
   },
   {
@@ -2690,8 +2714,20 @@
   {
     "key": "Key:ref:ine",
     "url": "https://api-features.ign.es/collections/nuc/items?codine=$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:ine",
+    "url": "https://api-features.ign.es/collections/nuc/items?codine=$1",
     "source": "wikidata:P3303",
     "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:ine",
+    "url": "https://api-features.ign.es/collections/opob/items?codine=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
   },
   {
     "key": "Key:ref:ine",
@@ -2900,6 +2936,12 @@
   {
     "key": "Key:ref:linz:pastoral_lease_id",
     "url": "https://linz.govt.nz/our-work/crown-property-management/pastoral-land/location-crown-pastoral-land/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:linz:place_id",
+    "url": "https://gazetteer.linz.govt.nz/place/$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
@@ -3169,13 +3211,19 @@
   },
   {
     "key": "Key:ref:sandre",
-    "url": "https://www.sandre.eaufrance.fr/geo/CoursEau_Carthage2017/$1",
+    "url": "https://id.eaufrance.fr/CoursEau_Carthage2017/$1",
     "source": "wikidata:P1630",
     "rank": "preferred"
   },
   {
     "key": "Key:ref:sandre",
     "url": "https://id.eaufrance.fr/SysTraitementEauxUsees/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:sandre",
+    "url": "https://www.sandre.eaufrance.fr/geo/CoursEau_Carthage2017/$1",
     "source": "wikidata:P1630",
     "rank": "normal"
   },
@@ -3650,6 +3698,12 @@
   {
     "key": "Key:taxon:wikipedia",
     "url": "https://wikipedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:traffic_sign",
+    "url": "https://wiki.openstreetmap.org/wiki/Tag:traffic_sign%253D$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
