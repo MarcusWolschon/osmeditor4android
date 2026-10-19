@@ -123,9 +123,6 @@
 "amenity/bureau_de_change":[
 "Gjaldmiðlaskipti"
 ],
-"amenity/bus_station":[
-"Strætisvagnastöð / Umferðarmiðstöð"
-],
 "amenity/cafe":[
 "tehús",
 "Kaffihús"
@@ -182,17 +179,11 @@
 "amenity/doctors":[
 "Læknir"
 ],
-"amenity/doctors/podiatry":[
-"Fótaaðgerðafræðingur"
-],
 "amenity/dojo":[
 "Dojo / Bardagaíþróttir"
 ],
 "amenity/drinking_water":[
 "Drykkjarvatn"
-],
-"amenity/embassy":[
-"Sendiráð"
 ],
 "amenity/fast_food":[
 "Skyndibiti"
@@ -214,9 +205,6 @@
 ],
 "amenity/fast_food/sandwich":[
 "Skyndibiti, samlokur"
-],
-"amenity/ferry_terminal":[
-"Ferjustöð"
 ],
 "amenity/fire_station":[
 "Slökkvistöð"
@@ -272,14 +260,8 @@
 "amenity/nightclub":[
 "Næturklúbbur"
 ],
-"amenity/nursing_home":[
-"Hjúkrunarheimili"
-],
 "amenity/parcel_locker":[
 "Bögglaskápur"
-],
-"amenity/parking":[
-"Bílastæðasvæði"
 ],
 "amenity/parking/multi-storey":[
 "Bílastæðahús á mörgum hæðum"
@@ -289,8 +271,8 @@
 ],
 "amenity/place_of_worship":[
 "bænahús",
-"musteri",
 "Tilbeiðsluhús",
+"musteri",
 "kapella",
 "kirkja"
 ],
@@ -640,12 +622,6 @@
 "barrier/wall":[
 "Veggur"
 ],
-"boundary":[
-"Svæðismörk"
-],
-"boundary/administrative":[
-"Stjórnsýslumörk"
-],
 "bridge/support":[
 "Undirstaða brúar"
 ],
@@ -781,9 +757,6 @@
 "building/warehouse":[
 "Vöruhús"
 ],
-"building_point":[
-"Bygging"
-],
 "cemetery/grave":[
 "Gröf"
 ],
@@ -859,9 +832,6 @@
 "craft/key_cutter":[
 "Lyklaþjónusta"
 ],
-"craft/locksmith":[
-"Lyklasmiður"
-],
 "craft/painter":[
 "Málari"
 ],
@@ -903,9 +873,6 @@
 ],
 "craft/stonemason":[
 "Steinsmiður"
-],
-"craft/tailor":[
-"Skraddari"
 ],
 "craft/tiler":[
 "Flísaleggjari"
@@ -967,9 +934,6 @@
 "ford":[
 "Vað"
 ],
-"ford_line":[
-"Vað"
-],
 "golf/bunker":[
 "Glompa"
 ],
@@ -1009,9 +973,6 @@
 "healthcare/birthing_center":[
 "Fæðingarheimili"
 ],
-"healthcare/blood_donation":[
-"Blóðbanki"
-],
 "healthcare/hospice":[
 "Líknarsel"
 ],
@@ -1023,9 +984,6 @@
 ],
 "healthcare/optometrist":[
 "Sjóntækjafræðingur"
-],
-"healthcare/physiotherapist":[
-"Sjúkraþjálfari"
 ],
 "healthcare/podiatrist":[
 "Fótaaðgerðafræðingur"
@@ -1044,9 +1002,6 @@
 ],
 "highway/bus_guideway":[
 "Strætóleiðsagnarbraut"
-],
-"highway/bus_stop":[
-"Strætó stoppistöð"
 ],
 "highway/corridor":[
 "Gangur innanhúss"
@@ -1241,9 +1196,6 @@
 "indoor/corridor":[
 "Gangur innanhúss"
 ],
-"indoor/corridor_line":[
-"Gangur innanhúss"
-],
 "indoor/room":[
 "Herbergi"
 ],
@@ -1255,9 +1207,6 @@
 ],
 "landuse/aquaculture":[
 "Vatnseldi"
-],
-"landuse/basin":[
-"Lægð"
 ],
 "landuse/brownfield":[
 "Byggingarsvæði"
@@ -1271,9 +1220,6 @@
 "landuse/commercial":[
 "Atvinnusvæði"
 ],
-"landuse/farm":[
-"Akurlendi"
-],
 "landuse/farmland":[
 "Akurlendi"
 ],
@@ -1282,9 +1228,6 @@
 ],
 "landuse/flowerbed":[
 "Blómabeð"
-],
-"landuse/garages":[
-"Landnotkun fyrir verkstæði"
 ],
 "landuse/grass":[
 "Gras"
@@ -1319,9 +1262,6 @@
 "landuse/plant_nursery":[
 "Uppeldi plantna"
 ],
-"landuse/pond":[
-"Tjörn"
-],
 "landuse/quarry":[
 "Náma"
 ],
@@ -1333,9 +1273,6 @@
 ],
 "landuse/religious":[
 "Svæði fyrir trúarathafnir"
-],
-"landuse/reservoir":[
-"Lón"
 ],
 "landuse/residential":[
 "Íbúðahverfi"
@@ -1532,9 +1469,6 @@
 "leisure/track":[
 "Keppnisbraut (ekki mótorsport)"
 ],
-"leisure/track/athletics/running":[
-"Hlaupabraut"
-],
 "leisure/track/cycling":[
 "Hjólreiðabraut"
 ],
@@ -1716,8 +1650,8 @@
 "Höfði"
 ],
 "natural/cave_entrance":[
-"skýli",
 "Inngangur í helli",
+"skýli",
 "hellir",
 "skúti"
 ],
@@ -1913,9 +1847,6 @@
 "office/lawyer":[
 "Lögmannaskrifstofa"
 ],
-"office/lawyer/notary":[
-"Skrifstofa lögbókanda"
-],
 "office/moving_company":[
 "Skrifstofa flutningafyrirtækis"
 ],
@@ -1951,9 +1882,6 @@
 ],
 "office/therapist":[
 "Meðferðarstofa"
-],
-"office/travel_agent":[
-"Ferðaskrifstofa"
 ],
 "office/water_utility":[
 "Skrifstofa vatnsveitu"
@@ -2127,19 +2055,10 @@
 "Sporvagnastoppistöð / Biðsvæði"
 ],
 "public_transport/platform_point":[
-"Biðstöð / Biðsvæði",
-"strætó",
-"almenningssamgöngur",
-"samgöngur",
-"stoppistöð"
+"Biðstöð / Biðsvæði"
 ],
 "public_transport/station":[
-"Umferðarmiðstöð",
-"rúta",
-"skiptistöð",
-"strætó",
-"almenningssamgöngur",
-"samgöngur"
+"Umferðarmiðstöð"
 ],
 "public_transport/station_aerialway":[
 "Lyftustöð"
@@ -2204,9 +2123,6 @@
 "public_transport/stop_position_trolleybus":[
 "Staðsetning stöðvunar rafknúinna strætisvagna"
 ],
-"railway/abandoned":[
-"Yfirgefnir lestarteinar"
-],
 "railway/buffer_stop":[
 "Járnbrautarstuðpúði"
 ],
@@ -2217,17 +2133,11 @@
 "railway/disused":[
 "Ónotaðir lestarteinar"
 ],
-"railway/halt":[
-"Lestarstöð (stöðvun / beiðni)"
-],
 "railway/milestone":[
 "Vegalengdarmerki járnbrautar"
 ],
 "railway/signal":[
 "Lestarmerki"
-],
-"railway/station":[
-"Lestarstöð"
 ],
 "railway/subway_entrance":[
 "Inngangur að neðanjarðarlest"
@@ -2243,9 +2153,6 @@
 ],
 "relation":[
 "Tengsl"
-],
-"route/ferry":[
-"Ferjuleið"
 ],
 "seamark":[
 "Sjómerki"
@@ -2779,9 +2686,6 @@
 "type/route/pipeline":[
 "Röraleið"
 ],
-"type/route/power":[
-"Orkuflutningsleið"
-],
 "type/route/railway":[
 "Lestarleið"
 ],
@@ -2850,5 +2754,140 @@
 ],
 "waterway/weir":[
 "Yfirfall"
+],
+"boundary":[
+"Svæðamörk"
+],
+"building_point":[
+"Bygging"
+],
+"ford_line":[
+"Vað"
+],
+"traffic_sign/maxspeed-US-CA-LR":[
+"Skilti fyrir hraðatakmörk"
+],
+"shop/ice_cream":[
+"Ísbúð"
+],
+"route/ferry":[
+"Ferjuleið"
+],
+"railway/halt":[
+"Lestarstöð (stöðvun / beiðni)"
+],
+"railway/station":[
+"Lestarstöð"
+],
+"office/travel_agent":[
+"Ferðaskrifstofa"
+],
+"office/lawyer/notary":[
+"Skrifstofa lögbókanda"
+],
+"leisure/track/athletics/running":[
+"Hlaupabraut"
+],
+"landuse/basin":[
+"Lægð"
+],
+"landuse/reservoir":[
+"Lón"
+],
+"landuse/industrial/industrial_point":[
+"Iðnaðarsvæði"
+],
+"indoor/corridor_line":[
+"Gangur innanhúss"
+],
+"highway/bus_stop":[
+"Strætó stoppistöð"
+],
+"highway/raceway_unspecific":[
+"Kappakstursbraut"
+],
+"highway/traffic_sign":[
+"Umferðarmerki"
+],
+"highway/motorway_link-US-CA":[
+"Hraðbrautarrein"
+],
+"highway/primary_link-US-CA":[
+"Stofnrein"
+],
+"highway/trunk_link-US-CA":[
+"Umferðaræðarrein"
+],
+"craft/locksmith":[
+"Lásasmiður"
+],
+"craft/tailor":[
+"Skraddari"
+],
+"building/glasshouse":[
+"Gróðurhús"
+],
+"building/house/detached":[
+"Aðskilin bygging"
+],
+"building/house/semi-detached":[
+"Hálf-aðskilin bygging"
+],
+"boundary/administrative":[
+"Stjórnsýslumörk"
+],
+"amenity/bus_station":[
+"Strætisvagnastöð / Umferðarmiðstöð"
+],
+"amenity/coworking_space":[
+"Sameiginlegt vinnurými"
+],
+"amenity/embassy":[
+"Sendiráð"
+],
+"amenity/ferry_terminal":[
+"Ferjustöð"
+],
+"amenity/nursing_home":[
+"Hjúkrunarheimili"
+],
+"amenity/doctors/podiatry":[
+"Fótaaðgerðafræðingur"
+],
+"aerialway/station":[
+"Lyftustöð"
+],
+"@templates/contact":[
+"Punktur"
+],
+"@templates/internet_access":[
+"Punktur"
+],
+"@templates/poi":[
+"Punktur"
+],
+"@templates/crossing/bicycle_more":[
+"Punktur"
+],
+"@templates/crossing/defaults":[
+"Punktur"
+],
+"@templates/crossing/geometry_way_more":[
+"Punktur"
+],
+"@templates/crossing/markings":[
+"Punktur"
+],
+"@templates/crossing/markings_yes":[
+"Punktur"
+],
+"@templates/crossing/surfacequality":[
+"Punktur"
+],
+"@templates/crossing/traffic_signal":[
+"Punktur"
+],
+"@templates/crossing/traffic_signal_more":[
+"Punktur"
 ]
 }

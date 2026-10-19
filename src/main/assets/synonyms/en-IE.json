@@ -1,8 +1,1220 @@
 {
+"amenity/arts_centre":[
+"performance venue",
+"Arts Centre",
+"theatre space",
+"arts center",
+"theater space",
+"community arts",
+"cultural center"
+],
+"amenity/clinic/dialysis":[
+"Dialysis Centre",
+"dialysis clinic",
+"kidney dialysis",
+"dialysis center"
+],
+"amenity/community_centre":[
+"hall",
+"event",
+"Community Centre",
+"community center"
+],
+"amenity/community_centre/lgbtq":[
+"lgbtq hall",
+"lgbtq+ community center",
+"LGBTQ+ Community Centre",
+"lgbtq event",
+"lgbt event",
+"lgbt hall",
+"lgb event",
+"lgb hall"
+],
+"amenity/community_centre/youth_centre":[
+"Youth Centre",
+"youth center",
+"youth club"
+],
+"amenity/conference_centre":[
+"Convention Centre",
+"exhibition",
+"auditorium",
+"convention center",
+"lecture",
+"exposition",
+"conference center"
+],
+"amenity/dive_centre":[
+"dive center",
+"diving",
+"scuba",
+"Dive Centre"
+],
+"amenity/exhibition_centre":[
+"convention center",
+"exposition center",
+"Exposition Centre",
+"trade exhibition",
+"exhibition center",
+"fair",
+"expo",
+"trade show",
+"trade fair",
+"tradeshow"
+],
+"amenity/fuel":[
+"diesel",
+"lng",
+"petrol",
+"fuel",
+"propane",
+"gas station",
+"gasoline",
+"Petrol Station",
+"cng",
+"biodiesel"
+],
+"amenity/payment_centre":[
+"bill pay",
+"Payment Centre",
+"money",
+"tax pay",
+"payment center",
+"currency",
+"check",
+"cash",
+"finance"
+],
+"amenity/recycling_centre":[
+"Recycling Centre",
+"can",
+"glass",
+"scrap",
+"recycling center",
+"recycle",
+"garbage",
+"bottle",
+"dump",
+"rubbish",
+"trash"
+],
+"amenity/social_centre":[
+"sorority",
+"hall",
+"union",
+"community center",
+"professional",
+"Social Centre",
+"fraternal",
+"society",
+"social center",
+"organization",
+"fraternity",
+"event",
+"community hall",
+"vetern"
+],
+"amenity/social_facility/day_care":[
+"Social Services Day Care / Day Centre",
+"social services day care / day center"
+],
+"amenity/theatre":[
+"play",
+"performance",
+"musical",
+"theater",
+"Theatre"
+],
 "amenity/theatre/type/amphi":[
+"greek",
+"outdoor",
+"open air",
+"ampi",
+"amphitheater",
 "Amphitheatre"
 ],
+"barrier/kerb":[
+"Kerb",
+"curb"
+],
+"barrier/kerb/flush":[
+"level curb",
+"tactile curb",
+"Flush Kerb",
+"even curb",
+"flush curb"
+],
+"barrier/kerb/lowered":[
+"kerb ramp",
+"lowered curb",
+"curb ramp",
+"Lowered Kerb",
+"dropped kerb",
+"curb cut",
+"pram ramp"
+],
+"barrier/kerb/raised":[
+"raised curb",
+"step",
+"Raised Kerb"
+],
+"barrier/kerb/rolled":[
+"gutter",
+"Rolled Kerb",
+"rolled curb"
+],
+"healthcare/birthing_center":[
+"Birthing Centre",
+"delivery",
+"birthing center",
+"midwive",
+"pregnancy",
+"baby",
+"childbirth",
+"labor",
+"labour",
+"pregnant"
+],
+"healthcare/blood_donation":[
+"blood transfusion",
+"plateletpheresis",
+"blood bank",
+"plasmapheresis",
+"apheresis",
+"Blood Donation Centre",
+"stem cell donation",
+"blood donation center",
+"blood donation"
+],
+"healthcare/counselling":[
+"counseling center",
+"Counselling Centre",
+"sex therapist"
+],
+"healthcare/physiotherapist":[
+"Physiotherapist",
+"therapy",
+"physical therapist",
+"physical",
+"therapist"
+],
+"highway/elevator":[
+"elevator",
+"Lift"
+],
+"highway/elevator_line":[
+"inclined elevator",
+"cable railway",
+"Inclined Lift"
+],
+"highway/footway/sidewalk":[
+"pavement",
+"sidewalk",
+"sidepath",
+"Footpath (alongside a road)"
+],
+"indoor/elevator":[
+"elevator",
+"indoor elevator shaft",
+"Indoor Lift Shaft",
+"lift"
+],
+"leisure/fitness_centre":[
+"studio",
+"pilates",
+"Gym / Fitness Centre",
+"health",
+"gym",
+"leisure",
+"gym / fitness center"
+],
+"leisure/horse_riding":[
+"horse ranch",
+"horse riding facility",
+"horse park",
+"horse riding center",
+"Horse Riding Centre",
+"equestrian facility",
+"riding facility",
+"horse farm",
+"riding stables",
+"horseback riding center",
+"stables",
+"horse riding",
+"equestrian center"
+],
+"leisure/indoor_play":[
+"Indoor Play Centre",
+"children's play center",
+"indoor playground",
+"ball pit",
+"indoor play center"
+],
+"leisure/sports_centre":[
+"recreation centre",
+"sports center / complex",
+"athletic center",
+"sports centre",
+"athletic centre",
+"recreation center",
+"sports complex",
+"Sports Centre / Complex"
+],
+"office/association":[
+"nonprofit",
+"society",
+"organization",
+"association",
+"non-profit",
+"nonprofit organization office",
+"Nonprofit Organisation Office"
+],
+"office/bail_bond_agent-US-PH":[
+"bail bond dealer",
+"bail bond man",
+"bail bondsperson",
+"bail bondsman",
+"Bail Bond Agent"
+],
+"office/charity":[
+"Charity Office",
+"charitable organization"
+],
+"office/company":[
+"Corporate Office",
+"corporation",
+"office park"
+],
+"office/consulting":[
+"Consultancy Office",
+"consulting firm office"
+],
+"office/coworking":[
+"coworking",
+"office",
+"Coworking Space"
+],
+"office/diplomatic":[
+"diplomatic mission",
+"permanent mission",
+"legation",
+"embassy",
+"foreign mission",
+"liaison",
+"high commission",
+"consulate",
+"Diplomatic Office"
+],
+"office/diplomatic/consulate":[
+"consular post",
+"visas",
+"Consulate",
+"passports"
+],
+"office/diplomatic/embassy":[
+"diplomatic mission",
+"permanent mission",
+"Embassy",
+"foreign mission",
+"high commission",
+"consulate"
+],
+"place/neighbourhood":[
+"Neighbourhood",
+"neighborhood"
+],
+"shop/confectionery":[
+"Sweet Shop",
+"fudge",
+"candy shop",
+"lollipop",
+"sweet",
+"candy store",
+"sugar",
+"confectionery store"
+],
+"shop/garden_centre":[
+"retail plant nursery",
+"nursery",
+"Garden Centre",
+"tree",
+"garden center",
+"plant nursery",
+"landscape",
+"mulch",
+"shrub"
+],
+"shop/window_blind":[
+"window blind store",
+"Window Blind Shop"
+],
+"shop/yes":[
+"Shop (Unspecified Type)"
+],
+"telecom":[
+"Telecom Feature"
+],
 "telecom/data_center":[
-"Data Centre"
+"data center",
+"information technology",
+"the cloud",
+"Data Centre",
+"server farm",
+"computer systems storage",
+"telecommunications"
+],
+"telecom/exchange":[
+"telephone switch",
+"telephone exchange",
+"Telecom Exchange",
+"telecommunications"
+],
+"tourism":[
+"Tourism Feature"
+],
+"tourism/alpine_hut":[
+"lodging",
+"refuge hut",
+"mountain hut",
+"mountain hostel",
+"refuge",
+"overnight accommodations",
+"cabin",
+"mountain shelter",
+"climbing hut",
+"mountain refuge",
+"lodge",
+"Mountain Lodge",
+"alpine hut",
+"wilderness hut"
+],
+"tourism/apartment":[
+"lodging",
+"b and b",
+"holiday rental",
+"bnb",
+"overnight accommodations",
+"Guest Apartment / Condo",
+"bed and breakfast",
+"b & b",
+"airbnb",
+"b&b",
+"vacation rental"
+],
+"tourism/aquarium":[
+"Aquarium",
+"sea life",
+"fish",
+"aquatic",
+"water",
+"sea",
+"marine life"
+],
+"tourism/artwork":[
+"Artwork",
+"mural",
+"statue",
+"sculpture"
+],
+"tourism/artwork/bust":[
+"figure",
+"Bust"
+],
+"tourism/artwork/graffiti":[
+"street artwork",
+"guerrilla artwork",
+"Graffiti",
+"graffiti artwork",
+"guerilla artwork"
+],
+"tourism/artwork/installation":[
+"Art Installation",
+"modern art",
+"interactive art",
+"intervention art"
+],
+"tourism/artwork/mural":[
+"fresco",
+"wall painting",
+"Mural"
+],
+"tourism/artwork/sculpture":[
+"figure",
+"Sculpture",
+"statue",
+"carving"
+],
+"tourism/artwork/statue":[
+"figure",
+"Statue",
+"sculpture",
+"carving"
+],
+"tourism/attraction":[
+"Tourist Attraction"
+],
+"tourism/camp_pitch":[
+"tent",
+"rv",
+"Camp Pitch"
+],
+"tourism/camp_site":[
+"camp site",
+"camp pitch",
+"rv",
+"Campground",
+"campers",
+"camp ground",
+"campsite",
+"recreational vehicles",
+"caravans",
+"tenting",
+"mobile homes"
+],
+"tourism/camp_site/backcountry":[
+"alpine camping",
+"camp site",
+"camp pitch",
+"campground",
+"informal camping",
+"camp ground",
+"backwoods camping",
+"primitive camping",
+"Backcountry Camping Area",
+"campsite",
+"backpacking site"
+],
+"tourism/camp_site/group_only":[
+"camp site",
+"youth camping",
+"camp pitch",
+"campground",
+"camp ground",
+"Group Camping Area",
+"campsite",
+"scout camping"
+],
+"tourism/caravan_site":[
+"motor home",
+"camper",
+"RV Park"
+],
+"tourism/chalet":[
+"lodging",
+"Holiday Cottage",
+"holiday home",
+"holiday cabin",
+"vacation home",
+"chalet",
+"overnight accommodations",
+"vacation cabin",
+"lodge"
+],
+"tourism/gallery":[
+"exhibition",
+"art",
+"photograph",
+"painting",
+"Art Gallery",
+"sculpture"
+],
+"tourism/guest_house":[
+"lodging",
+"b and b",
+"Guest House",
+"bnb",
+"overnight accommodations",
+"bed and breakfast",
+"b & b",
+"airbnb",
+"b&b"
+],
+"tourism/hostel":[
+"Hostel",
+"lodging",
+"backpacker",
+"bunk beds",
+"youth hostel",
+"dorms",
+"overnight accommodations",
+"dormitories"
+],
+"tourism/hotel":[
+"lodging",
+"suite",
+"inn",
+"overnight accommodations",
+"lodge",
+"Hotel",
+"concierge"
+],
+"tourism/information":[
+"Information"
+],
+"tourism/information/board":[
+"Information Board"
+],
+"tourism/information/board/welcome_sign":[
+"Welcome Sign",
+"new location"
+],
+"tourism/information/guidepost":[
+"signpost",
+"Guidepost"
+],
+"tourism/information/map":[
+"Map"
+],
+"tourism/information/office":[
+"tourist office",
+"tourism office",
+"tour guide",
+"tourist information center",
+"visitors center",
+"visitors information center",
+"welcome center",
+"Tourist Information Office",
+"information office"
+],
+"tourism/information/route_marker":[
+"route marker",
+"painted blaze",
+"cairn",
+"way marker",
+"trail post",
+"route flag",
+"trail blaze",
+"Trail Marker",
+"stone pile"
+],
+"tourism/information/terminal":[
+"Information Terminal"
+],
+"tourism/information/visitor_centre":[
+"visitor center",
+"visitors center",
+"visitors information center",
+"welcome center",
+"Visitor Centre"
+],
+"tourism/motel":[
+"lodging",
+"motor hotel",
+"Motel",
+"overnight accommodations"
+],
+"tourism/museum":[
+"exhibition",
+"art",
+"nature",
+"hall",
+"sculpture",
+"foundation",
+"history",
+"technology",
+"art museum",
+"archaeological",
+"cultural",
+"institution",
+"photograph",
+"painting",
+"excavation",
+"science",
+"Museum",
+"archeological",
+"gallery"
+],
+"tourism/museum/history":[
+"History Museum",
+"institution",
+"dioramas",
+"exhibitions",
+"hall",
+"exhibits",
+"foundation",
+"artifacts"
+],
+"tourism/picnic_site":[
+"Picnic Site",
+"camp"
+],
+"tourism/theme_park":[
+"fun park",
+"Theme Park",
+"amusement park"
+],
+"tourism/trail_riding_station":[
+"Trail Riding Station"
+],
+"tourism/viewpoint":[
+"Viewpoint",
+"lookout",
+"overlook",
+"vantage point",
+"scenery",
+"scenic",
+"vista"
+],
+"tourism/wilderness_hut":[
+"lodging",
+"bothy",
+"sleeping shelter",
+"biwakschachtel",
+"Wilderness Hut",
+"refuge",
+"overnight accommodations",
+"cabin",
+"backcountry shelter",
+"backcountry hut",
+"bivouac",
+"bivouac box",
+"lodge",
+"alpine hut"
+],
+"tourism/zoo":[
+"animal",
+"Zoo"
+],
+"tourism/zoo/petting":[
+"children's zoo",
+"petting farm",
+"farm animals",
+"children's farm",
+"Petting Zoo"
+],
+"tourism/zoo/safari":[
+"drive-through zoo",
+"drive-in zoo",
+"Safari Park"
+],
+"tourism/zoo/wildlife":[
+"Wildlife Park",
+"indigenous animals"
+],
+"traffic_calming":[
+"hump",
+"slow",
+"Traffic Calming",
+"bump",
+"speed"
+],
+"traffic_calming/bump":[
+"hump",
+"slow",
+"Speed Bump",
+"traffic calming",
+"speed"
+],
+"traffic_calming/chicane":[
+"slow",
+"Traffic Chicane",
+"driveway link",
+"traffic calming",
+"speed"
+],
+"traffic_calming/choker":[
+"Traffic Choker",
+"slow",
+"traffic calming",
+"speed"
+],
+"traffic_calming/cushion":[
+"hump",
+"slow",
+"bump",
+"traffic calming",
+"Speed Cushion",
+"speed"
+],
+"traffic_calming/dip":[
+"slow",
+"Dip",
+"traffic calming",
+"speed"
+],
+"traffic_calming/hump":[
+"slow",
+"bump",
+"traffic calming",
+"speed",
+"Speed Hump"
+],
+"traffic_calming/island":[
+"slow",
+"Traffic Calming Island",
+"circle",
+"traffic calming",
+"roundabout"
+],
+"traffic_calming/mini_bumps":[
+"circular bumps",
+"small bumps",
+"slow",
+"Mini Speed Bumps",
+"bumps",
+"traffic calming",
+"speed",
+"circular speed bumps",
+"small speed bumps"
+],
+"traffic_calming/rumble_strip":[
+"audible lines",
+"Rumble Strip",
+"growlers",
+"traffic calming",
+"sleeper lines"
+],
+"traffic_calming/table":[
+"Speed Table",
+"hump",
+"slow",
+"traffic calming",
+"speed",
+"flat top"
+],
+"traffic_calming/yes":[
+"Traffic Calming (Unspecified Type)"
+],
+"traffic_sign":[
+"road",
+"Traffic Sign",
+"highway"
+],
+"traffic_sign/city_limit":[
+"border",
+"boundary",
+"edge",
+"town",
+"hamlet",
+"road",
+"highway",
+"village",
+"City Limit Sign"
+],
+"traffic_sign/maxspeed":[
+"maximum speed",
+"road",
+"Speed Limit Sign",
+"highway",
+"max speed"
+],
+"traffic_sign/variable_message":[
+"Variable Message Sign",
+"dynamic message sign",
+"vms"
+],
+"type/associatedStreet":[
+"Associated Street"
+],
+"type/boundary":[
+"Boundary"
+],
+"type/boundary/administrative":[
+"Administrative Boundary"
+],
+"type/boundary/protected_area":[
+"national park",
+"conservation",
+"nature",
+"wilderness",
+"heritage",
+"protection",
+"Protected Area",
+"wildlife"
+],
+"type/connectivity":[
+"Lane Connectivity"
+],
+"type/destination_sign":[
+"Destination Sign",
+"exit sign"
+],
+"type/enforcement":[
+"Enforcement"
+],
+"type/enforcement/maxspeed":[
+"radar",
+"speed camera",
+"maxspeed",
+"Speed Limit Enforcement"
+],
+"type/multipolygon":[
+"Multipolygon"
+],
+"type/public_transport/stop_area_group":[
+"Transit Stop Area Group"
+],
+"type/restriction":[
+"Restriction"
+],
+"type/restriction/no_left_turn":[
+"No Left Turn"
+],
+"type/restriction/no_right_turn":[
+"No Right Turn"
+],
+"type/restriction/no_straight_on":[
+"No Straight Ahead"
+],
+"type/restriction/no_u_turn":[
+"No U-Turn"
+],
+"type/restriction/only_left_turn":[
+"Left Turn Only"
+],
+"type/restriction/only_right_turn":[
+"Right Turn Only"
+],
+"type/restriction/only_straight_on":[
+"Straight Ahead Only"
+],
+"type/restriction/only_u_turn":[
+"U-Turn Only"
+],
+"type/route":[
+"Route"
+],
+"type/route/aerialway":[
+"aerialway",
+"Aerial Route"
+],
+"type/route/bicycle":[
+"Bicycle Route"
+],
+"type/route/bus":[
+"Bus Route"
+],
+"type/route/climbing":[
+"climb",
+"sport climbing",
+"Climbing Route",
+"boulder problem",
+"mountaineering route",
+"rock climbing route",
+"rock climbing",
+"climbing",
+"mountain climbing"
+],
+"type/route/detour":[
+"Detour Route"
+],
+"type/route/ferry":[
+"merchant vessel",
+"water bus",
+"Ferry Route",
+"water taxi",
+"ship",
+"water shuttle",
+"boat"
+],
+"type/route/foot":[
+"Walking Route"
+],
+"type/route/hiking":[
+"Hiking Route"
+],
+"type/route/light_rail":[
+"Light Rail Route"
+],
+"type/route/monorail":[
+"Monorail Route"
+],
+"type/route/mtb":[
+"cross-country cycling",
+"enduro",
+"downhill cycling",
+"Mountain Biking Route",
+"mountain cycling",
+"freeride",
+"mtb",
+"mountain bicycling",
+"trail riding",
+"all mountain",
+"mountain bike route"
+],
+"type/route/pipeline":[
+"Pipeline Route"
+],
+"type/route/piste":[
+"Piste / Ski Route"
+],
+"type/route/railway":[
+"Railway Route"
+],
+"type/route/road":[
+"Road Route"
+],
+"type/route/subway":[
+"Subway Route"
+],
+"type/route/train":[
+"Train Route"
+],
+"type/route/tram":[
+"Tram Route"
+],
+"type/route/trolleybus":[
+"Trolleybus Route"
+],
+"type/route_master":[
+"Route Master"
+],
+"type/site":[
+"Site"
+],
+"type/site/climbing/area":[
+"Climbing Area",
+"climbing region"
+],
+"type/site/climbing/crag":[
+"climbing cliff",
+"Climbing Crag"
+],
+"type/waterway":[
+"Waterway"
+],
+"waterway":[
+"Waterway Feature"
+],
+"waterway/access_point":[
+"rowboat",
+"Waterway Access Point",
+"canoe",
+"put-in",
+"take-out",
+"launch",
+"paddleboard",
+"kayak",
+"boat",
+"portage"
+],
+"waterway/boatyard":[
+"Boatyard"
+],
+"waterway/canal":[
+"spillway",
+"irrigation",
+"Canal",
+"waterpower",
+"tailrace",
+"headrace"
+],
+"waterway/canal/lock":[
+"Canal Lock"
+],
+"waterway/dam":[
+"Dam"
+],
+"waterway/ditch":[
+"Ditch"
+],
+"waterway/dock":[
+"Wet Dock / Dry Dock",
+"floating dry dock",
+"vessel",
+"floating dock",
+"ship",
+"boat",
+"marine"
+],
+"waterway/drain":[
+"Drain"
+],
+"waterway/fish_pass":[
+"fishsteps",
+"fish siphon",
+"fish ladder",
+"Fish Pass",
+"eel ladder",
+"fish way",
+"eel pass",
+"fishladder",
+"fish migration",
+"fish passage",
+"fish steps",
+"fishpass",
+"fishway"
+],
+"waterway/fuel":[
+"diesel",
+"petrol",
+"gas",
+"Marine Fuel Station",
+"boat"
+],
+"waterway/lock_gate":[
+"Lock Gate",
+"canal"
+],
+"waterway/milestone":[
+"milestone",
+"marker",
+"Waterway Milestone"
+],
+"waterway/river":[
+"brook",
+"rill",
+"beck",
+"runnel",
+"run",
+"tributary",
+"branch",
+"rivulet",
+"creek",
+"estuary",
+"stream",
+"watercourse",
+"River",
+"course"
+],
+"waterway/sanitary_dump_station":[
+"pump out",
+"ctdp",
+"pumpout",
+"Marine Toilet Disposal",
+"dump station",
+"watercraft",
+"chemical toilet",
+"elsan",
+"sanitary",
+"boat",
+"cdp"
+],
+"waterway/stream":[
+"tide",
+"rill",
+"beck",
+"runnel",
+"spritz",
+"run",
+"branch",
+"rivulet",
+"current",
+"creek",
+"freshet",
+"course",
+"Stream",
+"spate",
+"flow",
+"drift",
+"brook",
+"burn",
+"race",
+"rindle",
+"surge",
+"torrent",
+"tributary",
+"rush",
+"flood",
+"watercourse"
+],
+"waterway/stream_intermittent":[
+"brook",
+"burn",
+"beck",
+"arroyo",
+"runnel",
+"spritz",
+"wash",
+"gully",
+"run",
+"tributary",
+"branch",
+"rush",
+"flood",
+"creek",
+"watercourse",
+"wadi",
+"course",
+"Intermittent Stream",
+"spate",
+"flow",
+"drift"
+],
+"waterway/tidal_channel":[
+"Tidal Channel",
+"tidal creek",
+"tidal inlet",
+"tidal flat",
+"waterway",
+"mangroves",
+"pill",
+"coastal",
+"marine",
+"intertidal",
+"salt marsh"
+],
+"waterway/water_point":[
+"Marine Drinking Water",
+"water spigot",
+"water source",
+"water faucet",
+"water point",
+"water tap"
+],
+"waterway/waterfall":[
+"Waterfall",
+"fall"
+],
+"waterway/weir":[
+"low-head dam",
+"low-rise dam",
+"wier",
+"Weir"
+],
+"boundary":[
+"Boundary"
+],
+"traffic_sign/maxspeed-US-CA-LR":[
+"maximum speed",
+"road",
+"Speed Limit Sign",
+"highway",
+"max speed"
+],
+"route/ferry":[
+"merchant vessel",
+"water bus",
+"Ferry Route",
+"water taxi",
+"ship",
+"water shuttle",
+"boat"
+],
+"highway/traffic_sign":[
+"road",
+"Traffic Sign",
+"highway"
+],
+"climbing/crag":[
+"climbing cliff",
+"Climbing Crag"
+],
+"climbing/route":[
+"climb",
+"sport climbing",
+"Climbing Route",
+"boulder problem",
+"mountaineering route",
+"rock climbing route",
+"rock climbing",
+"climbing",
+"mountain climbing"
+],
+"boundary/administrative":[
+"Administrative Boundary"
+],
+"amenity/coworking_space":[
+"coworking",
+"office",
+"Coworking Space"
+],
+"amenity/embassy":[
+"diplomatic mission",
+"permanent mission",
+"Embassy",
+"foreign mission",
+"high commission",
+"consulate"
 ]
 }

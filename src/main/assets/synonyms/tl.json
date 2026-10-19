@@ -17,9 +17,6 @@
 "building":[
 "Gusali"
 ],
-"building_point":[
-"Gusali"
-],
 "line":[
 "Linya"
 ],
@@ -43,5 +40,41 @@
 ],
 "relation":[
 "Relation"
+],
+"building_point":[
+"Gusali"
+],
+"@templates/contact":[
+"Punto o tuldok"
+],
+"@templates/internet_access":[
+"Punto o tuldok"
+],
+"@templates/poi":[
+"Punto o tuldok"
+],
+"@templates/crossing/bicycle_more":[
+"Punto o tuldok"
+],
+"@templates/crossing/defaults":[
+"Punto o tuldok"
+],
+"@templates/crossing/geometry_way_more":[
+"Punto o tuldok"
+],
+"@templates/crossing/markings":[
+"Punto o tuldok"
+],
+"@templates/crossing/markings_yes":[
+"Punto o tuldok"
+],
+"@templates/crossing/surfacequality":[
+"Punto o tuldok"
+],
+"@templates/crossing/traffic_signal":[
+"Punto o tuldok"
+],
+"@templates/crossing/traffic_signal_more":[
+"Punto o tuldok"
 ]
 }

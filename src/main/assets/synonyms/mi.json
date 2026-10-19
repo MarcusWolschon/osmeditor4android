@@ -8,9 +8,6 @@
 "amenity/bicycle_parking":[
 "Tūnga pahikara"
 ],
-"amenity/bus_station":[
-"Teihana Pahi"
-],
 "amenity/car_rental":[
 "Ngā Tūnga Waka Rēti"
 ],
@@ -19,9 +16,6 @@
 ],
 "amenity/courthouse":[
 "Wharekōti"
-],
-"amenity/ferry_terminal":[
-"Taunga Waka Kōpiko"
 ],
 "amenity/fire_station":[
 "Ratonga ahi"
@@ -40,9 +34,6 @@
 ],
 "amenity/motorcycle_parking":[
 "Tūnga motopaika"
-],
-"amenity/parking":[
-"Ngā Tūnga Waka"
 ],
 "amenity/police":[
 "Pirihimana"
@@ -87,9 +78,6 @@
 "building/industrial":[
 "Whare ahumahi"
 ],
-"building_point":[
-"Whare"
-],
 "emergency/fire_alarm":[
 "Whakahoho"
 ],
@@ -101,9 +89,6 @@
 ],
 "entrance/emergency":[
 "Putanga Ohotata Anake"
-],
-"highway/bus_stop":[
-"Tūnga Pahi"
 ],
 "highway/busway":[
 "Arapahi"
@@ -246,9 +231,6 @@
 "public_transport/stop_position_ferry":[
 "Wāpu Waka Kōpiko"
 ],
-"railway/station":[
-"Teihana Rerewē"
-],
 "railway/subway_entrance":[
 "Kuhunga ki teihana"
 ],
@@ -309,5 +291,68 @@
 ],
 "waterway/river":[
 "Awa"
+],
+"building_point":[
+"Whare"
+],
+"traffic_sign/maxspeed-US-CA-LR":[
+"Te pae tere"
+],
+"shop/ice_cream":[
+"Aihikirīmi toa"
+],
+"railway/station":[
+"Teihana Rerewē"
+],
+"landuse/industrial/industrial_point":[
+"Papa ahumahi"
+],
+"highway/bus_stop":[
+"Tūnga Pahi"
+],
+"highway/path/bicycle_foot":[
+"Ngā Ara mō te Paihikara me te Hīkoi"
+],
+"building/entrance":[
+"Putanga"
+],
+"amenity/bus_station":[
+"Teihana Pahi"
+],
+"amenity/ferry_terminal":[
+"Taunga Waka Kōpiko"
+],
+"@templates/contact":[
+"Ira"
+],
+"@templates/internet_access":[
+"Ira"
+],
+"@templates/poi":[
+"Ira"
+],
+"@templates/crossing/bicycle_more":[
+"Ira"
+],
+"@templates/crossing/defaults":[
+"Ira"
+],
+"@templates/crossing/geometry_way_more":[
+"Ira"
+],
+"@templates/crossing/markings":[
+"Ira"
+],
+"@templates/crossing/markings_yes":[
+"Ira"
+],
+"@templates/crossing/surfacequality":[
+"Ira"
+],
+"@templates/crossing/traffic_signal":[
+"Ira"
+],
+"@templates/crossing/traffic_signal_more":[
+"Ira"
 ]
 }

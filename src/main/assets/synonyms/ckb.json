@@ -71,6 +71,9 @@
 "amenity/nightclub":[
 "یانەی شەوانە"
 ],
+"amenity/parking/multi-storey":[
+"گەراجی فرەنهۆم"
+],
 "amenity/parking/street-side":[
 "گەراجی ڕۆخی شەقام"
 ],
@@ -139,6 +142,15 @@
 ],
 "barrier/gate":[
 "دەروازە"
+],
+"barrier/kerb":[
+"قاناو"
+],
+"barrier/kerb/lowered":[
+"قاناوی نزم"
+],
+"barrier/kerb/raised":[
+"قاناوی بڵند"
 ],
 "barrier/wall":[
 "دیوار"
@@ -254,9 +266,6 @@
 "building_part":[
 "بەشێکی باڵەخانە"
 ],
-"building_point":[
-"باڵەخانە"
-],
 "cemetery/grave":[
 "گۆڕ"
 ],
@@ -293,9 +302,6 @@
 "craft/glaziery":[
 "جامبڕی"
 ],
-"craft/locksmith":[
-"کلیلساز"
-],
 "craft/painter":[
 "نیگارکێش"
 ],
@@ -329,9 +335,6 @@
 "craft/stonemason":[
 "بەردکار"
 ],
-"craft/tailor":[
-"بەرگدوور"
-],
 "craft/tiler":[
 "کاشیچی"
 ],
@@ -362,9 +365,6 @@
 "entrance/emergency":[
 "دەرچەی تەنگەتاوی"
 ],
-"healthcare/counselling":[
-"ناوەندی ڕاوێژکاری"
-],
 "healthcare/laboratory":[
 "تاقیگەی پزیشکی"
 ],
@@ -373,6 +373,9 @@
 ],
 "highway/construction":[
 "ڕێگە لە چاککردندایە"
+],
+"highway/cycleway/crossing/traffic_signals":[
+"پەڕینەوەی پاسکیل بە چرای هاتوچۆیە"
 ],
 "highway/elevator":[
 "ئاسانسەر"
@@ -441,7 +444,7 @@
 "ئاوێنەی هاتوچۆ"
 ],
 "highway/traffic_signals":[
-"نیشانەکانی هاتوچۆ"
+"چراکانی هاتوچۆ"
 ],
 "highway/trunk":[
 "سەرەڕێ"
@@ -481,9 +484,6 @@
 ],
 "landuse/meadow":[
 "Meadow"
-],
-"landuse/pond":[
-"گۆم"
 ],
 "landuse/religious":[
 "مەڵبەندی ئایینی"
@@ -584,6 +584,9 @@
 "railway/level_crossing":[
 "یەکتربڕی هێڵی ئاسنی"
 ],
+"railway/signal":[
+"نیشانەی ئاسنڕێ"
+],
 "shop/hairdresser":[
 "سەرتاشخانە"
 ],
@@ -617,6 +620,58 @@
 "traffic_sign":[
 "هێمای هاتوچۆ"
 ],
+"type/restriction/no_left_turn":[
+"پێچ بە لای چەپدا قەدەغەیە"
+],
+"type/restriction/no_right_turn":[
+"پێچ بە لای ڕاستدا قەدەغەیە"
+],
+"type/restriction/no_u_turn":[
+"پێچکردنەوە قەدەغەیە"
+],
+"type/restriction/only_left_turn":[
+"تەنیا بە لای چەپدا ڕێپێدراوە",
+"تەنیا بە لای ڕاستدا ڕێپێدراوە"
+],
+"type/restriction/only_u_turn":[
+"تەنیا پێچکردنەوە ڕێپێدراوە"
+],
+"type/route/bicycle":[
+"ڕێگەی پاسکیل"
+],
+"type/route/bus":[
+"ڕێگەی پاس"
+],
+"type/route/climbing":[
+"ڕێگەی شاخەوانی"
+],
+"type/route/detour":[
+"ڕێگەی قەدبڕ"
+],
+"type/route/foot":[
+"ڕێگەی پیادە"
+],
+"type/route/mtb":[
+"ڕێگەی پاسکیلسواری چیایی"
+],
+"type/route/pipeline":[
+"هێڵی بۆڕی"
+],
+"type/route/railway":[
+"هێڵی ئاسنڕێ"
+],
+"type/route/road":[
+"هێڵی جادە"
+],
+"type/route/subway":[
+"هێڵی ژێرەڕێ"
+],
+"type/route/train":[
+"هێڵی شەمەندەفەر"
+],
+"type/route/tram":[
+"هێڵی ترام"
+],
 "waterway/dam":[
 "بەنداو"
 ],
@@ -625,5 +680,77 @@
 ],
 "waterway/stream":[
 "چەم"
+],
+"waterway/stream_intermittent":[
+"چەمی وەرزی"
+],
+"waterway/waterfall":[
+"تاڤگە"
+],
+"building_point":[
+"باڵەخانە"
+],
+"shop/ice_cream":[
+"فرۆشگای ساردەمەنی"
+],
+"natural/wood_point":[
+"دارستان"
+],
+"landuse/industrial/industrial_point":[
+"ناوچەی پیشەسازی"
+],
+"highway/traffic_sign":[
+"هێمای هاتوچۆ"
+],
+"highway/motorway_link-US-CA":[
+"بەستەگی شاڕێ"
+],
+"highway/primary_link-US-CA":[
+"لا شەقامی سەرەکی"
+],
+"craft/locksmith":[
+"کلیلساز"
+],
+"craft/tailor":[
+"بەرگدوور"
+],
+"climbing/route":[
+"ڕێگەی شاخەوانی"
+],
+"building/glasshouse":[
+"سەوزخانە"
+],
+"@templates/contact":[
+"خاڵ"
+],
+"@templates/internet_access":[
+"خاڵ"
+],
+"@templates/poi":[
+"خاڵ"
+],
+"@templates/crossing/bicycle_more":[
+"خاڵ"
+],
+"@templates/crossing/defaults":[
+"خاڵ"
+],
+"@templates/crossing/geometry_way_more":[
+"خاڵ"
+],
+"@templates/crossing/markings":[
+"خاڵ"
+],
+"@templates/crossing/markings_yes":[
+"خاڵ"
+],
+"@templates/crossing/surfacequality":[
+"خاڵ"
+],
+"@templates/crossing/traffic_signal":[
+"خاڵ"
+],
+"@templates/crossing/traffic_signal_more":[
+"خاڵ"
 ]
 }

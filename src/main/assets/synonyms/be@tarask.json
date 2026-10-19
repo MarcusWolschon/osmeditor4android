@@ -92,9 +92,6 @@
 "amenity/doctors":[
 "Доктар"
 ],
-"amenity/embassy":[
-"Амбасада"
-],
 "amenity/fast_food/hot_dog":[
 "булачка з сасіскай",
 "хот-доґ"
@@ -127,7 +124,7 @@
 "Начны клюб"
 ],
 "amenity/parking/multi-storey":[
-"Шматпавярховы ґараж"
+"Багатапавярховы ґараж"
 ],
 "amenity/parking_entrance":[
 "Уезд і выезд з ґаражнага паркінґу"
@@ -268,9 +265,6 @@
 "barrier/wall":[
 "Мур"
 ],
-"boundary":[
-"Мяжа"
-],
 "building":[
 "Будынак"
 ],
@@ -343,9 +337,6 @@
 "building/warehouse":[
 "Сховішча"
 ],
-"building_point":[
-"Будынак"
-],
 "club":[
 "Клюб"
 ],
@@ -400,9 +391,6 @@
 "craft/joiner":[
 "Сталяр"
 ],
-"craft/locksmith":[
-"Ключны майстар"
-],
 "craft/metal_construction":[
 "Мэталаапрацоўка"
 ],
@@ -451,9 +439,6 @@
 "craft/stonemason":[
 "Муляр"
 ],
-"craft/tailor":[
-"Кравец"
-],
 "craft/tiler":[
 "Кафляр"
 ],
@@ -496,9 +481,6 @@
 "ford":[
 "Брод"
 ],
-"ford_line":[
-"Брод"
-],
 "golf/fairway":[
 "Фэрўэй (кошаная трава)"
 ],
@@ -523,9 +505,6 @@
 "healthcare/optometrist":[
 "Аптамэтрыст"
 ],
-"healthcare/physiotherapist":[
-"Фізыятэрапэўт"
-],
 "healthcare/podiatrist":[
 "Падаляґ"
 ],
@@ -537,9 +516,6 @@
 ],
 "highway/crossing":[
 "Пераход"
-],
-"highway/crossing/traffic_signals":[
-"Пераход зь сьвятлафорам"
 ],
 "highway/cycleway/crossing/traffic_signals":[
 "Роварны пераезд зь сьвятлафорам"
@@ -649,9 +625,6 @@
 "landuse/aquaculture":[
 "Аквакультура"
 ],
-"landuse/basin":[
-"Тэхнічны басэйн"
-],
 "landuse/brownfield":[
 "Закінута"
 ],
@@ -661,9 +634,6 @@
 "landuse/churchyard":[
 "Царкоўны пляц"
 ],
-"landuse/farm":[
-"Ральля"
-],
 "landuse/farmland":[
 "Ральля"
 ],
@@ -672,9 +642,6 @@
 ],
 "landuse/flowerbed":[
 "Кветнік"
-],
-"landuse/garages":[
-"Ґаражны масіў"
 ],
 "landuse/grass":[
 "Трава"
@@ -700,14 +667,8 @@
 "landuse/orchard":[
 "Прамысловы сад"
 ],
-"landuse/pond":[
-"Сажалка"
-],
 "landuse/quarry":[
 "Кар’ер"
-],
-"landuse/reservoir":[
-"Вадасховішча"
 ],
 "landuse/vineyard":[
 "Вінаграднік"
@@ -1202,7 +1163,10 @@
 "Кантроль хуткасьці"
 ],
 "type/multipolygon":[
-"Шматкутнік"
+"Мнагакутнік",
+"мультыпаліґон",
+"шматкутнік",
+"мнагакутнік"
 ],
 "type/restriction":[
 "Абмежаваньне"
@@ -1242,5 +1206,68 @@
 ],
 "waterway/weir":[
 "Плаціна"
+],
+"boundary":[
+"Мяжа"
+],
+"building_point":[
+"Будынак"
+],
+"ford_line":[
+"Брод"
+],
+"landuse/basin":[
+"Тэхнічны басэйн"
+],
+"landuse/reservoir":[
+"Вадасховішча"
+],
+"craft/locksmith":[
+"Ключны майстар"
+],
+"craft/tailor":[
+"Кравец"
+],
+"building/glasshouse":[
+"Цяпліца"
+],
+"amenity/embassy":[
+"Амбасада"
+],
+"amenity/doctors/podiatry":[
+"Падаляґ"
+],
+"@templates/contact":[
+"Пункт"
+],
+"@templates/internet_access":[
+"Пункт"
+],
+"@templates/poi":[
+"Пункт"
+],
+"@templates/crossing/bicycle_more":[
+"Пункт"
+],
+"@templates/crossing/defaults":[
+"Пункт"
+],
+"@templates/crossing/geometry_way_more":[
+"Пункт"
+],
+"@templates/crossing/markings":[
+"Пункт"
+],
+"@templates/crossing/markings_yes":[
+"Пункт"
+],
+"@templates/crossing/surfacequality":[
+"Пункт"
+],
+"@templates/crossing/traffic_signal":[
+"Пункт"
+],
+"@templates/crossing/traffic_signal_more":[
+"Пункт"
 ]
 }

@@ -26,9 +26,6 @@
 "amenity/bicycle_parking":[
 "سائیکل پارکنگ"
 ],
-"amenity/bus_station":[
-"بس سٹیشن"
-],
 "amenity/cafe":[
 "کافی ہٹی"
 ],
@@ -38,14 +35,8 @@
 "amenity/fast_food/donut":[
 "ڈونٹ والا"
 ],
-"amenity/ferry_terminal":[
-"فیری روٹ"
-],
 "amenity/library":[
 "لائیبریری"
-],
-"amenity/parking":[
-"پارکنگ والی تھاں"
 ],
 "amenity/place_of_worship/buddhist":[
 "بودھی مندر"
@@ -74,9 +65,6 @@
 "barrier/yes":[
 "ہاں"
 ],
-"boundary":[
-"حد"
-],
 "building":[
 "عمارت"
 ],
@@ -98,17 +86,8 @@
 "building_part":[
 "عمارت دا بھاگ"
 ],
-"building_point":[
-"عمارت"
-],
 "ford":[
 "گاہݨ"
-],
-"ford_line":[
-"گاہݨ"
-],
-"highway/bus_stop":[
-"بس سٹاپ"
 ],
 "highway/cycleway":[
 "سائیکل‌وے"
@@ -200,23 +179,14 @@
 "railway/level_crossing":[
 "ریلوے کراسنگ (سڑک تے)"
 ],
-"railway/platform":[
-"ریل پلیٹ‌فارم"
-],
 "railway/rail":[
 "ریلوے ٹریک"
-],
-"railway/station":[
-"ریلوے سٹیشن"
 ],
 "railway/subway":[
 "سب‌وے ٹریک"
 ],
 "relation":[
 "سمبندھ"
-],
-"route/ferry":[
-"فیری روٹ"
 ],
 "shop":[
 "دکان"
@@ -359,5 +329,80 @@
 "waterway/canal":[
 "برانچ",
 "نہر"
+],
+"boundary":[
+"حد"
+],
+"building_point":[
+"عمارت"
+],
+"ford_line":[
+"گاہݨ"
+],
+"traffic_sign/maxspeed-US-CA-LR":[
+"حد رفتار"
+],
+"route/ferry":[
+"فیری روٹ"
+],
+"railway/platform":[
+"ریل پلیٹ‌فارم"
+],
+"railway/station":[
+"ریلوے سٹیشن"
+],
+"highway/bus_stop":[
+"بس سٹاپ"
+],
+"highway/traffic_sign":[
+"ٹریفک سائین"
+],
+"highway/motorway_link-US-CA":[
+"موٹروے دی لنک روڈ"
+],
+"highway/primary_link-US-CA":[
+"مکھ سڑک دی لنک روڈ"
+],
+"highway/trunk_link-US-CA":[
+"ٹرنک دی لنک روڈ"
+],
+"amenity/bus_station":[
+"بس سٹیشن"
+],
+"amenity/ferry_terminal":[
+"فیری روٹ"
+],
+"@templates/contact":[
+"پوئینٹ"
+],
+"@templates/internet_access":[
+"پوئینٹ"
+],
+"@templates/poi":[
+"پوئینٹ"
+],
+"@templates/crossing/bicycle_more":[
+"پوئینٹ"
+],
+"@templates/crossing/defaults":[
+"پوئینٹ"
+],
+"@templates/crossing/geometry_way_more":[
+"پوئینٹ"
+],
+"@templates/crossing/markings":[
+"پوئینٹ"
+],
+"@templates/crossing/markings_yes":[
+"پوئینٹ"
+],
+"@templates/crossing/surfacequality":[
+"پوئینٹ"
+],
+"@templates/crossing/traffic_signal":[
+"پوئینٹ"
+],
+"@templates/crossing/traffic_signal_more":[
+"پوئینٹ"
 ]
 }

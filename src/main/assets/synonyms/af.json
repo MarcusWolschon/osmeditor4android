@@ -110,9 +110,6 @@
 "amenity/bureau_de_change":[
 "Wisselkantoor"
 ],
-"amenity/bus_station":[
-"Busstasie / -terminaal"
-],
 "amenity/cafe":[
 "Kafee"
 ],
@@ -165,17 +162,11 @@
 "amenity/drinking_water":[
 "Drinkwater"
 ],
-"amenity/embassy":[
-"Ambassade"
-],
 "amenity/events_venue":[
 "Onthaallokaal"
 ],
 "amenity/fast_food":[
 "Kitskos"
-],
-"amenity/ferry_terminal":[
-"Pontterminaal"
 ],
 "amenity/fire_station":[
 "Brandweerstasie"
@@ -224,12 +215,6 @@
 ],
 "amenity/nightclub":[
 "Nagklub"
-],
-"amenity/nursing_home":[
-"Verpleging- en versorgingshuis"
-],
-"amenity/parking":[
-"Parkering"
 ],
 "amenity/parking_entrance":[
 "Parkeeringang",
@@ -394,12 +379,6 @@
 "barrier/wall":[
 "Muur"
 ],
-"boundary":[
-"Grens"
-],
-"boundary/administrative":[
-"Administratiewe grens"
-],
 "bridge/support/pier":[
 "Brugpier"
 ],
@@ -532,9 +511,6 @@
 "building_part":[
 "Geboudeel"
 ],
-"building_point":[
-"Gebou"
-],
 "club":[
 "Klub"
 ],
@@ -601,9 +577,6 @@
 "craft/stonemason":[
 "Klipkapper"
 ],
-"craft/tailor":[
-"Snyer"
-],
 "craft/window_construction":[
 "Vensterraamwerk"
 ],
@@ -666,9 +639,6 @@
 "ford":[
 "Drif"
 ],
-"ford_line":[
-"Drif"
-],
 "highway":[
 "Wegbaken"
 ],
@@ -677,9 +647,6 @@
 ],
 "highway/bus_guideway":[
 "Toegewyde busbaan"
-],
-"highway/bus_stop":[
-"Bushalte"
 ],
 "highway/corridor":[
 "Korridor"
@@ -877,9 +844,6 @@
 "indoor/corridor":[
 "Korridor"
 ],
-"indoor/corridor_line":[
-"Korridor"
-],
 "indoor/door":[
 "Binnedeur"
 ],
@@ -908,9 +872,6 @@
 "landuse/aquaculture":[
 "Akwakultuur"
 ],
-"landuse/basin":[
-"Kom"
-],
 "landuse/cemetery":[
 "kerkhof",
 "begraafplaas",
@@ -927,9 +888,6 @@
 "landuse/construction":[
 "Bougebied"
 ],
-"landuse/farm":[
-"Landbougrond"
-],
 "landuse/farmland":[
 "Landbougrond"
 ],
@@ -938,9 +896,6 @@
 ],
 "landuse/forest":[
 "Woud"
-],
-"landuse/garages":[
-"Vulstasies"
 ],
 "landuse/grass":[
 "Gras",
@@ -966,9 +921,6 @@
 "Boord",
 "boord"
 ],
-"landuse/pond":[
-"Dammetjie"
-],
 "landuse/quarry":[
 "Kwarrie",
 "groef",
@@ -980,9 +932,6 @@
 ],
 "landuse/religious":[
 "Godsdiensgebied"
-],
-"landuse/reservoir":[
-"Reservoir"
 ],
 "landuse/residential":[
 "Residensiële gebied"
@@ -1072,15 +1021,15 @@
 "afrit"
 ],
 "leisure/stadium":[
-"stadion",
-"Stadium"
+"Stadium",
+"stadion"
 ],
 "leisure/swimming_pool":[
 "Swembad"
 ],
 "line":[
-"lyn",
-"Lyn"
+"Lyn",
+"lyn"
 ],
 "man_made":[
 "Mensgemaakde eienskap"
@@ -1103,8 +1052,8 @@
 "Gaspomp"
 ],
 "man_made/lighthouse":[
-"lugtoring",
-"Ligtoring"
+"Ligtoring",
+"lugtoring"
 ],
 "man_made/mineshaft":[
 "Mynskag"
@@ -1355,9 +1304,6 @@
 "office/insurance":[
 "Versekeringskantoor"
 ],
-"office/lawyer/notary":[
-"Notaris"
-],
 "office/newspaper":[
 "Koerant kantoor"
 ],
@@ -1381,9 +1327,6 @@
 ],
 "office/telecommunication":[
 "Telekommunikasiekantoor"
-],
-"office/travel_agent":[
-"Reisagent"
 ],
 "place":[
 "Plek"
@@ -1559,9 +1502,6 @@
 "railway":[
 "Spoorwegbaken"
 ],
-"railway/abandoned":[
-"Verlate spoorweg"
-],
 "railway/construction":[
 "Spoorweg in aanbou"
 ],
@@ -1573,9 +1513,6 @@
 ],
 "railway/funicular":[
 "Kabelspoorweg"
-],
-"railway/halt":[
-"Spoorwegstasie (op versoek)"
 ],
 "railway/level_crossing":[
 "Spooroorgang"
@@ -1595,9 +1532,6 @@
 "railway/narrow_gauge":[
 "Smalspoorweg"
 ],
-"railway/platform":[
-"Spoorwegperron"
-],
 "railway/preserved":[
 "Erfenisspoorweg"
 ],
@@ -1609,9 +1543,6 @@
 ],
 "railway/signal":[
 "Verkeerstekens vir spoorweg"
-],
-"railway/station":[
-"Spoorwegstasiegebou"
 ],
 "railway/subway":[
 "Ondergrondse spoorweg"
@@ -1637,9 +1568,6 @@
 ],
 "relation":[
 "Verhouding"
-],
-"route/ferry":[
-"Pontroete"
 ],
 "seamark":[
 "Seemerker"
@@ -1977,9 +1905,6 @@
 "type/route/pipeline":[
 "Pyplynroete"
 ],
-"type/route/power":[
-"Kraglynroete"
-],
 "type/route/road":[
 "Wegroete"
 ],
@@ -2028,5 +1953,134 @@
 ],
 "waterway/weir":[
 "Studam"
+],
+"boundary":[
+"Grens"
+],
+"building_point":[
+"Gebou"
+],
+"ford_line":[
+"Drif"
+],
+"route/ferry":[
+"Pontroete"
+],
+"railway/halt":[
+"Spoorwegstasie (op versoek)"
+],
+"railway/platform":[
+"Spoorwegperron",
+"spoorwegplatform"
+],
+"railway/station":[
+"Spoorwegstasie"
+],
+"office/travel_agent":[
+"Reisagent"
+],
+"office/lawyer/notary":[
+"Notaris"
+],
+"natural/wood_point":[
+"Bos"
+],
+"landuse/basin":[
+"Kom"
+],
+"landuse/reservoir":[
+"Reservoir"
+],
+"landuse/industrial/industrial_point":[
+"Nywerheidsgebied"
+],
+"indoor/corridor_line":[
+"Korridor"
+],
+"highway/bus_stop":[
+"Bushalte"
+],
+"highway/traffic_sign":[
+"Verkeersteken"
+],
+"highway/motorway_link-US-CA":[
+"Verbindingsweg van snelweg"
+],
+"highway/primary_link-US-CA":[
+"Verbindingsweg van primêre weg"
+],
+"highway/trunk_link-US-CA":[
+"Verbindingsweg van hoofweg"
+],
+"highway/path/bicycle_foot":[
+"Fiets & voetpad"
+],
+"craft/tailor":[
+"Snyer"
+],
+"building/entrance":[
+"Ingang/Uitgang",
+"ingang",
+"uitgang"
+],
+"building/glasshouse":[
+"Kweekhuis"
+],
+"building/house/detached":[
+"Alleenstaande woning"
+],
+"building/house/semi-detached":[
+"Halfgekoppelde huis"
+],
+"boundary/administrative":[
+"Administratiewe grens"
+],
+"amenity/bus_station":[
+"Busstasie"
+],
+"amenity/embassy":[
+"Ambassade"
+],
+"amenity/ferry_terminal":[
+"Pontterminaal"
+],
+"amenity/nursing_home":[
+"Verpleging- en versorgingshuis"
+],
+"aerialway/station":[
+"Lugwegstasie"
+],
+"@templates/contact":[
+"Punt"
+],
+"@templates/internet_access":[
+"Punt"
+],
+"@templates/poi":[
+"Punt"
+],
+"@templates/crossing/bicycle_more":[
+"Punt"
+],
+"@templates/crossing/defaults":[
+"Punt"
+],
+"@templates/crossing/geometry_way_more":[
+"Punt"
+],
+"@templates/crossing/markings":[
+"Punt"
+],
+"@templates/crossing/markings_yes":[
+"Punt"
+],
+"@templates/crossing/surfacequality":[
+"Punt"
+],
+"@templates/crossing/traffic_signal":[
+"Punt"
+],
+"@templates/crossing/traffic_signal_more":[
+"Punt"
 ]
 }

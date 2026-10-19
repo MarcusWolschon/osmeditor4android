@@ -8,23 +8,14 @@
 "amenity/bench":[
 "Stol"
 ],
-"amenity/bus_station":[
-"Stacioni i Autobusave"
-],
 "area":[
 "Sipërfaqja"
-],
-"boundary/administrative":[
-"Kufi Administrativ"
 ],
 "building":[
 "Ndërtesa"
 ],
 "building/college":[
 "Ndërtesa e Kollegjit"
-],
-"building_point":[
-"Ndërtesa"
 ],
 "highway/cycleway":[
 "Rrugë biçikletash"
@@ -58,9 +49,6 @@
 ],
 "public_transport/station_bus":[
 "Stacioni i Autobusave"
-],
-"railway/abandoned":[
-"Hekurudhë E Braktisur"
 ],
 "relation":[
 "Lidhje"
@@ -115,5 +103,47 @@
 ],
 "waterway/waterfall":[
 "Ujëvarë"
+],
+"building_point":[
+"Ndërtesa"
+],
+"boundary/administrative":[
+"Kufi Administrativ"
+],
+"amenity/bus_station":[
+"Stacioni i Autobusave"
+],
+"@templates/contact":[
+"Pikë"
+],
+"@templates/internet_access":[
+"Pikë"
+],
+"@templates/poi":[
+"Pikë"
+],
+"@templates/crossing/bicycle_more":[
+"Pikë"
+],
+"@templates/crossing/defaults":[
+"Pikë"
+],
+"@templates/crossing/geometry_way_more":[
+"Pikë"
+],
+"@templates/crossing/markings":[
+"Pikë"
+],
+"@templates/crossing/markings_yes":[
+"Pikë"
+],
+"@templates/crossing/surfacequality":[
+"Pikë"
+],
+"@templates/crossing/traffic_signal":[
+"Pikë"
+],
+"@templates/crossing/traffic_signal_more":[
+"Pikë"
 ]
 }

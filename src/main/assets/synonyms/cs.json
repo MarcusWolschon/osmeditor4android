@@ -48,8 +48,8 @@
 "plakáty",
 "sloup",
 "plakátový",
-"reklama",
 "Reklamní sloup",
+"reklama",
 "otáčecí",
 "polepený",
 "reklamní"
@@ -71,15 +71,15 @@
 "reklamní cedulka",
 "reklama",
 "logo firmy",
-"banner",
 "Reklamní značka",
+"banner",
 "propagace"
 ],
 "advertising/totem":[
 "plakáty",
+"Reklamní totem",
 "sloup",
 "plakátový",
-"Reklamní totem",
 "reklama",
 "otáčecí",
 "polepený",
@@ -104,8 +104,8 @@
 "lanovka"
 ],
 "aerialway/drag_lift":[
-"snowboarding",
 "Lyžařský vlek",
+"snowboarding",
 "povrchový kabel",
 "lyžování"
 ],
@@ -143,9 +143,9 @@
 "lanovka"
 ],
 "aerialway/platter":[
+"Vlek - talíř (poma)",
 "poma vlek",
 "snowboarding",
-"Vlek - talíř (poma)",
 "povrchový kabel",
 "talířový vlek",
 "kotoučový vlek",
@@ -155,8 +155,8 @@
 "aerialway/pylon":[
 "věž lanovky",
 "snowboarding",
-"lyžování",
 "Sloup lanovky",
+"lyžování",
 "tyč sedačkové lanovky"
 ],
 "aerialway/rope_tow":[
@@ -197,8 +197,8 @@
 ],
 "aeroway/apron":[
 "pojezdová dráha",
-"pevná stojka",
 "Odbavovací plocha",
+"pevná stojka",
 "rampa",
 "letová linie",
 "parkování letadel",
@@ -258,8 +258,8 @@
 "místo pro odpalování raket",
 "dostřel raket",
 "vesmírný přístav",
-"komplex pro odpalování raket",
-"Kosmodrom"
+"Kosmodrom",
+"komplex pro odpalování raket"
 ],
 "aeroway/taxiway":[
 "pojezdová",
@@ -353,8 +353,8 @@
 "amenity/baking_oven":[
 "hliněná pec",
 "horno",
-"úlová pec",
 "Pečící trouba",
+"úlová pec",
 "chléb",
 "tabunová pec",
 "pekárna",
@@ -404,8 +404,8 @@
 "Gril (BBQ)"
 ],
 "amenity/bench":[
-"sezení",
 "Lavička",
+"sezení",
 "židle"
 ],
 "amenity/bicycle_parking":[
@@ -423,14 +423,14 @@
 "patrovy cyklopark"
 ],
 "amenity/bicycle_parking/lockers":[
-"cyklobox",
 "Boxy pro kola",
+"cyklobox",
 "skříňka na kola",
 "cyklistika"
 ],
 "amenity/bicycle_parking/shed":[
-"cyklistický přístřešek",
 "Uzavíratelný přístřešek pro kola",
+"cyklistický přístřešek",
 "cyklisticky pristresek",
 "cyklistika",
 "uzaviratelny pristresek pro kola"
@@ -458,8 +458,8 @@
 "amenity/bicycle_repair_station":[
 "nástroje na kolo",
 "oprava jízdních kol",
-"nářadí na kolo",
 "Montážní stojan na kola",
+"nářadí na kolo",
 "cyklistika",
 "pumpa na kolo",
 "řetěz na kolo",
@@ -507,9 +507,6 @@
 "směnárník",
 "Směnárna"
 ],
-"amenity/bus_station":[
-"Autobusové nádraží / terminál"
-],
 "amenity/cafe":[
 "občerstveni",
 "káva",
@@ -535,8 +532,8 @@
 ],
 "amenity/cafe/coffee_shop":[
 "espresso",
-"kavárna",
 "Občerstvení s kávou",
+"kavárna",
 "obchod s kavou",
 "kafe",
 "cappuccino",
@@ -605,13 +602,24 @@
 "elektrický vůz",
 "přebíječka"
 ],
+"amenity/charging_station/charging_station_bicycle":[
+"nabíječ",
+"nabíječka akumulátoru elektrokola",
+"elektrokolo",
+"Nabíječka elektrokol",
+"nabíjecí stanice pro elektrokola",
+"stanice pro elektrokola",
+"nabíječka",
+"elektrické kolo",
+"nabíjecí stanice"
+],
 "amenity/childcare":[
 "denní péče",
 "jesle",
 "péče o děti",
 "péče o malé děti",
-"dětská skupina",
-"Jesle / předškolní péče"
+"Jesle / předškolní péče",
+"dětská skupina"
 ],
 "amenity/cinema":[
 "obrazovka",
@@ -620,8 +628,8 @@
 "vjezd",
 "film",
 "biják",
-"pořad",
 "Kino",
+"pořad",
 "divadlo"
 ],
 "amenity/clinic":[
@@ -635,15 +643,15 @@
 ],
 "amenity/clinic/dialysis":[
 "dialyzační ambulance",
-"dialýza ledvin",
-"Dialyzační středisko"
+"Dialyzační středisko",
+"dialýza ledvin"
 ],
 "amenity/clinic/fertility":[
 "plodnost",
 "rozmnožování",
 "ovulace",
-"vajíčko",
 "Klinika plodnosti",
+"vajíčko",
 "spermie"
 ],
 "amenity/clock":[
@@ -651,8 +659,8 @@
 "Hodiny"
 ],
 "amenity/clock/sundial":[
-"stín",
 "Sluneční hodiny",
+"stín",
 "gnómón"
 ],
 "amenity/community_centre":[
@@ -688,6 +696,8 @@
 ],
 "amenity/community_centre/cultural_centre":[
 "Kulturní centrum",
+"kulturák",
+"centrum pro kulturu",
 "kulturni centrum",
 "kulturni stredisko",
 "kulturní sál",
@@ -696,17 +706,15 @@
 "kulturní středisko"
 ],
 "amenity/community_centre/family_centre":[
-"rodinne stredisko",
 "centrum pro rodinu",
 "rodinné středisko",
-"rodinne centrum",
 "Rodinné centrum"
 ],
 "amenity/community_centre/lgbtq":[
 "lgbt hala",
+"Komunitní centrum LGBTQ+",
 "lgbtq událost",
 "lgbtq hala",
-"Komunitní centrum LGBTQ+",
 "lgb hala'",
 "lgbt událost",
 "lgb událost"
@@ -715,8 +723,8 @@
 "náboženský sál",
 "nabozensky sal",
 "farni sal",
-"sál fary",
-"Farní sál"
+"Farní sál",
+"sál fary"
 ],
 "amenity/community_centre/village_hall":[
 "Obecní sál",
@@ -793,8 +801,8 @@
 ],
 "amenity/dive_centre":[
 "škola potápění",
-"potápění",
 "Centrum potápění",
+"potápění",
 "potápěčské centrum",
 "centrum pro potápěče"
 ],
@@ -807,14 +815,14 @@
 "amenity/doctors/allergology":[
 "specialista na alergie",
 "léčení alergií",
-"léčení astma",
 "Alergolog",
+"léčení astma",
 "alergolog"
 ],
 "amenity/doctors/cardiology":[
 "koronární tepna",
-"kardiochirurg",
 "Kardiolog",
+"kardiochirurg",
 "kardiologie",
 "kardiovaskulární systém",
 "srdce"
@@ -901,8 +909,8 @@
 "nervy",
 "nervový systém",
 "mozek",
-"neurologie",
-"Neurolog"
+"Neurolog",
+"neurologie"
 ],
 "amenity/doctors/neurosurgery":[
 "Neurochirurg",
@@ -917,8 +925,8 @@
 "Onkolog"
 ],
 "amenity/doctors/ophthalmology":[
-"oko",
 "Oční lékař",
+"oko",
 "oči",
 "brýle",
 "oční",
@@ -956,21 +964,12 @@
 "pitva"
 ],
 "amenity/doctors/plastic_surgery":[
-"rekonstrukční chirurgie",
 "Plastický chirurg",
+"rekonstrukční chirurgie",
 "plastická chirurgie",
 "plastika",
 "estetická chirurgie",
 "kosmetická chirurgie"
-],
-"amenity/doctors/podiatry":[
-"chodidlo",
-"nohy",
-"chodidla",
-"kotník",
-"Podiatr",
-"noha",
-"podiatrie"
 ],
 "amenity/doctors/proctology":[
 "Kolorektální chirurg",
@@ -1000,8 +999,8 @@
 "ct",
 "radiologie",
 "zobrazování magnetické rezonance",
-"ultrasonografie",
 "Radiolog",
+"ultrasonografie",
 "lékařská ultrasonografie",
 "mri",
 "lékařský ultrazvuk",
@@ -1010,8 +1009,8 @@
 "amenity/doctors/rheumatology":[
 "oteoporóza",
 "revma",
-"revmatologie",
 "Revmatolog",
+"revmatologie",
 "lupus"
 ],
 "amenity/doctors/surgery":[
@@ -1019,8 +1018,8 @@
 "chirurgie"
 ],
 "amenity/doctors/trauma":[
-"chirurgie",
 "Traumatický chirurg",
+"chirurgie",
 "traumatická chirurgie"
 ],
 "amenity/doctors/urology":[
@@ -1073,9 +1072,6 @@
 "Cvičná plocha pro řidiče",
 "autoškola"
 ],
-"amenity/embassy":[
-"Velvyslanectví"
-],
 "amenity/events_venue":[
 "firemní akce",
 "bat micva",
@@ -1117,8 +1113,8 @@
 "výstavní centrum",
 "trh",
 "vystava",
-"expo",
 "Výstaviště",
+"expo",
 "vystavni centrum",
 "přehlídka",
 "prehlidka"
@@ -1158,9 +1154,9 @@
 "školní jídelna",
 "jídelna",
 "samoobsluzna jidelna",
+"Kafeterie",
 "jidelna",
 "zavodni jidelna",
-"Kafeterie",
 "závodní jídelna"
 ],
 "amenity/fast_food/chicken":[
@@ -1177,8 +1173,8 @@
 "fast food",
 "jídlo",
 "oběd",
-"rychlé občerstvení",
 "Čínské rychlé občerstvení",
+"rychlé občerstvení",
 "čínská",
 "čína"
 ],
@@ -1195,9 +1191,9 @@
 "fish & chips",
 "rychle obcerstveni",
 "hranolky",
+"Rychlé občerstvení s Fish & Chips",
 "fish and chips",
-"ryby",
-"Rychlé občerstvení s Fish & Chips"
+"ryby"
 ],
 "amenity/fast_food/hot_dog":[
 "pikador",
@@ -1209,8 +1205,8 @@
 "klobasa",
 "hot dog",
 "videnske",
-"párek",
 "Rychlé občerstvení s párky v rohlíku",
+"párek",
 "parky",
 "vídeňské",
 "párky",
@@ -1218,6 +1214,16 @@
 ],
 "amenity/fast_food/ice_cream":[
 "Zmrzlina"
+],
+"amenity/fast_food/indian":[
+"indický fast food",
+"dhál",
+"indická restaurace",
+"indové",
+"Indické rychlé občerstvení",
+"indi",
+"indické jídlo",
+"dal"
 ],
 "amenity/fast_food/juice":[
 "smoothie",
@@ -1270,16 +1276,29 @@
 ],
 "amenity/fast_food/pizza":[
 "pizza",
-"rychle obcerstveni",
 "Rychlé občerstvení s pizzou",
+"rychle obcerstveni",
 "pizzerie"
 ],
 "amenity/fast_food/sandwich":[
 "sendvič",
 "rychle obcerstveni",
-"sandwich",
 "Rychlé občerstvení se sendviči",
+"sandwich",
 "sendvic"
+],
+"amenity/fast_food/sushi":[
+"namida",
+"fast food",
+"homosaki",
+"temaki",
+"nishiki",
+"sushi",
+"running sushi",
+"nigiri",
+"Rychlé občerstvení se sushi",
+"suši",
+"hosomaki"
 ],
 "amenity/fast_food/wings":[
 "křídelka",
@@ -1288,9 +1307,6 @@
 "Rychlé občerstvení s kuřecími křídelky",
 "kureci kridelka",
 "kridelka"
-],
-"amenity/ferry_terminal":[
-"Terminál přívozu/trajektu"
 ],
 "amenity/fire_station":[
 "Hasičská zbrojnice",
@@ -1381,10 +1397,10 @@
 "ordinace",
 "ošetřovna",
 "sanatorium",
+"Prostor nemocnice",
 "klinika",
 "ústav",
 "oddělení",
-"Prostor nemocnice",
 "pohotovost",
 "lékař",
 "sanitarium"
@@ -1451,8 +1467,8 @@
 "amenity/lavoir":[
 "praní",
 "prádlo",
-"oblečení",
-"Lavor"
+"Lavor",
+"oblečení"
 ],
 "amenity/letter_box":[
 "schránka přímo u dveří",
@@ -1463,8 +1479,8 @@
 "štěrbina pro dopisy",
 "poštovní schránka",
 "štítek pro poštu",
-"dopisní štítek",
 "Domovní poštovní schránka",
+"dopisní štítek",
 "doručovací schránka s obrubníkem",
 "štěrbina pro poštu",
 "dopisní díra",
@@ -1479,9 +1495,9 @@
 "amenity/library_dropoff":[
 "odevzdání knihy",
 "odevzdání v knihovně",
+"Vrácení knihy do schránky",
 "vrácení knihy z knihovny",
 "vrácení knihovně",
-"Vrácení knihy do schránky",
 "vrácení knihy"
 ],
 "amenity/loading_dock":[
@@ -1538,9 +1554,9 @@
 ],
 "amenity/money_transfer":[
 "osoba na osobu",
+"Místo pro peněžní převody",
 "šek",
 "kabel",
-"Místo pro peněžní převody",
 "měna",
 "účet",
 "bankovní převod",
@@ -1552,8 +1568,8 @@
 "amenity/mortuary":[
 "pohřební",
 "pohřební ústav",
-"krematorium",
 "Márnice",
+"krematorium",
 "pamětní ústav",
 "pohřebák"
 ],
@@ -1574,8 +1590,8 @@
 "vrtulník",
 "motorka",
 "sportovní kolo",
-"cruiser",
 "Půjčovna motocyklů",
+"cruiser",
 "motorový skútr"
 ],
 "amenity/nightclub":[
@@ -1597,9 +1613,6 @@
 "lgb noční klub",
 "Noční klub LGBTQ+"
 ],
-"amenity/nursing_home":[
-"Dům s pečovatelskou službou"
-],
 "amenity/parcel_locker":[
 "zasilka",
 "vyzvednutí",
@@ -1614,12 +1627,13 @@
 "balik"
 ],
 "amenity/parking":[
-"parkování vozidel",
-"parkování aut",
-"rv parkoviště",
-"parkoviště pro auta",
-"parkoviště pro automobily",
-"kamionové parkoviště",
+"parkovat",
+"zaparkovat",
+"odstavení",
+"parkovací",
+"zastavit auto",
+"parkování",
+"stání aut",
 "Parkoviště"
 ],
 "amenity/parking/multi-storey":[
@@ -1650,8 +1664,8 @@
 "parkování vozidel",
 "parkování v ulici",
 "parkování na kraji",
-"parkování na ulici",
 "Parkování vedle vozovky",
+"parkování na ulici",
 "parkoviště pro automobily",
 "parkování u silnice",
 "parkoviště"
@@ -1667,18 +1681,22 @@
 "parkoviště pro vozidla"
 ],
 "amenity/parking_entrance":[
+"podzemni parkoviste",
 "garáže",
-"průjezd",
-"parkování v objektu",
-"výjezd",
-"parkovací dům",
-"parkování",
+"podzemní parkoviště",
+"parkoviste",
+"garaz",
 "vjezd",
 "garáž",
 "vjezd do garáže",
+"Vjezd / výjezd na / z parkoviště",
+"výjezdvyjezd",
+"průjezd",
+"parkování v objektu",
+"parkovací dům",
+"parkování",
 "kryté parkoviště",
-"parkoviště",
-"Vjezd / Výjezd krytého parkoviště"
+"parkoviště"
 ],
 "amenity/parking_space":[
 "stání na parkovišti",
@@ -1691,6 +1709,15 @@
 "Místo pro tělesně postižené",
 "parkovací stání pro invalidy",
 "invalidní vozík"
+],
+"amenity/parking_surface":[
+"parkování na úrovni terénu",
+"parkoviště na úrovni terénu",
+"Povrchové parkoviště",
+"parkování",
+"povrchové parkování",
+"parkoviště",
+"venkovní parkoviště"
 ],
 "amenity/payment_centre":[
 "šek",
@@ -1841,8 +1868,8 @@
 "svatyně",
 "kshetram",
 "mandir",
-"alayam",
 "Hinduistický chrám",
+"alayam",
 "kovil",
 "chrám",
 "devasthana"
@@ -1850,6 +1877,22 @@
 "amenity/place_of_worship/jewish":[
 "Židovská synagoga",
 "židovská"
+],
+"amenity/place_of_worship/multifaith":[
+"svaté místo",
+"Modlitebna pro více náboženství",
+"modlitebna",
+"kostel",
+"svatyně",
+"svatostánek",
+"mnohonáboženské místo",
+"náboženské obřady",
+"místo pro různá náboženství",
+"modlitby",
+"uctívání",
+"místo modlitby pro více náboženství",
+"modlení",
+"víra"
 ],
 "amenity/place_of_worship/muslim":[
 "islám",
@@ -1870,14 +1913,14 @@
 "amenity/place_of_worship/taoist":[
 "klášter",
 "chrám",
-"taoista",
-"Taoistický chrám"
+"Taoistický chrám",
+"taoista"
 ],
 "amenity/planetarium":[
 "muzeum",
 "astronomie",
-"observatoř",
-"Planetárium"
+"Planetárium",
+"observatoř"
 ],
 "amenity/police":[
 "důstojník",
@@ -1887,15 +1930,15 @@
 "odznak",
 "cizinecká",
 "strážník",
+"Policie",
 "policajt",
 "zákon",
-"Policie",
 "vymáhání"
 ],
 "amenity/polling_station":[
 "volební kabina",
-"demokracie",
 "Stálé volební místo",
+"demokracie",
 "odložení hlasovacích lístků",
 "volby",
 "volební místnost",
@@ -1921,8 +1964,8 @@
 "Poštovní schránka"
 ],
 "amenity/post_depot":[
-"středisko zpracování a distribuce pošty",
 "Poštovní depo",
+"středisko zpracování a distribuce pošty",
 "třídírna pošty"
 ],
 "amenity/post_office":[
@@ -1972,8 +2015,8 @@
 "amenity/public_bath":[
 "onsen",
 "koupel nohou",
-"horký pramen",
-"Veřejné lázně"
+"Veřejné lázně",
+"horký pramen"
 ],
 "amenity/public_bookcase":[
 "knihovna",
@@ -1987,8 +2030,8 @@
 "strážci",
 "straz prirody",
 "backcountry kancelář",
-"navstevnicke centrum",
 "Stanice strážců přírody",
+"navstevnicke centrum",
 "centrum dozorce",
 "návštěvnické centrum",
 "dozorce",
@@ -2027,8 +2070,8 @@
 "separační dvůr",
 "separacni dvur",
 "trideni",
-"recyklacni centrum",
 "Sběrný dvůr",
+"recyklacni centrum",
 "třídení",
 "recyklační centrum"
 ],
@@ -2085,8 +2128,8 @@
 "vědecká instituce",
 "aplikovany vyzkum",
 "výzkumné laboratoře",
-"vedecky ustav",
-"Výzkumný ústav"
+"Výzkumný ústav",
+"vedecky ustav"
 ],
 "amenity/restaurant":[
 "snídaně",
@@ -2108,8 +2151,8 @@
 "amenity/restaurant/american":[
 "snídaně",
 "stolování",
-"kavárna",
 "Americká restaurace",
+"kavárna",
 "kafe",
 "oběd",
 "stůl",
@@ -2151,8 +2194,8 @@
 "amenity/restaurant/chinese":[
 "snídaně",
 "stolování",
-"kavárna",
 "Čínská restaurace",
+"kavárna",
 "kafe",
 "oběd",
 "stůl",
@@ -2166,8 +2209,8 @@
 ],
 "amenity/restaurant/french":[
 "snídaně",
-"stolování",
 "Francouzská restaurace",
+"stolování",
 "kavárna",
 "kafe",
 "oběd",
@@ -2214,8 +2257,8 @@
 "gyros",
 "stolování",
 "olivy",
-"kavárna",
 "Řecká restaurace",
+"kavárna",
 "kafe",
 "oběd",
 "stůl",
@@ -2232,16 +2275,16 @@
 "amenity/restaurant/hotpot":[
 "fondue",
 "hotpot",
-"kotlík",
 "Restaurace s horkým kotlíkem",
+"kotlík",
 "čínská restaurace",
 "asijská restaurace",
 "hot pot restaurace"
 ],
 "amenity/restaurant/indian":[
 "snídaně",
-"stolování",
 "Indická restaurace",
+"stolování",
 "bar",
 "stolovat",
 "večeře",
@@ -2396,8 +2439,8 @@
 "gril"
 ],
 "amenity/restaurant/spanish":[
-"snídaně",
 "Španělská restaurace",
+"snídaně",
 "stolování",
 "kavárna",
 "kafe",
@@ -2483,8 +2526,8 @@
 "stolování",
 "bar",
 "stolovat",
-"večeře",
 "Ukrajinská restaurace",
+"večeře",
 "jíst",
 "oběd",
 "stůl",
@@ -2509,8 +2552,8 @@
 "amenity/sanitary_dump_station":[
 "obytný vůz",
 "mobilní záchod",
-"skládka",
 "Výlevka pro karavany",
+"skládka",
 "výlevka",
 "žumpa",
 "karavan",
@@ -2518,8 +2561,8 @@
 "sanitární"
 ],
 "amenity/shelter":[
-"pristresek",
-"Přístřešek"
+"Přístřešek",
+"pristresek"
 ],
 "amenity/shelter/field_shelter":[
 "kryt na seno",
@@ -2532,27 +2575,24 @@
 "seník"
 ],
 "amenity/shelter/gazebo":[
+"Altán",
 "besídka",
 "besidka",
-"dřevěná stavba",
 "altanek",
-"střecha",
-"přístřešek",
-"Altánek",
-"altán",
-"altan"
+"pristresek",
+"přístřešek"
 ],
 "amenity/shelter/lean_to":[
 "dřevěná stavba",
 "přístřešek na spaní",
+"Otevřený přístřešek",
 "ubytování",
 "přenocování",
-"Otevřený přístřešek",
 "přístřešek"
 ],
 "amenity/shelter/picnic_shelter":[
-"piknikovy pristresek",
 "Piknikový přístřešek",
+"piknikovy pristresek",
 "turistický přístřešek",
 "altanek",
 "pristresek",
@@ -2574,19 +2614,29 @@
 "zastávka metra",
 "přístřešek hromadné dopravy"
 ],
+"amenity/shelter/sun_shelter":[
+"sluneční přístřešek",
+"úkryt před sluncem",
+"přístřešek pro turisty",
+"Stínicí přístřeší",
+"sluneční clona",
+"stínění",
+"ochrana před sluncem",
+"krytí proti slunci"
+],
 "amenity/shower":[
 "sprchový kout",
 "Sprchy"
 ],
 "amenity/smoking_area":[
-"kuřácký prostor",
-"Kuřárna"
+"Kuřárna",
+"kuřácký prostor"
 ],
 "amenity/social_centre":[
 "bratrský",
 "bratrství",
-"událost",
 "Sociální středisko",
+"událost",
 "veterné",
 "společnost",
 "svaz",
@@ -2598,29 +2648,30 @@
 "amenity/social_facility":[
 "komunita",
 "neziskovka",
-"sociální služby",
-"Zařízení sociálních služeb"
+"Zařízení sociálních služeb",
+"sociální služby"
 ],
 "amenity/social_facility/ambulatory_care":[
+"Ambulantní péče",
 "ošetření",
 "zdravotnictví",
-"Ambulantní péče",
 "sociální péče"
 ],
 "amenity/social_facility/assisted_living":[
 "senior",
 "pečovatelský dům",
 "asistovane bydleni",
-"bydlení",
+"Asistované bydlení pro seniory",
 "důchodci",
-"Asistované bydlení pro seniory"
+"domov pro seniory",
+"pecovatelsky dum"
 ],
 "amenity/social_facility/day_care":[
 "sociální pomoc",
 "stacionář",
 "denní stacionář",
-"nízkoprahové denní centrum",
 "Denní sociální služby / Denní centrum",
+"nízkoprahové denní centrum",
 "ndc",
 "sociální služby",
 "sociální centrum"
@@ -2634,31 +2685,32 @@
 "senior",
 "domov důchodců",
 "starý",
+"Skupinové bydlení pro seniory",
 "domov duchodcu",
-"Domov pro seniory",
 "domov seniorů",
+"domov pro seniory",
 "domov senioru"
 ],
 "amenity/social_facility/homeless_shelter":[
 "bezdomovci",
-"neubytovaní",
 "Noclehárna pro bezdomovce",
+"neubytovaní",
 "vysídlení"
 ],
 "amenity/social_facility/nursing_home":[
 "dum s osetrovatelskou sluzbou pro seniory",
 "osetrovatelska sluzba",
-"bydlení",
 "ošetřovatelství",
+"dům s ošetřovatelskou peci pro seniory",
 "senioři",
-"Dům s pečovatelskou službou pro seniory",
 "ošetřovateslká služba",
-"seniori",
-"staří"
+"Zařízení ošetřovatelské péče pro seniory",
+"domov pro seniory",
+"seniori"
 ],
 "amenity/stripclub":[
-"dospělý*",
 "Striptýzový klub",
+"dospělý*",
 "strip*",
 "břišní tanec",
 "pánové*",
@@ -2674,8 +2726,8 @@
 "nahrávání zvuku",
 "zvukové studio",
 "mixování zvuku",
-"produkce zvuku",
-"Nahrávací studio"
+"Nahrávací studio",
+"produkce zvuku"
 ],
 "amenity/studio/radio":[
 "am rádio",
@@ -2702,8 +2754,8 @@
 ],
 "amenity/swingerclub":[
 "swinger",
-"dospělý*",
 "Swingers klub",
+"dospělý*",
 "porno*",
 "sex",
 "strip*",
@@ -2717,8 +2769,8 @@
 "tuk-tuk",
 "bajaj",
 "stanice tříkolek",
-"tuksi",
 "Stanoviště motorizované rikši",
+"tuksi",
 "toda"
 ],
 "amenity/taxi/cycle_rickshaw":[
@@ -2735,17 +2787,17 @@
 "amenity/taxi/motorcycle_taxi":[
 "pillion",
 "habal-habal",
-"moto taxi",
-"Stanoviště taxi pro motocykly"
+"Stanoviště taxi pro motocykly",
+"moto taxi"
 ],
 "amenity/telephone":[
 "telefonní budka",
 "Telefon"
 ],
 "amenity/theatre":[
+"Divadlo",
 "divadelní",
 "hra",
-"Divadlo",
 "muzikál",
 "představení"
 ],
@@ -2757,10 +2809,10 @@
 "amfitéatr"
 ],
 "amenity/ticket_validator":[
-"lístek",
-"ověřovač",
-"děrovač",
-"Ověřovač vstupenek"
+"Označovač jízdenek",
+"validátor",
+"validator",
+"oznacovac jizdenek"
 ],
 "amenity/toilets":[
 "záchod",
@@ -2777,15 +2829,15 @@
 "w.c.",
 "záchodky",
 "odpočívadlo",
+"Splachovací toalety",
 "koupelna",
 "mísa",
-"Splachovací toalety",
 "wc"
 ],
 "amenity/toilets/disposal/pitlatrine":[
 "záchod",
-"hajzl",
 "Latrína",
+"hajzl",
 "přístavek",
 "mísa",
 "dlouhá",
@@ -2796,14 +2848,14 @@
 "hajzl",
 "johnny servis",
 "toi-toi",
-"toitoika",
 "Mobilní toalety",
+"toitoika",
 "toaleta"
 ],
 "amenity/townhall":[
+"Obecní / Městský úřad",
 "radnice",
 "městská radnice",
-"Obecní / Městský úřad",
 "městský úřad",
 "samospráva",
 "mestska radnice",
@@ -2821,9 +2873,9 @@
 "radnice města",
 "magistrát",
 "městská radnice",
+"Radnice velkoměsta",
 "radnice velkomesta",
 "městský úřad",
-"Radnice velkoměsta",
 "radnice mesta",
 "mestska radnice",
 "mestsky urad"
@@ -2832,6 +2884,13 @@
 "hračka",
 "Půjčovna hraček",
 "hra"
+],
+"amenity/traffic_park":[
+"výuka dopravy",
+"dopravní výuka",
+"hraní na dopravu",
+"hřiště",
+"Dopravní hřiště"
 ],
 "amenity/trolley_bay":[
 "Stanoviště s nákupními vozíky",
@@ -2874,8 +2933,8 @@
 "automat"
 ],
 "amenity/vending_machine/bicycle_tube":[
-"duše na kolo",
 "Prodejní automat duší na jízdní kola",
+"duše na kolo",
 "duše",
 "duše na jízdní kolo"
 ],
@@ -2918,8 +2977,8 @@
 "tablet",
 "kabel",
 "telefon",
-"nabíječka",
 "Prodejní automat na elektroniku",
+"nabíječka",
 "sluchátka",
 "sluchátko"
 ],
@@ -2953,6 +3012,16 @@
 "vložka",
 "menstruační potřeby"
 ],
+"amenity/vending_machine/flowers":[
+"květiny",
+"kytice",
+"květinomat",
+"květinářství",
+"Automat na květiny",
+"květy",
+"automatizované květinářství",
+"prodej květin"
+],
 "amenity/vending_machine/food":[
 "Prodejní automat na jídlo",
 "jídlo",
@@ -2973,9 +3042,9 @@
 "benzin",
 "nafta",
 "cng",
+"Prodejní automat na pohonné hmoty",
 "benzín",
 "pohonne hmoty",
-"Prodejní automat na pohonné hmoty",
 "palivo",
 "bionafta"
 ],
@@ -2998,8 +3067,8 @@
 ],
 "amenity/vending_machine/parking_tickets":[
 "parkovaci",
-"lístek",
 "Parkovací automat",
+"lístek",
 "parkovani",
 "parkování"
 ],
@@ -3010,13 +3079,13 @@
 "amenity/vending_machine/public_transport_tickets":[
 "veřejná doprava",
 "verejna doprava",
-"jizdenky",
 "Automat na jízdenky",
+"jizdenky",
 "jízdenka"
 ],
 "amenity/vending_machine/stamps":[
-"postovni znamky",
 "Automat na poštovní známky",
+"postovni znamky",
 "výdejní automat na poštovní známky",
 "automat na postovni znamky",
 "poštovní známky",
@@ -3034,6 +3103,20 @@
 "zvykacka",
 "susenky"
 ],
+"amenity/vending_machine/water":[
+"výdejní automat na vodu",
+"nápoje",
+"voda",
+"pití",
+"automat na vodu",
+"limonády",
+"napáječka",
+"Automat na pitnou vodu",
+"pítko",
+"drinky",
+"pitná voda",
+"drink"
+],
 "amenity/veterinary":[
 "nemocnice pro zvířata",
 "klinika pro domácí mazlíčky",
@@ -3045,8 +3128,8 @@
 "zvířecí lékárna",
 "klinika pro zvířata",
 "veterinář",
-"léky pro zvířata",
 "Lékárna pro zvířata",
+"léky pro zvířata",
 "veterinární lékárna",
 "lékárna pro zvířata",
 "zvěrolékař"
@@ -3058,15 +3141,15 @@
 "odpadky",
 "odpadní",
 "popelnice",
-"pes",
-"Koš na psí výkaly"
+"Koš na psí výkaly",
+"pes"
 ],
 "amenity/waste_basket":[
 "smetí",
 "odpad",
 "odpadky",
-"odpadní",
 "Odpadkový koš",
+"odpadní",
 "popelnice"
 ],
 "amenity/waste_disposal":[
@@ -3079,8 +3162,8 @@
 "amenity/waste_transfer_station":[
 "recyklace",
 "odpad",
-"odpadky",
 "Překládací stanice odpadu",
+"odpadky",
 "prekladaci",
 "odpadní"
 ],
@@ -3103,8 +3186,8 @@
 "mostova vaha",
 "vážící stanice",
 "vaha pro kamiony",
-"automobilova vaha",
 "Mostová váha",
+"automobilova vaha",
 "silnicni vaha",
 "vaha pro nakladni vozidla",
 "silniční váha",
@@ -3126,8 +3209,8 @@
 "procházení koně",
 "trénink koní",
 "chodník pro koně",
-"karusel",
-"Kruhový trenažér (kolotoč) pro koně"
+"Kruhový trenažér (kolotoč) pro koně",
+"karusel"
 ],
 "area":[
 "Plocha",
@@ -3146,8 +3229,8 @@
 "area/highway":[
 "okraj chodníku",
 "ulice",
-"vozovka",
 "Plocha silnice",
+"vozovka",
 "oblast dálnice",
 "tvar dálnice",
 "silnice",
@@ -3164,9 +3247,12 @@
 "Atrakce"
 ],
 "attraction/amusement_ride":[
-"Atrakce",
-"zábavní park",
-"karnevalová jízda"
+"zábavní jízda",
+"Zážitková jízda",
+"zazitkova jizda",
+"jízda",
+"zabavni jizda",
+"jizda"
 ],
 "attraction/animal":[
 "ohrazení",
@@ -3192,8 +3278,8 @@
 "vyhýbat se autům"
 ],
 "attraction/bungee_jumping":[
-"skákací plošina",
 "Bungee jumping",
+"skákací plošina",
 "bungy jumping",
 "zábavní park"
 ],
@@ -3202,14 +3288,14 @@
 "kolotoč",
 "zábavní kolotoč",
 "skokan",
-"létající koně",
 "Kolotoč",
+"létající koně",
 "kolotoč s koňmi",
 "zábavní park"
 ],
 "attraction/dark_ride":[
-"vlak duchů",
 "Strašidelná jízda",
+"vlak duchů",
 "zábavní park"
 ],
 "attraction/drop_tower":[
@@ -3242,10 +3328,9 @@
 "labyrint"
 ],
 "attraction/pirate_ship":[
-"zábavní jízda",
-"zábavní park",
-"karnevalová jízda",
-"Houpačka ve tvaru pirátské lodi"
+"kyvadlova piratska lod",
+"piratska lod",
+"Kyvadlová pirátská loď"
 ],
 "attraction/river_rafting":[
 "aquapark",
@@ -3262,8 +3347,8 @@
 ],
 "attraction/summer_toboggan":[
 "letní tobogan",
-"bobovka",
 "Bobová dráha (korytová)",
+"bobovka",
 "korytová",
 "korytova",
 "horská dráha",
@@ -3284,8 +3369,8 @@
 "vláček",
 "parkový vláček",
 "silniční vlak",
-"mašinka",
 "Turistický vláček",
+"mašinka",
 "zábavní park",
 "vláček bez rámusu"
 ],
@@ -3293,19 +3378,19 @@
 "aquapark",
 "vodní tobogány",
 "vodní skluzavky",
-"zábavní park",
 "Vodní skluzavka",
+"zábavní park",
 "vodní park",
 "náhony"
 ],
 "barrier":[
-"bariéra",
 "Zábrana",
+"bariéra",
 "ohrada"
 ],
 "barrier/block":[
-"překážka",
 "Masivní blok",
+"překážka",
 "beton",
 "zátaras",
 "betonový blok"
@@ -3333,8 +3418,8 @@
 "kontrolní bod"
 ],
 "barrier/bump_gate":[
-"brána na farmě",
-"Brána otevíraná nárazem"
+"Brána otevíraná nárazem",
+"brána na farmě"
 ],
 "barrier/bus_trap":[
 "autobusova prohluben",
@@ -3374,8 +3459,8 @@
 "barrier/cycle_barrier":[
 "cyklistická zábrana",
 "zábrana pro cyklisty",
-"bariéra pro cyklisty",
 "Zábrana proti kolům",
+"bariéra pro cyklisty",
 "cyklistické brány"
 ],
 "barrier/ditch":[
@@ -3384,11 +3469,11 @@
 "koryto"
 ],
 "barrier/entrance":[
-"Vchod"
+"Průchod / Průjezd"
 ],
 "barrier/fence":[
-"oplocení",
 "Plot",
+"oplocení",
 "ohrada"
 ],
 "barrier/fence/railing":[
@@ -3404,8 +3489,8 @@
 "barrier/gate":[
 "vjezd",
 "branka",
-"vchod",
-"Brána"
+"Brána",
+"vchod"
 ],
 "barrier/guard_rail":[
 "zábradlí",
@@ -3454,13 +3539,13 @@
 ],
 "barrier/kerb":[
 "okraj chodníku",
-"okraj silnice",
-"Obrubník"
+"Obrubník",
+"okraj silnice"
 ],
 "barrier/kerb/flush":[
 "rovný obrubník",
-"hmatový obrubník",
 "Zarovnaný obrubník",
+"hmatový obrubník",
 "obrubník"
 ],
 "barrier/kerb/lowered":[
@@ -3488,12 +3573,12 @@
 "přepážková bariéra"
 ],
 "barrier/lift_gate":[
-"závora na cestě",
-"tyč závory",
 "Zvedací závora",
-"brána se závorou",
+"závora",
+"vrata",
+"brána",
 "zvedací brána",
-"závora přes cestu"
+"zvedací tyč"
 ],
 "barrier/log":[
 "spadlý strom",
@@ -3513,8 +3598,8 @@
 "zeď",
 "operna zed",
 "zed",
-"opěra",
 "Opěrná zeď",
+"opěra",
 "zárubní zeď",
 "zarubni zed"
 ],
@@ -3565,13 +3650,13 @@
 ],
 "barrier/turnstile":[
 "přepážková brána",
-"otáčecí tyče",
-"Turniket"
+"Turniket",
+"otáčecí tyče"
 ],
 "barrier/wall":[
 "cihlovy plot",
-"plot",
 "Zeď",
+"plot",
 "zděný plot",
 "zed",
 "zdeny plot",
@@ -3596,20 +3681,10 @@
 "barrier/yes":[
 "Zábrana (nespecifikovaný druh)"
 ],
-"boundary":[
-"Hranice"
-],
-"boundary/administrative":[
-"stát",
-"kraj",
-"Administrativní hranice",
-"okres",
-"hranice"
-],
 "boundary/hazard":[
 "nebezpečí",
-"zakázaná oblast",
-"Nebezpečná oblast"
+"Nebezpečná oblast",
+"zakázaná oblast"
 ],
 "bridge/support":[
 "pilíř",
@@ -3620,8 +3695,8 @@
 "konstrukce mostu"
 ],
 "bridge/support/pier":[
-"pilíř",
 "Mostní pilíř",
+"pilíř",
 "sloup mostu",
 "mostní sloup",
 "sloup",
@@ -3660,8 +3735,8 @@
 "pečivo",
 "chléb",
 "pekař",
-"pekařství",
-"Pekárna"
+"Pekárna",
+"pekařství"
 ],
 "building/barn":[
 "sýpka",
@@ -3740,14 +3815,14 @@
 "komercni budova",
 "služby",
 "sluzby",
-"firmy",
 "Komerční budova",
+"firmy",
 "kanceláře",
 "firma"
 ],
 "building/construction":[
-"konstrukce",
 "Budova ve výstavbě",
+"konstrukce",
 "stavba",
 "výstavba"
 ],
@@ -3781,9 +3856,6 @@
 "koleje",
 "ubytovna"
 ],
-"building/entrance":[
-"Vchod / východ"
-],
 "building/farm":[
 "zemedelsky",
 "farmarsky",
@@ -3799,8 +3871,8 @@
 "pomocný",
 "zemedelska",
 "pomocné",
-"farmarska",
 "Zemědělská neobytná budova",
+"farmarska",
 "zemědělství",
 "farmářský pomocný"
 ],
@@ -3840,9 +3912,9 @@
 "fóliovník"
 ],
 "building/hangar":[
+"Budova hangáru",
 "hangár",
 "garáž letadla",
-"Budova hangáru",
 "umístění letadla",
 "letadlo",
 "garáž",
@@ -3867,9 +3939,9 @@
 "ubytování",
 "hostel",
 "hotel",
+"Budova hotelu",
 "motel",
-"penzion",
-"Budova hotelu"
+"penzion"
 ],
 "building/house":[
 "rodina",
@@ -3882,9 +3954,9 @@
 "dům v řadové zástavbě",
 "řadová zástavba",
 "radovka",
+"Jednotlivý řadový dům",
 "řadový dům",
 "rada domu",
-"Jednotlivý řadový dům",
 "jednotlivy radovy dum",
 "řadovka",
 "radovy dum",
@@ -3910,8 +3982,8 @@
 ],
 "building/industrial":[
 "iprumys",
-"průmysl",
 "Průmyslová budova",
+"průmysl",
 "ndustriální",
 "prumyslova budova",
 "výroba"
@@ -3919,8 +3991,8 @@
 "building/kindergarten":[
 "mateřská škola",
 "předškolní",
-"školka",
-"Budova školky/předškolního zařízení"
+"Budova školky/předškolního zařízení",
+"školka"
 ],
 "building/manufacture":[
 "Budova průmyslové výroby"
@@ -3969,8 +4041,8 @@
 "dum"
 ],
 "building/retail":[
-"obchod",
 "Prodejna",
+"obchod",
 "budova s obchody"
 ],
 "building/riding_hall":[
@@ -3980,7 +4052,8 @@
 "krytá aréna",
 "halová jízda",
 "aréna jezdectví",
-"Krytá jezdecká aréna",
+"jezdecka hala",
+"Jezdecká hala",
 "longeingová hala"
 ],
 "building/roof":[
@@ -4010,17 +4083,21 @@
 "rodina",
 "rezidence",
 "obydlí",
-"duplex",
 "Polovina dvojdomku",
+"duplex",
 "domov",
 "dvojitý"
 ],
 "building/service":[
+"Servisní budova",
 "pumpy",
 "měřící zařízení",
-"Účelová budova",
+"technicka budova",
+"ucelova budova",
+"technická budova",
 "transformátory",
-"servisní budova"
+"servisní budova",
+"účelová budova"
 ],
 "building/shed":[
 "Kůlna",
@@ -4096,9 +4173,16 @@
 "dům boží",
 "chrám"
 ],
+"building/tent":[
+"stálý stan",
+"trvalý stan",
+"permanentí stan",
+"stan na pevno",
+"Trvale umístěný stan"
+],
 "building/terrace":[
-"řadová zástavba",
 "Řad domů v řadové zástavbě",
+"řadová zástavba",
 "radovka",
 "rada domu",
 "rad domu v radove zastavbe",
@@ -4123,8 +4207,8 @@
 "budova stanice",
 "mhd",
 "budova železniční stanice",
-"terminál",
 "Dopravní budova",
+"terminál",
 "veřejná doprava",
 "budova stanice hromadné dopravy",
 "nádražní budova",
@@ -4141,18 +4225,15 @@
 "building/warehouse":[
 "sklad",
 "repozitář",
-"silo",
 "Skladiště",
+"silo",
 "překladiště",
 "hala"
 ],
 "building_part":[
-"střecha",
 "Část budovy",
+"střecha",
 "jednoduché 3d budovy"
-],
-"building_point":[
-"Budova"
 ],
 "cemetery/grave":[
 "hrobka",
@@ -4170,35 +4251,6 @@
 "pohřebiště",
 "kolumbárium",
 "hřbitovy"
-],
-"climbing/crag":[
-"lezecké cesty",
-"boulder",
-"Lezecký sektor/skála",
-"skalní věž",
-"horolezení",
-"lezecká stěna",
-"lezení",
-"horolezecká stěna",
-"lezecká cesta",
-"skála",
-"lezecké místo",
-"věž",
-"místo pro lezení",
-"lezecký sektor",
-"skály"
-],
-"climbing/route":[
-"lezecká trasa",
-"lezecký výstup",
-"trasa",
-"lezecká délka",
-"výlez",
-"spára",
-"cesta",
-"výstup",
-"Lezecká cesta",
-"horolezecká cesta"
 ],
 "climbing/route_bottom":[
 "spodek cesty",
@@ -4239,8 +4291,8 @@
 ],
 "craft/agricultural_engines":[
 "traktory",
-"sekačky",
 "Výrobce zemědělských strojů",
+"sekačky",
 "farmářské stroje",
 "kombajn"
 ],
@@ -4273,13 +4325,10 @@
 "vazačství"
 ],
 "craft/brewery":[
-"chlast",
-"pivo",
-"mošt",
+"remeslny pivovar",
 "Minipivovar",
-"alkohol",
-"pivko",
-"nápoj"
+"řemeslný pivovar",
+"pivovar"
 ],
 "craft/carpenter":[
 "Tesař",
@@ -4306,8 +4355,8 @@
 "Úklidová služba"
 ],
 "craft/clockmaker":[
-"hodiny",
 "Hodinář (ne hodinky)",
+"hodiny",
 "hodinářství",
 "hodinář"
 ],
@@ -4342,8 +4391,8 @@
 "Švadlena"
 ],
 "craft/electrician":[
-"dráty",
 "Elektrikář",
+"dráty",
 "elektřina"
 ],
 "craft/electronics_repair":[
@@ -4361,8 +4410,8 @@
 "zahradní architekt",
 "zahradnik",
 "zahradnictví",
-"zahradnictvi",
-"Zahradník"
+"Zahradník",
+"zahradnictvi"
 ],
 "craft/glaziery":[
 "vitráže",
@@ -4374,8 +4423,8 @@
 "craft/handicraft":[
 "hrnčíř",
 "dílnička",
-"umění",
 "Umělecký řemeslník",
+"umění",
 "obchůdek",
 "malíř",
 "umělec",
@@ -4411,9 +4460,6 @@
 "Výroba klíčů",
 "klíčník"
 ],
-"craft/locksmith":[
-"Zámečník"
-],
 "craft/metal_construction":[
 "výroba z kovu",
 "svářeč",
@@ -4422,9 +4468,9 @@
 "dílna",
 "obrábění",
 "konstruktér",
+"Kovovýroba",
 "kovové konstrukce",
-"výroba",
-"Kovovýroba"
+"výroba"
 ],
 "craft/painter":[
 "malířství",
@@ -4432,8 +4478,8 @@
 ],
 "craft/parquet_layer":[
 "parkety",
-"pokládání parket",
-"Pokladač parket"
+"Pokladač parket",
+"pokládání parket"
 ],
 "craft/photographer":[
 "Fotograf",
@@ -4478,8 +4524,8 @@
 ],
 "craft/sailmaker":[
 "plachty",
-"plachtář",
-"Výroba plachet"
+"Výroba plachet",
+"plachtář"
 ],
 "craft/sawmill":[
 "řezivo",
@@ -4499,8 +4545,8 @@
 "obuvník"
 ],
 "craft/signmaker":[
-"výroba reklamních poutačů",
 "Výrobce cedulí",
+"výroba reklamních poutačů",
 "výroba světelných nápisů",
 "cedule",
 "reklamní poutač",
@@ -4514,9 +4560,6 @@
 "kamenictví",
 "Kameník"
 ],
-"craft/tailor":[
-"Krejčí"
-],
 "craft/tiler":[
 "pokladač",
 "dlaždič",
@@ -4526,8 +4569,8 @@
 "obkladačství"
 ],
 "craft/tinsmith":[
-"plech",
 "Klempíř",
+"plech",
 "klempířství"
 ],
 "craft/upholsterer":[
@@ -4594,15 +4637,15 @@
 "education":[
 "učení",
 "školení",
+"Vzdělávací zařízení",
 "třída",
 "školicí středisko",
-"Vzdělávací zařízení",
 "výuka",
 "školicí místnost"
 ],
 "education/college":[
-"území vysoké školy",
 "Areál vyšší odborné školy/college",
+"území vysoké školy",
 "prostor vyšší odborné školy",
 "území koleje",
 "areál koleje",
@@ -4619,17 +4662,17 @@
 "tanec",
 "walz",
 "swing",
-"rumba",
 "Taneční škola",
+"rumba",
 "tango",
 "samba",
 "jive"
 ],
 "education/driving_school":[
 "automoto škola",
+"Autoškola",
 "škola řízení",
 "školení řidičů",
-"Autoškola",
 "škola řízení motorových vozidel"
 ],
 "education/kindergarten":[
@@ -4668,8 +4711,8 @@
 "soukromý učitel",
 "doučování",
 "lekce",
-"domácí úkoly",
 "Doučovací škola / přípravka",
+"domácí úkoly",
 "příprava na testy",
 "mentoring",
 "testování",
@@ -4682,8 +4725,8 @@
 "integrovaná škola",
 "skola",
 "uciliste",
-"stredni skola",
 "Základní / střední škola",
+"stredni skola",
 "areál školy",
 "akademie",
 "integrovana skola",
@@ -4700,9 +4743,9 @@
 ],
 "education/university":[
 "prostor univerzity",
+"Areál univerzity",
 "území univerzity",
 "aula",
-"Areál univerzity",
 "kolej",
 "koleje"
 ],
@@ -4761,8 +4804,8 @@
 "emergency/fire_hose":[
 "hasičská zbrojnice",
 "požární zbrojnice",
-"hasičárna",
 "Požární hadice",
+"hasičárna",
 "hasiči"
 ],
 "emergency/fire_hydrant":[
@@ -4778,9 +4821,9 @@
 ],
 "emergency/fire_hydrant/underground":[
 "požární zátka",
+"Podzemní požární hydrant",
 "studna na požární vodu",
-"podzemní hydrant",
-"Podzemní požární hydrant"
+"podzemní hydrant"
 ],
 "emergency/fire_service_inlet":[
 "fdc",
@@ -4813,8 +4856,8 @@
 ],
 "emergency/life_ring":[
 "záchranářský kruh",
-"zahranarsky kruh",
 "Záchranný kruh",
+"zahranarsky kruh",
 "kobliha",
 "záchranné kolo",
 "záchranný kruh",
@@ -4828,13 +4871,13 @@
 "záchrana z lodi",
 "záchranáři",
 "loď",
-"plavba",
-"Stanice záchranného člunu"
+"Stanice záchranného člunu",
+"plavba"
 ],
 "emergency/lifeguard":[
+"Plavčík",
 "cpr",
 "zachrana",
-"Plavčík",
 "záchrana",
 "plavcik"
 ],
@@ -4844,8 +4887,8 @@
 "záchranka",
 "horská služba",
 "záchranáři",
-"rychlá pomoc",
 "Horská služba",
+"rychlá pomoc",
 "pomoc",
 "vysokohorská"
 ],
@@ -4874,8 +4917,8 @@
 "emergency/water_reservoir_covered":[
 "hašení požárů",
 "cisterna",
-"přehrada",
 "Nouzová vodní nádrž (podzemní)",
+"přehrada",
 "hašení"
 ],
 "emergency/water_tank":[
@@ -4899,8 +4942,8 @@
 "východ",
 "výjezd",
 "vstup",
-"výlez",
 "Vchod / Východ",
+"výlez",
 "vjezd",
 "vlez",
 "vchod"
@@ -4925,15 +4968,15 @@
 "průchod",
 "vstup",
 "východ",
-"dveře",
 "Hlavní vchod",
+"dveře",
 "hlavní vchod",
 "vchod",
 "vstupní dveře"
 ],
 "entrance/shop":[
-"vstup do obchodu",
 "Vchod do obchodu",
+"vstup do obchodu",
 "příchod",
 "dveře",
 "vchod"
@@ -4950,9 +4993,6 @@
 "Brod",
 "brod",
 "ford"
-],
-"ford_line":[
-"Brod"
 ],
 "golf/bunker":[
 "bunker",
@@ -4994,9 +5034,9 @@
 "jamkoviste"
 ],
 "golf/hole":[
+"Dráha do jamky",
 "golfová dráha",
 "golfova draha",
-"Dráha do jamky",
 "dráha do jamkoviště",
 "draha",
 "dráha od odpaliště",
@@ -5096,8 +5136,8 @@
 "healthcare/alternative/traditional_chinese_medicine":[
 "reiki",
 "shiatsu",
-"die da",
 "Praktik tradiční čínské medicíny",
+"die da",
 "tui na",
 "dit da",
 "tcm"
@@ -5115,21 +5155,22 @@
 "těhotenství",
 "novorozeně",
 "porodní asistentka",
-"miminko",
-"Porodnice"
+"Porodnice",
+"miminko"
 ],
 "healthcare/blood_donation":[
 "darování krve",
+"darování složek krve",
+"plazmaferéza",
 "odběr krve",
 "transfúze",
+"Centrum dárcovství krve",
 "transfúzní stanice",
-"Odběr krve"
+"dárci krve",
+"odběrové centurm"
 ],
 "healthcare/counselling":[
-"poradny",
-"poradenví",
-"konzultant",
-"poradce",
+"sexuální terapeut",
 "Zdravotní poradna"
 ],
 "healthcare/dentist/orthodontics":[
@@ -5177,16 +5218,18 @@
 "lasik"
 ],
 "healthcare/physiotherapist":[
-"fyzikální",
+"léčba",
+"terapeut pohybového aparátu",
 "Fyzioterapeut",
-"terapeut",
+"fyzikální terapie",
+"terapie pohybem",
 "terapie"
 ],
 "healthcare/podiatrist":[
 "nohy",
 "chodidla",
-"kotník",
 "Podiatr",
+"kotník",
 "noha",
 "kotnik",
 "podiatrie"
@@ -5239,9 +5282,6 @@
 "autobus",
 "Autobusová dráha"
 ],
-"highway/bus_stop":[
-"Autobusová zastávka"
-],
 "highway/busway":[
 "mhd",
 "Pruh pro autobusy"
@@ -5270,12 +5310,15 @@
 "Neformální přechod"
 ],
 "highway/crossing/traffic_signals":[
-"přechod (semafor)",
-"přechod pro cyklisty (semafor)",
+"přechod silnice",
+"přechod pro chodce se semafory",
 "semafor pro chodce",
-"světelná signalizace pro chodce",
-"Přechod pro chodce se semaforem",
-"přechod pro chodce (semafor)"
+"přejezd cyklostezky",
+"přechod cyklostezky",
+"světelný přechod",
+"Přechod se semafory",
+"řízený přechod pro chodce",
+"přejezd pro cyklisty"
 ],
 "highway/crossing/uncontrolled":[
 "přechod zebra",
@@ -5312,8 +5355,8 @@
 "chodci a cyklisté",
 "cyklista",
 "cyklisté",
-"společná",
 "Stezka pro chodce a cyklisty",
+"společná",
 "cesta",
 "chodci"
 ],
@@ -5378,15 +5421,15 @@
 "cyklisticky a pesi dopravni ostruvek",
 "dopravní ostrůvek",
 "dopravní ostrůvek pro pěší a cyklisty",
-"ostruvek pro pesi a cyklisty",
 "Cyklistický a pěší dopravní ostrůvek",
+"ostruvek pro pesi a cyklisty",
 "dopravni ostruvek pro pesi a cyklisty"
 ],
 "highway/cyclist_waiting_aid":[
 "podpěrka",
 "područka",
-"úchop",
 "Stupačky pro cyklisty",
+"úchop",
 "zábradlí",
 "stupačka",
 "rukojeť",
@@ -5439,8 +5482,8 @@
 "avenue",
 "cesta",
 "ulička",
-"chodník",
-"Chodník / stezka pro pěší"
+"Chodník / stezka pro pěší",
+"chodník"
 ],
 "highway/footway/access_aisle":[
 "odtahová zóna",
@@ -5451,8 +5494,8 @@
 "bezbariérová nakládací zóna",
 "pruhovaná zóna",
 "odtahové místo",
-"přístupová zóna pro invalidy",
-"Bezbariérová ulička"
+"Bezbariérová ulička",
+"přístupová zóna pro invalidy"
 ],
 "highway/footway/conveying":[
 "pásový dopravník",
@@ -5471,8 +5514,8 @@
 ],
 "highway/footway/crossing/traffic_signals":[
 "světelná signalizace pro chodce",
-"semafory pro chodce",
 "Přechod pro chodce se semaforem",
+"semafory pro chodce",
 "přechod pro chodce (semafor)",
 "přechod pro pěší (semafor)"
 ],
@@ -5576,9 +5619,9 @@
 "highway/motorway_junction":[
 "sjezd z dálnice",
 "exit",
+"Dálniční sjezd",
 "exit dálnice",
 "opuštění dálnice",
-"Dálniční sjezd",
 "dálniční exit"
 ],
 "highway/motorway_link":[
@@ -5620,13 +5663,15 @@
 "Pěšina"
 ],
 "highway/path/boardwalk":[
+"Vyvýšený chodník",
 "prkenný chodník",
-"vyvýšený chodník",
+"vyvyseny chodnik",
+"povalovy chodnik",
 "dřevěný chodník",
 "nad terénem",
 "vyvýšený",
-"boardwalk",
-"Dřevěný chodník (vyvýšený)"
+"povalový chodník",
+"boardwalk"
 ],
 "highway/path/crossing":[
 "Přechod pro pěší a cyklisty"
@@ -5644,8 +5689,8 @@
 "vyšlapaná stezka",
 "pěšina",
 "stezka",
-"načerno",
 "Neformální pěšina",
+"načerno",
 "nepovolená",
 "neoficiální",
 "cesta",
@@ -5656,8 +5701,8 @@
 "pěší",
 "pesi zona",
 "plocha pro chodce",
-"centrum",
 "Pěší zóna",
+"centrum",
 "pochozí",
 "plocha pro pěší",
 "chodci"
@@ -5666,8 +5711,8 @@
 "pěší",
 "pěší ulice",
 "ulice pro pěší",
-"centrum",
 "Pěší zóna",
+"centrum",
 "střed města",
 "pěší zóna",
 "ulička",
@@ -5691,8 +5736,8 @@
 ],
 "highway/raceway":[
 "dráha",
-"nascar",
 "Motoristická závodní dráha",
+"nascar",
 "auto*",
 "karta",
 "motocross",
@@ -5705,8 +5750,8 @@
 "motorové motokáry",
 "motokára",
 "motorové káry",
-"motokáry",
 "Motokárová dráha",
+"motokáry",
 "posunovací motokáry",
 "superkáry",
 "káry",
@@ -5767,7 +5812,8 @@
 ],
 "highway/service":[
 "účelová cesta",
-"Účelová komunikace",
+"servisni komunikace",
+"Servisní komunikace",
 "ucelova komunikace",
 "ucelova cesta"
 ],
@@ -5781,8 +5827,8 @@
 "drive through",
 "okénko pro řidiče",
 "pult pro řidiče",
-"obsluha do auta",
 "Drive-through",
+"obsluha do auta",
 "obsluha řidiče"
 ],
 "highway/service/driveway":[
@@ -5805,7 +5851,7 @@
 "ulička pro parkování"
 ],
 "highway/service_area":[
-"Zpevněná účelová plocha"
+"Zpevněná servisní plocha"
 ],
 "highway/services":[
 "Odpočívka s čerpací stanicí",
@@ -5832,8 +5878,8 @@
 "displej",
 "zpráva o povědomí o rychlosti",
 "značka zklidnění dopravy",
-"značka vaše rychlost",
 "Rychlostní displej",
+"značka vaše rychlost",
 "deska zobrazení rychlosti",
 "tabule",
 "značka rychlostního radaru"
@@ -5852,8 +5898,8 @@
 "highway/stop":[
 "dej přednost v jízdě",
 "stop",
-"dopravní značka",
 "Značka STOP",
+"dopravní značka",
 "stůj",
 "značka",
 "stopka",
@@ -5894,8 +5940,8 @@
 "placená silnice",
 "výběr mýta",
 "průjezdná mýtná brána",
-"čtecí zařízení",
 "Mýtný portál",
+"čtecí zařízení",
 "mýto"
 ],
 "highway/track":[
@@ -5969,8 +6015,8 @@
 "exit",
 "výjezd",
 "příjezd",
-"rampa",
 "Víceproudá silnice – nájezd",
+"rampa",
 "sjezd"
 ],
 "highway/turning_circle":[
@@ -5994,6 +6040,7 @@
 "neznačená silnice"
 ],
 "historic":[
+"Historický prvek",
 "hradiště",
 "historické místo",
 "zámek",
@@ -6002,16 +6049,15 @@
 "pevnost",
 "zámeček",
 "archeologické naleziště",
-"hrad",
-"Památné místo"
+"hrad"
 ],
 "historic/aircraft":[
 "zastaralé letadlo",
 "staré letadlo",
 "létající stroj",
+"Historické letadlo",
 "létací stroj",
 "blériot",
-"Historické letadlo",
 "historický letoun"
 ],
 "historic/archaeological_site":[
@@ -6049,8 +6095,8 @@
 ],
 "historic/castle/fortress":[
 "citadela",
-"Historická pevnost",
-"vojenský"
+"pevnost",
+"Historická pevnost (sídlo)"
 ],
 "historic/castle/palace":[
 "král",
@@ -6070,8 +6116,8 @@
 "historic/city_gate":[
 "historicka brána města",
 "opevněná brána",
-"brana do mesta",
 "Městská brána",
+"brana do mesta",
 "brána do města",
 "brána",
 "brana mesta",
@@ -6081,7 +6127,7 @@
 ],
 "historic/fort":[
 "Historická pevnost",
-"vojenský"
+"pevnost"
 ],
 "historic/manor":[
 "panske sidlo",
@@ -6104,8 +6150,8 @@
 ],
 "historic/memorial/plaque":[
 "dedikační",
-"vzpomínka",
 "Pamětní deska",
+"vzpomínka",
 "historická značka",
 "epitaf",
 "paměť",
@@ -6116,9 +6162,17 @@
 "Kameny zmizelých",
 "pomník zmizelých"
 ],
+"historic/millstone":[
+"kámen na mletí",
+"mlýn",
+"mlýnice",
+"Mlýnský kámen",
+"mletí",
+"kámen na drcení"
+],
 "historic/monument":[
-"pomník",
 "Monument",
+"pomník",
 "památník",
 "pamětihodnost",
 "hrdina"
@@ -6129,14 +6183,14 @@
 "sloup",
 "připoutat",
 "pranýř",
-"trestání",
 "Pranýř",
+"trestání",
 "historický pranýř",
 "odsouzený"
 ],
 "historic/ruins":[
-"zřícenina",
 "Zřícenina, ruiny",
+"zřícenina",
 "zříceniny"
 ],
 "historic/tomb":[
@@ -6144,15 +6198,13 @@
 "místo posledního odpočinku"
 ],
 "historic/wayside_cross":[
-"Přícestní kříž",
-"boží muka",
+"Přícestný kříž",
 "kříž při cestě",
 "kriz pri ceste",
 "historicky kriz",
 "historický kříž",
-"bozi muika",
-"pricestni kriz",
-"krucifix"
+"krucifix",
+"pricestny kriz"
 ],
 "historic/wayside_shrine":[
 "bozi muka",
@@ -6190,9 +6242,6 @@
 "Chodba",
 "hala"
 ],
-"indoor/corridor_line":[
-"Chodba"
-],
 "indoor/door":[
 "Vnitřní dveře",
 "dveře",
@@ -6214,8 +6263,8 @@
 "buňka",
 "vnitřní místnost",
 "předsíň",
-"atrium",
 "Pokoj",
+"atrium",
 "hala",
 "síň"
 ],
@@ -6232,8 +6281,8 @@
 "stěna",
 "přepážka místnosti",
 "příčka",
-"pricka",
 "Vnitřní stěna",
+"pricka",
 "vnitřní bariéra",
 "rozdělení místnosti",
 "vnitrni stena",
@@ -6241,8 +6290,8 @@
 ],
 "internet_access/wlan":[
 "wifi",
-"wi-fi",
 "Wi-Fi hotspot",
+"wi-fi",
 "hotspot"
 ],
 "junction":[
@@ -6268,8 +6317,8 @@
 "landuse/aquaculture":[
 "pěstování ryb",
 "kreveta",
-"rybí farma",
 "Akvakultura",
+"rybí farma",
 "řasa",
 "ústřice",
 "korýš",
@@ -6284,11 +6333,8 @@
 "rybářství",
 "ryby",
 "rybarstvi",
-"rybi farma",
-"Sádky"
-],
-"landuse/basin":[
-"Nádrž (umělá vodní plocha)"
+"Sádky",
+"rybi farma"
 ],
 "landuse/brownfield":[
 "Brownfield",
@@ -6321,8 +6367,8 @@
 "landuse/construction":[
 "staveniste",
 "stavebni oblast",
-"stavební oblast",
 "Staveniště",
+"stavební oblast",
 "vystavba",
 "infrastruktura",
 "demolice",
@@ -6338,8 +6384,8 @@
 "plocha školy",
 "areál školy",
 "areal skoly",
-"školní areál",
 "Oblast vzdělávání",
+"školní areál",
 "plocha skoly",
 "kampus",
 "škola",
@@ -6347,14 +6393,11 @@
 "skolni areal",
 "areál univerzity"
 ],
-"landuse/farm":[
-"Zemědělská půda (zastaralý tag)"
-],
 "landuse/farmland":[
 "farma",
 "pestitelska plocha",
-"pole",
 "Zemědělská půda",
+"pole",
 "pěstitelská plocha",
 "zemedelska puda"
 ],
@@ -6388,16 +6431,16 @@
 "les",
 "boreální",
 "lesy",
-"stromy",
-"Lesní porost"
+"Lesní porost",
+"stromy"
 ],
 "landuse/garages":[
 "soukrome garaze",
 "garáže",
 "oblast soukromych garazi",
 "garaze",
-"soukromé garáže",
-"Oblast soukromých garáží"
+"Oblast soukromých garáží",
+"soukromé garáže"
 ],
 "landuse/grass":[
 "travnatá plocha",
@@ -6406,9 +6449,9 @@
 "travnik",
 "obhospodarovana trava",
 "travnata plocha",
+"Tráva",
 "posekaná tráva",
 "posekana trava",
-"Tráva",
 "zelen",
 "trávník"
 ],
@@ -6432,8 +6475,8 @@
 "říční přístav"
 ],
 "landuse/industrial":[
-"fabriky",
 "Průmyslová oblast",
+"fabriky",
 "industriální",
 "průmyslové",
 "továrny",
@@ -6456,9 +6499,9 @@
 "landuse/industrial/scrap_yard":[
 "vrak",
 "auto",
+"Vrakoviště",
 "kov",
 "vytáhnutí",
-"Vrakoviště",
 "šrot",
 "záchrana",
 "haraburdí",
@@ -6486,8 +6529,8 @@
 "skládka odpadu",
 "odpad",
 "smetiště",
-"skladka odpadu",
 "Skládka",
+"skladka odpadu",
 "skladka",
 "smetiste"
 ],
@@ -6532,8 +6575,8 @@
 "ovocný sad",
 "ovocny sad",
 "ovocne stromy",
-"sad",
 "Sad",
+"sad",
 "ovoce",
 "ovocné stromy",
 "stromy"
@@ -6548,29 +6591,26 @@
 "skolka",
 "lesni skolka"
 ],
-"landuse/pond":[
-"Rybník"
-],
 "landuse/quarry":[
 "důl",
 "kamenolom",
 "skála",
 "štěrk",
 "kameny",
-"lom",
-"Lom"
+"Lom",
+"lom"
 ],
 "landuse/railway":[
-"vlak",
 "Železniční koridor",
+"vlak",
 "kolejnice",
 "koleje",
 "železnice"
 ],
 "landuse/recreation_ground":[
 "prostranství pro rekreaci",
-"náves",
 "Rekreační území",
+"náves",
 "hřiště",
 "rekreace",
 "obecní zeleň"
@@ -6586,20 +6626,17 @@
 "šintoismus",
 "nabozensky areal",
 "hinduistický",
-"posvátné území",
 "Náboženský areál",
+"posvátné území",
 "místo k uctívání",
 "mešita",
 "chrám"
 ],
-"landuse/reservoir":[
-"Přehrada"
-],
 "landuse/residential":[
 "rezidencni oblast",
 "obytná oblast",
-"byty",
 "Rezidenční oblast",
+"byty",
 "bydlení",
 "domy"
 ],
@@ -6613,8 +6650,8 @@
 "paneláky",
 "cinzovni domy",
 "panelové domy",
-"sídliště",
 "Oblast s bytovými budovami",
+"sídliště",
 "činžáky",
 "bytove budovy",
 "panelaky",
@@ -6622,8 +6659,8 @@
 "apartmany"
 ],
 "landuse/residential/trailer_park":[
-"park pro karavany",
 "Rezidenční oblast s mobilními domy / přívěsy",
+"park pro karavany",
 "mobilní domy",
 "park pro privesy",
 "park pro přívěsy",
@@ -6641,10 +6678,10 @@
 ],
 "landuse/salt_pond":[
 "sůl",
+"Salina",
 "solny roztok",
 "solna panev",
 "jezírko pro odpařování soli",
-"Salina",
 "odpařování",
 "odparovani",
 "solná pánev",
@@ -6661,8 +6698,8 @@
 "landuse/winter_sports":[
 "lyžařská hora",
 "lyžařské středisko",
-"lyžování",
 "Plocha pro zimní sporty",
+"lyžování",
 "lyžařský kopec",
 "oblast sjezdovek",
 "lyzarska oblast",
@@ -6677,8 +6714,8 @@
 "Volnočasový prvek"
 ],
 "leisure/adult_gaming_centre":[
-"herna",
 "Herna (hrací automaty)",
+"herna",
 "automaty",
 "hazard",
 "výherní hrací automaty",
@@ -6688,9 +6725,9 @@
 "leisure/amusement_arcade":[
 "simulátory řízení",
 "videohry",
+"Herna se zábavnými automaty",
 "placené hry",
-"hrací automaty",
-"Herna"
+"hrací automaty"
 ],
 "leisure/bandstand":[
 "hudebni pavilon",
@@ -6700,9 +6737,9 @@
 "podium",
 "pavilon",
 "hudební pavilon",
+"Hudební altán",
 "pódium",
 "kryté pódium",
-"Hudební altán",
 "altán"
 ],
 "leisure/bathing_place":[
@@ -6738,13 +6775,13 @@
 "posezení",
 "hlediste",
 "sedadlo",
-"sport",
-"Nekrytá tribuna / hlediště"
+"Nekrytá tribuna / hlediště",
+"sport"
 ],
 "leisure/bowling_alley":[
 "kuželky",
-"kuželna",
 "Bowlingová dráha",
+"kuželna",
 "kuželková dráha",
 "kuželková herna",
 "kuzelky",
@@ -6778,8 +6815,8 @@
 ],
 "leisure/dog_park":[
 "psí park",
-"park pro psy",
-"Psí park"
+"Psí park",
+"park pro psy"
 ],
 "leisure/escape_game":[
 "útěk z místnosti",
@@ -6823,8 +6860,8 @@
 "cvičení",
 "fitness",
 "tělocvična",
-"fitness stanice",
 "Venkovní tělocvična",
+"fitness stanice",
 "cviceni",
 "fitko",
 "telocvicna"
@@ -6853,8 +6890,8 @@
 "cvičení",
 "fitness",
 "shyb",
-"hrazda",
 "Vodorovná tyč",
+"hrazda",
 "přítah",
 "shyby"
 ],
@@ -6862,9 +6899,9 @@
 "žebřík",
 "přítahy",
 "moničáky",
+"Horizontální žebřík",
 "posilovna",
 "upravená stezka",
-"Horizontální žebřík",
 "cvičení",
 "fitness",
 "shyb",
@@ -6874,8 +6911,8 @@
 ],
 "leisure/fitness_station/hyperextension":[
 "upravená stezka",
-"cvičení",
 "Zařízení pro protahování",
+"cvičení",
 "fitness",
 "tělocvična",
 "římská židle",
@@ -6888,12 +6925,12 @@
 "cvičení",
 "fitness",
 "dip",
-"hrazda",
-"Rovnoběžné tyče"
+"Rovnoběžné tyče",
+"hrazda"
 ],
 "leisure/fitness_station/push-up":[
-"kliky",
 "Zařízení pro kliky",
+"kliky",
 "klik",
 "posilovna",
 "upravená stezka",
@@ -6906,8 +6943,8 @@
 "posilovna",
 "upravená stezka",
 "cvičení",
-"fitness",
 "Cvičební kruhy",
+"fitness",
 "shyb",
 "shyby"
 ],
@@ -6927,8 +6964,8 @@
 "instrukce ke cvičení"
 ],
 "leisure/fitness_station/sit-up":[
-"zkracovačka",
 "Zařízení pro sedy-lehy",
+"zkracovačka",
 "sedy",
 "posilovna",
 "sed",
@@ -6947,8 +6984,8 @@
 "leisure/garden":[
 "květiny",
 "zelenina",
-"bylinky",
 "Zahrada",
+"bylinky",
 "ovoce",
 "rostliny"
 ],
@@ -6969,8 +7006,8 @@
 "komunita",
 "spravovaná komunitou",
 "sousedská zahrada",
-"skupinou",
-"Komunitní zahrada"
+"Komunitní zahrada",
+"skupinou"
 ],
 "leisure/garden/kitchen":[
 "bramborová zahrada",
@@ -7009,9 +7046,9 @@
 "jezdecké centrum",
 "jezdecký areál",
 "stáje",
+"Jezdecké centrum",
 "koňský park",
 "koňské stáje",
-"Jezdecké centrum",
 "jízda na koních",
 "areál jezdectví",
 "koňský ranč",
@@ -7036,8 +7073,8 @@
 "míčové hřiště"
 ],
 "leisure/marina":[
-"jachty",
 "Přístaviště",
+"jachty",
 "přístav",
 "loď",
 "jachta"
@@ -7065,9 +7102,9 @@
 "přírodní rezervace",
 "národní přírodní rezervace",
 "přírodní park",
+"Přírodní rezervace",
 "přírodní památka",
 "chráněné území",
-"Přírodní rezervace",
 "národní přírodní památka"
 ],
 "leisure/outdoor_seating":[
@@ -7097,8 +7134,8 @@
 ],
 "leisure/picnic_table":[
 "venkovní stůl",
-"venkovni stul",
 "Piknikový stůl",
+"venkovni stul",
 "piknikovy stul",
 "stul pro piknik",
 "stůl pro piknik"
@@ -7115,9 +7152,11 @@
 "leisure/pitch":[
 "sportovní kurt",
 "dvorec",
+"hřiště",
 "hriste",
+"sportovni hriste",
 "kurt",
-"Hřiště"
+"Sportovní hřiště / kurt"
 ],
 "leisure/pitch/american_football":[
 "americký fotbal",
@@ -7129,12 +7168,15 @@
 "házená"
 ],
 "leisure/pitch/archery":[
-"kuše",
-"luk a šíp",
-"Lukostřelba"
+"lukostřelba",
+"lukostrelba",
+"lukostrelnice",
+"lukostřelecká střelnice",
+"lukostrelecka strelnice",
+"Lukostřelnice"
 ],
 "leisure/pitch/athletics":[
-"Atletický sektor"
+"Atletický sektor / doskočiště"
 ],
 "leisure/pitch/athletics/discus_throw":[
 "Sektor pro hod diskem",
@@ -7146,45 +7188,50 @@
 "vrhačský sektor"
 ],
 "leisure/pitch/athletics/high_jump":[
-"skokanská laťka",
-"doskočiště pro skok vysoký",
 "hřiště pro skok vysoký",
+"sektor pro skok do vysky",
+"skok do vysky",
 "místo pro skok vysoký",
-"laťka pro skok vysoký",
-"žíněnka pro skok vysoký",
-"Plocha pro skok vysoký",
-"oblast pro skok vysoký",
-"odraziště"
+"Sektor pro skok do výšky",
+"skok do výšky",
+"oblast pro skok vysoký"
 ],
 "leisure/pitch/athletics/javelin_throw":[
 "vysec pro hod ostepem",
 "hod ostepem",
 "hod oštěpem",
 "osteparsky sektor",
-"oštěpařský sektor",
 "Dopadová plocha pro hod oštěpem",
+"oštěpařský sektor",
 "dopadova plocha",
 "výseč pro hod oštěpem"
 ],
 "leisure/pitch/athletics/long_jump":[
 "žíněnka pro skok daleký",
+"skok do dálky",
+"skok do dalky",
 "Doskočiště pro skok do dálky",
 "doskočiště pro skok daleký"
 ],
 "leisure/pitch/athletics/pole_vault":[
 "Doskočiště pro skok o tyči",
 "žíněnka pro skok o tyči",
+"skok o tyci",
+"skok o tyči",
 "doskočiště pro skok o tyči"
 ],
 "leisure/pitch/athletics/shot_put":[
-"sektor pro vrh koulí",
+"vrh koulí",
+"vrhacsky sektor",
+"vrh kouli",
 "vrhačský sektor",
-"Kruh pro vrh koulí"
+"Sektor pro vrh koulí",
+"sektor pro vrh kouli"
 ],
 "leisure/pitch/athletics/triple_jump":[
-"žíněnka pro trojskok",
 "Doskočiště pro trojskok",
-"doskočiště pro trojskok"
+"doskociste pro trojskok",
+"trojskok"
 ],
 "leisure/pitch/australian_football":[
 "fotbal",
@@ -7224,9 +7271,9 @@
 "bocce",
 "petanque",
 "koulení",
+"Hřiště na koulové sporty",
 "pétanque",
 "koulená",
-"Hřiště na koulové sporty",
 "hřiště na petanque",
 "bowls",
 "hřiště na koulenou",
@@ -7293,8 +7340,9 @@
 "minifotbal"
 ],
 "leisure/pitch/gaga":[
-"Gaga jáma",
-"gaga míč"
+"Hřiště pro hru gaga",
+"gaga",
+"ga-ga"
 ],
 "leisure/pitch/handball":[
 "házená",
@@ -7319,9 +7367,9 @@
 "hřiště na paintball"
 ],
 "leisure/pitch/pickleball":[
+"Picketballové hřiště",
 "tenis",
-"paddleball",
-"Picketballové hřiště"
+"paddleball"
 ],
 "leisure/pitch/rugby_league":[
 "třináctka",
@@ -7357,8 +7405,8 @@
 ],
 "leisure/pitch/skateboard":[
 "skateboard",
-"inline",
 "Skatepark",
+"inline",
 "skatepark",
 "bmx",
 "skate park",
@@ -7378,8 +7426,8 @@
 "leisure/pitch/table_soccer":[
 "stolní fotbal",
 "stolní fotbálek",
-"tecball",
 "Stůl na stolní fotbal",
+"tecball",
 "kicker"
 ],
 "leisure/pitch/table_tennis":[
@@ -7407,16 +7455,10 @@
 "volejbal"
 ],
 "leisure/playground":[
-"pískoviště",
 "Dětské hřiště",
-"dětské hřiště",
-"houpačky",
-"prolézačky",
-"skluzavky",
+"detske hriste",
 "hřiště",
-"houpačka",
-"prolézačka",
-"skluzavka"
+"hriste"
 ],
 "leisure/playground/indoor":[
 "dětské hřiště",
@@ -7427,8 +7469,8 @@
 ],
 "leisure/resort":[
 "středisko zimních sportů",
-"rekreační středisko",
 "Letovisko",
+"rekreační středisko",
 "rekreacni areal",
 "sanatorium",
 "rekreacni stredisko",
@@ -7441,13 +7483,19 @@
 "sauna",
 "finská sauna"
 ],
+"leisure/schoolyard":[
+"Školní hřiště",
+"hřiště",
+"školní dvorek",
+"dvorek"
+],
 "leisure/slipway":[
 "spouštění lodi",
 "dok",
 "loděnice",
 "skluz v loděnici",
-"skluzavka",
-"Vodní skluz"
+"Vodní skluz",
+"skluzavka"
 ],
 "leisure/slipway_drivable":[
 "přistání člunu",
@@ -7467,9 +7515,9 @@
 "umělá lezecká stěna",
 "jištění",
 "skalní tělocvična",
+"Lezecká stěna",
 "bouldering",
 "vnitřní skalní stěna",
-"Lezecká stěna",
 "slaňování",
 "slaňovat",
 "lana",
@@ -7483,15 +7531,12 @@
 "lanový skluz"
 ],
 "leisure/sports_centre/horse_racing":[
-"cval",
-"dostihové",
-"Kurz jízdy na koni",
-"jezdecká dráha",
-"jezdecká dostihová dráha",
-"sázky",
-"dostihová dráha",
-"sázení na dostihy",
-"dostihy"
+"Dostihové závodiště",
+"dostihove zavodiste",
+"dostihovy areal",
+"dostihy",
+"hipodrom",
+"dostihový areál"
 ],
 "leisure/sports_centre/karting":[
 "Motokárové centrum",
@@ -7507,8 +7552,8 @@
 "cvičení na terč",
 "střelnice",
 "sportovní střelnice",
-"sportovni strelnice",
 "Areál sportovní střelnice",
+"sportovni strelnice",
 "cvičení se zbraní",
 "strelnice"
 ],
@@ -7594,19 +7639,20 @@
 ],
 "leisure/track/athletics/long_jump":[
 "Dráha pro skok do dálky",
+"skok do dálky",
 "dráha skoku do dálky",
 "rozbehova draha",
-"rozběhová dráha"
+"rozběhová dráha",
+"skok do dalky"
 ],
 "leisure/track/athletics/pole_vault":[
 "draha pro skok o tyci",
 "dráha skoku o tyči",
 "rozbehova draha",
 "rozběhová dráha",
+"skok o tyci",
+"skok o tyči",
 "Dráha pro skok o tyči"
-],
-"leisure/track/athletics/running":[
-"Běžecká atletická dráha"
 ],
 "leisure/track/athletics/sprint":[
 "sprintová dráha",
@@ -7615,19 +7661,21 @@
 ],
 "leisure/track/athletics/steeplechase":[
 "dráha na steeplechase",
-"Dráha pro steeplechase"
+"Dráha pro steeplechase",
+"steeplechase"
 ],
 "leisure/track/athletics/triple_jump":[
 "dráha trojskoku",
 "Dráha pro trojskok",
 "draha pro trojskok",
 "rozbehova draha",
+"trojskok",
 "rozběhová dráha"
 ],
 "leisure/track/cycling":[
+"Cyklistická dráha",
 "dráha pro cyklisty",
 "závodní dráha",
-"Cyklistická dráha",
 "závodní dráha pro cyklisty",
 "cyklistická dráha",
 "dráha pro jízdu na kole",
@@ -7636,15 +7684,11 @@
 "bicykl"
 ],
 "leisure/track/horse_racing":[
-"dráha na dostihy",
-"dostihová aréna",
-"jezdecká dráha",
+"dráha pro dostihy",
 "koňská závodní dráha",
 "jezdecká dostihová dráha",
-"sázky",
-"dostihová dráha",
-"sázení na dostihy",
-"koňská dráha",
+"draha pro dostihy",
+"dostihova draha",
 "dostihy",
 "Dostihová dráha"
 ],
@@ -7663,14 +7707,15 @@
 "běh"
 ],
 "leisure/trampoline_park":[
+"Trampolínové centrum",
 "trampolína",
 "trampolínový park",
 "centrum trampolín",
 "skákací centrum",
 "trampolíny",
-"Trampolínová hala",
+"trampolinove centrum",
 "skákací",
-"trampolínové centrum"
+"trampolinovy park"
 ],
 "leisure/water_park":[
 "Akvapark",
@@ -7703,8 +7748,8 @@
 ],
 "man_made/antenna":[
 "tv",
-"buňka",
 "Anténa",
+"buňka",
 "rádio",
 "telefon",
 "televize",
@@ -7740,8 +7785,8 @@
 "Plocha mostu"
 ],
 "man_made/bunker_silo":[
-"sklad",
 "Silážní jáma",
+"sklad",
 "silazni jama",
 "silazni zlab",
 "silážní žlab",
@@ -7763,8 +7808,8 @@
 "man_made/ceremonial_gate":[
 "náboženská brána",
 "torii",
-"brána do svatyně",
 "Ceremoniální brána",
+"brána do svatyně",
 "ceremonialni",
 "brána",
 "paifang",
@@ -7795,8 +7840,8 @@
 "elektrické vozidlo",
 "ev",
 "dobíjecí bod",
-"dobíjecí stanoviště",
 "Dobíjecí bod EV",
+"dobíjecí stanoviště",
 "nabíjecí stanice"
 ],
 "man_made/chimney":[
@@ -7814,8 +7859,8 @@
 "nádrž",
 "čistička",
 "cov",
-"sedimentační nádrž",
 "Dosazovací nádrž",
+"sedimentační nádrž",
 "cistirna odpadnich vod",
 "čov",
 "cistirna",
@@ -7865,8 +7910,8 @@
 ],
 "man_made/cutline":[
 "holina",
-"lesní průsek",
-"Průsek"
+"Průsek",
+"lesní průsek"
 ],
 "man_made/dovecote":[
 "holuby",
@@ -7973,8 +8018,8 @@
 ],
 "man_made/groyne":[
 "groyne",
-"konstrukce",
 "Vlnolam",
+"konstrukce",
 "pobřeží",
 "zábrana",
 "pobřežní hráz",
@@ -8001,9 +8046,9 @@
 "Šachta"
 ],
 "man_made/manhole/drain":[
+"Kanalizační vpusť",
 "kryt",
 "odtok",
-"Kanalizační vpusť",
 "kanalizace",
 "kanalizační",
 "díra",
@@ -8027,9 +8072,9 @@
 "služba"
 ],
 "man_made/manhole/sewer":[
+"Šachta (kanalizace)",
 "kryt",
 "odtok",
-"Šachta (kanalizace)",
 "kanalizace",
 "kanalizační",
 "díra",
@@ -8060,9 +8105,9 @@
 "vysílač gsm",
 "televizní vysílač",
 "anténa",
+"Stožár",
 "btska",
 "mobilní vysílač",
-"Stožár",
 "vysílací věž"
 ],
 "man_made/mast/communication":[
@@ -8084,8 +8129,8 @@
 "man_made/mast/communication/mobile_phone":[
 "komunikační věž",
 "vysílací stožár",
-"věž mobilního telefonu",
 "Mobilní telefonní vysílač",
+"věž mobilního telefonu",
 "mobilní věž",
 "přenosová věž",
 "kotvený stožár",
@@ -8098,8 +8143,8 @@
 "man_made/mast/communication/radio":[
 "komunikační věž",
 "vysílací stožár",
-"rádiová věž",
 "Radiotelekomunikační antena",
+"rádiová věž",
 "přenosová věž",
 "kotvený stožár",
 "rádiový stožár",
@@ -8112,8 +8157,8 @@
 "vysílací stožár",
 "přenosová věž",
 "kotvený stožár",
-"televizní vysílač",
 "TV vysílací stožár",
+"televizní vysílač",
 "anténa",
 "televizní stožár",
 "komunikační stožár",
@@ -8130,8 +8175,8 @@
 ],
 "man_made/milk_churn_stand":[
 "stojánek na smetanu",
-"stojánek na mléko",
 "Stojánek na konvice mléka",
+"stojánek na mléko",
 "stojánek na plechovky mléka"
 ],
 "man_made/mineshaft":[
@@ -8169,8 +8214,8 @@
 ],
 "man_made/pier":[
 "kotvení",
-"ukotvení",
 "Molo",
+"ukotvení",
 "molo",
 "přístavní hráz",
 "promenáda a přístaviště",
@@ -8180,16 +8225,16 @@
 "dok",
 "kotviště",
 "molo",
-"promenáda",
 "Plovoucí molo",
+"promenáda",
 "přistání",
 "plovouci molo",
 "přístaviště"
 ],
 "man_made/pipeline":[
 "ropovod",
-"kanál",
 "Dálkové potrubí",
+"kanál",
 "rozvod",
 "roury",
 "vodovod",
@@ -8217,13 +8262,13 @@
 "přečerpávací stanice",
 "pohonné hmoty",
 "motorest",
-"nafta",
 "Přečerpávací stanice",
+"nafta",
 "benzín"
 ],
 "man_made/quay":[
-"dok",
 "Nábřeží",
+"dok",
 "přístaviště"
 ],
 "man_made/reservoir_covered":[
@@ -8245,8 +8290,8 @@
 "satelitní komunikace",
 "motorizovaná satelitní parabola",
 "pevná satelitní parabola",
-"sledování satelitní paraboly",
 "Parabolická anténa",
+"sledování satelitní paraboly",
 "satelitní anténa"
 ],
 "man_made/silo":[
@@ -8257,6 +8302,13 @@
 "zásobník",
 "špejchar",
 "Silo"
+],
+"man_made/silo/crop":[
+"obilný výtah",
+"kukuřice",
+"pšenice",
+"Silo na plodiny",
+"obilí"
 ],
 "man_made/ski_jump":[
 "skok",
@@ -8291,10 +8343,10 @@
 "Pouliční skříň"
 ],
 "man_made/street_cabinet/postal_service":[
-"listovní úschova",
-"Veřejná poštovní schránka",
-"poštovní služby",
-"poštovní doručování"
+"Pouliční poštovní skříň",
+"poulicni postovni skrin",
+"poštovní skříň",
+"postovni skrin"
 ],
 "man_made/street_cabinet/traffic_control":[
 "automatizace řízení dopravy",
@@ -8307,18 +8359,18 @@
 "monitorování dopravy"
 ],
 "man_made/street_cabinet/transport_management":[
-"automatizace řízení dopravy",
-"Skříň řízení dopravy"
+"Skříň řízení dopravy",
+"automatizace řízení dopravy"
 ],
 "man_made/street_cabinet/waste":[
+"Soukromá skříň na odpadové nádoby",
 "odpad",
 "skříň",
-"Soukromá skříň na sběr odpadu",
 "sběr odpadu"
 ],
 "man_made/surveillance":[
-"ostraha",
 "Ostraha, kamera",
+"ostraha",
 "bezpečtnostní kamera",
 "kamera",
 "dohled"
@@ -8328,8 +8380,8 @@
 "zabezpečení",
 "rozpoznávání spz",
 "rozpoznávání poznávacích značek",
-"automatické rozpoznávání poznávacích značek",
 "Sledovací kamera",
+"automatické rozpoznávání poznávacích značek",
 "stráž",
 "monitorování",
 "webová kamera",
@@ -8373,14 +8425,13 @@
 "man_made/tower":[
 "sloup",
 "pevnost",
-"věž",
 "Věž",
+"věž",
 "stožár",
 "bašta",
 "hrad"
 ],
 "man_made/tower/bell_tower":[
-"dzwonnica",
 "zvonice",
 "kostelní věž",
 "zvonový štít",
@@ -8395,8 +8446,8 @@
 "vysílací věž",
 "televizní věž",
 "věž mobilního telefonu",
-"rozhlasový stožár",
 "Komunikační věž",
+"rozhlasový stožár",
 "televizní vysílač",
 "rozhlasová věž",
 "anténa",
@@ -8455,8 +8506,8 @@
 "man_made/video_wall":[
 "obrazovka",
 "tv",
-"led stěna",
 "Digitální obrazovka",
+"led stěna",
 "televize",
 "displej",
 "videostěna"
@@ -8474,7 +8525,6 @@
 "vodovodní kohoutek",
 "Vodovodní kohoutek",
 "zdroj vody",
-"vodní bod",
 "pitná voda"
 ],
 "man_made/water_tower":[
@@ -8488,9 +8538,9 @@
 "studna",
 "pramen",
 "vodni zdroj",
+"Studna",
 "vodní zdroj",
 "pumpa",
-"Studna",
 "studánka",
 "vrt",
 "cerpadlo",
@@ -8515,8 +8565,8 @@
 "vítr"
 ],
 "man_made/windpump":[
-"čerpání vody",
 "Větrný mlýn (pumpa)",
+"čerpání vody",
 "větrná pumpa",
 "pumpování vody",
 "čerpání ropy",
@@ -8530,8 +8580,8 @@
 "vyrobce",
 "zavod",
 "podnik",
-"výrobce",
 "Továrna",
+"výrobce",
 "vyroba",
 "tovarna",
 "závod",
@@ -8539,12 +8589,9 @@
 "výroba"
 ],
 "man_made/works/brewery":[
-"chlast",
-"pivo",
-"mošt",
-"Pivovar",
-"alkohol",
-"pivko"
+"Průmyslový pivovar",
+"prumyslovy pivovar",
+"pivovar"
 ],
 "man_made/yes":[
 "Prvek vytvořený člověkem (nespecifikovaný druh)"
@@ -8626,8 +8673,8 @@
 ],
 "natural/cape":[
 "výběžek",
-"mys",
 "Mys",
+"mys",
 "pobřeží",
 "eroze",
 "záliv"
@@ -8668,8 +8715,8 @@
 "gejzír",
 "hydrotermální exploze",
 "hydrogeologie",
-"horká voda",
 "Gejzír",
+"horká voda",
 "vyvěrající pramen"
 ],
 "natural/glacier":[
@@ -8693,8 +8740,8 @@
 "vřes"
 ],
 "natural/hot_spring":[
-"geotermální",
 "Termální pramen",
+"geotermální",
 "termální jezero",
 "horký pramen",
 "termální pramen"
@@ -8710,8 +8757,8 @@
 "vrch",
 "vrcholek",
 "kopeček",
-"mont",
 "Vrchol",
+"mont",
 "kopec",
 "mount",
 "vrchol"
@@ -8746,8 +8793,8 @@
 "kámen"
 ],
 "natural/saddle":[
-"horské sedlo",
 "Sedlo",
+"horské sedlo",
 "průsmyk",
 "sedlo",
 "klíčové sedlo",
@@ -8789,8 +8836,8 @@
 "křoví",
 "kleč",
 "nízká dřevina",
-"keř",
 "Keř",
+"keř",
 "větve"
 ],
 "natural/sinkhole":[
@@ -8806,22 +8853,22 @@
 ],
 "natural/spring":[
 "Pramen",
-"pramen",
-"studna",
+"vodni pramen",
 "vodní pramen",
-"studánka"
+"studánka",
+"studanka"
 ],
 "natural/stone":[
-"balvan",
 "Samostatný kámen/balvan",
+"balvan",
 "skála",
 "kámen"
 ],
 "natural/strait":[
 "kanál",
 "průchod",
-"pasáž",
-"Úžina"
+"Úžina",
+"pasáž"
 ],
 "natural/tree":[
 "dřevo",
@@ -8843,8 +8890,8 @@
 "strom",
 "listnatý",
 "listí",
-"tvrdé dřevo",
-"Listnatý strom (stálezelený)"
+"Listnatý strom (stálezelený)",
+"tvrdé dřevo"
 ],
 "natural/tree/needleleaved":[
 "Jehličnatý strom"
@@ -8867,8 +8914,8 @@
 "natural/tree_row":[
 "pás stromů",
 "větrolam",
-"pas stromu",
 "Stromořadí",
+"pas stromu",
 "řada stromů",
 "vetrolam",
 "alej",
@@ -8948,8 +8995,8 @@
 "natural/water/oxbow":[
 "srp",
 "větev",
-"tůně",
 "Mrtvé rameno",
+"tůně",
 "pentle",
 "mrtvé",
 "odřízlé"
@@ -9055,8 +9102,8 @@
 ],
 "natural/wetland/saltmarsh":[
 "slaniska",
-"příliv",
-"Slanisko"
+"Slanisko",
+"příliv"
 ],
 "natural/wetland/string_bog":[
 "rašelina",
@@ -9068,8 +9115,8 @@
 "podmáčené"
 ],
 "natural/wetland/tidalflat":[
-"přílivový",
-"Wattové pobřeží"
+"Wattové pobřeží",
+"přílivový"
 ],
 "natural/wetland/wet_meadow":[
 "mokrá louka",
@@ -9093,8 +9140,9 @@
 "rcn"
 ],
 "noexit/yes":[
-"slepá silnice",
+"exit",
 "Konec cesty",
+"slepá silnice",
 "slepá ulice",
 "konec ulice",
 "konec silnice"
@@ -9105,8 +9153,8 @@
 "kancelářský",
 "úřad",
 "sidlo",
-"urad",
 "Kancelář",
+"urad",
 "úřadovna",
 "office",
 "sídlo",
@@ -9130,8 +9178,8 @@
 "office/advertising_agency":[
 "marketing",
 "reklamní agentura",
-"reklama",
 "Reklamní agentura",
+"reklama",
 "agentura na reklamy",
 "inzerát"
 ],
@@ -9177,9 +9225,9 @@
 "office/consulting":[
 "poradenska firma",
 "konzultační firma",
+"Poradenská kancelář",
 "kancelář poradenské firmy",
-"konzultacni firma",
-"Poradenská kancelář"
+"konzultacni firma"
 ],
 "office/coworking":[
 "kancelář",
@@ -9189,8 +9237,8 @@
 "office/diplomatic":[
 "diplomatická mise",
 "styčná mise",
-"zahraniční mise",
 "Diplomatická kancelář",
+"zahraniční mise",
 "stálá mise",
 "velvyslanectví",
 "vysoká komise",
@@ -9206,8 +9254,8 @@
 "office/diplomatic/embassy":[
 "ambasáda",
 "vyslanectví",
-"zastupitelství",
 "Ambasáda",
+"zastupitelství",
 "velvyslanectví"
 ],
 "office/diplomatic/liaison":[
@@ -9217,12 +9265,10 @@
 "Styčný úřad"
 ],
 "office/educational_institution":[
-"vzdělání",
-"univerzita",
-"výuka",
-"Vzdělávací instituce",
-"škola",
-"kancelář"
+"kancelar",
+"vzdelavaci instituce",
+"vzdělávací instituce",
+"Kancelář vzdělávací instituce"
 ],
 "office/employment_agency":[
 "Úřad práce",
@@ -9238,8 +9284,8 @@
 "plyn",
 "energetická společnost",
 "dodavatel energií",
-"energeticka spolecnost",
 "Kancelář dodavatele energií",
+"energeticka spolecnost",
 "zákaznické centrum",
 "kancelar dodavatele energii",
 "zakaznicke centrum"
@@ -9301,8 +9347,8 @@
 "ministerstvo"
 ],
 "office/government/prosecutor":[
-"okresní státní zástupce",
 "Státní zastupitelství",
+"okresní státní zástupce",
 "státní zástupce",
 "státní zastupitelství"
 ],
@@ -9317,8 +9363,8 @@
 "office/government/tax":[
 "finančák",
 "finanční úřady",
-"finance",
-"Finanční úřad"
+"Finanční úřad",
+"finance"
 ],
 "office/graphic_design":[
 "graficky design",
@@ -9355,25 +9401,22 @@
 "informační technologie",
 "it společnost",
 "it spolecnost",
-"technologická společnost",
 "Kancelář IT společnosti",
+"technologická společnost",
 "informacni technologie"
 ],
 "office/lawyer":[
 "právní zástupce",
-"advokát",
 "Právní kancelář",
+"advokát",
 "advokátní kancelář",
 "právník",
 "právní kancelář"
 ],
-"office/lawyer/notary":[
-"Notářský úřad (právník)"
-],
 "office/moving_company":[
 "stahovani",
-"stěhováci",
 "Kancelář stěhovací společnosti",
+"stěhováci",
 "stehovaci",
 "kancelar stehovaci spolecnosti",
 "stěhování"
@@ -9394,8 +9437,8 @@
 "notarsky urad",
 "pozůstalost",
 "závěti",
-"listiny",
 "Notářský úřad (ne právník)",
+"listiny",
 "podpis"
 ],
 "office/physician":[
@@ -9423,8 +9466,8 @@
 ],
 "office/quango":[
 "quasiautonomní",
-"nevládní",
 "Kancelář kvaziautonomní nevládní organizace",
+"nevládní",
 "quasi autonomní",
 "nevládnoucí",
 "organizační",
@@ -9468,8 +9511,8 @@
 "office/security":[
 "hlídač",
 "ostraha",
-"security",
 "Kancelář bezpečnostní služby / ostrahy",
+"security",
 "bezpecnostni sluzba",
 "ochranka",
 "hlidac",
@@ -9489,8 +9532,8 @@
 "Kancelář daňového poradce"
 ],
 "office/telecommunication":[
-"mobil",
 "Telekomunikační společnost",
+"mobil",
 "spoje",
 "telekomunikační společnost",
 "telekomunikace",
@@ -9508,12 +9551,9 @@
 "překladatelská agentura",
 "Překladatelská kancelář"
 ],
-"office/travel_agent":[
-"Cestovní kancelář"
-],
 "office/union":[
-"odbory",
 "Odborová organizace zaměstnanců",
+"odbory",
 "odborova organizace",
 "odborová organizace zamestnancu"
 ],
@@ -9555,9 +9595,9 @@
 ],
 "piste/downhill/halfpipe":[
 "sjezdovka",
+"Sjezdová „U“ rampa",
 "skokanský můstek",
 "skokanský",
-"Sjezdová „U“ rampa",
 "lyže",
 "sjezd",
 "snowboard"
@@ -9575,8 +9615,8 @@
 "bruslení",
 "sjezdovka",
 "kluziště",
-"ledová dráha",
 "Bruslařská dráha (led)",
+"ledová dráha",
 "brusle"
 ],
 "piste/nordic":[
@@ -9618,8 +9658,8 @@
 "piste/sleigh":[
 "sjezdovka",
 "psí spřežení",
-"husky",
 "Zimní dráha pro spřežení",
+"husky",
 "kůň",
 "skijoring",
 "sáně",
@@ -9715,9 +9755,9 @@
 "samosprávné město"
 ],
 "place/square":[
+"Náměstí",
 "náměstíčko",
 "rink",
-"Náměstí",
 "prostor",
 "čtverec",
 "náměstí"
@@ -9741,9 +9781,9 @@
 "vesnice",
 "obec",
 "malá obec",
+"Vesnice",
 "malá vesnice",
 "dědina",
-"Vesnice",
 "osada",
 "sídlo",
 "venkov",
@@ -9751,18 +9791,16 @@
 "víska"
 ],
 "playground":[
-"pískoviště",
+"dětské hřiště",
 "vybavení hřiště",
-"houpačky",
-"skluzavky",
-"prolézačky",
-"hrazdy",
-"kolotoče",
-"klouzačky",
+"prvek",
 "výbava",
-"žebříky",
-"Vybavení dětského hřiště",
-"hračky"
+"detske hriste",
+"vybaveni",
+"Hrací prvek dětského hřiště",
+"prvky",
+"vybava",
+"hraci prvek"
 ],
 "playground/activitypanel":[
 "nástěnná deska",
@@ -9770,13 +9808,13 @@
 "panel na aktivity",
 "nástěnná hra",
 "aktivity panel",
-"panel na hraní",
 "Panel herních aktivit",
+"panel na hraní",
 "tabule na aktivity"
 ],
 "playground/aerialrotator":[
-"cyklóna",
 "Závěsný kolotoč",
+"cyklóna",
 "zavěšené kolo",
 "otočný věšák",
 "točení ve vzduchu"
@@ -9786,14 +9824,14 @@
 "kladina",
 "kláda",
 "rovnováha",
-"kláda ve vzduchu",
 "Kladina",
+"kláda ve vzduchu",
 "balanc",
 "zavěšená kláda"
 ],
 "playground/basketrotator":[
-"košík",
 "Kolotoč (koš)",
+"košík",
 "kolotoč",
 "košíkový kolotoč",
 "koš",
@@ -9817,8 +9855,8 @@
 ],
 "playground/climbingframe":[
 "žebřík",
-"pyramida z lanové sítě",
 "Prolézačka",
+"pyramida z lanové sítě",
 "opičí dráha",
 "lanová hrací zařízení",
 "lanový herní prvek",
@@ -9843,9 +9881,9 @@
 "lezecka stena",
 "hrací lezecká stěna",
 "lezecká stěna",
+"Dětská lezecká stěna",
 "detska lezecka stena",
 "stěna na lezení",
-"Dětská lezecká stěna",
 "lezeni",
 "hraci lezecka stena"
 ],
@@ -9858,15 +9896,17 @@
 ],
 "playground/funnel_ball":[
 "trychtýř na funnel ball",
-"trychtýř pro funnel ball",
 "Trychtýř na funnel ball",
+"trychtýř pro funnel ball",
 "koš na funnel ball"
 ],
 "playground/hopscotch":[
 "místo na skákacího panáka",
+"skakani panaka",
+"skákání panáka",
 "místo na skákání panáka",
-"skákací panák",
-"Skákací panák"
+"Skákací panák",
+"skákací panák"
 ],
 "playground/horizontal_bar":[
 "visutá hrazda",
@@ -9875,9 +9915,11 @@
 "Hrazda na hraní"
 ],
 "playground/map":[
-"Malovaná mapa hřiště",
-"malovaná mapa na dětské hřiště",
-"kreslená mapa na dětské hřiště"
+"kreslená mapa na dětském hřišti",
+"mapa na hristi",
+"malovaná mapa na dětském hřišti",
+"Malovaná mapa na zemi",
+"mapa na hřišti"
 ],
 "playground/playhouse":[
 "dětské hřiště",
@@ -9890,8 +9932,8 @@
 "děti"
 ],
 "playground/pump":[
-"pumpa pro deti",
 "Vodní pumpa na hraní",
+"pumpa pro deti",
 "detska pumpa",
 "vodni pumpa",
 "hraci vodni pumpa",
@@ -9900,13 +9942,18 @@
 "hrací vodni pumpa"
 ],
 "playground/roundabout":[
-"Kolotoč",
-"točidlo"
+"maly plosinovy kolotoc",
+"plosinovy kolotoc",
+"kolotoč",
+"plošinový kolotoč",
+"kolotoc",
+"točidlo",
+"Malý plošinový kolotoč"
 ],
 "playground/sandpit":[
 "pískoviště",
-"bábovičky",
 "Pískoviště",
+"bábovičky",
 "hřiště",
 "písek",
 "děti"
@@ -9929,8 +9976,8 @@
 "playground/slide":[
 "klužačka",
 "kluzavka",
-"klouzačka",
-"Skluzavka"
+"Skluzavka",
+"klouzačka"
 ],
 "playground/splash_pad":[
 "voda",
@@ -9954,8 +10001,14 @@
 "děti"
 ],
 "playground/structure":[
-"Prolézačka / větší objekt",
-"prolézačky"
+"prolezacka",
+"prolézačky",
+"hrací prvek",
+"Sestava (větší objekt)",
+"houpacka",
+"houpačka",
+"skluzavka",
+"hraci prvek"
 ],
 "playground/swing":[
 "visutá houpačka",
@@ -9972,8 +10025,8 @@
 "přístřešek na hřisti",
 "detsky pristresek",
 "pristresek pro dospivajici",
-"pristresek pro teenagery",
 "Přístřešek pro děti",
+"pristresek pro teenagery",
 "přístřešek pro dospívající",
 "pristresek pro deti",
 "dětský přístřešek",
@@ -9981,8 +10034,8 @@
 "přístřešek pro teenagery"
 ],
 "playground/tetherball":[
-"sloupek na tetherball",
 "Tyč na tetherball",
+"sloupek na tetherball",
 "sloup na tetherball",
 "sloup na indiánský tenis",
 "tyč na tetherball"
@@ -10011,8 +10064,8 @@
 "vodní hračka",
 "stříkačka",
 "vodní houpačka",
-"hrací vodní prvek",
 "Vodní prvek na hraní (nespecifikováno)",
+"hrací vodní prvek",
 "vědro",
 "vodní kanál"
 ],
@@ -10103,18 +10156,30 @@
 "pv modul",
 "solarni panel"
 ],
+"power/generator/method/solar_thermal_collector":[
+"solární ohřívač vody",
+"vytápění",
+"solární panel pro ohřev vody",
+"Solární termální kolektor"
+],
+"power/generator/method/solar_thermal_collector/location/roof":[
+"solární ohřívač vody",
+"vytápění",
+"solární panel pro ohřev vody",
+"Střešní solární termální kolektor"
+],
 "power/generator/source/hydro":[
 "vodní elektřina",
 "generátor",
 "peltonova turbína",
-"přehrada",
 "Vodní turbína",
+"přehrada",
 "francisova turbína",
 "kaplanova turbína"
 ],
 "power/generator/source/nuclear":[
-"jaderný",
 "Jaderný reaktor",
+"jaderný",
 "nukleární",
 "reaktor",
 "generátor",
@@ -10124,16 +10189,16 @@
 "generátor",
 "vítr",
 "větrný mlýn",
-"turbína",
-"Větrná turbína"
+"Větrná turbína",
+"turbína"
 ],
 "power/line":[
 "elektrické vedení",
 "velmi vysoké napětí",
 "zvláště vysoké napětí",
 "energetika",
-"přenosová soustava",
-"Elektrické vedení vyššího napětí (nad 50 kV)"
+"Elektrické vedení vyššího napětí (nad 50 kV)",
+"přenosová soustava"
 ],
 "power/minor_line":[
 "elektrické vedení",
@@ -10176,13 +10241,13 @@
 "vodní turbína",
 "vodni elektrarna",
 "příliv",
-"elektrarna",
-"Vodní elektrárna"
+"Vodní elektrárna",
+"elektrarna"
 ],
 "power/plant/source/nuclear":[
+"Jaderná elektrárna",
 "jaderna elektrarna",
 "elektrárna",
-"Jaderná elektrárna",
 "atomová",
 "atomova",
 "štěpná",
@@ -10202,15 +10267,15 @@
 "power/plant/source/solar":[
 "solární",
 "elektřina",
-"energie",
 "Solární elektrárna",
+"energie",
 "solární elektřina",
 "solární elektrárna"
 ],
 "power/plant/source/solar/photovoltaic":[
 "velkoplošná fve",
+"Solární fotovoltaická elektrárna",
 "fve",
-"Solární farma",
 "solární park",
 "solární elektrárna",
 "velkoplošná solární elektrárna",
@@ -10233,13 +10298,13 @@
 "větrná elektrárna",
 "větrná elektrárenská",
 "větrné mlýny",
-"větrný park",
-"Větrná elektrárna"
+"Větrná elektrárna",
+"větrný park"
 ],
 "power/pole":[
 "sloupový stožár",
-"sloup el.vedení",
 "Sloup elektrického vedení",
+"sloup el.vedení",
 "sloup elektrického vedení",
 "elektrický sloup"
 ],
@@ -10251,8 +10316,8 @@
 ],
 "power/substation":[
 "transformační stanice",
-"napětí",
 "Transformátorová stanice",
+"napětí",
 "transformátorová stanice",
 "transformátor"
 ],
@@ -10274,19 +10339,12 @@
 "power/transformer":[
 "transformátorová stanice",
 "adaptér",
-"transformátor",
 "Transformátor",
+"transformátor",
 "elektrická stanice"
 ],
 "public_transport/platform":[
-"zastávka",
-"prostor zastávky",
-"nastupiste",
-"místo pro čekání",
-"Nástupiště",
-"zastavka",
-"nástupní hrana",
-"nastupni hrana"
+"Nástupiště"
 ],
 "public_transport/platform/aerialway":[
 "veřejná doprava",
@@ -10312,8 +10370,8 @@
 "nástupní hrana",
 "autobusové nástupiště",
 "veřejná doprava",
-"vhd",
 "Autobusové nástupiště",
+"vhd",
 "hd",
 "hromadná doprava"
 ],
@@ -10340,8 +10398,8 @@
 "mhd",
 "zastávka tramvaje a autobusu",
 "stanoviště",
-"autobus",
 "Zastávka tramvaje a autobusu",
+"autobus",
 "tramvaj",
 "veřejná doprava",
 "veřejná hromadná doprava",
@@ -10357,8 +10415,8 @@
 "dok",
 "trajekt",
 "molo",
-"doprava",
 "Nástupiště přívozu",
+"doprava",
 "přeprava",
 "loď",
 "plošina",
@@ -10378,8 +10436,8 @@
 "kolejnice",
 "přeprava",
 "lehká kolej",
-"veřejná přeprava",
-"Nástupiště lehké dráhy"
+"Nástupiště lehké dráhy",
+"veřejná přeprava"
 ],
 "public_transport/platform/light_rail_point":[
 "Stanice lehké dráhy"
@@ -10431,8 +10489,8 @@
 "železniční nástupiště",
 "nástupiště vlaku",
 "hd",
-"hromadná doprava",
-"Železniční nástupiště"
+"Železniční nástupiště",
+"hromadná doprava"
 ],
 "public_transport/platform/train_point":[
 "Vlaková zastávka/nástupiště"
@@ -10496,46 +10554,25 @@
 "veřejná doprava",
 "vhd",
 "trolejbusová zastávka",
-"zastávka mhd zastávka",
 "Trolejbusová zastávka",
+"zastávka mhd zastávka",
 "hd",
 "zastávka trolejbusu",
 "hromadná doprava"
 ],
 "public_transport/platform_point":[
-"veřejná doprava",
-"zastávka",
-"bus",
-"prostor zastávky",
-"městská hromadná doprava",
-"Zastávka veřejné dopravy",
-"mhd",
-"místo pro čekání",
-"nástupiště",
-"autobus",
-"tram",
-"hromadná doprava"
+"Zastávka veřejné dopravy"
 ],
 "public_transport/station":[
-"veřejná doprava",
-"Stanice veřejné dopravy",
-"autobusové nádraží",
-"stanice",
-"železniční stanice",
-"vlaková stanice",
-"stanice hromadné dopravy",
-"mhd",
-"nádraží",
-"nástupiště",
-"hromadná doprava"
+"Stanice veřejné dopravy"
 ],
 "public_transport/station_aerialway":[
 "veřejná doprava",
 "letecká dráha",
 "doprava",
 "nádraží",
-"terminál",
 "Stanice lanovky",
+"terminál",
 "přeprava",
 "lanovka",
 "veřejná přeprava"
@@ -10557,8 +10594,8 @@
 "lodní",
 "přístav",
 "terminál",
-"loď",
 "Terminál přívozu / trajektu",
+"loď",
 "přístaviště"
 ],
 "public_transport/station_light_rail":[
@@ -10597,8 +10634,8 @@
 "doprava",
 "terminál",
 "přeprava",
-"železnice",
 "Stanice metra",
+"železnice",
 "veřejná přeprava"
 ],
 "public_transport/station_train":[
@@ -10629,8 +10666,8 @@
 "zastávka na znamení",
 "nástupiště železnice",
 "železniční nástupiště",
-"nástupiště vlaku",
 "Železniční zastávka",
+"nástupiště vlaku",
 "hd",
 "malá stanice",
 "hromadná doprava"
@@ -10647,8 +10684,8 @@
 "tramvaj",
 "dráha",
 "šalina",
-"nádraží",
 "Tramvajová stanice",
+"nádraží",
 "veřejná přeprava"
 ],
 "public_transport/station_trolleybus":[
@@ -10663,8 +10700,8 @@
 "trolley",
 "veřejná doprava",
 "mhd terminál",
-"vhd",
 "Trolejbusová stanice/terminál",
+"vhd",
 "stanice",
 "trolejbusové nádraží",
 "stanice mhd",
@@ -10687,27 +10724,7 @@
 "hromadná doprava"
 ],
 "public_transport/stop_position":[
-"bus",
-"lanová dráha",
-"městská hromadná doprava",
-"místo zastavení hromadné dopravy",
-"pozice zastavení vlaku",
-"Místo zastavení veřejné dopravy",
-"trolejbus",
-"mhd",
-"autobus",
-"zastavení autobusu",
-"tramvaj",
-"podzemka",
-"vhd",
-"stanice",
-"metro",
-"podzemní dráha",
-"tram",
-"hd",
-"zastavení linky",
-"hromadná doprava",
-"lanovka"
+"Místo zastavení veřejné dopravy"
 ],
 "public_transport/stop_position_aerialway":[
 "lanová dráha",
@@ -10767,9 +10784,9 @@
 "místo zastavení nadzemky",
 "pozice zastavení jednokolejky",
 "monorail",
+"Zastávka jednokolejky",
 "místo zastavení jednokolejky",
 "jednokolejka",
-"Zastávka jednokolejky",
 "zastavení vlaku monorailu",
 "vhd",
 "stanice",
@@ -10797,8 +10814,8 @@
 "public_transport/stop_position_tram":[
 "tramvajová zastávka",
 "zastávka tramvaje",
-"zastavka tramvaje",
 "Místo zastavení tramvaje",
+"zastavka tramvaje",
 "místo zastavení šaliny",
 "šmirgl",
 "misto zastaveni tramvaje",
@@ -10810,9 +10827,9 @@
 "tram"
 ],
 "public_transport/stop_position_trolleybus":[
+"Místo zastavení trolejbusu",
 "zastávka",
 "pozice zastavení trolejbusu",
-"Místo zastavení trolejbusu",
 "trolej bus",
 "trolejbus",
 "misto zastaveni trolejbusu",
@@ -10823,10 +10840,11 @@
 "Železniční prvek"
 ],
 "railway/abandoned":[
-"opuštěná železnice",
-"opuštěná trať",
-"nepoužívaná",
-"Opuštěná nebo zrušená železnice"
+"zbytky trati",
+"pozůstatky železnice",
+"bývalá železniční trať",
+"Viditelné pozůstatky železniční trati",
+"zbytky železnice"
 ],
 "railway/buffer_stop":[
 "stát",
@@ -10870,13 +10888,10 @@
 "lanovka",
 "ozubnice"
 ],
-"railway/halt":[
-"Železniční zastávka"
-],
 "railway/level_crossing":[
+"Železniční přejezd",
 "přejezd",
 "železniční přejezd",
-"Železniční přejezd",
 "železniční přechod",
 "přechod",
 "železnice",
@@ -10901,8 +10916,8 @@
 "vláček",
 "malý vlak",
 "okruh vláčku",
-"miniaturní vlak",
 "Kolej miniaturní železnice",
+"miniaturní vlak",
 "vláčky",
 "atrakce",
 "železniční atrakce",
@@ -10933,9 +10948,9 @@
 "railway/narrow_gauge":[
 "úzkokolejná dráha",
 "úzká kolej",
+"Kolej úzkorozchodné dráhy",
 "úzkorozchodná dráha",
 "jhmd",
-"Kolej úzkorozchodné dráhy",
 "úzkokolejka",
 "úzkokolejná trať",
 "vlečka",
@@ -10947,15 +10962,20 @@
 "místní dráha",
 "hromadná doprava"
 ],
-"railway/platform":[
-"Železniční nástupiště"
+"railway/platform_edge":[
+"okraj",
+"hrana",
+"Hrana nástupiště",
+"okraj nástupiště",
+"nástupní hrana",
+"hrana nástupiště"
 ],
 "railway/preserved":[
 "zachovalá železnice",
 "historická dráha",
+"Historická železnice",
 "dráha",
 "turistická dráha",
-"Historická železnice",
 "turistická železnice",
 "železniční dráha",
 "železnice"
@@ -10968,9 +10988,9 @@
 "železniční dráha",
 "železniční trať",
 "kolej",
+"Kolej železnice",
 "koleje",
 "konvenční železnice",
-"Kolej železnice",
 "železnice"
 ],
 "railway/rail/highspeed":[
@@ -10996,20 +11016,17 @@
 "křížení kolejí"
 ],
 "railway/signal":[
-"semafor",
 "Proměnné návěstidlo",
+"semafor",
 "světlo"
 ],
 "railway/signal_box":[
 "železniční zabezpečovací zařízení",
-"Návěstidlo",
 "staniční zabezpečovací zařízení",
 "stavědlo",
 "budova stavědla",
-"návěst"
-],
-"railway/station":[
-"Železniční stanice"
+"návěst",
+"Stavědlo"
 ],
 "railway/subway":[
 "metropolitní dráha",
@@ -11026,8 +11043,8 @@
 "systém metra"
 ],
 "railway/subway_entrance":[
-"vestibul",
 "Vstup do metra",
+"vestibul",
 "metro",
 "vlez do metra",
 "vstup do metra",
@@ -11050,8 +11067,8 @@
 ],
 "railway/tram":[
 "tramvajová trať",
-"tramvajová dráha",
 "Tramvajová kolej",
+"tramvajová dráha",
 "šmirgl",
 "železnice",
 "tramvaj",
@@ -11098,8 +11115,8 @@
 ],
 "railway/yard":[
 "nákladní vlakové nádraží",
-"nádraží",
 "Seřaďovací nádraží",
+"nádraží",
 "kolejiště",
 "zastávka nákladního auta",
 "nákladní nádraží"
@@ -11112,8 +11129,8 @@
 "vztah"
 ],
 "roller_coaster/station":[
-"atrakce",
 "Stanice horské dráhy",
+"atrakce",
 "zábavní park"
 ],
 "roller_coaster/support":[
@@ -11122,19 +11139,11 @@
 "Pilíř horské dráhy"
 ],
 "roller_coaster/track":[
-"dráha",
 "Dráha horské dráhy",
+"dráha",
 "horská dráha",
 "horska draha",
 "draha"
-],
-"route/ferry":[
-"trajekt",
-"linka",
-"trasa",
-"Trasa trajektu",
-"loď",
-"trasa trajektu"
 ],
 "seamark":[
 "Plavební objekt"
@@ -11146,8 +11155,8 @@
 "iala"
 ],
 "seamark/beacon_lateral":[
-"boční maják",
 "Maják v kanálu",
+"boční maják",
 "maják boční",
 "značka kanálu",
 "iala",
@@ -11167,8 +11176,8 @@
 "bóje boční",
 "značka kanálu",
 "iala",
-"cevni",
 "Zelená bóje",
+"cevni",
 "boční značka",
 "boční bóje"
 ],
@@ -11176,14 +11185,27 @@
 "bóje boční",
 "značka kanálu",
 "iala",
-"cevni",
 "Červená bóje",
+"cevni",
 "boční značka",
 "boční bóje"
 ],
 "seamark/mooring":[
 "kotveni",
 "Kotvení"
+],
+"seamark/offshore_platform":[
+"těžba ropy",
+"Pobřežní plošina",
+"mořská plošina",
+"plyn",
+"vrtná plošina",
+"vrtná věž",
+"ropa",
+"těžba plynu",
+"těžařská plošina",
+"námořní plošina",
+"plošina"
 ],
 "shop":[
 "obchod",
@@ -11201,8 +11223,8 @@
 "hnojiva",
 "zemědělské stroje",
 "zemědělské vstupy",
-"zemědělské nástroje",
-"Prodejna farmářských potřeb"
+"Prodejna farmářských potřeb",
+"zemědělské nástroje"
 ],
 "shop/alcohol":[
 "alkoholicke napoje",
@@ -11317,8 +11339,8 @@
 ],
 "shop/bbq":[
 "obchod s potřebami na grilování",
-"potřeby na barbecue",
 "Potřeby na grilování",
+"potřeby na barbecue",
 "barbecue obchod",
 "prodejna grilů",
 "prodej grilů",
@@ -11399,16 +11421,16 @@
 "postel",
 "lůžkoviny",
 "lehátko",
+"Obchod s postelemi / matracemi",
 "peřiny",
 "pokrývka",
-"Obchod s postelemi / matracemi",
 "ložnice"
 ],
 "shop/beverages":[
 "kofola",
 "nápoje",
-"obchod s nápoji",
 "Prodejna nápojů",
+"obchod s nápoji",
 "občerstvení",
 "pití",
 "nealkoholické nápoje",
@@ -11416,9 +11438,9 @@
 "malinovka"
 ],
 "shop/bicycle":[
+"Cykloprodejna",
 "obchod s koly",
 "cykloprodejna",
-"Cykloprodejna",
 "horská kola",
 "cyklistika",
 "kola",
@@ -11458,8 +11480,8 @@
 "pivovarnické potřeby",
 "vinařské potřeby",
 "vinarske potreby",
-"pivovarnicke potreby",
 "Obchod s potřebami pro výrobu piva/vína",
+"pivovarnicke potreby",
 "pivovar"
 ],
 "shop/butcher":[
@@ -11474,8 +11496,8 @@
 "čočka",
 "foto",
 "film",
-"kamera",
-"Prodejna kamer"
+"Prodejna kamer",
+"kamera"
 ],
 "shop/candles":[
 "svíčka",
@@ -11492,8 +11514,8 @@
 "cigareta",
 "konopí",
 "marihuana",
-"tráva",
 "Prodejna konopí",
+"tráva",
 "kořenáč",
 "weed"
 ],
@@ -11508,8 +11530,8 @@
 "shop/car/second_hand":[
 "ojetá auta",
 "ojeté",
-"ojeta auta",
 "Autobazar",
+"ojeta auta",
 "ojete",
 "autobazar",
 "automobil"
@@ -11519,8 +11541,8 @@
 "auto",
 "automobilový",
 "obchod s nahradnimi dily",
-"autodily",
 "Obchod s náhradními díly pro auta",
+"autodily",
 "náhradní díly",
 "nahradni dily",
 "autodíly"
@@ -11528,8 +11550,8 @@
 "shop/car_repair":[
 "servis",
 "pneuservis",
-"autoservis",
 "Autoopravna",
+"autoservis",
 "opravna aut",
 "opravna"
 ],
@@ -11542,8 +11564,8 @@
 "shop/carpet":[
 "koberec",
 "krytiny",
-"podlahové",
 "Prodejna koberců",
+"podlahové",
 "koberce",
 "krytina",
 "podlahový"
@@ -11603,9 +11625,9 @@
 "butik"
 ],
 "shop/clothes/second_hand":[
+"Second-hand oblečení",
 "kalhoty",
 "košile",
-"Second-hand oblečení",
 "oděvy",
 "šaty",
 "halenky",
@@ -11660,16 +11682,16 @@
 "nevěsta",
 "družička",
 "svatební šaty",
-"svatební oblek",
-"Obchod se svatebním oblečením"
+"Obchod se svatebním oblečením",
+"svatební oblek"
 ],
 "shop/clothes/workwear":[
 "bezpečná obuv",
 "bezpecna odev",
 "pracovni odevy",
 "remeslnik",
-"bezpecnostni obuv",
 "Obchod s pracovními oděvy",
+"bezpecnostni obuv",
 "pracovní oděvy",
 "řemeslník",
 "obchod s pracovnimi odevy",
@@ -11722,8 +11744,8 @@
 "krám",
 "kram",
 "smíšené zboží",
-"obchod s potravinami",
 "Obchod se smíšeným zbožím / Potraviny",
+"obchod s potravinami",
 "večerka",
 "obchod se smisenym zbozim",
 "vecerka",
@@ -11743,8 +11765,8 @@
 ],
 "shop/cosmetics":[
 "makeup",
-"parfumerie",
 "Obchod s kosmetikou",
+"parfumerie",
 "parfém",
 "kosmetický",
 "kosmetika"
@@ -11782,8 +11804,8 @@
 "potah",
 "ubrusy",
 "závěs",
-"závěsy",
 "Obchod se závěsy",
+"závěsy",
 "potahy",
 "ubrus"
 ],
@@ -11807,8 +11829,8 @@
 "shop/department_store":[
 "obchodní středisko",
 "obchodní dům",
-"nákupní centrum",
 "Obchodní dům",
+"nákupní centrum",
 "nákupní středisko"
 ],
 "shop/doityourself":[
@@ -11863,8 +11885,8 @@
 "televize",
 "elektronika",
 "video",
-"spotřebič",
 "Obchod s elektronikou",
+"spotřebič",
 "domácí kino",
 "dvd",
 "reproduktor",
@@ -11926,8 +11948,8 @@
 "Obchod s módním zbožím"
 ],
 "shop/fashion_accessories":[
-"modni doplnky",
 "Obchod s módními doplňky",
+"modni doplnky",
 "klobouk",
 "šperky",
 "sluneční brýle",
@@ -12047,12 +12069,12 @@
 "hraní rolí",
 "obchod s hrami",
 "miniaturní válečná hra",
-"karetní hra",
-"Deskové hry"
+"Deskové hry",
+"karetní hra"
 ],
 "shop/garden_centre":[
-"zahradní centrum",
 "Zahradnictví",
+"zahradní centrum",
 "zahradnické středisko",
 "zahradnictví",
 "zahradnické centrum"
@@ -12095,9 +12117,9 @@
 ],
 "shop/greengrocer":[
 "zelenina",
+"Obchod s ovocem a zeleninou",
 "zelinar",
 "zelinářství",
-"Obchod s ovocem a zeleninou",
 "ovoce",
 "zelinarstvi",
 "zelinář",
@@ -12112,9 +12134,9 @@
 "stroje",
 "rotavátory",
 "zahradni technika",
+"Obchod se zahradní technikou",
 "nářadí",
 "elektricke naradi",
-"Obchod se zahradní technikou",
 "akumulátorové nářadí",
 "travnik",
 "akumulatorove naradi",
@@ -12139,8 +12161,8 @@
 "sekacky"
 ],
 "shop/hairdresser":[
-"vizážista",
 "Kadeřnictví",
+"vizážista",
 "holič",
 "kadeřník",
 "kadeřnictví"
@@ -12282,8 +12304,8 @@
 "nádobí"
 ],
 "shop/hunting":[
-"obchod s mysliveckymi potrebami",
 "Obchod s mysliveckými potřebami",
+"obchod s mysliveckymi potrebami",
 "luky",
 "lovecké potřeby",
 "kulky",
@@ -12386,8 +12408,8 @@
 "useň",
 "usňové",
 "kožený",
-"kozene zbozi",
 "Obchod s koženým zbožím",
+"kozene zbozi",
 "kůže",
 "usňový",
 "kožená"
@@ -12396,8 +12418,8 @@
 "zářivkové osvětlení",
 "led diody",
 "svítidla",
-"žárovky",
 "Prodejna osvětlení",
+"žárovky",
 "lampy"
 ],
 "shop/locksmith":[
@@ -12418,8 +12440,8 @@
 ],
 "shop/mall":[
 "obchodní středisko",
-"nákupní centrum",
 "Obchodní centrum",
+"nákupní centrum",
 "nákupní středisko",
 "obchody"
 ],
@@ -12505,9 +12527,9 @@
 ],
 "shop/motorcycle":[
 "motorky",
+"Obchod s motocykly",
 "prodejna motorek",
 "motocykly",
-"Obchod s motocykly",
 "prodejna motocyklů"
 ],
 "shop/motorcycle_repair":[
@@ -12537,9 +12559,9 @@
 "hudební nástroj",
 "muzika",
 "hudební nástroje",
+"Obchod s hudebními nástroji",
 "hudebniny",
-"hudebník",
-"Obchod s hudebními nástroji"
+"hudebník"
 ],
 "shop/newsagent":[
 "obchod s časopisy",
@@ -12579,9 +12601,9 @@
 "nutraceutika",
 "potravinove doplnky",
 "vitamíny",
+"Obchod s doplňky výživy",
 "výživové doplňky",
-"léky",
-"Obchod s doplňky výživy"
+"léky"
 ],
 "shop/nuts":[
 "pistácie",
@@ -12592,9 +12614,9 @@
 "mandle",
 "vlašské ořechy",
 "kokosy",
+"Obchod s oříšky",
 "ořechy",
 "arašídy",
-"Obchod s oříšky",
 "pekanové ořechy",
 "brazilské ořechy",
 "sušené ovoce",
@@ -12642,9 +12664,9 @@
 "nátěr"
 ],
 "shop/party":[
+"Párty zboží",
 "balonky",
 "dekorace",
-"Párty zboží",
 "kostýmy",
 "pozvánky"
 ],
@@ -12687,8 +12709,8 @@
 "digitál",
 "vyvolávání",
 "digitální",
-"ateliér",
 "Fotografický obchod",
+"ateliér",
 "video",
 "film",
 "objektiv",
@@ -12704,8 +12726,8 @@
 ],
 "shop/piercing":[
 "piercing",
-"piercingový salón",
 "Piercingové studio",
+"piercingový salón",
 "piercingové služby"
 ],
 "shop/pottery":[
@@ -12742,8 +12764,8 @@
 "pyrotechnika",
 "dělbuch",
 "ohňostroj",
-"zábavná pyrotechnika",
-"Obchod s pyrotechnikou"
+"Obchod s pyrotechnikou",
+"zábavná pyrotechnika"
 ],
 "shop/radiotechnics":[
 "antény",
@@ -12783,16 +12805,16 @@
 "pujcovani",
 "zápůjčky",
 "pronájem",
+"Půjčovna",
 "pujcovna",
 "pronajem",
-"Půjčovna",
 "zapujcky",
 "výpůjčkyvypujcky"
 ],
 "shop/repair":[
 "servis",
-"oprava rozbitého",
 "Opravna",
+"oprava rozbitého",
 "opravář",
 "dílna",
 "náhradní díly",
@@ -12805,12 +12827,12 @@
 "rýžový obchod"
 ],
 "shop/scuba_diving":[
-"potapěč",
 "potápění",
 "scuba",
-"potápěč",
-"šnorchl",
-"Potřeby pro potápěče"
+"přístrojové potápění",
+"Obchod s potřebami pro přístrojové potápění",
+"potapeni",
+"pristrojove potapeni"
 ],
 "shop/seafood":[
 "rybárna",
@@ -12871,9 +12893,9 @@
 "kurkuma",
 "obchod s korenim",
 "koření",
+"Obchod s kořením",
 "chilli",
-"kari",
-"Obchod s kořením"
+"kari"
 ],
 "shop/sports":[
 "vybaveni pro sport",
@@ -12895,8 +12917,8 @@
 "obchod s kancelarskymi potrebami",
 "papírnictví",
 "papír",
-"kancelarske potreby",
-"Obchod s kancelářskými potřebami"
+"Obchod s kancelářskými potřebami",
+"kancelarske potreby"
 ],
 "shop/storage_rental":[
 "uskladnění",
@@ -12916,8 +12938,8 @@
 "shop/supermarket":[
 "řetězec",
 "centrum",
-"obchodní dům",
 "Supermarket",
+"obchodní dům",
 "tržiště",
 "nákupní",
 "trh",
@@ -12963,8 +12985,8 @@
 "krejčířství",
 "krejčová",
 "švadlenka",
-"švadlena",
-"Krejčovství"
+"Krejčovství",
+"švadlena"
 ],
 "shop/tattoo":[
 "tatér",
@@ -12973,9 +12995,9 @@
 "tattoo",
 "tetování",
 "tatérství",
+"Tetovací salón",
 "kérka",
 "piercing",
-"Tetovací salón",
 "pírsing",
 "kérky"
 ],
@@ -12983,8 +13005,8 @@
 "čaje",
 "čaj",
 "čajírna",
-"čajovna",
-"Obchod s čajem"
+"Obchod s čajem",
+"čajovna"
 ],
 "shop/telecommunication":[
 "operátor",
@@ -12998,9 +13020,9 @@
 "síť",
 "mobilní operátor",
 "kabelova televize",
+"Obchod s telekomunikačními službami",
 "operator",
 "opticky internet",
-"Obchod s telekomunikačními službami",
 "telefon",
 "mobilni operator",
 "komunikace"
@@ -13013,8 +13035,8 @@
 "jízdenka",
 "vstupenky",
 "vstupenka",
-"pokladna",
 "Prodejna vstupenek / jízdenek",
+"pokladna",
 "lístky",
 "předprodej",
 "obchod se vstupenkami",
@@ -13077,9 +13099,9 @@
 "rucni naradi"
 ],
 "shop/toys":[
+"Hračkářství",
 "prodejna hraček",
 "prodejna hracek",
-"Hračkářství",
 "hracky",
 "obchod s hračkami",
 "hračky",
@@ -13104,10 +13126,10 @@
 "shop/travel_agency":[
 "cestovní kancelář",
 "dovolená",
+"Cestovní kancelář",
 "cestovní agentura",
 "cestovni agenturacestovka",
-"cestování",
-"Cestovní kancelář"
+"cestování"
 ],
 "shop/trophy":[
 "rytiny",
@@ -13141,8 +13163,8 @@
 "vysavat",
 "vysavace",
 "vysavac",
-"vysavače",
 "Obchod s vysavači",
+"vysavače",
 "vysavač",
 "vysávat",
 "lux",
@@ -13171,8 +13193,8 @@
 ],
 "shop/video_games":[
 "počítačové hry",
-"video hry",
 "Obchod s videohrami",
+"video hry",
 "game",
 "videohry",
 "games",
@@ -13198,8 +13220,8 @@
 "plavky",
 "plavecke potreby",
 "vodní sporty",
-"plavce",
 "Obchod s plaveckými potřebami",
+"plavce",
 "plavec",
 "vodní pólo",
 "plavecké",
@@ -13212,8 +13234,8 @@
 "shop/weapons":[
 "střelivo",
 "army",
-"puška",
 "Zbraně a střelivo",
+"puška",
 "nože",
 "nůž",
 "zbraně",
@@ -13231,8 +13253,8 @@
 "vlasy",
 "paruka",
 "příčesky",
-"obchod s parukami",
 "Paruky",
+"obchod s parukami",
 "vlásenkář",
 "paruky",
 "příčesek",
@@ -13251,8 +13273,8 @@
 "vino",
 "vinoteka",
 "obchod s vinem",
-"vinotéka",
-"Obchod s vínem"
+"Obchod s vínem",
+"vinotéka"
 ],
 "shop/yes":[
 "Obchod (nespecifikovaný druh)"
@@ -13263,9 +13285,9 @@
 "telecom/data_center":[
 "úložiště počítačových systémů",
 "informační technologie",
+"Datové centrum",
 "serverovna",
 "telekomunikace",
-"Datové centrum",
 "datacentrum",
 "serverová firma",
 "datove centrum",
@@ -13310,8 +13332,8 @@
 "prázdniny",
 "ubytovani",
 "pronajem",
-"prázdninový byt",
 "Byt/apartmán k pronájmu",
+"prázdninový byt",
 "ubytování na noc"
 ],
 "tourism/aquarium":[
@@ -13328,8 +13350,8 @@
 "freska",
 "socha",
 "umělecké dílo",
-"malba",
 "Umělecké dílo",
+"malba",
 "sousoší",
 "plastika",
 "architektonické dílo"
@@ -13383,17 +13405,20 @@
 ],
 "tourism/camp_pitch":[
 "obytný vůz",
-"Místo pro stan/karavan",
-"stan"
-],
-"tourism/camp_site":[
-"obytný vůz",
-"tábor",
-"Tábořiště",
-"tábořiště",
 "stan",
 "karavan",
-"karavany"
+"obytny vuz",
+"Místo pro stan / karavan",
+"kemp"
+],
+"tourism/camp_site":[
+"tábor",
+"tábořiště",
+"stanování",
+"taboriste",
+"stanovani",
+"kemping",
+"Kemp"
 ],
 "tourism/camp_site/backcountry":[
 "táboření",
@@ -13401,8 +13426,8 @@
 "primitivní kempování",
 "místo pro batohy",
 "tábořiště",
-"neformální kempování",
 "Plocha pro kempování v divočině",
+"neformální kempování",
 "tábořit",
 "kempování u lesa",
 "místo pro stan",
@@ -13419,10 +13444,9 @@
 "kemp"
 ],
 "tourism/caravan_site":[
+"Kemp pro karavany / obytné vozy",
 "misto pro karavany",
 "camping",
-"Parkoviště pro karavany",
-"parkoviste pro karavany",
 "místo pro karavany",
 "obytné vozy",
 "stellplatz",
@@ -13441,8 +13465,8 @@
 "ubytování přes noc",
 "prazdninova chata",
 "drevenice",
-"srub",
 "Prázdninová chata",
+"srub",
 "dřevěnice",
 "chalupa",
 "domek",
@@ -13686,9 +13710,9 @@
 "příčný práh"
 ],
 "traffic_calming/chicane":[
+"Šikana",
 "nájezd",
 "pomalu",
-"Šikana",
 "rychlost",
 "příjezd",
 "zpomalit"
@@ -13702,9 +13726,9 @@
 "traffic_calming/cushion":[
 "polštář",
 "pomalu",
+"Zpomalovací polštář",
 "polstar",
 "rychlost",
-"Zpomalovací polštář",
 "zpomalovaci",
 "hrb",
 "zpomalit",
@@ -13818,8 +13842,8 @@
 "proměnlivá značka",
 "měnící se nápis",
 "značka dynamické zprávy",
-"měnící se značka",
-"Proměnlivé dopravní značení"
+"Proměnlivé dopravní značení",
+"měnící se značka"
 ],
 "type/associatedStreet":[
 "Přidružená ulice"
@@ -13832,12 +13856,24 @@
 ],
 "type/boundary/administrative":[
 "administrativní hranice",
-"hranice regionu",
 "Administrativní hranice",
+"hranice regionu",
 "správní hranice",
 "hranice kraje",
 "hranice správní oblasti",
 "hranice oblasti"
+],
+"type/boundary/protected_area":[
+"pp",
+"np",
+"hájená oblast",
+"oblast ochrany",
+"chráněné území",
+"ochrana",
+"chko",
+"Chráněná oblast",
+"chránění",
+"rezervace"
 ],
 "type/connectivity":[
 "silniční pruhy",
@@ -13852,8 +13888,8 @@
 "směr výjezdu",
 "šipka",
 "značka směru",
-"směrová cedule",
 "Směrová tabule",
+"směrová cedule",
 "značka cíle",
 "cedule se směrem",
 "směr",
@@ -13882,8 +13918,8 @@
 "type/multipolygon":[
 "multipolygon",
 "polygon",
-"mnohoúhelník",
-"Multipolygon"
+"Multipolygon",
+"mnohoúhelník"
 ],
 "type/public_transport/stop_area_group":[
 "zastávková oblast",
@@ -13901,11 +13937,17 @@
 "dopravní omezení",
 "omezení"
 ],
+"type/restriction/no_entry":[
+"Zákazaný vjezd"
+],
+"type/restriction/no_exit":[
+"Zakázaný výjezd"
+],
 "type/restriction/no_left_turn":[
 "odbočit vlevo",
+"Zákaz odbočování vlevo",
 "odbočení vlevo",
 "zatočit vlevo",
-"Zákaz odbočování vlevo",
 "odbočování vlevo",
 "zatočení vlevo"
 ],
@@ -13931,8 +13973,8 @@
 "type/restriction/no_u_turn":[
 "zákaz otočení",
 "neotáčet se",
-"zákaz otáčení",
 "Zákaz otáčení",
+"zákaz otáčení",
 "zakázáno otáčení",
 "zakázáno otočení",
 "otočení zakázáno",
@@ -13962,24 +14004,24 @@
 "pouze přímo",
 "pouze rovně",
 "příkaz jet rovně",
+"Pouze jízda vpřed",
 "přikázaný směr jízdy rovně",
 "přikázaný směr jízdy přímo",
 "jen přímo",
-"jen rovně",
-"Pouze jízda vpřed"
+"jen rovně"
 ],
 "type/restriction/only_u_turn":[
 "jen otočení",
 "jen otáčení",
-"pouze otáčení",
 "Pouze otáčení",
+"pouze otáčení",
 "pouze otočit",
 "povoleno pouze otočení",
 "pouze otočení o 180°"
 ],
 "type/route":[
-"linka",
 "Trasa",
+"linka",
 "stopa",
 "spojení",
 "trasa",
@@ -13999,8 +14041,8 @@
 "type/route/bicycle":[
 "cyklistická trasa",
 "cyklotrasa",
-"cyklistická značka",
-"Cyklotrasa"
+"Cyklotrasa",
+"cyklistická značka"
 ],
 "type/route/bus":[
 "bus",
@@ -14018,9 +14060,9 @@
 "lezecká délka",
 "výlez",
 "spára",
+"Lezecká cesta",
 "cesta",
 "výstup",
-"Lezecká cesta",
 "horolezecká cesta"
 ],
 "type/route/detour":[
@@ -14046,8 +14088,8 @@
 "turistická trasa",
 "turistická stezka",
 "trasa pro pěší",
-"stezka pro pěší",
-"Turistická trasa"
+"Turistická trasa",
+"stezka pro pěší"
 ],
 "type/route/hiking":[
 "značka pro pěší",
@@ -14060,11 +14102,12 @@
 "Turistická trasa"
 ],
 "type/route/horse":[
-"koňská stezka",
-"Trasa pro jízdu na koni",
-"jízda na stezce",
+"jezdecka trasakoňská turistika",
+"konska turistika",
+"Trasa koňské turistiky",
 "koňská jezdecká trasa",
-"jezdecká stezka"
+"trasa konske turistiky",
+"jezdecká trasa"
 ],
 "type/route/light_rail":[
 "trasa pro lehkou železnici",
@@ -14104,15 +14147,15 @@
 "roury",
 "vodovod",
 "produktovod",
-"transport",
 "Potrubní trasa",
+"transport",
 "plynovod",
 "roura",
 "potrubí"
 ],
 "type/route/piste":[
-"sjezdovka",
 "Trasa pro zimní sporty",
+"sjezdovka",
 "bezkarska trasa",
 "skialpova trasa",
 "skialpová trasa",
@@ -14129,18 +14172,6 @@
 "zimní trasa",
 "sáňkařská trasa",
 "stopa pro běžkaře"
-],
-"type/route/power":[
-"dráty",
-"Elektrická trasa",
-"elektrické vedení",
-"kabel",
-"trasa elektrického vedení",
-"napětí",
-"elektrika",
-"vysoké napětí",
-"kabely",
-"drát"
 ],
 "type/route/railway":[
 "Železniční trasa",
@@ -14187,8 +14218,8 @@
 "tramvajová trasa",
 "linka tramvaje",
 "kolej",
-"koleje",
 "Tramvajová trasa",
+"koleje",
 "tramvajová linka"
 ],
 "type/route/trolleybus":[
@@ -14239,8 +14270,8 @@
 "lezecké cesty",
 "horolezecká stěna",
 "boulder",
-"lezecká cesta",
 "Lezecký sektor/skála",
+"lezecká cesta",
 "skála",
 "lezecké místo",
 "horolezení",
@@ -14319,19 +14350,19 @@
 "dok",
 "doky",
 "údržba lodí",
-"loděnice",
-"Doky"
+"Doky",
+"loděnice"
 ],
 "waterway/drain":[
 "odvodňovací strouha",
 "odvaděč",
-"odvodňovací kanál",
 "Odvodňovací strouha",
+"odvodňovací kanál",
 "strouha"
 ],
 "waterway/fish_pass":[
-"rybí sifon",
 "Rybí přechod",
+"rybí sifon",
 "úhoří žebřík",
 "rybí migrace",
 "rybí pasáž",
@@ -14379,8 +14410,8 @@
 "přítok",
 "potůček",
 "strouha",
-"koryto",
 "Řeka",
+"koryto",
 "potok"
 ],
 "waterway/sanitary_dump_station":[
@@ -14393,8 +14424,8 @@
 "odpadní voda",
 "wc",
 "loď",
-"jachta",
-"Výlevka pro lodě"
+"Výlevka pro lodě",
+"jachta"
 ],
 "waterway/stream":[
 "tok",
@@ -14445,8 +14476,8 @@
 ],
 "waterway/water_point":[
 "lodě",
-"pitná voda",
-"Pitná voda pro lodě"
+"Pitná voda pro lodě",
+"pitná voda"
 ],
 "waterway/waterfall":[
 "padat",
@@ -14458,5 +14489,731 @@
 "nízkopodlažní přehrada",
 "splav",
 "Jez"
+],
+"boundary":[
+"hraniční",
+"Hranice",
+"čára",
+"hranice"
+],
+"building_point":[
+"Budova",
+"struktura"
+],
+"ford_line":[
+"přejezd vody",
+"Brod",
+"brod",
+"ford"
+],
+"traffic_sign/maxspeed-US-CA-LR":[
+"silniční značení",
+"dopravní značení",
+"cedule",
+"rychlostní limit",
+"dopravní značka maximální rychlosti",
+"znacka",
+"dopravni cedule",
+"rychlostní omezení",
+"doprava",
+"omezení rychlosti",
+"značka rychlosti",
+"dopravní cedule",
+"Značka omezení rychlosti",
+"dopravni znaceni",
+"dz",
+"maximální rychlost",
+"značka",
+"dopravní značka omezení rychlosti",
+"maximální povolená rychlost"
+],
+"shop/ice_cream":[
+"zmrzka",
+"sorbet",
+"sherbet",
+"mražený",
+"Zmrzlina",
+"jogurt"
+],
+"route/ferry":[
+"Trajektová trasa",
+"trajekt",
+"linka",
+"trasa",
+"loď",
+"trasa trajektu"
+],
+"railway/halt":[
+"vlaková zastávka",
+"vlakové nástupiště",
+"městská hromadná doprava",
+"železniční stanice",
+"mhd",
+"železnice",
+"místo pro čekání na vlak",
+"veřejná doprava",
+"vlakové nádraží",
+"vhd",
+"zastávka na znamení",
+"nástupiště železnice",
+"železniční nástupiště",
+"Železniční zastávka",
+"nástupiště vlaku",
+"hd",
+"malá stanice",
+"hromadná doprava"
+],
+"railway/platform":[
+"vlaková zastávka",
+"vlakové nástupiště",
+"perón",
+"městská hromadná doprava",
+"peron",
+"železniční stanice",
+"mhd",
+"nástup do vlaku",
+"nástupní hrana",
+"železnice",
+"železniční zastávka",
+"místo pro čekání na vlak",
+"veřejná doprava",
+"vhd",
+"nástupiště železnice",
+"železniční nástupiště",
+"nástupiště vlaku",
+"hd",
+"Železniční nástupiště",
+"hromadná doprava"
+],
+"railway/station":[
+"veřejná doprava",
+"vhd",
+"vlakové nádraží",
+"Železniční stanice",
+"železniční stanice",
+"vlaková stanice",
+"vlak",
+"nádraží",
+"železniční nádraží",
+"hd",
+"železnice",
+"hromadná doprava"
+],
+"office/travel_agent":[
+"cestovní kancelář",
+"dovolená",
+"Cestovní kancelář",
+"cestovní agentura",
+"cestovni agenturacestovka",
+"cestování"
+],
+"office/lawyer/notary":[
+"notarsky urad",
+"pozůstalost",
+"závěti",
+"Notářský úřad (ne právník)",
+"listiny",
+"podpis"
+],
+"natural/wood_point":[
+"háj",
+"bor",
+"strom",
+"háje",
+"tajga",
+"les",
+"lesy",
+"Přírodní les",
+"stromy"
+],
+"man_made/geoglyph_multilinestring":[
+"kresby",
+"ornamenty",
+"zemní kresby",
+"archeologie",
+"Geoglyf",
+"starověké umění",
+"umění",
+"dávné civilizace",
+"kresba",
+"postavy"
+],
+"leisure/track/athletics/running":[
+"maraton",
+"chůze",
+"dráha",
+"běh na dlouhou trať",
+"závodní dráha",
+"atletická dráha",
+"běh na střední trať",
+"pěší běh",
+"sprint",
+"desetiboj",
+"Běžecká dráha",
+"běh"
+],
+"landuse/basin":[
+"nadrz",
+"vodni plocha",
+"vodní plocha",
+"zdrz",
+"jezero",
+"rybnik",
+"Nádrž (umělá vodní plocha)",
+"zdrž",
+"rybník"
+],
+"landuse/reservoir":[
+"rezervoár",
+"rezervoar",
+"nadrz",
+"prehrada",
+"vodní nádrž",
+"Přehrada",
+"přehradní nádrž",
+"prehradni nadrz",
+"nádrž",
+"vodni nadrz"
+],
+"landuse/industrial/brewery":[
+"Průmyslový pivovar",
+"prumyslovy pivovar",
+"pivovar"
+],
+"landuse/industrial/industrial_point":[
+"Průmyslová oblast",
+"fabriky",
+"industriální",
+"průmyslové",
+"továrny",
+"prumyslova oblast",
+"průmyslový",
+"fabrika",
+"průmysl",
+"průmyslová",
+"továrna"
+],
+"indoor/corridor_line":[
+"koridor",
+"chodba",
+"Chodba"
+],
+"highway/bus_stop":[
+"autobusová zastávka",
+"místo pro čekání na autobus",
+"bus",
+"městská hromadná doprava",
+"nástupiště autobusu",
+"mhd",
+"autobus",
+"autobusové nástupiště",
+"veřejná doprava",
+"vhd",
+"Autobusová zastávka",
+"nástupiště",
+"hd",
+"hromadná doprava"
+],
+"highway/raceway_unspecific":[
+"dráha",
+"Motoristická závodní dráha",
+"nascar",
+"auto*",
+"karta",
+"motocross",
+"formule 1",
+"závod*"
+],
+"highway/traffic_sign":[
+"silniční značení",
+"dopravní značení",
+"cedule",
+"Dopravní značka",
+"dopravní značka",
+"znacka",
+"dz",
+"doprava",
+"značka",
+"tabule",
+"dopravní cedule"
+],
+"highway/motorway_link-US-CA":[
+"Nájezd/sjezd na/z dálnice",
+"najezd",
+"příjezd",
+"dalnicni sjezd",
+"dálniční sjezd",
+"nájezd",
+"exit",
+"dálniční nájezd",
+"dalnicni najezd",
+"výjezd",
+"prijezd",
+"rampa",
+"sjezd",
+"vyjezd"
+],
+"highway/primary_link-US-CA":[
+"nájezd",
+"exit",
+"výjezd",
+"příjezd",
+"rampa",
+"Silnice 1. třídy – nájezd",
+"sjezd"
+],
+"highway/trunk_link-US-CA":[
+"nájezd",
+"exit",
+"výjezd",
+"příjezd",
+"Víceproudá silnice – nájezd",
+"rampa",
+"sjezd"
+],
+"highway/path/bicycle_foot":[
+"pěší",
+"cyklostezka",
+"stezka",
+"cyklistická",
+"chodec",
+"cyklisty",
+"chodci a cyklisté",
+"cyklista",
+"cyklisté",
+"Stezka pro chodce a cyklisty",
+"společná",
+"cesta",
+"chodci"
+],
+"highway/path/traffic_island_shared":[
+"ostrůvek pro pěší a cyklisty",
+"cyklisticky a pesi dopravni ostruvek",
+"dopravní ostrůvek",
+"dopravní ostrůvek pro pěší a cyklisty",
+"Cyklistický a pěší dopravní ostrůvek",
+"ostruvek pro pesi a cyklisty",
+"dopravni ostruvek pro pesi a cyklisty"
+],
+"highway/path/crossing/informal":[
+"Neformální přechod"
+],
+"highway/path/crossing/marked":[
+"Označený přechod pro pěší a cyklisty"
+],
+"highway/path/crossing/bicycle_foot":[
+"cyklostezka",
+"přechod pro cyklisty a chodce",
+"cyklistika",
+"přechod pro kola a chodce",
+"Přechod pro chodce a cyklisty",
+"cyklista"
+],
+"highway/footway/crossing/informal":[
+"Neformální přechod"
+],
+"highway/footway/crossing/marked":[
+"přechod zebra",
+"označený přechod pro pěší",
+"přechod pro chodce",
+"označený přechod pro chodce",
+"označený přechod pěší cesty",
+"Označený přechod"
+],
+"highway/footway/crossing/zebra":[
+"přechod zebra",
+"označený přechod pro pěší",
+"přechod pro chodce",
+"označený přechod pro chodce",
+"označený přechod pěší cesty",
+"Označený přechod"
+],
+"highway/cycleway/crossing/marked":[
+"přejezd cyklostezky",
+"přechod cyklostezky",
+"cyklistický přechod pro chodce",
+"přechod pro cyklisty",
+"Označený přejezd pro cyklisty",
+"přejezd pro cyklisty"
+],
+"highway/crossing/marked":[
+"přechod zebra",
+"označený přechod pro pěší",
+"přechod pro chodce",
+"označený přechod pro chodce",
+"označený přechod pěší cesty",
+"Označený přechod"
+],
+"highway/crossing/zebra":[
+"přechod zebra",
+"označený přechod pro pěší",
+"přechod pro chodce",
+"označený přechod pro chodce",
+"označený přechod pěší cesty",
+"Označený přechod"
+],
+"craft/locksmith":[
+"Zámečník",
+"klíč",
+"zámek",
+"zámečnictví",
+"zámečník"
+],
+"craft/tailor":[
+"krejčí",
+"krejčovství",
+"krejčířství",
+"krejčová",
+"švadlenka",
+"Krejčovství",
+"švadlena"
+],
+"climbing/crag":[
+"lezení",
+"lezecké cesty",
+"horolezecká stěna",
+"boulder",
+"Lezecký sektor/skála",
+"lezecká cesta",
+"skála",
+"lezecké místo",
+"horolezení",
+"lezecká stěna",
+"místo pro lezení",
+"skály"
+],
+"climbing/route":[
+"lezecká trasa",
+"lezecký výstup",
+"trasa",
+"lezecká délka",
+"výlez",
+"spára",
+"Lezecká cesta",
+"cesta",
+"výstup",
+"horolezecká cesta"
+],
+"building/entrance":[
+"východ",
+"výjezd",
+"vstup",
+"Vchod / Východ",
+"výlez",
+"vjezd",
+"vlez",
+"vchod"
+],
+"building/glasshouse":[
+"pařeniště",
+"Skleník",
+"fóliovník"
+],
+"building/house/detached":[
+"Samostatný rodinný dům",
+"dům",
+"obydlí",
+"rodinný",
+"samostatný",
+"bydliště"
+],
+"building/house/semi-detached":[
+"dvojče",
+"rodina",
+"rezidence",
+"obydlí",
+"Polovina dvojdomku",
+"duplex",
+"domov",
+"dvojitý"
+],
+"building/house/terrace":[
+"Řad domů v řadové zástavbě",
+"řadová zástavba",
+"radovka",
+"rada domu",
+"rad domu v radove zastavbe",
+"řadovka",
+"radovy dum",
+"řada domů",
+"radova zastavba"
+],
+"boundary/administrative":[
+"administrativní hranice",
+"Administrativní hranice",
+"hranice regionu",
+"správní hranice",
+"hranice kraje",
+"hranice správní oblasti",
+"hranice oblasti"
+],
+"amenity/bus_station":[
+"veřejná doprava",
+"Autobusové nádraží / terminál",
+"doprava",
+"nádraží",
+"autobus",
+"terminál",
+"přeprava",
+"veřejná přeprava"
+],
+"amenity/college":[
+"Areál vyšší odborné školy/college",
+"území vysoké školy",
+"prostor vyšší odborné školy",
+"území koleje",
+"areál koleje",
+"areál vysoké školy",
+"území vyšší odborné školy"
+],
+"amenity/coworking_space":[
+"kancelář",
+"spolupráce",
+"Místo pro spolupráci"
+],
+"amenity/dancing_school":[
+"škola tance",
+"taneční lekce",
+"baletní studio",
+"výuka tance",
+"balet",
+"salsa",
+"tanec",
+"walz",
+"swing",
+"Taneční škola",
+"rumba",
+"tango",
+"samba",
+"jive"
+],
+"amenity/driving_school":[
+"automoto škola",
+"Autoškola",
+"škola řízení",
+"školení řidičů",
+"škola řízení motorových vozidel"
+],
+"amenity/embassy":[
+"ambasáda",
+"vyslanectví",
+"Ambasáda",
+"zastupitelství",
+"velvyslanectví"
+],
+"amenity/ferry_terminal":[
+"trajekt",
+"přívoz",
+"stanice",
+"lodní",
+"přístav",
+"terminál",
+"Terminál přívozu / trajektu",
+"loď",
+"přístaviště"
+],
+"amenity/kindergarten":[
+"pripravka",
+"prostor skolky",
+"předškolní zařízení",
+"školka",
+"areal materske skoly",
+"přípravka",
+"jesle",
+"materska skola",
+"mateřská škola",
+"Mateřská škola / předškolní zařízení",
+"prostor mateřské školy",
+"areál mateřské školy",
+"prostor materske skoly",
+"predskolni zarizeni",
+"skolka",
+"prostor školky"
+],
+"amenity/language_school":[
+"jazykovka",
+"cizí jazyky",
+"Jazyková škola"
+],
+"amenity/music_school":[
+"Hudební škola",
+"hudebka",
+"škola hudby",
+"zuš",
+"škola múzických umění",
+"umělecká škola"
+],
+"amenity/nursing_home":[
+"dum s osetrovatelskou sluzbou pro seniory",
+"osetrovatelska sluzba",
+"ošetřovatelství",
+"dům s ošetřovatelskou peci pro seniory",
+"senioři",
+"ošetřovateslká služba",
+"Zařízení ošetřovatelské péče pro seniory",
+"domov pro seniory",
+"seniori"
+],
+"amenity/prep_school":[
+"akademie",
+"soukromý učitel",
+"doučování",
+"lekce",
+"Doučovací škola / přípravka",
+"domácí úkoly",
+"příprava na testy",
+"mentoring",
+"testování",
+"kurzy"
+],
+"amenity/school":[
+"území školy",
+"zakladni skola",
+"školský areál",
+"integrovaná škola",
+"skola",
+"uciliste",
+"Základní / střední škola",
+"stredni skola",
+"areál školy",
+"akademie",
+"integrovana skola",
+"areal skoly",
+"učiliště",
+"uzemi skoly",
+"střední škola",
+"gymnazium",
+"prostor skoly",
+"škola",
+"gymnázium",
+"skolsky areal",
+"prostor školy"
+],
+"amenity/university":[
+"prostor univerzity",
+"Areál univerzity",
+"území univerzity",
+"aula",
+"kolej",
+"koleje"
+],
+"amenity/doctors/podiatry":[
+"nohy",
+"chodidla",
+"Podiatr",
+"kotník",
+"noha",
+"kotnik",
+"podiatrie"
+],
+"amenity/charging_station/charging_station_bicycle_designated":[
+"nabíječ",
+"nabíječka akumulátoru elektrokola",
+"elektrokolo",
+"Nabíječka elektrokol",
+"nabíjecí stanice pro elektrokola",
+"stanice pro elektrokola",
+"nabíječka",
+"elektrické kolo",
+"nabíjecí stanice"
+],
+"aerialway/station":[
+"veřejná doprava",
+"letecká dráha",
+"doprava",
+"nádraží",
+"Stanice lanovky",
+"terminál",
+"přeprava",
+"lanovka",
+"veřejná přeprava"
+],
+"@templates/contact":[
+"Uzel",
+"bod",
+"tečka",
+"puntík",
+"uzel",
+"vrchol"
+],
+"@templates/internet_access":[
+"Uzel",
+"bod",
+"tečka",
+"puntík",
+"uzel",
+"vrchol"
+],
+"@templates/poi":[
+"Uzel",
+"bod",
+"tečka",
+"puntík",
+"uzel",
+"vrchol"
+],
+"@templates/crossing/bicycle_more":[
+"Uzel",
+"bod",
+"tečka",
+"puntík",
+"uzel",
+"vrchol"
+],
+"@templates/crossing/defaults":[
+"Uzel",
+"bod",
+"tečka",
+"puntík",
+"uzel",
+"vrchol"
+],
+"@templates/crossing/geometry_way_more":[
+"Uzel",
+"bod",
+"tečka",
+"puntík",
+"uzel",
+"vrchol"
+],
+"@templates/crossing/markings":[
+"Uzel",
+"bod",
+"tečka",
+"puntík",
+"uzel",
+"vrchol"
+],
+"@templates/crossing/markings_yes":[
+"Uzel",
+"bod",
+"tečka",
+"puntík",
+"uzel",
+"vrchol"
+],
+"@templates/crossing/surfacequality":[
+"Uzel",
+"bod",
+"tečka",
+"puntík",
+"uzel",
+"vrchol"
+],
+"@templates/crossing/traffic_signal":[
+"Uzel",
+"bod",
+"tečka",
+"puntík",
+"uzel",
+"vrchol"
+],
+"@templates/crossing/traffic_signal_more":[
+"Uzel",
+"bod",
+"tečka",
+"puntík",
+"uzel",
+"vrchol"
 ]
 }

@@ -44,9 +44,6 @@
 "barrier/wall":[
 "గోడ"
 ],
-"boundary/administrative":[
-"పరిపాలనా సరిహద్దు"
-],
 "building":[
 "కట్టడం"
 ],
@@ -55,9 +52,6 @@
 ],
 "building/hut":[
 "గుడిసె"
-],
-"building_point":[
-"కట్టడం"
 ],
 "highway/footway":[
 "కాల్దారి"
@@ -79,9 +73,6 @@
 ],
 "landuse/grass":[
 "పచ్చిక"
-],
-"landuse/pond":[
-"సరస్సు"
 ],
 "leisure/garden":[
 "తోట"
@@ -175,5 +166,47 @@
 ],
 "waterway/stream":[
 "కాలువ"
+],
+"building_point":[
+"కట్టడం"
+],
+"highway/primary_link-US-CA":[
+"ముఖ్య లంకె"
+],
+"boundary/administrative":[
+"పరిపాలనా సరిహద్దు"
+],
+"@templates/contact":[
+"బిందువు"
+],
+"@templates/internet_access":[
+"బిందువు"
+],
+"@templates/poi":[
+"బిందువు"
+],
+"@templates/crossing/bicycle_more":[
+"బిందువు"
+],
+"@templates/crossing/defaults":[
+"బిందువు"
+],
+"@templates/crossing/geometry_way_more":[
+"బిందువు"
+],
+"@templates/crossing/markings":[
+"బిందువు"
+],
+"@templates/crossing/markings_yes":[
+"బిందువు"
+],
+"@templates/crossing/surfacequality":[
+"బిందువు"
+],
+"@templates/crossing/traffic_signal":[
+"బిందువు"
+],
+"@templates/crossing/traffic_signal_more":[
+"బిందువు"
 ]
 }

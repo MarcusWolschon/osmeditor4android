@@ -56,9 +56,6 @@
 "building/residential":[
 "މީީހުން ދިރިއުޅޭ ޢިމާރާތްތައް"
 ],
-"building_point":[
-"އިމާރާތް"
-],
 "highway/path":[
 "ދުވާރު"
 ],
@@ -83,9 +80,6 @@
 "landuse/commercial":[
 "ވިޔަފާރި ސަރަޙައްދު"
 ],
-"landuse/farm":[
-"ދަނޑުވެރި ސަރަޙައްދުތައް"
-],
 "landuse/farmland":[
 "ދަނޑުވެރި ސަރަޙައްދުތައް"
 ],
@@ -97,9 +91,6 @@
 ],
 "landuse/landfill":[
 "ކުނި އުކާލާ ސަރަޙައްދު"
-],
-"landuse/pond":[
-"ފެންގަނޑު"
 ],
 "landuse/residential":[
 "މީހުން ދިރިއުޅޭ ސަރަޙައްދު"
@@ -152,9 +143,6 @@
 "office/government":[
 "ސަރުކާރު އޮފީސްތައް"
 ],
-"office/travel_agent":[
-"ޓްރެވެލް އޭޖެންސީ"
-],
 "place":[
 "ތަނުގެ ނަން"
 ],
@@ -175,9 +163,6 @@
 ],
 "power/line":[
 "ކަރަންޓް ވިއުގަ"
-],
-"route/ferry":[
-"ފެރީއަށްދާ މަގުތައް"
 ],
 "shop":[
 "ފިހާރަ"
@@ -211,5 +196,50 @@
 ],
 "waterway/dock":[
 "ބޯޓުފަހަރު ބަނދަރުކުރާ ސަރަޙައްދު"
+],
+"building_point":[
+"އިމާރާތް"
+],
+"route/ferry":[
+"ފެރީއަށްދާ މަގުތައް"
+],
+"office/travel_agent":[
+"ޓްރެވެލް އޭޖެންސީ"
+],
+"landuse/industrial/industrial_point":[
+"ސިނާޢީ ސަރަޙައްދު"
+],
+"@templates/contact":[
+"ލޮކޭޝަން ޕޮއިންޓް"
+],
+"@templates/internet_access":[
+"ލޮކޭޝަން ޕޮއިންޓް"
+],
+"@templates/poi":[
+"ލޮކޭޝަން ޕޮއިންޓް"
+],
+"@templates/crossing/bicycle_more":[
+"ލޮކޭޝަން ޕޮއިންޓް"
+],
+"@templates/crossing/defaults":[
+"ލޮކޭޝަން ޕޮއިންޓް"
+],
+"@templates/crossing/geometry_way_more":[
+"ލޮކޭޝަން ޕޮއިންޓް"
+],
+"@templates/crossing/markings":[
+"ލޮކޭޝަން ޕޮއިންޓް"
+],
+"@templates/crossing/markings_yes":[
+"ލޮކޭޝަން ޕޮއިންޓް"
+],
+"@templates/crossing/surfacequality":[
+"ލޮކޭޝަން ޕޮއިންޓް"
+],
+"@templates/crossing/traffic_signal":[
+"ލޮކޭޝަން ޕޮއިންޓް"
+],
+"@templates/crossing/traffic_signal_more":[
+"ލޮކޭޝަން ޕޮއިންޓް"
 ]
 }

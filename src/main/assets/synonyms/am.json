@@ -17,9 +17,6 @@
 "amenity/bureau_de_change":[
 "የውጭ ምንዛሬ ቢሮ"
 ],
-"amenity/bus_station":[
-"አውቶቡስ መናኃሪያ"
-],
 "amenity/cafe":[
 "ሻይ ቤት"
 ],
@@ -46,9 +43,6 @@
 ],
 "amenity/doctors":[
 "ክሊኒክ"
-],
-"amenity/embassy":[
-"ኤምባሲ"
 ],
 "amenity/fast_food":[
 "ፈጣን ምግብ"
@@ -133,9 +127,6 @@
 ],
 "building/warehouse":[
 "የዕቃ ቤት"
-],
-"building_point":[
-"ህንፃ"
 ],
 "highway/primary":[
 "ዋና መንገድ"
@@ -223,9 +214,6 @@
 ],
 "office/telecommunication":[
 "ቴሌኮሙኒኬሽን"
-],
-"office/travel_agent":[
-"የጉዞ ወኪል"
 ],
 "place/city":[
 "ከተማ"
@@ -325,5 +313,23 @@
 ],
 "tourism/zoo":[
 "የእንስሳት ግቢ"
+],
+"building_point":[
+"ህንፃ"
+],
+"shop/ice_cream":[
+"አይስ ክሬም"
+],
+"office/travel_agent":[
+"የጉዞ ወኪል"
+],
+"landuse/industrial/industrial_point":[
+"ኢንዱስትሪ"
+],
+"amenity/bus_station":[
+"አውቶቡስ መናኃሪያ"
+],
+"amenity/embassy":[
+"ኤምባሲ"
 ]
 }

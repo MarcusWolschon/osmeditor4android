@@ -71,13 +71,7 @@
 "building/stadium":[
 "Dhismo Garoon"
 ],
-"building_point":[
-"Dhismo"
-],
 "ford":[
-"Tog"
-],
-"ford_line":[
 "Tog"
 ],
 "highway/path":[
@@ -104,9 +98,6 @@
 "landuse/commercial":[
 "Aagga Ganacsiga"
 ],
-"landuse/farm":[
-"Dhul beereed"
-],
 "landuse/farmland":[
 "Dhul beereed"
 ],
@@ -118,9 +109,6 @@
 ],
 "landuse/landfill":[
 "Qashin-qub"
-],
-"landuse/pond":[
-"Balli"
 ],
 "landuse/residential":[
 "Aag Degaan"
@@ -176,9 +164,6 @@
 "office/government":[
 "Xafiis Dowladeed"
 ],
-"office/travel_agent":[
-"Wakaalad Socdaal"
-],
 "place":[
 "Goob"
 ],
@@ -199,9 +184,6 @@
 ],
 "power/line":[
 "Khadka Korantada"
-],
-"route/ferry":[
-"Wadada Doonta"
 ],
 "shop":[
 "Dukaan"
@@ -235,5 +217,53 @@
 ],
 "waterway/dock":[
 "Kaabi qoyan / Kaabi qallalan"
+],
+"building_point":[
+"Dhismo"
+],
+"ford_line":[
+"Tog"
+],
+"route/ferry":[
+"Wadada Doonta"
+],
+"office/travel_agent":[
+"Wakaalad Socdaal"
+],
+"landuse/industrial/industrial_point":[
+"Aagga Warshadaha"
+],
+"@templates/contact":[
+"Bar"
+],
+"@templates/internet_access":[
+"Bar"
+],
+"@templates/poi":[
+"Bar"
+],
+"@templates/crossing/bicycle_more":[
+"Bar"
+],
+"@templates/crossing/defaults":[
+"Bar"
+],
+"@templates/crossing/geometry_way_more":[
+"Bar"
+],
+"@templates/crossing/markings":[
+"Bar"
+],
+"@templates/crossing/markings_yes":[
+"Bar"
+],
+"@templates/crossing/surfacequality":[
+"Bar"
+],
+"@templates/crossing/traffic_signal":[
+"Bar"
+],
+"@templates/crossing/traffic_signal_more":[
+"Bar"
 ]
 }

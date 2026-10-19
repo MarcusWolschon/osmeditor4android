@@ -1,119 +1,1493 @@
 {
+"aeroway/aerodrome":[
+"plane",
+"aerodrome",
+"Airport",
+"airplane",
+"jet",
+"aeroway"
+],
+"aeroway/helipad":[
+"Helipad",
+"helicopter",
+"heliport"
+],
+"amenity":[
+"Amenity"
+],
 "amenity/arts_centre":[
-"Arts Centre"
+"performance venue",
+"Arts Centre",
+"theatre space",
+"arts center",
+"theater space",
+"community arts",
+"cultural center"
+],
+"amenity/bank":[
+"trust",
+"Bank",
+"credit union",
+"financial",
+"investment",
+"check",
+"repository",
+"fund",
+"treasury",
+"reserve",
+"safe",
+"deposit",
+"savings",
+"stock",
+"vault"
+],
+"amenity/bar":[
+"Bar",
+"booze",
+"cocktails",
+"tavern",
+"bier",
+"dive",
+"pub",
+"beer",
+"drink"
+],
+"amenity/cafe":[
+"tea",
+"Cafe",
+"espresso",
+"coffee",
+"bistro",
+"latte"
+],
+"amenity/cinema":[
+"movie",
+"multiplex",
+"theater",
+"Movie Theatre",
+"show",
+"screen",
+"imax",
+"film",
+"flick",
+"cinema",
+"drive-in",
+"picture"
 ],
 "amenity/clinic/dialysis":[
-"Dialysis Centre"
+"Dialysis Centre",
+"dialysis clinic",
+"kidney dialysis",
+"dialysis center"
 ],
 "amenity/community_centre":[
-"Community Centre"
+"hall",
+"event",
+"Community Centre",
+"community center"
 ],
 "amenity/community_centre/lgbtq":[
-"LGBTQ+ Community Centre"
+"lgbtq hall",
+"lgbtq+ community center",
+"LGBTQ+ Community Centre",
+"lgbtq event",
+"lgbt event",
+"lgbt hall",
+"lgb event",
+"lgb hall"
 ],
 "amenity/community_centre/youth_centre":[
-"Youth Centre"
+"Youth Centre",
+"youth center",
+"youth club"
 ],
 "amenity/conference_centre":[
-"Convention Centre"
+"Convention Centre",
+"exhibition",
+"auditorium",
+"convention center",
+"lecture",
+"exposition",
+"conference center"
 ],
 "amenity/dive_centre":[
+"dive center",
+"diving",
+"scuba",
 "Dive Centre"
 ],
 "amenity/doctors/paediatrics":[
-"Paediatrician"
+"paediatrics",
+"infants",
+"adolescents",
+"children",
+"Paediatrician",
+"pediatrician"
 ],
 "amenity/exhibition_centre":[
-"Exposition Centre"
+"convention center",
+"exposition center",
+"Exposition Centre",
+"trade exhibition",
+"exhibition center",
+"fair",
+"expo",
+"trade show",
+"trade fair",
+"tradeshow"
 ],
-"amenity/parking":[
-"Parking Lot"
+"amenity/fast_food":[
+"restaurant",
+"Fast Food",
+"drive-through",
+"food truck",
+"drive thru",
+"takeout",
+"takeaway"
+],
+"amenity/fast_food/bagel":[
+"lox",
+"Bagel Fast Food",
+"breakfast"
+],
+"amenity/fast_food/burger":[
+"Burger Fast Food",
+"lunch",
+"dine",
+"dining",
+"eat",
+"breakfast",
+"dinner",
+"drive-in",
+"french fries",
+"grill",
+"table"
+],
+"amenity/fast_food/chicken":[
+"lunch",
+"dine",
+"Chicken Fast Food",
+"dining",
+"canteen",
+"eat",
+"breakfast",
+"dinner",
+"drive-in",
+"fried chicken",
+"grill",
+"table"
+],
+"amenity/fast_food/chinese":[
+"Chinese Fast Food",
+"dim sum"
+],
+"amenity/fast_food/donut":[
+"lunch",
+"diner",
+"dining",
+"Donut Fast Food",
+"doughnut",
+"cafe",
+"dine",
+"brunch",
+"coffee",
+"donut",
+"canteen",
+"eat",
+"breakfast",
+"table"
+],
+"amenity/fast_food/fish_and_chips":[
+"lunch",
+"dining",
+"dinner",
+"french fries",
+"café",
+"cafe",
+"dine",
+"eat",
+"breakfast",
+"Fish & Chips Fast Food",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/fast_food/hot_dog":[
+"frank",
+"frankfurter",
+"hotdog stand",
+"Hot Dog Fast Food",
+"ballpark",
+"sandwich",
+"sausage",
+"wiener"
+],
+"amenity/fast_food/ice_cream":[
+"Ice Cream Fast Food"
+],
+"amenity/fast_food/indian":[
+"lunch",
+"pani puri",
+"lassi",
+"chaat",
+"dinner",
+"pav bhaji",
+"dosa",
+"Indian Fast Food",
+"eat",
+"samosa",
+"momos",
+"paneer tikka",
+"breakfast",
+"vada pav"
+],
+"amenity/fast_food/juice":[
+"beverages",
+"cafe",
+"smoothies",
+"shakes",
+"fruit drinks",
+"Juice Fast Food",
+"café",
+"juice bar"
+],
+"amenity/fast_food/kebab":[
+"lunch",
+"dining",
+"döner kebab",
+"Kebab Fast Food",
+"dinner",
+"café",
+"bar",
+"cafe",
+"dine",
+"canteen",
+"doner kebab",
+"eat",
+"breakfast",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/fast_food/mexican":[
+"lunch",
+"quesadillas",
+"fajitas",
+"Mexican Fast Food",
+"dining",
+"nachos",
+"tortillas",
+"tacos",
+"enchiladas",
+"dinner",
+"burritos",
+"salsa",
+"dine",
+"eat",
+"breakfast",
+"drive-in",
+"grill",
+"table",
+"tamales"
+],
+"amenity/fast_food/pizza":[
+"thin crust",
+"lunch",
+"dine",
+"slice",
+"deep dish",
+"dining",
+"eat",
+"dinner",
+"Pizza Fast Food",
+"drive-in",
+"table"
+],
+"amenity/fast_food/sandwich":[
+"deli sandwich",
+"lunch",
+"dining",
+"Sandwich Fast Food",
+"dinner",
+"café",
+"deli",
+"cafe",
+"dine",
+"meat",
+"eat",
+"breakfast",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/fast_food/sushi":[
+"lunch",
+"dining",
+"restaurant",
+"drive-through",
+"food truck",
+"takeout",
+"dinner",
+"takeaway",
+"dine",
+"canteen",
+"eat",
+"Sushi Fast Food",
+"drive thru",
+"breakfast",
+"drive-in",
+"table"
+],
+"amenity/fast_food/wings":[
+"chicken",
+"lunch",
+"dine",
+"dining",
+"eat",
+"Chicken Wings Fast Food",
+"dinner",
+"table"
+],
+"amenity/fuel":[
+"diesel",
+"Gas Station",
+"lng",
+"petrol",
+"fuel",
+"propane",
+"gasoline",
+"cng",
+"biodiesel"
+],
+"amenity/grave_yard":[
+"burial ground",
+"cemetary",
+"churchyard",
+"mausoleum",
+"tomb",
+"columbarium",
+"grave yard",
+"cemetery",
+"Graveyard"
+],
+"amenity/library":[
+"book",
+"reading",
+"Library",
+"public library"
 ],
 "amenity/payment_centre":[
-"Payment Centre"
+"bill pay",
+"Payment Centre",
+"money",
+"tax pay",
+"payment center",
+"currency",
+"check",
+"cash",
+"finance"
+],
+"amenity/police":[
+"patrol",
+"badge",
+"detective",
+"law",
+"fed",
+"cop",
+"constabulary",
+"officer",
+"enforcement",
+"constable",
+"Police"
+],
+"amenity/pub":[
+"alcohol",
+"bar",
+"booze",
+"tavern",
+"bier",
+"dive",
+"Pub",
+"beer",
+"drink"
 ],
 "amenity/recycling_centre":[
-"Recycling Centre"
+"Recycling Centre",
+"can",
+"glass",
+"scrap",
+"recycling center",
+"recycle",
+"garbage",
+"bottle",
+"dump",
+"rubbish",
+"trash"
+],
+"amenity/restaurant":[
+"lunch",
+"dining",
+"brasserie",
+"dinner",
+"café",
+"Restaurant",
+"bar",
+"cafe",
+"dine",
+"coffee",
+"canteen",
+"eat",
+"breakfast",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/restaurant/american":[
+"lunch",
+"dining",
+"American Restaurant",
+"dinner",
+"café",
+"bar",
+"cafe",
+"dine",
+"coffee",
+"canteen",
+"eat",
+"breakfast",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/restaurant/asian":[
+"lunch",
+"dining",
+"dinner",
+"café",
+"bar",
+"cafe",
+"dine",
+"Asian Restaurant",
+"canteen",
+"eat",
+"breakfast",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/restaurant/barbecue":[
+"Barbecue Restaurant",
+"lunch",
+"dining",
+"barbeque restaurant",
+"dinner",
+"bbq",
+"bar",
+"dine",
+"canteen",
+"eat",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/restaurant/chinese":[
+"lunch",
+"dining",
+"dinner",
+"café",
+"Chinese Restaurant",
+"bar",
+"cafe",
+"dine",
+"canteen",
+"eat",
+"breakfast",
+"drive-in",
+"grill",
+"table",
+"dim sum"
+],
+"amenity/restaurant/french":[
+"lunch",
+"dining",
+"dinner",
+"café",
+"bar",
+"cafe",
+"dine",
+"canteen",
+"eat",
+"breakfast",
+"French Restaurant",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/restaurant/georgian":[
+"bar",
+"lunch",
+"dine",
+"dining",
+"eat",
+"Georgian Restaurant",
+"breakfast",
+"dinner",
+"drive-in",
+"table"
+],
+"amenity/restaurant/german":[
+"lunch",
+"dining",
+"dinner",
+"café",
+"bar",
+"cafe",
+"dine",
+"canteen",
+"eat",
+"breakfast",
+"German Restaurant",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/restaurant/greek":[
+"gyros",
+"lunch",
+"Greek Restaurant",
+"dining",
+"dinner",
+"café",
+"bar",
+"cafe",
+"dine",
+"olives",
+"pitas",
+"canteen",
+"eat",
+"breakfast",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/restaurant/hotpot":[
+"budae jjigae",
+"lau",
+"hotpot",
+"nabemono",
+"sichaun",
+"teochew",
+"jjigae",
+"teoswa",
+"yao hon",
+"beijing",
+"peking",
+"kimchi jjigae",
+"sin jum",
+"guangdong",
+"Hot Pot Restaurant",
+"sukiyaki",
+"fondue",
+"shabu shabu",
+"china",
+"mu kratha",
+"jeongol",
+"canton",
+"chhnang pleurng"
+],
+"amenity/restaurant/indian":[
+"biryani",
+"Indian Restaurant",
+"lunch",
+"dining",
+"roti",
+"lassi",
+"chaat",
+"butter chicken",
+"curry",
+"dinner",
+"dal makhni",
+"bar",
+"dine",
+"dosa",
+"garlic naan",
+"eat",
+"samosa",
+"thali",
+"paneer tikka",
+"breakfast",
+"grill"
+],
+"amenity/restaurant/italian":[
+"Italian Restaurant",
+"lunch",
+"dining",
+"dinner",
+"café",
+"bar",
+"cafe",
+"dine",
+"pizza",
+"pasta",
+"canteen",
+"eat",
+"breakfast",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/restaurant/japanese":[
+"lunch",
+"dining",
+"dinner",
+"café",
+"bar",
+"cafe",
+"dine",
+"Japanese Restaurant",
+"canteen",
+"eat",
+"breakfast",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/restaurant/korean":[
+"lunch",
+"dining",
+"dinner",
+"Korean Restaurant",
+"café",
+"bar",
+"cafe",
+"dine",
+"canteen",
+"eat",
+"breakfast",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/restaurant/mexican":[
+"lunch",
+"quesadillas",
+"fajitas",
+"dining",
+"nachos",
+"tortillas",
+"tacos",
+"enchiladas",
+"dinner",
+"burritos",
+"salsa",
+"Mexican Restaurant",
+"bar",
+"dine",
+"eat",
+"breakfast",
+"drive-in",
+"grill",
+"table",
+"tamales"
+],
+"amenity/restaurant/noodle":[
+"lunch",
+"soup",
+"dining",
+"cellophane noodles",
+"Noodle Restaurant",
+"rice noodles",
+"dinner",
+"café",
+"bar",
+"cafe",
+"dine",
+"soba noodles",
+"canteen",
+"eat",
+"breakfast",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/restaurant/pizza":[
+"thin crust",
+"lunch",
+"dining",
+"dinner",
+"bar",
+"dine",
+"slice",
+"deep dish",
+"pizzeria",
+"eat",
+"Pizza Restaurant",
+"drive-in",
+"table"
+],
+"amenity/restaurant/ramen":[
+"Ramen Restaurant",
+"soup",
+"japanese",
+"noodles",
+"ramen-ten",
+"ramen-ya",
+"ramen shop"
+],
+"amenity/restaurant/seafood":[
+"lunch",
+"oysters",
+"shrimp",
+"crustaceans",
+"octopus",
+"dining",
+"dinner",
+"café",
+"bar",
+"shellfish",
+"Seafood Restaurant",
+"cafe",
+"dine",
+"fish",
+"molluscs",
+"eat",
+"clams",
+"squid",
+"breakfast",
+"crab",
+"drive-in",
+"grill",
+"lobsters",
+"table"
+],
+"amenity/restaurant/spanish":[
+"Spanish Restaurant",
+"lunch",
+"dining",
+"dinner",
+"café",
+"bar",
+"cafe",
+"dine",
+"canteen",
+"eat",
+"breakfast",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/restaurant/sushi":[
+"lunch",
+"Sushi Restaurant",
+"dining",
+"dinner",
+"café",
+"bar",
+"cafe",
+"dine",
+"canteen",
+"eat",
+"breakfast",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/restaurant/thai":[
+"lunch",
+"dining",
+"dinner",
+"café",
+"bar",
+"cafe",
+"dine",
+"canteen",
+"eat",
+"Thai Restaurant",
+"breakfast",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/restaurant/turkish":[
+"lunch",
+"dining",
+"dinner",
+"café",
+"bar",
+"cafe",
+"dine",
+"Turkish Restaurant",
+"canteen",
+"eat",
+"breakfast",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/restaurant/ukrainian":[
+"bar",
+"lunch",
+"dine",
+"Ukrainian Restaurant",
+"dining",
+"eat",
+"breakfast",
+"dinner",
+"drive-in",
+"table"
+],
+"amenity/restaurant/vietnamese":[
+"lunch",
+"Vietnamese Restaurant",
+"dining",
+"dinner",
+"café",
+"bar",
+"cafe",
+"dine",
+"canteen",
+"eat",
+"breakfast",
+"drive-in",
+"grill",
+"table"
 ],
 "amenity/social_facility/day_care":[
-"Social Services Day Care / Day Centre"
+"Social Services Day Care / Day Centre",
+"social services day care / day center"
 ],
 "amenity/telephone":[
-"Telephone"
+"payphone",
+"public phone",
+"Telephone",
+"phone",
+"pay phone",
+"public telephone",
+"phone booth"
 ],
 "amenity/theatre/type/amphi":[
+"greek",
+"outdoor",
+"open air",
+"ampi",
+"amphitheater",
 "Amphitheatre"
 ],
 "amenity/toilets":[
-"Washroom"
+"water closet",
+"lavatory",
+"outhouse",
+"wc",
+"public restroom",
+"head",
+"toilets",
+"latrine",
+"w.c.",
+"Washroom",
+"privy",
+"public toilet",
+"bathroom",
+"restroom"
+],
+"building":[
+"Building",
+"structure"
 ],
 "building/grandstand":[
-"Grandstand"
+"stands",
+"tribune",
+"bleachers",
+"Grandstand",
+"stand"
 ],
 "cycleway/asl":[
-"Bike Box"
+"cycle stop marking",
+"advanced stop box",
+"advanced stop line",
+"bikebox",
+"cycle box",
+"asl",
+"Bike Box",
+"bicycle box"
+],
+"healthcare/birthing_center":[
+"Birthing Centre",
+"delivery",
+"birthing center",
+"midwive",
+"pregnancy",
+"baby",
+"childbirth",
+"labor",
+"labour",
+"pregnant"
+],
+"healthcare/counselling":[
+"counseling center",
+"Counselling Centre",
+"sex therapist"
+],
+"healthcare/physiotherapist":[
+"Physiotherapist",
+"therapy",
+"physical therapist",
+"physical",
+"therapist"
+],
+"highway/crossing":[
+"crosswalk",
+"foot path crossing",
+"Crossing",
+"pedestrian crossing"
+],
+"highway/crossing/informal":[
+"Informal Crossing"
+],
+"highway/crossing/uncontrolled":[
+"zebra crossing",
+"marked pedestrian crosswalk",
+"crosswalk",
+"Marked Crossing",
+"marked foot path crossing",
+"marked crosswalk"
+],
+"highway/cycleway/bicycle_foot":[
+"bicycle and foot path",
+"bike and pedestrian path",
+"mixed-use trail",
+"multi-use trail",
+"segregated trail",
+"shared use path",
+"Cycle & Foot Path",
+"multi-use path",
+"greenway",
+"shared path",
+"green way",
+"rail trail"
+],
+"highway/cycleway/crossing":[
+"Cycle Crossing"
+],
+"highway/cycleway/crossing/bicycle_foot":[
+"bike and pedestrian crossing",
+"cyclist",
+"Cycle & Foot Crossing",
+"bicycle and foot crosswalk",
+"cycling",
+"cycleway"
+],
+"highway/cycleway/crossing/traffic_signals":[
+"cycle path crossing",
+"Cycle Crossing With Traffic Signals",
+"bike crossing",
+"cycleway crossing",
+"bicycle crossing"
+],
+"highway/cycleway/crossing/uncontrolled":[
+"cycle crosswalk",
+"cycle path crossing",
+"Marked Cycle Crossing",
+"bike crossing",
+"cycleway crossing",
+"bicycle crossing",
+"crossride"
+],
+"highway/cycleway/crossing/unmarked":[
+"cycle path crossing",
+"bike crossing",
+"cycleway crossing",
+"Unmarked Cycle Crossing",
+"bicycle crossing"
+],
+"highway/cycleway/traffic_island":[
+"crosswalk island",
+"crossing island",
+"traffic island",
+"Cycle Refuge Island",
+"pedestrian island"
+],
+"highway/cycleway/traffic_island_shared":[
+"crosswalk island",
+"crossing island",
+"traffic island",
+"pedestrian island",
+"Cycle & Foot Refuge Island"
 ],
 "highway/footway/crossing":[
-"Crosswalk"
+"Crosswalk",
+"foot path crossing",
+"pedestrian crossing"
+],
+"highway/footway/crossing/traffic_signals":[
+"pedestrian traffic lights",
+"Crosswalk With Pedestrian Signals",
+"pedestrian crossing (lights)",
+"pedestrian traffic signals",
+"crosswalk (lights)",
+"crossing with pedestrian signals"
 ],
 "highway/footway/crossing/uncontrolled":[
-"Marked Crosswalk"
+"zebra crossing",
+"marked pedestrian crosswalk",
+"crosswalk",
+"Marked Crossing",
+"marked foot path crossing",
+"marked crosswalk"
 ],
 "highway/footway/crossing/unmarked":[
-"Unmarked Crosswalk"
+"unmarked foot path crossing",
+"Unmarked Crossing",
+"unmarked crosswalk",
+"unmarked pedestrian crossing"
 ],
 "highway/footway/informal":[
 "Informal Foot Path"
 ],
+"highway/footway/sidewalk":[
+"pavement",
+"sidepath",
+"Sidewalk"
+],
+"highway/motorway":[
+"freeway",
+"thruway",
+"autobahn",
+"expressway",
+"road",
+"street",
+"Motorway",
+"highway",
+"turnpike",
+"interstate",
+"parkway"
+],
+"highway/path":[
+"Path",
+"trail",
+"hiking",
+"hike",
+"trackway",
+"walk"
+],
+"highway/path/crossing":[
+"Cycle & Foot Crossing"
+],
+"highway/path/crossing/traffic_signals":[
+"Cycle & Foot Crossing With Pedestrian Signals"
+],
+"highway/path/crossing/uncontrolled":[
+"Marked Cycle & Foot Crossing"
+],
+"highway/path/crossing/unmarked":[
+"Unmarked Cycle & Foot Crossing"
+],
+"highway/steps":[
+"Steps",
+"stairs",
+"stairway",
+"staircase"
+],
 "highway/tertiary_link":[
-"Tertiary Link"
+"on ramp",
+"road",
+"Tertiary Link",
+"street",
+"off ramp",
+"ramp"
+],
+"historic/monument":[
+"Monument"
+],
+"landuse/cemetery":[
+"burial ground",
+"cemetary",
+"graveyard",
+"churchyard",
+"mausoleum",
+"tomb",
+"columbarium",
+"grave yard",
+"Cemetery"
+],
+"landuse/farmyard":[
+"feedlot",
+"cattleyard",
+"feeding",
+"livestock",
+"feedyard",
+"barnyard",
+"Farmyard"
+],
+"landuse/grass":[
+"green",
+"turf",
+"field",
+"managed grass",
+"mown grass",
+"Grass",
+"lawn"
+],
+"landuse/meadow":[
+"hay field",
+"Meadow",
+"grazing",
+"pasture"
+],
+"landuse/orchard":[
+"Orchard",
+"fruit"
+],
+"landuse/quarry":[
+"sand pit",
+"open pit mine",
+"sand mine",
+"sandpit",
+"Quarry",
+"sand quarry",
+"aggregate quarry"
+],
+"landuse/vineyard":[
+"Vineyard",
+"grape",
+"wine"
+],
+"leisure/adult_gaming_centre":[
+"Adult Gaming Centre",
+"gambling",
+"slot machine",
+"adult gaming center"
 ],
 "leisure/bleachers":[
-"Bleachers"
+"seat",
+"stands",
+"bench",
+"sports",
+"crowd",
+"Bleachers",
+"stand",
+"seating"
 ],
 "leisure/fitness_centre":[
-"Gym / Fitness Centre"
+"studio",
+"pilates",
+"Gym / Fitness Centre",
+"health",
+"gym",
+"leisure",
+"gym / fitness center"
+],
+"leisure/horse_riding":[
+"horse ranch",
+"Horseback Riding Centre",
+"horse riding facility",
+"horse park",
+"horse riding center",
+"equestrian facility",
+"riding facility",
+"horse farm",
+"riding stables",
+"horseback riding center",
+"stables",
+"horse riding",
+"equestrian center"
+],
+"leisure/indoor_play":[
+"Indoor Play Centre",
+"children's play center",
+"indoor playground",
+"ball pit",
+"indoor play center"
+],
+"leisure/park":[
+"forest",
+"green",
+"tract",
+"woodland",
+"estate",
+"parkland",
+"pleasure garden",
+"Park",
+"lot",
+"plaza",
+"grounds",
+"square",
+"grass",
+"playground",
+"recreation area",
+"garden",
+"place",
+"esplanade",
+"lawn",
+"meadow",
+"village green"
+],
+"leisure/playground":[
+"jungle gym",
+"play area",
+"Playground"
+],
+"leisure/sports_centre":[
+"recreation centre",
+"sports center / complex",
+"athletic center",
+"sports centre",
+"athletic centre",
+"recreation center",
+"sports complex",
+"Sports Centre / Complex"
+],
+"man_made/lighthouse":[
+"Lighthouse"
+],
+"man_made/pier":[
+"Pier",
+"landing",
+"promenade",
+"berth",
+"wharf",
+"jetty",
+"dock"
 ],
 "office/union":[
-"Labour Union Office"
+"Labour Union Office",
+"labor union office",
+"union office",
+"trade union"
 ],
 "place/neighbourhood":[
-"Neighbourhood"
+"Neighbourhood",
+"neighborhood"
 ],
 "public_transport/platform/bus_tram_point":[
-"Streetcar & Bus Stop"
+"bus",
+"light rail",
+"rail",
+"Streetcar & Bus Stop",
+"platform",
+"public transportation",
+"transportation",
+"trolley",
+"public transit",
+"tram & bus stop",
+"transit",
+"streetcar",
+"track",
+"tram"
 ],
 "public_transport/platform/tram":[
-"Streetcar Platform"
+"light rail",
+"electric",
+"rail",
+"platform",
+"public transportation",
+"transportation",
+"trolley",
+"public transit",
+"transit",
+"streetcar",
+"tram platform",
+"Streetcar Platform",
+"track",
+"tram"
 ],
 "public_transport/platform/tram_point":[
-"Streetcar Stop / Platform"
+"Streetcar Stop / Platform",
+"light rail",
+"electric",
+"rail",
+"tram stop / platform",
+"platform",
+"public transportation",
+"transportation",
+"trolley",
+"public transit",
+"transit",
+"streetcar",
+"track",
+"tram"
 ],
 "public_transport/station_tram":[
+"tram station",
+"light rail",
+"electric",
+"rail",
+"terminal",
+"public transportation",
+"transportation",
+"trolley",
+"public transit",
+"transit",
+"station",
+"streetcar",
+"track",
+"tram",
 "Streetcar Station"
 ],
 "public_transport/stop_position_tram":[
-"Streetcar Stopping Location"
+"Streetcar Stopping Location",
+"light rail",
+"electric",
+"rail",
+"tram stopping location",
+"public transportation",
+"transportation",
+"trolley",
+"public transit",
+"transit",
+"streetcar",
+"track",
+"tram"
 ],
 "railway/tram":[
+"tramway",
+"electric street railway",
+"light rail",
+"tram track",
+"trolley track",
 "Streetcar Track"
 ],
 "railway/tram_crossing":[
+"streetcar crossing",
+"trolley crossing",
+"path tram crossing",
+"level crossing",
+"tram path crossing",
+"tram-path crossing",
+"grade crossing",
+"crossing",
+"tramway crossing",
+"pedestrian crossing",
 "Streetcar-Path Crossing"
 ],
 "railway/tram_level_crossing":[
-"Streetcar-Road Crossing"
+"tram road crossing",
+"streetcar crossing",
+"trolley crossing",
+"level crossing",
+"Streetcar-Road Crossing",
+"grade crossing",
+"crossing",
+"tramway crossing",
+"pedestrian crossing",
+"road tram crossing",
+"tram-road crossing"
 ],
 "railway/tram_stop":[
-"Streetcar Stopping Position"
+"Streetcar Stopping Position",
+"tram stopping position"
+],
+"shop/garden_centre":[
+"retail plant nursery",
+"nursery",
+"Garden Centre",
+"tree",
+"garden center",
+"plant nursery",
+"landscape",
+"mulch",
+"shrub"
 ],
 "telecom/data_center":[
-"Data Centre"
+"data center",
+"information technology",
+"the cloud",
+"Data Centre",
+"server farm",
+"computer systems storage",
+"telecommunications"
 ],
 "tourism/information/visitor_centre":[
+"visitor center",
+"visitors center",
+"visitors information center",
+"welcome center",
 "Visitor Centre"
 ],
 "type/route/tram":[
+"tram route",
 "Streetcar Route"
+],
+"building_point":[
+"Building",
+"structure"
+],
+"highway/path/bicycle_foot":[
+"bicycle and foot path",
+"bike and pedestrian path",
+"mixed-use trail",
+"multi-use trail",
+"segregated trail",
+"shared use path",
+"Cycle & Foot Path",
+"multi-use path",
+"greenway",
+"shared path",
+"green way",
+"rail trail"
+],
+"highway/path/traffic_island_shared":[
+"crosswalk island",
+"crossing island",
+"traffic island",
+"pedestrian island",
+"Cycle & Foot Refuge Island"
+],
+"highway/path/crossing/informal":[
+"Informal Crossing"
+],
+"highway/path/crossing/marked":[
+"Marked Cycle & Foot Crossing"
+],
+"highway/path/crossing/bicycle_foot":[
+"bike and pedestrian crossing",
+"cyclist",
+"Cycle & Foot Crossing",
+"bicycle and foot crosswalk",
+"cycling",
+"cycleway"
+],
+"highway/footway/crossing/informal":[
+"Informal Crossing"
+],
+"highway/footway/crossing/marked":[
+"zebra crossing",
+"marked pedestrian crosswalk",
+"crosswalk",
+"Marked Crossing",
+"marked foot path crossing",
+"marked crosswalk"
+],
+"highway/footway/crossing/zebra":[
+"zebra crossing",
+"marked pedestrian crosswalk",
+"crosswalk",
+"Marked Crossing",
+"marked foot path crossing",
+"marked crosswalk"
+],
+"highway/cycleway/crossing/marked":[
+"cycle crosswalk",
+"cycle path crossing",
+"Marked Cycle Crossing",
+"bike crossing",
+"cycleway crossing",
+"bicycle crossing",
+"crossride"
+],
+"highway/crossing/marked":[
+"zebra crossing",
+"marked pedestrian crosswalk",
+"crosswalk",
+"Marked Crossing",
+"marked foot path crossing",
+"marked crosswalk"
+],
+"highway/crossing/zebra":[
+"zebra crossing",
+"marked pedestrian crosswalk",
+"crosswalk",
+"Marked Crossing",
+"marked foot path crossing",
+"marked crosswalk"
 ]
 }

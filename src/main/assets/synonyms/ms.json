@@ -29,9 +29,6 @@
 "amenity/doctors":[
 "Doktor"
 ],
-"amenity/embassy":[
-"Kedutaan Besar"
-],
 "amenity/fast_food":[
 "Makanan Segera"
 ],
@@ -62,9 +59,6 @@
 ],
 "amenity/nightclub":[
 "Kelab Malam"
-],
-"amenity/parking":[
-"Tempat Letak Kereta"
 ],
 "amenity/parking_space":[
 "Ruang Letak Kenderaan"
@@ -164,14 +158,11 @@
 "Sekatan"
 ],
 "barrier/toll_booth":[
-"plaza tol",
-"Pondok Tol"
+"Pondok Tol",
+"plaza tol"
 ],
 "barrier/wall":[
 "Tembok"
-],
-"boundary/administrative":[
-"Sempadan Pentadbiran"
 ],
 "building":[
 "Bangunan"
@@ -223,8 +214,8 @@
 "Bangunan Perindustrian"
 ],
 "building/mosque":[
-"bangunan surau",
 "Bangunan Masjid",
+"bangunan surau",
 "musolla"
 ],
 "building/public":[
@@ -261,14 +252,8 @@
 "building/warehouse":[
 "Gudang"
 ],
-"building_point":[
-"Bangunan"
-],
 "club":[
 "Kelab"
-],
-"craft/tailor":[
-"Kedai Tukang Jahit"
 ],
 "embankment":[
 "Tambak"
@@ -277,9 +262,6 @@
 "Stesen Ambulans"
 ],
 "ford":[
-"Harungan"
-],
-"ford_line":[
 "Harungan"
 ],
 "highway/primary":[
@@ -311,9 +293,6 @@
 ],
 "historic/tomb":[
 "Makam"
-],
-"landuse/pond":[
-"Kolam"
 ],
 "leisure/picnic_table/chess":[
 "Meja Catur"
@@ -423,9 +402,6 @@
 "office/lawyer":[
 "Pejabat Undang-undang"
 ],
-"office/lawyer/notary":[
-"Pejabat Penyaksi Awam"
-],
 "office/moving_company":[
 "Pejabat Syarikat Pemindahan"
 ],
@@ -470,9 +446,6 @@
 ],
 "office/therapist":[
 "Pejabat Ahli Terapi"
-],
-"office/travel_agent":[
-"Agensi Pelancongan"
 ],
 "office/water_utility":[
 "Pejabat Pembekal Air"
@@ -573,17 +546,11 @@
 "public_transport/station_train":[
 "Stesen Kereta Api"
 ],
-"railway/abandoned":[
-"Jalan Kereta Api Terbiar"
-],
 "railway/disused":[
 "Jalan Kereta Api yang Tidak Diguna"
 ],
 "railway/signal":[
 "Isyarat Kereta Api"
-],
-"railway/station":[
-"Stesen Kereta Api"
 ],
 "relation":[
 "Hubungan"
@@ -730,5 +697,68 @@
 ],
 "waterway/weir":[
 "Tebat"
+],
+"building_point":[
+"Bangunan"
+],
+"ford_line":[
+"Harungan"
+],
+"shop/ice_cream":[
+"Kedai Ais Krim"
+],
+"railway/station":[
+"Stesen Kereta Api"
+],
+"office/travel_agent":[
+"Agensi Pelancongan"
+],
+"office/lawyer/notary":[
+"Pejabat Penyaksi Awam"
+],
+"craft/tailor":[
+"Kedai Tukang Jahit"
+],
+"building/glasshouse":[
+"Rumah Tanaman"
+],
+"boundary/administrative":[
+"Sempadan Pentadbiran"
+],
+"amenity/embassy":[
+"Kedutaan Besar"
+],
+"@templates/contact":[
+"Titik"
+],
+"@templates/internet_access":[
+"Titik"
+],
+"@templates/poi":[
+"Titik"
+],
+"@templates/crossing/bicycle_more":[
+"Titik"
+],
+"@templates/crossing/defaults":[
+"Titik"
+],
+"@templates/crossing/geometry_way_more":[
+"Titik"
+],
+"@templates/crossing/markings":[
+"Titik"
+],
+"@templates/crossing/markings_yes":[
+"Titik"
+],
+"@templates/crossing/surfacequality":[
+"Titik"
+],
+"@templates/crossing/traffic_signal":[
+"Titik"
+],
+"@templates/crossing/traffic_signal_more":[
+"Titik"
 ]
 }

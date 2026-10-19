@@ -20,9 +20,6 @@
 "highway/crossing":[
 "Пераход"
 ],
-"highway/crossing/traffic_signals":[
-"Пераход зь сьвятлафорам"
-],
 "highway/crossing/uncontrolled":[
 "Пазначаны пераход"
 ],
@@ -97,5 +94,56 @@
 ],
 "type/site":[
 "Сайт"
+],
+"highway/path/bicycle_foot":[
+"Роварны і пешаходны шлях"
+],
+"highway/path/traffic_island_shared":[
+"Роварны і пешаходны астравок бяспекі"
+],
+"highway/path/crossing/bicycle_foot":[
+"Роварны і пешаходны пераход"
+],
+"highway/cycleway/crossing/marked":[
+"Пазначаны роварны пераезд"
+],
+"highway/crossing/marked":[
+"Пазначаны пераход"
+],
+"highway/crossing/zebra":[
+"Пазначаны пераход"
+],
+"@templates/contact":[
+"Пункт"
+],
+"@templates/internet_access":[
+"Пункт"
+],
+"@templates/poi":[
+"Пункт"
+],
+"@templates/crossing/bicycle_more":[
+"Пункт"
+],
+"@templates/crossing/defaults":[
+"Пункт"
+],
+"@templates/crossing/geometry_way_more":[
+"Пункт"
+],
+"@templates/crossing/markings":[
+"Пункт"
+],
+"@templates/crossing/markings_yes":[
+"Пункт"
+],
+"@templates/crossing/surfacequality":[
+"Пункт"
+],
+"@templates/crossing/traffic_signal":[
+"Пункт"
+],
+"@templates/crossing/traffic_signal_more":[
+"Пункт"
 ]
 }

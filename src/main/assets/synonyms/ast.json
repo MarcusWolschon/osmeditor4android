@@ -32,8 +32,8 @@
 ],
 "aerialway/pylon":[
 "sofitu",
-"poste",
 "Poste de tresporte per cable",
+"poste",
 "torre"
 ],
 "aerialway/rope_tow":[
@@ -79,8 +79,8 @@
 "animales",
 "perrera",
 "adopción",
-"mascotes",
-"Refuxu d'animales"
+"Refuxu d'animales",
+"mascotes"
 ],
 "amenity/arts_centre":[
 "plástica",
@@ -123,12 +123,9 @@
 "Alquiler de barcos"
 ],
 "amenity/bureau_de_change":[
-"divisa",
 "Cambiu de moneda",
+"divisa",
 "cambiu"
-],
-"amenity/bus_station":[
-"Estación d'autobuses / Terminal"
 ],
 "amenity/cafe":[
 "cafetería",
@@ -188,9 +185,6 @@
 "especialista",
 "Doctor"
 ],
-"amenity/doctors/podiatry":[
-"Pediatra"
-],
 "amenity/dojo":[
 "Dojo / Academia d'artes marciales",
 "ximnasiu"
@@ -199,9 +193,6 @@
 "Agua potable",
 "fonte",
 "bebederu"
-],
-"amenity/embassy":[
-"Embaxada"
 ],
 "amenity/fast_food":[
 "Comida rápida",
@@ -257,9 +248,6 @@
 "baille",
 "Discoteca"
 ],
-"amenity/parking":[
-"Aparcamientu"
-],
 "amenity/parking_space":[
 "Espaciu d'aparcamientu"
 ],
@@ -290,8 +278,8 @@
 "Planetariu"
 ],
 "amenity/police":[
-"cuartel",
 "Policía",
+"cuartel",
 "guardia civil",
 "policía",
 "comisaría"
@@ -307,9 +295,9 @@
 "Terrén de cárcel"
 ],
 "amenity/pub":[
+"Pub",
 "pub",
-"chigre",
-"Pub"
+"chigre"
 ],
 "amenity/public_bath":[
 "Baños públicos"
@@ -375,8 +363,8 @@
 "comedia"
 ],
 "amenity/townhall":[
-"ayuntamientu",
 "Edificiu municipal",
+"ayuntamientu",
 "casa del conceyu"
 ],
 "amenity/vending_machine":[
@@ -527,12 +515,6 @@
 "barrier/wall":[
 "Muria"
 ],
-"boundary":[
-"Llende"
-],
-"boundary/administrative":[
-"Llende alministrativa"
-],
 "building":[
 "Edificiu"
 ],
@@ -598,9 +580,9 @@
 "Cabaña"
 ],
 "building/industrial":[
+"Edificiu industrial",
 "nave",
 "taller",
-"Edificiu industrial",
 "fábrica"
 ],
 "building/public":[
@@ -643,9 +625,6 @@
 "nave d'almacenamientu",
 "Almacén"
 ],
-"building_point":[
-"Edificiu"
-],
 "craft":[
 "Oficiu",
 "negociu",
@@ -668,8 +647,8 @@
 "ferrador"
 ],
 "craft/boatbuilder":[
-"astilleru",
-"Carpinteru de ribera"
+"Carpinteru de ribera",
+"astilleru"
 ],
 "craft/bookbinder":[
 "encuadernación",
@@ -711,11 +690,8 @@
 "Aislamientos"
 ],
 "craft/key_cutter":[
-"duplicáu de llaves",
-"Llaves"
-],
-"craft/locksmith":[
-"Cerraxería"
+"Llaves",
+"duplicáu de llaves"
 ],
 "craft/painter":[
 "Pintor"
@@ -767,9 +743,6 @@
 "craft/stonemason":[
 "Canteru"
 ],
-"craft/tailor":[
-"Sastre"
-],
 "craft/tiler":[
 "Azulexista"
 ],
@@ -817,9 +790,6 @@
 "ford":[
 "Vau"
 ],
-"ford_line":[
-"Vau"
-],
 "golf/bunker":[
 "Trampa de sable",
 "areneru",
@@ -862,9 +832,6 @@
 "healthcare/birthing_center":[
 "Maternidá"
 ],
-"healthcare/blood_donation":[
-"Centru de donantes de sangre"
-],
 "healthcare/hospice":[
 "Hospiciu"
 ],
@@ -876,9 +843,6 @@
 ],
 "healthcare/optometrist":[
 "Ópticu"
-],
-"healthcare/physiotherapist":[
-"Fisioterapeuta"
 ],
 "healthcare/podiatrist":[
 "Pediatra"
@@ -967,8 +931,8 @@
 "Estrada secundaria"
 ],
 "highway/secondary_link":[
-"accesu",
 "Enllaz d'estrada autonómica II",
+"accesu",
 "autonómica verde",
 "enllaz",
 "autonómica secundaria",
@@ -1038,8 +1002,8 @@
 "accesu",
 "enllaz",
 "nacional",
-"salida",
-"Enllaz d'estrada nacional"
+"Enllaz d'estrada nacional",
+"salida"
 ],
 "highway/turning_circle":[
 "ensin salida",
@@ -1081,17 +1045,11 @@
 "indoor/corridor":[
 "Pasiellu d'edificiu"
 ],
-"indoor/corridor_line":[
-"Pasiellu d'edificiu"
-],
 "junction":[
 "Crucie"
 ],
 "landuse/aquaculture":[
 "Acuacultura"
-],
-"landuse/basin":[
-"Acumulación d'agües"
 ],
 "landuse/brownfield":[
 "Solar"
@@ -1104,9 +1062,6 @@
 ],
 "landuse/commercial":[
 "Área comercial"
-],
-"landuse/farm":[
-"Tierra de llabor"
 ],
 "landuse/farmland":[
 "Tierra de llabor"
@@ -1144,14 +1099,8 @@
 "landuse/plant_nursery":[
 "Viveru"
 ],
-"landuse/pond":[
-"Estanque"
-],
 "landuse/quarry":[
 "Cantera"
-],
-"landuse/reservoir":[
-"Embalse"
 ],
 "landuse/residential":[
 "Área de viviendes"
@@ -1285,9 +1234,6 @@
 "leisure/track":[
 "Circuitu (Deportes sin motor)"
 ],
-"leisure/track/athletics/running":[
-"Pista d'atletismu"
-],
 "leisure/track/running":[
 "Pista d'atletismu",
 "circuitu",
@@ -1374,8 +1320,8 @@
 ],
 "man_made/tower/observation":[
 "observatoriu",
-"torre d'observación",
-"Torre de vixilancia"
+"Torre de vixilancia",
+"torre d'observación"
 ],
 "man_made/wastewater_plant":[
 "depuradora",
@@ -1542,8 +1488,8 @@
 ],
 "office/government/register_office":[
 "rexistru",
-"almisión",
-"Oficina de rexistru"
+"Oficina de rexistru",
+"almisión"
 ],
 "office/insurance":[
 "Oficina de seguros",
@@ -1553,9 +1499,6 @@
 ],
 "office/lawyer":[
 "Despachu d'abogaos"
-],
-"office/lawyer/notary":[
-"Notaría"
 ],
 "office/newspaper":[
 "Redacción de periódicu"
@@ -1575,9 +1518,6 @@
 ],
 "office/telecommunication":[
 "Oficina de telecomunicaciones"
-],
-"office/travel_agent":[
-"Axencia de viaxes"
 ],
 "place":[
 "Llugar"
@@ -1693,9 +1633,6 @@
 "terminal ferroviaria",
 "Estación de tren"
 ],
-"railway/abandoned":[
-"Ferrocarril abandonáu"
-],
 "railway/buffer_stop":[
 "Topera"
 ],
@@ -1708,24 +1645,18 @@
 "railway/signal":[
 "Señal de ferrocarril"
 ],
-"railway/station":[
-"Estación de tren"
-],
 "railway/subway_entrance":[
 "Boca del metro"
 ],
 "relation":[
 "Rellación"
 ],
-"route/ferry":[
-"Ruta de ferry"
-],
 "shop":[
 "Tienda"
 ],
 "shop/alcohol":[
-"bodega",
-"Llicorería"
+"Llicorería",
+"bodega"
 ],
 "shop/art":[
 "marchante d'arte",
@@ -1807,8 +1738,8 @@
 "Bricolage"
 ],
 "shop/dry_cleaning":[
-"llavandería",
 "Llimpieza en seco",
+"llavandería",
 "tintorería"
 ],
 "shop/electronics":[
@@ -2169,10 +2100,6 @@
 "ruta de tubería",
 "Ruta de tubería"
 ],
-"type/route/power":[
-"ruta de llinia d'enerxía",
-"Ruta d'enerxía"
-],
 "type/route/road":[
 "ruta de carretera",
 "Ruta per carretera"
@@ -2181,8 +2108,8 @@
 "Ruta de metro"
 ],
 "type/route/train":[
-"ruta ferroviaria",
-"Ruta de tren"
+"Ruta de tren",
+"ruta ferroviaria"
 ],
 "type/route/tram":[
 "Ruta de tranvía"
@@ -2191,8 +2118,8 @@
 "Ruta maestra"
 ],
 "type/site":[
-"puntu",
 "Llugar",
+"puntu",
 "allugamientu"
 ],
 "type/waterway":[
@@ -2224,8 +2151,8 @@
 ],
 "waterway/river":[
 "regatu",
-"ríu",
-"Ríu"
+"Ríu",
+"ríu"
 ],
 "waterway/sanitary_dump_station":[
 "Vaciáu de sentines",
@@ -2252,5 +2179,144 @@
 "banzáu",
 "Ñora",
 "presa"
+],
+"boundary":[
+"Llende"
+],
+"building_point":[
+"Edificiu"
+],
+"ford_line":[
+"Vau"
+],
+"shop/ice_cream":[
+"Xeladería"
+],
+"route/ferry":[
+"Ruta de ferry"
+],
+"railway/station":[
+"terminal ferroviaria",
+"Estación de tren"
+],
+"office/travel_agent":[
+"viaxes",
+"Axencia de viaxes"
+],
+"office/lawyer/notary":[
+"Notaría"
+],
+"leisure/track/athletics/running":[
+"Pista d'atletismu",
+"circuitu",
+"pista"
+],
+"landuse/basin":[
+"Acumulación d'agües"
+],
+"landuse/reservoir":[
+"Embalse"
+],
+"landuse/industrial/industrial_point":[
+"Área industrial"
+],
+"indoor/corridor_line":[
+"Pasiellu d'edificiu"
+],
+"highway/motorway_link-US-CA":[
+"accesu",
+"autoestrada",
+"enllaz",
+"Enllaz d'autoestrada",
+"salida"
+],
+"highway/primary_link-US-CA":[
+"autonómica naranxa",
+"accesu",
+"enllaz",
+"Enllaz de carretera autonómica I",
+"salida",
+"autonómica primaria"
+],
+"highway/trunk_link-US-CA":[
+"accesu",
+"enllaz",
+"nacional",
+"Enllaz d'estrada nacional",
+"salida"
+],
+"craft/locksmith":[
+"llaves",
+"cerradura",
+"Cerraxería"
+],
+"craft/tailor":[
+"Sastrería",
+"sastre"
+],
+"building/glasshouse":[
+"plásticu",
+"Ivernaderu",
+"cultivu"
+],
+"building/house/detached":[
+"Casa aisllada"
+],
+"building/house/semi-detached":[
+"Casa semi-aisllada"
+],
+"boundary/administrative":[
+"Llende alministrativa"
+],
+"amenity/bus_station":[
+"Estación / Terminal d'autobuses"
+],
+"amenity/coworking_space":[
+"Espaciu de trabayu compartíu"
+],
+"amenity/embassy":[
+"consuláu",
+"representación diplomática",
+"embaxada",
+"Embaxada"
+],
+"amenity/doctors/podiatry":[
+"Pediatra"
+],
+"aerialway/station":[
+"Estación de remonte"
+],
+"@templates/contact":[
+"Puntu"
+],
+"@templates/internet_access":[
+"Puntu"
+],
+"@templates/poi":[
+"Puntu"
+],
+"@templates/crossing/bicycle_more":[
+"Puntu"
+],
+"@templates/crossing/defaults":[
+"Puntu"
+],
+"@templates/crossing/geometry_way_more":[
+"Puntu"
+],
+"@templates/crossing/markings":[
+"Puntu"
+],
+"@templates/crossing/markings_yes":[
+"Puntu"
+],
+"@templates/crossing/surfacequality":[
+"Puntu"
+],
+"@templates/crossing/traffic_signal":[
+"Puntu"
+],
+"@templates/crossing/traffic_signal_more":[
+"Puntu"
 ]
 }

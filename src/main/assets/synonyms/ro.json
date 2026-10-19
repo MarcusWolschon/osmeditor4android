@@ -92,14 +92,8 @@
 "amenity/drinking_water":[
 "Apă de Băut"
 ],
-"amenity/embassy":[
-"Ambasadă"
-],
 "amenity/fast_food":[
 "Fast Food"
-],
-"amenity/ferry_terminal":[
-"Terminal de Bac"
 ],
 "amenity/fire_station":[
 "Pompieri"
@@ -136,9 +130,6 @@
 ],
 "amenity/nightclub":[
 "Club de Noapte"
-],
-"amenity/parking":[
-"Parcare"
 ],
 "amenity/parking_space":[
 "Loc de Parcare"
@@ -293,12 +284,6 @@
 "barrier/wall":[
 "Zid"
 ],
-"boundary":[
-"Graniță"
-],
-"boundary/administrative":[
-"Graniță Administrativă"
-],
 "building":[
 "Clădire"
 ],
@@ -431,9 +416,6 @@
 "building_part":[
 "Parte de clădire"
 ],
-"building_point":[
-"Clădire"
-],
 "club":[
 "Club"
 ],
@@ -482,17 +464,11 @@
 "ford":[
 "Vad"
 ],
-"ford_line":[
-"Vad"
-],
 "golf/fairway":[
 "Drum Maritim"
 ],
 "golf/tee":[
 "Casa de Ceai"
-],
-"healthcare/blood_donation":[
-"Centru de Donație de Sânge"
 ],
 "highway/corridor":[
 "Coridor Interior"
@@ -611,17 +587,11 @@
 "indoor/corridor":[
 "Coridor Interior"
 ],
-"indoor/corridor_line":[
-"Coridor Interior"
-],
 "junction":[
 "Juncție"
 ],
 "landuse/aquaculture":[
 "Acvacultură"
-],
-"landuse/basin":[
-"Bazin"
 ],
 "landuse/cemetery":[
 "Cimitir"
@@ -631,9 +601,6 @@
 ],
 "landuse/commercial":[
 "Zonă Comercială"
-],
-"landuse/farm":[
-"Teren Agricol"
 ],
 "landuse/farmland":[
 "Teren Agricol"
@@ -652,12 +619,6 @@
 ],
 "landuse/meadow":[
 "Pajiște"
-],
-"landuse/pond":[
-"Iaz"
-],
-"landuse/reservoir":[
-"Rezervor"
 ],
 "landuse/residential":[
 "Zonă Rezidențială"
@@ -968,9 +929,6 @@
 "office/lawyer":[
 "Cabinet de Avocatură"
 ],
-"office/lawyer/notary":[
-"Notar"
-],
 "office/ngo":[
 "Oficiu NGO"
 ],
@@ -994,9 +952,6 @@
 ],
 "office/translator":[
 "Birou de traduceri"
-],
-"office/travel_agent":[
-"Agenție de Călătorii"
 ],
 "place":[
 "Loc"
@@ -1070,9 +1025,6 @@
 "public_transport/station_ferry":[
 "Terminal de Bac"
 ],
-"railway/abandoned":[
-"Cale Ferată Abandonată"
-],
 "railway/disused":[
 "Cale Ferată Învechită"
 ],
@@ -1081,9 +1033,6 @@
 ],
 "relation":[
 "Relație"
-],
-"route/ferry":[
-"Rută de Bac"
 ],
 "shop":[
 "Magazin"
@@ -1456,9 +1405,6 @@
 "type/route/pipeline":[
 "Rută de Conducte"
 ],
-"type/route/power":[
-"Rută de Energie"
-],
 "type/route/road":[
 "Rută de Stadă"
 ],
@@ -1498,5 +1444,101 @@
 ],
 "waterway/waterfall":[
 "Cascadă"
+],
+"boundary":[
+"Graniță"
+],
+"building_point":[
+"Clădire"
+],
+"ford_line":[
+"Vad"
+],
+"shop/ice_cream":[
+"Magazin de Înghețată"
+],
+"route/ferry":[
+"Rută de Bac"
+],
+"office/travel_agent":[
+"Agenție de Călătorii"
+],
+"office/lawyer/notary":[
+"Notar"
+],
+"landuse/basin":[
+"Bazin"
+],
+"landuse/reservoir":[
+"Rezervor"
+],
+"landuse/industrial/industrial_point":[
+"Zonă Industrială"
+],
+"indoor/corridor_line":[
+"Coridor Interior"
+],
+"highway/motorway_link-US-CA":[
+"Intrare în Autostradă"
+],
+"highway/primary_link-US-CA":[
+"Intrare în Drum Principal"
+],
+"highway/trunk_link-US-CA":[
+"Intrare în Drum Expres"
+],
+"building/entrance":[
+"Intrare / Ieșire"
+],
+"building/glasshouse":[
+"Seră"
+],
+"building/house/detached":[
+"Casă Detașată"
+],
+"building/house/semi-detached":[
+"Casă Semi-detașată"
+],
+"boundary/administrative":[
+"Graniță Administrativă"
+],
+"amenity/embassy":[
+"Ambasadă"
+],
+"amenity/ferry_terminal":[
+"Terminal de Bac"
+],
+"@templates/contact":[
+"Punct"
+],
+"@templates/internet_access":[
+"Punct"
+],
+"@templates/poi":[
+"Punct"
+],
+"@templates/crossing/bicycle_more":[
+"Punct"
+],
+"@templates/crossing/defaults":[
+"Punct"
+],
+"@templates/crossing/geometry_way_more":[
+"Punct"
+],
+"@templates/crossing/markings":[
+"Punct"
+],
+"@templates/crossing/markings_yes":[
+"Punct"
+],
+"@templates/crossing/surfacequality":[
+"Punct"
+],
+"@templates/crossing/traffic_signal":[
+"Punct"
+],
+"@templates/crossing/traffic_signal_more":[
+"Punct"
 ]
 }

@@ -26,9 +26,6 @@
 "amenity/bicycle_parking":[
 "ਸਾਈਕਲ ਪਾਰਕਿੰਗ"
 ],
-"amenity/bus_station":[
-"ਬੱਸ ਅੱਡਾ"
-],
 "amenity/cafe":[
 "ਕੈਫੇ"
 ],
@@ -38,14 +35,8 @@
 "amenity/fast_food/donut":[
 "ਡੋਨੱਟ ਫਾਸਟ ਫੂਡ"
 ],
-"amenity/ferry_terminal":[
-"ਬੇੜੀ ਟਰਮੀਨਲ"
-],
 "amenity/library":[
 "ਲਾਇਬ੍ਰੇਰੀ"
-],
-"amenity/parking":[
-"ਪਾਰਕਿੰਗ ਲੌਟ"
 ],
 "amenity/place_of_worship/buddhist":[
 "ਬੁੱਧ ਮੰਦਰ"
@@ -74,9 +65,6 @@
 "barrier/yes":[
 "ਰੋਕ (ਅਣ-ਨਿਰਧਾਰਤ ਕਿਸਮ)"
 ],
-"boundary":[
-"ਹੱਦ"
-],
 "building":[
 "ਇਮਾਰਤ"
 ],
@@ -98,17 +86,8 @@
 "building_part":[
 "ਇਮਾਰਤ ਦਾ ਹਿੱਸਾ"
 ],
-"building_point":[
-"ਇਮਾਰਤ"
-],
 "ford":[
 "ਫੋਰਡ"
-],
-"ford_line":[
-"ਫੋਰਡ"
-],
-"highway/bus_stop":[
-"ਬੱਸ ਸਟਾਪ"
 ],
 "highway/cycleway":[
 "ਸਾਈਕਲ ਰਸਤਾ"
@@ -200,23 +179,14 @@
 "railway/level_crossing":[
 "ਰੇਲਵੇ-ਸੜਕ ਕਰਾਸਿੰਗ"
 ],
-"railway/platform":[
-"ਟ੍ਰੇਨ ਪਲੇਟਫਾਰਮ"
-],
 "railway/rail":[
 "ਟ੍ਰੇਨ ਟ੍ਰੈਕ"
-],
-"railway/station":[
-"ਰੇਲ ਅੱਡਾ"
 ],
 "railway/subway":[
 "ਸਬਵੇ ਟ੍ਰੈਕ"
 ],
 "relation":[
 "ਰਿਸ਼ਤਾ"
-],
-"route/ferry":[
-"ਬੇੜੀ ਰਸਤਾ"
 ],
 "shop":[
 "ਦੁਕਾਨ"
@@ -358,5 +328,80 @@
 ],
 "waterway/canal":[
 "ਨਹਿਰ"
+],
+"boundary":[
+"ਹੱਦ"
+],
+"building_point":[
+"ਇਮਾਰਤ"
+],
+"ford_line":[
+"ਫੋਰਡ"
+],
+"traffic_sign/maxspeed-US-CA-LR":[
+"ਗਤੀ ਸੀਮਾ ਚਿੰਨ੍ਹ"
+],
+"route/ferry":[
+"ਬੇੜੀ ਰਸਤਾ"
+],
+"railway/platform":[
+"ਟ੍ਰੇਨ ਪਲੇਟਫਾਰਮ"
+],
+"railway/station":[
+"ਰੇਲ ਅੱਡਾ"
+],
+"highway/bus_stop":[
+"ਬੱਸ ਸਟਾਪ"
+],
+"highway/traffic_sign":[
+"ਟ੍ਰੈਫਿਕ ਚਿੰਨ੍ਹ"
+],
+"highway/motorway_link-US-CA":[
+"ਮੋਟਰਵੇਅ ਲਿੰਕ"
+],
+"highway/primary_link-US-CA":[
+"ਪ੍ਰਾਇਮਰੀ ਲਿੰਕ"
+],
+"highway/trunk_link-US-CA":[
+"ਟ੍ਰੰਕ ਲਿੰਕ"
+],
+"amenity/bus_station":[
+"ਬੱਸ ਅੱਡਾ"
+],
+"amenity/ferry_terminal":[
+"ਬੇੜੀ ਟਰਮੀਨਲ"
+],
+"@templates/contact":[
+"ਬਿੰਦੂ"
+],
+"@templates/internet_access":[
+"ਬਿੰਦੂ"
+],
+"@templates/poi":[
+"ਬਿੰਦੂ"
+],
+"@templates/crossing/bicycle_more":[
+"ਬਿੰਦੂ"
+],
+"@templates/crossing/defaults":[
+"ਬਿੰਦੂ"
+],
+"@templates/crossing/geometry_way_more":[
+"ਬਿੰਦੂ"
+],
+"@templates/crossing/markings":[
+"ਬਿੰਦੂ"
+],
+"@templates/crossing/markings_yes":[
+"ਬਿੰਦੂ"
+],
+"@templates/crossing/surfacequality":[
+"ਬਿੰਦੂ"
+],
+"@templates/crossing/traffic_signal":[
+"ਬਿੰਦੂ"
+],
+"@templates/crossing/traffic_signal_more":[
+"ਬਿੰਦੂ"
 ]
 }

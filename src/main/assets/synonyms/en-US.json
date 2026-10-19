@@ -1,15 +1,9 @@
 {
-"amenity/community_centre/cultural_centre":[
-"Cultural Center"
-],
 "amenity/stripclub":[
 "Strip Club"
 ],
 "disused/railway":[
 "Disused Railroad Feature"
-],
-"healthcare/physiotherapist":[
-"Physical Therapist"
 ],
 "highway/motorway":[
 "Freeway"
@@ -40,9 +34,6 @@
 ],
 "railway":[
 "Railroad Feature"
-],
-"railway/abandoned":[
-"Abandoned Railroad"
 ],
 "railway/construction":[
 "Railroad Under Construction"
@@ -97,5 +88,8 @@
 ],
 "type/route/tram":[
 "Streetcar Route"
+],
+"highway/motorway_link-US-CA":[
+"Freeway Link"
 ]
 }

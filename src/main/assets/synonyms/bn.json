@@ -44,9 +44,6 @@
 "amenity/drinking_water":[
 "পানীয় জল"
 ],
-"amenity/embassy":[
-"দুতাবাস"
-],
 "amenity/fast_food":[
 "ফাস্টফুড"
 ],
@@ -113,12 +110,6 @@
 "barrier/wall":[
 "দেয়াল"
 ],
-"boundary":[
-"সীমানা"
-],
-"boundary/administrative":[
-"প্রশাসনিক সীমানা"
-],
 "building":[
 "দালান"
 ],
@@ -139,9 +130,6 @@
 ],
 "building/residential":[
 "আবাসিক ভবন"
-],
-"building_point":[
-"দালান"
 ],
 "emergency/phone":[
 "জরুরি ফোন"
@@ -221,14 +209,8 @@
 "landuse/orchard":[
 "ফলের বাগান"
 ],
-"landuse/pond":[
-"পুকুর"
-],
 "landuse/quarry":[
 "খনি"
-],
-"landuse/reservoir":[
-"জলাধার"
 ],
 "landuse/vineyard":[
 "আঙুরখেত"
@@ -365,9 +347,6 @@
 "point":[
 "বিন্দু"
 ],
-"railway/abandoned":[
-"পরিত্যক্ত রেলপথ"
-],
 "railway/disused":[
 "অব্যবহৃত রেলপথ"
 ],
@@ -502,5 +481,53 @@
 ],
 "waterway/stream":[
 "পানিস্রোত"
+],
+"boundary":[
+"সীমানা"
+],
+"building_point":[
+"দালান"
+],
+"landuse/reservoir":[
+"জলাধার"
+],
+"boundary/administrative":[
+"প্রশাসনিক সীমানা"
+],
+"amenity/embassy":[
+"দুতাবাস"
+],
+"@templates/contact":[
+"বিন্দু"
+],
+"@templates/internet_access":[
+"বিন্দু"
+],
+"@templates/poi":[
+"বিন্দু"
+],
+"@templates/crossing/bicycle_more":[
+"বিন্দু"
+],
+"@templates/crossing/defaults":[
+"বিন্দু"
+],
+"@templates/crossing/geometry_way_more":[
+"বিন্দু"
+],
+"@templates/crossing/markings":[
+"বিন্দু"
+],
+"@templates/crossing/markings_yes":[
+"বিন্দু"
+],
+"@templates/crossing/surfacequality":[
+"বিন্দু"
+],
+"@templates/crossing/traffic_signal":[
+"বিন্দু"
+],
+"@templates/crossing/traffic_signal_more":[
+"বিন্দু"
 ]
 }

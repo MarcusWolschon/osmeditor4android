@@ -26,9 +26,6 @@
 "نشست",
 "بنچ"
 ],
-"amenity/bus_station":[
-"بس اسٹیشن"
-],
 "amenity/casino":[
 "جوا خانہ",
 "قمار خانہ",
@@ -50,9 +47,6 @@
 "پینا",
 "پانی",
 "پینے والا پانی"
-],
-"amenity/embassy":[
-"صفارت خانہ"
 ],
 "amenity/fountain":[
 "چشمہ"
@@ -150,13 +144,6 @@
 "barrier/wall":[
 "دیوار"
 ],
-"boundary":[
-"حدود"
-],
-"boundary/administrative":[
-"انتظامی سرحد",
-"انتظامی حدود"
-],
 "building":[
 "عمارت"
 ],
@@ -220,9 +207,6 @@
 "building/train_station":[
 "ریل اڈہ عمارت"
 ],
-"building_point":[
-"عمارت"
-],
 "cemetery/grave":[
 "قبر"
 ],
@@ -238,14 +222,8 @@
 "craft/shoemaker":[
 "موچی"
 ],
-"craft/tailor":[
-"درزی"
-],
 "ford":[
 "معمر",
-"گھاٹ"
-],
-"ford_line":[
 "گھاٹ"
 ],
 "highway/construction":[
@@ -320,9 +298,6 @@
 ],
 "landuse/cemetery":[
 "قبرستان"
-],
-"landuse/farm":[
-"کھیت"
 ],
 "landuse/farmland":[
 "کھیت"
@@ -443,9 +418,6 @@
 "office/religion":[
 "دینی دفتر"
 ],
-"office/travel_agent":[
-"ٹریول ایجنسی"
-],
 "office/yes":[
 "دفتر (نامعلوم)"
 ],
@@ -527,16 +499,10 @@
 "ریلوے زیر تعمیر",
 "زیر تعمیر ریلوے"
 ],
-"railway/platform":[
-"ریل چبوترہ"
-],
 "railway/rail":[
 "ریل پٹری",
 "پٹری",
 "ٹرین پٹری"
-],
-"railway/station":[
-"ریل اڈہ"
 ],
 "relation":[
 "تعلق"
@@ -562,8 +528,8 @@
 "مال"
 ],
 "shop/religion":[
-"مذہبی دوکان",
-"مذہبی دکان"
+"مذہبی دکان",
+"مذہبی دوکان"
 ],
 "shop/tailor":[
 "درزی"
@@ -614,10 +580,11 @@
 "انتظامی حدود"
 ],
 "type/enforcement":[
+"نافذ",
 "قانونی",
 "نفاذ",
 "قانون",
-"نافذ،نفاذ قانون"
+"نفاذ قانون"
 ],
 "type/route":[
 "راہ"
@@ -678,12 +645,91 @@
 "نہر"
 ],
 "waterway/stream":[
-"نالا",
-"دھارا"
+"دھارا",
+"نالا"
 ],
 "waterway/stream_intermittent":[
-"رواں نالا",
 "رواں دھارا",
+"رواں نالا",
 "رواں پانی"
+],
+"boundary":[
+"حدود"
+],
+"building_point":[
+"عمارت"
+],
+"ford_line":[
+"معمر",
+"گھاٹ"
+],
+"traffic_sign/maxspeed-US-CA-LR":[
+"حدِ رفتار اشارہ",
+"حد رفتار اشارہ"
+],
+"railway/platform":[
+"چبوترہ",
+"ریل چبوترہ",
+"ٹرین چبوترہ",
+"ٹرین پلیٹفارم"
+],
+"railway/station":[
+"ٹرین اسٹیشن",
+"ریل اڈہ"
+],
+"office/travel_agent":[
+"ٹریول ایجنسی"
+],
+"landuse/industrial/industrial_point":[
+"صنعتی علاقہ"
+],
+"highway/traffic_sign":[
+"اشارہ"
+],
+"craft/tailor":[
+"درزی"
+],
+"boundary/administrative":[
+"انتظامی سرحد",
+"انتظامی حدود"
+],
+"amenity/bus_station":[
+"بس اڈہ"
+],
+"amenity/embassy":[
+"صفارت خانہ"
+],
+"@templates/contact":[
+"مقام"
+],
+"@templates/internet_access":[
+"مقام"
+],
+"@templates/poi":[
+"مقام"
+],
+"@templates/crossing/bicycle_more":[
+"مقام"
+],
+"@templates/crossing/defaults":[
+"مقام"
+],
+"@templates/crossing/geometry_way_more":[
+"مقام"
+],
+"@templates/crossing/markings":[
+"مقام"
+],
+"@templates/crossing/markings_yes":[
+"مقام"
+],
+"@templates/crossing/surfacequality":[
+"مقام"
+],
+"@templates/crossing/traffic_signal":[
+"مقام"
+],
+"@templates/crossing/traffic_signal_more":[
+"مقام"
 ]
 }

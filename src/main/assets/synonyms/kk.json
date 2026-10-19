@@ -46,6 +46,12 @@
 "aeroway/helipad":[
 "Тікұшақ алаңы"
 ],
+"aeroway/parking_position":[
+"Әуе кемесінің тұрағы"
+],
+"aeroway/runway":[
+"Ұшу алабы"
+],
 "aeroway/spaceport":[
 "Космодром"
 ],
@@ -106,9 +112,6 @@
 "amenity/bureau_de_change":[
 "Валюта айырбастау орны"
 ],
-"amenity/bus_station":[
-"Автобус бекеті/терминалы"
-],
 "amenity/cafe":[
 "Кафе"
 ],
@@ -133,6 +136,9 @@
 "amenity/charging_station":[
 "Зарядтау бекеті"
 ],
+"amenity/childcare":[
+"Бөбекжай"
+],
 "amenity/cinema":[
 "Кинотеатр"
 ],
@@ -153,12 +159,6 @@
 ],
 "amenity/community_centre/community_hall":[
 "Қоғамдық орталық"
-],
-"amenity/community_centre/cultural_centre":[
-"Мәдениет орталығы"
-],
-"amenity/community_centre/family_centre":[
-"Отбасылық орталық"
 ],
 "amenity/community_centre/parish_hall":[
 "Махалла/Приход залы"
@@ -231,9 +231,6 @@
 "amenity/doctors/pathology":[
 "Патологоанатом"
 ],
-"amenity/doctors/podiatry":[
-"Ортопед"
-],
 "amenity/doctors/psychiatrist":[
 "Психиатр"
 ],
@@ -258,9 +255,6 @@
 "amenity/driver_training":[
 "Көлік жүргізуді үйрену алаңы"
 ],
-"amenity/embassy":[
-"Елшілік"
-],
 "amenity/events_venue":[
 "тойхана",
 "Той-жиын өткізетін орын",
@@ -284,8 +278,8 @@
 ],
 "amenity/fast_food/cafeteria":[
 "кафе",
-"кафетерий",
 "Асхана",
+"кафетерий",
 "дәмхана"
 ],
 "amenity/fast_food/chicken":[
@@ -373,9 +367,6 @@
 "amenity/parcel_locker":[
 "Поштамат"
 ],
-"amenity/parking":[
-"Тұрақ"
-],
 "amenity/parking/multi-storey":[
 "Көпқабатты тұрақ"
 ],
@@ -422,6 +413,9 @@
 "amenity/place_of_worship/shinto":[
 "Дзиндзя"
 ],
+"amenity/police":[
+"Полиция"
+],
 "amenity/post_office":[
 "Пошта бөлімшесі"
 ],
@@ -438,7 +432,7 @@
 ],
 "amenity/shelter/gazebo":[
 "күрке",
-"Самалжай/Көлеңке",
+"Сәкі",
 "жаппа",
 "самалжай",
 "көлеңке",
@@ -447,8 +441,26 @@
 "amenity/social_facility/ambulatory_care":[
 "Амбулаторлық жәрдем"
 ],
+"amenity/studio":[
+"Студия"
+],
+"amenity/studio/audio":[
+"Дыбыс жазу студиясы"
+],
+"amenity/studio/video":[
+"Киностудия"
+],
 "amenity/telephone":[
 "Телефон"
+],
+"amenity/theatre":[
+"Театр"
+],
+"amenity/theatre/type/amphi":[
+"Амфитеатр"
+],
+"amenity/toilets":[
+"Дәретхана"
 ],
 "amenity/toilets/disposal/flush":[
 "Су ағызатыны бар дәретханалар"
@@ -458,8 +470,8 @@
 "портативті дәретхана"
 ],
 "amenity/townhall":[
-"администрация",
 "Әкімдік",
+"администрация",
 "аудан әкімдігі",
 "ауыл әкімдігі",
 "ратуша",
@@ -676,8 +688,8 @@
 ],
 "barrier/fence":[
 "дуал",
-"шарбақ",
 "Қоршау / шарбақ",
+"шарбақ",
 "қоршау"
 ],
 "barrier/fence/railing":[
@@ -709,6 +721,9 @@
 "бордюр",
 "Жиектас / бордюр"
 ],
+"barrier/log":[
+"Құлаған ағаштан туындаған кедергі"
+],
 "barrier/planter":[
 "Гүлзар (тосқауыл)"
 ],
@@ -739,12 +754,6 @@
 ],
 "barrier/yes":[
 "Кедергі (кез келген)"
-],
-"boundary":[
-"Шекара"
-],
-"boundary/administrative":[
-"Әкімшілік шекара"
 ],
 "boundary/hazard":[
 "Қауіпті аймақ"
@@ -813,13 +822,10 @@
 "Бөлек тұрған жер үй"
 ],
 "building/dormitory":[
-"общага",
 "Жатақхана",
+"общага",
 "студенттер жатақханасы",
 "общежитие"
-],
-"building/entrance":[
-"Кіру / Шығу"
 ],
 "building/farm":[
 "Фермерлік үй"
@@ -887,9 +893,9 @@
 "building/residential":[
 "тұрғынүй",
 "тұратын үй",
+"Тұрғын үй",
 "тұрғын ғимарат",
-"тұрғынжай",
-"Тұрғын үй"
+"тұрғынжай"
 ],
 "building/retail":[
 "Сауда ғимараты"
@@ -904,8 +910,8 @@
 "Қызметтік ғимарат"
 ],
 "building/shed":[
-"шолан",
 "Шошала/Сарай",
+"шолан",
 "сарай",
 "шошала",
 "қора",
@@ -947,9 +953,6 @@
 "building_part":[
 "Ғимараттың бөлігі"
 ],
-"building_point":[
-"Ғимарат"
-],
 "cemetery/grave":[
 "Қабір"
 ],
@@ -983,6 +986,9 @@
 ],
 "craft/boatbuilder":[
 "Кеме жасайтын орын"
+],
+"craft/chimney_sweeper":[
+"Мұржа тазалаушы"
 ],
 "craft/gardener":[
 "Бағбан"
@@ -1023,24 +1029,30 @@
 "embankment":[
 "Жер үйіндісі"
 ],
+"emergency/assembly_point":[
+"Төтенше жағдай кезінде жиналатын пукнт"
+],
 "emergency/defibrillator":[
 "Дефибриллятор"
 ],
 "entrance":[
 "Кіру / Шығу"
 ],
+"entrance/main":[
+"Алдыңғы кіреберіс",
+"бас есік",
+"алдыңғы есік",
+"негізгі есік"
+],
 "entrance/staircase":[
-"Көпқабатты үй кіреберісі"
+"Көп пәтерлі үй кіреберісі"
 ],
 "ford":[
+"Аяқ өткел",
 "аяқ өткел",
-"Өткел",
 "кешу",
 "брод",
 "форд"
-],
-"ford_line":[
-"Өткел"
 ],
 "golf/cartpath":[
 "Гольфкар жолы"
@@ -1057,6 +1069,9 @@
 "healthcare/alternative/osteopathy":[
 "Остеопат"
 ],
+"healthcare/laboratory":[
+"Медициналық зертхана"
+],
 "healthcare/optometrist":[
 "Оптометрист"
 ],
@@ -1065,9 +1080,6 @@
 ],
 "highway/bridleway":[
 "Ат жүретін шиыр"
-],
-"highway/bus_stop":[
-"Автобус аялдамасы"
 ],
 "highway/construction":[
 "Салынып жатқан жол"
@@ -1078,8 +1090,8 @@
 "highway/crossing/informal":[
 "Бейресми жаяу өткел"
 ],
-"highway/crossing/traffic_signals":[
-"Реттелмелі жаяу өткел"
+"highway/crossing/uncontrolled":[
+"Таңбаланған (реттелмейтін) жаяу өткел"
 ],
 "highway/crossing/unmarked":[
 "Таңбаланбаған жаяу өткел"
@@ -1123,6 +1135,9 @@
 "highway/footway/informal":[
 "Стихиялық соқпақ"
 ],
+"highway/footway/sidewalk":[
+"Тротуар"
+],
 "highway/give_way":[
 "\"Жол бер\" белгісі"
 ],
@@ -1134,8 +1149,8 @@
 "автокүрежол",
 "автострада",
 "автотрасса",
-"автожол",
-"Автомагистраль"
+"Автомагистраль",
+"автожол"
 ],
 "highway/motorway_link":[
 "Автомагистральді ауыспа жол"
@@ -1145,6 +1160,12 @@
 ],
 "highway/path/informal":[
 "Шиыр жол"
+],
+"highway/pedestrian_area":[
+"Жаяу жүргіншілер аймағы"
+],
+"highway/pedestrian_line":[
+"Жаяу жүретін көше"
 ],
 "highway/primary":[
 "Бірінші дәрежелі жол"
@@ -1190,8 +1211,18 @@
 "highway/speed_camera":[
 "Жылдамдық камерасы"
 ],
+"highway/steps":[
+"Баспалдақ"
+],
 "highway/stop":[
 "\"Тоқта\" белгісі"
+],
+"highway/street_lamp":[
+"Көше шамы",
+"фонарь",
+"жарық",
+"көше шамдары",
+"лампа"
 ],
 "highway/tertiary":[
 "Үшінші дәрежелі жол"
@@ -1226,6 +1257,18 @@
 "historic/fort":[
 "Тарихи бекініс"
 ],
+"historic/memorial":[
+"Ескерткіш"
+],
+"historic/memorial/blue_plaque-GB-IE":[
+"Мемориалды тақта"
+],
+"historic/memorial/plaque":[
+"Ескерткіш тақта"
+],
+"historic/memorial/stolperstein-EU":[
+"\"Сүрінетін тас\" жобасының ескерткіш тасы"
+],
 "historic/tomb":[
 "Мола"
 ],
@@ -1244,6 +1287,15 @@
 "landuse/construction":[
 "Құрылыс алаңы"
 ],
+"landuse/education":[
+"Оқу аумағы"
+],
+"landuse/farmland":[
+"Ауылшаруашылық алқаптары"
+],
+"landuse/farmyard":[
+"Ферма аумағы (алқабынсыз)"
+],
 "landuse/flowerbed":[
 "Гүлзар"
 ],
@@ -1256,11 +1308,46 @@
 "landuse/greenfield":[
 "Жаңа құрылысқа арналған аумақ"
 ],
-"landuse/pond":[
-"Тоған"
+"landuse/greenhouse_horticulture":[
+"Жылыжай аумағы"
+],
+"landuse/harbour":[
+"Порт"
+],
+"landuse/industrial":[
+"Өнеркәсіптік аймақ"
+],
+"landuse/industrial/depot":[
+"Депо"
+],
+"landuse/industrial/slaughterhouse":[
+"қасапхана",
+"Қасапхана",
+"мал соятын жер"
+],
+"landuse/landfill":[
+"Қоқыс тастайтын жер"
+],
+"landuse/meadow":[
+"Шабындық жер (жайылым)"
+],
+"landuse/meadow_orchard/meadow":[
+"Жемісті ағаштары бар жайылым"
+],
+"landuse/plant_nursery":[
+"Өсімдік тәлімбағы"
+],
+"landuse/quarry":[
+"Карьер аумағы"
+],
+"landuse/railway":[
+"Теміржол коридоры"
 ],
 "landuse/recreation_ground":[
 "Демалыс орны"
+],
+"landuse/religious":[
+"Діни аумақ"
 ],
 "landuse/residential":[
 "орам",
@@ -1274,14 +1361,79 @@
 "түк",
 "Тұрғын үй кешені"
 ],
+"landuse/retail":[
+"Сауда аймағы"
+],
+"landuse/vineyard":[
+"Жүзімдік"
+],
 "landuse/winter_sports":[
 "Қысқы спорт түрлері аймағы"
+],
+"leisure":[
+"Спорт пен демалыс"
+],
+"leisure/adult_gaming_centre":[
+"Ойын автоматтары (ақшаға ойнайтын құмар ойын)"
+],
+"leisure/amusement_arcade":[
+"Ойын автоматтары"
+],
+"leisure/bandstand":[
+"Музыканттарға арналған алаң"
+],
+"leisure/beach_resort":[
+"курорт",
+"шипажай",
+"Жағажайлық курорт",
+"жағажай"
+],
+"leisure/bleachers":[
+"Трибуналар"
 ],
 "leisure/bowling_alley":[
 "Боулинг орталығы"
 ],
+"leisure/dance":[
+"Би залы"
+],
+"leisure/dog_park":[
+"ит алаңы",
+"ит паркі",
+"ит саябағы",
+"Итті қыдыртуға арналған алаң",
+"итке арналған алаң"
+],
+"leisure/escape_game":[
+"Квест бөлме"
+],
+"leisure/firepit":[
+"Ашық от ошағы"
+],
+"leisure/fishing":[
+"Балық аулайтын орын"
+],
+"leisure/fitness_centre":[
+"Фитнес-центр"
+],
+"leisure/fitness_centre/yoga":[
+"Йога студиясы",
+"йога"
+],
+"leisure/fitness_station":[
+"Фитнес алаң"
+],
+"leisure/fitness_station/balance_beam":[
+"Тепе-теңдікті ұстауға арналған бөрене"
+],
+"leisure/fitness_station/parallel_bars":[
+"Қоссырық"
+],
 "leisure/garden":[
-"Бақ"
+"Бақ",
+"парк",
+"саябақ",
+"сквер"
 ],
 "leisure/garden/botanical":[
 "Ботаникалық бақ"
@@ -1292,6 +1444,21 @@
 "leisure/garden/residential":[
 "Тұрғын үй бағы"
 ],
+"leisure/hackerspace":[
+"Хакерспейс"
+],
+"leisure/horse_riding":[
+"Атқа міну орталығы"
+],
+"leisure/ice_rink":[
+"Мұзайдын"
+],
+"leisure/miniature_golf":[
+"Мини-гольф"
+],
+"leisure/nature_reserve":[
+"Қорық"
+],
 "leisure/park":[
 "гүл бағы",
 "демалыс саябағы",
@@ -1301,18 +1468,57 @@
 "бульвар",
 "сквер"
 ],
+"leisure/picnic_table":[
+"Пикник үстелі"
+],
+"leisure/picnic_table/chess":[
+"Шахмат үстелі"
+],
+"leisure/pitch":[
+"Спорт алаңы"
+],
 "leisure/pitch/american_football":[
 "американдық футбол алаңы",
 "Регби алаңы"
 ],
+"leisure/pitch/american_handball":[
+"Американдық гандбол алаңы"
+],
+"leisure/pitch/archery":[
+"Садақ атыс алаңы"
+],
+"leisure/pitch/badminton":[
+"Бадминтон алаңы"
+],
 "leisure/pitch/baseball":[
 "Бейсбол алаңы"
+],
+"leisure/pitch/basketball":[
+"Баскетбол алаңы"
+],
+"leisure/pitch/beachvolleyball":[
+"Жағажай волейболы алаңы"
+],
+"leisure/pitch/bowls":[
+"Боулз ойнайтын алаң"
+],
+"leisure/pitch/chess":[
+"Алып шахмат тақтасы"
 ],
 "leisure/pitch/cricket":[
 "Крикет алаңы"
 ],
+"leisure/pitch/equestrian":[
+"Салт жүріс / Родео аренасы"
+],
 "leisure/pitch/field_hockey":[
 "Шөптегі хоккейге арналған алаң"
+],
+"leisure/pitch/four_square":[
+"Квадрат ойнайтын алаң"
+],
+"leisure/pitch/futsal":[
+"Футзал алаңы"
 ],
 "leisure/pitch/paintball":[
 "Пейнтбол алаңы"
@@ -1320,32 +1526,185 @@
 "leisure/pitch/rugby_union":[
 "Регби алаңы"
 ],
+"leisure/pitch/shooting":[
+"Атыс алаңы"
+],
+"leisure/pitch/skateboard":[
+"Скейт-парк"
+],
 "leisure/pitch/soccer":[
 "Футбол алаңы"
 ],
 "leisure/pitch/softball":[
 "Софтбол алаңы"
 ],
+"leisure/pitch/table_soccer":[
+"Үстел футболы"
+],
+"leisure/pitch/table_tennis":[
+"Пинг-понг үстелі"
+],
+"leisure/pitch/tennis":[
+"Теннис корты"
+],
+"leisure/pitch/volleyball":[
+"Волейбол алаңы"
+],
 "leisure/playground":[
 "Балалар алаңы"
+],
+"leisure/playground/indoor":[
+"Ішіте орналасқан балалар алаңы"
+],
+"leisure/sauna":[
+"Сауна",
+"баня",
+"монша"
+],
+"leisure/slipway":[
+"Стапель"
 ],
 "leisure/sports_centre":[
 "Спорт орталығы/кешені"
 ],
+"leisure/sports_centre/climbing":[
+"Скалодром"
+],
+"leisure/sports_centre/climbing_adventure":[
+"Арқан паркі"
+],
+"leisure/sports_centre/horse_racing":[
+"Ипподром"
+],
+"leisure/sports_centre/swimming":[
+"Бассейн (спорт орталығы)"
+],
+"leisure/sports_hall":[
+"Спортзал",
+"спорт залы"
+],
 "leisure/stadium":[
 "Стадион"
+],
+"leisure/summer_camp":[
+"Жазғы лагерь"
+],
+"leisure/swimming_area":[
+"Табиғи суға түсетін орын"
+],
+"leisure/swimming_pool":[
+"Бассейннің су беті"
+],
+"leisure/track":[
+"Жарыс трек (автоспорт емес)"
+],
+"leisure/track/athletics/sprint":[
+"Спринт жүгіру жолы"
+],
+"leisure/track/athletics/steeplechase":[
+"Кедергілермен жүгіру жолы"
+],
+"leisure/track/cycling":[
+"Велотрек"
+],
+"leisure/track/horse_racing":[
+"Ат жарысы, бәйге"
+],
+"leisure/track/running":[
+"Жүгіру трегі"
+],
+"leisure/trampoline_park":[
+"Батут паркі"
+],
+"leisure/water_park":[
+"Аквапарк"
 ],
 "line":[
 "Сызық"
 ],
+"man_made":[
+"Қолдан жасалған объект"
+],
+"man_made/antenna":[
+"Антенна"
+],
+"man_made/beacon":[
+"Шамшырақ"
+],
+"man_made/beehive":[
+"Омарта"
+],
+"man_made/breakwater":[
+"Толқын басқы"
+],
 "man_made/bridge":[
 "Көпірдің контуры"
+],
+"man_made/cairn":[
+"Каирн"
+],
+"man_made/chimney":[
+"Түтін мұржасы"
+],
+"man_made/crane":[
+"Көтергіш кран"
+],
+"man_made/crane/gantry_crane":[
+"Мосы кран"
+],
+"man_made/crane/portal_crane":[
+"Порталды кран"
+],
+"man_made/cross":[
+"Айқыш"
+],
+"man_made/dovecote":[
+"Кептерхана"
+],
+"man_made/dyke":[
+"Бөгет"
 ],
 "man_made/embankment":[
 "Жер үйіндісі"
 ],
+"man_made/flagpole":[
+"Тутұғыр"
+],
+"man_made/flare":[
+"Газ алау"
+],
+"man_made/groyne":[
+"Жартылай бөгесін"
+],
+"man_made/insect_hotel":[
+"Жәндіктер қонақ үйі"
+],
+"man_made/lighthouse":[
+"Шамшырақ"
+],
+"man_made/manhole":[
+"Люк"
+],
 "man_made/manhole/drain":[
 "Нөсерлік ағынды"
+],
+"man_made/manhole/gas":[
+"Газ құбырының люгы"
+],
+"man_made/manhole/power":[
+"Электр жүйесіннің құдығы"
+],
+"man_made/manhole/sewer":[
+"Канализациялық люк"
+],
+"man_made/mast":[
+"Діңгек"
+],
+"man_made/mast/communication":[
+"Байланыс діңгегі"
+],
+"man_made/mast/communication/mobile_phone":[
+"Ұялы байланыс діңгегі"
 ],
 "man_made/mast/communication/radio":[
 "Радиодіңгек"
@@ -1353,14 +1712,70 @@
 "man_made/mast/communication/television":[
 "Телемұнара"
 ],
+"man_made/obelisk":[
+"Обелиск"
+],
 "man_made/observatory":[
 "Обсерватория"
+],
+"man_made/pier":[
+"Пирс"
+],
+"man_made/pipeline":[
+"құбыр желісі",
+"Құбыржол",
+"құбыр"
 ],
 "man_made/pipeline/underground":[
 "Жерасты құбыр желісі"
 ],
+"man_made/planter":[
+"Клумба"
+],
+"man_made/pumping_station":[
+"Сорғы станциясы"
+],
+"man_made/quay":[
+"Жағалау"
+],
+"man_made/satellite_dish":[
+"Жерсеріктік тарелка"
+],
+"man_made/silo":[
+"Силос (сусыма зат сақтау орны)"
+],
+"man_made/storage_tank":[
+"контейнер",
+"танк",
+"танкер",
+"Сақтау қоймасы"
+],
+"man_made/storage_tank/water":[
+"Су багы"
+],
+"man_made/street_cabinet":[
+"Көшедегі шкаф"
+],
+"man_made/surveillance":[
+"Бақылау жүйесі"
+],
 "man_made/surveillance/camera":[
 "Бейнебақылау камерасы"
+],
+"man_made/survey_point":[
+"Геодезиялық белгі"
+],
+"man_made/tailings_pond":[
+"Қалдық тұндырғышы"
+],
+"man_made/telescope":[
+"Телескоп"
+],
+"man_made/telescope/optical":[
+"Оптикалық телескоп"
+],
+"man_made/telescope/radio":[
+"Радиотелескоп"
 ],
 "man_made/tower":[
 "Мұнара"
@@ -1377,6 +1792,9 @@
 "man_made/tower/defensive":[
 "Бекініс мұнарасы"
 ],
+"man_made/tower/minaret":[
+"Мешіт мұнарасы"
+],
 "man_made/tower/observation":[
 "Бақылау мұнарасы"
 ],
@@ -1386,8 +1804,29 @@
 "man_made/tunnel":[
 "Тоннель"
 ],
+"man_made/utility_pole":[
+"Электр желісінің тірегі"
+],
+"man_made/video_wall":[
+"Цифрлық экран"
+],
 "man_made/water_tower":[
 "Су мұнарасы"
+],
+"man_made/water_well":[
+"Су ұңғымасы"
+],
+"man_made/water_works":[
+"Су дайындау станциясы"
+],
+"man_made/watermill":[
+"Су диірмен"
+],
+"man_made/windmill":[
+"Жел диірмен"
+],
+"man_made/windpump":[
+"Жел сорғысы"
 ],
 "man_made/works":[
 "Зауыт",
@@ -1396,8 +1835,92 @@
 "man_made/yes":[
 "Қолдан жасалған объект (кез келген)"
 ],
+"marker/utility":[
+"Инфрақұрылым маркері"
+],
+"natural":[
+"Табиғат"
+],
+"natural/arch":[
+"Табиғи арка"
+],
+"natural/bare_rock":[
+"Тақыр жартас"
+],
+"natural/bay":[
+"Шығанақ"
+],
+"natural/beach":[
+"Жағажай (бедері)"
+],
+"natural/cape":[
+"Мүйіс"
+],
+"natural/cave_entrance":[
+"Үңгір кіреберісі"
+],
+"natural/cliff":[
+"Тік жар"
+],
+"natural/coastline":[
+"Жағалық сызық"
+],
+"natural/fell":[
+"Тақыр қырат"
+],
+"natural/geyser":[
+"Гейзер"
+],
+"natural/glacier":[
+"Мұздық"
+],
 "natural/grassland":[
 "Көгал"
+],
+"natural/hot_spring":[
+"Ыстық бұлақ"
+],
+"natural/peak":[
+"Шың",
+"пик",
+"бас",
+"тау"
+],
+"natural/peninsula":[
+"Түбек"
+],
+"natural/reef":[
+"Риф"
+],
+"natural/ridge":[
+"Жота"
+],
+"natural/saddle":[
+"Асу (тау арасындағы)"
+],
+"natural/sand":[
+"Құм"
+],
+"natural/scrub":[
+"Бұталы өңір"
+],
+"natural/shingle":[
+"Малтатас"
+],
+"natural/shrub":[
+"Бұта"
+],
+"natural/spring":[
+"Бұлақ"
+],
+"natural/strait":[
+"Бұғаз"
+],
+"natural/tree":[
+"Ағаш",
+"ағаш",
+"өсімдік",
+"тал"
 ],
 "natural/tree/broadleaved":[
 "Жапырақты ағаш"
@@ -1408,26 +1931,81 @@
 "natural/tree/broadleaved/evergreen":[
 "Жапырақты ағаш (мәңгі жасыл)"
 ],
+"natural/tree/needleleaved":[
+"Қылқан жапырақты ағаш"
+],
 "natural/tree/needleleaved/deciduous":[
 "Қылқан жапырақты ағаш (түспежапырақты)"
 ],
 "natural/tree/needleleaved/evergreen":[
 "Қылқан жапырақты ағаш (мәңгі жасыл)"
 ],
+"natural/tree_row":[
+"аллея",
+"Ағаштар қатары"
+],
+"natural/tree_stump":[
+"Ағаш түбірі"
+],
 "natural/valley":[
 "Аңғар"
+],
+"natural/volcano":[
+"Жанартау"
+],
+"natural/water":[
+"Суайдын"
+],
+"natural/water/basin":[
+"Бассейн"
+],
+"natural/water/canal":[
+"Канал"
+],
+"natural/water/lake":[
+"Көл"
+],
+"natural/water/moat":[
+"Ор"
+],
+"natural/water/oxbow":[
+"Ескі арна"
 ],
 "natural/water/pond":[
 "Тоған"
 ],
+"natural/water/reservoir":[
+"Су қоймасы"
+],
 "natural/water/river":[
-"Өзен аумағы"
+"Өзен беті"
+],
+"natural/water/stream":[
+"Жылға"
+],
+"natural/wetland":[
+"Батпақ жер"
+],
+"natural/wetland/fen":[
+"Ойпаттық батпақ"
+],
+"natural/wetland/mangrove":[
+"Мангр нуы"
+],
+"natural/wetland/marsh":[
+"Батпақ"
+],
+"natural/wetland/reedbed":[
+"Қопа"
 ],
 "natural/wetland/saltmarsh":[
 "Жағалаулық сор"
 ],
 "natural/wetland/tidalflat":[
 "Толысу аймағы"
+],
+"natural/wetland/wet_meadow":[
+"Ылғалды шалғын"
 ],
 "natural/wood":[
 "орман",
@@ -1441,23 +2019,56 @@
 "тоғай",
 "тайга"
 ],
+"noexit/yes":[
+"Тұйық көше"
+],
 "office":[
 "Кеңселер"
 ],
 "office/accountant":[
 "Бухгалтер"
 ],
+"office/advertising_agency":[
+"Жарнама агенттігі"
+],
+"office/architect":[
+"Сәулет бюросы"
+],
+"office/association":[
+"Қауымдастық (одақ)"
+],
 "office/company":[
 "Жеке компания"
 ],
+"office/coworking":[
+"Коворкинг"
+],
+"office/diplomatic/consulate":[
+"Консулдық"
+],
+"office/diplomatic/embassy":[
+"Елшілік"
+],
 "office/diplomatic/liaison":[
 "Байланыс бөлімшесі"
+],
+"office/educational_institution":[
+"Жалпы білім беру мекемесінің әкімшілігі"
+],
+"office/employment_agency":[
+"Кадр агенттігі"
 ],
 "office/engineer":[
 "Инженерлік бюро"
 ],
 "office/estate_agent":[
 "Жылжымайтын мүлік агенттігі"
+],
+"office/financial":[
+"Қаржы ұйымы"
+],
+"office/financial_advisor":[
+"Қаржы кеңесшісі"
 ],
 "office/foundation":[
 "Қор"
@@ -1476,6 +2087,12 @@
 ],
 "office/insurance":[
 "Сақтандыру компаниясы"
+],
+"office/it":[
+"IT-компания кеңсесі"
+],
+"office/lawyer":[
+"Заңгерлік қызметтер"
 ],
 "office/moving_company":[
 "Көшуге көмекші компания"
@@ -1498,6 +2115,9 @@
 "office/private_investigator":[
 "Жеке тергеуші"
 ],
+"office/property_management":[
+"Басқарушы компания"
+],
 "office/religion":[
 "Діни ұйым"
 ],
@@ -1510,11 +2130,26 @@
 "office/telecommunication":[
 "Телекоммуникациялық компания"
 ],
+"office/therapist":[
+"Терапевт кабинеті"
+],
 "office/translator":[
 "Аудармашы кеңсесі"
 ],
 "office/yes":[
 "Кеңсе (кез келген)"
+],
+"pipeline":[
+"Құбыржол объектісі"
+],
+"pipeline/substation":[
+"Құбыржол қосалқсы станциясы"
+],
+"pipeline/valve":[
+"Құбыржол арматурасы"
+],
+"piste/downhill/halfpipe":[
+"Хафпайп"
 ],
 "piste/ice_skate":[
 "Мұз трассасы"
@@ -1554,8 +2189,14 @@
 "place/neighbourhood":[
 "Қалыптасқан аудан"
 ],
+"place/plot":[
+"Жер телімі"
+],
 "place/quarter":[
 "Шағын аудан / Квартал"
+],
+"place/square":[
+"Алаң"
 ],
 "place/suburb":[
 "Аудан / Қала маңы"
@@ -1565,6 +2206,14 @@
 "Кент / Қала",
 "кент",
 "қалашық"
+],
+"place/village":[
+"станица",
+"Ауыл (300 астам тұрғын)",
+"село"
+],
+"playground/balancebeam":[
+"Тепе-теңдікті ұстауға арналған бөрене"
 ],
 "playground/basketswing":[
 "Себет әткеншек"
@@ -1734,6 +2383,9 @@
 "public_transport/station_ferry":[
 "Паром айлағы"
 ],
+"public_transport/station_light_rail":[
+"Жеңіл рельсті көлік бекеті"
+],
 "public_transport/station_monorail":[
 "Монорельс бекеті"
 ],
@@ -1788,9 +2440,6 @@
 "railway":[
 "Темір жол"
 ],
-"railway/abandoned":[
-"Тасталған теміржол"
-],
 "railway/buffer_stop":[
 "Буферлік тоқтатқы"
 ],
@@ -1803,9 +2452,6 @@
 "railway/funicular":[
 "тауға көтеретін жол",
 "Фуникулёр"
-],
-"railway/halt":[
-"Тоқтайтын орын (шағын бекет)"
 ],
 "railway/level_crossing":[
 "Теміржол өткелі"
@@ -1822,9 +2468,6 @@
 "railway/narrow_gauge":[
 "Тартабанды темір жол"
 ],
-"railway/platform":[
-"Теміржол платформасы"
-],
 "railway/rail":[
 "Рельсті жол"
 ],
@@ -1840,6 +2483,9 @@
 ],
 "railway/subway_entrance":[
 "Метро кіреберісі"
+],
+"railway/switch":[
+"Теміржол бағыттамасы"
 ],
 "railway/tram":[
 "Трамвай жолы"
@@ -1902,8 +2548,8 @@
 "Аниме / манга дүкені"
 ],
 "shop/antiques":[
-"антикварлық дүкен",
 "Антиквариат",
+"антикварлық дүкен",
 "сирек кездесетін бұйымдар дүкені"
 ],
 "shop/appliance":[
@@ -1916,8 +2562,8 @@
 "Балалар тауарлары дүкені"
 ],
 "shop/bakery":[
-"нан өнімдерін сататын дүкен",
 "Нан дүкені",
+"нан өнімдерін сататын дүкен",
 "наубайхана"
 ],
 "shop/beauty":[
@@ -1945,8 +2591,8 @@
 "алкогольді және алкогольсіз сусындар сататын дүкен"
 ],
 "shop/bicycle":[
-"велосипед сататын дүкен",
 "Велодүкен",
+"велосипед сататын дүкен",
 "велосипед дүкені"
 ],
 "shop/boat":[
@@ -2000,8 +2646,8 @@
 "автокөлік салоны",
 "диллерлік автоцентр",
 "автоорталық",
-"автомобиль салоны",
 "Автодилер",
+"автомобиль салоны",
 "автосалон"
 ],
 "shop/car/second_hand":[
@@ -2016,8 +2662,8 @@
 "автосервис",
 "техникалық қызмет көрсету станциясы",
 "тқс",
-"шиномонтаж",
 "Автошеберхана",
+"шиномонтаж",
 "сто",
 "көлік жөндеу"
 ],
@@ -2026,8 +2672,8 @@
 "дөңгелекті үй",
 "трейлер",
 "тіркеме үй",
-"rv",
 "Автоүй сататын дилер",
+"rv",
 "керуен",
 "кемпер",
 "автоүй дүкені"
@@ -2124,8 +2770,8 @@
 ],
 "shop/e-cigarette":[
 "вейп",
-"электронды сигареттер",
 "Электронды темекі  дүкені",
+"электронды сигареттер",
 "электронды кальян"
 ],
 "shop/electrical":[
@@ -2277,8 +2923,8 @@
 "Асүй дүкені"
 ],
 "shop/laundry":[
-"кір жуу орны",
 "Кір жуатын орын",
+"кір жуу орны",
 "прачечная"
 ],
 "shop/laundry/self_service":[
@@ -2313,8 +2959,8 @@
 ],
 "shop/mobile_phone":[
 "ұялы байланыс салоны",
-"мобильді телефон сататын дүкен",
-"Ұялы телефондар дүкені"
+"Ұялы телефондар дүкені",
+"мобильді телефон сататын дүкен"
 ],
 "shop/mobile_phone_accessories":[
 "Ұялы телефон аксессуарлары дүкені"
@@ -2681,8 +3327,8 @@
 "traffic_sign/city_limit":[
 "ауыл белгісі",
 "ел орналасқан жер",
-"қала белгісі",
-"Елді мекен белгісі"
+"Елді мекен белгісі",
+"қала белгісі"
 ],
 "traffic_sign/maxspeed":[
 "Жылдамдықты шектеу белгісі"
@@ -2753,6 +3399,9 @@
 "type/route/horse":[
 "Атпен жүру бағыты"
 ],
+"type/route/pipeline":[
+"Құбыржол бағдары"
+],
 "type/route/railway":[
 "Теміржол бағдары"
 ],
@@ -2788,5 +3437,192 @@
 ],
 "waterway/tidal_channel":[
 "Толысу каналы"
+],
+"boundary":[
+"шекара",
+"Шекара",
+"шегара",
+"шек"
+],
+"building_point":[
+"Ғимарат"
+],
+"ford_line":[
+"Аяқ өткел",
+"аяқ өткел",
+"кешу",
+"брод",
+"форд"
+],
+"traffic_sign/maxspeed-US-CA-LR":[
+"Жылдамдықты шектеу белгісі"
+],
+"route/ferry":[
+"Паром бағыты"
+],
+"railway/halt":[
+"Тоқтайтын орын (шағын бекет)"
+],
+"railway/platform":[
+"Теміржол платформасы"
+],
+"railway/station":[
+"Теміржол бекеті"
+],
+"office/travel_agent":[
+"Саяхат агенттігі"
+],
+"office/lawyer/notary":[
+"Нотариус"
+],
+"natural/wood_point":[
+"орман",
+"орман алқабы",
+"ағаш",
+"өсімдік",
+"орман қоры",
+"Табиғи орман",
+"көшет",
+"ағаштар",
+"тоғай",
+"тайга"
+],
+"leisure/track/athletics/running":[
+"Жүгіру трегі"
+],
+"landuse/basin":[
+"Бассейн"
+],
+"landuse/reservoir":[
+"Су қоймасы"
+],
+"landuse/industrial/industrial_point":[
+"Өнеркәсіптік аймақ"
+],
+"highway/bus_stop":[
+"Автобус аялдамасы (платформа)"
+],
+"highway/raceway_unspecific":[
+"Жарыс трегі, трассасы",
+"жарысуға арналған трасса",
+"трек"
+],
+"highway/traffic_sign":[
+"Жол белгісі"
+],
+"highway/motorway_link-US-CA":[
+"Автомагистральді ауыспа жол"
+],
+"highway/primary_link-US-CA":[
+"Бірінші дәрежелі ауыспа жол"
+],
+"highway/trunk_link-US-CA":[
+"Басты ауыспа жол"
+],
+"highway/path/bicycle_foot":[
+"Вело және жаяужол"
+],
+"highway/path/crossing/informal":[
+"Бейресми жаяу өткел"
+],
+"highway/path/crossing/bicycle_foot":[
+"Вело және жаяу өткел"
+],
+"highway/footway/crossing/informal":[
+"Бейресми жаяу өткел"
+],
+"highway/cycleway/crossing/marked":[
+"Таңбаланған (реттелмейтін) велоөткел"
+],
+"highway/crossing/marked":[
+"Таңбаланған (реттелмейтін) жаяу өткел"
+],
+"highway/crossing/zebra":[
+"Таңбаланған (реттелмейтін) жаяу өткел"
+],
+"craft/locksmith":[
+"кілт жасайтын орын",
+"Кілт жасаушы"
+],
+"craft/tailor":[
+"Тігінші"
+],
+"building/entrance":[
+"Кіру / Шығу"
+],
+"building/glasshouse":[
+"Жылыжай"
+],
+"building/house/detached":[
+"Бөлек тұрған жер үй"
+],
+"building/house/semi-detached":[
+"Жапсарлас үй (дуплекс)"
+],
+"building/house/terrace":[
+"Таунхаустар қатары"
+],
+"boundary/administrative":[
+"Әкімшілік шекара"
+],
+"amenity/bus_station":[
+"Автобус бекеті/терминалы"
+],
+"amenity/college":[
+"Колледж аумағы"
+],
+"amenity/coworking_space":[
+"Коворкинг"
+],
+"amenity/embassy":[
+"Елшілік"
+],
+"amenity/ferry_terminal":[
+"Паром айлағы"
+],
+"amenity/kindergarten":[
+"Балабақша аумағы"
+],
+"amenity/school":[
+"Мектеп аумағы"
+],
+"amenity/university":[
+"Университет аумағы"
+],
+"aerialway/station":[
+"Арқанжол бекеті"
+],
+"@templates/contact":[
+"Нүкте"
+],
+"@templates/internet_access":[
+"Нүкте"
+],
+"@templates/poi":[
+"Нүкте"
+],
+"@templates/crossing/bicycle_more":[
+"Нүкте"
+],
+"@templates/crossing/defaults":[
+"Нүкте"
+],
+"@templates/crossing/geometry_way_more":[
+"Нүкте"
+],
+"@templates/crossing/markings":[
+"Нүкте"
+],
+"@templates/crossing/markings_yes":[
+"Нүкте"
+],
+"@templates/crossing/surfacequality":[
+"Нүкте"
+],
+"@templates/crossing/traffic_signal":[
+"Нүкте"
+],
+"@templates/crossing/traffic_signal_more":[
+"Нүкте"
 ]
 }

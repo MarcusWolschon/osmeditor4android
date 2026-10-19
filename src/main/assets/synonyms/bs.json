@@ -47,8 +47,8 @@
 "Banka"
 ],
 "amenity/bar":[
-"bar",
 "Bar",
+"bar",
 "gostionica",
 "pivnica"
 ],
@@ -74,21 +74,21 @@
 "iznajmljivanje plovila"
 ],
 "amenity/cafe":[
-"kafe-bar",
 "Kafe",
+"kafe-bar",
 "kafe",
 "kafana"
 ],
 "amenity/car_rental":[
-"iznajmljivanje automobila",
 "Rent-a-car",
+"iznajmljivanje automobila",
 "rent-a-car",
 "najam automobila"
 ],
 "amenity/car_wash":[
 "autopraonica",
-"praonica automobila",
 "Autopraonica",
+"praonica automobila",
 "samouslužna autopraonica"
 ],
 "amenity/cinema":[
@@ -119,9 +119,6 @@
 "voda za piće",
 "pitka voda",
 "Voda za piće"
-],
-"amenity/embassy":[
-"Ambasada"
 ],
 "amenity/fast_food":[
 "fast food",
@@ -186,15 +183,15 @@
 ],
 "amenity/pub":[
 "kafana",
-"pub",
 "Pub",
+"pub",
 "pivnica"
 ],
 "amenity/ranger_station":[
 "rendžerska služba",
 "stanica rendžerske službe",
-"rendžerska stanica",
-"Stanica rendžerske službe"
+"Stanica rendžerske službe",
+"rendžerska stanica"
 ],
 "amenity/restaurant":[
 "gostionica",
@@ -310,18 +307,10 @@
 "naplatna rampa"
 ],
 "barrier/wall":[
-"zid",
 "Zid",
+"zid",
 "zidić",
 "bedem"
-],
-"boundary":[
-"Granica"
-],
-"boundary/administrative":[
-"administrativna granica",
-"Admninistrativna granica",
-"administrativna linija"
 ],
 "building":[
 "zgrada",
@@ -361,9 +350,6 @@
 "stambena zgrada",
 "zgrada za stanovanje"
 ],
-"building_point":[
-"Građevina"
-],
 "craft/beekeeper":[
 "Pčelar"
 ],
@@ -400,9 +386,6 @@
 "craft/key_cutter":[
 "Izrada ključeva"
 ],
-"craft/locksmith":[
-"Bravar"
-],
 "craft/photographer":[
 "Fotograf"
 ],
@@ -417,9 +400,6 @@
 ],
 "craft/stonemason":[
 "Klesar"
-],
-"craft/tailor":[
-"Krojač"
 ],
 "craft/window_construction":[
 "Izrada prozora"
@@ -439,8 +419,8 @@
 "Hidrant za požar"
 ],
 "emergency/phone":[
-"hitna telefonska linija",
 "Telefon za hitne slučajeve",
+"hitna telefonska linija",
 "telefon za hitne slučajeve"
 ],
 "golf/bunker":[
@@ -485,9 +465,9 @@
 ],
 "highway/bridleway":[
 "konjička staza",
+"Konjska staza",
 "konjska staza",
-"konjski trag",
-"Konjska staza"
+"konjski trag"
 ],
 "highway/crossing":[
 "pješački prelaz",
@@ -560,8 +540,8 @@
 ],
 "highway/secondary_link":[
 "poveznica na cestu sekundarnog značaja",
-"poveznica na sekundarnu cestu",
-"Sekundarna poveznica"
+"Sekundarna poveznica",
+"poveznica na sekundarnu cestu"
 ],
 "highway/service":[
 "servisna cesta",
@@ -636,8 +616,8 @@
 "Krug za okretanje"
 ],
 "historic":[
-"historijsko nalazište",
 "Historijsko mjesto",
+"historijsko nalazište",
 "historijsko područje"
 ],
 "historic/archaeological_site":[
@@ -680,9 +660,6 @@
 "znamenje kraj puta",
 "kapelica"
 ],
-"landuse/basin":[
-"Sliv"
-],
 "landuse/cemetery":[
 "Groblje",
 "greblje",
@@ -691,8 +668,8 @@
 ],
 "landuse/farmyard":[
 "seosko dvorište",
-"dvorište imanja",
-"Seosko dvorište"
+"Seosko dvorište",
+"dvorište imanja"
 ],
 "landuse/grass":[
 "Travnjak",
@@ -709,16 +686,10 @@
 "voćnjak",
 "Voćnjak"
 ],
-"landuse/pond":[
-"Ribnjak"
-],
 "landuse/quarry":[
 "Rudnik",
 "kamenolom",
 "vađenje kamena"
-],
-"landuse/reservoir":[
-"Rezervoar"
 ],
 "landuse/vineyard":[
 "uzgoj grožđa",
@@ -737,9 +708,9 @@
 "igralište za pse"
 ],
 "leisure/garden":[
+"Vrt",
 "vrt",
-"bašta",
-"Vrt"
+"bašta"
 ],
 "leisure/golf_course":[
 "igralište za golf",
@@ -772,8 +743,8 @@
 "igralište za košarku"
 ],
 "leisure/pitch/skateboard":[
-"poligon za klizanje",
 "Poligon za skateboard",
+"poligon za klizanje",
 "poligon za skateboard",
 "park za skateboard"
 ],
@@ -810,8 +781,8 @@
 "leisure/swimming_pool":[
 "bazen za plivanje",
 "bazen",
-"plivački bazen",
-"Bazen"
+"Bazen",
+"plivački bazen"
 ],
 "line":[
 "Linija",
@@ -839,8 +810,8 @@
 ],
 "man_made/lighthouse":[
 "svjetionik",
-"toranj za svjetlosnu navigaciju",
-"Svjetionik"
+"Svjetionik",
+"toranj za svjetlosnu navigaciju"
 ],
 "man_made/pier":[
 "pristanište",
@@ -898,8 +869,8 @@
 "natural/cliff":[
 "hrid",
 "litica",
-"stijena",
-"Litica"
+"Litica",
+"stijena"
 ],
 "natural/coastline":[
 "Obala",
@@ -929,8 +900,8 @@
 ],
 "natural/peak":[
 "kota",
-"vrh",
-"Vrh"
+"Vrh",
+"vrh"
 ],
 "natural/scree":[
 "osulina",
@@ -1009,8 +980,8 @@
 "office/employment_agency":[
 "ured za zapošljavanje",
 "agencija za zapošljavanje",
-"agencija za posredovanje u zapošljavanju",
-"Agencija za zapošljavanje"
+"Agencija za zapošljavanje",
+"agencija za posredovanje u zapošljavanju"
 ],
 "office/estate_agent":[
 "Agencija za nekretnine",
@@ -1018,8 +989,8 @@
 "agencija za nekretnine"
 ],
 "office/financial":[
-"ured za finansije",
 "Finansijski ured",
+"ured za finansije",
 "finansijski ured"
 ],
 "office/government":[
@@ -1054,12 +1025,9 @@
 ],
 "office/telecommunication":[
 "kancelarija telekom operatera",
-"ured telekoma",
 "Ured telekoma",
+"ured telekoma",
 "ured telekom operatera"
-],
-"office/travel_agent":[
-"Putnička agencija"
 ],
 "place":[
 "Mjesto"
@@ -1070,8 +1038,8 @@
 "Grad"
 ],
 "place/hamlet":[
-"malo selo",
 "Zaselak",
+"malo selo",
 "seoce",
 "zaselak"
 ],
@@ -1101,8 +1069,8 @@
 ],
 "place/village":[
 "selo",
-"veće selo",
-"Selo"
+"Selo",
+"veće selo"
 ],
 "point":[
 "tačka",
@@ -1148,11 +1116,6 @@
 "autobuska stanica",
 "autobusko stajalište"
 ],
-"railway/abandoned":[
-"napuštena željeznička pruga",
-"Napuštena željeznica",
-"napuštena željeznica"
-],
 "railway/disused":[
 "Nekorištena željeznica",
 "nekorištena željeznica",
@@ -1168,11 +1131,6 @@
 "odnos objekata u skupu",
 "relacija"
 ],
-"route/ferry":[
-"trajektna ruta",
-"ruta trajekta",
-"Trajektna ruta"
-],
 "shop":[
 "prodavnica",
 "Prodavnica",
@@ -1185,12 +1143,12 @@
 ],
 "shop/bakery":[
 "pekara",
-"proizvodnja i prodaja pekarskih proizvoda",
-"Pekara"
+"Pekara",
+"proizvodnja i prodaja pekarskih proizvoda"
 ],
 "shop/beauty":[
-"salon ljepote",
 "Salon ljepote",
+"salon ljepote",
 "kozmetički salon"
 ],
 "shop/beverages":[
@@ -1397,8 +1355,8 @@
 ],
 "shop/video":[
 "videoteka",
-"videoklub",
-"Video klub"
+"Video klub",
+"videoklub"
 ],
 "tourism/artwork":[
 "umjetnina",
@@ -1518,11 +1476,6 @@
 "cjevovodna ruta",
 "Cjevovodna ruta"
 ],
-"type/route/power":[
-"Energetska ruta",
-"ruta napajanja",
-"trasa napajanja"
-],
 "type/route/road":[
 "Cestovna ruta",
 "cestovna trasa",
@@ -1546,8 +1499,8 @@
 ],
 "type/waterway":[
 "vodotok",
-"vodeni tok",
-"Vodotok"
+"Vodotok",
+"vodeni tok"
 ],
 "waterway/canal":[
 "kanal",
@@ -1585,5 +1538,120 @@
 "Ustava",
 "barijera preko rijeke",
 "ustava"
+],
+"boundary":[
+"Granica",
+"linija",
+"linija razgraničenja",
+"granica"
+],
+"building_point":[
+"zgrada",
+"kuća",
+"građevina",
+"Građevina"
+],
+"route/ferry":[
+"trajektna ruta",
+"trajektna trasa",
+"Trajektna ruta"
+],
+"office/travel_agent":[
+"Putnička agencija",
+"putnička agencija",
+"turistička agencija"
+],
+"landuse/basin":[
+"Sliv",
+"sliv",
+"bazen"
+],
+"landuse/reservoir":[
+"rezervoar",
+"spremište vode",
+"Rezervoar"
+],
+"highway/bus_stop":[
+"autobuska stanica",
+"autobusko stajalište"
+],
+"highway/motorway_link-US-CA":[
+"poveznica na autocestu",
+"Poveznica na autoput",
+"poveznica na autoput"
+],
+"highway/primary_link-US-CA":[
+"Primarna poveznica",
+"primarna poveznica",
+"poveznica na primarnu cestu"
+],
+"highway/trunk_link-US-CA":[
+"poveznica na brzu cestu",
+"poveznica na državnu cestu",
+"Poveznica na brzu cestu"
+],
+"craft/locksmith":[
+"Bravar",
+"kopiranje ključeva",
+"bravarija",
+"bravar"
+],
+"craft/tailor":[
+"Krojač"
+],
+"boundary/administrative":[
+"administrativna granica",
+"Admninistrativna granica",
+"administrativna linija"
+],
+"amenity/embassy":[
+"ambasada",
+"predstavništvo strane zemlje",
+"Ambasada",
+"konzulat"
+],
+"@templates/contact":[
+"tačka",
+"Tačka"
+],
+"@templates/internet_access":[
+"tačka",
+"Tačka"
+],
+"@templates/poi":[
+"tačka",
+"Tačka"
+],
+"@templates/crossing/bicycle_more":[
+"tačka",
+"Tačka"
+],
+"@templates/crossing/defaults":[
+"tačka",
+"Tačka"
+],
+"@templates/crossing/geometry_way_more":[
+"tačka",
+"Tačka"
+],
+"@templates/crossing/markings":[
+"tačka",
+"Tačka"
+],
+"@templates/crossing/markings_yes":[
+"tačka",
+"Tačka"
+],
+"@templates/crossing/surfacequality":[
+"tačka",
+"Tačka"
+],
+"@templates/crossing/traffic_signal":[
+"tačka",
+"Tačka"
+],
+"@templates/crossing/traffic_signal_more":[
+"tačka",
+"Tačka"
 ]
 }

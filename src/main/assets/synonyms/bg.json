@@ -80,9 +80,6 @@
 "чейндж",
 "чейндж бюро"
 ],
-"amenity/bus_station":[
-"Автостанция / терминал"
-],
 "amenity/cafe":[
 "Кафене"
 ],
@@ -124,12 +121,6 @@
 ],
 "amenity/community_centre/community_hall":[
 "Общностна зала"
-],
-"amenity/community_centre/cultural_centre":[
-"Културен център"
-],
-"amenity/community_centre/family_centre":[
-"Семеен център"
 ],
 "amenity/community_centre/lgbtq":[
 "Център на LGBTQ+ общността"
@@ -221,9 +212,6 @@
 "amenity/doctors/pathology":[
 "Патолог"
 ],
-"amenity/doctors/podiatry":[
-"Ортопед"
-],
 "amenity/doctors/rheumatology":[
 "Ревматолог"
 ],
@@ -240,9 +228,6 @@
 "Учебен полигон",
 "полигон за начинаещи шофьори",
 "мото полигон"
-],
-"amenity/embassy":[
-"Посолство"
 ],
 "amenity/fast_food":[
 "Бърза закуска"
@@ -282,12 +267,6 @@
 ],
 "amenity/marketplace":[
 "Пазар"
-],
-"amenity/nursing_home":[
-"Старчески дом"
-],
-"amenity/parking":[
-"Паркинг"
 ],
 "amenity/parking/underground":[
 "Подземен паркинг"
@@ -496,8 +475,8 @@
 ],
 "barrier/jersey_barrier":[
 "бетонен ограничител",
-"джърси преграда",
-"Джърси бариера"
+"Джърси бариера",
+"джърси преграда"
 ],
 "barrier/kerb":[
 "Бордюр"
@@ -522,12 +501,6 @@
 ],
 "barrier/wall/noise_barrier":[
 "Шумоизолираща преграда"
-],
-"boundary":[
-"Граница"
-],
-"boundary/administrative":[
-"Административна граница"
 ],
 "building":[
 "Сграда"
@@ -606,9 +579,6 @@
 "building_part":[
 "Част от сграда"
 ],
-"building_point":[
-"Сграда"
-],
 "cemetery/sector":[
 "Гробищен сектор"
 ],
@@ -642,9 +612,6 @@
 "craft/key_cutter":[
 "Изработка на ключове"
 ],
-"craft/locksmith":[
-"Ключар"
-],
 "craft/painter":[
 "Бояджия"
 ],
@@ -668,9 +635,6 @@
 ],
 "craft/stonemason":[
 "Каменоделец"
-],
-"craft/tailor":[
-"Шивач"
 ],
 "demolished/building":[
 "Наскоро разрушена сграда"
@@ -712,8 +676,8 @@
 "Вход / изход"
 ],
 "entrance/main":[
-"основен вход",
-"Главен вход"
+"Главен вход",
+"основен вход"
 ],
 "entrance/shop":[
 "вход към търговски обект",
@@ -741,9 +705,6 @@
 "healthcare/optometrist":[
 "Оптометрист"
 ],
-"healthcare/physiotherapist":[
-"Физиотерапевт"
-],
 "healthcare/podiatrist":[
 "Ортопед"
 ],
@@ -756,14 +717,8 @@
 "highway/bridleway":[
 "Конска пътека"
 ],
-"highway/bus_stop":[
-"Автобусна спирка"
-],
 "highway/crossing":[
 "Пешеходна пътека"
-],
-"highway/crossing/traffic_signals":[
-"Пешеходно пресичане със светофар"
 ],
 "highway/crossing/uncontrolled":[
 "Маркирана пешеходна пътека"
@@ -788,8 +743,8 @@
 "Пешеходна алея"
 ],
 "highway/footway/conveying":[
-"движеща се пътека",
-"Травалатор"
+"Травалатор",
+"движеща се пътека"
 ],
 "highway/footway/crossing":[
 "Пешеходна пътека"
@@ -854,8 +809,8 @@
 ],
 "highway/service":[
 "обслужващ път",
-"обслужваща улица",
-"Сервизна улица"
+"Сервизна улица",
+"обслужваща улица"
 ],
 "highway/service/alley":[
 "Тясна уличка между имоти"
@@ -959,9 +914,6 @@
 "historic/wayside_shrine":[
 "Крайпътен параклис"
 ],
-"landuse/basin":[
-"Басейн"
-],
 "landuse/cemetery":[
 "Гробищен парк"
 ],
@@ -976,9 +928,6 @@
 "строеж",
 "кран",
 "развитие"
-],
-"landuse/farm":[
-"Ферма"
 ],
 "landuse/farmland":[
 "поле",
@@ -999,8 +948,8 @@
 ],
 "landuse/industrial/depot":[
 "паркинг",
-"камион",
 "Депо",
+"камион",
 "автобус",
 "гараж"
 ],
@@ -1024,17 +973,11 @@
 "landuse/plant_nursery":[
 "Разсадник"
 ],
-"landuse/pond":[
-"Резервоар"
-],
 "landuse/quarry":[
 "Кариера"
 ],
 "landuse/railway":[
 "Железопътен коридор"
-],
-"landuse/reservoir":[
-"Язовир"
 ],
 "landuse/residential":[
 "Жилищна зона"
@@ -1122,8 +1065,8 @@
 "leisure/pitch/table_soccer":[
 "маса за фусбол",
 "фусбол",
-"футбол на маса",
-"Маса за джаги"
+"Маса за джаги",
+"футбол на маса"
 ],
 "leisure/pitch/table_tennis":[
 "тенис на маса",
@@ -1208,8 +1151,8 @@
 "Водна кула"
 ],
 "man_made/water_works":[
-"пспв",
-"Пречиствателна станция за питейна вода"
+"Пречиствателна станция за питейна вода",
+"пспв"
 ],
 "man_made/windmill":[
 "Вятърна мелница"
@@ -1314,20 +1257,14 @@
 "гражданска отговорност",
 "имуществено застраховане",
 "каско",
-"автокаско",
-"Застрахователен офис"
+"Застрахователен офис",
+"автокаско"
 ],
 "office/lawyer":[
 "Адвокат"
 ],
-"office/lawyer/notary":[
-"Нотариус"
-],
 "office/notary":[
 "Нотариус"
-],
-"office/travel_agent":[
-"Туристическа агенция"
 ],
 "place":[
 "Населени места"
@@ -1431,8 +1368,8 @@
 "Инсинератор за отпадъци"
 ],
 "power/plant/source/wind":[
-"вятърна ферма",
 "ВяЕЦ",
+"вятърна ферма",
 "вятърна електроцентрала"
 ],
 "power/pole":[
@@ -1491,23 +1428,17 @@
 ],
 "public_transport/station_train":[
 "жп гара",
-"жп спирка",
-"Железопътна гара"
+"Железопътна гара",
+"жп спирка"
 ],
 "public_transport/station_train_halt":[
 "Железопътна спирка (по желание)"
-],
-"railway/abandoned":[
-"Изоставена железопътна линия"
 ],
 "railway/disused":[
 "Закрита железопътна линия"
 ],
 "railway/funicular":[
 "Релсов път на фуникуляр"
-],
-"railway/halt":[
-"Железопътна спирка (по желание)"
 ],
 "railway/level_crossing":[
 "железопътен прелез",
@@ -1522,9 +1453,6 @@
 "railway/narrow_gauge":[
 "Теснолиниеен железопътен път"
 ],
-"railway/platform":[
-"Перон"
-],
 "railway/preserved":[
 "Историческа железопътна линия"
 ],
@@ -1537,9 +1465,6 @@
 "railway/signal":[
 "Светофор",
 "железопътен сигнал"
-],
-"railway/station":[
-"Гара"
 ],
 "railway/subway":[
 "Релсов път на метрото"
@@ -1557,10 +1482,6 @@
 ],
 "relation":[
 "Релация"
-],
-"route/ferry":[
-"Фериботна връзка",
-"фериботен маршрут"
 ],
 "shop":[
 "Магазин",
@@ -1793,9 +1714,9 @@
 "Зоо магазин"
 ],
 "shop/photo":[
+"Фото",
 "камера",
 "снимка",
-"Фото",
 "лента"
 ],
 "shop/shoe_repair":[
@@ -1958,9 +1879,9 @@
 "Знак за ограничение на скоростта"
 ],
 "traffic_sign/variable_message":[
+"Знак с променливо съобщение",
 "знак с променливо съдържание",
-"електронен знак",
-"Знак с променливо съобщение"
+"електронен знак"
 ],
 "type/boundary":[
 "Граница"
@@ -2012,9 +1933,6 @@
 ],
 "type/route/pipeline":[
 "Трасе на тръбопровод"
-],
-"type/route/power":[
-"Трасе на електропровод"
 ],
 "type/route/railway":[
 "Маршрут на железопътна линия"
@@ -2070,5 +1988,135 @@
 ],
 "waterway/weir":[
 "Преливник"
+],
+"boundary":[
+"Граница"
+],
+"building_point":[
+"Сграда"
+],
+"traffic_sign/maxspeed-US-CA-LR":[
+"Знак за ограничение на скоростта"
+],
+"route/ferry":[
+"Фериботна връзка",
+"фериботен маршрут"
+],
+"railway/halt":[
+"Железопътна спирка (по желание)"
+],
+"railway/platform":[
+"ЖП перон"
+],
+"railway/station":[
+"жп гара",
+"Железопътна гара",
+"жп спирка"
+],
+"office/travel_agent":[
+"Туристическа агенция"
+],
+"office/lawyer/notary":[
+"Нотариус"
+],
+"landuse/basin":[
+"Басейн"
+],
+"landuse/reservoir":[
+"Язовир"
+],
+"landuse/industrial/industrial_point":[
+"Индустриална зона"
+],
+"highway/bus_stop":[
+"Автобусна спирка"
+],
+"highway/traffic_sign":[
+"Пътен знак"
+],
+"highway/motorway_link-US-CA":[
+"Автомагистрална връзка"
+],
+"highway/primary_link-US-CA":[
+"Връзка с първокласен път"
+],
+"highway/trunk_link-US-CA":[
+"Връзка със скоростен път"
+],
+"highway/footway/crossing/marked":[
+"Маркирана пешеходна пътека"
+],
+"highway/footway/crossing/zebra":[
+"Маркирана пешеходна пътека"
+],
+"highway/cycleway/crossing/marked":[
+"Маркирана велосипедна пътека"
+],
+"highway/crossing/marked":[
+"Маркирана пешеходна пътека"
+],
+"highway/crossing/zebra":[
+"Маркирана пешеходна пътека"
+],
+"craft/locksmith":[
+"Ключар"
+],
+"craft/tailor":[
+"Шивач"
+],
+"building/entrance":[
+"Вход / изход"
+],
+"building/glasshouse":[
+"парник",
+"Оранжерия"
+],
+"boundary/administrative":[
+"Административна граница"
+],
+"amenity/bus_station":[
+"Автостанция / терминал"
+],
+"amenity/embassy":[
+"Посолство"
+],
+"amenity/nursing_home":[
+"Старчески дом"
+],
+"amenity/doctors/podiatry":[
+"Ортопед"
+],
+"@templates/contact":[
+"Точка"
+],
+"@templates/internet_access":[
+"Точка"
+],
+"@templates/poi":[
+"Точка"
+],
+"@templates/crossing/bicycle_more":[
+"Точка"
+],
+"@templates/crossing/defaults":[
+"Точка"
+],
+"@templates/crossing/geometry_way_more":[
+"Точка"
+],
+"@templates/crossing/markings":[
+"Точка"
+],
+"@templates/crossing/markings_yes":[
+"Точка"
+],
+"@templates/crossing/surfacequality":[
+"Точка"
+],
+"@templates/crossing/traffic_signal":[
+"Точка"
+],
+"@templates/crossing/traffic_signal_more":[
+"Точка"
 ]
 }

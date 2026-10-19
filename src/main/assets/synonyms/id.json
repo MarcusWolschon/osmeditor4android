@@ -42,8 +42,8 @@
 "Landasan pacu"
 ],
 "aeroway/taxiway":[
-"landas gelinding",
 "Landas hubung",
+"landas gelinding",
 "jalan rayap",
 "landas ancang"
 ],
@@ -52,6 +52,13 @@
 ],
 "amenity":[
 "Fasilitas"
+],
+"amenity/animal_boarding":[
+"Fasilitas Penitipan Hewan"
+],
+"amenity/animal_breeding":[
+"Fasilitas Pembiakan Hewan",
+"breeding"
 ],
 "amenity/animal_shelter":[
 "penampungan kucing",
@@ -65,8 +72,8 @@
 "ATM"
 ],
 "amenity/bank":[
-"uang",
 "Bank",
+"uang",
 "keuangan"
 ],
 "amenity/bar":[
@@ -114,18 +121,17 @@
 "asing",
 "valas"
 ],
-"amenity/bus_station":[
-"Stasiun Bus / Terminal"
-],
 "amenity/cafe":[
+"Kafe / Warkop / Angkringan",
 "cafe",
 "teh",
-"Kafe",
+"tongkrongan",
 "kafe",
 "warkop",
 "thai",
 "warung kopi",
 "bistro",
+"angkringan",
 "jamu",
 "kopi"
 ],
@@ -133,6 +139,7 @@
 "boba",
 "tapioca",
 "taiwanese tea drink",
+"teh",
 "Teh Boba",
 "pearl tea",
 "bubble milk tea",
@@ -143,8 +150,8 @@
 "Kedai Kopi"
 ],
 "amenity/car_rental":[
-"penyewaan mobil",
-"Penyewaan Mobil"
+"Penyewaan Mobil",
+"penyewaan mobil"
 ],
 "amenity/car_sharing":[
 "Stasiun Berbagi Mobil"
@@ -179,20 +186,14 @@
 "amenity/community_centre/community_hall":[
 "Balai Warga"
 ],
-"amenity/community_centre/cultural_centre":[
-"Pusat Kebudayaan"
-],
-"amenity/community_centre/family_centre":[
-"Pusat Keluarga"
-],
 "amenity/community_centre/parish_hall":[
-"Balai Dusun"
+"Balai/Aula Paroki"
 ],
 "amenity/community_centre/village_hall":[
 "Balai Desa"
 ],
 "amenity/community_centre/youth_centre":[
-"Pusat Pemuda"
+"Karang Taruna"
 ],
 "amenity/compressed_air":[
 "tempat isi angin ban",
@@ -212,12 +213,12 @@
 "amenity/doctors":[
 "praktik",
 "gigi",
-"ahli",
 "Dokter",
+"ahli",
 "bidan"
 ],
-"amenity/doctors/podiatry":[
-"Spesialis Kaki"
+"amenity/doctors/general":[
+"Praktik Dokter Umum"
 ],
 "amenity/dojo":[
 "Sasana Bela Diri"
@@ -228,8 +229,9 @@
 "amenity/drinking_water":[
 "Air Minum"
 ],
-"amenity/embassy":[
-"Kedutaan besar"
+"amenity/driver_training":[
+"Lapangan Uji SIM",
+"mengemudi"
 ],
 "amenity/events_venue":[
 "rapat",
@@ -245,12 +247,17 @@
 "konvensi"
 ],
 "amenity/fast_food":[
+"RM Cepat Saji",
 "makanan cepatsaji",
-"Restoran Cepat Saji"
+"warteg",
+"rumah makan"
 ],
 "amenity/fast_food/burger":[
 "berger",
 "Restoran Burger"
+],
+"amenity/fast_food/cafeteria":[
+"Kantin / Kafetaria"
 ],
 "amenity/fast_food/chicken":[
 "Restoran Ayam Goreng"
@@ -263,8 +270,14 @@
 "amenity/fast_food/donut":[
 "Toko Donat"
 ],
+"amenity/fast_food/hot_dog":[
+"Toko Hotdog"
+],
 "amenity/fast_food/ice_cream":[
 "Toko Es Krim"
+],
+"amenity/fast_food/indian":[
+"Restoran Masakan India"
 ],
 "amenity/fast_food/kebab":[
 "Toko Kebab"
@@ -274,11 +287,11 @@
 "fitza",
 "pitza"
 ],
+"amenity/fast_food/sushi":[
+"Restoran Sushi"
+],
 "amenity/fast_food/wings":[
 "Restoran Sayap Ayam"
-],
-"amenity/ferry_terminal":[
-"Pelabuhan Feri"
 ],
 "amenity/fire_station":[
 "damkar",
@@ -347,15 +360,12 @@
 "Parkir Motor"
 ],
 "amenity/motorcycle_rental":[
-"rental motor",
 "Sewa Sepeda Bermotor",
+"rental motor",
 "rental moped"
 ],
 "amenity/nightclub":[
 "Kelab Malam"
-],
-"amenity/parking":[
-"Parkiran"
 ],
 "amenity/parking/multi-storey":[
 "Gedung Parkir",
@@ -365,14 +375,13 @@
 "Lahan Parkir"
 ],
 "amenity/pharmacy":[
-"Apotek",
-"toko obat"
+"Apotek"
 ],
 "amenity/place_of_worship":[
 "pura",
 "tempat beribadah",
-"rumah ibadah",
 "Fasilitas Ibadah",
+"rumah ibadah",
 "klenteng",
 "katedral",
 "kelenteng",
@@ -411,8 +420,8 @@
 "candi"
 ],
 "amenity/place_of_worship/jewish":[
-"sinagog",
 "Sinagoge",
+"sinagog",
 "yahudi",
 "sinagoga",
 "sinagoge"
@@ -451,16 +460,16 @@
 "amenity/post_box":[
 "dropbox",
 "pos",
-"kantor pos",
 "Kotak Surat",
+"kantor pos",
 "kotak pos",
 "kotak surat",
 "mail box",
 "drop box"
 ],
 "amenity/post_office":[
-"Kantor Pos",
-"surat"
+"surat",
+"Kantor Pos / Ekspedisi"
 ],
 "amenity/prison":[
 "lapas",
@@ -484,8 +493,8 @@
 "amenity/recycling_centre":[
 "daur ulang",
 "tps 3r",
-"tpst",
-"Pusat Daur Ulang Sampah"
+"Pusat Daur Ulang Sampah",
+"tpst"
 ],
 "amenity/refugee_site":[
 "imigrasi",
@@ -559,15 +568,15 @@
 "amenity/shelter":[
 "gazebo",
 "lesehan",
-"pondok",
-"Saung"
+"Saung",
+"pondok"
 ],
 "amenity/shelter/public_transport":[
 "Hotel Transit"
 ],
 "amenity/shower":[
-"toilet",
 "Kamar Mandi",
+"toilet",
 "wc"
 ],
 "amenity/smoking_area":[
@@ -589,8 +598,8 @@
 "Tempat Tunggu Taksi"
 ],
 "amenity/telephone":[
-"Telepon",
-"telepon"
+"telepon;wartel",
+"Telepon"
 ],
 "amenity/theatre":[
 "Teater / Taman Budaya",
@@ -637,6 +646,12 @@
 "Tempat Pembuangan Sementara",
 "sampah"
 ],
+"amenity/water_point":[
+"air mandi",
+"pompa air",
+"Kran Air / Terminal Air",
+"air minum"
+],
 "area":[
 "Area",
 "polygon",
@@ -656,25 +671,26 @@
 "Daya Tarik Wisata"
 ],
 "attraction/animal":[
-"Kandang Hewan"
+"animal enclosure",
+"Kandang Kebun Binatang"
 ],
 "attraction/big_wheel":[
-"Bianglala"
+"Wahana Bianglala"
 ],
 "attraction/maze":[
 "Labirin"
 ],
 "attraction/pirate_ship":[
-"Kapal Bajak Laut"
+"Wahana Kapal Bajak Laut"
 ],
 "attraction/river_rafting":[
-"Arung Jeram"
+"Wisata Arung Jeram"
 ],
 "attraction/train":[
-"Kereta Wisata"
+"Wahana Kereta Wisata"
 ],
 "attraction/water_slide":[
-"Seluncur Air"
+"Wahana Perosotan Air"
 ],
 "barrier":[
 "Penghalang"
@@ -730,9 +746,6 @@
 "barrier/kissing_gate":[
 "Gerbang pertemuan"
 ],
-"barrier/lift_gate":[
-"Palang"
-],
 "barrier/retaining_wall":[
 "dinding penahan",
 "Dinding Penahan / Turap",
@@ -743,20 +756,17 @@
 ],
 "barrier/wall":[
 "pagar",
-"tembok",
-"Dinding"
+"Dinding",
+"tembok"
 ],
-"boundary":[
-"Batas"
-],
-"boundary/administrative":[
-"Batas Administrasi"
+"bridge/support/pier":[
+"Pondasi/Tiang Jembatan"
 ],
 "building":[
 "bangunan",
 "gedung",
-"struktur",
-"Bangunan"
+"Bangunan",
+"struktur"
 ],
 "building/apartments":[
 "rusun",
@@ -857,9 +867,12 @@
 ],
 "building/house":[
 "keluarga",
+"Bangunan Rumah",
 "perumahan",
-"Rumah",
 "rumah"
+],
+"building/house/terraced":[
+"Rumah Bandar"
 ],
 "building/houseboat":[
 "Garasi Kapal"
@@ -894,6 +907,9 @@
 "building/office":[
 "Bangunan Perkantoran"
 ],
+"building/outbuilding":[
+"Bangunan Tambahan"
+],
 "building/pavilion":[
 "Bangunan Paviliun"
 ],
@@ -904,10 +920,13 @@
 "Bangunan Perumahan"
 ],
 "building/retail":[
-"Pertokoan"
+"Bangunan Pertokoan"
 ],
 "building/roof":[
 "Atap"
+],
+"building/ruins":[
+"Reruntuhan Bangunan"
 ],
 "building/school":[
 "Bangunan Sekolah"
@@ -917,13 +936,13 @@
 "Rumah Kopel"
 ],
 "building/shed":[
-"Gudang"
+"Gudang Kecil Rumah"
 ],
 "building/stable":[
 "Kandang Kuda"
 ],
 "building/stadium":[
-"Bangunan Stadion"
+"Bangunan Stadion / Gelanggang"
 ],
 "building/static_caravan":[
 "Karavan"
@@ -932,10 +951,13 @@
 "Kandang Babi"
 ],
 "building/synagogue":[
-"Bangunan Sinagoga"
+"Bangunan Sinagoge / Kanisah"
 ],
 "building/temple":[
-"Bangunan Tempat Suci"
+"Bangunan Candi / Kuil"
+],
+"building/terrace":[
+"Rumah Deret"
 ],
 "building/train_station":[
 "Bangunan Stasiun Kereta"
@@ -954,20 +976,14 @@
 "building_part":[
 "Bagian Bangunan"
 ],
-"building_point":[
-"Bangunan"
-],
 "cemetery/sector":[
 "Sektor Makam"
-],
-"climbing/crag":[
-"Panjat Tebing"
 ],
 "craft":[
 "Pengrajin"
 ],
 "craft/agricultural_engines":[
-"Mekanik Mesin Tani"
+"Bengkel Mesin Pertanian"
 ],
 "craft/basket_maker":[
 "Pembuat Keranjang"
@@ -994,14 +1010,14 @@
 ],
 "craft/caterer":[
 "katering",
-"pejasaboga",
-"Jasa Boga"
+"Jasa Boga",
+"pejasaboga"
 ],
 "craft/chimney_sweeper":[
 "Pembersih Cerobong Asap"
 ],
 "craft/cleaning":[
-"Janitor"
+"Cleaning Service / OB"
 ],
 "craft/clockmaker":[
 "Pembuat Jam"
@@ -1026,9 +1042,6 @@
 ],
 "craft/key_cutter":[
 "Duplikat Kunci"
-],
-"craft/locksmith":[
-"Ahli Kunci"
 ],
 "craft/painter":[
 "Tukang Cat"
@@ -1060,9 +1073,6 @@
 "craft/shoemaker":[
 "Pembuat Sepatu"
 ],
-"craft/tailor":[
-"Penjahit Pakaian Pria"
-],
 "craft/tinsmith":[
 "Pandai Timah"
 ],
@@ -1079,6 +1089,9 @@
 "alkohol",
 "minuman keras"
 ],
+"demolished/building":[
+"Bangunan dibongkar"
+],
 "education":[
 "Sarana Pendidikan"
 ],
@@ -1093,8 +1106,8 @@
 "paud",
 "tpq",
 "penitipan anak",
-"tk",
 "TK",
+"tk",
 "taman kanak-kanak"
 ],
 "education/language_school":[
@@ -1109,8 +1122,8 @@
 "bimbingan belajar",
 "tempat les",
 "les",
-"tutor",
-"Les Bimbel"
+"Les Bimbel",
+"tutor"
 ],
 "education/school":[
 "Lingkungan Sekolah"
@@ -1190,9 +1203,6 @@
 "ford":[
 "Arung sebidang dengan air"
 ],
-"ford_line":[
-"Arung sebidang dengan air"
-],
 "golf/cartpath":[
 "Jalur Mobil Golf"
 ],
@@ -1221,9 +1231,6 @@
 "healthcare/audiologist":[
 "Spesialis Pendengaran"
 ],
-"healthcare/counselling":[
-"Pusat Konseling"
-],
 "healthcare/hospice":[
 "Perawatan Lanjut Usia"
 ],
@@ -1238,9 +1245,6 @@
 ],
 "healthcare/optometrist":[
 "Spesialis Mata"
-],
-"healthcare/physiotherapist":[
-"Terapis Fisik"
 ],
 "healthcare/podiatrist":[
 "Spesialis Kaki"
@@ -1270,9 +1274,6 @@
 "Jalan kuda",
 "jejak"
 ],
-"highway/bus_stop":[
-"Halte Bus"
-],
 "highway/busway":[
 "Jalur Bis Terpisah"
 ],
@@ -1287,17 +1288,12 @@
 "highway/crossing":[
 "Penyebrangan"
 ],
-"highway/crossing/traffic_signals":[
-"Tempat Penyebrangan dengan Lalin",
-"pelican cross",
-"zebra cross"
-],
 "highway/crossing/uncontrolled":[
 "Tempat Penyebrangan / Zebra Kros"
 ],
 "highway/cycleway":[
-"jalur sepeda",
-"Jalur Sepeda"
+"Jalur Sepeda",
+"jalur sepeda"
 ],
 "highway/cycleway/bicycle_foot":[
 "Jalur Sepeda & Pejalan Kaki"
@@ -1334,8 +1330,8 @@
 "gang",
 "jogging track",
 "pejalan kaki",
-"joging trek",
-"Jalur Pejalan Kaki Terpisah"
+"Jalur Pejalan Kaki Terpisah",
+"joging trek"
 ],
 "highway/footway/crossing":[
 "pelican cross",
@@ -1411,9 +1407,9 @@
 "jalan square"
 ],
 "highway/primary":[
+"Jalan Primer",
 "jalan primer",
-"jalan utama",
-"Jalan Primer"
+"jalan utama"
 ],
 "highway/primary_link":[
 "Jalan Primer Penghubung",
@@ -1430,8 +1426,8 @@
 ],
 "highway/residential":[
 "jalan permukiman",
-"jalan perumahan",
-"Jalan Lokal / Permukiman"
+"Jalan Lokal / Permukiman",
+"jalan perumahan"
 ],
 "highway/rest_area":[
 "Tempat Peristirahatan",
@@ -1461,7 +1457,7 @@
 "highway/service/drive-through":[
 "layanan tanpa turun",
 "pelayanan kendaraan",
-"Layanan Tanpa Turun / Lantatur",
+"Layanan Tanpa-Turun/Lantatur",
 "pelayanan mobil"
 ],
 "highway/service/driveway":[
@@ -1531,8 +1527,8 @@
 "cul-de-sac",
 "culdesac",
 "putar balik",
-"putaran",
-"Cul-de-sac"
+"Cul-de-sac",
+"putaran"
 ],
 "historic":[
 "Situs Bersejarah",
@@ -1587,7 +1583,7 @@
 "Batu Sandungan"
 ],
 "historic/monument":[
-"Monumen",
+"Tugu Monumen",
 "monumen"
 ],
 "historic/ruins":[
@@ -1598,8 +1594,8 @@
 "Makam"
 ],
 "historic/wayside_cross":[
-"salib pinggir jalan",
-"Salib Pinggir Jalan"
+"Salib Pinggir Jalan",
+"salib pinggir jalan"
 ],
 "historic/wayside_shrine":[
 "padmasana",
@@ -1608,8 +1604,8 @@
 "pamerajan",
 "banten",
 "kemulan",
-"kuil pinggir jalan",
 "Pelinggih",
+"kuil pinggir jalan",
 "mrajan"
 ],
 "historic/wreck":[
@@ -1621,15 +1617,12 @@
 "indoor/area":[
 "ruang dalam ruangan",
 "wilayah dalam ruangan",
-"area dalam ruangan",
-"Wilayah dalam Ruangan"
+"Wilayah dalam Ruangan",
+"area dalam ruangan"
 ],
 "indoor/corridor":[
 "lorong",
 "selasar",
-"Selasar dalam Ruangan"
-],
-"indoor/corridor_line":[
 "Selasar dalam Ruangan"
 ],
 "indoor/door":[
@@ -1690,12 +1683,13 @@
 "tiram",
 "algaculture"
 ],
-"landuse/basin":[
-"Kolam Retensi"
+"landuse/brownfield":[
+"mangkrak",
+"Lahan Terbengkalai"
 ],
 "landuse/cemetery":[
-"tempat pemakaman umum",
 "Taman Pemakaman",
+"tempat pemakaman umum",
 "tpu",
 "makam",
 "kuburan"
@@ -1718,11 +1712,8 @@
 "landuse/construction":[
 "pembangunan",
 "bangun",
-"konstruksi",
-"Area Konstruksi"
-],
-"landuse/farm":[
-"Pertanian"
+"Area Konstruksi",
+"konstruksi"
 ],
 "landuse/farmland":[
 "pertanian",
@@ -1737,6 +1728,15 @@
 "landuse/grass":[
 "rerumputan",
 "Rerumputan"
+],
+"landuse/greenfield":[
+"Lahan Belum Terbangun",
+"land bank",
+"bank tanah",
+"lahan kosong",
+"landbank",
+"tanah kosong",
+"bank lahan"
 ],
 "landuse/harbour":[
 "Pelabuhan"
@@ -1771,8 +1771,8 @@
 "pakan",
 "sapi",
 "domba",
-"kuda",
 "Padang Gembala",
+"kuda",
 "rumput",
 "kambing",
 "padang rumput"
@@ -1780,18 +1780,12 @@
 "landuse/orchard":[
 "Kebun Buah"
 ],
-"landuse/pond":[
-"Kolam"
-],
 "landuse/quarry":[
 "Pertambangan",
 "tambang"
 ],
 "landuse/religious":[
 "Kawasan Suci (ibadah)"
-],
-"landuse/reservoir":[
-"Waduk"
 ],
 "landuse/residential":[
 "pemukiman",
@@ -1836,11 +1830,8 @@
 "leisure/bowling_alley":[
 "boling",
 "bowling",
-"lempar bowling",
-"Tempat Bowling"
-],
-"leisure/common":[
-"Perintah"
+"Tempat Bowling",
+"lempar bowling"
 ],
 "leisure/dog_park":[
 "Taman Anjing"
@@ -1856,8 +1847,8 @@
 "tambak",
 "daerah memancing",
 "mancing",
-"pemancingan",
 "Spot Memancing",
+"pemancingan",
 "tangkapan",
 "kolam pemancingan",
 "titik memancing",
@@ -1878,8 +1869,8 @@
 "kebun bersama"
 ],
 "leisure/golf_course":[
-"lapangan golf",
-"Lapangan Golf"
+"Lapangan Golf",
+"lapangan golf"
 ],
 "leisure/horse_riding":[
 "Pusat Berkuda"
@@ -1990,8 +1981,8 @@
 "Lapangan Tenis"
 ],
 "leisure/pitch/volleyball":[
-"lapangan voli",
-"Lapangan Voli"
+"Lapangan Voli",
+"lapangan voli"
 ],
 "leisure/playground":[
 "ramah anak",
@@ -2037,22 +2028,19 @@
 "Kawasan Berenang Alami"
 ],
 "leisure/swimming_pool":[
-"kolam renang",
-"Kolam Renang"
+"Kolam Renang",
+"kolam renang"
 ],
 "leisure/track/athletics":[
 "Lintasan Atletik"
-],
-"leisure/track/athletics/running":[
-"Lintasan Lari"
 ],
 "leisure/track/cycling":[
 "Lintasan Sepeda Balapan"
 ],
 "leisure/track/horse_racing":[
+"Lintasan Pacuan Kuda",
 "berkuda",
 "equestrian",
-"Lintasan Pacuan Kuda",
 "pacuan kuda"
 ],
 "leisure/track/running":[
@@ -2071,6 +2059,12 @@
 "man_made":[
 "Fitur Buatan Manusia"
 ],
+"man_made/antenna":[
+"Antena"
+],
+"man_made/beehive":[
+"Peternakan Lebah Madu"
+],
 "man_made/breakwater":[
 "tembok laut",
 "pemecah ombak",
@@ -2079,18 +2073,30 @@
 "man_made/bridge":[
 "Area Jembatan"
 ],
+"man_made/ceremonial_gate":[
+"Gapura"
+],
 "man_made/chimney":[
 "Cerobong"
 ],
 "man_made/clarifier":[
-"air limbah",
-"Tangki Clarifier"
+"Tangki Clarifier",
+"air limbah"
+],
+"man_made/compass_rose":[
+"Objek Mata Angin"
 ],
 "man_made/crane/portal_crane":[
 "Derek portal"
 ],
+"man_made/cross":[
+"Objek Salib"
+],
 "man_made/cutline":[
 "Garis Putus"
+],
+"man_made/dovecote":[
+"Rumah Burung"
 ],
 "man_made/embankment":[
 "Bidang lebih tinggi daripada sekeliling"
@@ -2107,13 +2113,28 @@
 "man_made/manhole/drain":[
 "Lubang Drainase"
 ],
+"man_made/mast/communication":[
+"menara telekomunikasi",
+"Menara BTS"
+],
+"man_made/mast/communication/mobile_phone":[
+"Menara BTS"
+],
+"man_made/mast/communication/radio":[
+"Menara Radio"
+],
+"man_made/mast/lighting":[
+"lampu stadion",
+"Tiang Lampu Sorot Lapangan",
+"penerangan"
+],
 "man_made/monitoring_station":[
 "Stasiun Pemantauan",
 "monitoring"
 ],
 "man_made/obelisk":[
-"obelisk",
 "Tugu Obelisk",
+"obelisk",
 "tugu"
 ],
 "man_made/observatory":[
@@ -2167,12 +2188,18 @@
 "man_made/storage_tank/water":[
 "Tangki Air"
 ],
+"man_made/surveillance/camera":[
+"CCTV"
+],
 "man_made/survey_point":[
 "Titik Survei"
 ],
 "man_made/telescope":[
 "observatorium",
 "Teleskop"
+],
+"man_made/telescope/optical":[
+"Observatorium"
 ],
 "man_made/telescope/radio":[
 "Teleskop Radio"
@@ -2186,8 +2213,7 @@
 "gereja"
 ],
 "man_made/tower/communication":[
-"bts",
-"Menara Komunikasi"
+"Gedung Menara Komunikasi"
 ],
 "man_made/tower/defensive":[
 "Menara Benteng"
@@ -2225,8 +2251,8 @@
 "perigi"
 ],
 "man_made/water_works":[
-"pdam",
 "Instalasi Penyedia Air Minum",
+"pdam",
 "air minum",
 "spam",
 "pam"
@@ -2251,8 +2277,8 @@
 ],
 "natural/bay":[
 "lagun",
-"muara",
-"Teluk"
+"Teluk",
+"muara"
 ],
 "natural/beach":[
 "Pantai",
@@ -2287,9 +2313,6 @@
 ],
 "natural/grassland":[
 "Padang Rumput"
-],
-"natural/heath":[
-"Tanah kosong"
 ],
 "natural/hot_spring":[
 "Mata Air Panas"
@@ -2362,8 +2385,8 @@
 "gunung berapi"
 ],
 "natural/water":[
-"air",
-"Air"
+"Air",
+"air"
 ],
 "natural/water/basin":[
 "situ",
@@ -2491,8 +2514,8 @@
 "lsm",
 "balai",
 "kumpulan",
-"asosiasi",
 "Kantor Komunitas",
+"asosiasi",
 "jamiah",
 "gemeinschaft",
 "komunitas",
@@ -2583,9 +2606,6 @@
 "office/lawyer":[
 "Kantor Hukum"
 ],
-"office/lawyer/notary":[
-"Kantor Notaris"
-],
 "office/moving_company":[
 "Jasa Pindahan"
 ],
@@ -2603,8 +2623,8 @@
 ],
 "office/political_party":[
 "partai",
-"dprd",
 "Kantor Partai Politik",
+"dprd",
 "dpr",
 "dpd",
 "wakil rakyat",
@@ -2630,9 +2650,6 @@
 ],
 "office/therapist":[
 "Jasa Terapi"
-],
-"office/travel_agent":[
-"Biro Perjalanan"
 ],
 "office/union":[
 "Kantor Buruh"
@@ -2694,8 +2711,8 @@
 "Kota"
 ],
 "place/village":[
-"lembang",
 "Desa / Kelurahan",
+"lembang",
 "gampong",
 "nagari",
 "negeri",
@@ -2726,6 +2743,9 @@
 "power/generator":[
 "Pembangkit Listrik"
 ],
+"power/generator/method/photovoltaic/building/roof":[
+"Atap Panel Surya"
+],
 "power/generator/method/photovoltaic/location/roof":[
 "Sel Surya Atap Bangunan"
 ],
@@ -2740,10 +2760,10 @@
 "Turbin Angin"
 ],
 "power/line":[
-"Kabel Listrik"
+"Jalur Listrik Tegangan Tinggi"
 ],
 "power/minor_line":[
-"Jalur listrik lainya"
+"Jalur Kabel Listrik"
 ],
 "power/plant/source/coal":[
 "pembangkit listrik",
@@ -2766,8 +2786,8 @@
 ],
 "power/plant/source/solar":[
 "panel surya",
-"sel surya",
-"PLTS"
+"PLTS",
+"sel surya"
 ],
 "power/plant/source/solar/photovoltaic":[
 "Kawasan PLTS"
@@ -2864,9 +2884,6 @@
 "railway":[
 "Fitur Jalur Rel"
 ],
-"railway/abandoned":[
-"Rel Terhapus"
-],
 "railway/buffer_stop":[
 "Sepur Badug / Rel Buntu"
 ],
@@ -2899,9 +2916,6 @@
 "narrow gauge track",
 "Sepur Sempit"
 ],
-"railway/platform":[
-"Peron Kereta"
-],
 "railway/preserved":[
 "Rel Bersejarah"
 ],
@@ -2910,9 +2924,6 @@
 ],
 "railway/rail/highspeed":[
 "Rel Kereta Cepat"
-],
-"railway/station":[
-"Stasiun Kereta"
 ],
 "railway/subway":[
 "subway",
@@ -2939,11 +2950,6 @@
 "roller_coaster/track":[
 "Rel Roller Coaster"
 ],
-"route/ferry":[
-"kapal",
-"laut",
-"Rute Feri"
-],
 "seamark/mooring":[
 "berlabuh",
 "buoy",
@@ -2964,23 +2970,41 @@
 "shop/antiques":[
 "Toko Barang Antik"
 ],
+"shop/appliance":[
+"Toko Alat Rumah Tangga"
+],
+"shop/art":[
+"Toko Karya Seni"
+],
 "shop/baby_goods":[
 "Toko Perlengkapan Bayi"
 ],
+"shop/bag":[
+"Toko Tas/Koper"
+],
 "shop/bakery":[
-"Toko Roti"
+"Toko Kue / Roti"
 ],
 "shop/bathroom_furnishing":[
 "Toko Perlengkapan Kamar Mandi"
 ],
+"shop/bbq":[
+"Toko Barbeque"
+],
 "shop/beauty":[
 "Salon Kecantikan"
+],
+"shop/bed":[
+"Toko Kasur/Matras"
 ],
 "shop/beverages":[
 "Toko Minuman"
 ],
 "shop/bicycle":[
 "Toko Sepeda"
+],
+"shop/boat":[
+"Toko Kapal/Perahu"
 ],
 "shop/bookmaker":[
 "judi",
@@ -2991,11 +3015,19 @@
 "shop/books":[
 "Toko Buku"
 ],
-"shop/boutique":[
-"Butik"
-],
 "shop/butcher":[
-"Penjagalan"
+"bebek",
+"potong",
+"sapi",
+"domba",
+"babi",
+"ayam",
+"kambing",
+"cincang",
+"Toko Daging"
+],
+"shop/camera":[
+"Toko Kamera"
 ],
 "shop/candles":[
 "Toko Lilin"
@@ -3004,6 +3036,9 @@
 "toko mobil",
 "toko otomotif",
 "Dealer Mobil"
+],
+"shop/car/second_hand":[
+"Dealer Mobil Bekas"
 ],
 "shop/car_parts":[
 "Toko Peralatan Mobil",
@@ -3019,13 +3054,36 @@
 "Toko Keju"
 ],
 "shop/chemist":[
-"Toko Obat"
+"odol",
+"Toko Kimia",
+"cairan pembersih",
+"toilet",
+"cairan lantai",
+"pasta gigi",
+"sabun"
 ],
 "shop/chocolate":[
 "Toko Cokelat"
 ],
 "shop/clothes":[
-"Toko Baju"
+"toko baju",
+"Toko Pakaian"
+],
+"shop/clothes/second_hand":[
+"toko baju bekas",
+"Toko Pakaian Bekas"
+],
+"shop/clothes/suits":[
+"Toko Setelan Jas"
+],
+"shop/clothes/underwear":[
+"Toko Pakaian Dalam"
+],
+"shop/clothes/wedding":[
+"Toko / Sewa Busana Pengantin"
+],
+"shop/clothes/workwear":[
+"Toko Pakaian Kerja"
 ],
 "shop/coffee":[
 "Toko Biji Kopi"
@@ -3042,16 +3100,25 @@
 "shop/convenience":[
 "7/11",
 "alfamart",
-"Minimarket",
 "minangmart",
 "indomart",
+"Minimarket / Toko Kelontong",
 "alfamidi"
 ],
 "shop/copyshop":[
-"Tempat Fotokopi"
+"reklame",
+"Jasa Percetakan",
+"spanduk",
+"sablon",
+"percetakan",
+"printing",
+"baner"
 ],
 "shop/cosmetics":[
 "Toko Kosmetik"
+],
+"shop/craft":[
+"Toko Bahan Kesenian/Kerajinan"
 ],
 "shop/curtain":[
 "toko tirai",
@@ -3060,13 +3127,19 @@
 "shop/dairy":[
 "Toko Susu"
 ],
+"shop/deli":[
+"Toko Makanan Gourmet / Delicatessen"
+],
 "shop/department_store":[
 "Pasar Swalayan"
 ],
 "shop/doityourself":[
 "diy",
-"lakukan sendiri",
-"Toko Swakriya"
+"Toko Material / DIY",
+"lakukan sendiri"
+],
+"shop/doors":[
+"Toko Kusen Pintu"
 ],
 "shop/dry_cleaning":[
 "dry clean",
@@ -3096,6 +3169,16 @@
 "shop/fashion":[
 "Toko Mode"
 ],
+"shop/fashion_accessories":[
+"Toko Pelengkap Busana",
+"topi",
+"baju",
+"busana",
+"kacamata",
+"tas",
+"dompet",
+"aksesoris"
+],
 "shop/fishing":[
 "Toko Ikan"
 ],
@@ -3123,8 +3206,8 @@
 "bangku",
 "meja",
 "pintu",
-"dapur",
 "Toko Mebel",
+"dapur",
 "toko furnitur"
 ],
 "shop/garden_centre":[
@@ -3133,6 +3216,9 @@
 "Toko Tanaman",
 "taman",
 "bunga"
+],
+"shop/gas":[
+"Toko Tabung Gas"
 ],
 "shop/general":[
 "Warung"
@@ -3151,8 +3237,14 @@
 "cinderamata",
 "Toko Cenderamata"
 ],
+"shop/gold_buyer":[
+"Toko Emas"
+],
 "shop/greengrocer":[
-"Toko Buah dan Sayuran"
+"Toko Buah / Sayuran"
+],
+"shop/groundskeeping":[
+"Toko Peralatan Rumput & Taman"
 ],
 "shop/hairdresser":[
 "Salon Rambut"
@@ -3172,18 +3264,24 @@
 "Toko Alat Bantu Dengar",
 "bantuan pendengaran"
 ],
+"shop/herbalist":[
+"Toko Herbal"
+],
 "shop/hifi":[
 "Toko Hifi"
 ],
 "shop/hobby":[
 "Toko Hobi"
 ],
+"shop/honey":[
+"Toko Madu"
+],
 "shop/houseware":[
-"Toko Parabot Rumah",
+"Toko Perabotan Rumah Tangga",
 "perabotan"
 ],
 "shop/hunting":[
-"Toko Barang Berburu"
+"Toko Alat Berburu"
 ],
 "shop/interior_decoration":[
 "Toko Dekorasi Interior",
@@ -3199,19 +3297,27 @@
 "kelontong"
 ],
 "shop/kitchen":[
-"Toko Desain Interior Dapur"
+"parabot",
+"perabot",
+"Toko Alat Dapur"
 ],
 "shop/laundry":[
+"Penatu / Laundri",
 "cuci baju",
 "laundry",
-"binatu",
-"Penatu"
+"binatu"
+],
+"shop/laundry/self_service":[
+"Laundry Swalayan"
 ],
 "shop/leather":[
 "Toko Kulit"
 ],
+"shop/lighting":[
+"Toko Lampu"
+],
 "shop/locksmith":[
-"Ahli Kunci"
+"Toko Kunci"
 ],
 "shop/lottery":[
 "Toko Lotre"
@@ -3230,6 +3336,16 @@
 "smartphone",
 "ponsel",
 "hp"
+],
+"shop/mobile_phone_accessories":[
+"konter",
+"pulsa",
+"Toko Aksesoris Ponsel / Konter",
+"hp",
+"cell"
+],
+"shop/model":[
+"Toko Diecast / Model"
 ],
 "shop/money_lender":[
 "lintah darat",
@@ -3252,6 +3368,9 @@
 "shop/newsagent":[
 "Kios Koran"
 ],
+"shop/nuts":[
+"Toko Kacang-kacangan"
+],
 "shop/optician":[
 "lensa",
 "toko optik",
@@ -3265,11 +3384,17 @@
 "shop/paint":[
 "Toko Cat"
 ],
+"shop/party":[
+"Toko Alat Pesta / Sewa Dekorasi"
+],
 "shop/pastry":[
-"Toko Kue"
+"Toko Kue Kering / Pastri"
 ],
 "shop/pawnbroker":[
 "Pegadaian"
+],
+"shop/perfumery":[
+"Toko Parfum / Minyak Wangi"
 ],
 "shop/pet":[
 "Toko Peliharaan"
@@ -3289,12 +3414,15 @@
 "Toko Agamawi"
 ],
 "shop/rental":[
-"Toko Rental",
 "toko peminjaman",
-"pinjam"
+"pinjam",
+"Toko Rental / Sewa"
 ],
 "shop/repair":[
 "Bengkel (umum)"
+],
+"shop/rice":[
+"Toko Beras"
 ],
 "shop/scuba_diving":[
 "Toko Perlengkapan Menyelam",
@@ -3306,8 +3434,11 @@
 "shop/seafood":[
 "Toko Bahari"
 ],
+"shop/second_hand":[
+"Toko Barang Bekas"
+],
 "shop/sewing":[
-"Tukang Jahit"
+"Toko Perlengkapan Jahit"
 ],
 "shop/shoe_repair":[
 "Toko Sol Sepatu"
@@ -3322,13 +3453,20 @@
 "Toko Olahraga"
 ],
 "shop/stationery":[
-"Toko Alat Tulis",
 "atk",
-"fotokopi"
+"fotokopi",
+"Toko ATK / Fotokopi",
+"alat tulis"
+],
+"shop/storage_rental":[
+"Jasa Penitipan Barang"
 ],
 "shop/supermarket":[
 "supermarket",
 "Pasar Swalayan"
+],
+"shop/swimming_pool":[
+"Toko Alat Kolam Renang"
 ],
 "shop/tailor":[
 "Tukang Jahit"
@@ -3353,11 +3491,17 @@
 "rokok",
 "Toko Tembakau"
 ],
+"shop/tool_hire":[
+"Toko Penyewaan Alat Perkakas"
+],
 "shop/toys":[
 "Toko Mainan"
 ],
 "shop/travel_agency":[
 "Biro Perjalanan"
+],
+"shop/trophy":[
+"Toko Piala"
 ],
 "shop/tyres":[
 "Toko Ban"
@@ -3399,6 +3543,9 @@
 "shop/weapons":[
 "Toko Senjata"
 ],
+"shop/wholesale":[
+"Toko Grosir"
+],
 "shop/wigs":[
 "Toko Wig"
 ],
@@ -3412,8 +3559,8 @@
 "shop/wine":[
 "minuman beralkohol",
 "alkohol",
-"minum",
-"Toko Anggur"
+"Toko Anggur",
+"minum"
 ],
 "shop/yes":[
 "Toko (Umum)"
@@ -3426,7 +3573,10 @@
 "Shelter Gunung"
 ],
 "tourism/apartment":[
-"Wisma Tamu"
+"Kontrakan / Kos-kosan"
+],
+"tourism/aquarium":[
+"Aquarium"
 ],
 "tourism/artwork":[
 "Karya Seni"
@@ -3454,12 +3604,15 @@
 "atraksi wisata",
 "tempat wisata",
 "rekreasi",
-"objek wisata",
-"Objek Wisata"
+"Objek Wisata",
+"objek wisata"
+],
+"tourism/camp_pitch":[
+"Lapangan Kemah"
 ],
 "tourism/camp_site":[
-"Perkemahan",
 "kemah",
+"Bumi Perkemahan",
 "kemping",
 "berkemah"
 ],
@@ -3471,7 +3624,7 @@
 "kabin liburan",
 "akomodasi semalam",
 "rumah liburan",
-"Vila Liburan",
+"Vila Liburan / Pondok Liburan",
 "vila",
 "pondok"
 ],
@@ -3480,19 +3633,19 @@
 ],
 "tourism/guest_house":[
 "penginapan",
+"Wisma Tamu",
 "inap-sarapan",
 "bnb",
-"Rumah Tamu",
 "bed and breakfast",
 "airyrooms",
 "airbnb",
 "b&b"
 ],
 "tourism/hostel":[
+"Hostel / Hotel Terjangkau",
 "oyo",
 "asrama",
-"indekos",
-"Kos"
+"indekos"
 ],
 "tourism/hotel":[
 "Hotel"
@@ -3509,18 +3662,27 @@
 "tourism/information/board/welcome_sign":[
 "Papan Selamat Datang"
 ],
+"tourism/information/guidepost":[
+"Tiang Arah Jalan"
+],
 "tourism/information/map":[
 "Peta"
+],
+"tourism/information/office":[
+"Kantor Informasi Wisata"
+],
+"tourism/information/visitor_centre":[
+"Pusat Pengunjung"
 ],
 "tourism/motel":[
 "Motel"
 ],
 "tourism/museum":[
 "prasejarah",
+"Museum",
 "gedung bersejarah",
 "sejarah",
-"kuno",
-"Museum"
+"kuno"
 ],
 "tourism/museum/history":[
 "Museum Sejarah"
@@ -3538,8 +3700,20 @@
 "tourism/viewpoint":[
 "Titik Pandang"
 ],
+"tourism/wilderness_hut":[
+"Pondok di Alam Bebas"
+],
 "tourism/zoo":[
 "Kebun Binatang"
+],
+"tourism/zoo/petting":[
+"Kebun Binatang Interaktif"
+],
+"tourism/zoo/safari":[
+"Kebun Binatang Safari"
+],
+"tourism/zoo/wildlife":[
+"Kebun Binatang Margasatwa"
 ],
 "traffic_calming/bump":[
 "Polisi Tidur"
@@ -3609,9 +3783,6 @@
 "type/route/pipeline":[
 "Rute Perpipaan"
 ],
-"type/route/power":[
-"Rute Energi Listrik"
-],
 "type/route/road":[
 "Rute Jalan"
 ],
@@ -3644,7 +3815,7 @@
 "Bendungan / Waduk"
 ],
 "waterway/ditch":[
-"Parit",
+"Parit / Irigasi Kecil",
 "irigasi",
 "selokan"
 ],
@@ -3662,7 +3833,7 @@
 ],
 "waterway/river":[
 "kali",
-"Sungai"
+"Sungai Besar"
 ],
 "waterway/stream":[
 "banjir",
@@ -3678,18 +3849,248 @@
 "Aliran"
 ],
 "waterway/stream_intermittent":[
-"Aliran / Kali dengan air musiman"
+"intermittent stream",
+"Aliran dengan Berair Tidak Menentu"
 ],
 "waterway/tidal_channel":[
 "Jalur Air Pasang Surut"
 ],
 "waterway/waterfall":[
-"curug",
-"Air Terjun"
+"Air Terjun",
+"curug"
 ],
 "waterway/weir":[
 "sungai",
 "Tanggul / Bendung",
 "bendung"
+],
+"boundary":[
+"Batas"
+],
+"building_point":[
+"bangunan",
+"gedung",
+"Bangunan",
+"struktur"
+],
+"ford_line":[
+"Arung sebidang dengan air"
+],
+"traffic_sign/maxspeed-US-CA-LR":[
+"Rambu Batas Kecepatan"
+],
+"shop/ice_cream":[
+"Toko Es Krim"
+],
+"route/ferry":[
+"kapal",
+"laut",
+"Rute Feri"
+],
+"railway/platform":[
+"Peron Kereta"
+],
+"railway/station":[
+"Stasiun Kereta"
+],
+"office/travel_agent":[
+"Biro Perjalanan"
+],
+"office/lawyer/notary":[
+"Kantor Notaris"
+],
+"natural/wood_point":[
+"Hutan Alami",
+"belantara",
+"pohon"
+],
+"man_made/geoglyph_multilinestring":[
+"Geoglif"
+],
+"leisure/track/athletics/running":[
+"Lintasan Lari"
+],
+"landuse/basin":[
+"situ",
+"penampung air hujan",
+"kolong",
+"embong",
+"waduk",
+"basin",
+"bozem",
+"cekungan penampung",
+"check dam",
+"embung",
+"telaga",
+"Kolam Retensi",
+"tandon"
+],
+"landuse/reservoir":[
+"Waduk",
+"reservoir",
+"air",
+"danau"
+],
+"landuse/industrial/industrial_point":[
+"kawasan industri",
+"Kawasan Industri"
+],
+"indoor/corridor_line":[
+"lorong",
+"selasar",
+"Selasar dalam Ruangan"
+],
+"highway/bus_stop":[
+"Halte Bis"
+],
+"highway/raceway_unspecific":[
+"Jalur Motor Balapan"
+],
+"highway/traffic_sign":[
+"Rambu Lalu Lintas",
+"rambu lalin",
+"marka"
+],
+"highway/motorway_link-US-CA":[
+"Jalan Penghubung Tol (ramp)",
+"jalan penghubung bebas hambatan"
+],
+"highway/primary_link-US-CA":[
+"Jalan Primer Penghubung",
+"jalan penghubung primer"
+],
+"highway/trunk_link-US-CA":[
+"jalan raya penghubung",
+"Jalan Raya Penghubung"
+],
+"highway/path/bicycle_foot":[
+"Jalur Sepeda & Pejalan Kaki"
+],
+"highway/path/crossing/marked":[
+"Jalur Penyebrangan Sepeda & Pejalan Kaki Bermarka"
+],
+"highway/path/crossing/bicycle_foot":[
+"Jalur Penyebrangan Sepeda & Pejalan Kaki"
+],
+"highway/footway/crossing/marked":[
+"Tempat Penyebrangan / Zebra Kros"
+],
+"highway/footway/crossing/zebra":[
+"Tempat Penyebrangan / Zebra Kros"
+],
+"highway/crossing/marked":[
+"Tempat Penyebrangan / Zebra Kros"
+],
+"highway/crossing/zebra":[
+"Tempat Penyebrangan / Zebra Kros"
+],
+"craft/locksmith":[
+"Toko Kunci"
+],
+"craft/tailor":[
+"Tukang Jahit"
+],
+"building/entrance":[
+"Pintu Masuk / Keluar"
+],
+"building/glasshouse":[
+"Rumah Kaca"
+],
+"building/house/detached":[
+"desa",
+"Rumah Tunggal",
+"rumah desa"
+],
+"building/house/semi-detached":[
+"duplex",
+"Rumah Kopel"
+],
+"building/house/terrace":[
+"Rumah Deret"
+],
+"boundary/administrative":[
+"Batas Administrasi"
+],
+"amenity/bus_station":[
+"Stasiun Bus / Terminal"
+],
+"amenity/dancing_school":[
+"Sekolah Seni Tari"
+],
+"amenity/driving_school":[
+"Sekolah Mengemudi"
+],
+"amenity/embassy":[
+"kedutaan",
+"Kedutaan besar"
+],
+"amenity/ferry_terminal":[
+"Pelabuhan Feri"
+],
+"amenity/kindergarten":[
+"prasekolah",
+"paud",
+"tpq",
+"penitipan anak",
+"TK",
+"tk",
+"taman kanak-kanak"
+],
+"amenity/language_school":[
+"Tempat Les Bahasa",
+"kursus bahasa"
+],
+"amenity/music_school":[
+"Sekolah Musik"
+],
+"amenity/prep_school":[
+"bimbel",
+"bimbingan belajar",
+"tempat les",
+"les",
+"Les Bimbel",
+"tutor"
+],
+"amenity/school":[
+"Lingkungan Sekolah"
+],
+"amenity/university":[
+"Lingkungan Universitas"
+],
+"amenity/doctors/podiatry":[
+"Spesialis Kaki"
+],
+"@templates/contact":[
+"Titik"
+],
+"@templates/internet_access":[
+"Titik"
+],
+"@templates/poi":[
+"Titik"
+],
+"@templates/crossing/bicycle_more":[
+"Titik"
+],
+"@templates/crossing/defaults":[
+"Titik"
+],
+"@templates/crossing/geometry_way_more":[
+"Titik"
+],
+"@templates/crossing/markings":[
+"Titik"
+],
+"@templates/crossing/markings_yes":[
+"Titik"
+],
+"@templates/crossing/surfacequality":[
+"Titik"
+],
+"@templates/crossing/traffic_signal":[
+"Titik"
+],
+"@templates/crossing/traffic_signal_more":[
+"Titik"
 ]
 }

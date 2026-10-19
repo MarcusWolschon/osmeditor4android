@@ -50,9 +50,6 @@
 "amenity/bureau_de_change":[
 "பணப் பரிமாற்றம்"
 ],
-"amenity/bus_station":[
-"பேருந்து நிலையம் / முனையம்"
-],
 "amenity/cafe":[
 "டீக்கடை"
 ],
@@ -81,9 +78,6 @@
 "amenity/drinking_water":[
 "குடிநீர்",
 "ஊற்று"
-],
-"amenity/embassy":[
-"தூதரகம்"
 ],
 "amenity/fast_food":[
 "துரித உணவு",
@@ -217,8 +211,8 @@
 "திரையரங்கம்"
 ],
 "amenity/townhall":[
-"நகரம்",
 "நகராட்சிமன்றம்",
+"நகரம்",
 "பேரூராட்சிமன்றம்",
 "கிராமம்",
 "நீதிமன்றம்",
@@ -255,9 +249,6 @@
 ],
 "barrier/wall":[
 "சுவர்"
-],
-"boundary":[
-"எல்லை"
 ],
 "building":[
 "கட்டடம்"
@@ -319,9 +310,6 @@
 "building/university":[
 "பல்கலைக்கழக கட்டிடம்"
 ],
-"building_point":[
-"கட்டிடம்"
-],
 "craft/carpenter":[
 "தச்சர்"
 ],
@@ -339,9 +327,6 @@
 ],
 "craft/shoemaker":[
 "செம்மார்"
-],
-"craft/tailor":[
-"தையற்காரர்"
 ],
 "embankment":[
 "கரை"
@@ -368,9 +353,6 @@
 "அவசர நீர் தொட்டி"
 ],
 "ford":[
-"ஆற்றின் ஆழப்பகுதி"
-],
-"ford_line":[
 "ஆற்றின் ஆழப்பகுதி"
 ],
 "healthcare/alternative":[
@@ -418,9 +400,6 @@
 "landuse/churchyard":[
 "கோயில் முற்றம்"
 ],
-"landuse/farm":[
-"பண்ணை நிலம்"
-],
 "landuse/farmland":[
 "பண்ணை நிலம்"
 ],
@@ -432,12 +411,6 @@
 ],
 "landuse/landfill":[
 "கழிவு"
-],
-"landuse/pond":[
-"குளம்"
-],
-"landuse/reservoir":[
-"நீர்த் தேக்கம்"
 ],
 "leisure/common":[
 "பொதுவான"
@@ -595,9 +568,6 @@
 "office/lawyer":[
 "சட்ட அலுவலகம்"
 ],
-"office/lawyer/notary":[
-"ஆயத்துறை எழுத்துபதிவாளர் அலுவலகம்"
-],
 "office/newspaper":[
 "செய்தித்தாள் அலுவலகம்"
 ],
@@ -618,9 +588,6 @@
 ],
 "office/telecommunication":[
 "தொலைத்தொடர்பு அலுவலகம்"
-],
-"office/travel_agent":[
-"பயண முகவர்"
 ],
 "place":[
 "இடம்"
@@ -691,17 +658,11 @@
 "public_transport/stop_position_light_rail":[
 "இலகு இரயில் நிறுத்தம் இடம்"
 ],
-"railway/abandoned":[
-"பயன்படுத்தப்படாத இரயில்வே"
-],
 "railway/disused":[
 "பயன்படுத்தப்படாத இரயில்வே"
 ],
 "railway/milestone":[
 "இரயில்வே மைல்கல்"
-],
-"railway/station":[
-"தொடருந்து நிலையம்"
 ],
 "railway/subway_entrance":[
 "சுரங்கப்பாதை நுழைவுவாயில்"
@@ -856,9 +817,6 @@
 "type/route/pipeline":[
 "குழாய் தொடர் பாதை"
 ],
-"type/route/power":[
-"மின் பாதை"
-],
 "type/route/road":[
 "சாலை வழி"
 ],
@@ -900,5 +858,71 @@
 ],
 "waterway/weir":[
 "சிற்றணை"
+],
+"boundary":[
+"எல்லை"
+],
+"building_point":[
+"கட்டடம்"
+],
+"ford_line":[
+"ஆற்றின் ஆழப்பகுதி"
+],
+"railway/station":[
+"தொடருந்து நிலையம்"
+],
+"office/travel_agent":[
+"பயண முகவர்"
+],
+"office/lawyer/notary":[
+"ஆயத்துறை எழுத்துபதிவாளர் அலுவலகம்"
+],
+"landuse/reservoir":[
+"நீர்த் தேக்கம்"
+],
+"highway/traffic_sign":[
+"போக்குவரவு இயக்கச் சுட்டுக்குறி"
+],
+"craft/tailor":[
+"தையல்காரர்"
+],
+"amenity/bus_station":[
+"பேருந்து நிலையம் / முனையம்"
+],
+"amenity/embassy":[
+"தூதரகம்"
+],
+"@templates/contact":[
+"புள்ளி"
+],
+"@templates/internet_access":[
+"புள்ளி"
+],
+"@templates/poi":[
+"புள்ளி"
+],
+"@templates/crossing/bicycle_more":[
+"புள்ளி"
+],
+"@templates/crossing/defaults":[
+"புள்ளி"
+],
+"@templates/crossing/geometry_way_more":[
+"புள்ளி"
+],
+"@templates/crossing/markings":[
+"புள்ளி"
+],
+"@templates/crossing/markings_yes":[
+"புள்ளி"
+],
+"@templates/crossing/surfacequality":[
+"புள்ளி"
+],
+"@templates/crossing/traffic_signal":[
+"புள்ளி"
+],
+"@templates/crossing/traffic_signal_more":[
+"புள்ளி"
 ]
 }

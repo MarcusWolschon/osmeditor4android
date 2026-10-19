@@ -35,9 +35,6 @@
 "amenity/doctors":[
 "ವೈದ್ಯರು"
 ],
-"amenity/embassy":[
-"ರಾಯಭಾರ"
-],
 "amenity/fire_station":[
 "ಅಗ್ನಿಶಾಮಕ ಕೇಂದ್ರ"
 ],
@@ -141,9 +138,6 @@
 "ಗೋದಾಮು",
 "ದಾಸ್ತಾನು ಕಟ್ಟಡ"
 ],
-"building_point":[
-"‍ಕಟ್ಟಡ"
-],
 "craft":[
 "ಕುಶಲ ಕಲೆ"
 ],
@@ -168,16 +162,10 @@
 "craft/stonemason":[
 "ಕಲ್ಲು ಕೆಲಸಗಾರ"
 ],
-"craft/tailor":[
-"ದರ್ಜಿ"
-],
 "embankment":[
 "ಏರಿ"
 ],
 "ford":[
-"‍ಕಾಲ್ಗಡ"
-],
-"ford_line":[
 "‍ಕಾಲ್ಗಡ"
 ],
 "highway/steps":[
@@ -194,9 +182,6 @@
 ],
 "landuse/orchard":[
 "ತೋಟ"
-],
-"landuse/pond":[
-"ಕೊಳ"
 ],
 "landuse/recreation_ground":[
 "ಆಟದ ಮೈದಾನ"
@@ -362,5 +347,59 @@
 ],
 "waterway/river":[
 "ನದಿ"
+],
+"building_point":[
+"‍ಕಟ್ಟಡ"
+],
+"ford_line":[
+"‍ಕಾಲ್ಗಡ"
+],
+"shop/ice_cream":[
+"ಐಸ್ ಕ್ರೀಮ್ ಅಂಗ"
+],
+"landuse/industrial/industrial_point":[
+"ಕೈಗಾರಿಕಾ ಪ್ರದೇಶ"
+],
+"craft/tailor":[
+"ದರ್ಜಿ"
+],
+"building/glasshouse":[
+"ಹಸಿರುಮನೆ"
+],
+"amenity/embassy":[
+"ರಾಯಭಾರ"
+],
+"@templates/contact":[
+"ಬಿಂದು"
+],
+"@templates/internet_access":[
+"ಬಿಂದು"
+],
+"@templates/poi":[
+"ಬಿಂದು"
+],
+"@templates/crossing/bicycle_more":[
+"ಬಿಂದು"
+],
+"@templates/crossing/defaults":[
+"ಬಿಂದು"
+],
+"@templates/crossing/geometry_way_more":[
+"ಬಿಂದು"
+],
+"@templates/crossing/markings":[
+"ಬಿಂದು"
+],
+"@templates/crossing/markings_yes":[
+"ಬಿಂದು"
+],
+"@templates/crossing/surfacequality":[
+"ಬಿಂದು"
+],
+"@templates/crossing/traffic_signal":[
+"ಬಿಂದು"
+],
+"@templates/crossing/traffic_signal_more":[
+"ಬಿಂದು"
 ]
 }

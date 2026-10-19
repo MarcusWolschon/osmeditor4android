@@ -10,8 +10,8 @@
 "Reklaminis stovas"
 ],
 "aerialway/cable_car":[
-"funikulierius",
 "Funikulierius",
+"funikulierius",
 "keltuvas"
 ],
 "aeroway/aerodrome":[
@@ -59,8 +59,8 @@
 ],
 "amenity/bench":[
 "suolas",
-"suoliukas",
-"Suolas"
+"Suolas",
+"suoliukas"
 ],
 "amenity/bicycle_parking":[
 "dviračių stovėjimas",
@@ -152,16 +152,13 @@
 "Geriamas vanduo",
 "vanduo"
 ],
-"amenity/embassy":[
-"Ambasada"
-],
 "amenity/fast_food":[
 "Greitas maistas",
 "greitas maistas"
 ],
 "amenity/fire_station":[
-"priešgaisrinė tarnyba",
 "Gaisrinė",
+"priešgaisrinė tarnyba",
 "gaisrinė"
 ],
 "amenity/fountain":[
@@ -201,8 +198,8 @@
 "amenity/marketplace":[
 "prekyvietė",
 "turgelis",
-"turgus",
-"Prekyvietė"
+"Prekyvietė",
+"turgus"
 ],
 "amenity/motorcycle_parking":[
 "motociklų stovėjimo aikštelė",
@@ -212,9 +209,6 @@
 "Naktinis klubas",
 "naktinis klubas",
 "klubas"
-],
-"amenity/parking":[
-"Automobilių stovėjimo aikštelė"
 ],
 "amenity/parking_space":[
 "Stovėjimo vieta"
@@ -267,8 +261,8 @@
 "Rūšiavimo centras"
 ],
 "amenity/restaurant":[
-"rastoranas",
-"Restoranas"
+"Restoranas",
+"rastoranas"
 ],
 "amenity/shelter":[
 "pastogė",
@@ -356,8 +350,8 @@
 ],
 "barrier/city_wall":[
 "miesto siena",
-"siena",
-"Miesto siena"
+"Miesto siena",
+"siena"
 ],
 "barrier/cycle_barrier":[
 "Dviračių barjeras",
@@ -402,15 +396,6 @@
 ],
 "barrier/wall":[
 "Siena",
-"siena"
-],
-"boundary":[
-"Riba"
-],
-"boundary/administrative":[
-"Administracinė riba",
-"riba",
-"administracinė riba",
 "siena"
 ],
 "building":[
@@ -514,8 +499,8 @@
 "Pavilijono pastatas"
 ],
 "building/public":[
-"visuomeninis pastatas",
-"Viešasis pastatas"
+"Viešasis pastatas",
+"visuomeninis pastatas"
 ],
 "building/residential":[
 "Gyvenamasis pastatas",
@@ -569,9 +554,6 @@
 "building/warehouse":[
 "Sandėlis",
 "sandėlys"
-],
-"building_point":[
-"Pastatas"
 ],
 "club":[
 "Klubas"
@@ -631,9 +613,6 @@
 "craft/key_cutter":[
 "Raktininkas"
 ],
-"craft/locksmith":[
-"Šaltkalvis"
-],
 "craft/painter":[
 "dažytojas",
 "Tapytojas",
@@ -670,15 +649,12 @@
 "Skulptorius"
 ],
 "craft/shoemaker":[
-"kurpius",
-"Batsiuvys"
+"Batsiuvys",
+"kurpius"
 ],
 "craft/stonemason":[
 "Mūrininkas",
 "mūrininkas"
-],
-"craft/tailor":[
-"Siuvėjas"
 ],
 "craft/tinsmith":[
 "Skardininkas"
@@ -726,9 +702,6 @@
 "brasta",
 "Brasta"
 ],
-"ford_line":[
-"Brasta"
-],
 "golf/hole":[
 "duobutė",
 "Golfo skylė",
@@ -759,8 +732,8 @@
 "pėsčiųjų takas"
 ],
 "highway/footway/sidewalk":[
-"šaligatvis",
-"Šaligatvis"
+"Šaligatvis",
+"šaligatvis"
 ],
 "highway/give_way":[
 "Duoti kelią ženklas"
@@ -819,8 +792,8 @@
 "Alėja"
 ],
 "highway/service/drive-through":[
-"pravažiavimas",
-"Pravažiavimas"
+"Pravažiavimas",
+"pravažiavimas"
 ],
 "highway/service/driveway":[
 "Įvažiavimas"
@@ -926,9 +899,6 @@
 "landuse/aquaculture":[
 "Akvakultūra"
 ],
-"landuse/basin":[
-"Vandens telkinys"
-],
 "landuse/cemetery":[
 "kapinės",
 "Kapinės"
@@ -942,9 +912,6 @@
 "komercinė",
 "komercinė zona"
 ],
-"landuse/farm":[
-"Dirbama žemė"
-],
 "landuse/farmland":[
 "žemdirbystė",
 "Dirbama žemė",
@@ -955,9 +922,6 @@
 "ferma",
 "ūkis",
 "Ūkis"
-],
-"landuse/garages":[
-"Garažų plotas"
 ],
 "landuse/grass":[
 "žolė",
@@ -991,15 +955,9 @@
 "sodas",
 "vaisių sodas"
 ],
-"landuse/pond":[
-"Kūdra"
-],
 "landuse/quarry":[
 "karjeras",
 "Karjeras"
-],
-"landuse/reservoir":[
-"Rezervuaras"
 ],
 "landuse/residential":[
 "gyvenamoji zona",
@@ -1105,9 +1063,6 @@
 "maudymosi baseinas",
 "Baseinas"
 ],
-"leisure/track/athletics/running":[
-"Bėgimo takelis"
-],
 "leisure/track/running":[
 "bėgimo takelis",
 "Bėgimo takelis"
@@ -1156,8 +1111,8 @@
 "man_made/storage_tank":[
 "rezervuaras",
 "cisterna",
-"saugykla",
-"Rezervuaras"
+"Rezervuaras",
+"saugykla"
 ],
 "man_made/storage_tank/water":[
 "Vandens rezervuaras",
@@ -1357,9 +1312,6 @@
 "office/telecommunication":[
 "Telekomunikacijų biuras"
 ],
-"office/travel_agent":[
-"Kelionių agentūra"
-],
 "place":[
 "Vietovė"
 ],
@@ -1443,18 +1395,10 @@
 "geležinkleio stotis",
 "Traukinių stotis"
 ],
-"railway/abandoned":[
-"apleistas gelžkelis",
-"Apleistas geležinkelis",
-"nebenaudojamas gelžkelis"
-],
 "railway/disused":[
 "nenaudojamas geležinkelis",
-"nenaudojami bėgiai",
-"Nebenaudojamas geležinkelis"
-],
-"railway/station":[
-"Traukinių stotis"
+"Nebenaudojamas geležinkelis",
+"nenaudojami bėgiai"
 ],
 "railway/subway_entrance":[
 "Metro įėjimas",
@@ -1466,10 +1410,6 @@
 "relation":[
 "ryšys",
 "Ryšys"
-],
-"route/ferry":[
-"Kelto maršrutas",
-"kelto maršrutas"
 ],
 "seamark":[
 "Plūduras"
@@ -1914,9 +1854,6 @@
 "type/route/pipeline":[
 "Vamzdyno maršrutas"
 ],
-"type/route/power":[
-"Energijos maršrutas"
-],
 "type/route/road":[
 "Kelio maršrutas"
 ],
@@ -1949,8 +1886,8 @@
 "Vandens nuoteka"
 ],
 "waterway/river":[
-"upė",
-"Upė"
+"Upė",
+"upė"
 ],
 "waterway/stream":[
 "upeliukas",
@@ -1965,5 +1902,136 @@
 ],
 "waterway/weir":[
 "Užtvanka"
+],
+"boundary":[
+"Riba",
+"riba",
+"siena"
+],
+"building_point":[
+"namas",
+"statinys",
+"pastatas",
+"Pastatas"
+],
+"ford_line":[
+"brasta",
+"Brasta"
+],
+"shop/ice_cream":[
+"Ledų parduotuvė"
+],
+"route/ferry":[
+"Kelto maršrutas",
+"kelto maršrutas"
+],
+"railway/station":[
+"geležinkleio stotis",
+"Traukinių stotis"
+],
+"office/travel_agent":[
+"Kelionių agentūra",
+"kelionių agentūra"
+],
+"leisure/track/athletics/running":[
+"bėgimo takelis",
+"Bėgimo takelis"
+],
+"landuse/basin":[
+"Vandens telkinys",
+"baseinas",
+"prūdas",
+"kūdra"
+],
+"landuse/reservoir":[
+"tvenkinys",
+"rezervuaras",
+"Rezervuaras"
+],
+"landuse/industrial/industrial_point":[
+"pramonė",
+"Pramoninė zona",
+"pramoninė zona"
+],
+"highway/bus_stop":[
+"autobusų stotelė",
+"troleibusų stotelė",
+"stotelė"
+],
+"highway/traffic_sign":[
+"Eismo ženklas"
+],
+"craft/locksmith":[
+"šaltkalvis",
+"Raktininkas"
+],
+"craft/tailor":[
+"siuvėjas",
+"Siuvėjas"
+],
+"building/glasshouse":[
+"Šiltnamis",
+"šiltnamis"
+],
+"building/house/detached":[
+"Atskirtas pastatas"
+],
+"building/house/semi-detached":[
+"Pusiau atskirtas namas"
+],
+"boundary/administrative":[
+"Administracinė riba",
+"riba",
+"administracinė riba",
+"siena"
+],
+"amenity/embassy":[
+"ambasada",
+"atstovybė",
+"Ambasada"
+],
+"@templates/contact":[
+"taškas",
+"Taškas"
+],
+"@templates/internet_access":[
+"taškas",
+"Taškas"
+],
+"@templates/poi":[
+"taškas",
+"Taškas"
+],
+"@templates/crossing/bicycle_more":[
+"taškas",
+"Taškas"
+],
+"@templates/crossing/defaults":[
+"taškas",
+"Taškas"
+],
+"@templates/crossing/geometry_way_more":[
+"taškas",
+"Taškas"
+],
+"@templates/crossing/markings":[
+"taškas",
+"Taškas"
+],
+"@templates/crossing/markings_yes":[
+"taškas",
+"Taškas"
+],
+"@templates/crossing/surfacequality":[
+"taškas",
+"Taškas"
+],
+"@templates/crossing/traffic_signal":[
+"taškas",
+"Taškas"
+],
+"@templates/crossing/traffic_signal_more":[
+"taškas",
+"Taškas"
 ]
 }

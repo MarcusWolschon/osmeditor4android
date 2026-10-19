@@ -32,9 +32,6 @@
 "amenity/bench":[
 "Binse"
 ],
-"amenity/bus_station":[
-"Stáisiún / Críochfort Bus"
-],
 "amenity/cafe":[
 "Caifé"
 ],
@@ -55,12 +52,6 @@
 ],
 "amenity/community_centre/community_hall":[
 "Halla an Phobail"
-],
-"amenity/community_centre/cultural_centre":[
-"Ionad Cultúir"
-],
-"amenity/community_centre/family_centre":[
-"Ionad Teaghlaigh"
 ],
 "amenity/community_centre/parish_hall":[
 "Halla an Pharóiste"
@@ -122,9 +113,6 @@
 "amenity/doctors/pathology":[
 "Paiteolaí"
 ],
-"amenity/doctors/podiatry":[
-"Coslia"
-],
 "amenity/doctors/pulmonology":[
 "Scamhógeolaí"
 ],
@@ -140,9 +128,6 @@
 "amenity/drinking_water":[
 "Uisce Óil"
 ],
-"amenity/embassy":[
-"Ambasáid"
-],
 "amenity/fountain":[
 "Scairdeán"
 ],
@@ -157,9 +142,6 @@
 ],
 "amenity/nightclub":[
 "Club oíche"
-],
-"amenity/parking":[
-"Carrchlós"
 ],
 "amenity/parking_entrance":[
 "Slí Isteach/Amach Garáiste Páirceála"
@@ -280,9 +262,6 @@
 ],
 "barrier/wall":[
 "Balla"
-],
-"boundary":[
-"Teorainn"
 ],
 "building":[
 "Foirgneamh"
@@ -425,9 +404,6 @@
 "building_part":[
 "Cuid Foirgnimh"
 ],
-"building_point":[
-"Foirgneamh"
-],
 "craft/agricultural_engines":[
 "Meicneoir Innill Talmhaíochta"
 ],
@@ -491,9 +467,6 @@
 "craft/key_cutter":[
 "Gearrthóir Eochracha"
 ],
-"craft/locksmith":[
-"Glasadóir"
-],
 "craft/metal_construction":[
 "Miotalóir"
 ],
@@ -536,9 +509,6 @@
 "craft/stonemason":[
 "Saor Cloiche"
 ],
-"craft/tailor":[
-"Táilliúir"
-],
 "craft/tiler":[
 "Tíleoir"
 ],
@@ -578,9 +548,6 @@
 "ford":[
 "Áth"
 ],
-"ford_line":[
-"Áth"
-],
 "healthcare/alternative/homeopathy":[
 "Hoiméapat"
 ],
@@ -602,9 +569,6 @@
 "healthcare/optometrist":[
 "Optaiméadraí"
 ],
-"healthcare/physiotherapist":[
-"Fisiteiripeoir"
-],
 "healthcare/podiatrist":[
 "Coslia"
 ],
@@ -614,9 +578,6 @@
 "healthcare/speech_therapist":[
 "Teiripeoir Urlabhra"
 ],
-"highway/bus_stop":[
-"Stad bus"
-],
 "highway/construction":[
 "Bóthar Á Tógáil"
 ],
@@ -625,9 +586,6 @@
 ],
 "highway/crossing/informal":[
 "Crosaire Neamhfhoirmiúil"
-],
-"highway/crossing/traffic_signals":[
-"Crosaire le soilse coisithe"
 ],
 "highway/crossing/uncontrolled":[
 "Crosaire Marcáilte"
@@ -780,9 +738,6 @@
 "láithreán tógála",
 "Limistéar Tógála"
 ],
-"landuse/farm":[
-"Talamh Feirme"
-],
 "landuse/farmland":[
 "Talamh Feirme"
 ],
@@ -801,14 +756,8 @@
 "landuse/orchard":[
 "Úllord"
 ],
-"landuse/pond":[
-"Lochán"
-],
 "landuse/quarry":[
 "Cairéal"
-],
-"landuse/reservoir":[
-"Taiscumar"
 ],
 "landuse/vineyard":[
 "Fíonghort"
@@ -1036,17 +985,11 @@
 "railway/funicular":[
 "Ráille Iarnróid Cáblach"
 ],
-"railway/halt":[
-"Stáisiún Traenach (Stad ar iarratas)"
-],
 "railway/level_crossing":[
 "Crosaire Ianród-Bóthar"
 ],
 "railway/narrow_gauge":[
 "Iarnród Caol"
-],
-"railway/platform":[
-"Ardán Traenach"
 ],
 "railway/rail":[
 "Ráille Traenach"
@@ -1059,9 +1002,6 @@
 ],
 "railway/signal":[
 "Comhartha Iarnróid"
-],
-"railway/station":[
-"Stáisiún Traenach"
 ],
 "railway/subway":[
 "Ráille Meitreo"
@@ -1245,5 +1185,127 @@
 ],
 "waterway/weir":[
 "Cora"
+],
+"boundary":[
+"Teorainn"
+],
+"building_point":[
+"Foirgneamh"
+],
+"ford_line":[
+"Áth"
+],
+"traffic_sign/maxspeed-US-CA-LR":[
+"Comhartha Teorainn Luais"
+],
+"railway/halt":[
+"Stáisiún Traenach (Stad ar iarratas)"
+],
+"railway/platform":[
+"Ardán Traenach"
+],
+"railway/station":[
+"Stáisiún Traenach"
+],
+"landuse/reservoir":[
+"Taiscumar"
+],
+"highway/bus_stop":[
+"Stad bus"
+],
+"highway/traffic_sign":[
+"Comhartha Bóthair"
+],
+"highway/path/bicycle_foot":[
+"Cosán Rothair ⁊ Coisithe"
+],
+"highway/path/traffic_island_shared":[
+"Oileán Tráchta Rothair ⁊ Coisithe",
+"tearmann tráchta",
+"oileán tráchta"
+],
+"highway/path/crossing/informal":[
+"Crosaire Neamhfhoirmiúil"
+],
+"highway/path/crossing/marked":[
+"Crosaire Marcáilte Rothair ⁊ Coisithe"
+],
+"highway/path/crossing/bicycle_foot":[
+"Crosaire Rothair ⁊ Coisithe"
+],
+"highway/footway/crossing/informal":[
+"Crosaire Neamhfhoirmiúil"
+],
+"highway/footway/crossing/marked":[
+"Crosaire Marcáilte"
+],
+"highway/footway/crossing/zebra":[
+"Crosaire Marcáilte"
+],
+"highway/cycleway/crossing/marked":[
+"Crosaire Rothair Marcáilte"
+],
+"highway/crossing/marked":[
+"Crosaire Marcáilte"
+],
+"highway/crossing/zebra":[
+"Crosaire Marcáilte"
+],
+"craft/locksmith":[
+"Glasadóir"
+],
+"craft/tailor":[
+"Táilliúir"
+],
+"building/glasshouse":[
+"Teach Gloine"
+],
+"building/house/detached":[
+"Teach Scoite"
+],
+"building/house/semi-detached":[
+"Teach Leathscoite"
+],
+"amenity/bus_station":[
+"Stáisiún / Críochfort Bus"
+],
+"amenity/embassy":[
+"Ambasáid"
+],
+"amenity/doctors/podiatry":[
+"Coslia"
+],
+"@templates/contact":[
+"Pointe"
+],
+"@templates/internet_access":[
+"Pointe"
+],
+"@templates/poi":[
+"Pointe"
+],
+"@templates/crossing/bicycle_more":[
+"Pointe"
+],
+"@templates/crossing/defaults":[
+"Pointe"
+],
+"@templates/crossing/geometry_way_more":[
+"Pointe"
+],
+"@templates/crossing/markings":[
+"Pointe"
+],
+"@templates/crossing/markings_yes":[
+"Pointe"
+],
+"@templates/crossing/surfacequality":[
+"Pointe"
+],
+"@templates/crossing/traffic_signal":[
+"Pointe"
+],
+"@templates/crossing/traffic_signal_more":[
+"Pointe"
 ]
 }
