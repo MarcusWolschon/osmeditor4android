@@ -21,3 +21,5 @@ OpenStreetMap	api_oauth2_key	261CdAzHBI1HXgFEuhxmL_xXCiJY5JxTlhOs2pKVjb0	false	e
 OpenStreetMap sandbox	api_oauth1_key	FeYBebYwwnkCWuMlyddoGeiqegHnW3yGKqJXTnJO	false	Mtngq8q1fTWp06Fzw4Aq2QRI6V16EOeNJVrOEHvu	https://master.apis.dev.openstreetmap.org/
 OpenStreetMap sandbox	api_oauth2_key	l2kqWnuhLEmDsp9wR5VSRq3h4JuUnvrolkM-GLzm4S4	false	empty	https://master.apis.dev.openstreetmap.org/oauth2/
 OpenHistoricalMap	api_oauth2_key	0W_eIQVTrkvi5rhvXo9VfU07M4OjHFi8dPOBdH9s9W8	false	empty	https://www.openhistoricalmap.org/oauth2/
+OpenGeofiction	api_oauth2_key	_mlBrrX6tNvhfmyIPGeVouzuiqP8O8G-YrONuM51VoQ	false	empty	https://opengeofiction.net/oauth2/
+ 	
