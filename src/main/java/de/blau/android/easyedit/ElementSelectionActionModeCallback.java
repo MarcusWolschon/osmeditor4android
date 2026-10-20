@@ -52,7 +52,6 @@ import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.RelationUtils;
-import de.blau.android.osm.Server;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.Way;
@@ -694,14 +693,11 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
 
     /**
      * Opens the history page of the selected element in a browser
-     *
-     * FIXME To avoid being caught by the pathPatterns in the manifest we use the API url, that is redirected to the
-     * website in this special case, this is a hack that will require API 31 with better pattern support to fix
-     * properly.
      */
     private void showHistory() {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse(Server.getBaseUrl(prefs.getServer().getReadWriteUrl()) + element.getName() + "/" + element.getOsmId() + "/history"));
+        // this is a workaround to only start a browser and not to try to open the link in this app
+        Intent intent = Intent.makeMainSelectorActivity(Intent.ACTION_MAIN, Intent.CATEGORY_APP_BROWSER);
+        intent.setData(Uri.parse(prefs.getServer().getWebsiteBaseUrl() + element.getName() + "/" + element.getOsmId() + "/history"));
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         main.startActivity(intent);
     }
