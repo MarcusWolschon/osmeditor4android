@@ -149,6 +149,38 @@
                 "url": "https://vector.openstreetmap.org/shortbread_v1/{z}/{x}/{y}.mvt"
             },
             "type": "Feature"
+        },
+        {
+            "type": "Feature",
+            "geometry": null,
+            "properties": {
+                "attribution": {
+                    "required": true,
+                    "text": "\u00a9 OpenGeofiction"
+                },
+                "id": "ogf-topo",
+                "max_zoom": 19,
+                "name": "OpenGeofiction Topo",
+                "type": "tms",
+                "category": "fictional",
+                "url": "https://tile.opengeofiction.net/ttopo/{zoom}/{x}/{y}.png"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": null,
+            "properties": {
+                "attribution": {
+                    "required": true,
+                    "text": "\u00a9 OpenGeofiction"
+                },
+                "id": "ogf--cycle",
+                "max_zoom": 19,
+                "name": "OpenGeofiction Cycle",
+                "type": "tms",
+                "category": "fictional",
+                "url": "https://tiles06.opengeofiction.net/cyclogf/{zoom}/{x}/{y}.png"
+            }
         }
     ],
     "type": "FeatureCollection"
