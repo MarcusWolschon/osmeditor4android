@@ -47,7 +47,7 @@
             android:focusable="false" 
             android:background="@android:color/transparent"
             app:tint="?attr/colorAccent"
-            android:src="@drawable/baseline_clear_white_36dp" 
+            android:src="@drawable/clear_white"
             android:visibility="invisible"/>
     </LinearLayout>
 </view>

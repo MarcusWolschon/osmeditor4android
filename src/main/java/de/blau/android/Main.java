@@ -1682,9 +1682,9 @@ public class Main extends AuthorisationEnabledActivity implements ServiceConnect
      */
     private void setFollowImage(boolean gps, boolean isVisible) {
         FloatingActionButton followButton = getFollowButton();
-        int buttonRes = R.drawable.ic_filter_tilt_shift_black_36dp;
+        int buttonRes = R.drawable.gps_off_black;
         if (gps) {
-            buttonRes = R.drawable.ic_gps_fixed_black_36dp;
+            buttonRes = R.drawable.gps_on_black;
         }
         followButton.setImageResource(buttonRes);
         if (isVisible) {
