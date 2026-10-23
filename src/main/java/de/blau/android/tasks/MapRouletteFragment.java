@@ -135,6 +135,7 @@ public class MapRouletteFragment extends TaskFragment {
             comments.setOnClickListener(unused -> getContext().startActivity(new Intent(Intent.ACTION_VIEW,
                     Uri.parse(prefs.getMapRouletteServer() + "challenge/" + mapRouletteTask.getParentId() + "/task/" + mapRouletteTask.getId()))));
             comments.setTextColor(lightBlue);
+            comments.setFocusable(false);
         }
 
         final Markwon markwon = Markwon.create(getContext());
