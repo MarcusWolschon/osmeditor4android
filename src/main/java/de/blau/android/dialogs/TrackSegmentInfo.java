@@ -99,12 +99,6 @@ public class TrackSegmentInfo extends CancelableDialogFragment {
         return f;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setStyle(DialogFragment.STYLE_NORMAL, App.getPreferences(getActivity()).lightThemeEnabled() ? R.style.Theme_DialogLight : R.style.Theme_DialogDark);
-    }
-
     @NonNull
     @SuppressLint("InflateParams")
     @Override
