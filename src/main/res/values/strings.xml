@@ -503,6 +503,13 @@
     <string name="create_osm_object">Create OSM object</string>
     <string name="create_osm_object_search">Create OSM object from preset search</string>
     <string name="waypoint_link">Link</string>
+    <!-- GPX track segment dialog  -->
+    <string name="track_segment_title">GPX track segment</string>
+    <string name="gpx_track"> GPX track</string>
+    <string name="gpx_track_segment_start">Segment start index</string>
+    <string name="gpx_track_segment_end">Segment end index</string>
+    <string name="gpx_layer_object">%1$s in %2$s</string>
+    <string name="track_segment_description">GPX track segment</string>
     <!-- Custom imagery dialogs  -->
     <string name="custom_layer_title">Custom imagery</string>
     <string name="oam_layer_title">OAM imagery</string>

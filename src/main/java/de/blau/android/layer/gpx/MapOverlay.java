@@ -35,9 +35,12 @@ import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.dialogs.LayerInfo;
+import de.blau.android.dialogs.TrackSegmentInfo;
 import de.blau.android.dialogs.ViewWayPoint;
+import de.blau.android.gpx.GpxObject;
 import de.blau.android.gpx.Track;
 import de.blau.android.gpx.TrackPoint;
+import de.blau.android.gpx.TrackSegment;
 import de.blau.android.gpx.WayPoint;
 import de.blau.android.layer.ClickableInterface;
 import de.blau.android.layer.ExtentInterface;
@@ -59,6 +62,7 @@ import de.blau.android.util.ColorUtil;
 import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.Geometry;
 import de.blau.android.util.PlaybackTask;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.ScreenMessage;
@@ -67,7 +71,7 @@ import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.views.IMapView;
 
 public class MapOverlay extends StyleableFileLayer
-        implements Serializable, ExtentInterface, ClickableInterface<WayPoint>, LayerInfoInterface, LabelMinZoomInterface {
+        implements Serializable, ExtentInterface, ClickableInterface<GpxObject>, LayerInfoInterface, LabelMinZoomInterface {
 
     private static final long serialVersionUID = 5L; // note that this can't actually be serialized as the transient
                                                      // wields need to be set in readObject
@@ -251,27 +255,97 @@ public class MapOverlay extends StyleableFileLayer
         setTrack(null);
     }
 
+    /**
+     * Convenience function calls GeoMath.lonE7ToX
+     * 
+     * @param lonE7 the WGS84*1E7 longitude
+     * @return the screen X coordinate
+     */
+    public float lonToX(int lonE7) {
+        return GeoMath.lonE7ToX(map.getWidth(), map.getViewBox(), lonE7);
+    }
+
+    /**
+     * convenience function
+     * 
+     * @param latE7 the WGS84*1E7 latitude
+     * @return the screen Y coordinate
+     */
+    public float latToY(int latE7) {
+        return GeoMath.latE7ToY(map.getHeight(), map.getWidth(), map.getViewBox(), latE7);
+    }
+
     @Override
-    public List<WayPoint> getClicked(final float x, final float y, final ViewBox viewBox) {
-        List<WayPoint> result = new ArrayList<>();
+    public List<GpxObject> getClicked(final float x, final float y, final ViewBox viewBox) {
+        List<GpxObject> result = new ArrayList<>();
         Log.d(DEBUG_TAG, "getClicked");
-        if (track != null) {
-            List<WayPoint> wayPoints = track.getWayPoints();
-            if (!wayPoints.isEmpty()) {
-                final float tolerance = map.getDataStyleManager().getCurrent().getNodeToleranceValue();
-                for (WayPoint wpp : wayPoints) {
-                    int lat = wpp.getLat();
-                    int lon = wpp.getLon();
-                    float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, lon) - x);
-                    float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), map.getWidth(), viewBox, lat) - y);
-                    if ((differenceX <= tolerance) && (differenceY <= tolerance) && Math.hypot(differenceX, differenceY) <= tolerance) {
-                        result.add(wpp);
-                    }
-                }
-            }
+        if (track == null) {
+            return result;
+        }
+        List<WayPoint> wayPoints = track.getWayPoints();
+        List<TrackPoint> trackPoints = track.getTrackPoints();
+        final DataStyle currentDataStyle = map.getDataStyleManager().getCurrent();
+        if (!wayPoints.isEmpty()) {
+            getClickedWayPoints(x, y, wayPoints, currentDataStyle.getNodeToleranceValue(), result);
+        }
+        if (!trackPoints.isEmpty()) {
+            getClickedTrackSegment(x, y, trackPoints, currentDataStyle.getWayToleranceValue(), result);
         }
         Log.d(DEBUG_TAG, "getClicked found " + result.size());
         return result;
+    }
+
+    /**
+     * Get a clicked track segment that is within the tolerance
+     * 
+     * @param x clicked screen x oord
+     * @param y clicked screen y coord
+     * @param trackPoints the track points
+     * @param tolerance click/touch tolerance
+     * @param result container for the result
+     */
+    private void getClickedTrackSegment(final float x, final float y, final List<TrackPoint> trackPoints, final float tolerance, final List<GpxObject> result) {
+        int segmentStart = 0;
+        int trackPointSize = trackPoints.size();
+
+        TrackPoint p1 = trackPoints.get(0);
+        float p1X = lonToX(p1.getLon());
+        float p1Y = latToY(p1.getLat());
+        // Iterate over all track points, but not the last one.
+        for (int k = 0; k < trackPointSize - 1; ++k) {
+            TrackPoint p2 = trackPoints.get(k + 1);
+            if (p2.isNewSegment()) {
+                segmentStart = k;
+            }
+            float p2X = lonToX(p2.getLon());
+            float p2Y = latToY(p2.getLat());
+            double distance = Geometry.isPositionOnLine(tolerance, x, y, p1X, p1Y, p2X, p2Y);
+            if (distance >= 0) {
+                result.add(new TrackSegment(segmentStart, -1, track));
+                break;
+            }
+            p1X = p2X;
+            p1Y = p2Y;
+        }
+    }
+
+    /**
+     * Get a clicked waypoint that is within the tolerance
+     * 
+     * @param x clicked screen x coord
+     * @param y clicked screen y coord
+     * @param wayPoints the waypoints
+     * @param tolerance click/touch tolerance
+     * @param result container for the result
+     */
+    private void getClickedWayPoints(final float x, final float y, final List<WayPoint> wayPoints, final float tolerance, final List<GpxObject> result) {
+        for (WayPoint wpp : wayPoints) {
+            float differenceX = lonToX(wpp.getLon()) - x;
+            float differenceY = latToY(wpp.getLat()) - y;
+            if ((differenceX <= tolerance) && (differenceY <= tolerance) && Math.hypot(differenceX, differenceY) <= tolerance) {
+                result.add(wpp);
+            }
+        }
     }
 
     /**
@@ -321,18 +395,24 @@ public class MapOverlay extends StyleableFileLayer
     }
 
     @Override
-    public void onSelected(FragmentActivity activity, WayPoint wp) {
-        ViewWayPoint.showDialog(activity, contentId, wp);
+    public void onSelected(FragmentActivity activity, GpxObject o) {
+        if (o instanceof WayPoint) {
+            ViewWayPoint.showDialog(activity, contentId, (WayPoint) o);
+            return;
+        }
+        if (o instanceof TrackSegment) {
+            TrackSegmentInfo.showDialog(activity, getName(), (TrackSegment) o);
+        }
     }
 
     @Override
-    public SpannableString getDescription(WayPoint wp) {
-        return getDescription(map.getContext(), wp);
+    public SpannableString getDescription(GpxObject o) {
+        return getDescription(map.getContext(), o);
     }
 
     @Override
-    public SpannableString getDescription(Context context, WayPoint wp) {
-        return new SpannableString(wp.getShortDescription(context));
+    public SpannableString getDescription(Context context, GpxObject o) {
+        return new SpannableString(context.getString(R.string.gpx_layer_object, o.getShortDescription(context), getName()));
     }
 
     @Override
@@ -493,7 +573,7 @@ public class MapOverlay extends StyleableFileLayer
     }
 
     @Override
-    public WayPoint getSelected() {
+    public GpxObject getSelected() {
         return null;
     }
 
@@ -503,7 +583,7 @@ public class MapOverlay extends StyleableFileLayer
     }
 
     @Override
-    public void setSelected(WayPoint o) {
+    public void setSelected(GpxObject o) {
         // not used
     }
 

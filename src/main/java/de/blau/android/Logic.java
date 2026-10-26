@@ -2015,12 +2015,12 @@ public class Logic {
     }
 
     /**
-     * Add elements
+     * Add multiple elements to storage, creating an undo checkpoint
      * 
      * @param activity activity this was called from, if null no warnings will be displayed
      * @param elements a List of OsmElements
      */
-    public void addElements(@Nullable final Activity activity, @NonNull List<OsmElement> elements) {
+    public <O extends OsmElement> void addElements(@Nullable final Activity activity, @NonNull List<O> elements) {
         createCheckpoint(activity, R.string.undo_action_add);
         for (OsmElement e : elements) {
             getDelegator().insertElementSafe(e);

@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.R;
 
-public class WayPoint extends TrackPoint {
+public class WayPoint extends TrackPoint implements GpxObject {
     /**
      * 
      */
@@ -226,12 +226,8 @@ public class WayPoint extends TrackPoint {
         this.links = links;
     }
 
-    /**
-     * Generate a short description suitable for a menu
-     * 
-     * @param ctx Android Context
-     * @return the description
-     */
+    @Override
+    @NonNull
     public String getShortDescription(@NonNull Context ctx) {
         if (getName() != null) {
             return ctx.getString(R.string.waypoint_description, getName());
