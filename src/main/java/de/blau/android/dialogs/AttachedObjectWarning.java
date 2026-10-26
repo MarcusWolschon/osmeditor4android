@@ -79,12 +79,6 @@ public class AttachedObjectWarning extends CancelableDialogFragment {
         super.onAttach(context);
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setCancelable(true);
-    }
-
     @NonNull
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
