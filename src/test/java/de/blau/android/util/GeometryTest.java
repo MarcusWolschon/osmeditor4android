@@ -6,6 +6,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -18,7 +23,7 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(sdk=33)
+@Config(sdk = 33)
 public class GeometryTest {
 
     /**
@@ -88,26 +93,128 @@ public class GeometryTest {
         assertEquals(centroid[0], -0.1417412D, 0.0000001);
         assertEquals(centroid[1], 51.5019094D, 0.0000001);
     }
-    
+
     /**
      * Calculate the centroid of a list of screen coordinates of a polygon
      */
     @Test
     public void centroidFromPointlist() {
-        float[] pointlist = new float[] {2,2,2,0,0,0,0,2};
-        Coordinates c = Geometry.centroidFromPointlist(pointlist, pointlist.length, new Coordinates(0,0));
+        float[] pointlist = new float[] { 2, 2, 2, 0, 0, 0, 0, 2 };
+        Coordinates c = Geometry.centroidFromPointlist(pointlist, pointlist.length, new Coordinates(0, 0));
         assertEquals(1D, c.x, 0.000001);
-        assertEquals(1D, c.y, 0.000001);     
+        assertEquals(1D, c.y, 0.000001);
     }
-    
+
     /**
      * Calculate the midpoint of a list of screen coordinates of a linestring
      */
     @Test
     public void midpointFromPointlist() {
-        float[] pointlist = new float[] {-1,0,0,1,2,-1,3,0};
-        Coordinates c = Geometry.midpointFromPointlist(pointlist, pointlist.length, new Coordinates(0,0));
+        float[] pointlist = new float[] { -1, 0, 0, 1, 2, -1, 3, 0 };
+        Coordinates c = Geometry.midpointFromPointlist(pointlist, pointlist.length, new Coordinates(0, 0));
         assertEquals(1D, c.x, 0.000001);
-        assertEquals(0D, c.y, 0.000001);     
+        assertEquals(0D, c.y, 0.000001);
+    }
+
+    @Test
+    public void simplify() {
+        OsmElementFactory factory = App.getDelegator().getFactory();
+        List<Node> nodes = new ArrayList<>();
+        Node n0 = factory.createNodeWithNewId(toE7(47.4363893D), toE7(8.2119496D));
+        nodes.add(n0);
+        Node n1 = factory.createNodeWithNewId(toE7(47.4363848D), toE7(8.2119805D));
+        nodes.add(n1);
+        Node n2 = factory.createNodeWithNewId(toE7(47.4363719D), toE7(8.2119926D));
+        nodes.add(n2);
+        Node n3 = factory.createNodeWithNewId(toE7(47.4363915D), toE7(8.2120353D));
+        nodes.add(n3);
+        Node n4 = factory.createNodeWithNewId(toE7(47.4363544D), toE7(8.2120104D));
+        nodes.add(n4);
+        Way w = factory.createWayWithNewId();
+        w.getNodes().addAll(nodes);
+        List<Node> simplified = Geometry.simplify(nodes, 2.0);
+        assertTrue(simplified.contains(n0));
+        assertFalse(simplified.contains(n1));
+        assertTrue(simplified.contains(n2));
+        assertTrue(simplified.contains(n3));
+        assertTrue(simplified.contains(n4));
+    }
+
+    @Test
+    public void simplify2() {
+        OsmElementFactory factory = App.getDelegator().getFactory();
+        List<Node> nodes = new ArrayList<>();
+        Node n0 = factory.createNodeWithNewId(toE7(47.4363893D), toE7(8.2119496D));
+        nodes.add(n0);
+        Node n1 = factory.createNodeWithNewId(toE7(47.4363848D), toE7(8.2119805D));
+        nodes.add(n1);
+        Node n2 = factory.createNodeWithNewId(toE7(47.4363719D), toE7(8.2119926D));
+        nodes.add(n2);
+        Node n3 = factory.createNodeWithNewId(toE7(47.4363915D), toE7(8.2120353D));
+        nodes.add(n3);
+        Node n4 = factory.createNodeWithNewId(toE7(47.4363544D), toE7(8.2120104D));
+        nodes.add(n4);
+        Way w = factory.createWayWithNewId();
+        w.getNodes().addAll(nodes);
+        List<Node> simplified = Geometry.simplify(nodes, 7.0);
+        assertTrue(simplified.contains(n0));
+        assertFalse(simplified.contains(n1));
+        assertFalse(simplified.contains(n2));
+        assertFalse(simplified.contains(n3));
+        assertTrue(simplified.contains(n4));
+    }
+
+    @Test
+    public void simplify3() {
+        OsmElementFactory factory = App.getDelegator().getFactory();
+        List<Node> nodes = new ArrayList<>();
+        Node n0 = factory.createNodeWithNewId(toE7(47.4363893D), toE7(8.2119496D));
+        nodes.add(n0);
+        Node n1 = factory.createNodeWithNewId(toE7(47.4363848D), toE7(8.2119805D));
+        Map<String, String> tags = new TreeMap<>();
+        tags.put("test", "test");
+        App.getDelegator().setTags(n1, tags);
+        nodes.add(n1);
+        Node n2 = factory.createNodeWithNewId(toE7(47.4363719D), toE7(8.2119926D));
+        nodes.add(n2);
+        Node n3 = factory.createNodeWithNewId(toE7(47.4363915D), toE7(8.2120353D));
+        nodes.add(n3);
+        Node n4 = factory.createNodeWithNewId(toE7(47.4363544D), toE7(8.2120104D));
+        nodes.add(n4);
+        Way w = factory.createWayWithNewId();
+        w.getNodes().addAll(nodes);
+        List<Node> simplified = Geometry.simplify(nodes, 2.0);
+        assertTrue(simplified.contains(n0));
+        assertTrue(simplified.contains(n1));
+        assertTrue(simplified.contains(n2));
+        assertTrue(simplified.contains(n3));
+        assertTrue(simplified.contains(n4));
+    }
+    
+    @Test
+    public void simplify4() {
+        OsmElementFactory factory = App.getDelegator().getFactory();
+        List<Node> nodes = new ArrayList<>();
+        Node n0 = factory.createNodeWithNewId(toE7(47.4363893D), toE7(8.2119496D));
+        nodes.add(n0);
+        Node n1 = factory.createNodeWithNewId(toE7(47.4363848D), toE7(8.2119805D));
+        Map<String, String> tags = new TreeMap<>();
+        tags.put("test", "test");
+        App.getDelegator().setTags(n1, tags);
+        nodes.add(n1);
+        Node n2 = factory.createNodeWithNewId(toE7(47.4363719D), toE7(8.2119926D));
+        nodes.add(n2);
+        Node n3 = factory.createNodeWithNewId(toE7(47.4363915D), toE7(8.2120353D));
+        nodes.add(n3);
+        Node n4 = factory.createNodeWithNewId(toE7(47.4363544D), toE7(8.2120104D));
+        nodes.add(n4);
+        Way w = factory.createWayWithNewId();
+        w.getNodes().addAll(nodes);
+        List<Node> simplified = Geometry.simplify(nodes, 7.0);
+        assertTrue(simplified.contains(n0));
+        assertTrue(simplified.contains(n1));
+        assertFalse(simplified.contains(n2));
+        assertFalse(simplified.contains(n3));
+        assertTrue(simplified.contains(n4));
     }
 }

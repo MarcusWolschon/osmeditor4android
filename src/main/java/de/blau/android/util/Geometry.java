@@ -23,6 +23,7 @@ import androidx.annotation.Nullable;
 import de.blau.android.App;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.GeoPoint;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
@@ -706,5 +707,88 @@ public final class Geometry {
             return SimplePolygonSplitter.split(polygon, (box.getWidth() > maxDim2 ? box.getLeft() + maxDimE7 : hCenter) / 1E7D, true);
         }
         return SimplePolygonSplitter.split(polygon, (box.getHeight() > maxDim2 ? box.getBottom() + maxDimE7 : vCenter) / 1E7D, false);
+    }
+
+    /**
+     * Use Ramer-Douglas-Peucker to simplify a List of points, if a point is a tagged Node, it is always retained
+     * 
+     * @param points the original points/nodes
+     * @param tolerance in Mercator meters
+     * @return simplified list of nodes
+     */
+    public static <P extends GeoPoint> List<P> simplify(@NonNull List<P> points, double tolerance) {
+        final int size = points.size();
+        List<Coordinates> coords = new ArrayList<>(size);
+        for (GeoPoint p : points) {
+            coords.add(new Coordinates(GeoMath.lonE7ToMercatorMeters(p.getLon()), GeoMath.latE7ToMercatorMeters(p.getLat())));
+        }
+        List<P> result = new ArrayList<>(size);
+        simplify(points, coords, tolerance, 0, size - 1, result);
+        return result;
+    }
+
+    /**
+     * Use Ramer-Douglas-Peucker to simplify a List of points, if a point is a tagged Node, it is always retained
+     * 
+     * We try to avoid allocating memory as this is a recursive algorithm
+     * 
+     * @param points the original points/nodes
+     * @param coords Mercartor/planar coordinates for the above
+     * @param tolerance in Mercator meters
+     * @param start start index in lists
+     * @param end end index in lists
+     * @param result simplified list of nodes
+     */
+    private static <P extends GeoPoint> void simplify(@NonNull List<P> points, @NonNull List<Coordinates> coords, double tolerance, int start, int end,
+            @NonNull List<P> result) {
+        if (start > end) {
+            return;
+        }
+
+        if (start == end) {
+            result.add(points.get(start));
+            return;
+        }
+
+        double dMax = 0;
+        int index = start;
+        P pStart = points.get(start);
+        Coordinates cStart = coords.get(start);
+        P pEnd = points.get(end);
+        Coordinates cEnd = coords.get(end);
+
+        // find the point/index with the largest distance to the line defined by start and end
+        for (int i = start + 1; i < end; i++) {
+            Coordinates c = coords.get(i);
+            double d = GeoMath.getLineDistance(c.x, c.y, cStart.x, cStart.y, cEnd.x, cEnd.y);
+            if (d > dMax) {
+                index = i;
+                dMax = d;
+            }
+        }
+
+        if (dMax > tolerance) { // larger than the tolerance
+            // Recursively handle first part (start - index)
+            simplify(points, coords, tolerance, start, index, result);
+            // The point at index has already been added, remove to avoid adding it twice
+            if (!result.isEmpty()) {
+                result.remove(result.size() - 1);
+            }
+            // Recursively handle 2nd part (index - end)
+            simplify(points, coords, tolerance, index, end, result);
+            return;
+        }
+        // all points are within the tolerance, replace with start and end
+        result.add(pStart);
+        // add back tagged nodes, iterate here to avoid allocating memory, might not make any sense
+        // a potentially more elegant solution would be to split at tagged nodes
+        for (int i = start + 1; i < end; i++) {
+            P p = points.get(i);
+            if (p instanceof Node && ((Node) p).isTagged()) {
+                result.add(p);
+            }
+        }
+        result.add(pEnd);
+
     }
 }
