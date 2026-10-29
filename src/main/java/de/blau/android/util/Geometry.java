@@ -789,6 +789,44 @@ public final class Geometry {
             }
         }
         result.add(pEnd);
+    }
 
+    /**
+     * Remove points that are too close together
+     * 
+     * @param <P>
+     * @param points the original points/nodes
+     * @param coords Mercartor/planar coordinates for the above
+     * @param tolerance in Mercator meters
+     * @return a filtered List of points
+     */
+    @NonNull
+    public static <P extends GeoPoint> List<P> radialDistanceFilter(@NonNull List<P> points, @NonNull List<Coordinates> coords, double tolerance) {
+        final int size = points.size();
+        List<P> kept = new ArrayList<>(size);
+        Coordinates lastKeptCoords = coords.get(0);
+        kept.add(points.get(0));
+
+        double sqTolerance = tolerance * tolerance;
+
+        for (int i = 1; i < size; i++) {
+            Coordinates c = coords.get(i);
+            double dx = c.x - lastKeptCoords.x;
+            double dy = c.y - lastKeptCoords.y;
+            double sqDist = dx * dx + dy * dy;
+
+            if (sqDist > sqTolerance) {
+                kept.add(points.get(i));
+                lastKeptCoords = c;
+            }
+        }
+
+        // Always keep the final original point
+        final P last = points.get(size - 1);
+        if (kept.get(kept.size() - 1) != last) {
+            kept.add(last);
+        }
+
+        return kept;
     }
 }

@@ -4,8 +4,15 @@ import static de.blau.android.osm.DelegatorUtil.toE7;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +23,14 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import android.util.Log;
+import androidx.test.core.app.ApplicationProvider;
 import de.blau.android.App;
+import de.blau.android.JavaResources;
+import de.blau.android.gpx.Track;
+import de.blau.android.gpx.TrackPoint;
+import de.blau.android.gpx.WayPoint;
+import de.blau.android.osm.GeoPoint;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElementFactory;
 import de.blau.android.osm.StorageDelegator;
@@ -190,7 +204,7 @@ public class GeometryTest {
         assertTrue(simplified.contains(n3));
         assertTrue(simplified.contains(n4));
     }
-    
+
     @Test
     public void simplify4() {
         OsmElementFactory factory = App.getDelegator().getFactory();
@@ -217,4 +231,29 @@ public class GeometryTest {
         assertFalse(simplified.contains(n3));
         assertTrue(simplified.contains(n4));
     }
+
+    @Test
+    public void radialDistanceFilter() {
+        try {
+            File jitterFile = JavaResources.copyFileFromResources(ApplicationProvider.getApplicationContext(), "jitter-short.gpx", null, "/");
+            Track track = new Track(ApplicationProvider.getApplicationContext(), false);
+            try (InputStream is = new FileInputStream(jitterFile); BufferedInputStream in = new BufferedInputStream(is)) {
+                track.importFromGPX(in);
+                final List<TrackPoint> trackPoints = track.getTrackPoints();
+                final int size = trackPoints.size();
+                assertEquals(29, size);
+                List<Coordinates> coords = new ArrayList<>(size);
+                for (GeoPoint p : trackPoints) {
+                    coords.add(new Coordinates(GeoMath.lonE7ToMercatorMeters(p.getLon()), GeoMath.latE7ToMercatorMeters(p.getLat())));
+                }
+                List<TrackPoint> filtered = Geometry.radialDistanceFilter(trackPoints, coords, 1.0);
+                assertEquals(9, filtered.size());
+                assertEquals(trackPoints.get(0), filtered.get(0));
+                assertEquals(trackPoints.get(size - 1), filtered.get(filtered.size() - 1));
+            }
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+    }
+
 }
