@@ -157,6 +157,17 @@
 <h4 id="geojson-layer">GeoJSON layer</h4>
 <p>Clicked GeoJSON objects will display a modal with its details. Further you can copy the attributes from the object to the clipboard and paste them as tags in to an OSM element, or you can directly create an OSM element from the object.</p>
 <p><em>Note</em> GeoJSON Polygon objects that consist of a single ring will be converted to a OSM closed way if the ring has less than 2000 vertices (the limit for an OSM way element), all other Polygons and Multipolygons will be converted to OSM multipolygon relations. Nodes in GeoJSON GeometryCollections will not be merged with the vertices of linear and area elements in OSM. You might want to do the later manually.</p>
+<h4 id="gpx-layer">GPX layer</h4>
+<p>You can click on objects in a GPX layer, for</p>
+<ul>
+<li>a GPX waypoint you will be shown a dialog with information on the point and can create an OSM element from the point. If the waypoint contains a link to a voice recording (for example from OSM tracker) you will be able to play it back.</li>
+<li>a GPX track segment (if the track has just one segment this will be the whole track) you will see a dialog that allows you to
+<ul>
+<li>create OSM ways from the track, applying filtering and Ramen-Douglas-Peucker simplification before creating the ways. If the track segment has more than 2'000 track points, multiple ways will be created.</li>
+<li>download OSM data along the track.</li>
+</ul>
+</li>
+</ul>
 <h2 id="available-actions">Available Actions</h2>
 <h3 id="undo-undo"><img src="../images/undolist_undo.png" alt="Undo" /> Undo</h3>
 <p>Tapping the icon once will undo the last operation. A long press will display a list of the operations since the last save, if you have undone anything a corresponding &quot;redo&quot; checkpoint will be displayed. <em>Some operations consist of multiple simpler actions that will be listed as individual items.</em></p>

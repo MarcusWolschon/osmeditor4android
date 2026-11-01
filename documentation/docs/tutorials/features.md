@@ -42,6 +42,7 @@ This list is likely not really complete, but gives some idea of the supported fu
 |                           | Duplicate Nodes and Ways                                 |
 |                           | Shallow duplicate Ways and Relations                     |
 |                           | Replace geometry for Nodes and Ways                      |
+|                           | Way simplification                                       |
 |__Tags__                   | Tag copy and paste                                       |
 |                           | Form and preset based editor                             |
 |                           | Conventional key - value editor                          |
@@ -52,7 +53,7 @@ This list is likely not really complete, but gives some idea of the supported fu
 |                           | Load and save in JOSM compatible .OSM format             |
 |                           | Auto-Download around current position                    |
 |                           | Auto-Download of current map view                        |     
-|                           | Download along OSM Way                                   |
+|                           | Download along OSM Way or a GPX track                    |
 |                           | Save and apply changes in OSC format                     |
 |                           | Configurable API servers                                 |
 |                           | Load data from PBF files                                 |
@@ -99,6 +100,7 @@ This list is likely not really complete, but gives some idea of the supported fu
 |__GPS/GPX__                | Support for external GPS sources                         |
 |                           | GPX track recording, loading and saving                  |
 |                           | GPX track upload                                         |
+|                           | Create a OSM Way from a GPX track segment                |
 |                           | GPX waypoint support                                     |
 |__Street level imagery__   | Mapillary                                                |
 |                           | Panoramax                                                |  

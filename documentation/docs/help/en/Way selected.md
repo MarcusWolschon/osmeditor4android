@@ -132,6 +132,10 @@ Move the way to the internal copy and paste buffer removing it from the data.
 
 Set tags from the internal tag clipboard and start the property editor.
 
+### Simplify way
+
+Use the Ramen-Douglas-Peucker algorithm to simplify the way by removing nodes. Note: tagged nodes will not be removed.
+
 ### Download along way
 
 Download OSM data or tasks along the selected way. The list of areas (bounding boxes) to download is submitted to a separate service and you can continue editing while the downloads
