@@ -3099,7 +3099,7 @@ public class Logic {
             unlockWrites();
         }
     }
-
+ 
     /**
      * Add an OsmElement to a "system" created todo list //NOSONAR
      * 

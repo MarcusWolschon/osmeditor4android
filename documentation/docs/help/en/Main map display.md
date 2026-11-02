@@ -139,6 +139,15 @@ Clicked GeoJSON objects will display a modal with its details. Further you can c
 
 _Note_ GeoJSON Polygon objects that consist of a single ring will be converted to a OSM closed way if the ring has less than 2000 vertices (the limit for an OSM way element), all other Polygons and Multipolygons will be converted to OSM multipolygon relations. Nodes in GeoJSON GeometryCollections will not be merged with the vertices of linear and area elements in OSM. You might want to do the later manually.
 
+#### GPX layer
+
+You can click on objects in a GPX layer, for 
+
+* a GPX waypoint you will be shown a dialog with information on the point and can create an OSM element from the point. If the waypoint contains a link to a voice recording (for example from OSM tracker) you will be able to play it back. 
+* a GPX track segment (if the track has just one segment this will be the whole track) you will see a dialog that allows you to 
+    * create OSM ways from the track, applying filtering and Ramen-Douglas-Peucker simplification before creating the ways. If the track segment has more than 2'000 track points, multiple ways will be created.
+    * download OSM data along the track.
+
 
 ## Available Actions
 

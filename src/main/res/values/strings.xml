@@ -510,6 +510,13 @@
     <string name="gpx_track_segment_end">Segment end index</string>
     <string name="gpx_layer_object">%1$s in %2$s</string>
     <string name="track_segment_description">GPX track segment</string>
+    <string name="create_osm_ways">Create OSM way(s)…</string>
+    <!-- Simplification dialog -->
+    <string name="jitter_simplification_title">Filter and simplification settings</string>
+    <string name="simplification_title">Simplification settings</string>
+    <string name="jitter_filter">Jitter filter</string>
+    <string name="simplify">Simplify</string>
+    <string name="tolerance">Tolerance (in meters)</string>
     <!-- Custom imagery dialogs  -->
     <string name="custom_layer_title">Custom imagery</string>
     <string name="oam_layer_title">OAM imagery</string>
@@ -1128,6 +1135,7 @@
     <string name="menu_split">Split</string>
     <string name="menu_remove_node_from_way">Remove node from way</string>
     <string name="menu_start_end_way">Start/End of Way</string>
+    <string name="menu_simplify_way">Simplify way…</string>
     <string name="menu_download_along_way">Download along way…</string>
     <string name="menu_extract">Extract node</string>
     <string name="menu_append">Append</string>

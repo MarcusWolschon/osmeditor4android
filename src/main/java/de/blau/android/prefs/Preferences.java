@@ -2317,6 +2317,78 @@ public class Preferences {
     public int getDownloadAlongMaxDimension() {
         return prefs.getInt(r.getString(R.string.config_download_along_max_dimension_key), 100);
     }
+    
+    /**
+     * Configuration for jitter filter for GPX data
+     * 
+     * @param on if true use the jitter filter
+     */
+    public void setJitterFilter(boolean on) {
+        prefs.edit().putBoolean(r.getString(R.string.config_jitter_filter_key), on).commit();
+    }
+
+    /**
+     * Configuration for jitter filter for GPX data
+     * 
+     * @return true use the jitter filter if true
+     */
+    public boolean getJitterFilter() {
+        return prefs.getBoolean(r.getString(R.string.config_jitter_filter_key), true);
+    }
+
+    /**
+     * Set the tolerance for the jitter filter
+     * 
+     * @param tolerance the tolerance value
+     */
+    public void setJitterFilterTolerance(float tolerance) {
+        prefs.edit().putFloat(r.getString(R.string.config_jitter_filter_tolerance_key), tolerance).commit();
+    }
+
+    /**
+     * Get the tolerance for the jitter filter
+     * 
+     * @return the tolerance value
+     */
+    public float getJitterFilterTolerance() {
+        return prefs.getFloat(r.getString(R.string.config_jitter_filter_tolerance_key), 0.5F);
+    }
+    
+    /**
+     * Configuration for the download along functionality
+     * 
+     * @param on if true downloads tasks
+     */
+    public void setSimplify(boolean on) {
+        prefs.edit().putBoolean(r.getString(R.string.config_simplify_key), on).commit();
+    }
+
+    /**
+     * Configuration for the download along functionality
+     * 
+     * @return true if tasks should be downloaded
+     */
+    public boolean getSimplify() {
+        return prefs.getBoolean(r.getString(R.string.config_simplify_key), true);
+    }
+    
+    /**
+     * Set the tolerance for RDP simplification
+     * 
+     * @param tolerance the tolerance value
+     */
+    public void setSimplifyTolerance(float tolerance) {
+        prefs.edit().putFloat(r.getString(R.string.config_simplify_tolerance_key), tolerance).commit();
+    }
+
+    /**
+     * Get the tolerance for RDP simplification
+     * 
+     * @return the tolerance value
+     */
+    public float getSimplifyTolerance() {
+        return prefs.getFloat(r.getString(R.string.config_simplify_tolerance_key), 2.0F);
+    }
 
     /**
      * Get an integer valued preference from a string pref

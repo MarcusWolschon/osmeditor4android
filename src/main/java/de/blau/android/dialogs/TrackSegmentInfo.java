@@ -2,34 +2,46 @@ package de.blau.android.dialogs;
 
 import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDialog;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentResultListener;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.gpx.TrackPoint;
 import de.blau.android.gpx.TrackSegment;
+import de.blau.android.osm.GeoPoint;
 import de.blau.android.osm.Gpx;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
 import de.blau.android.util.CancelableDialogFragment;
+import de.blau.android.util.Coordinates;
+import de.blau.android.util.ExecutorTask;
+import de.blau.android.util.GeoMath;
+import de.blau.android.util.Geometry;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 
 /**
@@ -45,8 +57,9 @@ public class TrackSegmentInfo extends CancelableDialogFragment {
 
     private static final String TAG = "fragment_view_tracksegment";
 
-    private static final String LAYER_NAME_KEY = "layer_name";
-    private static final String SEGMENT_KEY    = "segment";
+    private static final String   LAYER_NAME_KEY = "layer_name";
+    private static final String   SEGMENT_KEY    = "segment";
+    protected static final String PROGRESS_TAG   = null;
 
     private TrackSegment segment = null;
     private String       layerName;
@@ -138,29 +151,88 @@ public class TrackSegmentInfo extends CancelableDialogFragment {
 
         builder.setView(sv);
         builder.setTitle(R.string.track_segment_title);
-        builder.setPositiveButton(R.string.create_osm_object, (dialog, which) -> {
-            final Logic logic = App.getLogic();
-            int maxNodes = logic.getPrefs().getServer().getCachedCapabilities().getMaxWayNodes();
-            List<OsmElement> elements = Gpx.trackPointsToWays(App.getDelegator().getFactory(), segment.getSegment(), maxNodes);
-            if (elements.isEmpty()) {
-                return;
-            }
-            logic.addElements(activity, elements);
-            if (activity instanceof Main) {
-                for (OsmElement e : elements) {
-                    if (e instanceof Way) {
-                        logic.addSelectedWay((Way) e);
-                    }
-                }
-                ((Main) activity).getEasyEditManager().startElementSelectionMode();
-            }
-        });
+        builder.setPositiveButton(R.string.create_osm_ways, null);
         builder.setNegativeButton(R.string.menu_download_along_way,
                 (dialog, which) -> DownloadAlongDialog.show((AppCompatActivity) getActivity(), R.string.download_along_way_title, segment, null));
         builder.setNeutralButton(R.string.cancel, null);
+        final AppCompatDialog dialog = builder.create();
+        dialog.setOnShowListener(d -> {
+            Button positive = ((AlertDialog) d).getButton(DialogInterface.BUTTON_POSITIVE);
+            positive.setOnClickListener(view -> SimplificationDialog.show(this, R.string.jitter_simplification_title, true));
+        });
 
-        return builder.create();
+        getChildFragmentManager().setFragmentResultListener(SimplificationDialog.SIMPLIFY_FRAGMENT_RESULT_KEY, this, simplificationListener);
+
+        return dialog;
     }
+
+    /**
+     * Listener that will run way simplification in a thread
+     */
+    FragmentResultListener simplificationListener = (requestKey, bundle) -> {
+        new ExecutorTask<Void, Void, Void>() {
+            private final Logic            logic    = App.getLogic();
+            private final FragmentActivity activity = getActivity();
+
+            private List<OsmElement> elements;
+
+            @Override
+            protected void onPreExecute() {
+                Progress.showDialog(activity, Progress.PROGRESS_RUNNING, PROGRESS_TAG);
+            }
+
+            @Override
+            protected Void doInBackground(Void id) {
+                Log.e(DEBUG_TAG, "Processing result");
+
+                final List<TrackPoint> trackPoints = segment.getSegment();
+                final int size = trackPoints.size();
+                List<Coordinates> coords = new ArrayList<>(size);
+                List<TrackPoint> filtered = null;
+
+                if (bundle.getBoolean(SimplificationDialog.JITTER_FILTER_KEY, false)) {
+                    for (GeoPoint p : trackPoints) {
+                        coords.add(new Coordinates(GeoMath.lonE7ToMercatorMeters(p.getLon()), GeoMath.latE7ToMercatorMeters(p.getLat())));
+                    }
+                    filtered = Geometry.radialDistanceFilter(trackPoints, coords, bundle.getFloat(SimplificationDialog.JITTER_FILTER_TOLERANCE_KEY, 0.5F));
+                }
+
+                if (bundle.getBoolean(SimplificationDialog.SIMPLIFY_KEY, false)) {
+                    filtered = Geometry.simplify(filtered != null ? filtered : new ArrayList<>(size),
+                            bundle.getFloat(SimplificationDialog.SIMPLIFY_TOLERANCE_KEY, 2.0F));
+                }
+
+                int maxNodes = logic.getPrefs().getServer().getCachedCapabilities().getMaxWayNodes();
+                elements = Gpx.trackPointsToWays(App.getDelegator().getFactory(), filtered != null ? filtered : trackPoints, maxNodes);
+                return null;
+            }
+
+            @Override
+            protected void onBackgroundError(Exception e) {
+                Log.e(DEBUG_TAG, "Exception during creating a way " + e.getMessage());
+                Progress.dismissDialog(activity, Progress.PROGRESS_RUNNING, PROGRESS_TAG);
+                ScreenMessage.toastTopError(activity, e.getLocalizedMessage());
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                if (elements.isEmpty()) {
+                    return;
+                }
+                logic.addElements(activity, elements);
+                if (activity instanceof Main) {
+                    for (OsmElement e : elements) {
+                        if (e instanceof Way) {
+                            logic.addSelectedWay((Way) e);
+                        }
+                    }
+                    ((Main) activity).getEasyEditManager().startElementSelectionMode();
+                }
+                Progress.dismissDialog(activity, Progress.PROGRESS_RUNNING, PROGRESS_TAG);
+                new Handler(Looper.getMainLooper()).postDelayed(() -> getDialog().dismiss(), 100);
+            }
+        }.execute();
+    };
 
     /**
      * Align text in the table cell to the end/right

@@ -169,6 +169,26 @@ public final class GeoMath {
     }
 
     /**
+     * Convert WGS86 latitude to Mercator in meters
+     * 
+     * @param latE7 the latitude multiplied by 1E7
+     * @return a meters value
+     */
+    public static double latE7ToMercatorMeters(int latE7) {
+        return latToMercator(latE7 / OSM_SCALE) * 2 * PI_360 * EARTH_RADIUS_EQUATOR;
+    }
+
+    /**
+     * Convert WGS86 longitude to Mercator in meters
+     * 
+     * @param lonE7 the longitude multiplied by 1E7
+     * @return a meters value
+     */
+    public static double lonE7ToMercatorMeters(int lonE7) {
+        return lonE7 / OSM_SCALE * 2 * PI_360 * EARTH_RADIUS_EQUATOR;
+    }
+
+    /**
      * Converts a projected mercator coordinate to a geo-latitude value. This is the inverse function to
      * latToMercator(double).
      * 

@@ -581,9 +581,13 @@ public class GpxTest {
             TestUtils.sleep(10000);
             assertTrue(TestUtils.findText(device, false, main.getString(R.string.track_segment_title), 1000, false));
             assertTrue(TestUtils.findText(device, false, fileName, 1000, false));
-            assertTrue(TestUtils.clickText(device, true, main.getString(R.string.create_osm_object), true, false));
-            assertTrue(TestUtils.findText(device, false, main.getString(R.string.actionmode_wayselect), 1000, false));
-            assertEquals(301, App.getLogic().getSelectedWay().nodeCount());
+            assertTrue(TestUtils.clickText(device, true, main.getString(R.string.create_osm_ways), true, false));
+            // set parameters for simplification dialog
+            assertTrue(TestUtils.findText(device, false, main.getString(R.string.jitter_simplification_title), 1000, false));
+            assertTrue(TestUtils.clickText(device, true, main.getString(R.string.set), true, false));
+            //
+            assertTrue(TestUtils.findText(device, false, main.getString(R.string.actionmode_wayselect), 2000, false));
+            assertEquals(82, App.getLogic().getSelectedWay().nodeCount());
         } catch (Exception ex) {
             fail(ex.getMessage());
         }

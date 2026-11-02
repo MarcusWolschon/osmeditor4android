@@ -15,10 +15,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.view.ActionMode;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentResultListener;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.dialogs.DownloadAlongDialog;
 import de.blau.android.dialogs.ElementIssueDialog;
+import de.blau.android.dialogs.Progress;
+import de.blau.android.dialogs.SimplificationDialog;
 import de.blau.android.easyedit.route.RouteSegmentActionModeCallback;
 import de.blau.android.easyedit.turnrestriction.FromElementActionModeCallback;
 import de.blau.android.exception.OsmIllegalOperationException;
@@ -33,6 +36,7 @@ import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.keyboard.Shortcuts;
 import de.blau.android.util.ACRAHelper;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.Geometry;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
@@ -61,7 +65,8 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
     private static final int MENUITEM_EXTRACT_SEGMENT    = LAST_REGULAR_MENUITEM + 16;
     private static final int MENUITEM_SELECT_WAY_NODES   = LAST_REGULAR_MENUITEM + 17;
     private static final int MENUITEM_START_END_OF_WAY   = LAST_REGULAR_MENUITEM + 18;
-    private static final int MENUITEM_DOWNLOAD_ALONG_WAY = LAST_REGULAR_MENUITEM + 19;
+    private static final int MENUITEM_SIMPLIFY_WAY       = LAST_REGULAR_MENUITEM + 19;
+    private static final int MENUITEM_DOWNLOAD_ALONG_WAY = LAST_REGULAR_MENUITEM + 20;
 
     private Set<OsmElement> cachedMergeableWays;
     private Set<OsmElement> cachedAppendableNodes;
@@ -169,6 +174,8 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
 
         menu.add(Menu.NONE, MENUITEM_START_END_OF_WAY, Menu.NONE, R.string.menu_start_end_way);
 
+        menu.add(Menu.NONE, MENUITEM_SIMPLIFY_WAY, Menu.CATEGORY_SECONDARY, R.string.menu_simplify_way);
+
         downloadAlongWayItem = menu.add(Menu.NONE, MENUITEM_DOWNLOAD_ALONG_WAY, Menu.CATEGORY_SECONDARY, R.string.menu_download_along_way);
         return true;
     }
@@ -193,13 +200,14 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
 
         updated |= setItemVisibility(size > 2, orthogonalizeItem, false);
         if (orthogonalizeItem.isVisible()) {
+            final boolean isOrthogonalize = orthogonalizeItem.getTitle().equals(orthogonalizeTitle);
             if (closed) {
-                if (!orthogonalizeItem.getTitle().equals(orthogonalizeTitle)) {
+                if (!isOrthogonalize) {
                     orthogonalizeItem.setTitle(orthogonalizeTitle);
                     updated = true;
                 }
             } else {
-                if (orthogonalizeItem.getTitle().equals(orthogonalizeTitle)) {
+                if (isOrthogonalize) {
                     orthogonalizeItem.setTitle(R.string.menu_straighten);
                     updated = true;
                 }
@@ -340,6 +348,10 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
                     main.invalidateMap();
                 }).show();
                 break;
+            case MENUITEM_SIMPLIFY_WAY:
+                main.getSupportFragmentManager().setFragmentResultListener(SimplificationDialog.SIMPLIFY_FRAGMENT_RESULT_KEY, main, simplificationListener);
+                SimplificationDialog.show(main, R.string.simplification_title, false);
+                break;
             case MENUITEM_DOWNLOAD_ALONG_WAY:
                 DownloadAlongDialog.show(main, R.string.download_along_way_title, way, getWayNodeInView(way));
                 break;
@@ -351,6 +363,40 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
         }
         return true;
     }
+
+    /**
+     * Listener that will run way simplification in a thread
+     */
+    FragmentResultListener simplificationListener = (requestKey, bundle) -> {
+        new ExecutorTask<Void, Void, Void>() {
+
+            @Override
+            protected void onPreExecute() {
+                Progress.showDialog(main, Progress.PROGRESS_RUNNING, null);
+            }
+
+            @Override
+            protected Void doInBackground(Void id) {
+                Log.e(DEBUG_TAG, "Simplifying way");
+                List<Node> simplifiedNodes = Geometry.simplify(((Way) element).getNodes(), bundle.getFloat(SimplificationDialog.SIMPLIFY_TOLERANCE_KEY));
+                App.getLogic().performReplaceGeometry(main, (Way) element, simplifiedNodes);
+                return null;
+            }
+
+            @Override
+            protected void onBackgroundError(Exception e) {
+                Log.e(DEBUG_TAG, "Exception during creating a way " + e.getMessage());
+                Progress.dismissDialog(main, Progress.PROGRESS_RUNNING, null);
+                ScreenMessage.toastTopError(main, e.getLocalizedMessage());
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                Progress.dismissDialog(main, Progress.PROGRESS_RUNNING, null);
+                main.invalidateMap();
+            }
+        }.execute();
+    };
 
     /**
      * Get a Node of the Way that is in view
