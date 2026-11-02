@@ -227,7 +227,7 @@ public class WmsEndpointDatabaseView extends CancelableDialogFragment implements
                         layerList.setAdapter(adapter);
                         layerList.setOnItemClickListener((parent, view, position, id) -> {
                             LayerEntry entry = new LayerEntry();
-                            Layer layer = result.layers.get(position);
+                            Layer layer = result.layers.get(adapter.getMappedPosition(position));
                             entry.title = layer.title;
                             entry.tileUrl = layer.getTileUrl(result.getGetMapUrl() != null ? result.getGetMapUrl() : sanitize(endpoint.getTileUrl()));
                             entry.box = layer.extent;
@@ -281,11 +281,25 @@ public class WmsEndpointDatabaseView extends CancelableDialogFragment implements
     }
 
     private class FilteredAdapter extends WidestItemArrayAdapter<String> {
-        private final List<String> originalObjects;
+        private final List<String>  originalObjects;
+        private final List<Integer> positionMap = new ArrayList<>();
 
         public FilteredAdapter(Context context, int resource, int textView, List<String> objects) {
             super(context, resource, textView, objects);
             originalObjects = new ArrayList<>(objects);
+        }
+
+        /**
+         * Get the position in the unfiltered list
+         * 
+         * @param pos the position in the filtered list
+         * @return the position in the unfiltered list
+         */
+        int getMappedPosition(int pos) {
+            if (pos < 0 || pos > positionMap.size() - 1) {
+                throw new IllegalArgumentException("getMappedPositiion position " + pos + " out of range");
+            }
+            return positionMap.get(pos);
         }
 
         @Override
@@ -310,9 +324,13 @@ public class WmsEndpointDatabaseView extends CancelableDialogFragment implements
                     List<String> filteredNames = new ArrayList<>();
 
                     constraint = constraint.toString().toLowerCase();
-                    for (String object : originalObjects) {
+                    positionMap.clear();
+                    int size = originalObjects.size();
+                    for (int i = 0; i < size; i++) {
+                        String object = originalObjects.get(i);
                         if (object.toLowerCase().contains(constraint.toString())) {
                             filteredNames.add(object);
+                            positionMap.add(i);
                         }
                     }
 
