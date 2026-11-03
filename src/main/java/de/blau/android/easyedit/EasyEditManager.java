@@ -67,11 +67,12 @@ public class EasyEditManager {
 
     private boolean contextMenuEnabled;
 
-    private static final List<String> restartable = Collections.unmodifiableList(Arrays.asList(RouteSegmentActionModeCallback.class.getCanonicalName(),
-            RestartRouteSegmentActionModeCallback.class.getCanonicalName(), EditRelationMembersActionModeCallback.class.getCanonicalName(),
-            PathCreationActionModeCallback.class.getCanonicalName(), WaySegmentModifyActionModeCallback.class.getCanonicalName(),
-            WaySegmentActionModeCallback.class.getCanonicalName(), WaySplittingActionModeCallback.class.getCanonicalName(),
-            ClosedWaySplittingActionModeCallback.class.getCanonicalName(), WaySelectPartActionModeCallback.class.getCanonicalName()));
+    private static final List<String> restartable = Collections.unmodifiableList(
+            Arrays.asList(RouteSegmentActionModeCallback.class.getCanonicalName(), RestartRouteSegmentActionModeCallback.class.getCanonicalName(),
+                    EditRelationMembersActionModeCallback.class.getCanonicalName(), PathCreationActionModeCallback.class.getCanonicalName(),
+                    WaySegmentModifyActionModeCallback.class.getCanonicalName(), WaySegmentActionModeCallback.class.getCanonicalName(),
+                    WaySplittingActionModeCallback.class.getCanonicalName(), ClosedWaySplittingActionModeCallback.class.getCanonicalName(),
+                    WaySelectPartActionModeCallback.class.getCanonicalName(), RotationActionModeCallback.class.getCanonicalName()));
 
     public static final String              FILENAME     = "easyeditmanager.res";
     private SavingHelper<SerializableState> savingHelper = new SavingHelper<>();
@@ -84,6 +85,16 @@ public class EasyEditManager {
     public EasyEditManager(@NonNull Main main) {
         this.main = main;
         this.logic = App.getLogic();
+    }
+
+    /**
+     * Get the current callback
+     * 
+     * @return the current callback
+     */
+    @Nullable
+    public EasyEditActionModeCallback getCurrentCallback() {
+        return currentActionModeCallback;
     }
 
     /**

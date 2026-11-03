@@ -1195,30 +1195,35 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * 
      * @param nodes Nodes to rotate
      * @param angle angle to rotate
-     * @param direction rotation direction
      * @param pivotX screen X coordinate of the pivot point
      * @param pivotY screen Y coordinate of the pivot point
      * @param w screen width
      * @param h screen height
      * @param v screen viewbox
+     * @param coordinates contains the screen coordinates to use for the nodes instead of those in the Nodes, if empty
+     *            it will be filled from nodes, yes this is ugly
      */
-    public void rotateNodes(@NonNull final List<Node> nodes, final float angle, final int direction, final float pivotX, final float pivotY, int w, int h,
-            @NonNull ViewBox v) {
-        if (Float.isNaN(angle)) {
-            Log.e(DEBUG_TAG, "rotateWay angle is NaN");
-            return;
-        }
+    public void rotateNodes(@NonNull final List<Node> nodes, final float angle, final float pivotX, final float pivotY, int w, int h, @NonNull ViewBox v,
+            @NonNull List<Coordinates> coordinates) {
         dirty = true;
         double cos = Math.cos(angle);
         double sin = Math.sin(angle);
-        Set<Node> uniqueNodes = new HashSet<>(nodes); // Guarantee uniqueness
-        invalidateWayBoundingBox(uniqueNodes);
-        for (Node nd : uniqueNodes) {
-            undo.save(nd);
-            double nodeX = GeoMath.lonE7ToX(w, v, nd.getLon());
-            double nodeY = GeoMath.latE7ToY(h, w, v, nd.getLat());
-            double newX = pivotX + (nodeX - pivotX) * cos - direction * (nodeY - pivotY) * sin;
-            double newY = pivotY + direction * (nodeX - pivotX) * sin + (nodeY - pivotY) * cos;
+
+        if (coordinates.isEmpty()) { // 1st use
+            for (Node nd : nodes) {
+                undo.save(nd);
+                coordinates.add(new Coordinates(GeoMath.lonE7ToX(w, v, nd.getLon()), GeoMath.latE7ToY(h, w, v, nd.getLat())));
+            }
+        }
+
+        invalidateWayBoundingBox(nodes);
+        for (int i = 0; i < nodes.size(); i++) {
+            Node nd = nodes.get(i);
+            final Coordinates c = coordinates.get(i);
+            double nodeX = c.x;
+            double nodeY = c.y;
+            double newX = pivotX + (nodeX - pivotX) * cos - (nodeY - pivotY) * sin;
+            double newY = pivotY + (nodeX - pivotX) * sin + (nodeY - pivotY) * cos;
             updateLatLon(nd, GeoMath.yToLatE7(h, w, v, (float) newY), GeoMath.xToLonE7(w, v, (float) newX));
         }
         // Don't call onElementChanged(null, new ArrayList<>(nodes)); NOSONAR

@@ -68,8 +68,10 @@ import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.ProgressDialog;
 import de.blau.android.dialogs.UploadConflict;
 import de.blau.android.dialogs.UploadRetry;
+import de.blau.android.easyedit.EasyEditActionModeCallback;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.ElementSelectionActionModeCallback;
+import de.blau.android.easyedit.RotationActionModeCallback;
 import de.blau.android.exception.DataConflictException;
 import de.blau.android.exception.IllegalOperationException;
 import de.blau.android.exception.OsmException;
@@ -120,7 +122,6 @@ import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.osm.WayInterface;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.presets.Preset;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.resources.DataStyleManager;
@@ -1683,7 +1684,12 @@ public class Logic {
                 double det = aX * bY - aY * bX;
                 int direction = det < 0 ? -1 : 1;
 
-                rotateSelection(main, currentSelection, (float) Math.acos(cosAngle), direction);
+                displayAttachedObjectWarning(main, currentSelection.getAll());
+                EasyEditActionModeCallback currentCallback = main.getEasyEditManager().getCurrentCallback();
+                if (currentCallback instanceof RotationActionModeCallback) {
+                    ((RotationActionModeCallback) currentCallback).rotateSelection(main, currentSelection, centroidX, centroidY, (float) Math.acos(cosAngle),
+                            direction);
+                }
                 startY = absoluteY;
                 startX = absoluteX;
                 main.getEasyEditManager().invalidate(); // if we are in an action mode update menubar
@@ -1730,77 +1736,6 @@ public class Logic {
             String warning = main.getString(R.string.toast_way_nodes_moved, nodeCount);
             Log.d(DEBUG_TAG, warning);
             ScreenMessage.toastTopWarning(main, warning);
-        }
-    }
-
-    /**
-     * Rotate selected objects
-     * 
-     * Note that this needs to rotate all the nodes of all objects at once to avoid rotating the same one multiple
-     * times, special cases exactly one node selected.
-     * 
-     * @param activity the current Activity
-     * @param selection the Selection
-     * @param angle angle in radians that we rotated
-     * @param direction rotation direction (+ == clockwise)
-     */
-    private void rotateSelection(@NonNull FragmentActivity activity, @NonNull final Selection selection, float angle, int direction) {
-        displayAttachedObjectWarning(activity, selection.getAll());
-        List<Node> nodes = new ArrayList<>();
-        List<Way> selectedWays = selection.getWays();
-        if (selectedWays != null) {
-            for (Way w : selectedWays) {
-                nodes.addAll(w.getNodes());
-            }
-        }
-        List<Node> selectedNodes = selection.getNodes();
-        if (Util.notEmpty(selectedNodes)) {
-            if (selection.count() == 1) {
-                updateDirection(activity, (float) Math.toDegrees(angle), direction, selectedNodes.get(0));
-                return;
-            }
-            nodes.addAll(selectedNodes);
-        }
-        List<Relation> relations = selection.getRelations();
-        if (relations != null) {
-            for (Relation r : relations) {
-                if (!r.hasTag(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON) || !r.allDownloaded()) {
-                    continue;
-                }
-                for (RelationMember m : r.getMembers(Way.NAME)) {
-                    OsmElement e = m.getElement();
-                    if (e instanceof Way) { // have to test for null in any case
-                        nodes.addAll(((Way) e).getNodes());
-                    }
-                }
-            }
-        }
-        getDelegator().rotateNodes(nodes, angle, direction, centroidX, centroidY, map.getWidth(), map.getHeight(), viewBox);
-    }
-
-    /**
-     * Update the direction tag of a node
-     * 
-     * @param angle the angle to turn in degrees
-     * @param direction rotation direction (+ == clockwise)
-     * @param node the Node
-     */
-    private void updateDirection(@NonNull Context context, float angle, int direction, @NonNull final Node node) {
-        // this is obviously rather expensive bit avoids having state somewhere else
-        String directionKey = Tags.getDirectionKey(Preset.findBestMatch(context, App.getCurrentPresets(context), node.getTags(), null, node, false), node);
-        if (directionKey != null) {
-            java.util.Map<String, String> tags = new HashMap<>(node.getTags());
-            Float currentAngle = Tags.parseDirection(tags.get(directionKey));
-            if (currentAngle == Float.NaN) {
-                currentAngle = 0f;
-            }
-            angle = (currentAngle + angle * direction) % 360f;
-            if (angle < 0) {
-                angle = angle + 360f;
-            }
-            tags.put(directionKey, Integer.toString((int) angle));
-            getDelegator().setTags(node, tags);
-            map.invalidate();
         }
     }
 
@@ -3099,7 +3034,7 @@ public class Logic {
             unlockWrites();
         }
     }
- 
+
     /**
      * Add an OsmElement to a "system" created todo list //NOSONAR
      * 
