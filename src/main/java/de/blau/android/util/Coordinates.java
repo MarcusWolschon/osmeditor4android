@@ -1,5 +1,6 @@
 package de.blau.android.util;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,7 +15,9 @@ import de.blau.android.osm.ViewBox;
  * @author simon
  *
  */
-public class Coordinates implements IPoint {
+public class Coordinates implements IPoint, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     public double x; // NOSONAR
     public double y; // NOSONAR

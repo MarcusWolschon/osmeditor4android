@@ -1,6 +1,7 @@
 package de.blau.android.util;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 
 import java.io.Serializable;
@@ -35,7 +36,7 @@ public class SerializeableStateTest {
         Long l = Long.valueOf(1L);
         state.putLong("1", 1L);
         assertEquals(l, state.getLong("1"));
-        assertNull(state.getSerializable("2"));
+        assertNull(state.getLong("2"));
         state.putSerializable("2", "test");
         assertNull(state.getLong("2"));
     }
@@ -52,5 +53,32 @@ public class SerializeableStateTest {
         assertNull(state.getList("2"));
         state.putLong("2", 1L);
         assertNull(state.getList("2"));
+    }
+
+    /**
+     * Check that we correctly handle Boolean objects
+     */
+    @Test
+    public void booleanTest() {
+        SerializableState state = new SerializableState();
+        state.putBoolean("1", false);
+        assertEquals(Boolean.FALSE, state.getBoolean("1"));
+        assertNull(state.getBoolean("2"));
+        state.putSerializable("2", "test");
+        assertNull(state.getBoolean("2"));
+    }
+
+    /**
+     * Check that we correctly handle Float objects
+     */
+    @Test
+    public void floatTest() {
+        SerializableState state = new SerializableState();
+        Float f = Float.valueOf(1.0f);
+        state.putFloat("1", 1.0f);
+        assertEquals(f, state.getFloat("1"));
+        assertNull(state.getFloat("2"));
+        state.putSerializable("2", "test");
+        assertNull(state.getFloat("2"));
     }
 }

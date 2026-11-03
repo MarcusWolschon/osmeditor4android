@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
@@ -48,12 +49,12 @@ import de.blau.android.util.Util;
 import de.blau.android.util.collections.MultiHashMap;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = { ShadowWorkManager.class }, sdk=33)
+@Config(shadows = { ShadowWorkManager.class }, sdk = 33)
 @LargeTest
 public class StorageDelegatorTest {
-    
+
     private Main main;
-    
+
     @Before
     public void setup() {
         main = Robolectric.buildActivity(Main.class).create().resume().get();
@@ -73,9 +74,13 @@ public class StorageDelegatorTest {
             ViewBox v = new ViewBox(0D, 51.476D, 0.003D, 51.478D);
             Coordinates[] coords = Coordinates.nodeListToCoordinateArray(1000, 2000, v, new ArrayList<>(w.getNodes()));
             Coordinates center = Geometry.centroidXY(coords, true);
-            d.rotateNodes(w.getNodes(), (float) Math.toRadians(180), -1, (float) center.x, (float) center.y, 1000, 2000, v);
+            List<Node> nodes = new ArrayList<>(new HashSet<>(w.getNodes())); // need to be unique
+            final int size = nodes.size();
+            List<Coordinates> coordinates = new ArrayList<>(size);
+            d.rotateNodes(nodes, (float) -Math.toRadians(180), (float) center.x, (float) center.y, 1000, 2000, v, coordinates);
             assertEquals(514760000, n0.getLat());
             assertEquals(30000, n0.getLon());
+            assertEquals(size, coordinates.size());
         } catch (OsmException e) {
             fail(e.getMessage());
         }
@@ -1382,11 +1387,11 @@ public class StorageDelegatorTest {
 
         assertTrue(firstNode.hasTagWithValue(Tags.KEY_AMENITY, "bench"));
         assertTrue(firstNode.hasParentRelation(r.getOsmId()));
-        
-        final Node oNode =  w.getNodes().get(1);
+
+        final Node oNode = w.getNodes().get(1);
         assertTrue(oNode.hasTagWithValue(Tags.KEY_AMENITY, "bench"));
         assertTrue(oNode.hasParentRelation(r.getOsmId()));
-        
+
         assertNotEquals(firstNode, oNode);
     }
 
