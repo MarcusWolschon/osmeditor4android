@@ -25,6 +25,7 @@ import de.blau.android.contract.Files;
 import de.blau.android.contract.Paths;
 import de.blau.android.contract.Urls;
 import de.blau.android.exception.IllegalOperationException;
+import de.blau.android.imagestorage.ImageStorageType;
 import de.blau.android.layer.LayerConfig;
 import de.blau.android.layer.LayerType;
 import de.blau.android.osm.Server;
@@ -1639,10 +1640,6 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
                 db.endTransaction();
             }
         }
-    }
-
-    public enum ImageStorageType {
-        PANORAMAX, WIKIMEDIA_COMMONS
     }
 
     /**

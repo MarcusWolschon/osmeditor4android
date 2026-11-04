@@ -44,7 +44,6 @@ import de.blau.android.contract.MimeTypes;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Tags;
 import de.blau.android.prefs.AdvancedPrefDatabase;
-import de.blau.android.prefs.AdvancedPrefDatabase.ImageStorageType;
 import de.blau.android.resources.KeyDatabaseHelper;
 
 /**

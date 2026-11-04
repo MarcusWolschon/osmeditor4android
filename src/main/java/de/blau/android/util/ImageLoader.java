@@ -156,4 +156,23 @@ public abstract class ImageLoader implements Serializable {
     public void upload(@NonNull FragmentActivity caller, @NonNull String uri) {
         // empty
     }
+
+    /**
+     * Indicate if we support adding a link to a selected OSM element
+     * 
+     * @return true if we support uploading
+     */
+    public boolean supportsAddLink() {
+        return false;
+    }
+
+    /**
+     * Add a link to a selected OSM element
+     * 
+     * @param context the current Context
+     * @param uri the Uri or other reference to the photo
+     */
+    public void addLink(@NonNull Context context, @NonNull String uri) {
+        // empty
+    }
 }

@@ -3,7 +3,7 @@ package de.blau.android.prefs;
 import java.io.Serializable;
 
 import androidx.annotation.NonNull;
-import de.blau.android.prefs.AdvancedPrefDatabase.ImageStorageType;
+import de.blau.android.imagestorage.ImageStorageType;
 
 /**
  * Data structure class for image stores

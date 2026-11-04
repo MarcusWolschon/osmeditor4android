@@ -31,6 +31,7 @@ import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.MimeTypes;
 import de.blau.android.contract.Schemes;
 import de.blau.android.dialogs.ImageInfo;
+import de.blau.android.imagestorage.ImageStorageType;
 import de.blau.android.layer.LayerType;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
@@ -38,7 +39,7 @@ import de.blau.android.util.ImageLoader;
 import de.blau.android.util.ScreenMessage;
 
 public abstract class NetworkImageLoader extends ImageLoader {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     private static final int      TAG_LEN   = Math.min(LOG_TAG_LEN, NetworkImageLoader.class.getSimpleName().length());
     protected static final String DEBUG_TAG = NetworkImageLoader.class.getSimpleName().substring(0, TAG_LEN);
@@ -216,5 +217,22 @@ public abstract class NetworkImageLoader extends ImageLoader {
     public void info(@NonNull FragmentActivity activity, @NonNull String uri) {
         Uri f = FileProvider.getUriForFile(activity, activity.getString(R.string.content_provider), new File(cacheDir, uri + JPG));
         ImageInfo.showDialog(activity, f.toString(), false);
+    }
+
+    @Override
+    public boolean supportsAddLink() {
+        return true;
+    }
+
+    @Override
+    public void addLink(Context context, String uri) {
+        if (App.isPropertyEditorRunning()) {
+            return;
+        }
+        Intent intent = new Intent(context, Main.class);
+        intent.setAction(Main.ACTION_ADD_IMAGE_LINK);
+        intent.putExtra(Main.IMAGE_ID_KEY, uri);
+        intent.putExtra(Main.IMAGE_STORAGE_TYPE_KEY, LayerType.PANORAMAX == getLayerType() ? ImageStorageType.PANORAMAX : ImageStorageType.MAPILLARY);
+        context.startActivity(intent);
     }
 }

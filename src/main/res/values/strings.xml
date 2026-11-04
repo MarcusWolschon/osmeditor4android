@@ -379,6 +379,12 @@
     <string name="direction">Direction</string>
     <string name="file_size">Size</string>
     <string name="file_size_kB">%1$d kB</string>
+    <!-- further image stuff -->
+    <string name="storage_wikimedia_commons">Wikimedia Commons</string>
+    <string name="storage_panoramax">Panoramax</string>
+    <string name="storage_mapillary">Mapillary</string>
+    <string name="toast_link_added">%1$s link added.</string>
+    <string name="toast_exactly_one_element">Exactly one element needs to be selected to add an image tag!</string>
     <!-- Too much data dialog -->
     <string name="too_much_data_title">Too much data loaded!</string>
     <string name="too_much_data_message">You have %1$d Nodes loaded and have exceeded the configured limit. This will lead to slowdown, and if you add more data, to potential issues saving state.</string>
@@ -616,6 +622,7 @@
     <string name="photo_viewer_label">Photo Viewer</string>
     <string name="mapillary_viewer_label">Mapillary Viewer</string>
     <string name="photo_viewer_upload">Upload…</string>
+    <string name="photo_viewer_add_link">Add link to element</string>
     <!--  API info dialog -->
     <string name="api_info_bounds">Bounding box</string>
     <string name="api_info_latest_date">Last included date</string>
