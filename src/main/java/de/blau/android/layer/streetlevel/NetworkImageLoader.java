@@ -226,13 +226,23 @@ public abstract class NetworkImageLoader extends ImageLoader {
 
     @Override
     public void addLink(Context context, String uri) {
+        sendAddImageLinkIntent(context, LayerType.PANORAMAX == getLayerType() ? ImageStorageType.PANORAMAX : ImageStorageType.MAPILLARY, uri);
+    }
+
+    /**
+     * Send an Main.ACTION_ADD_IMAGE_LINK to Main
+     * 
+     * @param context the current Android Context
+     * @param uri the uri/id/whatever
+     */
+    public static void sendAddImageLinkIntent(@NonNull Context context, @NonNull ImageStorageType storageType, @NonNull String uri) {
         if (App.isPropertyEditorRunning()) {
             return;
         }
         Intent intent = new Intent(context, Main.class);
         intent.setAction(Main.ACTION_ADD_IMAGE_LINK);
         intent.putExtra(Main.IMAGE_ID_KEY, uri);
-        intent.putExtra(Main.IMAGE_STORAGE_TYPE_KEY, LayerType.PANORAMAX == getLayerType() ? ImageStorageType.PANORAMAX : ImageStorageType.MAPILLARY);
+        intent.putExtra(Main.IMAGE_STORAGE_TYPE_KEY, storageType);
         context.startActivity(intent);
     }
 }

@@ -1801,6 +1801,8 @@
     <string name="wikimedia_meta_author">Author</string>
     <string name="wikimedia_meta_licence">Licence</string>
     <string name="wikimedia_meta_category">Category</string>
+    <string name="image_upload_add_link_title">Add link</string>
+    <string name="image_upload_add_link_message">Add an approriate tag for linking this image to the selected OSM element (if any).</string>
     <!-- common terms -->
     <string name="add">Add</string>
     <string name="edit">Edit</string>

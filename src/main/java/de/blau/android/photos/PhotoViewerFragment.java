@@ -336,7 +336,9 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicDia
 
         @Override
         public void upload(@NonNull FragmentActivity caller, @NonNull String uri) {
-            UploadImage.dialog(caller, App.getPreferences(caller), new ImageAction(ImageAction.Action.UPLOAD), Uri.parse(uri));
+            // if called from Main we are already linking the image
+            UploadImage.dialog(caller, App.getPreferences(caller),
+                    new ImageAction(caller instanceof Main ? ImageAction.Action.UPLOAD : ImageAction.Action.ADDTOELEMENT), Uri.parse(uri));
         }
 
     };
