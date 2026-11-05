@@ -32,7 +32,6 @@ import de.blau.android.Map;
 import de.blau.android.TestUtils;
 import de.blau.android.contract.Urls;
 import de.blau.android.prefs.AdvancedPrefDatabase;
-import de.blau.android.prefs.AdvancedPrefDatabase.ImageStorageType;
 import de.blau.android.prefs.ImageStorageConfiguration;
 import de.blau.android.resources.KeyDatabaseHelper;
 

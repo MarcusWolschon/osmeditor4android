@@ -37,7 +37,6 @@ import de.blau.android.contract.MimeTypes;
 import de.blau.android.net.OAuth2Interceptor;
 import de.blau.android.osm.Tags;
 import de.blau.android.photos.Photo;
-import de.blau.android.prefs.AdvancedPrefDatabase.ImageStorageType;
 import de.blau.android.prefs.ImageStorageConfiguration;
 import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.resources.KeyDatabaseHelper.EntryType;

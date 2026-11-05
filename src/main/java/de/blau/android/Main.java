@@ -125,6 +125,7 @@ import de.blau.android.easyedit.MultiSelectActionModeCallback;
 import de.blau.android.easyedit.SimpleActionModeCallback;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.exception.StorageException;
 import de.blau.android.filter.Filter;
 import de.blau.android.filter.PresetFilter;
 import de.blau.android.filter.TagFilter;
@@ -133,6 +134,7 @@ import de.blau.android.geocode.Search.SearchResult;
 import de.blau.android.gpx.TrackPoint;
 import de.blau.android.imageryoffset.ImageryAlignmentActionModeCallback;
 import de.blau.android.imageryoffset.ImageryOffsetUtils;
+import de.blau.android.imagestorage.ImageStorageType;
 import de.blau.android.layer.ClickableInterface;
 import de.blau.android.layer.ClickedObject;
 import de.blau.android.layer.DownloadInterface;
@@ -150,6 +152,7 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.osm.Tags;
 import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
@@ -254,11 +257,15 @@ public class Main extends AuthorisationEnabledActivity implements ServiceConnect
     public static final String ACTION_DELETE_PHOTO          = "de.blau.android.DELETE_PHOTO";
     public static final String ACTION_IMAGE_SELECT          = "de.blau.android.ACTION_MAPILLARY_SELECT";
     public static final String ACTION_MAP_UPDATE            = "de.blau.android.MAP_UPDATE";
+    public static final String ACTION_ADD_IMAGE_LINK        = "de.blau.android.ADD_IMAGE_LINK";
     public static final String ACTION_SELECT                = "de.blau.android.SELECT";
     public static final String ACTION_PUSH_SELECTION        = "de.blau.android.PUSH_SELECTION";
     public static final String ACTION_POP_SELECTION         = "de.blau.android.POP_SELECTION";
     public static final String ACTION_CLEAR_SELECTION_STACK = "de.blau.android.CLEAR_SELECTION_STACK";
     public static final String ACTION_MENU_UPDATE           = "de.blau.android.MENU_UPDATE";
+
+    public static final String IMAGE_ID_KEY           = "imageId";
+    public static final String IMAGE_STORAGE_TYPE_KEY = "imageStorageType";
 
     /**
      * Alpha value for floating action buttons workaround We should probably find a better place for this
@@ -1022,6 +1029,9 @@ public class Main extends AuthorisationEnabledActivity implements ServiceConnect
                 case ACTION_MAP_UPDATE:
                     invalidateMap();
                     break;
+                case ACTION_ADD_IMAGE_LINK:
+                    addImageLinkFromIntent(logic, intent);
+                    break;
                 case ACTION_MENU_UPDATE:
                     updateMenu();
                     break;
@@ -1079,6 +1089,38 @@ public class Main extends AuthorisationEnabledActivity implements ServiceConnect
             }
             if (shortcutExtras != null) {
                 processShortcutExtras();
+            }
+        }
+    }
+
+    /**
+     * Add a link to an element
+     * 
+     * @param logic the current logic instance
+     * @param intent the incoming Intent
+     */
+    private void addImageLinkFromIntent(@NonNull final Logic logic, @NonNull Intent intent) {
+        List<OsmElement> selectedElements = logic.getSelectedElements();
+        if (selectedElements.size() != 1) {
+            ScreenMessage.toastTopError(this, R.string.toast_exactly_one_element);
+            return;
+        }
+        OsmElement element = selectedElements.get(0);
+        ImageStorageType storageType = Util.getSerializableExtra(intent, IMAGE_STORAGE_TYPE_KEY, ImageStorageType.class);
+        if (storageType == null || storageType == ImageStorageType.LOCAL) {
+            Log.e(DEBUG_TAG, "Unsupported storage type " + storageType);
+            return;
+        }
+
+        String id = Util.getSerializableExtra(intent, IMAGE_ID_KEY, String.class);
+        if (id != null) {
+            java.util.Map<String, String> tags = new HashMap<>(element.getTags());
+            Util.addTagWithNumericSuffix(storageType.getKey(), id, tags);
+            try {
+                logic.setTags(this, element, tags);
+                map.postDelayed(() -> ScreenMessage.toastTopInfo(this, getString(R.string.toast_link_added, getString(storageType.getNameRes()))), 2000);
+            } catch (StorageException ex) {
+                // already toasted and logged
             }
         }
     }

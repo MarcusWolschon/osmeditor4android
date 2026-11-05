@@ -85,7 +85,8 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicDia
     private static final int MENUITEM_DELETE   = 4;
     private static final int MENUITEM_FORWARD  = 5;
     private static final int MENUITEM_UPLOAD   = 6;
-    private static final int MENUITEM_OVERFLOW = 7;
+    private static final int MENUITEM_ADD_LINK = 7;
+    private static final int MENUITEM_OVERFLOW = 8;
 
     private List<T> photoList = null;
 
@@ -180,7 +181,7 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicDia
     }
 
     ImageLoader defaultLoader = new ImageLoader() {
-        private static final long serialVersionUID = 2L;
+        private static final long serialVersionUID = 3L;
 
         @Override
         public void load(SubsamplingScaleImageView view, String uri) {
@@ -335,7 +336,9 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicDia
 
         @Override
         public void upload(@NonNull FragmentActivity caller, @NonNull String uri) {
-            UploadImage.dialog(caller, App.getPreferences(caller), new ImageAction(ImageAction.Action.UPLOAD), Uri.parse(uri));
+            // if called from Main we are already linking the image
+            UploadImage.dialog(caller, App.getPreferences(caller),
+                    new ImageAction(caller instanceof Main ? ImageAction.Action.UPLOAD : ImageAction.Action.ADDTOELEMENT), Uri.parse(uri));
         }
 
     };
@@ -456,15 +459,24 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicDia
             menu.add(Menu.NONE, MENUITEM_INFO, Menu.NONE, R.string.menu_information).setIcon(R.drawable.outline_info_white_48dp)
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
-        if (photoLoader.supportsUpload() && photoLoader.supportsDelete() && photoLoader.supportsInfo()) {
+        if ((photoLoader.supportsUpload() || photoLoader.supportsAddLink()) && photoLoader.supportsDelete() && photoLoader.supportsInfo()) {
             SubMenu overflow = menu.addSubMenu(Menu.NONE, MENUITEM_OVERFLOW, Menu.NONE, R.string.abc_action_menu_overflow_description)
                     .setIcon(R.drawable.ic_more_vert_white_36dp);
             overflow.getItem().setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-            overflow.add(Menu.NONE, MENUITEM_UPLOAD, Menu.NONE, R.string.photo_viewer_upload);
+            if (photoLoader.supportsUpload()) {
+                overflow.add(Menu.NONE, MENUITEM_UPLOAD, Menu.NONE, R.string.photo_viewer_upload);
+            }
+            if (photoLoader.supportsAddLink()) {
+                overflow.add(Menu.NONE, MENUITEM_ADD_LINK, Menu.NONE, R.string.photo_viewer_upload);
+            }
             overflow.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete);
         } else {
             if (photoLoader.supportsUpload()) {
                 menu.add(Menu.NONE, MENUITEM_UPLOAD, Menu.NONE, R.string.photo_viewer_upload).setIcon(R.drawable.outline_import_export_white_36)
+                        .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            }
+            if (photoLoader.supportsAddLink()) {
+                menu.add(Menu.NONE, MENUITEM_ADD_LINK, Menu.NONE, R.string.photo_viewer_add_link).setIcon(R.drawable.add_photo_alternate_light)
                         .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
             }
             if (photoLoader.supportsDelete()) {
@@ -588,6 +600,11 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicDia
             case MENUITEM_UPLOAD:
                 if (loaderPresent) {
                     photoLoader.upload(caller, getUri(pos).toString());
+                }
+                break;
+            case MENUITEM_ADD_LINK:
+                if (loaderPresent) {
+                    photoLoader.addLink(caller, getUri(pos).toString());
                 }
                 break;
             default:

@@ -22,13 +22,16 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.ErrorCodes;
+import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.exception.StorageException;
 import de.blau.android.imagestorage.ImageStorage;
+import de.blau.android.imagestorage.ImageStorageType;
 import de.blau.android.imagestorage.PanoramaxStorage;
 import de.blau.android.imagestorage.UploadResult;
 import de.blau.android.imagestorage.WikimediaCommonsStorage;
+import de.blau.android.layer.streetlevel.NetworkImageLoader;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.ImageStorageConfiguration;
@@ -243,6 +246,15 @@ public class UploadImage {
      * @param url the url
      */
     private static void addTagAndUrl(@NonNull Context context, @NonNull ImageAction action, @NonNull final ImageStorage imageStore, @NonNull String url) {
+        if (!(context instanceof Main)) {
+            ThemeUtils.getAlertDialogBuilder(context).setTitle(R.string.image_upload_add_link_title).setMessage(R.string.image_upload_add_link_message)
+                    .setNeutralButton(R.string.cancel, null)
+                    .setPositiveButton(R.string.image_upload_add_link_title,
+                            (dialog, which) -> NetworkImageLoader.sendAddImageLinkIntent(context,
+                                    imageStore instanceof WikimediaCommonsStorage ? ImageStorageType.WIKIMEDIA_COMMONS : ImageStorageType.PANORAMAX, url))
+                    .show();
+            return;
+        }
         final String elementType = action.getElementType();
         if (elementType == null) {
             Log.e(DEBUG_TAG, "addTagAndUrl null elementType");
