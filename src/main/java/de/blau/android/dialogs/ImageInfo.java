@@ -19,7 +19,9 @@ import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import de.blau.android.App;
 import de.blau.android.R;
+import de.blau.android.imagestorage.ImageStorageType;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.photos.Photo;
 import de.blau.android.util.ContentResolverUtil;
@@ -38,26 +40,30 @@ public class ImageInfo extends InfoDialogFragment {
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, ImageInfo.class.getSimpleName().length());
     private static final String DEBUG_TAG = ImageInfo.class.getSimpleName().substring(0, TAG_LEN);
 
-    private static final String URI_KEY      = "uri";
-    private static final String SHOW_URI_KEY = "showUri";
-    private static final String TAG          = "fragment_image_info";
+    private static final String STORAGE_TYPE_KEY = "storageType";
+    private static final String URI_KEY          = "uri";
+    private static final String ID_KEY           = "id";
+    private static final String TAG              = "fragment_image_info";
 
-    private Uri              uri        = null;
+    private Uri              uri         = null;
+    private String           id          = null;
+    private ImageStorageType storageType = null;
+
     private SimpleDateFormat dateFormat = DateFormatter.getUtcFormat("yyyy-MM-dd HH:mm:ssZZ");
-    private boolean          showUri;
 
     /**
      * Show an info dialog for an image
      * 
      * @param activity the calling Activity
+     * @param storageType the type of ImageStorage (panormax, mapillary, wikimedia etc)
      * @param uriString the uri of the image as a string
-     * @param showUri if true display the uri besides the file path
+     * @param id the id if this is actually a remote image
      */
-    public static void showDialog(@NonNull FragmentActivity activity, @NonNull String uriString, boolean showUri) {
+    public static void showDialog(@NonNull FragmentActivity activity, @NonNull ImageStorageType storageType, @NonNull String uriString, @Nullable String id) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
-            ImageInfo elementInfoFragment = newInstance(uriString, showUri);
+            ImageInfo elementInfoFragment = newInstance(storageType, uriString, id);
             elementInfoFragment.show(fm, TAG);
         } catch (IllegalStateException isex) {
             Log.e(DEBUG_TAG, "showDialog", isex);
@@ -81,12 +87,13 @@ public class ImageInfo extends InfoDialogFragment {
      * @return an instance of ImageInfo
      */
     @NonNull
-    private static ImageInfo newInstance(@NonNull String uriString, boolean showUri) {
+    private static ImageInfo newInstance(@NonNull ImageStorageType storageType, @NonNull String uriString, @Nullable String id) {
         ImageInfo f = new ImageInfo();
 
         Bundle args = new Bundle();
+        args.putSerializable(STORAGE_TYPE_KEY, storageType);
         args.putString(URI_KEY, uriString);
-        args.putBoolean(SHOW_URI_KEY, showUri);
+        args.putString(ID_KEY, id);
 
         f.setArguments(args);
         f.setShowsDialog(true);
@@ -96,13 +103,15 @@ public class ImageInfo extends InfoDialogFragment {
 
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
-        String uriString = getArguments().getString(URI_KEY);
+        final Bundle arguments = getArguments();
+        storageType = de.blau.android.util.Util.getSerializeable(arguments, STORAGE_TYPE_KEY, ImageStorageType.class);
+        String uriString = arguments.getString(URI_KEY);
         try {
             uri = Uri.parse(uriString);
         } catch (Exception e) {
             Log.e(DEBUG_TAG, "Unable to parse uri " + uriString);
         }
-        showUri = getArguments().getBoolean(SHOW_URI_KEY, true);
+        id = arguments.getString(ID_KEY);
         Builder builder = ThemeUtils.getAlertDialogBuilder(getActivity());
         DoNothingListener doNothingListener = new DoNothingListener();
         builder.setPositiveButton(R.string.done, doNothingListener);
@@ -126,11 +135,14 @@ public class ImageInfo extends InfoDialogFragment {
             Photo image = new Photo(getContext(), uri, null);
             String path = ContentResolverUtil.getPath(getContext(), uri);
             Log.i(DEBUG_TAG, "path " + path + " uri " + uri.toString());
-            if (path != null) {
-                tl.addView(TableLayoutUtils.createRow(activity, R.string.File, path, false, tp));
-            }
-            if (showUri || path == null) {
-                tl.addView(TableLayoutUtils.createRow(activity, R.string.URI, uri.toString(), tp));
+            if (id == null) {
+                if (path != null) {
+                    tl.addView(TableLayoutUtils.createRow(activity, R.string.File, path, false, tp));
+                } else {
+                    tl.addView(TableLayoutUtils.createRow(activity, R.string.URI, uri.toString(), tp));
+                }
+            } else {
+                tl.addView(TableLayoutUtils.createRow(activity, R.string.url, App.getTag2Link(activity).get(storageType.getKey(), id), tp));
             }
             long size = ContentResolverUtil.getSizeColumn(getContext(), uri);
             if (size > -1) {

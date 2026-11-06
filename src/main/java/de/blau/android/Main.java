@@ -1366,7 +1366,7 @@ public class Main extends AuthorisationEnabledActivity implements ServiceConnect
                 handler.onSuccess();
             }
         } catch (OsmException e) {
-            Log.d(DEBUG_TAG, "processIntents got " + e.getMessage());
+            Log.d(DEBUG_TAG, "processGeoIntents got " + e.getMessage());
         }
     }
 
