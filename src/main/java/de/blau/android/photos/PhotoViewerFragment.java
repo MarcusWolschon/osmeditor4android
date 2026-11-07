@@ -48,6 +48,7 @@ import de.blau.android.R;
 import de.blau.android.contract.MimeTypes;
 import de.blau.android.contract.Ui;
 import de.blau.android.dialogs.ImageInfo;
+import de.blau.android.imagestorage.ImageStorageType;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.util.ConfigurationChangeAwareActivity;
 import de.blau.android.util.ContentResolverUtil;
@@ -256,7 +257,7 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicDia
 
         @Override
         public void info(@NonNull FragmentActivity activity, @NonNull String uri) {
-            ImageInfo.showDialog(activity, uri, true);
+            ImageInfo.showDialog(activity, ImageStorageType.LOCAL, uri, null);
         }
 
         @Override

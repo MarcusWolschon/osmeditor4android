@@ -216,7 +216,17 @@ public abstract class NetworkImageLoader extends ImageLoader {
     @Override
     public void info(@NonNull FragmentActivity activity, @NonNull String uri) {
         Uri f = FileProvider.getUriForFile(activity, activity.getString(R.string.content_provider), new File(cacheDir, uri + JPG));
-        ImageInfo.showDialog(activity, f.toString(), false);
+        ImageInfo.showDialog(activity, getImageStorageType(), f.toString(), uri);
+    }
+
+    /**
+     * Map the LayerType to and ImageStorageType
+     * 
+     * @return an ImageStorageType
+     */
+    @NonNull
+    private ImageStorageType getImageStorageType() {
+        return LayerType.PANORAMAX == getLayerType() ? ImageStorageType.PANORAMAX : ImageStorageType.MAPILLARY;
     }
 
     @Override
@@ -226,7 +236,7 @@ public abstract class NetworkImageLoader extends ImageLoader {
 
     @Override
     public void addLink(Context context, String uri) {
-        sendAddImageLinkIntent(context, LayerType.PANORAMAX == getLayerType() ? ImageStorageType.PANORAMAX : ImageStorageType.MAPILLARY, uri);
+        sendAddImageLinkIntent(context, getImageStorageType(), uri);
     }
 
     /**

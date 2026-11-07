@@ -379,6 +379,8 @@
     <string name="direction">Direction</string>
     <string name="file_size">Size</string>
     <string name="file_size_kB">%1$d kB</string>
+    <string name="positioning_precision">Positioning precision (m)</string>
+    <string name="dilution_of_precision">Dilution of precision</string>
     <!-- further image stuff -->
     <string name="storage_wikimedia_commons">Wikimedia Commons</string>
     <string name="storage_panoramax">Panoramax</string>

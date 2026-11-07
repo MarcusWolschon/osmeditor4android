@@ -27,7 +27,7 @@ import de.blau.android.util.rtree.BoundedObject;
  */
 public class Photo implements BoundedObject, GeoPoint, Serializable {
 
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 3L;
 
     private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Photo.class.getSimpleName().length());
     private static final String DEBUG_TAG = Photo.class.getSimpleName().substring(0, TAG_LEN);
@@ -40,6 +40,11 @@ public class Photo implements BoundedObject, GeoPoint, Serializable {
     private final int    lat;
     /** Longitude *1E7. */
     private final int    lon;
+    /**
+     * Horizontal positioning error
+     */
+    private final Float  positioningError;
+    private final Float  dilutionOfPrecision;
     /**
      * compass direction
      */
@@ -99,6 +104,7 @@ public class Photo implements BoundedObject, GeoPoint, Serializable {
 
     /**
      * Construct a Photo object from a directory and filename of the image
+     * 
      * @param imageFile the image file
      * 
      * @throws IOException If there was a problem parsing the XML.
@@ -146,6 +152,9 @@ public class Photo implements BoundedObject, GeoPoint, Serializable {
         lat = (int) (latf * 1E7d);
         lon = (int) (lonf * 1E7d);
 
+        positioningError = parseRational(exif.getAttribute(ExifInterface.TAG_GPS_H_POSITIONING_ERROR));
+        dilutionOfPrecision = parseRational(exif.getAttribute(ExifInterface.TAG_GPS_DOP));
+
         String orientationStr = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
         if (orientationStr != null) {
             try {
@@ -158,19 +167,32 @@ public class Photo implements BoundedObject, GeoPoint, Serializable {
         captureDate = exif.getDateTime();
         creator = exif.getAttribute(ExifInterface.TAG_ARTIST);
 
-        // don't add anything after this section that needs to be processed in any case
-        String dir = exif.getAttribute(ExifInterface.TAG_GPS_IMG_DIRECTION);
-        if (dir != null) {
-            String[] r = dir.split("/");
+        Float directionFloat = parseRational(exif.getAttribute(ExifInterface.TAG_GPS_IMG_DIRECTION));
+        if (directionFloat != null) {
+            direction = Math.round(directionFloat);
+            directionRef = exif.getAttribute(ExifInterface.TAG_GPS_IMG_DIRECTION_REF);
+        }
+    }
+
+    /**
+     * Parser an EXIT "rational" value
+     * 
+     * @param str the input String
+     * @return a DOuble or null
+     */
+    private Float parseRational(@Nullable String str) {
+        try {
+            if (str == null) {
+                throw new NumberFormatException("null String");
+            }
+            String[] r = str.split("/");
             if (r.length != 2) {
-                return;
+                throw new NumberFormatException("malformed EXIT rational " + str);
             }
-            try {
-                direction = (int) (Double.valueOf(r[0]) / Double.valueOf(r[1]));
-                directionRef = exif.getAttribute(ExifInterface.TAG_GPS_IMG_DIRECTION_REF);
-            } catch (NumberFormatException nfex) {
-                Log.w(DEBUG_TAG, "Unable to parse cardinal direction " + nfex.getMessage());
-            }
+            return (float) (Double.valueOf(r[0]) / Double.valueOf(r[1]));
+        } catch (NumberFormatException nfex) {
+            Log.w(DEBUG_TAG, "Unable to parse cardinal direction " + nfex.getMessage());
+            return null;
         }
     }
 
@@ -201,6 +223,8 @@ public class Photo implements BoundedObject, GeoPoint, Serializable {
     public Photo(int lat, int lon, int direction, @NonNull String ref, @Nullable String displayName, int orientation) {
         this.lat = lat;
         this.lon = lon;
+        this.positioningError = null;
+        this.dilutionOfPrecision = null;
         this.direction = direction;
         this.directionRef = ExifInterface.GPS_DIRECTION_MAGNETIC;
         this.ref = ref;
@@ -262,6 +286,26 @@ public class Photo implements BoundedObject, GeoPoint, Serializable {
     @Override
     public int getLon() {
         return lon;
+    }
+
+    /**
+     * Get the positioning error
+     * 
+     * @return the positioning error in meters or null
+     */
+    @Nullable
+    public Float getPositioningError() {
+        return positioningError;
+    }
+
+    /**
+     * Get the GPS dilution of precision value
+     * 
+     * @return the dilution of precision value or null
+     */
+    @Nullable
+    public Float getDilutionOfPrecision() {
+        return dilutionOfPrecision;
     }
 
     /**
