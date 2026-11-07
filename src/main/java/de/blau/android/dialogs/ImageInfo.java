@@ -158,6 +158,14 @@ public class ImageInfo extends InfoDialogFragment {
             }
             tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lon_label, prettyPrintCoord(image.getLon() / 1E7D), tp));
             tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lat_label, prettyPrintCoord(image.getLat() / 1E7D), tp));
+            Float positioningError = image.getPositioningError();
+            if (positioningError != null) {
+                tl.addView(TableLayoutUtils.createRow(activity, R.string.positioning_precision, String.format(Locale.US, "%3d", positioningError), tp));
+            }
+            Float dilutionOfPrecision = image.getDilutionOfPrecision();
+            if (dilutionOfPrecision != null) {
+                tl.addView(TableLayoutUtils.createRow(activity, R.string.dilution_of_precision, String.format(Locale.US, "%3d", dilutionOfPrecision), tp));
+            }
             if (image.hasDirection()) {
                 tl.addView(TableLayoutUtils.createRow(activity, R.string.direction, String.format(Locale.US, "%3d°", image.getDirection()), tp));
             }
