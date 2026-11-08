@@ -10,6 +10,7 @@
     <string name="config_background_category_key">backgroundCategory</string>
     <string name="config_overlay_category_key">overlayCategory</string>
     <string name="config_waySnap_key">waySnap</string>
+    <string name="config_areaSnap_key">areaSnap</string>
     <string name="config_gpx_label_source_key">gpxLabelSource</string>
     <string name="config_gpx_symbol_key">gpxSymbol</string>
     <string name="config_gpx_label_min_zoom_key">gpxLabelMinZoom</string>

@@ -122,6 +122,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     private PathCreationActionModeCallback(@NonNull EasyEditManager manager, boolean areaMode) {
         super(manager);
         this.areaMode = areaMode;
+
         actionMap.put(main.getString(R.string.ACTION_UNDO), new Shortcuts.Action(R.string.action_undo, this::handleUndo));
         actionMap.put(main.getString(R.string.ACTION_TAGEDIT), new Shortcuts.Action(R.string.action_tagedit, () -> handleTagEdit(MENUITEM_NEWWAY_PRESET)));
         actionMap.put(main.getString(R.string.ACTION_FOLLOW), new Shortcuts.Action(R.string.action_follow, this::handleFollow));
@@ -233,7 +234,8 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         closingLine = closingLineOk;
 
         logic.createCheckpoint(main, R.string.undo_action_append);
-        snap = logic.getPrefs().isWaySnapEnabled();
+        snap = areaMode ? prefs.isAreaSnapEnabled() : prefs.isWaySnapEnabled();
+
         logic.setSelectedWay(null);
         logic.setSelectedNode(appendTargetNode);
         if (appendTargetNode != null) {
@@ -247,6 +249,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
             }
         }
         logic.hideCrosshairs();
+
         return true;
     }
 
@@ -269,8 +272,13 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
 
         addSnapCheckBox(main, menu, snap, (CompoundButton buttonView, boolean isChecked) -> {
             snap = isChecked;
-            logic.getPrefs().enableWaySnap(isChecked);
-        });
+            if (areaMode) {
+                prefs.enableAreaSnap(isChecked);
+            } else {
+                prefs.enableWaySnap(isChecked);
+            }
+        }); // all entries have to be re-added
+
         //
         menu.add(Menu.NONE, MENUITEM_NEWWAY_PRESET, Menu.NONE, R.string.tag_menu_preset).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_preset));
         if (candidatesForFollowing != null && !candidatesForFollowing.isEmpty()) {
@@ -278,6 +286,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         }
         menu.add(Menu.NONE, MENUITEM_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_address));
         menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
+
         arrangeMenu(menu);
         return super.onPrepareActionMode(mode, menu);
     }
@@ -426,6 +435,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         final boolean firstNode = addedNodes.isEmpty();
         Node clicked = logic.getClickedNode(x, y);
         boolean returnExisting = snap || closing(lastSelectedWay, clicked);
+
         if (appendTargetNode != null) {
             logic.performAppendAppend(main, x, y, false, returnExisting);
             appendTargetNode = logic.getSelectedNode();

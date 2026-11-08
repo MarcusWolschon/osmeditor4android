@@ -1809,6 +1809,29 @@ public class Preferences {
     }
 
     /**
+     * Enable/disable snapping behaviour when creating new areas
+     * 
+     * @param on if true the tag filter will be enabled
+     */
+    public void enableAreaSnap(boolean on) {
+        prefs.edit().putBoolean(r.getString(R.string.config_areaSnap_key), on).commit();
+    }
+
+    /**
+     * Check if the snapping behaviour when creating new areas is enabled
+     * 
+     * @return true if enabled
+     */
+    public boolean isAreaSnapEnabled() {
+        String key = r.getString(R.string.config_areaSnap_key);
+        if (!prefs.contains(key)) {
+            // create the entry
+            enableAreaSnap(true);
+        }
+        return prefs.getBoolean(key, false);
+    }
+
+    /**
      * Get the name input type for caps
      * 
      * The value is shifted so that in can directly be used by setInputType
@@ -2317,7 +2340,7 @@ public class Preferences {
     public int getDownloadAlongMaxDimension() {
         return prefs.getInt(r.getString(R.string.config_download_along_max_dimension_key), 100);
     }
-    
+
     /**
      * Configuration for jitter filter for GPX data
      * 
@@ -2353,7 +2376,7 @@ public class Preferences {
     public float getJitterFilterTolerance() {
         return prefs.getFloat(r.getString(R.string.config_jitter_filter_tolerance_key), 0.5F);
     }
-    
+
     /**
      * Configuration for the download along functionality
      * 
@@ -2371,7 +2394,7 @@ public class Preferences {
     public boolean getSimplify() {
         return prefs.getBoolean(r.getString(R.string.config_simplify_key), true);
     }
-    
+
     /**
      * Set the tolerance for RDP simplification
      * 

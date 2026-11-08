@@ -117,9 +117,9 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
 
             @Override
             public void addMenuItems(EasyEditManager manager, Context ctx, Menu menu) {
-                boolean snap = App.getLogic().getPrefs().isWaySnapEnabled();
+                boolean snap = App.getLogic().getPrefs().isAreaSnapEnabled();
                 PathCreationActionModeCallback.addSnapCheckBox(ctx, menu, snap,
-                        (CompoundButton buttonView, boolean isChecked) -> App.getLogic().getPrefs().enableWaySnap(isChecked));
+                        (CompoundButton buttonView, boolean isChecked) -> App.getLogic().getPrefs().enableAreaSnap(isChecked));
             }
         },
         /**
