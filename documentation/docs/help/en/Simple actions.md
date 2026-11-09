@@ -25,7 +25,7 @@ Besides tapping the "check mark" button to directly start the [property editor](
 #### ![Snap](../images/snap_on.png)  ![Snap](../images/snap_off.png) Snap
 
 When the snap function is active, newly created nodes near to other nodes and ways will snap on to these automatically creating connections. It the checkbox is not checked 
-nodes will be created without merging with other objects. You can toggle this while you are drawing a way.
+nodes will be created without merging with other objects. You can toggle this while you are drawing a way. This value can be set both for _Add way_ and _Add area_ separately.
 
 Note: when the checkbox is not checked you need to manually close closed ways, for example a building outline.
 
@@ -43,7 +43,7 @@ Adds address tags with prediction. If the way is closed this will add the predic
 
 ### Add area
 
-As _Add way_ but automatically closes ways and adds an indication of where the closing segment will be. If the closing segment would lead to the way self-intersecting the closing line will be highlighted.
+As _Add way_ but automatically closes ways and adds an indication of where the closing segment will be. If the closing segment would lead to the way self-intersecting the closing line will be highlighted. The snap behaviour is maintained separately for this function. 
 
 ### Add map note
 
