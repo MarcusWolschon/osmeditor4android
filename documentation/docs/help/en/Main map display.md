@@ -148,6 +148,9 @@ You can click on objects in a GPX layer, for
     * create OSM ways from the track, applying filtering and Ramen-Douglas-Peucker simplification before creating the ways. If the track segment has more than 2'000 track points, multiple ways will be created.
     * download OSM data along the track.
 
+#### Image layers
+
+The Panoramax, Mapillary and Photo layers will display markers for the respective layers. Clicking on them will start the [image viewer](Image%20viewer.md).
 
 ## Available Actions
 

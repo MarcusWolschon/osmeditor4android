@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+</head>
+<body>
+<h1 id="image-and-photo-viewer">Image and photo viewer</h1>
+<p>The image viewer lets you browse images stored on your device and images loaded from supported online sources such as Mapillary and Panoramax. It can be opened from the photo layer, from a selected image, or after importing a photo into Vespucci.</p>
+<p>If supported on the device the view will be opened in a separate window (on earlier Android versions this may require manually creating a dual window screen before using the viewer). You can disable using the internal viewer completely in the <a href="Advanced%20preferences.md#use-builtin-photo-viewer">Advanced preferences</a>.</p>
+<h2 id="actions">Actions</h2>
+<p>Some actions are only visible if they can actually be executed for the current image and context.</p>
+<h3 id="back">Back</h3>
+<p>Move to the previous image in the current sequence.</p>
+<h3 id="forward">Forward</h3>
+<p>Move to the next image in the current sequence.</p>
+<h3 id="share">Share</h3>
+<p>Share the current image with another app on the device.</p>
+<h3 id="go-to-photo">Go to photo</h3>
+<p>Center the map on the location of the current image and, if available, select it in the photo layer.</p>
+<h3 id="information">Information</h3>
+<p>Display detailed metadata for the current image, including location and technical information when available. For Panoramax and Mapillary images a clickable and sharable link to the the original image will be displayed.</p>
+<h3 id="upload">Upload</h3>
+<p>Upload the current image to a configured image storage service. Currently supported targets include Panoramax and Wikimedia Commons. You need to configure and authorize access in the <a href="Advanced%20preferences.md#image-storage">Advanced preferences</a>. <em>(requires network connectivity)</em></p>
+<h3 id="add-link-to-element">Add link to element</h3>
+<p>Add a link from the current image to the selected OSM element. This is supported for Mapillary and Panoramax images and adds the appropriate OSM tag to the selected element.</p>
+<p>This action is only available when exactly one OSM element is selected. Vespucci will add the relevant tag for the image source so the feature can link back to the photo.</p>
+<p>Use this to attach an image reference to a feature while reviewing photo sources in the viewer. <em>(requires a selected OSM element and network access for the source service)</em></p>
+<h3 id="delete">Delete</h3>
+<p>Remove the current image from the device or from the photo layer index, depending on the source. <em>(requires storage permissions for the underlying file)</em></p>
+<h2 id="uploading-from-the-image-viewer">Uploading from the image viewer</h2>
+<p>When uploading an image from the image viewer, Vespucci can add the corresponding OSM link to the selected element as part of the upload flow. If no element is selected, the upload can still be completed normally, and the link can be added when associating the image with a selected feature.</p>
+<p>This is useful when you want to attach a photo directly to a feature while reviewing images in the viewer, without first returning to the map editor.</p>
+
+</body>
+</html>
