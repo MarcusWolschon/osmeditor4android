@@ -229,7 +229,19 @@
   },
   {
     "key": "Key:contact:foursquare",
+    "url": "https://business.foursquare.com/places/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:foursquare",
     "url": "https://foursquare.com/mapaction?id=$1&action=view",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:foursquare",
+    "url": "https://foursquare.com/placemakers/review-place/$1",
     "source": "wikidata:P1630",
     "rank": "normal"
   },
@@ -548,25 +560,7 @@
   {
     "key": "Key:contact:website",
     "url": "$1",
-    "source": "wikidata:P3303",
-    "rank": "preferred"
-  },
-  {
-    "key": "Key:contact:website",
-    "url": "$1",
     "source": "osmwiki:P8",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:contact:website",
-    "url": "https://web.archive.org/web/*/$1/",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:contact:website",
-    "url": "https://webcache.googleusercontent.com/search?q=cache:$1",
-    "source": "wikidata:P3303",
     "rank": "normal"
   },
   {
@@ -1320,6 +1314,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:image",
+    "url": "https://commons.wikimedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:imagery_used",
     "url": "https://osmlab.github.io/editor-layer-index/#$1",
     "source": "osmwiki:P8",
@@ -1760,6 +1760,12 @@
   {
     "key": "Key:panoramax:2",
     "url": "https://api.panoramax.xyz/#focus=pic&pic=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:panoramax:annotation",
+    "url": "https://explore.panoramax.fr/?annot=$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
@@ -2238,6 +2244,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:ref:foursquare",
+    "url": "https://business.foursquare.com/places/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:ref:FR:Allocine",
     "url": "https://www.allocine.fr/seance/salle_gen_csalle=$1.html",
     "source": "osmwiki:P8",
@@ -2302,12 +2314,6 @@
     "url": "https://www.memorialgenweb.org/monument/$1",
     "source": "wikidata:P1630",
     "rank": "preferred"
-  },
-  {
-    "key": "Key:ref:FR:MemorialGenWeb",
-    "url": "https://www.memorialgenweb.org/memorial3/html/fr/resultcommune.php?idsource=$1",
-    "source": "wikidata:P1630",
-    "rank": "normal"
   },
   {
     "key": "Key:ref:FR:MemorialGenWeb",
@@ -3120,6 +3126,12 @@
     "rank": "preferred"
   },
   {
+    "key": "Key:ref:ocm",
+    "url": "https://openchargemap.org/site/poi/details/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:ref:OnroerendErfgoed",
     "url": "https://id.erfgoed.net/erfgoedobjecten/$1",
     "source": "wikidata:P1630",
@@ -3702,12 +3714,6 @@
     "rank": "normal"
   },
   {
-    "key": "Key:traffic_sign",
-    "url": "https://wiki.openstreetmap.org/wiki/Tag:traffic_sign%253D$1",
-    "source": "osmwiki:P8",
-    "rank": "normal"
-  },
-  {
     "key": "Key:tunnel:wikipedia",
     "url": "https://wiki.openstreetmap.org/wiki/Item:Q15509",
     "source": "osmwiki:P8",
@@ -3818,24 +3824,12 @@
   {
     "key": "Key:website",
     "url": "$1",
-    "source": "wikidata:P3303",
-    "rank": "preferred"
-  },
-  {
-    "key": "Key:website",
-    "url": "$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
   {
     "key": "Key:website",
     "url": "https://web.archive.org/web/*/$1/",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:website",
-    "url": "https://webcache.googleusercontent.com/search?q=cache:$1",
     "source": "wikidata:P3303",
     "rank": "normal"
   },
