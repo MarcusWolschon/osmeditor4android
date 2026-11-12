@@ -22,7 +22,7 @@ markdown_extensions:
         toc_depth: 4
 copyright: 'Generated for'
 extra:
-  version: 22.1
+  version: 22.2
   project: Vespucci
     #  alternate:
     #- name: English
@@ -110,6 +110,7 @@ nav:
     - 'Tag based filter': 'help/en/Tag filter.md'
     - 'Preset based filter': 'help/en/Preset filter.md'
     - 'Opening hours': 'help/en/Opening hours.md'
+    - 'Image and photo viewer': 'help/en/Image viewer.md'
     - 'Preferences': 'help/en/Preferences.md'
     - 'Advanced preferences': 'help/en/Advanced preferences.md' 
     - 'Custom imagery': 'help/en/Custom imagery.md'   
