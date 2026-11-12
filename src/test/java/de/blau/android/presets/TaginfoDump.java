@@ -1,5 +1,6 @@
 package de.blau.android.presets;
 
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -7,10 +8,10 @@ import java.io.File;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
@@ -24,9 +25,10 @@ import de.blau.android.prefs.XmlConfigurationLoader;
  *
  */
 @RunWith(RobolectricTestRunner.class)
-@Config(sdk=33)
 @LargeTest
 public class TaginfoDump { // NOSONAR
+
+    private static final String DEBUG_TAG = TaginfoDump.class.getSimpleName();
 
     private static final String TEST_MANUAL_PROPERTY = "test.manual";
     private static final String TARGET_FILE          = "taginfo.json";
@@ -49,8 +51,9 @@ public class TaginfoDump { // NOSONAR
             try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(ctx)) {
                 for (String url : ADDITIONAL_PRESETS) {
                     final File presetDir = new File(ctx.getFilesDir(), Uri.parse(url).getLastPathSegment());
+                    Log.d(DEBUG_TAG, "Target directory for additional preset " + presetDir.getAbsolutePath());
                     presetDir.mkdirs();
-                    XmlConfigurationLoader.download(url, presetDir, Preset.PRESETXML);
+                    assertNotEquals(XmlConfigurationLoader.DOWNLOADED_ERROR, XmlConfigurationLoader.download(url, presetDir, Preset.PRESETXML));
                     db.addPreset(presetDir.getName(), presetDir.getName(), url, true);
                 }
                 presets = db.getCurrentPresetObject();
