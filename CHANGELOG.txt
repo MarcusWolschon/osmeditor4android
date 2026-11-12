@@ -1,5 +1,19 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+22.1.4:
+
+- Fix don't try to save a null list of photos
+- Fix WMS layer search
+- Fix links shouldn't be focusable in MR modal
+- Fix force opening element history URL in a browser
+- Update preset-utils dependency
+- Update default preset
+- Update root certificates 
+- Update imagery from ELI
+- Update tag2link
+- Update NSI
+- Update translations
+
 22.1.3:
 
 - Fix toast the reason an image can't be loaded in the image viewer
