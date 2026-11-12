@@ -8,6 +8,8 @@ This is the first [OpenStreetMap][openstreetmap] editor for
 
 ![Amerigo Vespucci](http://vespucci.io/180px-Amerigo_Vespucci.jpg "Amerigo Vespucci")
 
+Please follow us on [masotodon](https://en.osm.town/@vespucci_editor) for updates.
+
 ## Installing
 
 [GooglePlay](https://play.google.com/store/apps/details?id=de.blau.android)
