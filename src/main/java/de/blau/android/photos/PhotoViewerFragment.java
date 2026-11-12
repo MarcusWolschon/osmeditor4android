@@ -595,9 +595,11 @@ public class PhotoViewerFragment<T extends Serializable> extends SizedDynamicDia
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.d(DEBUG_TAG, "onSaveInstanceState");
-        String listFilename = photoListFilename();
-        new SavingHelper<ArrayList<T>>().save(getContext(), listFilename, new ArrayList<>(photoList), true);
-        outState.putString(PhotoViewerFragment.PHOTO_LIST_KEY, listFilename);
+        if (photoList != null) {
+            String listFilename = photoListFilename();
+            new SavingHelper<ArrayList<T>>().save(getContext(), listFilename, new ArrayList<>(photoList), true);
+            outState.putString(PhotoViewerFragment.PHOTO_LIST_KEY, listFilename);
+        }
         // there seems to be a situation in which this is called before viewPager is created
         outState.putInt(START_POS_KEY, viewPager != null ? viewPager.getCurrentItem() : 0);
         if (!photoLoader.equals(defaultLoader)) {
