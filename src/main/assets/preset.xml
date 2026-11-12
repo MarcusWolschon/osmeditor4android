@@ -65,6 +65,7 @@
     
     
     
+    
     <chunk id="h-frame_design_values">
         
     </chunk>
@@ -401,7 +402,7 @@
         </multiselect>
      </chunk>
      <chunk id="bridge_details">
-        <combo key="bridge" text="Bridge" values="aqueduct,boardwalk,cantilever,covered,low_water_crossing,trestle,viaduct,yes" display_values="Aqueduct,Boardwalk,Cantilever,Covered,Low water crossing,Trestle,Viaduct,Yes" default="yes" match="keyvalue!" values_context="bridge"/>
+        <combo key="bridge" text="Bridge" values="aqueduct,boardwalk,cantilever,covered,low_water_crossing,trestle,viaduct,yes" display_values="Aqueduct,Boardwalk,Cantilever,Covered,Low water crossing,Trestle,Viaduct,Yes" match="keyvalue!" values_context="bridge"/>
         <combo key="bridge:structure" text="Structure" values="arch,beam,truss,floating,suspension,cable-stayed,simple-suspension,humpback" display_values="Arch,Beam,Truss,Floating,Suspension,Cable-stayed,Simple suspension,Humpback" match="key" values_context="bridge"/>
         <combo key="bridge:movable" text="Moveable bridge type" values="bascule,drawbridge,lift,submersible,swing,transporter,retractable,tilt" display_values="Bascule,Drawbridge,Lift,Submersible,Swing,Transporter,Retractable,Tilt" match="key" values_context="bridge"/>
         <combo key="bridge:support" text="Bridge support type" values="pier,abutment,lift_pier,pivot_pier,pylon" display_values="Pier,Abutment,Lift pier,Pivot pier,Pylon" match="key" values_context="bridge"/>
@@ -1203,11 +1204,11 @@
         </combo>
     </chunk>
     <chunk id="supervised">
-        <combo key="supervised" text="Supervised" delimiter="|" value_type="opening_hours_mixed" values="yes|no" display_values="Yes|No" values_i18n="false" values_sort="false" match="none" editable="true"/>
+        <combo key="supervised" text="Supervised" delimiter="|" value_type="opening_hours_mixed" values="yes|no" display_values="Yes|No" values_sort="false" match="none" editable="true"/>
     </chunk>
     <chunk id="supervised_lit_oh">
         <reference ref="supervised"/>
-        <combo key="lit" text="Lit" delimiter="|" value_type="opening_hours_mixed" values="yes|no" display_values="Yes|No" values_i18n="false" values_sort="false" match="none" editable="true"/>
+        <combo key="lit" text="Lit" delimiter="|" value_type="opening_hours_mixed" values="yes|no" display_values="Yes|No" values_sort="false" match="none" editable="true"/>
         <optional>
             <reference ref="oh"/>
         </optional>
@@ -3395,13 +3396,8 @@
             <label text="Protected climbing route that requires use of suitable safety equipment"/>
             <optional>
                 <reference ref="name_wikipedia"/>
-                <combo key="via_ferrata_scale" text="Scale (H&#xFC;sler)" values_searchable="true" values_sort="false">   
-                    <list_entry value="1" display_value="1 - Easy (secured paths and simple climbs with continuous, good safety cables)"/>
-                    <list_entry value="2" display_value="2 - Moderate (short, steeper sections often eased with iron steps or ladders)"/>
-                    <list_entry value="3" display_value="3 - Fairly difficult (steep and exposed rock sections, well-secured)"/>
-                    <list_entry value="4" display_value="4 - Difficult (steep terrain with vertical, short overhangs and small grips)"/>
-                    <list_entry value="5" display_value="5 - Very difficult (long, strenuous steep sections with sparse artificial aids)"/>
-                    <list_entry value="6" display_value="6 - Extremely difficult (highly strenuous, heavily overhanging, for experts only)"/>      
+                <combo key="via_ferrata_scale" text="Scale (H&#xFC;sler)" values_searchable="true" values_sort="false">
+                    <list_entry value="1" display_value="1 - Easy (secured paths and simple climbs with continuous, good safety cables)"/><list_entry value="2" display_value="2 - Moderate (short, steeper sections often eased with iron steps or ladders)"/><list_entry value="3" display_value="3 - Fairly difficult (steep and exposed rock sections, well-secured)"/><list_entry value="4" display_value="4 - Difficult (steep terrain with vertical, short overhangs and small grips)"/><list_entry value="5" display_value="5 - Very difficult (long, strenuous steep sections with sparse artificial aids)"/><list_entry value="6" display_value="6 - Extremely difficult (highly strenuous, heavily overhanging, for experts only)"/>  
                 </combo>
             </optional>
         </item> <!-- Via ferrata -->
@@ -3498,7 +3494,7 @@
             <key key="highway" value="crossing"/>
             <reference ref="crossing_type"/>
             <reference ref="crossing_markings"/>
-            <combo key="supervised" text="Crossing attendant" delimiter="|" value_type="opening_hours_mixed" values="yes|no" display_values="Yes|No" match="none" values_i18n="false" values_sort="false"/>
+            <combo key="supervised" text="Crossing attendant" delimiter="|" value_type="opening_hours_mixed" values="yes|no" display_values="Yes|No" match="none" values_sort="false"/>
             <reference ref="check_crossing_access"/>
             <reference ref="tactile_paving"/>
             <reference ref="kerb"/>
@@ -11111,7 +11107,7 @@
                 <text key="name" text="Name" i18n="true"/>
                 <text key="ref" text="Room Number"/>
             </optional>
-            <combo key="room" text="Type" values="auditorium,shop,conference,technical,waiting,stairs,hall,office,storage,elevator,library,entrance,class,gallery,escalator,restaurant,store,toilet,laboratory" display_values="Auditorium,Shop,Conference,Technical,Waiting,Stairs,Hall,Office,Storage,Elevator,Library,Entrance,Class,Gallery,Escalator,Restaurant,Store,Toilet,Laboratory"/>
+            <combo key="room" text="Type" values="auditorium,shop,classroom,conference,technical,waiting,stairs,hall,office,storage,elevator,library,entrance,class,gallery,escalator,restaurant,store,toilet,laboratory" display_values="Auditorium,Shop,Classroom,Conference,Technical,Waiting,Stairs,Hall,Office,Storage,Elevator,Library,Entrance,Class,Gallery,Escalator,Restaurant,Store,Toilet,Laboratory"/>
             <optional>
                 <text key="height" text="Height (Meters)" value_type="dimension_vertical"/>
             </optional>
@@ -15742,6 +15738,26 @@
                 </optional>
                 <reference ref="walking_routes_roles"/>
             </item> <!-- Hiking Route -->
+            <item name="Via ferrata (route)" icon="icons/png/osm_via_ferrata.png" type="relation" preset_name_label="true" name_template="Via ferrata (?{'{name} ' | ''}?{'{ref} ' | ''} '#{special:id}')">
+                <link wiki="Tag:route=via_ferrata"/>
+                <space/>
+                <key key="type" value="route"/>
+                <key key="route" value="via_ferrata"/>
+                <text key="name" text="Name"/>
+                <optional>
+                    <combo key="via_ferrata_scale" text="Maximum scale (H&#xFC;sler)" values_searchable="true" values_sort="false">
+                        <list_entry value="1" display_value="1 - Easy (secured paths and simple climbs with continuous, good safety cables)"/><list_entry value="2" display_value="2 - Moderate (short, steeper sections often eased with iron steps or ladders)"/><list_entry value="3" display_value="3 - Fairly difficult (steep and exposed rock sections, well-secured)"/><list_entry value="4" display_value="4 - Difficult (steep terrain with vertical, short overhangs and small grips)"/><list_entry value="5" display_value="5 - Very difficult (long, strenuous steep sections with sparse artificial aids)"/><list_entry value="6" display_value="6 - Extremely difficult (highly strenuous, heavily overhanging, for experts only)"/>  
+                    </combo>
+                    <reference ref="route_hikebike_optionals"/>
+                </optional>
+                <roles>
+                    <role key="" text="Route segment" requisite="required" type="way,closedway" member_expression="highway"/>
+                    <role key="alternative" text="alternative segment" requisite="optional" type="way,closedway" member_expression="highway"/>
+                    <role key="approach" text="Approach segment" requisite="optional" type="way" member_expression="highway"/>
+                    <role key="connection" text="Connection segment" requisite="optional" type="way" member_expression="highway"/>
+                    <role key="guidepost" text="Guidepost" requisite="optional" type="node" member_expression="information=guidepost"/>
+                </roles>
+            </item> <!-- Via ferrata (route) -->
             <item name="Walking Route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true" name_template="Walking route (?{'{name} ' | ''}?{'{ref} ' | ''}?{'{from} - {via} - {to}' | '{from} - {to}' | '{from}' | '{to}' | '#{special:id}'})">
                 <link wiki="Tag:route=foot"/>
                 <space/>
