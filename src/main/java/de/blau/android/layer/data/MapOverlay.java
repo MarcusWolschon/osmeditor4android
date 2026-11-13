@@ -769,7 +769,8 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
      */
     private void paintMultiPolygon(@NonNull Canvas canvas, @NonNull Relation rel) {
         FeatureStyle style;
-        if (rel.hasProblem(context, validator) != Validator.OK) {
+        final int validationResult = rel.hasProblem(context, validator);
+        if (validationResult != Validator.OK && validationResult != Validator.NOT_VALIDATED) {
             style = styles.getInternal(DataStyle.PROBLEM_WAY);
         } else {
             style = styles.matchStyle(rel);
@@ -1092,7 +1093,8 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
             }
         }
 
-        if (node.hasProblem(context, validator) != Validator.OK) {
+        final int validationResult = node.hasProblem(context, validator);
+        if (validationResult != Validator.OK && validationResult != Validator.NOT_VALIDATED) {
             featureStyle = nodeFeatureStyleProblem;
             featureStyleThin = nodeFeatureStyleThinProblem;
             featureStyleTagged = nodeFeatureStyleTaggedProblem;
@@ -1549,13 +1551,16 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
             paint = wayFeatureStyleRelation.getPaint();
             paint.setStrokeWidth(style.getPaint().getStrokeWidth() * wayFeatureStyleRelation.getWidthFactor());
             canvas.drawLines(linePoints, 0, pointsSize, paint);
-        } else if (way.hasProblem(context, validator) != Validator.OK) {
-            FeatureStyle problemStyle = styles.getValidationStyle(way.getCachedProblems());
-            FeatureStyle casingStyle = style.getCasingStyle();
-            float strokeWidth = (casingStyle != null && casingStyle.getOffset() == 0 ? casingStyle.getPaint().getStrokeWidth()
-                    : style.getPaint().getStrokeWidth()) * problemStyle.getWidthFactor();
-            problemStyle.setStrokeWidth(strokeWidth);
-            canvas.drawLines(linePoints, 0, pointsSize, problemStyle.getPaint());
+        } else {
+            final int validationResult = way.hasProblem(context, validator);
+            if (validationResult != Validator.OK && validationResult != Validator.NOT_VALIDATED) {
+                FeatureStyle problemStyle = styles.getValidationStyle(way.getCachedProblems());
+                FeatureStyle casingStyle = style.getCasingStyle();
+                float strokeWidth = (casingStyle != null && casingStyle.getOffset() == 0 ? casingStyle.getPaint().getStrokeWidth()
+                        : style.getPaint().getStrokeWidth()) * problemStyle.getWidthFactor();
+                problemStyle.setStrokeWidth(strokeWidth);
+                canvas.drawLines(linePoints, 0, pointsSize, problemStyle.getPaint());
+            }
         }
 
         FeatureStyle arrowStyle = style.getArrowStyle();
