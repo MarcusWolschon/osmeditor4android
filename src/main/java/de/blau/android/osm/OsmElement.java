@@ -38,7 +38,7 @@ public abstract class OsmElement implements OsmElementInterface, Serializable, X
     private static final long serialVersionUID = 7711945069147743675L;
 
     private static final String DEBUG_TAG = Relation.class.getSimpleName().substring(0, Math.min(23, Relation.class.getSimpleName().length()));
-    
+
     public static final long NEW_OSM_ID = -1;
 
     public static final byte STATE_UNCHANGED = 0;
@@ -715,7 +715,7 @@ public abstract class OsmElement implements OsmElementInterface, Serializable, X
                 wrapper.setElement(this);
                 return ch.poole.osm.josmtemplateparser.Util.listFormat(rs, wrapper.getType(), wrapper, getTags());
             } catch (JosmTemplateParseException e) {
-                Log.e(DEBUG_TAG,"nameFromTemplate " + e.getMessage());
+                Log.e(DEBUG_TAG, "nameFromTemplate " + e.getMessage());
             }
         }
         return null;
@@ -861,9 +861,20 @@ public abstract class OsmElement implements OsmElementInterface, Serializable, X
         // This implementation assumes that calcProblem() may be expensive, and
         // caches the calculation.
         if (cachedProblems == Validator.NOT_VALIDATED) {
-            cachedProblems = validate(validator);
-            if (cachedProblems != Validator.OK && context != null) {
-                IssueAlert.alert(context, this);
+            final StorageDelegator delegator = App.getDelegator();
+            if (delegator.tryReadLock()) {
+                // lockout writing to the object during validation, strictly this should
+                // promote the read lock to a write lock after validation has run, but
+                // given setting the cache doesn't create a structural change this should
+                // work just fine
+                try {
+                    cachedProblems = validate(validator);
+                } finally {
+                    delegator.unlockReads();
+                }
+                if (cachedProblems != Validator.OK && context != null) {
+                    IssueAlert.alert(context, this);
+                }
             }
         }
         return cachedProblems;
