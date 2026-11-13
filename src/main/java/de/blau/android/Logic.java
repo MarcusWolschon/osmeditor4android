@@ -1058,7 +1058,7 @@ public class Logic {
      * @return true if we should have an icon
      */
     private boolean areaHasIcon(@NonNull Way way) {
-        final FeatureStyle style = map.getDataStyleManager().matchStyle(way);
+        final FeatureStyle style = map.getDataStyleManager().matchStyle(way); // don't try to write the style here
         return style.getIconPath() != null || style.getLabelKey() != null;
     }
 

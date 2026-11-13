@@ -79,7 +79,7 @@ public class DataStyleTest {
         style = styles.matchStyle(w);
         assertEquals(Tags.KEY_ADDR_HOUSENUMBER, style.getLabelKey());
     }
-    
+
     /**
      * Check that setting casingStyle to "" resets it
      */

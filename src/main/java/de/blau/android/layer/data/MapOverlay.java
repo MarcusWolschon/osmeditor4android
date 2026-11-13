@@ -355,7 +355,7 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
 
     private final ThreadPoolExecutor dataThreadPoolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(DATA_THREAD_POOL_SIZE);
     private final ThreadPoolExecutor iconThreadPoolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(ICON_THREAD_POOL_SIZE);
-
+  
     /**
      * Construct a new OSM data layer
      * 

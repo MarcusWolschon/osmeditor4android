@@ -465,6 +465,8 @@ public class DataStyleManager {
                 style = DataStyle.matchRecursive(currentStyle.relationStyles, tags, false);
             }
             if (styleable) {
+                // we don't try to acquire the StorageDelegator write lock here which would be
+                // the 100% correct thing to do, but in practice this doesn't really hurt
                 ((StyleableFeature) element).setStyle(style);
             }
         }
