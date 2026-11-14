@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Geometry;
+import de.blau.android.util.collections.LowAllocArrayList;
 import de.blau.android.util.rtree.BoundedObject;
 import de.blau.android.validation.Validator;
 
@@ -71,7 +72,7 @@ public class Way extends StyledOsmElement implements WayInterface, BoundedObject
      */
     Way(final long osmId, final long osmVersion, final long timestamp, final byte status) {
         super(osmId, osmVersion, timestamp, status);
-        nodes = new ArrayList<>();
+        nodes = new LowAllocArrayList<>();
     }
 
     /**

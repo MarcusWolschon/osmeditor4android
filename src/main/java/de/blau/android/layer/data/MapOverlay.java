@@ -61,6 +61,7 @@ import de.blau.android.layer.NonSerializeableLayer;
 import de.blau.android.layer.PruneableInterface;
 import de.blau.android.layer.UpdateInterface;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.Capabilities;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.PostMergeHandler;
@@ -325,8 +326,8 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
     // allocate these just once
     private final FloatPrimitiveList points            = new FloatPrimitiveList(FloatPrimitiveList.MEDIUM_DEFAULT);
     private float[]                  offsettedCasing   = new float[100];
-    private final List<Node>         nodesResult       = new LowAllocArrayList<>(1000);
-    private final List<Way>          waysResult        = new LowAllocArrayList<>(1000);
+    private final List<Node>         nodesResult       = new LowAllocArrayList<>(Capabilities.DEFAULT_MAX_WAY_NODES);
+    private final List<Way>          waysResult        = new LowAllocArrayList<>(Capabilities.DEFAULT_MAX_WAY_NODES);
     private final List<BoundingBox>  boundingBoxResult = new LowAllocArrayList<>();
     private final List<BoundingBox>  downloadedBoxes   = new LowAllocArrayList<>();
     private final ViewBox            viewBox           = new ViewBox();
@@ -341,9 +342,9 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
     private final List<List<Node>>           innerRings           = new LowAllocArrayList<>();
     private final List<List<Node>>           unknownRings         = new LowAllocArrayList<>();
     private final SimplePool<List<Node>>     ringPool             = new SimplePool<>(100);
-    private final List<Node>                 areaNodes            = new LowAllocArrayList<>();   // reversing winding
-                                                                                                 // and
-    // assembling
+    // reversing winding and assembling
+    private final List<Node>                 areaNodes            = new LowAllocArrayList<>(Capabilities.DEFAULT_MAX_WAY_NODES);   
+    
     private final Set<Relation> paintRelations = new HashSet<>();
 
     private OnUpdateListener<O> onUpdateListener;
