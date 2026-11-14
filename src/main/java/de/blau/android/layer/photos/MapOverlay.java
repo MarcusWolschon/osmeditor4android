@@ -168,8 +168,8 @@ public class MapOverlay extends NonSerializeableLayer implements DiscardInterfac
         Context context = map.getContext();
         this.map = map;
         photos = new ArrayList<>();
-        icon = ContextCompat.getDrawable(context, R.drawable.camera_red);
-        selectedIcon = ContextCompat.getDrawable(context, R.drawable.camera_green);
+        icon = ContextCompat.getDrawable(context, R.drawable.photo_unselected);
+        selectedIcon = ContextCompat.getDrawable(context, R.drawable.photo_selected);
         // note this assumes the icons are the same size
         w2 = icon.getIntrinsicWidth() / 2;
         h2 = icon.getIntrinsicHeight() / 2;

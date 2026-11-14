@@ -9,6 +9,6 @@
     android:layout_above="@id/zoom_controls"
     android:layout_gravity="bottom"
     android:clickable="true"
-    android:src="@drawable/ic_action_new_holo_dark"
+    android:src="@drawable/new_white"
     app:backgroundTint="?attr/colorAccent"
     app:useCompatPadding="true" />

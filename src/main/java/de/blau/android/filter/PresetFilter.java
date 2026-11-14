@@ -79,7 +79,7 @@ public class PresetFilter extends CommonFilter {
         element = Preset.getElementByPath(searchPreset.getRootGroup(), path);
         if (element == null) {
             if (presetFilterButton != null) {
-                presetFilterButton.setImageResource(R.drawable.ic_filter_list_black_36dp);
+                presetFilterButton.setImageResource(R.drawable.filter_black);
             }
             preset = null;
             Log.e(DEBUG_TAG, path.toString() + " not found");
@@ -210,7 +210,7 @@ public class PresetFilter extends CommonFilter {
                 BitmapDrawable buttonIcon = new BitmapDrawable(ctx.getResources(), icon.getBitmap());
                 presetFilterButton.setImageDrawable(buttonIcon);
             } else {
-                presetFilterButton.setImageResource(R.drawable.ic_filter_list_black_36dp);
+                presetFilterButton.setImageResource(R.drawable.filter_black);
             }
             presetFilterButton.hide(); // workaround https://issuetracker.google.com/issues/117476935
             presetFilterButton.show();
@@ -237,7 +237,7 @@ public class PresetFilter extends CommonFilter {
     @Override
     public void hideControls() {
         if (presetFilterButton != null) {
-            presetFilterButton.setImageResource(R.drawable.ic_filter_list_black_36dp);
+            presetFilterButton.setImageResource(R.drawable.filter_black);
             presetFilterButton.hide();
         }
     }
