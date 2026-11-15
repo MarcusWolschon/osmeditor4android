@@ -461,8 +461,9 @@ public class Relation extends StyledOsmElement implements RelationInterface, Bou
     public List<OsmElement> getMemberElements() {
         List<OsmElement> result = new LowAllocArrayList<>();
         for (RelationMember rm : getMembers()) {
-            if (rm.getElement() != null) {
-                result.add(rm.getElement());
+            final OsmElement element = rm.getElement();
+            if (element != null) {
+                result.add(element);
             }
         }
         return result;
