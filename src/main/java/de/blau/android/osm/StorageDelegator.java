@@ -309,8 +309,6 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             if (elem.setTags(tags)) {
                 // OsmElement tags have changed
                 elem.updateState(OsmElement.STATE_MODIFIED);
-                elem.stamp();
-                elem.resetHasProblem();
                 apiStorage.insertElementSafe(elem);
                 onElementChanged(null, elem);
             }
@@ -4504,6 +4502,31 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     public boolean tryReadLock() {
         return readLock.tryLock();
+    }
+
+    /**
+     * Try to set the writing lock
+     */
+    public boolean tryWriteLock() {
+        return writeLock.tryLock();
+    }
+
+    /**
+     * Jist check if we are write locked
+     * 
+     * @return true if there is a write lock active
+     */
+    public boolean isWriteLocked() {
+        return lock.isWriteLocked();
+    }
+    
+    /**
+     * Just check if we are write locked
+     * 
+     * @return true if there is a write lock active
+     */
+    public boolean isWriteLockedByCurrentThread() {
+        return lock.isWriteLockedByCurrentThread();
     }
 
     /**

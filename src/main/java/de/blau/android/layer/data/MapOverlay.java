@@ -61,6 +61,7 @@ import de.blau.android.layer.NonSerializeableLayer;
 import de.blau.android.layer.PruneableInterface;
 import de.blau.android.layer.UpdateInterface;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.Capabilities;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.PostMergeHandler;
@@ -325,7 +326,7 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
     // allocate these just once
     private final FloatPrimitiveList points            = new FloatPrimitiveList(FloatPrimitiveList.MEDIUM_DEFAULT);
     private float[]                  offsettedCasing   = new float[100];
-    private final List<Node>         nodesResult       = new LowAllocArrayList<>(1000);
+    private final List<Node>         nodesResult       = new LowAllocArrayList<>(Capabilities.DEFAULT_MAX_WAY_NODES);
     private final List<Way>          waysResult        = new LowAllocArrayList<>(1000);
     private final List<BoundingBox>  boundingBoxResult = new LowAllocArrayList<>();
     private final List<BoundingBox>  downloadedBoxes   = new LowAllocArrayList<>();
@@ -336,14 +337,14 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
      * Stuff for multipolygon support Instantiate these objects just once
      */
     private final List<RelationMember>       waysOnly             = new LowAllocArrayList<>(100);
-    private final LinkedList<RelationMember> tenpMultiPolygonSort = new LinkedList<>();
+    private final LinkedList<RelationMember> tempMultiPolygonSort = new LinkedList<>();
     private final List<List<Node>>           outerRings           = new LowAllocArrayList<>();
     private final List<List<Node>>           innerRings           = new LowAllocArrayList<>();
     private final List<List<Node>>           unknownRings         = new LowAllocArrayList<>();
     private final SimplePool<List<Node>>     ringPool             = new SimplePool<>(100);
-    private final List<Node>                 areaNodes            = new LowAllocArrayList<>();   // reversing winding
-                                                                                                 // and
-    // assembling
+    // reversing winding and assembling
+    private final List<Node> tempWayNodes = new LowAllocArrayList<>(Capabilities.DEFAULT_MAX_WAY_NODES);
+
     private final Set<Relation> paintRelations = new HashSet<>();
 
     private OnUpdateListener<O> onUpdateListener;
@@ -769,7 +770,8 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
      */
     private void paintMultiPolygon(@NonNull Canvas canvas, @NonNull Relation rel) {
         FeatureStyle style;
-        if (rel.hasProblem(context, validator) != Validator.OK) {
+        final int validationResult = rel.hasProblem(context, validator);
+        if (validationResult != Validator.OK && validationResult != Validator.NOT_VALIDATED) {
             style = styles.getInternal(DataStyle.PROBLEM_WAY);
         } else {
             style = styles.matchStyle(rel);
@@ -780,10 +782,10 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
         }
 
         waysOnly.clear();
-        tenpMultiPolygonSort.clear();
+        tempMultiPolygonSort.clear();
 
         // remove any non-Way non-downloaded members
-        for (RelationMember m : rel.getMembers()) {
+        for (RelationMember m : rel.getMembers()) { // 100% correct this would need a read lock
             if (m.downloaded() && Way.NAME.equals(m.getType())) {
                 waysOnly.add(m);
             }
@@ -791,7 +793,7 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
         if (waysOnly.size() > MP_SIZE_LIMIT) { // protect against very large MPs
             return;
         }
-        List<RelationMember> members = RelationUtils.sortRelationMembers(waysOnly, tenpMultiPolygonSort, RelationUtils::haveEndConnection);
+        List<RelationMember> members = RelationUtils.sortRelationMembers(waysOnly, tempMultiPolygonSort, RelationUtils::haveEndConnection);
         outerRings.clear();
         innerRings.clear();
         unknownRings.clear();
@@ -812,17 +814,17 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
                 if (currentWay.getStyle() == null && !currentWay.hasTags() && !"".equals(ringRole)) {
                     currentWay.setStyle(dontRenderWay);
                 }
-                areaNodes.clear();
-                areaNodes.addAll(currentWay.getNodes());
+                tempWayNodes.clear();
+                tempWayNodes.addAll(currentWay.getNodes()); // 100% correct this would need a read lock
                 int rs = ring.size();
-                int ns = areaNodes.size();
+                int ns = tempWayNodes.size();
                 if (ring.isEmpty()) {
-                    ring.addAll(areaNodes);
-                } else if (ring.get(rs - 1).equals(areaNodes.get(0))) {
-                    ring.addAll(areaNodes.subList(1, ns));
-                } else if (ring.get(rs - 1).equals(areaNodes.get(ns - 1))) {
-                    Collections.reverse(areaNodes);
-                    ring.addAll(areaNodes.subList(1, ns));
+                    ring.addAll(tempWayNodes);
+                } else if (ring.get(rs - 1).equals(tempWayNodes.get(0))) {
+                    ring.addAll(tempWayNodes.subList(1, ns));
+                } else if (ring.get(rs - 1).equals(tempWayNodes.get(ns - 1))) {
+                    Collections.reverse(tempWayNodes);
+                    ring.addAll(tempWayNodes.subList(1, ns));
                 }
             }
 
@@ -1092,7 +1094,8 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
             }
         }
 
-        if (node.hasProblem(context, validator) != Validator.OK) {
+        final int validationResult = node.hasProblem(context, validator);
+        if (validationResult != Validator.OK && validationResult != Validator.NOT_VALIDATED) {
             featureStyle = nodeFeatureStyleProblem;
             featureStyleThin = nodeFeatureStyleThinProblem;
             featureStyleTagged = nodeFeatureStyleTaggedProblem;
@@ -1489,17 +1492,14 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
         }
 
         final boolean closed = way.isClosed();
-        List<Node> nodes = way.getNodes();
         boolean reversed = false; // way arrows need to be drawn reversed if we reverse the direction of the way
-        if (style.isArea() && winding(nodes) == COUNTERCLOCKWISE) {
-            areaNodes.clear();
-            areaNodes.addAll(nodes);
-            Collections.reverse(areaNodes);
-            map.pointListToLinePointsArray(points, areaNodes);
+        tempWayNodes.clear();
+        tempWayNodes.addAll(way.getNodes()); // 100% correct this would need a read lock
+        if (style.isArea() && winding(tempWayNodes) == COUNTERCLOCKWISE) {
+            Collections.reverse(tempWayNodes);
             reversed = true;
-        } else {
-            map.pointListToLinePointsArray(points, nodes);
         }
+        map.pointListToLinePointsArray(points, tempWayNodes);
 
         float[] linePoints = points.getArray();
         int pointsSize = points.size();
@@ -1549,13 +1549,16 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
             paint = wayFeatureStyleRelation.getPaint();
             paint.setStrokeWidth(style.getPaint().getStrokeWidth() * wayFeatureStyleRelation.getWidthFactor());
             canvas.drawLines(linePoints, 0, pointsSize, paint);
-        } else if (way.hasProblem(context, validator) != Validator.OK) {
-            FeatureStyle problemStyle = styles.getValidationStyle(way.getCachedProblems());
-            FeatureStyle casingStyle = style.getCasingStyle();
-            float strokeWidth = (casingStyle != null && casingStyle.getOffset() == 0 ? casingStyle.getPaint().getStrokeWidth()
-                    : style.getPaint().getStrokeWidth()) * problemStyle.getWidthFactor();
-            problemStyle.setStrokeWidth(strokeWidth);
-            canvas.drawLines(linePoints, 0, pointsSize, problemStyle.getPaint());
+        } else {
+            final int validationResult = way.hasProblem(context, validator);
+            if (validationResult != Validator.OK && validationResult != Validator.NOT_VALIDATED) {
+                FeatureStyle problemStyle = styles.getValidationStyle(way.getCachedProblems());
+                FeatureStyle casingStyle = style.getCasingStyle();
+                float strokeWidth = (casingStyle != null && casingStyle.getOffset() == 0 ? casingStyle.getPaint().getStrokeWidth()
+                        : style.getPaint().getStrokeWidth()) * problemStyle.getWidthFactor();
+                problemStyle.setStrokeWidth(strokeWidth);
+                canvas.drawLines(linePoints, 0, pointsSize, problemStyle.getPaint());
+            }
         }
 
         FeatureStyle arrowStyle = style.getArrowStyle();
@@ -1592,7 +1595,7 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
         if (closed) {
             // display icons on closed ways
             if (showIcons && showWayIcons && zoomLevel > showIconsLimit) {
-                if (pointsSize < nodes.size() * 2) {
+                if (pointsSize < tempWayNodes.size() * 2) {
                     return;
                 }
                 Coordinates c = Geometry.centroidFromPointlist(linePoints, pointsSize, centroid);
@@ -1690,7 +1693,9 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
             return;
         }
 
-        map.pointListToLinePointsArray(points, way.getNodes());
+        tempWayNodes.clear();
+        tempWayNodes.addAll(way.getNodes());
+        map.pointListToLinePointsArray(points, tempWayNodes);
         float[] linePoints = points.getArray();
         int pointsSize = points.size();
 

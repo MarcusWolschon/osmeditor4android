@@ -1,7 +1,6 @@
 package de.blau.android.osm;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -19,6 +18,7 @@ import de.blau.android.R;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.util.Util;
+import de.blau.android.util.collections.LowAllocArrayList;
 import de.blau.android.util.rtree.BoundedObject;
 import de.blau.android.validation.Validator;
 
@@ -60,7 +60,7 @@ public class Relation extends StyledOsmElement implements RelationInterface, Bou
      */
     Relation(final long osmId, final long osmVersion, final long timestamp, final byte status) {
         super(osmId, osmVersion, timestamp, status);
-        members = new ArrayList<>();
+        members = new LowAllocArrayList<>();
     }
 
     /**
@@ -95,7 +95,7 @@ public class Relation extends StyledOsmElement implements RelationInterface, Bou
      */
     @NonNull
     public List<RelationMember> getMembers(@NonNull String type) {
-        List<RelationMember> result = new ArrayList<>();
+        List<RelationMember> result = new LowAllocArrayList<>();
         for (RelationMember member : getMembers()) {
             if (type.equals(member.getType())) {
                 result.add(member);
@@ -126,7 +126,7 @@ public class Relation extends StyledOsmElement implements RelationInterface, Bou
     @Override
     @NonNull
     public List<RelationMember> getAllMembers(@NonNull OsmElement e) {
-        List<RelationMember> result = new ArrayList<>();
+        List<RelationMember> result = new LowAllocArrayList<>();
         for (int i = 0; i < members.size(); i++) {
             RelationMember member = members.get(i);
             if (member.getElement() == e) {
@@ -145,7 +145,7 @@ public class Relation extends StyledOsmElement implements RelationInterface, Bou
      */
     @NonNull
     public List<RelationMemberPosition> getAllMembersWithPosition(@NonNull OsmElement e) {
-        List<RelationMemberPosition> result = new ArrayList<>();
+        List<RelationMemberPosition> result = new LowAllocArrayList<>();
         for (int i = 0; i < members.size(); i++) {
             RelationMember member = members.get(i);
             if (member.getElement() == e) {
@@ -320,7 +320,7 @@ public class Relation extends StyledOsmElement implements RelationInterface, Bou
      */
     @NonNull
     public List<RelationMember> getMembersWithRole(@NonNull String role) {
-        List<RelationMember> rl = new ArrayList<>();
+        List<RelationMember> rl = new LowAllocArrayList<>();
         for (RelationMember rm : members) {
             if (role.equals(rm.getRole())) {
                 rl.add(rm);
@@ -459,10 +459,11 @@ public class Relation extends StyledOsmElement implements RelationInterface, Bou
      * @return List of OsmElement
      */
     public List<OsmElement> getMemberElements() {
-        List<OsmElement> result = new ArrayList<>();
+        List<OsmElement> result = new LowAllocArrayList<>();
         for (RelationMember rm : getMembers()) {
-            if (rm.getElement() != null) {
-                result.add(rm.getElement());
+            final OsmElement element = rm.getElement();
+            if (element != null) {
+                result.add(element);
             }
         }
         return result;
