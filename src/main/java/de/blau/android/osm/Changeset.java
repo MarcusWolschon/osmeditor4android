@@ -54,8 +54,6 @@ public class Changeset {
     /**
      * Construct a new Changeset setting some tags from arguments
      * 
-     * Always adds a locale tag.
-     * 
      * @param generator the id of this application for OSM
      * @param comment value for the comment tag
      * @param source value for the source tag
@@ -70,7 +68,6 @@ public class Changeset {
         getTags().put(Tags.KEY_CREATED_BY, generator);
         putTag(Tags.KEY_COMMENT, comment);
         putTag(Tags.KEY_SOURCE, source);
-        getTags().put(Tags.KEY_LOCALE, LocaleUtils.toBcp47Language(Locale.getDefault()));
         if (imagery != null) {
             addImageryToTags(imagery, capabilities);
         }
