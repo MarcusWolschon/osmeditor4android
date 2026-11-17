@@ -351,9 +351,9 @@ public class Preferences {
 
         zoomWithKeys = prefs.getBoolean(r.getString(R.string.config_zoomWithKeys_key), false);
 
-        minCircleNodes = getIntPref(R.string.config_minCircleNodes_key, 6);
+        minCircleNodes = getIntPref(R.string.config_minCircleNodes_key, 18);
         maxCircleSegment = getFloatFromStringPref(R.string.config_maxCircleSegment_key, 2.0f);
-        minCircleSegment = getFloatFromStringPref(R.string.config_minCircleSegment_key, 0.5f);
+        minCircleSegment = getFloatFromStringPref(R.string.config_minCircleSegment_key, 0.2f);
 
         poiKeys = prefs.getStringSet(r.getString(R.string.config_poi_keys_key), new HashSet<>(Arrays.asList(r.getStringArray(R.array.poi_keys_defaults))));
 
