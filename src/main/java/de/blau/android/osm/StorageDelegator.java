@@ -69,8 +69,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
 
     private static final long serialVersionUID = 11L;
 
-    public static final int  MIN_NODES_CIRCLE            = 3;
-    private static final int MINIMUN_NODES_FOR_WAY_SPLIT = 3;
+    public static final int     MIN_NODES_CIRCLE             = 3;
+    private static final double MIN_NEW_NODE_CIRCLE_DISTANCE = 0.05;
+    private static final int    MINIMUN_NODES_FOR_WAY_SPLIT  = 3;
 
     private static final int MAX_CLIPBOARDS = 5;
 
@@ -896,8 +897,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * 
      * @param nodes the initial nodes
      * @param minNodes minimum number of nodes the circle should have
-     * @param maxSegmentLength max. segment length between two circle nodes
-     * @param minSegmentLength min. segment length between two circle nodes
+     * @param maxSegmentLength target max. segment length between two circle nodes
+     * @param minSegmentLength target min. segment length between two circle nodes
      * @param maxWayNodes max. number of nodes in a way, the resulting circle will not have more nodes than this
      * @return a List of Nodes suitable for creating a Way with nodes arranged in a circle
      */
@@ -958,10 +959,11 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         final Node firstNode = nodes.get(0);
         double radiusLength = GeoMath.haversineDistance(firstNode.getLon() / 1E7D, firstNode.getLat() / 1E7D, center.x, GeoMath.mercatorToLat(center.y));
         // roughly every maxSegmentLength meters
-        int newCount = Math.min(Math.max(minNodes, (int) ((Geometry.PI_2 * radiusLength) / maxSegmentLength)), getMaxWayNodes() - existingLength);
+        int newCount = Math.min((int) Math.max(minNodes, Math.ceil((Geometry.PI_2 * radiusLength) / maxSegmentLength)), maxWayNodes - existingLength);
         double angleDiff = Geometry.PI_2 / newCount;
 
         final double minDistance = GeoMath.convertMetersToGeoDistance(minSegmentLength);
+        final double absMinDistance = GeoMath.convertMetersToGeoDistance(MIN_NEW_NODE_CIRCLE_DISTANCE);
         int nextPos = 1;
         List<Node> circleNodes = new ArrayList<>(newCount);
         circleNodes.add(firstNode);
@@ -981,9 +983,11 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 prevExisting = nextExisting;
                 nextExisting = coords[nextPos];
             }
-            // calc distance to prev or next existing node and only add if large enough
-            double distNextNew = Math.min(Math.hypot(nextExisting.x - n.x, n.y - nextExisting.y), Math.hypot(prevExisting.x - n.x, prevExisting.y - n.y));
-            if (distNextNew >= minDistance) {
+            // calc distance between prev and next existing node and only add if large enough
+            double distNextSegment = Math.hypot(nextExisting.x - prevExisting.x, prevExisting.y - nextExisting.y);
+            double distNewPoint = Math.min(Math.hypot(nextExisting.x - n.x, n.y - nextExisting.y), Math.hypot(prevExisting.x - n.x, prevExisting.y - n.y));
+            if (distNextSegment >= minDistance && distNewPoint > absMinDistance) { // avoid adding nodes with miniscule
+                                                                                   // distance to an existing one
                 Node node = factory.createNodeWithNewId(GeoMath.mercatorToLatE7(n.y + center.y), (int) ((n.x + center.x) * 1E7D));
                 insertElementSafe(node);
                 circleNodes.add(node);
@@ -4519,7 +4523,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     public boolean isWriteLocked() {
         return lock.isWriteLocked();
     }
-    
+
     /**
      * Just check if we are write locked
      * 

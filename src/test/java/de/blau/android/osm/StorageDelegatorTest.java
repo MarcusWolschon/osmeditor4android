@@ -1906,7 +1906,7 @@ public class StorageDelegatorTest {
         Way circle = d.createCircle(logic.getMap(), 6, 2.0, 0.5, nodes);
         assertTrue(circle.isClosed());
         assertEquals(n1, circle.getFirstNode());
-        assertEquals(44, circle.nodeCount());
+        assertEquals(46, circle.nodeCount());
     }
 
     /**
@@ -1934,7 +1934,7 @@ public class StorageDelegatorTest {
         d.circulizeWay(logic.getMap(), 6, 2.0, 0.5, circle);
         assertTrue(circle.isClosed());
         assertEquals(n1, circle.getFirstNode());
-        assertEquals(44, circle.nodeCount());
+        assertEquals(46, circle.nodeCount());
     }
 
     /**
