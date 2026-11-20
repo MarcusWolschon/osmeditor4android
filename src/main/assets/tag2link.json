@@ -168,6 +168,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:collection_times",
+    "url": "https://openingh.openstreetmap.de/evaluation_tool/?mode=2&EXP=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:commemorates:wikidata",
     "url": "https://www.wikidata.org/entity/$1",
     "source": "osmwiki:P8",
@@ -217,13 +223,25 @@
   },
   {
     "key": "Key:contact:foursquare",
-    "url": "https://app.foursquare.com/v/$1",
+    "url": "https://app.foursquare.com/share/venue/$1",
     "source": "wikidata:P1630",
     "rank": "preferred"
   },
   {
     "key": "Key:contact:foursquare",
+    "url": "https://business.foursquare.com/places/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:foursquare",
     "url": "https://foursquare.com/mapaction?id=$1&action=view",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:contact:foursquare",
+    "url": "https://foursquare.com/placemakers/review-place/$1",
     "source": "wikidata:P1630",
     "rank": "normal"
   },
@@ -272,12 +290,6 @@
   {
     "key": "Key:contact:mastodon",
     "url": "https://fedirect.toolforge.org/?id=$1",
-    "source": "wikidata:P1630",
-    "rank": "preferred"
-  },
-  {
-    "key": "Key:contact:mastodon",
-    "url": "https://fedirect.toolforge.org/?id=$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
@@ -285,12 +297,6 @@
     "key": "Key:contact:mastodon",
     "url": "https://wikidata-externalid-url.toolforge.org/?p=4033&id=$1",
     "source": "osmwiki:P8",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:contact:mastodon",
-    "url": "https://wikidata-externalid-url.toolforge.org/?p=4033&id=$1",
-    "source": "wikidata:P1630",
     "rank": "normal"
   },
   {
@@ -554,25 +560,7 @@
   {
     "key": "Key:contact:website",
     "url": "$1",
-    "source": "wikidata:P3303",
-    "rank": "preferred"
-  },
-  {
-    "key": "Key:contact:website",
-    "url": "$1",
     "source": "osmwiki:P8",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:contact:website",
-    "url": "https://web.archive.org/web/*/$1/",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:contact:website",
-    "url": "https://webcache.googleusercontent.com/search?q=cache:$1",
-    "source": "wikidata:P3303",
     "rank": "normal"
   },
   {
@@ -877,12 +865,6 @@
   },
   {
     "key": "Key:gnis:feature_id",
-    "url": "http://gnis-ld.org/lod/gnis/feature/$1",
-    "source": "wikidata:P1630",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:gnis:feature_id",
     "url": "https://edits.nationalmap.gov/apps/gaz-antarctica/public/summary/$1",
     "source": "wikidata:P1630",
     "rank": "normal"
@@ -903,6 +885,12 @@
     "key": "Key:GNS:id",
     "url": "https://geonames.nga.mil/gn-ags/rest/services/RESEARCH/GIS_OUTPUT/MapServer/0/query?outFields=*&where=ufi+%3D+$1",
     "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:gtfs:route_id:FR-IDF-IDFM",
+    "url": "https://me-deplacer.iledefrance-mobilites.fr/fiches-horaires/bus/line:$1",
+    "source": "osmwiki:P8",
     "rank": "normal"
   },
   {
@@ -1326,6 +1314,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:image",
+    "url": "https://commons.wikimedia.org/wiki/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:imagery_used",
     "url": "https://osmlab.github.io/editor-layer-index/#$1",
     "source": "osmwiki:P8",
@@ -1341,6 +1335,12 @@
     "key": "Key:INEGI:MUNID",
     "url": "https://www.inegi.org.mx/app/areasgeograficas/?ag=$1",
     "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:inscription:language",
+    "url": "https://wiki.openstreetmap.org/wiki/Tag:inscription:language%3D$1",
+    "source": "osmwiki:P8",
     "rank": "normal"
   },
   {
@@ -1509,6 +1509,12 @@
     "key": "Key:MOE:id",
     "url": "https://www.educationcounts.govt.nz/find-school/school/profile?school=$1",
     "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:name:etymology:ref:CH-GE:icono",
+    "url": "https://www.bge-geneve.ch/iconographie/personne/$1",
+    "source": "osmwiki:P8",
     "rank": "normal"
   },
   {
@@ -1758,6 +1764,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:panoramax:annotation",
+    "url": "https://explore.panoramax.fr/?annot=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:panoramax:view",
     "url": "https://api.panoramax.xyz/#focus=pic&pic=$1",
     "source": "osmwiki:P8",
@@ -1821,6 +1833,12 @@
     "key": "Key:ref:admiralty",
     "url": "http://listoflights.org/site/search?q=$1",
     "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:aerosteles.net",
+    "url": "https://www.aerosteles.net/stelefr-$1",
+    "source": "osmwiki:P8",
     "rank": "normal"
   },
   {
@@ -1908,6 +1926,36 @@
     "rank": "normal"
   },
   {
+    "key": "Key:ref:BG:eik",
+    "url": "https://portal.registryagency.bg/CR/Reports/ActiveConditionTabResult?uic=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:BG:EIK",
+    "url": "https://portal.registryagency.bg/CR/Reports/ActiveConditionTabResult?uic=$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:BG:EIK",
+    "url": "https://opencorporates.com/companies/bg/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:BG:EIK",
+    "url": "https://reports.bulstat.bg/bulstat-ireports/frameset?__report=https%3A%2F%2Freports.bulstat.bg%2Fbulstat-ireports%2Fv_rpt1.rptdesign&uic=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:BG:rhm_sofia",
+    "url": "https://registersofia.bg/?option=com_monuments&view=monument&formdata[id]=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
     "key": "Key:ref:bic",
     "url": "https://heritage.toolforge.org/api/api.php?action=search&srcountry=es&format=html&srid=$1",
     "source": "wikidata:P1630",
@@ -1922,6 +1970,12 @@
   {
     "key": "Key:ref:camptocamp",
     "url": "https://www.camptocamp.org/waypoints/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:canmore",
+    "url": "https://canmore.org.uk/site/$1",
     "source": "wikidata:P1630",
     "rank": "normal"
   },
@@ -1992,6 +2046,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:ref:CH:isos",
+    "url": "https://gisos.bak.admin.ch/sites/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:ref:CH:kantonsnum",
     "url": "https://wiki.openstreetmap.org/wiki/Key:ref:CH:kantonsnum#$1",
     "source": "osmwiki:P8",
@@ -2006,6 +2066,12 @@
   {
     "key": "Key:ref:CH:vbs-inventario",
     "url": "https://api3.geo.admin.ch/featureattachments/ch.vbs.armee-kriegsdenkmaeler/objekte/$1.pdf",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:chargepoint",
+    "url": "https://driver.chargepoint.com/stations/$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
@@ -2178,6 +2244,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:ref:foursquare",
+    "url": "https://business.foursquare.com/places/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:ref:FR:Allocine",
     "url": "https://www.allocine.fr/seance/salle_gen_csalle=$1.html",
     "source": "osmwiki:P8",
@@ -2193,6 +2265,12 @@
     "key": "Key:ref:FR:ANFR",
     "url": "https://data.anfr.fr/visualisation/map/?id=observatoire_2g_3g_4g&refine.SUP_ID=$1",
     "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:FR:BAN",
+    "url": "https://adresse.data.gouv.fr/carte-base-adresse-nationale?id=$1",
+    "source": "wikidata:P1630",
     "rank": "normal"
   },
   {
@@ -2214,12 +2292,6 @@
     "rank": "normal"
   },
   {
-    "key": "Key:ref:FR:FINESS",
-    "url": "https://finess.esante.gouv.fr/fininter/jsp/actionDetailEtablissement.do?noFiness=$1",
-    "source": "wikidata:P1630",
-    "rank": "preferred"
-  },
-  {
     "key": "Key:ref:FR:INPN",
     "url": "https://inpn.mnhn.fr/espace/protege/$1",
     "source": "wikidata:P1630",
@@ -2239,14 +2311,14 @@
   },
   {
     "key": "Key:ref:FR:MemorialGenWeb",
-    "url": "https://www.memorialgenweb.org/memorial3/html/fr/resultcommune.php?idsource=$1",
-    "source": "osmwiki:P8",
-    "rank": "normal"
+    "url": "https://www.memorialgenweb.org/monument/$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
   },
   {
     "key": "Key:ref:FR:MemorialGenWeb",
-    "url": "https://www.memorialgenweb.org/memorial3/html/fr/resultcommune.php?idsource=$1",
-    "source": "wikidata:P1630",
+    "url": "https://www.memorialgenweb.org/monument/$1",
+    "source": "osmwiki:P8",
     "rank": "normal"
   },
   {
@@ -2266,6 +2338,18 @@
     "url": "https://www.insee.fr/fr/metadonnees/nafr2?q=$1",
     "source": "osmwiki:P8",
     "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:FR:Paris:arbre",
+    "url": "https://opendata.paris.fr/explore/dataset/les-arbres/map/?q=idbase%3D$1",
+    "source": "osmwiki:P8",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:FR:Paris:arbre",
+    "url": "https://opendata.paris.fr/explore/dataset/arbresremarquablesparis/map/?q=arbres_idbase%3D$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
   },
   {
     "key": "Key:ref:FR:Paris:plaque",
@@ -2370,6 +2454,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:ref:GB:cqc_location",
+    "url": "https://www.cqc.org.uk/location/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:ref:GB:nhle",
     "url": "https://historicengland.org.uk/listing/the-list/list-entry/$1",
     "source": "wikidata:P1630",
@@ -2401,7 +2491,7 @@
   },
   {
     "key": "Key:ref:GB:ukprn",
-    "url": "https://www.ukrlp.co.uk/ukrlp/ukrlp_provider.page_pls_provDetails?x=&pn_p_id=$1&pv_status=VERIFIED&pv_vis_code=L",
+    "url": "https://ukrlp.education.gov.uk/search/provider/$1",
     "source": "wikidata:P1630",
     "rank": "normal"
   },
@@ -2475,6 +2565,12 @@
     "key": "Key:ref:grillplatser.nu",
     "url": "https://grillplatser.nu/Grillplats/Visa/$1",
     "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:grillplatser.nu",
+    "url": "https://grillplatser.nu/Grillplats/Visa/$1",
+    "source": "wikidata:P1630",
     "rank": "normal"
   },
   {
@@ -2586,6 +2682,12 @@
     "rank": "normal"
   },
   {
+    "key": "Key:ref:idescat",
+    "url": "https://www.idescat.cat/emex/?id=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
     "key": "Key:ref:IE:niah",
     "url": "https://heritagedata.maps.arcgis.com/apps/webappviewer/index.html?id=0c9eb9575b544081b0d296436d8f60f8&query=18a4bc9c428-layer-10%2CREG_NO%2C$1",
     "source": "wikidata:P1630",
@@ -2604,12 +2706,6 @@
     "rank": "normal"
   },
   {
-    "key": "Key:ref:IFOPT",
-    "url": "https://transmodel-ids.toolforge.org/ifopt/$1",
-    "source": "wikidata:P1630",
-    "rank": "normal"
-  },
-  {
     "key": "Key:ref:IL:inature",
     "url": "https://www.inature.info/wiki/$1",
     "source": "osmwiki:P8",
@@ -2624,8 +2720,20 @@
   {
     "key": "Key:ref:ine",
     "url": "https://api-features.ign.es/collections/nuc/items?codine=$1",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:ine",
+    "url": "https://api-features.ign.es/collections/nuc/items?codine=$1",
     "source": "wikidata:P3303",
     "rank": "preferred"
+  },
+  {
+    "key": "Key:ref:ine",
+    "url": "https://api-features.ign.es/collections/opob/items?codine=$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
   },
   {
     "key": "Key:ref:ine",
@@ -2840,6 +2948,12 @@
   {
     "key": "Key:ref:linz:place_id",
     "url": "https://gazetteer.linz.govt.nz/place/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:linz:place_id",
+    "url": "https://gazetteer.linz.govt.nz/place/$1",
     "source": "wikidata:P1630",
     "rank": "normal"
   },
@@ -2851,8 +2965,26 @@
   },
   {
     "key": "Key:ref:LOCODE",
+    "url": "https://incodocs.com/ports/gb/sea-port/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:LOCODE",
     "url": "https://www.vesselfinder.com/ports/$1",
     "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:LOCODE",
+    "url": "https://www.vesselfinder.com/ports/$1",
+    "source": "wikidata:P3303",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:LV:vkpai",
+    "url": "https://mantojums.lv/cultural-objects/$1",
+    "source": "osmwiki:P8",
     "rank": "normal"
   },
   {
@@ -2888,6 +3020,18 @@
   {
     "key": "Key:ref:mhs",
     "url": "https://www.pop.culture.gouv.fr/notice/merimee/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:monuments-aux-morts.fr",
+    "url": "https://monuments-aux-morts.fr/monuments?detail=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:monuments-aux-morts.fr",
+    "url": "https://monuments-aux-morts.fr/monuments?detail=$1",
     "source": "wikidata:P1630",
     "rank": "normal"
   },
@@ -2982,9 +3126,21 @@
     "rank": "preferred"
   },
   {
+    "key": "Key:ref:ocm",
+    "url": "https://openchargemap.org/site/poi/details/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:ref:OnroerendErfgoed",
     "url": "https://id.erfgoed.net/erfgoedobjecten/$1",
     "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:plugshare",
+    "url": "https://www.plugshare.com/location/$1",
+    "source": "osmwiki:P8",
     "rank": "normal"
   },
   {
@@ -2996,6 +3152,12 @@
   {
     "key": "Key:ref:provinciecode",
     "url": "https://vocabs.cbs.nl/geo/def/provincies/PV$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:pss-archi",
+    "url": "https://www.pss-archi.eu/immeubles/",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
@@ -3061,13 +3223,19 @@
   },
   {
     "key": "Key:ref:sandre",
-    "url": "https://www.sandre.eaufrance.fr/geo/CoursEau_Carthage2017/$1",
+    "url": "https://id.eaufrance.fr/CoursEau_Carthage2017/$1",
     "source": "wikidata:P1630",
     "rank": "preferred"
   },
   {
     "key": "Key:ref:sandre",
     "url": "https://id.eaufrance.fr/SysTraitementEauxUsees/$1",
+    "source": "wikidata:P1630",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:ref:sandre",
+    "url": "https://www.sandre.eaufrance.fr/geo/CoursEau_Carthage2017/$1",
     "source": "wikidata:P1630",
     "rank": "normal"
   },
@@ -3450,9 +3618,27 @@
     "rank": "normal"
   },
   {
+    "key": "Key:service_times",
+    "url": "https://openingh.openstreetmap.de/evaluation_tool/?mode=2&EXP=$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
     "key": "Key:snowplowing:operator:wikidata",
     "url": "https://www.wikidata.org/entity/$1",
     "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:source:license",
+    "url": "https://spdx.org/licenses/$1.html",
+    "source": "wikidata:P1630",
+    "rank": "preferred"
+  },
+  {
+    "key": "Key:source:license",
+    "url": "https://spdx.org/licenses/$1",
+    "source": "wikidata:P1630",
     "rank": "normal"
   },
   {
@@ -3476,6 +3662,12 @@
   {
     "key": "Key:subject:ref:CH-GE:icono",
     "url": "https://www.bge-geneve.ch/iconographie/personne/$1",
+    "source": "osmwiki:P8",
+    "rank": "normal"
+  },
+  {
+    "key": "Key:subject:ref:CH:bdelis",
+    "url": "https://elitessuisses.unil.ch/p/$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
@@ -3632,24 +3824,12 @@
   {
     "key": "Key:website",
     "url": "$1",
-    "source": "wikidata:P3303",
-    "rank": "preferred"
-  },
-  {
-    "key": "Key:website",
-    "url": "$1",
     "source": "osmwiki:P8",
     "rank": "normal"
   },
   {
     "key": "Key:website",
     "url": "https://web.archive.org/web/*/$1/",
-    "source": "wikidata:P3303",
-    "rank": "normal"
-  },
-  {
-    "key": "Key:website",
-    "url": "https://webcache.googleusercontent.com/search?q=cache:$1",
     "source": "wikidata:P3303",
     "rank": "normal"
   },
