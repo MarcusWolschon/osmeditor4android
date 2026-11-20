@@ -48,6 +48,7 @@
   <string name="local_reference_inconsistency">Inconsistencia de referencia local, restaurar el elemento referenciado es la opción más segura, pero por favor reporta esto como un error.</string>
   <string name="delete_locally">Eliminar\nlocalmente</string>
   <string name="undelete_on_server">Restaurar\nen el servidor</string>
+  <string name="error_running_action">La acción %1$s falló con el error %2$s</string>
   <!--Upload retry-->
   <string name="upload_retry_title">Subida fallida</string>
   <string name="upload_retry_message_no_open_changeset">Falló la apertura del conjunto de cambios.\n\nEs seguro volver a intentarlo. </string>
@@ -190,6 +191,7 @@
   <string name="progress_determining_status_message">Determinando estado…</string>
   <string name="progress_updating_message">Actualizando…</string>
   <string name="progress_validation_title">Validando</string>
+  <string name="progress_calculating_message">Calculando…</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" eliminado</string>
   <string name="changes_changed">\"%1$s\" modificado</string>
@@ -302,12 +304,15 @@
   <string name="imagery_offset_distance">Distancia</string>
   <string name="zoom_and_offsets">Zoom %1$d\nDesplazamiento\n%2$s°/%3$s°\n%4$sm/%5$sm</string>
   <!--Position modal-->
+  <string name="set_position_title">Establecer posición</string>
   <string name="set_position_datum_label">Datum geodésico</string>
   <string name="WGS84">WGS84</string>
+  <string name="toast_coordinate_parsing_failed">No se pudo interpretar %1$s</string>
+  <string name="set_position_swap">Intercambiar longitud y latitud</string>
   <!---->
   <string name="tag_editor_name_suggestion">Sugerencia de nombre</string>
-  <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">Esta sugerencia puede reemplazar algunos valores de etiqueta por otros más populares.</string>
+  <!--Search/Find place dialog-->
   <string name="search_results_title">Resultados de la búsqueda</string>
   <string name="search_online">Buscar en línea</string>
   <string name="find_message">Ingresa la cadena de búsqueda</string>
@@ -372,6 +377,9 @@
   <string name="direction">Dirección</string>
   <string name="file_size">Tamaño</string>
   <string name="file_size_kB">%1$d kB</string>
+  <!--further image stuff-->
+  <string name="storage_panoramax">Panoramax</string>
+  <string name="storage_mapillary">Mapillary</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">¡Demasiados datos cargados!</string>
   <string name="too_much_data_message">Tienes %1$d nodos cargados y has superado el límite configurado. Esto provocará una ralentización y, si agregas más datos, posibles problemas al guardar el estado.</string>
@@ -498,6 +506,8 @@
   <string name="create_osm_object">Crear objeto OSM</string>
   <string name="create_osm_object_search">Crear objeto OSM desde la búsqueda de presets</string>
   <string name="waypoint_link">Enlace</string>
+  <!--GPX track segment dialog-->
+  <!--Simplification dialog-->
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Imágenes personalizadas</string>
   <string name="oam_layer_title">Imágenes OAM</string>
@@ -544,6 +554,7 @@
   <string name="layer_tasks">Tareas</string>
   <string name="layer_data">Datos OSM</string>
   <string name="layer_data_name">Datos %1$s</string>
+  <string name="layer_update_tiles_in_view">Actualizar los mosaicos visibles</string>
   <string name="layer_flush_tile_cache">Vaciar caché de teselas</string>
   <string name="layer_change_style">Cambiar estilo…</string>
   <string name="layer_load_style">Cargar estilo…</string>
@@ -632,8 +643,27 @@
   <string name="date_widget_usage_with_additional">Deselecciona cualquier valor anterior para usar el selector de fechas.</string>
   <!--Feedback activity-->
   <string name="feedback_title">Comentarios para los desarrolladores</string>
+  <string name="feedback_title_hint">Título</string>
+  <string name="feedback_description_hint">Describe el problema o la solicitud de funcionalidad en detalle</string>
+  <string name="feedback_who_is_sending">¿Quién envía esto?</string>
+  <string name="feedback_login_osm">Iniciar sesión en OpenStreetMap</string>
   <string name="feedback_with_displayname">Enviar con tu nombre para mostrar de OpenStreetMap</string>
+  <string name="feedback_displayname_hint">Nombre para mostrar en OpenStreetMap</string>
+  <string name="feedback_send">Enviar</string>
+  <string name="feedback_device_info">Incluir información del dispositivo</string>
+  <string name="feedback_anonymous">Enviar de forma anónima</string>
+  <string name="feedback_token_client_id_hint">Ingresa aquí tu ID de cliente</string>
+  <string name="feedback_device_info_format">Versión de la app: %1$s (%2$d)\nVersión de Android: %3$s (API %4$d)\nDispositivo: %5$s %6$s </string>
+  <string name="feedback_reporter_label">\n\nReportado por: %1$s</string>
+  <string name="feedback_error_code">Error: %1$d %2$s</string>
+  <string name="feedback_exception">Excepción: %1$s</string>
+  <string name="github_login_with_github">Iniciar sesión en GitHub (opcional)</string>
+  <string name="github_status_authenticated">Autenticado con GitHub</string>
+  <string name="github_reset_login">Restablecer inicio de sesión</string>
+  <string name="feedback_title_required">El título es obligatorio</string>
   <string name="feedback_success_title">Éxito</string>
+  <string name="feedback_success_message">Tus comentarios se enviaron correctamente. Puedes ver el reporte en \n\n&lt;a href=\"%1$s\"&gt;%1$s&lt;/a&gt;</string>
+  <string name="feedback_failure_title">Error al enviar</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Descargar datos de OpenStreetMap</string>
   <!--Clear/Reset GPX Track-->
@@ -668,6 +698,8 @@
   <string name="tip_empty_comment_warning">Vespucci siempre agrega un resumen generado automáticamente de lo que subiste.&lt;p&gt;Deberías considerar agregar algunas palabras sobre el motivo de tus ediciones para dar más contexto a otros mapeadores.</string>
   <string name="tip_wikimedia_filename">Usa siempre un nombre de archivo descriptivo y único, en particular no uno generado por la cámara, de lo contrario Wikimedia rechazará la carga.</string>
   <string name="tip_address_interpolation">Esta herramienta está pensada para agregar interpolaciones de direcciones en modo Dirección. Si deseas agregar un objeto diferente, cambia al modo Normal y usa la herramienta Agregar vía.</string>
+  <string name="tip_download_along">Esta herramienta generará una lista de áreas cuadradas que cubrirán el elemento lineal seleccionado y luego la enviará a un servicio para su descarga.&lt;p&gt;Puedes ajustar el margen a cada lado del elemento que se descargará, así como las dimensiones máximas que podrán tener las áreas. Al usar esta función se desactivará la limpieza automática del tipo de datos que estés descargando (datos de OSM o tareas), ya que podría eliminar datos que acabas de descargar.&lt;p&gt;Para minimizar la carga en los servidores de destino, las áreas se descargan de forma secuencial, una por vez. Aun así, existe la posibilidad de sobrecargarlos, por lo que usa esta función de manera responsable.</string>
+  <string name="tip_set_position">Ingresa nuevas coordenadas decimales para el elemento o pégalas en cualquiera de los campos. Si el texto pegado contiene tanto la longitud como la latitud, ambos campos se completarán automáticamente. Si contiene una sola coordenada, solo se completará el campo correspondiente. Se admiten formatos decimales y DMS; consulta la documentación de <i>Ir a coordenadas</i> para obtener más información.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -889,6 +921,7 @@
   <string name="toast_url_check_with_msg">%1$s %2$d %3$s</string>
   <string name="toast_unexpected_element">Se hizo clic en un elemento inesperado:\n%1$s</string>
   <string name="toast_import_destination_exists">El destino de importación ya existe</string>
+  <string name="toast_part_selection_not_supported">La selección de una parte de una vía no es compatible con vías cerradas o nuevas</string>
   <string name="toast_element_has_been_deleted">El elemento ha sido borrado</string>
   <string name="toast_updating_tags">Actualizando etiquetas…</string>
   <string name="toast_updating_parents">Actualizando padres…</string>
@@ -907,6 +940,12 @@
   <string name="toast_panoramax_instance_list_error">No se pudo recuperar la lista de instancias de Panoramax\n%1$s</string>
   <string name="toast_authorisation_successful">¡Autorización exitosa!</string>
   <string name="toast_authorisation_failed">Error de autorización\n%1$s</string>
+  <string name="toast_way_self_intersects">La vía se cruza consigo misma</string>
+  <plurals name="toast_unglued_nodes">
+    <item quantity="one">Se despegó un nodo</item>
+    <item quantity="many">Se despegaron %1$d nodos</item>
+    <item quantity="other">Se despegaron %1$d nodos</item>
+  </plurals>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Las fuentes de MapSplit deben tener el zoom mínimo y máximo establecidos</string>
   <string name="error_pbf_no_version">Falta la información de versión en el archivo PBF</string>
@@ -938,9 +977,11 @@
   <string name="download">Descargar</string>
   <string name="abort">Abortar</string>
   <string name="pause">Pausa</string>
+  <string name="resume">Reanudar</string>
   <string name="ignore">Ignorar</string>
   <string name="select">Seleccionar</string>
   <string name="skip">Omitir</string>
+  <string name="submit">Enviar</string>
   <string name="deprecated">%1$s (obsoleto)</string>
   <string name="more_information">Más información</string>
   <string name="osm_tags">Etiquetas OSM</string>
@@ -1080,13 +1121,14 @@
   <string name="menu_edit">Editar…</string>
   <string name="menu_add">Nuevo</string>
   <string name="menu_config">Preferencias</string>
-  <string name="menu_find">Buscar</string>
   <string name="menu_help">Ayuda</string>
   <string name="menu_view">Ver…</string>
   <string name="menu_erase">Borrar nodo</string>
+  <string name="menu_set_position">Establecer posición…</string>
   <string name="menu_split">Dividir</string>
   <string name="menu_remove_node_from_way">Eliminar nodo de la vía</string>
   <string name="menu_start_end_way">Inicio/Fin de la vía</string>
+  <string name="menu_download_along_way">Descargar a lo largo de una vía…</string>
   <string name="menu_extract">Extraer nodo</string>
   <string name="menu_append">Añadir</string>
   <string name="menu_create_route">Crear ruta</string>
@@ -1237,6 +1279,13 @@
   <string name="geojson_todo_custom_conversion">Conversión personalizada…</string>
   <string name="rhino_exception">&lt;br&gt;Error en la línea %1$d, columna %2$d&lt;br&gt;&lt;br&gt;%3$s</string>
   <!--Download along dialog-->
+  <string name="download_along_way_title">Descargar a lo largo de una vía</string>
+  <string name="download_data_label">Descargar datos de OSM</string>
+  <string name="download_tasks_label">Descargar tareas</string>
+  <string name="download_buffer_label">Margen (metros)</string>
+  <string name="download_max_dimension_label">Dimensión máxima del área (metros)</string>
+  <string name="download_completed_successfully">La descarga se completó correctamente</string>
+  <string name="download_paused">Descarga pausada</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Aplicar desplazamiento almacenado a las imágenes</string>
   <string name="menu_tools_background_contrast">Contraste</string>
@@ -1306,6 +1355,7 @@
   <string name="actionmode_closed_way_split_2">Seleccionar el segundo nodo</string>
   <string name="actionmode_closed_way_split_long_click_2">Selecciona el 2.º nodo o mantén presionado</string>
   <string name="actionmode_split_way_node_selection">Selecciona un nodo o mantén presionado</string>
+  <string name="actionmode_split_way_long_click">Mantén presionado para marcar la posición de división</string>
   <string name="actionmode_split_way_select_part">Seleccionar parte para la nueva vía</string>
   <string name="actionmode_select_node_to_append_to">Seleccionar nodo al que añadir</string>
   <string name="actionmode_restriction">Añadir restricción de giro</string>
@@ -1338,6 +1388,7 @@
   <string name="menu_add_node_address">Añadir nodo de dirección</string>
   <string name="menu_add_address_interpolation">Añadir interpolación de direcciones</string>
   <string name="menu_add_way">Añadir vía</string>
+  <string name="menu_add_area">Agregar área</string>
   <string name="add_node_instruction">Pulsa la posición</string>
   <string name="add_way_start_instruction">Pulsa la primera posición para comenzar</string>
   <string name="add_way_node_instruction">Pulsa la siguiente posición del nodo</string>
@@ -1648,6 +1699,7 @@
   <string name="pref_enable_acra">Informar de fallos de la aplicación</string>
   <string name="pref_acra_enabled">Informes de fallos activados</string>
   <string name="pref_acra_disabled">Informes de fallos desactivados</string>
+  <string name="pref_acra_save_locally_disabled">Deshabilitado</string>
   <string name="config_showStats_title">Mostrar estadísticas</string>
   <string name="config_showStats_summary">Muestra estadísticas de datos y FPS en la esquina inferior izquierda.</string>
   <!--Experimental-->
@@ -1676,6 +1728,7 @@
   <string name="listedit_use_translations">Usar traducciones</string>
   <string name="manage_geocoders">Administrar geocodificadores</string>
   <string name="listedit_supports_compressed_uploads">Admite subidas comprimidas</string>
+  <string name="listedit_authenticated_reads">Usar lecturas autenticadas</string>
   <string name="geocoder_type">Tipo de geocodificador</string>
   <string name="manage_image_stores">Administrar almacenamiento de imágenes</string>
   <string name="imagestore_type">Tipo de almacenamiento de imágenes</string>
@@ -1758,6 +1811,10 @@
   <string name="tracking_long_text">Vespucci está grabando una traza GPX o descargando automáticamente. Para salir por completo, pulsa el botón de abajo o el botón de retroceso en la aplicación.</string>
   <string name="gps_failure">Error al activar el GPS</string>
   <string name="gps_service_start_failure">No se pudo iniciar el servicio de GPS, intenta de nuevo.\n\nError: %1$s</string>
+  <string name="download_service_title">Servicio de descarga en segundo plano</string>
+  <string name="download_service_idle">La descarga se completó. El servicio está inactivo en este momento</string>
+  <string name="download_service_downloaded">Se descargaron %1$d de %2$d áreas</string>
+  <string name="download_service_start_failure">No se pudo iniciar el servicio de descarga.\n\nError: %1$s</string>
   <!--element description-->
   <string name="address_housenumber">Dirección %1$s</string>
   <string name="address_housenumber_street">Dirección %1$s %2$s</string>

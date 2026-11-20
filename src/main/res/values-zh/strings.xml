@@ -148,8 +148,8 @@
   <string name="WGS84">WGS84</string>
   <!---->
   <string name="tag_editor_name_suggestion">建议名称</string>
-  <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">此建议可以用更流行的标记值替换某些标记值。</string>
+  <!--Search/Find place dialog-->
   <string name="search_results_title">搜索结果</string>
   <string name="search_online">在线搜索</string>
   <string name="find_message">输入搜索字符串</string>
@@ -203,6 +203,9 @@
   <!--GPX info dialog-->
   <!--Image information dialog-->
   <string name="direction">方向</string>
+  <!--further image stuff-->
+  <string name="storage_panoramax">Panoramax 全景</string>
+  <string name="storage_mapillary">Mapillary</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">加载了过多数据！</string>
   <string name="too_much_data_message">您加载了 %1$d 个节点并且已经超过了设定的限制。这会导致运行缓慢，如果添加了过多数据，可能导致保存状态出现问题。</string>
@@ -285,6 +288,8 @@
   <string name="altitude">海拔</string>
   <string name="create_osm_object">创建 OSM 对象</string>
   <string name="create_osm_object_search">从预设搜索创建 OSM 对象</string>
+  <!--GPX track segment dialog-->
+  <!--Simplification dialog-->
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">自定义影像</string>
   <string name="oam_layer_title">OAM 影像</string>
@@ -705,7 +710,6 @@
   <string name="menu_move">移动</string>
   <string name="menu_add">新的</string>
   <string name="menu_config">首选项</string>
-  <string name="menu_find">查找</string>
   <string name="menu_help">帮助</string>
   <string name="menu_erase">擦除节点</string>
   <string name="menu_split">分开</string>

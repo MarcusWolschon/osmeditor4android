@@ -237,8 +237,8 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="WGS84">WGS84</string>
   <!---->
   <string name="tag_editor_name_suggestion">Suggestion de nom</string>
-  <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">Cette suggestion peut remplacer certaines valeurs d\'attributs par des valeurs plus courantes.</string>
+  <!--Search/Find place dialog-->
   <string name="search_results_title">Résultats de la recherche</string>
   <string name="search_online">Recherche en ligne</string>
   <string name="find_message">Saisissez le terme à rechercher</string>
@@ -301,6 +301,9 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="direction">Direction</string>
   <string name="file_size">Taille</string>
   <string name="file_size_kB">%1$d kB</string>
+  <!--further image stuff-->
+  <string name="storage_panoramax">Panoramax</string>
+  <string name="storage_mapillary">Mapillary</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Trop de données chargées !</string>
   <string name="too_much_data_message">Vous avez %1$d nœuds chargés et vous avez dépassé la limite configurée. Ceci mènera à un ralentissement, et si vous ajoutez plus de données, jusqu\'à amener des problèmes potentiels lors de la sauvegarde</string>
@@ -397,6 +400,8 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="altitude">Altitude</string>
   <string name="create_osm_object">Créer un objet OSM</string>
   <string name="create_osm_object_search">Créer un objet OSM en cherchant un modèle d\'attributs</string>
+  <!--GPX track segment dialog-->
+  <!--Simplification dialog-->
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Imagerie personnalisée</string>
   <string name="oam_layer_title">Imagerie OAM</string>
@@ -891,7 +896,6 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="menu_move">Naviguer</string>
   <string name="menu_add">Ajouter</string>
   <string name="menu_config">Paramètres</string>
-  <string name="menu_find">Rechercher</string>
   <string name="menu_help">Aide</string>
   <string name="menu_erase">Supprimer le nœud</string>
   <string name="menu_split">Scinder</string>
@@ -1379,6 +1383,7 @@ Vous pouvez aussi passer cette étape et effectuer le paramétrage plus tard.</s
   <string name="pref_enable_acra">Signaler les plantages de l\'application</string>
   <string name="pref_acra_enabled">Rapport de plantage activé</string>
   <string name="pref_acra_disabled">Rapport de plantage désactivé</string>
+  <string name="pref_acra_save_locally_disabled">Personnes handicapées physiques</string>
   <string name="config_showStats_title">Afficher les statistiques</string>
   <string name="config_showStats_summary">Affiche les statistiques et les images/sec dans le coin en bas à gauche.</string>
   <!--Experimental-->

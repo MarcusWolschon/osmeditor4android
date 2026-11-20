@@ -208,8 +208,8 @@
   <string name="WGS84">WGS84</string>
   <!---->
   <string name="tag_editor_name_suggestion">Nimiehdotus</string>
-  <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">Tämä ehdotus voi korvata jotkin tägit suositummilla tägeillä.</string>
+  <!--Search/Find place dialog-->
   <string name="search_results_title">Hakutulokset</string>
   <string name="search_online">Hae netistä</string>
   <string name="find_message">Syötä hakuteksti</string>
@@ -267,6 +267,9 @@
   <string name="way_points">Välietappeja</string>
   <!--Image information dialog-->
   <string name="direction">Suunta</string>
+  <!--further image stuff-->
+  <string name="storage_panoramax">Panoramax</string>
+  <string name="storage_mapillary">Mapillary</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Liikaa dataa ladattu!</string>
   <string name="too_much_data_message">Ladattuja pisteitä on %1$d, mikä ylittää asetetun rajan. Tämä johtaa sovelluksen hidastumiseen ja, mikäli dataa vielä lisätään, mahdollisiin ongelmiin muokkaustilaa tallennettaessa.</string>
@@ -361,6 +364,8 @@
   <string name="altitude">Korkeus</string>
   <string name="create_osm_object">Luo OSM-kohde</string>
   <string name="create_osm_object_search">Luo OSM-kohde esivalintahausta</string>
+  <!--GPX track segment dialog-->
+  <!--Simplification dialog-->
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Oma kuvasto</string>
   <string name="oam_layer_title">OAM-kuvasto</string>
@@ -868,7 +873,6 @@
   <string name="menu_move">Siirrä</string>
   <string name="menu_add">Uusi</string>
   <string name="menu_config">Asetukset</string>
-  <string name="menu_find">Etsi</string>
   <string name="menu_help">Ohje</string>
   <string name="menu_erase">Poista piste</string>
   <string name="menu_split">Jaa kahtia</string>

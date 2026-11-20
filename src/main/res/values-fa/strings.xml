@@ -197,8 +197,8 @@
   <string name="WGS84">WGS84</string>
   <!---->
   <string name="tag_editor_name_suggestion">پیشنهاد نام</string>
-  <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">این پیشنهاد می‌تواند برخی از مقادیر برچسب را با مقادیر محبوب تر جایگزین کند.</string>
+  <!--Search/Find place dialog-->
   <string name="search_results_title">نتایج جستجو</string>
   <string name="search_online">جستجوی آنلاین</string>
   <string name="find_message">ورود متن جستجو</string>
@@ -257,6 +257,9 @@
   <string name="way_points">نقاط راه</string>
   <!--Image information dialog-->
   <string name="direction">مسیر / جهت</string>
+  <!--further image stuff-->
+  <string name="storage_panoramax">سراسر‌نما</string>
+  <string name="storage_mapillary">مپیلاری</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">دادهٔ خیلی زیادی بار شده!</string>
   <string name="too_much_data_message">شما %1$d گره را بارگذاری کرده‌اید و از حد پیکربندی شده فراتر رفته‌اید. این منجر به کُند شدن می‌شود و اگر داده‌های بیشتری اضافه کنید، احتمال دارد برای ذخیره‌سازی وضعیت با مشکلاتی مواجه شوید.</string>
@@ -356,6 +359,8 @@
   <string name="altitude">ارتفاع</string>
   <string name="create_osm_object">ساخت شیء OSM</string>
   <string name="create_osm_object_search">ساخت شیء OSM از طریق جستجوی پیش‌تنظیم</string>
+  <!--GPX track segment dialog-->
+  <!--Simplification dialog-->
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">تصویر سفارشی</string>
   <string name="oam_layer_title">تصویر OAM </string>
@@ -872,7 +877,6 @@
   <string name="menu_move">جابه‌جایی</string>
   <string name="menu_add">جديد</string>
   <string name="menu_config">ترجیحات</string>
-  <string name="menu_find">یافتن</string>
   <string name="menu_help">راهنما</string>
   <string name="menu_erase">پاک‌کردن گره</string>
   <string name="menu_split">دونیم‌کردن</string>
@@ -1365,6 +1369,7 @@
   <string name="pref_enable_acra">گزارش فروپاشی‌های برنامه</string>
   <string name="pref_acra_enabled">گزارشگری فروپاشی فعال است</string>
   <string name="pref_acra_disabled">گزارشگری فروپاشی غیرفعال است</string>
+  <string name="pref_acra_save_locally_disabled">غیرفعال</string>
   <string name="config_showStats_title">نمایش آمار</string>
   <string name="config_showStats_summary">آمار داده و FPS را در گوشهٔ چپ پایین نشان می‌دهد.</string>
   <!--Experimental-->

@@ -190,7 +190,7 @@
   <string name="set_position_datum_label">측지 자료</string>
   <!---->
   <string name="tag_editor_name_suggestion">이름 제안</string>
-  <!--Search/Find dialog-->
+  <!--Search/Find place dialog-->
   <string name="search_results_title">검색 결과</string>
   <string name="search_online">온라인으로 검색</string>
   <string name="find_message">검색어를 입력하세요</string>
@@ -240,6 +240,9 @@
   <string name="direction">방향</string>
   <string name="file_size">크기</string>
   <string name="file_size_kB">%1$d kB</string>
+  <!--further image stuff-->
+  <string name="storage_panoramax">Panoramax</string>
+  <string name="storage_mapillary">Mapillary</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">너무 많은 데이터를 로드했습니다!</string>
   <string name="upload_data_now">변경 사항 업로드</string>
@@ -312,6 +315,8 @@
   <string name="created">만들어짐</string>
   <string name="altitude">고도</string>
   <string name="create_osm_object">OSM 개체 만들기</string>
+  <!--GPX track segment dialog-->
+  <!--Simplification dialog-->
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">사용자 정의 이미지</string>
   <string name="edit_layer_title">레이어 항목 편집</string>
@@ -646,7 +651,6 @@
   <string name="menu_move">이동</string>
   <string name="menu_add">추가</string>
   <string name="menu_config">환경 설정</string>
-  <string name="menu_find">찾기</string>
   <string name="menu_help">도움말</string>
   <string name="menu_erase">점 삭제</string>
   <string name="menu_split">분할</string>

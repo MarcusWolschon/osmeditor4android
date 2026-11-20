@@ -213,8 +213,8 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <string name="WGS84">WGS84</string>
   <!---->
   <string name="tag_editor_name_suggestion">Propozycja nazwy</string>
-  <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">Ta sugestia może zastąpić niektóre wartości znaczników bardziej popularnymi.</string>
+  <!--Search/Find place dialog-->
   <string name="search_results_title">Wyniki wyszukiwania</string>
   <string name="search_online">Wyszukaj online</string>
   <string name="find_message">Proszę wprowadzić szukany ciąg</string>
@@ -267,6 +267,9 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <!--GPX info dialog-->
   <!--Image information dialog-->
   <string name="direction">Kierunek</string>
+  <!--further image stuff-->
+  <string name="storage_panoramax">Panoramax</string>
+  <string name="storage_mapillary">Mapillary</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Wczytano zbyt wiele danych!</string>
   <string name="too_much_data_message">Wczytałeś %1$d Węzłów i przekroczyłeś ustawiony limit. To spowoduje spowolnienie, a jeśli dodasz więcej danych, być może problemy z zapisem stanu.</string>
@@ -350,6 +353,8 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <string name="create_osm_object">Utwórz obiekt OSM</string>
   <string name="create_osm_object_search">Utwórz obiekt OSM z wyszukanych szablonów</string>
   <string name="waypoint_link">Połączenie logiczne</string>
+  <!--GPX track segment dialog-->
+  <!--Simplification dialog-->
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Dostosowany podkład</string>
   <string name="oam_layer_title">Zdjęcia OAM</string>
@@ -752,7 +757,6 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <string name="menu_move">Przesuń</string>
   <string name="menu_add">Nowy</string>
   <string name="menu_config">Ustawienia</string>
-  <string name="menu_find">Szukaj</string>
   <string name="menu_help">Pomoc</string>
   <string name="menu_erase">Wyczyść węzeł</string>
   <string name="menu_split">Przetnij linię</string>
@@ -1121,6 +1125,7 @@ Na następnej stronie będziesz mógł ustawić niektóre początkowe parametry,
   <string name="pref_enable_acra">Zgłaszanie awarii aplikacji</string>
   <string name="pref_acra_enabled">Włączono zgłaszanie awarii</string>
   <string name="pref_acra_disabled">Wyłączono zgłaszanie awarii</string>
+  <string name="pref_acra_save_locally_disabled">Niepełnosprawni</string>
   <string name="config_showStats_title">Statystyki</string>
   <string name="config_showStats_summary">Wyświetla statystyki danych i FPS w lewym dolnym rogu.</string>
   <!--Experimental-->

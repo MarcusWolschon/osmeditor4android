@@ -12,18 +12,18 @@
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Attenzione!</string>
   <string name="transfer_download_current_dialog_message">Hai effettuato delle modifiche. Vuoi caricarle invece di annullarle?</string>
-  <string name="transfer_download_current_upload">Carica modifiche</string>
+  <string name="transfer_download_current_upload">Carica</string>
   <string name="transfer_download_current_download">Annulla modifiche e scarica</string>
   <string name="transfer_download_current_back">Indietro (non fare niente)</string>
   <string name="upload_problem_title">Caricamento fallito</string>
   <string name="upload_problem_message">Alcuni o tutti i dati non sono stati caricati. Prova di nuovo più tardi.</string>
-  <string name="bad_request_message">Le API hanno risposto con un errore. Salva i tuoi i dati e segnala il problema:\n\n</string>
+  <string name="bad_request_message">Le API hanno risposto con un errore. Salva i tuoi dati e segnala il problema:\n\n</string>
   <!--Upload conflict-->
   <string name="upload_conflict_title">Conflitto di caricamento</string>
   <string name="upload_conflict_message_version">Conflitto tra versioni</string>
-  <string name="upload_conflict_message_deleted">%1$s \nha la versione locale %2$d \ne sul server è stato eliminato</string>
+  <string name="upload_conflict_message_deleted">%1$s \nha la versione locale %2$d \ne sul server non è più presente</string>
   <string name="upload_conflict_message_referential">Elemento eliminato localmente ma ha riferimenti sul server</string>
-  <string name="upload_conflict_message_already_deleted">%1$s \nera già eliminato sul server, nuovo tentativo in corso</string>
+  <string name="upload_conflict_message_already_deleted">%1$s \nnon è più presente sul server, nuovo tentativo in corso</string>
   <string name="upload_conflict_message_missing_references">L’elemento locale fa riferimento a oggetti che sono eliminati sul server</string>
   <string name="upload_conflict_message_unknown">%1$s \nha causato un conflitto di caricamento sconosciuto \n%2$s</string>
   <string name="upload_conflict_message_changeset_closed">Gruppo di modifiche chiuso inaspettatamente, nuovo tentativo in corso</string>
@@ -38,7 +38,7 @@
   <string name="undoing_local_delete">..annullando l’eliminazione locale</string>
   <string name="deleting_references_on_server">…eliminando i riferimenti sul server</string>
   <string name="unable_to_download_referring_element">Impossibile scaricare l’elemento che fa riferimento a %1$s %2$d</string>
-  <string name="unable_to_download_referring_element_for_deletion">Non riesco a scaricare l\'elemento di riferimento a causa dell\'eliminazione %1$s %2$d</string>
+  <string name="unable_to_download_referring_element_for_deletion">Impossibile scaricare l\'elemento riferito, impossibile eliminare</string>
   <string name="unable_to_download_server_version">Impossibile scaricare la versione %1$s %2$d sul server</string>
   <string name="unexpected_conflict_type">Conflitto di tipo non previsto</string>
   <string name="missing_referenced_elements">Elementi riferiti mancanti</string>
@@ -71,7 +71,7 @@
   <string name="not_found_title">Elemento non trovato</string>
   <string name="not_found_message">L’API non ha trovato un elemento o gruppo di modifiche esistenti con l’id specificato.&lt;br&gt;&lt;br&gt;</string>
   <string name="unknown_error_title">Errore sconosciuto</string>
-  <string name="unknown_error_message">Non è stato possibile processare il codice errore o il messaggio restituito dall’API.&lt;br&gt;&lt;br&gt;</string>
+  <string name="unknown_error_message">Non è stato possibile elaborare il codice di errore o il messaggio restituito dall’API.&lt;br&gt;&lt;br&gt;</string>
   <string name="unknown_http_code_message">Codice di errore HTTP: %1$d &lt;br&gt;Messaggio di errore:&lt;br&gt;&lt;br&gt;%2$s</string>
   <string name="no_data_title">Nessun dato</string>
   <string name="no_data_message">La fonte dei dati configurata non ha copertura qui.</string>
@@ -81,7 +81,7 @@
   <string name="data_conflict_title">Conflitto tra versioni</string>
   <string name="data_conflict_message">I dati del download potrebbero essere in conflitto con le tue modifiche. Per favore carica le tue modifiche prima di riprovare.</string>
   <string name="corrupted_data_title">Dati corrotti</string>
-  <string name="corrupted_data_message">È stato individuata un’inconsistenza nei dati. Prima di fare altro, cerca di caricare le tue modifiche, quindi cancella qualunque dato immagazzinato e scaricalo di nuovo.</string>
+  <string name="corrupted_data_message">È stata individuata un\'inconsistenza nei dati. Prima di fare altro, cerca di caricare le tue modifiche, quindi cancella qualunque dato immagazzinato e scaricalo di nuovo.</string>
   <string name="invalid_bounding_box_title">Riquadro di selezione non valido</string>
   <string name="invalid_bounding_box_message">L’area selezionata non rispetta i limiti dell’API, scegli un’area differente.</string>
   <string name="bounding_box_too_large_title">Area da scaricare troppo grande</string>
@@ -108,15 +108,15 @@
   <string name="upload_unavailable_message">Il servizio non è disponibile, probabilmente temporaneamente, attendi prima di tentare di nuovo.</string>
   <string name="duplicate_tag_key_title">Chiavi duplicate</string>
   <string name="duplicate_tag_key_message">Hai aggiunto la seguente chiave più di una volta, ciò deve essere risolto prima di procedere:</string>
-  <string name="autodownload_has_been_paused">Il caricamento automatico è stato sospeso.</string>
+  <string name="autodownload_has_been_paused">Il download automatico è stato sospeso.</string>
   <string name="upload_bounding_box_too_large_title">Area troppo grande per il caricamento</string>
   <string name="upload_bounding_box_too_large_message">L’area delle modifiche che stai cercando di caricare è troppo estesa.
  &lt;br&gt;&lt;br&gt;Suddividi le tue modifiche in gruppi di modifiche più piccoli.
       Puoi farlo selezionando un sottoinsieme degli elementi modificati che potranno essere caricati separatamente.</string>
-  <string name="upload_way_needs_one_node_title">Un percorso richiede almeno un nodo</string>
-  <string name="upload_way_needs_one_node_message">Un percorso che hai cercato di caricare non ha alcun nodo. Ciò non dovrebbe accadere e il percorso è stato eliminato per permetterti di riprovare. Segnala un problema con il modulo di feedback e invia in maniera indipendente il dump arresto anomalo.</string>
-  <string name="attempt_to_add_too_many_way_nodes_title">Tentativo di aggiungere troppi nodi al percorso</string>
-  <string name="attempt_to_add_too_many_way_nodes_message">L’operazione creerebbe un percorso con un numero di nodi superiore al massimo consentito. Aggiungi meno nodi oppure dividi il percorso in un punto idoneo.</string>
+  <string name="upload_way_needs_one_node_title">Una linea richiede almeno un nodo</string>
+  <string name="upload_way_needs_one_node_message">Una linea che hai cercato di caricare non ha alcun nodo. Ciò non dovrebbe accadere e la linea è stata eliminata per permetterti di riprovare. Segnala un problema con il modulo di feedback e invia in maniera indipendente il dump arresto anomalo.</string>
+  <string name="attempt_to_add_too_many_way_nodes_title">Tentativo di aggiungere troppi nodi alla linea</string>
+  <string name="attempt_to_add_too_many_way_nodes_message">L’operazione creerebbe una linea con un numero di nodi superiore al massimo consentito. Aggiungi meno nodi oppure dividi la linea in un punto idoneo.</string>
   <string name="too_many_way_nodes_details">Si è tentato di aggiungere %1$d nodi per un totale di %2$d nodi che è maggiore del limite di %3$d</string>
   <!---->
   <string name="select_file_picker_title">Scegli file</string>
@@ -134,7 +134,7 @@
 </string>
   <string name="welcome_settings_tab_text">Per migliorare la tua esperienza iniziale, puoi configurare subito delle impostazioni,
 se preferisci, puoi saltare questo passo e configurare le singole impostazioni successivamente.</string>
-  <string name="welcome_use_imagery_text">VIsualizza immagini aeree\nper la tua posizione corrente</string>
+  <string name="welcome_use_imagery_text">Visualizza immagini aeree\nper la tua posizione corrente</string>
   <string name="welcome_auto_download_text">Scarica automaticamente i dati</string>
   <string name="welcome_pen_setup_text">Configura per l\'utilizzo di una penna o un mouse</string>
   <string name="welcome_pen_setup_explanation">Se stai usando una penna, un mouse, o un altro strumento di puntamento,
@@ -192,7 +192,7 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="upload_empty_comment_warning_label">Segnala se il commento è vuoto</string>
   <string name="upload_auto_summary">Sommario generato automaticamente</string>
   <string name="untagged_node">nodo senza etichette</string>
-  <string name="untagged_way">percorso senza etichette</string>
+  <string name="untagged_way">linea senza etichette</string>
   <string name="untagged_relation">relazione senza etichette</string>
   <string name="changed_preset">%1$s a %2$s</string>
   <string name="changed_tags">%1$s etichette modificate</string>
@@ -202,7 +202,7 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="review_changes_title">Controlla le modifiche</string>
   <string name="review_upload_selected">Caricamento selezionato</string>
   <!--Upload GPX-->
-  <string name="upload_gpx_title">Carica la traccia GPX sul server</string>
+  <string name="upload_gpx_title">Carica traccia GPX</string>
   <string name="upload_gpx_description_label">Descrizione</string>
   <string name="upload_gpx_tags_label">Etichette</string>
   <string name="upload_gpx_visibility_label">Visibilità</string>
@@ -213,7 +213,7 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="openstreetbug_new_title">Nuova nota</string>
   <string name="openstreetbug_new_bug">Segnala problema</string>
   <string name="openstreetbug_bug_title">Problema</string>
-  <string name="openstreetbug_new_nodeway">Crea nodo/strada</string>
+  <string name="openstreetbug_new_nodeway">Crea nodo/linea</string>
   <string name="openstreetbug_edit_title">Modifica nota</string>
   <string name="openstreetbug_comment_label">Commento:</string>
   <string name="openstreetbug_commit_ok">Modifiche del compito salvate</string>
@@ -252,7 +252,7 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
     <item quantity="many">Aggiungi elementi alla lista di cose da fare</item>
     <item quantity="other">Aggiungi elementi alla lista delle cose da fare</item>
   </plurals>
-  <string name="all_todos_done_title">Tutti le cose da fare in lista sono conclusi</string>
+  <string name="all_todos_done_title">Tutte le cose da fare in lista sono concluse</string>
   <string name="all_todos_done_message">Tutti gli elementi della lista “%1$s” sono completati.</string>
   <string name="all_todos_in_current_done_message">Tutti gli elementi della lista corrente sono completati</string>
   <string name="todo_list_legend">Lista delle cose da fare</string>
@@ -283,8 +283,8 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="WGS84">WGS84</string>
   <!---->
   <string name="tag_editor_name_suggestion">Suggerimento del nome</string>
-  <!--Search/Find dialog-->
-  <string name="tag_editor_name_suggestion_overwrite_message">Questo suggerimento può rimpiazzare alcune valori di etichette con altri più popolari.</string>
+  <string name="tag_editor_name_suggestion_overwrite_message">Questo suggerimento può rimpiazzare alcuni valori di etichette con altri più popolari.</string>
+  <!--Search/Find place dialog-->
   <string name="search_results_title">Cerca risultati</string>
   <string name="search_online">Cerca online</string>
   <string name="find_message">Inserisci il testo di ricerca</string>
@@ -303,20 +303,20 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="no_valid_preset">Predefinito non valido!</string>
   <string name="save_file">Salva in</string>
   <string name="existing_track_title">Traccia GPX esistente</string>
-  <string name="existing_track_message">Sono già presenti dati in formato GPX, potresti volerli salvare</string>
+  <string name="existing_track_message">Sono già presenti dati in formato GPX, potresti voler annullare e salvarli prima.</string>
   <string name="delete_tags">Cancellare tutte le etichette dell\'oggetto “%1$s”?</string>
   <!--element information dialog-->
   <string name="element_information">Informazioni elemento</string>
   <string name="id">ID</string>
   <string name="nodes">Nodi</string>
-  <string name="relation_membership">Membri della relazione</string>
+  <string name="relation_membership">Parte delle relazioni</string>
   <string name="problem">Problema</string>
   <string name="members">Membri</string>
   <string name="closed">Chiuso</string>
   <string name="version">Versione</string>
   <string name="length_m">Lunghezza (metri)</string>
   <string name="not_downloaded">Non scaricato</string>
-  <string name="empty_role">Ruolo non solezionato</string>
+  <string name="empty_role">Ruolo non selezionato</string>
   <string name="last_edited">Ultima modifica</string>
   <string name="original">Originale</string>
   <string name="previous">Precedente</string>
@@ -334,7 +334,7 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="data_in_memory">Dati in memoria</string>
   <string name="total">Totale</string>
   <string name="changed">Modificato</string>
-  <string name="ways">Percorsi</string>
+  <string name="ways">Linee</string>
   <string name="bounding_boxes">Riquadri di selezione</string>
   <!--Tile layer info dialog-->
   <string name="attribution">Attribuzione</string>
@@ -347,6 +347,9 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="direction">Direzione</string>
   <string name="file_size">Dimensioni</string>
   <string name="file_size_kB">%1$d kB</string>
+  <!--further image stuff-->
+  <string name="storage_panoramax">Panoramax</string>
+  <string name="storage_mapillary">Mapillary</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Caricati troppi dati!</string>
   <string name="too_much_data_message">Hai caricato %1$d nodi e sei andato oltre il limite impostato. Questo causerà un rallentamento e, se carichi più dati, un potenziale problema con il salvataggio.</string>
@@ -356,7 +359,7 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="delete_custom_preset_title">Cancellare predefinito personalizzato?</string>
   <!--Duplicate route segment dialog-->
   <string name="duplicate_route_segment_title">Aggiungi segmento di ‘route’</string>
-  <string name="duplicate_route_segment_message">Questo percorso è già un membro della ‘route’.</string>
+  <string name="duplicate_route_segment_message">Questa linea è già un membro della \'route\'.</string>
   <string name="duplicate_route_segment_button">Aggiungi comunque</string>
   <!--Relation editing dialog-->
   <string name="remove_relation_member_message">%1$s</string>
@@ -392,7 +395,7 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="share_code">Condividi codice…</string>
   <!--Overpass console-->
   <string name="run">Esegui</string>
-  <string name="overpass_result">Scaricati %1$d nodo/i, %2$d percorso/i e %3$d relazione/i.</string>
+  <string name="overpass_result">Scaricati %1$d nodo/i, %2$d linea/e e %3$d relazione/i.</string>
   <string name="overpass_console">Console overpass</string>
   <string name="select_result">Seleziona risultato</string>
   <string name="merge_result">Unisci risultato</string>
@@ -402,9 +405,9 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="error">Errore</string>
   <string name="warning">Attenzione</string>
   <string name="minor_issue">Problema minore</string>
-  <string name="unknown_error_level">Errore sconosciuto</string>
+  <string name="unknown_error_level">Livello errore sconosciuto</string>
   <!--hidden object warning dialog-->
-  <string name="attached_object_warning_title">Questa operazione ha effetti sugli oggetti filtrati</string>
+  <string name="attached_object_warning_title">Questa operazione ha effetti sugli oggetti allegati filtrati!</string>
   <string name="attached_object_warning_message">L’oggetto modificato è collegato a degli elementi nascosti che cambieranno insieme a esso.</string>
   <!--replace geometry confirm-->
   <!--This concerns a shown message that should be shown every time-->
@@ -442,6 +445,8 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="altitude">Altitudine</string>
   <string name="create_osm_object">Crea oggetto OSM</string>
   <string name="create_osm_object_search">Crea oggetto OSM da ricerca predefinito</string>
+  <!--GPX track segment dialog-->
+  <!--Simplification dialog-->
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Livello immagini personalizzato</string>
   <string name="oam_layer_title">Immagini OAM</string>
@@ -456,12 +461,12 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="coverage_right">Destra</string>
   <string name="coverage_bottom">In basso</string>
   <string name="tile_size">Dimensione tassello</string>
-  <string name="toast_invalid_box">Riquadro di selezione non valido</string>
+  <string name="toast_invalid_box">Riquadro di selezione non valido o incompleto</string>
   <string name="delete_layer">Eliminare lo strato?</string>
   <string name="delete_endpoint">Cancellare endpoint?</string>
   <string name="add_wms_endpoint_title">Aggiungi endpoint del WMS</string>
   <string name="edit_wms_endpoint_title">Modifica endpoint del WMS</string>
-  <string name="add_imagery_from_wms_endpoint">Aggiunti immagini da WMS</string>
+  <string name="add_imagery_from_wms_endpoint">Aggiungi immagini da WMS</string>
   <!--Layer style dialog-->
   <string name="layer_style_title">Stile strato</string>
   <string name="layer_style_stroke_width">Larghezza linee</string>
@@ -545,7 +550,7 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="tag_conflict_message">L\'operazione richiedeva la modifica delle proprietà degli elementi coinvolti.</string>
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">Nessuna relazione idonea nei dati scaricati.</string>
-  <string name="select_route_title">Seleziona  percorso</string>
+  <string name="select_route_title">Seleziona percorso</string>
   <string name="select_relation_title">Seleziona relazione</string>
   <!--Preset selection dialog-->
   <string name="select_relation_type_title">Seleziona tipo di relazione</string>
@@ -579,8 +584,8 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="tip_undo">Premendo a lungo il tasto annulla vengono mostrati tutti i punti di controllo per annulla e rifai.</string>
   <string name="tip_imagery_privacy">Lo strato di sfondo e quello sovrapposto sono forniti da terze parti. Utilizzando uno strato viene trasmesso al provider il proprio indirizzo di rete e un\'indicazione approssimativa dell\'area che si sta osservando. Se il provider ha fornito informazioni sulla privacy, è possibile visualizzarle con la voce di menu \"Info\" nella finestra di dialogo dello strato.</string>
   <string name="tip_mapillary_privacy">Mapillary è un servizio fornito da Mapillary AB, Svezia, una filiale di Facebook. L\'utilizzo del servizio trasmette alla società il vostro indirizzo di rete e le informazioni sulle immagini che avete visualizzato.</string>
-  <string name="tip_panoramax_privacy">Panoramax è un serivizio fornito da terzi, il server predefinito è gestito da OpenStreetMap France, è possibile modificarlo nelle preferenze. Quando usi il servizio, al gestore vengono trasmessi il tuo indirizzo di rete e le informazioni sulle immagini che hai visionato.</string>
-  <string name="tip_locked_mode">In modalità bloccata non puoi modificare nulla ma tenendo premuto su un oggetto si aprirà una schermata con le sue dettagli.</string>
+  <string name="tip_panoramax_privacy">Panoramax è un servizio fornito da terzi, il server predefinito è gestito da OpenStreetMap France, è possibile modificarlo nelle preferenze. Quando usi il servizio, al gestore vengono trasmessi il tuo indirizzo di rete e le informazioni sulle immagini che hai visionato.</string>
+  <string name="tip_locked_mode">In modalità bloccata non puoi modificare nulla ma tenendo premuto su un oggetto si aprirà una schermata con i suoi dettagli.</string>
   <string name="tip_longpress_simple_mode">In modalità semplice tenendo premuto non succederà niente. Disabilita la modalità semplice nel menù principale se vuoi tenere premuto per creare oggetti.</string>
   <string name="tip_gpx_no_elevation">A partire dalla versione 15, le tracce GPX inizialmente non contengono le informazioni di elevazione.&lt;p&gt;Per abilitare la registrazione dell’elevazione installa un modello di geoide con &lt;i&gt;Installa EGM&lt;/i&gt; dal menù Strumenti oppure commuta su input NMEA.</string>
   <string name="tip_tag_conflict">La fusione e l’inversione degli elementi OSM talvolta richiede la modifica di attributi su quegli elementi, in caso di un possibile errore o conflitto verrai avvisato e ti sarà offerta l’opportunità di verificare gli oggetti in questione.</string>
@@ -596,7 +601,7 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="qa_channel_name">QA Vespucci</string>
   <string name="qa_channel_description">Canale di segnalazione QA per compiti e problemi ai dati</string>
   <!--Notifications-->
-  <string name="upload_checker_title">Ricordati di salvare il tuo lavoro</string>
+  <string name="upload_checker_title">Ricordati di caricare il tuo lavoro</string>
   <plurals name="upload_checker_message">
     <item quantity="one">Hai una modifica non pubblicata.</item>
     <item quantity="many">Hai %1$d modifiche non pubblicate.</item>
@@ -631,7 +636,7 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="toast_cant_autoapply_preset">Questo predefinito non può essere applicato automaticamente</string>
   <string name="toast_oneway_reversed">Hai invertito una strada a senso unico o una strada con tag dipendenti dalla direzione. Per favore controlla i tag e correggili se necessario.</string>
   <string name="toast_potential_merge_tag_conflict">Stai tentando di unire elementi con valori di etichette in conflitto.\n\nVerifica e correggi le etichette prima di tentare di nuovo.</string>
-  <string name="toast_way_nodes_moved">%1$d nodi nel percorso spostato</string>
+  <string name="toast_way_nodes_moved">%1$d nodi nella linea spostata</string>
   <plurals name="toast_unread_mail">
     <item quantity="one">Ha un messaggio OSM non letto</item>
     <item quantity="many">Hai %1$d messaggi OSM non letti</item>
@@ -645,13 +650,13 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="toast_note_reopened">Nota riaperta</string>
   <!--Validation-->
   <string name="toast_unsurveyed_road">Strada non verificata</string>
-  <string name="toast_noname">Mancano i valori nome e ref per la strada</string>
-  <string name="toast_notype">Manca il tag \"relation\" per questa relazione</string>
+  <string name="toast_noname">Mancano il nome o il ref della strada</string>
+  <string name="toast_notype">La relazione non ha un tipo</string>
   <string name="toast_missing_role">Membri della relazione senza specificato il ruolo richiesto</string>
   <string name="toast_relation_loop">I riferimenti ai membri delle relazioni creano un anello</string>
   <string name="toast_untagged_element">Elementi senza etichette</string>
   <string name="toast_unconnected_end_node">Il nodo è vicino a un elemento a cui potrebbe essere connesso</string>
-  <string name="toast_degenerate_way">Percorso degenere</string>
+  <string name="toast_degenerate_way">Linea degenere</string>
   <string name="toast_wrong_element_type">Tipo di elemento non standard: %1$s</string>
   <!---->
   <string name="toast_oauth_retry">Prova a caricare di nuovo dopo aver concesso l’accesso OAuth alla tua utenza OSM.</string>
@@ -679,7 +684,7 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="toast_tile_database_issue_short">Problema nel database dei tasselli</string>
   <string name="toast_tile_database_issue">Problema serio con il database dei tasselli per la mappa\n%1$s\nConsultare le nostre FAQ su https://vespucci.io/</string>
   <string name="toast_tile_source_issue">È accaduto un problema serio con la fonte dei tasselli della mappa, verrà disabilitato temporaneamente\n“%1$s”</string>
-  <string name="toast_invalid_apiurl">URL dell\'API non valida</string>
+  <string name="toast_invalid_apiurl">URL dell\'API non valido</string>
   <string name="toast_invalid_readonlyurl">URL invalido per le API in sola lettura</string>
   <string name="toast_invalid_notesurl">Indirizzo delle API per le note non valido</string>
   <string name="toast_missing_preset_file">File predefiniti mancante per “%1$s”</string>
@@ -697,16 +702,16 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="toast_openinghours_invalid">Il valore orari di apertura non è valido per %1$s</string>
   <string name="toast_openinghours_autocorrected">Il valore degli orari di apertura %1$s è stato corretto automaticamente</string>
   <string name="toast_abort_actionmode">Usa il tasto ← per interrompere</string>
-  <string name="toast_null_island">Per favole non aggiungere elementi a 0°/0° (Null Island)</string>
+  <string name="toast_null_island">Per favore non aggiungere elementi a 0°/0° (Null Island)</string>
   <string name="toast_string_too_long">Sequenza troppo lunga (%1$d caratteri), accorciata!</string>
   <string name="toast_illegal_operation">Operazione non consentita: %1$s</string>
   <string name="toast_preset_creation_failed">Impossibile creare il predefinito “%1$s”: %2$s</string>
-  <string name="toast_imperial_units">Manca la misura</string>
+  <string name="toast_imperial_units">Mancano le unità imperiali</string>
   <string name="toast_server_connection_failed">Impossibile collegarsi al server: %1$s</string>
   <string name="toast_flus_all_caches">Questo cancellerà la cache di tutti i livelli di immagini.</string>
   <string name="toast_applied_offset">Applicato allineamento alle immagini.</string>
   <string name="toast_unsupported_format">Formato non supportato: %1$s</string>
-  <string name="toast_returning_less_than_found">Ho trovato %1$d voci di %2$d</string>
+  <string name="toast_returning_less_than_found">Recuperate %1$d di %2$d voci trovate</string>
   <string name="toast_using_network_location">Sto usando la posizione della rete dati</string>
   <string name="toast_using_gps_location">Sto usando la posizione GPS/GNSS</string>
   <string name="toast_using_gps_disabled_tracking_stopped">GPS/GNSS spento, considera di fermare il tracciamento</string>
@@ -723,7 +728,7 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="toast_invalid_style_file">File di stile %1$s non valido\n%2$s </string>
   <string name="toast_no_geometry">Non è stata trovata alcuna geometria per l’elemento</string>
   <string name="toast_added_api_entry_for">Aggiunto elemento API per %1$s</string>
-  <string name="toast_updated">Aggiornato%1$s</string>
+  <string name="toast_updated">Aggiornato %1$s</string>
   <string name="toast_cannot_resume_download_of">Impossibile continuare lo scaricamento di %1$s</string>
   <string name="toast_device_not_found_for">Impossibile trovare il dispositivo per %1$s</string>
   <string name="toast_file_already_exists">File %1$s già esistente</string>
@@ -741,7 +746,7 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="toast_phone_number_reformatted">Numero di telefono riformattato</string>
   <string name="toast_members_not_downloaded">Alcuni membri della relazione non sono stati scaricati</string>
   <string name="toast_restart_required">Vespucci deve essere riavviato per rendere effettivi i cambiamenti</string>
-  <string name="toast_unable_to_open_offline_data">Impossibile aprire i dati offline %1$s%2$s</string>
+  <string name="toast_unable_to_open_offline_data">Impossibile aprire i dati offline %1$s %2$s</string>
   <string name="toast_no_usable_location">Posizione non utilizzabile</string>
   <string name="toast_default_channel_needs_to_be_enabled">Il canale di notifica predefinito deve essere abilitato per iniziare a registrare</string>
   <plurals name="added_required_elements">
@@ -752,7 +757,7 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="toast_out_of_memory">MEMORIA ESAURITA!</string>
   <string name="toast_egm_installed">EGM scaricato e installato</string>
   <string name="toast_invalid_number_format">Formato del numero non valido %1$s</string>
-  <string name="toast_error_downloading_mapillary_image">Errore nel caricamento dell\'immagine mapillary %1$s</string>
+  <string name="toast_error_downloading_mapillary_image">Errore nello scaricamento dell\'immagine Mapillary %1$s</string>
   <string name="toast_error_downloading_mapillary_sequences">Errore durante lo scaricamento delle sequenze Mapillary %1$s</string>
   <string name="toast_split_first_segment">Dividi primo segmento</string>
   <string name="toast_split_first_and_next_segment">Dividi primo segmento e quello successivo</string>
@@ -766,10 +771,10 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="toast_error_loading_style">Impossibile caricare lo stile: %1$s</string>
   <string name="toast_only_one_source_supported">Supportata solo una sorgente per stile</string>
   <string name="toast_imagery_offset_download_failed">Fallito lo scaricamento dell\'offset: %1$s</string>
-  <string name="toast_download_server_version_failed">Fallito scaricamento dal server per %1$s</string>
+  <string name="toast_download_server_version_failed">Scaricamento della versione server fallito per %1$s</string>
   <string name="toast_error_element_too_large">L\'elemento è troppo grande per l\'editor delle proprietà</string>
   <string name="toast_no_intersection_found">Nessuna intersezione trovata</string>
-  <string name="toast_api_key_missing">Nessuna chiave API trovata %1$s</string>
+  <string name="toast_api_key_missing">Nessuna chiave API trovata per %1$s</string>
   <string name="toast_no_track_points">Nessun punto traccia</string>
   <string name="toast_url_check">%1$s %2$d</string>
   <string name="toast_url_check_with_msg">%1$s %2$d %3$s</string>
@@ -779,9 +784,9 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="toast_updating_members">Aggiornamento dei membri…</string>
   <string name="toast_panoramax_sequence_error">Impossibile recuperare la sequenza Panoramax ID %1$s ID %2$s</string>
   <!--Error messages-->
-  <string name="error_mapsplit_missing_zoom">Le sorgenti MapSplit devono avere un valore di zoom massimo e minimo</string>
+  <string name="error_mapsplit_missing_zoom">Le sorgenti MapSplit devono avere un valore di zoom minimo e massimo</string>
   <string name="error_pbf_no_version">Informazione sulla versione mancante nel file PBF</string>
-  <string name="error_pbf_unknown_relation_member_type">Membro della reazione di tipo %1$s sconosciuto</string>
+  <string name="error_pbf_unknown_relation_member_type">Membro della relazione di tipo %1$s sconosciuto</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sì</string>
   <string name="no">No</string>
@@ -802,7 +807,7 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="enable">Abilita</string>
   <string name="disable">Disabilita</string>
   <string name="clear">Svuota</string>
-  <string name="discard">Elimina</string>
+  <string name="discard">Scarta</string>
   <string name="retry">Riprova</string>
   <string name="prune">Riduci</string>
   <string name="check">Verifica</string>
@@ -828,7 +833,7 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="none">Nessuno</string>
   <!--Dialog for back button-->
   <string name="exit_title">Esci Vespucci</string>
-  <string name="exit_text">Sei sicuro di voler uscire?</string>
+  <string name="exit_text">Vuoi davvero uscire?</string>
   <string name="pause_exit_text">Vuoi davvero mettere in pausa il tracking e uscire?</string>
   <!--Strings in PorpertyEditor-->
   <string name="key">chiave</string>
@@ -935,7 +940,7 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="allow_all_networks">Permetti tutte le reti</string>
   <!--Strings in Go to coordinates-->
   <string name="go_to_coordinates_title">Vai alle coordinate</string>
-  <string name="go_to_coordinates_hint">Inserisci le coodinate (lat e lon) oppure un codice OLC</string>
+  <string name="go_to_coordinates_hint">Inserisci le coordinate (lat e lon) oppure un codice OLC</string>
   <string name="unparseable_coordinates">Impossibile decodificare coordinate</string>
   <string name="network_required">La rete dati è richiesta per trovare la posizione</string>
   <string name="no_nominatim_server">Non è stato trovato un server Nominatim configurato</string>
@@ -944,12 +949,11 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="menu_move">Sposta</string>
   <string name="menu_add">Nuovo</string>
   <string name="menu_config">Preferenze</string>
-  <string name="menu_find">Trova</string>
   <string name="menu_help">Aiuto</string>
   <string name="menu_erase">Cancella nodo</string>
   <string name="menu_split">Dividi</string>
   <string name="menu_remove_node_from_way">Rimuovi nodo dalla linea</string>
-  <string name="menu_start_end_way">Inizia/Termina percorso</string>
+  <string name="menu_start_end_way">Inizia/Termina linea</string>
   <string name="menu_extract">Estrai nodo</string>
   <string name="menu_append">Aggiungi</string>
   <string name="menu_create_route">Crea ‘route’</string>
@@ -1011,7 +1015,7 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="menu_transfer_save_notes_all">Salva tutte le note...</string>
   <string name="menu_transfer_save_notes_new_and_changed">Salva note nuove e modificate</string>
   <string name="menu_transfer_read_notes">Carica note…</string>
-  <string name="menu_transfer_read_todos">Carica lista delle code da fare…</string>
+  <string name="menu_transfer_read_todos">Carica lista delle cose da fare…</string>
   <string name="menu_transfer_write_todos">Salva lista delle cose da fare…</string>
   <string name="menu_save">Salva come file</string>
   <string name="menu_join">Unisci</string>
@@ -1021,16 +1025,16 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="menu_cut">Taglia</string>
   <string name="menu_paste">Incolla</string>
   <string name="menu_paste_tags">Incolla etichette</string>
-  <string name="menu_paste_from_clipboard">Copia dagli appunti</string>
+  <string name="menu_paste_from_clipboard">Incolla dagli appunti</string>
   <string name="menu_zoom_to_selection">Ingrandisci la selezione</string>
   <string name="menu_rotate">Ruota</string>
-  <string name="menu_orthogonalize">Raddrizza</string>
+  <string name="menu_orthogonalize">Squadra</string>
   <string name="menu_straighten">Raddrizzare</string>
   <string name="menu_circulize">Disponi in cerchio</string>
   <string name="menu_split_polygon">Dividi in poligoni</string>
   <string name="menu_unjoin_dissimilar">Separa dissimile</string>
   <string name="menu_extract_segment">Estrai segmento</string>
-  <string name="menu_select_way_nodes">Seleziona i nodi del percorso</string>
+  <string name="menu_select_way_nodes">Seleziona i nodi della linea</string>
   <string name="menu_newnode_gps">Nuovo nodo alla posizione GPS</string>
   <string name="menu_extend_selection">Estendi selezione</string>
   <string name="menu_information">Informazioni…</string>
@@ -1092,7 +1096,7 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="menu_tools_background_contrast">Contrasto</string>
   <string name="menu_enable_tagfilter">Filtro etichette</string>
   <string name="menu_enable_presetfilter">Filtro predefiniti</string>
-  <string name="preset_menu_waynodes">Includi i nodi del percorso</string>
+  <string name="preset_menu_waynodes">Includi i nodi della linea</string>
   <string name="preset_menu_invert">Inverti filtri</string>
   <!--element action mode menu-->
   <string name="menu_tags">Proprietà</string>
@@ -1100,46 +1104,46 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="element_for_menu">%1$s</string>
   <string name="element_for_menu_with_direction">%1$s %2$s</string>
   <!--Text should be as short as possible-->
-  <string name="start_end_way_description">Vai all’inizio o alla fine del percorso</string>
+  <string name="start_end_way_description">Vai all’inizio o alla fine della linea</string>
   <string name="menu_history">Cronologia</string>
   <string name="menu_history_web">Cronologia (web)</string>
   <string name="menu_merge">Unisci</string>
   <string name="menu_add_node_at_intersection">Aggiungere un nodo all\'intersezione</string>
   <string name="menu_reverse">Inverti</string>
-  <string name="notreversable_description">Questa linea non è reversibile poiché ha dei tag dipendenti dalla direzione. Ruotandola creerebbe problemi con i tag.</string>
+  <string name="notreversable_description">Questa linea non è reversibile poiché ha dei tag dipendenti dalla direzione. Invertendola si creerebbero problemi con i tag.</string>
   <string name="reverse_anyway">Inverti comunque</string>
-  <string name="deleteway_description">Stai per cancellare una strada.\n\nPuoi mantenere tutti i nodi o cancellare quelli che appartengono solo a questa strada e che non hanno tag.</string>
-  <string name="deleteway_relation_description">Stai per cancellare un percorso che è membro di una o più relazioni. Rimuovere un percorso potrebbe rendere non valide quelle relazioni.</string>
-  <string name="deleteway_nodesnotdownloaded_description">Il percorso contiene nodi al di fuori dell’area scaricata e non può essere cancellato senza creare un potenziale stato inconsistente.\n\nScarica l’area attorno prima di provare di nuovo.</string>
-  <string name="deleteways_nodesnotdownloaded_description">La selezione contiene dei percorsi con nodi al di fuori dell’area scaricata e non può essere cancellata senza creare un potenziale stato inconsistente.\n\nScarica tutta l’area attorno ai percorsi prima di provare di nuovo.</string>
-  <string name="deleteway_wayonly">Cancella solo la strada</string>
-  <string name="deleteway_wayandnodes">Elimina percorso</string>
+  <string name="deleteway_description">Stai per cancellare una linea.\n\nPuoi mantenere tutti i nodi o cancellare quelli che appartengono solo a questa linea e che non hanno tag.</string>
+  <string name="deleteway_relation_description">Stai per cancellare una linea che è membro di una o più relazioni. Rimuovere una linea potrebbe rendere non valide quelle relazioni.</string>
+  <string name="deleteway_nodesnotdownloaded_description">La linea contiene nodi al di fuori dell’area scaricata e non può essere cancellata senza creare un potenziale stato inconsistente.\n\nScarica l’area attorno prima di provare di nuovo.</string>
+  <string name="deleteways_nodesnotdownloaded_description">La selezione contiene delle linee con nodi al di fuori dell’area scaricata e non può essere cancellata senza creare un potenziale stato inconsistente.\n\nScarica tutta l’area attorno alle linee prima di provare di nuovo.</string>
+  <string name="deleteway_wayonly">Cancella solo la linea</string>
+  <string name="deleteway_wayandnodes">Elimina linea</string>
   <string name="deletenode_relation_description">Stai per cancellare un nodo che è membro di una o più relazioni. Rimuovere il nodo potrebbe rendere non valide le relazioni.</string>
   <string name="deletenode">Cancella nodo</string>
   <!--EasyEdit context menus-->
   <string name="split_context_title">Dividi…</string>
-  <string name="split_all_ways">…tutte i percorsi</string>
+  <string name="split_all_ways">…tutte le linee</string>
   <string name="merge_context_title">Unisci con...</string>
-  <string name="merge_with_all_ways">…tutti i percorsi vicino</string>
-  <string name="merge_with_all_nodes">…tutti i nodi vicino</string>
+  <string name="merge_with_all_ways">…tutte le linee vicine</string>
+  <string name="merge_with_all_nodes">…tutti i nodi vicini</string>
   <string name="append_context_title">Aggiungi a…</string>
   <string name="delete_note_description">Cancellare una nota è un\'operazione non annullabile!</string>
   <string name="delete_note">Cancella nota</string>
   <!--EasyEdit action mode titles-->
-  <string name="actionmode_wayselect">Percorso selezionato</string>
+  <string name="actionmode_wayselect">Linea selezionata</string>
   <string name="actionmode_nodeselect">Nodo selezionato</string>
   <string name="actionmode_relationselect">Relazione selezionata</string>
-  <string name="actionmode_createpath">Creazione percorso</string>
+  <string name="actionmode_createpath">Creazione linea</string>
   <string name="actionmode_multiselect">Selezione multipla</string>
   <string name="actionmode_newnoteselect">Nuova nota selezionata</string>
   <string name="actionmode_add_segment">Aggiungi segmento</string>
   <string name="actionmode_reselect_first_segment">Riseleziona primo segmento</string>
-  <string name="actionmode_split_way">Dividi percorso</string>
-  <string name="actionmode_split_closed_way">Dividi percorso chiuso</string>
+  <string name="actionmode_split_way">Dividi linea</string>
+  <string name="actionmode_split_closed_way">Dividi linea chiusa</string>
   <string name="actionmode_rotate">Ruota</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_closed_way_split_2">Seleziona 2º nodo</string>
-  <string name="actionmode_split_way_select_part">Seleziona tratto per il nuovo percorso</string>
+  <string name="actionmode_split_way_select_part">Seleziona tratto per la nuova linea</string>
   <string name="actionmode_select_node_to_append_to">Seleziona nodo a cui aggiungere</string>
   <string name="actionmode_restriction">Aggiungi un divieto di svolta</string>
   <string name="actionmode_restriction_restart_from">Seleziona di nuovo il segmento \"da\"</string>
@@ -1246,7 +1250,7 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="config_autoLockDelay_title">Intervallo oltre il quale attivare il blocco automatico</string>
   <string name="config_autoLockDelay_summary">Numero di secondi da aspettare prima del blocco automatico, 0 per disabilitare.</string>
   <string name="config_autoLockDelay_current">%1$d s</string>
-  <string name="config_enableAntiAliasing_title">Abilità l\'anti-aliasing</string>
+  <string name="config_enableAntiAliasing_title">Abilita l\'anti-aliasing</string>
   <string name="config_enableAntiAliasing_summary">Rendi le linee più morbide.</string>
   <string name="config_enableHwAcceleration_title">Abilita accelerazione hardware</string>
   <string name="config_maxStrokeWidth_title">Massimo spessore di linea</string>
@@ -1294,7 +1298,7 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="config_neighbourDistance_current">%1$d metro(i)</string>
   <string name="config_enableNameSuggestions_title">Abilita il suggerimento dei nomi</string>
   <string name="config_enableNameSuggestions_summary">Abilita il suggerimento delle etichette nome.</string>
-  <string name="config_enableNameSuggestionsPresets_title">Abilita i predifiniti per il suggerimento del nome</string>
+  <string name="config_enableNameSuggestionsPresets_title">Abilita i predefiniti per il suggerimento del nome</string>
   <string name="config_enableNameSuggestionsPresets_summary">Aggiungi predefinito automaticamente quando il suggerimento del nome è selezionato.</string>
   <string name="config_autoApplyPreset_title">Abilita applicazione automatica del predefinito</string>
   <string name="config_autoApplyPreset_summary">Applica automaticamente il predefinito quando parte l’editor delle proprietà.</string>
@@ -1397,7 +1401,7 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="config_category_layers_summary">Scaricamento e stoccaggio delle immagini di sfondo con tasselli</string>
   <string name="config_maxTileDownloadThreads_title">Massimo numero di scaricamenti paralleli</string>
   <string name="config_maxTileDownloadThreads_summary">Numero max di thread per lo scaricamento dei tasselli.</string>
-  <string name="config_downLoadThreads_current">%1$d Processi</string>
+  <string name="config_downLoadThreads_current">%1$d Thread</string>
   <string name="config_tileCacheSize_title">Dimensione della cache dei tasselli</string>
   <string name="config_tileCacheSize_summary">Spazio totale utilizzato per memorizzare le tiles, in MB.</string>
   <string name="config_preferRemovableStorage_title">Prediligi memoria rimovibile</string>
@@ -1427,6 +1431,7 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="pref_enable_acra">Segnala crash dell\'applicazione</string>
   <string name="pref_acra_enabled">Segnalazione crash abilitata</string>
   <string name="pref_acra_disabled">Segnalazione crash disabilitata</string>
+  <string name="pref_acra_save_locally_disabled">Disabili</string>
   <string name="config_showStats_title">Mostra statistiche</string>
   <string name="config_showStats_summary">Mostra statistiche e FPS nell\'angolo in basso a sinistra.</string>
   <!--Experimental-->
@@ -1504,33 +1509,33 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="type_id">%1$s #%2$s</string>
   <!--preset stuff-->
   <string name="preset_role">%1$s - %2$s</string>
-  <string name="preset_empty_role">Ruolo non solezionato</string>
+  <string name="preset_empty_role">Ruolo non selezionato</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">Spostato nodo</string>
   <string name="undo_action_moveway">Spostata linea</string>
   <string name="undo_action_moveobjects">Spostato oggetto</string>
   <string name="undo_action_add">Inserimento</string>
-  <string name="undo_action_append">Aggiungi al percorso</string>
+  <string name="undo_action_append">Aggiungi alla linea</string>
   <string name="undo_action_deletenode">Cancellazione nodo</string>
   <string name="undo_action_deleteway">Cancellazione linea</string>
   <string name="undo_action_delete_objects">Oggetti cancellati</string>
   <string name="undo_action_split_ways">Separazione linee</string>
   <string name="undo_action_split_way">Separazione linea</string>
-  <string name="undo_action_merge_ways">Unione linea</string>
-  <string name="undo_action_reverse_way">Inversione direzione del percorso</string>
+  <string name="undo_action_merge_ways">Unione linee</string>
+  <string name="undo_action_reverse_way">Inversione direzione della linea</string>
   <string name="undo_action_set_tags">Etichettatura</string>
   <string name="undo_action_join">Unione</string>
   <string name="undo_action_unjoin_ways">Separazione linea</string>
   <string name="undo_action_merge_polygons">Fusione dei poligoni</string>
   <string name="undo_action_create_relation">Creazione relazione</string>
   <string name="undo_action_delete_relation">Cancellazione relazione</string>
-  <string name="undo_action_update_relations">Aggiornamneto relazione</string>
+  <string name="undo_action_update_relations">Aggiornamento relazione</string>
   <string name="undo_action_move_tags">Sposta le etichette sulla relazione</string>
   <string name="undo_action_cut">Taglia</string>
   <string name="undo_action_paste">Incolla</string>
   <string name="undo_action_duplicate">Duplica</string>
   <string name="undo_action_rotate">Rotazione</string>
-  <string name="undo_action_orthogonalize">Squadratura del percorso</string>
+  <string name="undo_action_orthogonalize">Squadratura della linea</string>
   <string name="undo_action_circulize">Disponi in cerchio</string>
   <string name="undo_action_fix_conflict">Risoluzione conflitti</string>
   <string name="undo_action_extract_node">Estrazione nodo</string>
@@ -1544,7 +1549,7 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="report_success">Inviato</string>
   <string name="report_failure">Impossibile inviare la segnalazione</string>
   <!--Exceptions messages-->
-  <string name="exception_too_many_nodes">Questa operazione creerebbe una strada con troppi nodi.</string>
+  <string name="exception_too_many_nodes">Questa operazione creerebbe una linea con troppi nodi.</string>
   <string name="exception_too_many_members">Questa operazione aggiungerebbe troppi membri alla relazione %1$s.</string>
   <!--Notifications-->
   <string name="alert_data_issue">È stato individuato un problema con i dati OSM</string>
@@ -1580,14 +1585,14 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="steps">Gradini</string>
   <!--Issues-->
   <string name="issue_not_reversable">Etichette non invertibili</string>
-  <string name="issue_shared_node">Condiviso con un altro percorso</string>
+  <string name="issue_shared_node">Condiviso con un’altra linea</string>
   <string name="issue_tags_reversed">Etichette invertite</string>
   <string name="issue_role_reversed">Ruoli invertiti</string>
   <string name="issue_oneway_direction_reversed">Direzione del senso unico invertita</string>
   <string name="issue_role_conflict">Conflitto di ruolo</string>
   <string name="issue_merged_tags">Etichette unite</string>
   <string name="issue_same_object">Stesso oggetto</string>
-  <string name="issue_merged_metric">È stata fuso un valore che dipende dalla lunghezza</string>
+  <string name="issue_merged_metric">È stato fuso un valore che dipende dalla lunghezza</string>
   <string name="issue_split_metric">È stato diviso un valore che dipende dalla lunghezza</string>
   <string name="issue_split_route_ordering">Il percorso potrebbe richiedere un riordino manuale</string>
   <string name="issue_precondition_relation_member_count">Conteggio dei membri della relazione superato</string>
@@ -1634,13 +1639,13 @@ altrimenti il processo inizierà automaticamente la prima volta che caricherai d
   <string name="bookmarkstitle">Segnalibri</string>
   <!--Element types-->
   <string name="element_type_node">nodo</string>
-  <string name="element_type_way">percorso</string>
-  <string name="element_type_closedway">strada chiusa</string>
+  <string name="element_type_way">linea</string>
+  <string name="element_type_closedway">linea chiusa</string>
   <string name="element_type_area">area</string>
   <string name="element_type_relation">relazione</string>
   <!--Element names with id-->
   <string name="node_id">nodo %1$d</string>
-  <string name="way_id">via %1$d</string>
+  <string name="way_id">linea %1$d</string>
   <string name="relation_id">relazione %1$d</string>
   <!--Tile downloader diagnostics-->
   <string name="layer_diag_title">Diagnostica del livello</string>

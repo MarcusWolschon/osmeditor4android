@@ -300,8 +300,9 @@
   <string name="set_position_swap">Vertausche Längen- und Breitengrad</string>
   <!---->
   <string name="tag_editor_name_suggestion">Vorschläge für Namen</string>
-  <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">Dieser Vorschlag kann bestehende Tag-Werte durch beliebtere ersetzen</string>
+  <!--Search/Find place dialog-->
+  <string name="find_place_title">Finde einen Ort</string>
   <string name="search_results_title">Suchresultate</string>
   <string name="search_online">Online suchen</string>
   <string name="find_message">Suchanfrage eingeben</string>
@@ -366,6 +367,12 @@
   <string name="direction">Richtung</string>
   <string name="file_size">Größe</string>
   <string name="file_size_kB">%1$d kB</string>
+  <!--further image stuff-->
+  <string name="storage_wikimedia_commons">Wikimedia Commons</string>
+  <string name="storage_panoramax">Panoramax</string>
+  <string name="storage_mapillary">Mapillary</string>
+  <string name="toast_link_added">Link %1$s hinzugefügt.</string>
+  <string name="toast_exactly_one_element">Genau ein Element muss ausgewählt sein um ein Image-Tag hinzufügen zu können!</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Zu viele Daten!</string>
   <string name="too_much_data_message">Es sind %1$d Knoten geladen, was den eingestellten Höchstwert übersteigt. Dies macht die App langsam und führt möglicherweise zu Problemen beim Sichern des aktuellen Zustandes.</string>
@@ -490,6 +497,14 @@
   <string name="create_osm_object">OSM-Objekt erstellen</string>
   <string name="create_osm_object_search">OSM-Objekt aus Vorlagensuche erstellen</string>
   <string name="waypoint_link">Verbindung</string>
+  <!--GPX track segment dialog-->
+  <string name="track_segment_title">GPX Tracksegment</string>
+  <string name="gpx_track">GPX Track</string>
+  <string name="track_segment_description">GPX Tracksegment</string>
+  <string name="create_osm_ways">OSM-Weg(e) erstellen…</string>
+  <!--Simplification dialog-->
+  <string name="simplify">Vereinfachen</string>
+  <string name="tolerance">Toleranz (in Meter)</string>
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Benutzerdefinierter Hintergrund</string>
   <string name="oam_layer_title">Hintergründe von OAM</string>
@@ -1098,7 +1113,7 @@
   <string name="menu_edit">Bearbeiten…</string>
   <string name="menu_add">Neu</string>
   <string name="menu_config">Einstellungen</string>
-  <string name="menu_find">Finden</string>
+  <string name="menu_find">Finde einen Ort…</string>
   <string name="menu_help">Hilfe</string>
   <string name="menu_view">Anzeigen…</string>
   <string name="menu_erase">Knoten löschen</string>
@@ -1106,6 +1121,7 @@
   <string name="menu_split">Auftrennen</string>
   <string name="menu_remove_node_from_way">Knoten aus Weg entfernen</string>
   <string name="menu_start_end_way">Start/Ende des Wegs</string>
+  <string name="menu_simplify_way">Weg vereinfachen…</string>
   <string name="menu_download_along_way">Entlang Linienobjekt herunterladen...</string>
   <string name="menu_extract">Knoten extrahieren</string>
   <string name="menu_append">Anhängen</string>
@@ -1676,6 +1692,8 @@
   <string name="pref_enable_acra">Programmabstürze melden</string>
   <string name="pref_acra_enabled">Fehlerreport aktiviert</string>
   <string name="pref_acra_disabled">Fehlerreport deaktiviert</string>
+  <string name="pref_acra_save_locally">Fehlerberichte auch lokal speichern</string>
+  <string name="pref_acra_save_locally_disabled">Behinderte</string>
   <string name="config_showStats_title">Statistiken anzeigen</string>
   <string name="config_showStats_summary">Zeigt Statistiken (FPS/Knotenanzahl) in der unteren linken Ecke an.</string>
   <!--Experimental-->
@@ -1759,6 +1777,7 @@
   <string name="wikimedia_meta_author">Autor</string>
   <string name="wikimedia_meta_licence">Lizenz</string>
   <string name="wikimedia_meta_category">Kategorie</string>
+  <string name="image_upload_add_link_title">Link hinzufügen</string>
   <!--common terms-->
   <string name="add">Hinzufügen</string>
   <string name="edit">Bearbeiten</string>

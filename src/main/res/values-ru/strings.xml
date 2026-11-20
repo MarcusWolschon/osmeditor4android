@@ -201,8 +201,8 @@
   <string name="WGS84">WGS84</string>
   <!---->
   <string name="tag_editor_name_suggestion">Предложение названия</string>
-  <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">Это предложение может заменить некоторые значения тегов более популярными значениями.</string>
+  <!--Search/Find place dialog-->
   <string name="search_results_title">Результаты поиска</string>
   <string name="search_online">Поиск в Интернете</string>
   <string name="find_message">Введите строку поиска</string>
@@ -263,6 +263,9 @@
   <string name="direction">Направление</string>
   <string name="file_size">Размер</string>
   <string name="file_size_kB">%1$d КБ</string>
+  <!--further image stuff-->
+  <string name="storage_panoramax">Panoramax</string>
+  <string name="storage_mapillary">Mapillary</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Загруженно слишком много данных!</string>
   <string name="too_much_data_message">Вы загрузили %1$d точек и превысили лимит, указанный в настройках. Это приведет к замедлению работы и, возможно, к проблемам при сохранениии данных.</string>
@@ -359,6 +362,8 @@
   <string name="altitude">Высота</string>
   <string name="create_osm_object">Создать объект OSM</string>
   <string name="create_osm_object_search">Создать объект OSM из подходящей заготовки</string>
+  <!--GPX track segment dialog-->
+  <!--Simplification dialog-->
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Пользовательские снимки</string>
   <string name="oam_layer_title">Снимки OAM</string>
@@ -859,7 +864,6 @@
   <string name="menu_move">Подвинуть</string>
   <string name="menu_add">Новый</string>
   <string name="menu_config">Настройки</string>
-  <string name="menu_find">Поиск</string>
   <string name="menu_help">Справка</string>
   <string name="menu_erase">Удалить точку</string>
   <string name="menu_split">Разделить</string>

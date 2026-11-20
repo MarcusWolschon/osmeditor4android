@@ -48,6 +48,7 @@
   <string name="local_reference_inconsistency">本地參照不一致，恢復參照元素是保證安全的選項，但也請回報錯誤。</string>
   <string name="delete_locally">本地\n刪除</string>
   <string name="undelete_on_server">非伺服器\n復原已刪除</string>
+  <string name="error_running_action">%1$s行動贏得%2$s</string>
   <!--Upload retry-->
   <string name="upload_retry_title">上傳失敗</string>
   <string name="upload_retry_message_no_open_changeset">無法開啟變更集。\n\n如今可以再次嘗試。</string>
@@ -187,6 +188,7 @@
   <string name="progress_determining_status_message">決定狀態…</string>
   <string name="progress_updating_message">上傳中…</string>
   <string name="progress_validation_title">已檢核</string>
+  <string name="progress_calculating_message">計算中…</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" 已刪除</string>
   <string name="changes_changed">\"%1$s\" 已變更</string>
@@ -295,12 +297,15 @@
   <string name="imagery_offset_distance">距離</string>
   <string name="zoom_and_offsets">縮放 %1$d\n偏差\n%2$s\"/%3$s\"\n%4$sm/%5$sm</string>
   <!--Position modal-->
+  <string name="set_position_title">設定位置</string>
   <string name="set_position_datum_label">大地基準點</string>
   <string name="WGS84">WGS84</string>
+  <string name="toast_coordinate_parsing_failed">無法解析%1$s</string>
+  <string name="set_position_swap">對調經度與緯度</string>
   <!---->
   <string name="tag_editor_name_suggestion">建議名稱</string>
-  <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">這個建議可以用比較流行的值替換一些標籤值。</string>
+  <!--Search/Find place dialog-->
   <string name="search_results_title">搜尋結果</string>
   <string name="search_online">線上搜尋</string>
   <string name="find_message">輸入搜尋字串</string>
@@ -365,6 +370,9 @@
   <string name="direction">方向</string>
   <string name="file_size">大小</string>
   <string name="file_size_kB">%1$d kB</string>
+  <!--further image stuff-->
+  <string name="storage_panoramax">Panoramax</string>
+  <string name="storage_mapillary">Mapillary</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">載入太多資料了！</string>
   <string name="too_much_data_message">你載入 %1$d個節點而且已經超過設定限制，這會導致執行速度變慢，而且如果載入更多資料，有可能造成儲存時的可能問題。</string>
@@ -487,6 +495,8 @@
   <string name="create_osm_object">建立 OSM 物件</string>
   <string name="create_osm_object_search">從預置搜尋建立 OSM物件</string>
   <string name="waypoint_link">連結</string>
+  <!--GPX track segment dialog-->
+  <!--Simplification dialog-->
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">客製化影像</string>
   <string name="oam_layer_title">OAM 影像</string>
@@ -533,6 +543,7 @@
   <string name="layer_tasks">任務</string>
   <string name="layer_data">OSM 資料</string>
   <string name="layer_data_name">%1$s資料</string>
+  <string name="layer_update_tiles_in_view">更新範圍的圖磚</string>
   <string name="layer_flush_tile_cache">清理圖磚暫存檔</string>
   <string name="layer_change_style">改變樣式…</string>
   <string name="layer_load_style">載入樣式…</string>
@@ -621,8 +632,27 @@
   <string name="date_widget_usage_with_additional">取消上述選取的值來選擇日期</string>
   <!--Feedback activity-->
   <string name="feedback_title">給開發者的回饋</string>
+  <string name="feedback_title_hint">圖磚</string>
+  <string name="feedback_description_hint">請詳細遇到的問題或是功能請求</string>
+  <string name="feedback_who_is_sending">誰寄送這份報告？</string>
+  <string name="feedback_login_osm">登入開放街圖</string>
   <string name="feedback_with_displayname">傳送時附上你的開放街圖顯示名稱</string>
+  <string name="feedback_displayname_hint">開放街圖顯示名稱</string>
+  <string name="feedback_send">寄送</string>
+  <string name="feedback_device_info">包括裝置資訊</string>
+  <string name="feedback_anonymous">以匿名方式傳送</string>
+  <string name="feedback_token_client_id_hint">在這裡輸入你的客戶ID</string>
+  <string name="feedback_device_info_format">App 版本：%1$s(%2$d)\nAndroid 版本：%3$s(API %4$d)\n裝置：%5$s%6$s</string>
+  <string name="feedback_reporter_label">\n\n 回報者：%1$s</string>
+  <string name="feedback_error_code">錯誤：%1$d%2$s</string>
+  <string name="feedback_exception">例外：%1$s</string>
+  <string name="github_login_with_github">登入 GitHub (選擇性)</string>
+  <string name="github_status_authenticated">透過 GitHub 認證</string>
+  <string name="github_reset_login">重設登入</string>
+  <string name="feedback_title_required">需要加上標題</string>
   <string name="feedback_success_title">成功</string>
+  <string name="feedback_success_message">你已成功傳送報告，你可以到\n\n&lt;a href=\"%1$s\"&gt;%1$s&lt;/a&gt;找到回報的資訊。</string>
+  <string name="feedback_failure_title">回報失敗</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">下載開放街圖資料</string>
   <!--Clear/Reset GPX Track-->
@@ -657,6 +687,8 @@
   <string name="tip_empty_comment_warning">Vespucci 總是自動新增你上傳事物的摘要。&lt;p&gt;你仍然應該考慮新增一些文字為何你做出這次編輯，並且提供更多背景資訊給其他圖客。</string>
   <string name="tip_wikimedia_filename">總是用敘述性與獨一的檔案名稱，而且不能用相機自動產生的西稱，否則維基媒體會拒絕上傳。</string>
   <string name="tip_address_interpolation">這個工具是在地址模式下新增地址內插點，如果您想要加不同的物件，請切換至正常模式來使用新增路徑工具。</string>
+  <string name="tip_download_along">這工具會產生一系列涵蓋選取的線形圖徵的方形區域，然後傳送這一系列到下載的服務。&lt;p&gt;你可以每一圖徵下載時所需要的緩衝，以及最大的周邊區域範圍。使用這一功能由於可能移除跟下載的資料，會對你下載的資料類型 (OSM 資料或是任務) 停用自動跟隨。&lt;p&gt;要最小化從目標伺服器載入下載數量，但仍可能過度下載，所以請慎用這一功能。</string>
+  <string name="tip_set_position">為元件輸入新的十進位格式座標，或是各別貼到對應的欄位，如果貼上的文字包括經度與緯度的則會填入，單一座標則會貼到對應的欄位。支援的格式包括十進位與DMS格式，詳情參閱 &lt;i&gt;Go to coordinates&lt;/i&gt;說明文件。</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -870,6 +902,7 @@
   <string name="toast_url_check_with_msg">%1$s%2$d%3$s</string>
   <string name="toast_unexpected_element">未預期的元素檢查：\n%1$s</string>
   <string name="toast_import_destination_exists">匯入目的已經存在了</string>
+  <string name="toast_part_selection_not_supported">路徑部分選取功能並不支援封閉或是新路徑</string>
   <string name="toast_element_has_been_deleted">元素已經刪除了</string>
   <string name="toast_updating_tags">更新標籤...</string>
   <string name="toast_updating_parents">更新父元素…</string>
@@ -888,6 +921,10 @@
   <string name="toast_panoramax_instance_list_error">無法取得 panoramax 站臺清單\n%1$s</string>
   <string name="toast_authorisation_successful">認證成功</string>
   <string name="toast_authorisation_failed">認證失數\n%1$s</string>
+  <string name="toast_way_self_intersects">路徑自我交叉</string>
+  <plurals name="toast_unglued_nodes">
+    <item quantity="other">解除黏住%1$d節點</item>
+  </plurals>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">MapSplit 資源必須設定最小和最大</string>
   <string name="error_pbf_no_version">PBF 檔案缺少版本資訊</string>
@@ -918,10 +955,12 @@
   <string name="check">檢查</string>
   <string name="download">下載</string>
   <string name="abort">放棄</string>
-  <string name="pause">Pause</string>
+  <string name="pause">暫停</string>
+  <string name="resume">恢復</string>
   <string name="ignore">忽略</string>
   <string name="select">選取</string>
   <string name="skip">跳過</string>
+  <string name="submit">提交</string>
   <string name="deprecated">%1$s(已棄用)</string>
   <string name="more_information">更多資訊</string>
   <string name="osm_tags">OSM 標籤</string>
@@ -1062,13 +1101,14 @@
   <string name="menu_edit">編輯…</string>
   <string name="menu_add">新的</string>
   <string name="menu_config">參數選項</string>
-  <string name="menu_find">找尋</string>
   <string name="menu_help">幫助</string>
   <string name="menu_view">檢視…</string>
   <string name="menu_erase">抹除節點</string>
+  <string name="menu_set_position">設定位置…</string>
   <string name="menu_split">拆分</string>
   <string name="menu_remove_node_from_way">移除路徑的節點</string>
   <string name="menu_start_end_way">路徑開始/結束</string>
+  <string name="menu_download_along_way">沿著路徑下載…</string>
   <string name="menu_extract">抽出節點</string>
   <string name="menu_append">追加</string>
   <string name="menu_create_route">創建路線</string>
@@ -1219,6 +1259,13 @@
   <string name="geojson_todo_custom_conversion">自訂轉換</string>
   <string name="rhino_exception">&lt;br&gt; %1$d行出現錯誤，%2$d欄 &lt;br&gt;&lt;br&gt;%3$s</string>
   <!--Download along dialog-->
+  <string name="download_along_way_title">沿著路徑下載</string>
+  <string name="download_data_label">下載 OSM 資料</string>
+  <string name="download_tasks_label">下載任務</string>
+  <string name="download_buffer_label">緩衝 (公尺)</string>
+  <string name="download_max_dimension_label">最大區堿面積 (公尺)</string>
+  <string name="download_completed_successfully">成功完全下載</string>
+  <string name="download_paused">已經暫停下載</string>
   <!---->
   <string name="menu_tools_apply_local_offset">套用儲存的影像偏移值</string>
   <string name="menu_tools_background_contrast">對比</string>
@@ -1288,6 +1335,7 @@
   <string name="actionmode_closed_way_split_2">選取第二個節點</string>
   <string name="actionmode_closed_way_split_long_click_2">選擇第二個節點或是長按</string>
   <string name="actionmode_split_way_node_selection">選擇節點或是長按</string>
+  <string name="actionmode_split_way_long_click">長按來標示分割位置</string>
   <string name="actionmode_split_way_select_part">選取部分成為新路徑</string>
   <string name="actionmode_select_node_to_append_to">選擇節點來附著</string>
   <string name="actionmode_restriction">增加轉彎限制</string>
@@ -1318,6 +1366,7 @@
   <string name="menu_add_node_address">新增地址節點</string>
   <string name="menu_add_address_interpolation">新增地址插值</string>
   <string name="menu_add_way">增加路徑</string>
+  <string name="menu_add_area">新增區益鋰</string>
   <string name="add_node_instruction">點一下位置</string>
   <string name="add_way_start_instruction">點一下第一個位置來開始</string>
   <string name="add_way_node_instruction">點下一個節點位置</string>
@@ -1656,6 +1705,7 @@
   <string name="listedit_use_translations">使用翻譯</string>
   <string name="manage_geocoders">管理 geocoders</string>
   <string name="listedit_supports_compressed_uploads">支援壓縮上傳</string>
+  <string name="listedit_authenticated_reads">使用已認證的讀取</string>
   <string name="geocoder_type">geocoder 類型</string>
   <string name="manage_image_stores">管理影像儲存區</string>
   <string name="imagestore_type">影像儲存類別</string>
@@ -1738,6 +1788,10 @@
   <string name="tracking_long_text">Vespucci 正在錄製 GPX 軌跡或是自動下載，要徹底關閉的話請按下面的按鈕或是按 app 內的返回鍵。</string>
   <string name="gps_failure">啟用 GPS 失敗</string>
   <string name="gps_service_start_failure">無法啟動 GPS 裝置，請再試一次。\n\n錯誤：%1$s</string>
+  <string name="download_service_title">背景下載服務</string>
+  <string name="download_service_idle">下載已經完成，目前服務已經閒置</string>
+  <string name="download_service_downloaded">下載%2$d區域的%1$d</string>
+  <string name="download_service_start_failure">開始下載服務已失敗。\n\錯誤：%1$s</string>
   <!--element description-->
   <string name="address_housenumber">地址 %1$s</string>
   <string name="address_housenumber_street">地址 %1$s%2$s</string>

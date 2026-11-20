@@ -172,6 +172,8 @@
   <string name="progress_searching_message">Söker...</string>
   <string name="progress_saving_message">Sparar...</string>
   <string name="progress_uploading_message">Laddar upp...</string>
+  <string name="progress_resource_download_message">Laddar ner resurs…</string>
+  <string name="progress_resource_load_message">Laddar resurs…</string>
   <string name="progress_loading_preset_message">Laddar förval…</string>
   <string name="progress_importing_file_message">Importerar fil...</string>
   <string name="progress_running_message">Kör...</string>
@@ -182,6 +184,8 @@
   <string name="progress_migration">Migrerar...</string>
   <string name="progress_determining_status_message">Undersöker status…</string>
   <string name="progress_updating_message">Uppdaterar…</string>
+  <string name="progress_validation_title">Validerar</string>
+  <string name="progress_calculating_message">Beräknar…</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" raderad</string>
   <string name="changes_changed">\"%1$s\" ändrad</string>
@@ -212,6 +216,7 @@
   <!--Review changes dialog-->
   <string name="review_changes_title">Granska ändringar</string>
   <string name="review_upload_selected">Ladda upp valda</string>
+  <string name="review_update">Uppdatera</string>
   <!--Upload GPX-->
   <string name="upload_gpx_title">Ladda upp GPX-spår</string>
   <string name="upload_gpx_description_label">Beskrivning</string>
@@ -294,8 +299,8 @@
   <string name="WGS84">WGS84</string>
   <!---->
   <string name="tag_editor_name_suggestion">Namnförslag</string>
-  <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">Det här förslaget kan ersätta vissa taggvärden med mer populära.</string>
+  <!--Search/Find place dialog-->
   <string name="search_results_title">Sökresultat</string>
   <string name="search_online">Sök på nätet</string>
   <string name="find_message">Ange söksträng</string>
@@ -360,6 +365,9 @@
   <string name="direction">Riktning</string>
   <string name="file_size">Storlek</string>
   <string name="file_size_kB">%1$d kB</string>
+  <!--further image stuff-->
+  <string name="storage_panoramax">Panoramax</string>
+  <string name="storage_mapillary">Mapillary</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">För mycket data laddat!</string>
   <string name="too_much_data_message">Du har %1$d noder laddade och har överskridit den konfigurerade gränsen. Detta kommer att leda till en långsammare hantering, och om du lägger till mer data, till potentiella problem med att spara status.</string>
@@ -467,6 +475,8 @@
   <string name="create_osm_object">Skapa OSM-föremål</string>
   <string name="create_osm_object_search">Skapa OSM-objekt från förinställd sökning</string>
   <string name="waypoint_link">Anslutning</string>
+  <!--GPX track segment dialog-->
+  <!--Simplification dialog-->
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Egen bild</string>
   <string name="oam_layer_title">OAM-bilder</string>
@@ -600,7 +610,11 @@
   <string name="date_widget_usage_with_additional">Avmarkera valfritt värde ovan för att använda datumväljaren</string>
   <!--Feedback activity-->
   <string name="feedback_title">Återkoppling för utvecklarna</string>
+  <string name="feedback_title_hint">Rubrik</string>
   <string name="feedback_with_displayname">Skicka med ditt OpenStreetMap-visningsnamn</string>
+  <string name="feedback_send">Skicka</string>
+  <string name="feedback_anonymous">Skicka anonymt</string>
+  <string name="feedback_title_required">Rubrik krävs</string>
   <string name="feedback_success_title">Lyckat</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Ladda ner OpenStreetMap data</string>
@@ -1024,11 +1038,13 @@
   <string name="no_nominatim_result">Nominatim-servern hittade inte %1$s</string>
   <!--Menu-->
   <string name="menu_move">Flytta</string>
+  <string name="menu_edit">Redigera…</string>
   <string name="menu_add">Ny</string>
   <string name="menu_config">Inställningar</string>
-  <string name="menu_find">Hitta</string>
   <string name="menu_help">Hjälp</string>
+  <string name="menu_view">Visa…</string>
   <string name="menu_erase">Radera nod</string>
+  <string name="menu_set_position">Sätt position…</string>
   <string name="menu_split">Dela</string>
   <string name="menu_remove_node_from_way">Ta bort nod från väg</string>
   <string name="menu_start_end_way">Början/Slut av väg</string>
@@ -1580,6 +1596,7 @@
   <string name="pref_enable_acra">Rapportera app krascher</string>
   <string name="pref_acra_enabled">Kraschrapportering påslagen</string>
   <string name="pref_acra_disabled">Kraschrapportering avstängd</string>
+  <string name="pref_acra_save_locally_disabled">Funktionsnedsatta</string>
   <string name="config_showStats_title">Visa statistik</string>
   <string name="config_showStats_summary">Visar datastatistik och FPS i nedre vänstra hörnet.</string>
   <!--Experimental-->

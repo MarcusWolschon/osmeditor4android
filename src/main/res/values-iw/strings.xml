@@ -210,8 +210,8 @@
   <string name="WGS84">WGS84</string>
   <!---->
   <string name="tag_editor_name_suggestion">הצעת שם</string>
-  <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">הצעה זו יכולה להחליף ערכי תגיות בערכים יותר נפוצים.</string>
+  <!--Search/Find place dialog-->
   <string name="search_results_title">תוצאות חיפוש</string>
   <string name="search_online">חיפוש מקוון</string>
   <string name="find_message">נא להקליד מחרוזת לחיפוש</string>
@@ -270,6 +270,9 @@
   <string name="way_points">נקודות דרך</string>
   <!--Image information dialog-->
   <string name="direction">כיוון</string>
+  <!--further image stuff-->
+  <string name="storage_panoramax">Panoramax</string>
+  <string name="storage_mapillary">Mapillary</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">נטענו יותר מדי נתונים!</string>
   <string name="too_much_data_message">נטענו אצלך %1$d מפרקים וחרגת מהסף המוגדר. מצב זה יוביל להאטה ובמקרה של הוספת נתונים נוספים אף לתקלות ביכולת שמירת המצב.</string>
@@ -367,6 +370,8 @@
   <string name="altitude">גובה</string>
   <string name="create_osm_object">יצירת פריט OSM</string>
   <string name="create_osm_object_search">יצירת פריט OSM דרך חיפוש ערכות</string>
+  <!--GPX track segment dialog-->
+  <!--Simplification dialog-->
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">תמונת רקע בהתאמה אישית</string>
   <string name="oam_layer_title">תמונות רקע OAM</string>
@@ -845,7 +850,6 @@
   <string name="menu_move">העברה</string>
   <string name="menu_add">חדש</string>
   <string name="menu_config">העדפות</string>
-  <string name="menu_find">חיפוש</string>
   <string name="menu_help">עזרה</string>
   <string name="menu_erase">מחיקת מפרק</string>
   <string name="menu_split">פיצול</string>

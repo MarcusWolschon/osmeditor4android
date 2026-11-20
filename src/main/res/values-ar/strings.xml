@@ -192,8 +192,8 @@
   <string name="WGS84">WGS84</string>
   <!---->
   <string name="tag_editor_name_suggestion">اقتراح الاسم</string>
-  <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">يمكن لهذا الاقتراح استبدال بعض قيم الوسوم بقيم أكثر شيوعًا.</string>
+  <!--Search/Find place dialog-->
   <string name="search_results_title">نتائج البحث</string>
   <string name="search_online">البحث عبر الإنترنت</string>
   <string name="find_message">أدخل سلسلة البحث</string>
@@ -248,6 +248,9 @@
   <!--GPX info dialog-->
   <!--Image information dialog-->
   <string name="direction">الاتجاه</string>
+  <!--further image stuff-->
+  <string name="storage_panoramax">بانوراماكس</string>
+  <string name="storage_mapillary">Mapillary</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">تم تحميل الكثير من البيانات!</string>
   <string name="too_much_data_message">لقد قمت بتحميل %1$dعقدة/نقطة وتجاوزت الحد المحدد. سيؤدي هذا إلى التباطؤ، وإذا قمت بإضافة المزيد من البيانات سيؤدي ذلك إلى حالة حفظ المشكلات المحتملة.</string>
@@ -332,6 +335,8 @@
   <string name="altitude">ارتفاع</string>
   <string name="create_osm_object">إنشاء عنصر OSM</string>
   <string name="create_osm_object_search">قم بإنشاء عنصر OSM من البحث حسب القالب</string>
+  <!--GPX track segment dialog-->
+  <!--Simplification dialog-->
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">صور مخصصة</string>
   <string name="oam_layer_title">صور OAM</string>
@@ -844,7 +849,6 @@
   <string name="menu_move">نقل</string>
   <string name="menu_add">جديد</string>
   <string name="menu_config">التفضيلات</string>
-  <string name="menu_find">بحث</string>
   <string name="menu_help">مساعدة</string>
   <string name="menu_erase">محو العقدة/النقطة</string>
   <string name="menu_split">تجزئة</string>
@@ -1307,6 +1311,7 @@
   <string name="pref_enable_acra">الإبلاغ عن أعطال التطبيق</string>
   <string name="pref_acra_enabled">تم تشغيل إعداد تقارير الأعطال</string>
   <string name="pref_acra_disabled">تم إيقاف إعداد تقارير الأعطال</string>
+  <string name="pref_acra_save_locally_disabled">معطل</string>
   <string name="config_showStats_title">عرض الإحصائيات</string>
   <string name="config_showStats_summary">يعرض احصائيات البيانات و عدد الإطارات في الثانية على الزاوية اليسرى السفلية.</string>
   <!--Experimental-->

@@ -271,8 +271,8 @@ Na página seguinte, pode definir algumas preferências iniciais que tornarão a
   <string name="WGS84">WGS84</string>
   <!---->
   <string name="tag_editor_name_suggestion">Sugestão de nome</string>
-  <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">Esta sugestão pode substituir alguns valores de etiquetas por outras mais populares.</string>
+  <!--Search/Find place dialog-->
   <string name="search_results_title">Resultados da pesquisa</string>
   <string name="search_online">Pesquisar online</string>
   <string name="find_message">Introduza o texto a pesquisar</string>
@@ -336,6 +336,9 @@ Na página seguinte, pode definir algumas preferências iniciais que tornarão a
   <string name="direction">Direção</string>
   <string name="file_size">Tamanho</string>
   <string name="file_size_kB">%1$d kB</string>
+  <!--further image stuff-->
+  <string name="storage_panoramax">Panoramax</string>
+  <string name="storage_mapillary">Mapillary</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Demasiados dados carregados!</string>
   <string name="too_much_data_message">Tem %1$d nós carregados e excederam o limite configurado. Isto tornará o funcionamento mais lento do seu dispositivo, e caso adicione mais dados, pode ter problemas ao guardar.</string>
@@ -437,6 +440,8 @@ Na página seguinte, pode definir algumas preferências iniciais que tornarão a
   <string name="create_osm_object">Criar objeto OSM</string>
   <string name="create_osm_object_search">Criar objeto OSM a partir da etiqueta de procura</string>
   <string name="waypoint_link">Ligação</string>
+  <!--GPX track segment dialog-->
+  <!--Simplification dialog-->
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Camada personalizada</string>
   <string name="oam_layer_title">Imagem OAM</string>
@@ -987,7 +992,6 @@ há %3$s %4$s</string>
   <string name="menu_move">Mover</string>
   <string name="menu_add">Novo</string>
   <string name="menu_config">Preferências</string>
-  <string name="menu_find">Procurar</string>
   <string name="menu_help">Ajuda</string>
   <string name="menu_erase">Eliminar nó</string>
   <string name="menu_split">Dividir</string>
@@ -1515,6 +1519,7 @@ há %3$s %4$s</string>
   <string name="pref_enable_acra">Reportar bloqueios da app</string>
   <string name="pref_acra_enabled">Relatório de falhas da aplicação ativado</string>
   <string name="pref_acra_disabled">Relatório de falhas da aplicação desativado</string>
+  <string name="pref_acra_save_locally_disabled">Desativado </string>
   <string name="config_showStats_title">Ver estatísticas</string>
   <string name="config_showStats_summary">Mostra estatísticas dos dados e FPS no canto inferior esquerdo.</string>
   <!--Experimental-->

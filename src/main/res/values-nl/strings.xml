@@ -267,8 +267,8 @@ Je kan dit doen door een deel van de veranderde elementen te selecteren en ze lo
   <string name="WGS84">WGS84</string>
   <!---->
   <string name="tag_editor_name_suggestion">Naamsuggestie</string>
-  <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">Deze suggestie kan een aantal tag waarden vervangen met populairdere varianten.</string>
+  <!--Search/Find place dialog-->
   <string name="search_results_title">Zoekresultaten</string>
   <string name="search_online">Zoek online</string>
   <string name="find_message">Voer zoekwaarde in</string>
@@ -333,6 +333,9 @@ Je kan dit doen door een deel van de veranderde elementen te selecteren en ze lo
   <string name="direction">Richting</string>
   <string name="file_size">Grootte</string>
   <string name="file_size_kB">%1$d kB</string>
+  <!--further image stuff-->
+  <string name="storage_panoramax">Panoramax</string>
+  <string name="storage_mapillary">Mapillary</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Te veel gegevens ingeladen!</string>
   <string name="too_much_data_message">Je hebt %1$d Knopen ingeladen en daarmee is het ingestelde limiet overschreden. Dit zal zorgen voor een langzame ervaring en problemen met opslaan als je meer gegevens toevoegt.</string>
@@ -432,6 +435,8 @@ Je kan dit doen door een deel van de veranderde elementen te selecteren en ze lo
   <string name="altitude">Hoogte</string>
   <string name="create_osm_object">OSM-object aanmaken</string>
   <string name="create_osm_object_search">OSM-object met voorkeuze-type aanmaken</string>
+  <!--GPX track segment dialog-->
+  <!--Simplification dialog-->
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Aangepaste foto\'s</string>
   <string name="oam_layer_title">OAM foto\'s</string>
@@ -976,7 +981,6 @@ Je kan dit doen door een deel van de veranderde elementen te selecteren en ze lo
   <string name="menu_move">Verschuif</string>
   <string name="menu_add">Nieuw</string>
   <string name="menu_config">Voorkeuren</string>
-  <string name="menu_find">Zoeken</string>
   <string name="menu_help">Hulp</string>
   <string name="menu_erase">Verwijder knoop</string>
   <string name="menu_split">Splits</string>
@@ -1502,6 +1506,7 @@ Je kan dit doen door een deel van de veranderde elementen te selecteren en ze lo
   <string name="pref_enable_acra">Rapporteer app crashes</string>
   <string name="pref_acra_enabled">Crashes rapporteren staat aan</string>
   <string name="pref_acra_disabled">Crashes rapporteren staat uit</string>
+  <string name="pref_acra_save_locally_disabled">Uitgeschakeld</string>
   <string name="config_showStats_title">Toon statistieken</string>
   <string name="config_showStats_summary">Toont gegevensstatistieken en FPS in de linkeronderhoek.</string>
   <!--Experimental-->

@@ -20,14 +20,14 @@
     <string name="help_preferences">Beállítások</string>
     <string name="help_advanced_preferences">Speciális beállítások</string>
     <string name="help_custom_imagery">Egyéni légifelvétel</string>
-    <string name="help_presets">Előbeállítások</string>
+    <string name="help_presets">Címkesablonok</string>
     <string name="help_styles">Táncstílusok</string>
     <string name="help_uploading">Módosításaid feltöltése</string>
     <string name="help_conflictresolution">Ütközés feloldása</string>
     <string name="help_gpssources">GPS-források</string>
     <string name="help_keyboard">Billentyűzet</string>
     <string name="help_tagfilter">Címkeszűrő</string>
-    <string name="help_presetfilter">Előbeállításszűrő</string>
+    <string name="help_presetfilter">Címkesablonszűrő</string>
     <string name="help_opening_hours">Nyitva tartás</string>
     <string name="help_newnoteselection">Új jegyzet kijelölése</string>
     <string name="help_voice_commands">Hangutasítások</string>
@@ -35,6 +35,8 @@
     <string name="help_tag_only_mode">Csak címkézés mód</string>
     <string name="help_indoor_mode">Beltéri mód</string>
     <string name="help_address_mode">Cím mód</string>
+    <string name="help_upgrade_221">22.1 kiadási megjegyzések</string>
+    <string name="help_upgrade_220">22.0 kiadási megjegyzések</string>
     <string name="help_upgrade_212">21.2 kiadási megjegyzések</string>
     <string name="help_upgrade_211">21.1 kiadási megjegyzések</string>
     <string name="help_upgrade_210">21.0 kiadási megjegyzések</string>
@@ -104,6 +106,7 @@
         <item>@string/help_address_mode</item>
         <item>@string/help_voice_commands</item>
         <item>@string/help_add_route_segment</item>
+        <item>@string/help_image_viewer</item>
     	<item>@string/help_upgrade</item>
         <item>@string/help_upgrade_212</item>
         <item>@string/help_upgrade_211</item>
@@ -176,6 +179,9 @@
         <item>Address mode</item>
         <item>Voice commands</item>
         <item>Add route segment</item>
+        <item>Image viewer</item>
+        <item>22.2.0 Release notes</item>
+        <item>22.1.0 Release notes</item>
         <item>22.0.0 Release notes</item>
         <item>21.2.0 Release notes</item>
         <item>21.1.0 Release notes</item>

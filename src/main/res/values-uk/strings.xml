@@ -300,8 +300,8 @@
   <string name="set_position_swap">Поміняти місцями довготу та широту</string>
   <!---->
   <string name="tag_editor_name_suggestion">Підказувати назви</string>
-  <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">Підказки можуть замінювати значення деяких теґів на більш поширені.</string>
+  <!--Search/Find place dialog-->
   <string name="search_results_title">Результати пошуку</string>
   <string name="search_online">Шукати онлайн</string>
   <string name="find_message">Введіть рядок пошуку</string>
@@ -366,6 +366,9 @@
   <string name="direction">Напрямок</string>
   <string name="file_size">Розмір</string>
   <string name="file_size_kB">%1$d кБ</string>
+  <!--further image stuff-->
+  <string name="storage_panoramax">Panoramax</string>
+  <string name="storage_mapillary">Mapillary</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Завантажено забагато даних!</string>
   <string name="too_much_data_message">У вас завантажено %1$d точок, що перевищує встановлені обмеження. Це може спричинити сповільнення в роботі, а також, якщо ви додасте більше даних, до проблем з їх збереженням.</string>
@@ -494,6 +497,8 @@
   <string name="create_osm_object">Створити об\'єкт OSM</string>
   <string name="create_osm_object_search">Створити об\'єкт OSM з результатів пошуку заготовок</string>
   <string name="waypoint_link">Посилання</string>
+  <!--GPX track segment dialog-->
+  <!--Simplification dialog-->
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Власний фон</string>
   <string name="oam_layer_title">Фон OAM</string>
@@ -1111,7 +1116,6 @@
   <string name="menu_edit">Редагувати…</string>
   <string name="menu_add">Новий</string>
   <string name="menu_config">Налаштування</string>
-  <string name="menu_find">Знайти</string>
   <string name="menu_help">Довідка</string>
   <string name="menu_view">Переглянути…</string>
   <string name="menu_erase">Вилучити точку</string>
