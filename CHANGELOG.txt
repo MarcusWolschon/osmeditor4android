@@ -1,5 +1,67 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+22.2.0-1:
+
+- Fix tweak circle creation related parameters and algorithm
+- Fix don't try to save a null list of photos
+- Fix run the TaginfoDump with the current target API level
+- Fix avoid accumulating errors when rotating objects
+- Fix WMS layer search
+- Fix links shouldn't be focusable in MR fragment
+- Fix force opening element history URL in a browser
+- Fix update OSM sandbox client id for 3rd party builds
+- Fix protect against (theorectical) NPE
+- Fix toast the reason an image can't be loaded in the viewer
+- Fix disable "Add existing image" if permissions are not present
+- Fix improve behaviour of "upload existing image"
+- Fix implement a 5 minute idle timeout for the DownloadService
+- Fix stop service if system calls onTimeout
+- Fix improve syncronisation between the ReviewActivity and Main
+- Fix don't attempt to download if we get a geo: URI and don't have Internet
+- Fix MediaStore indexing could abort on images without coordinates
+- Fix 22.1.1 regression that stopped GPX uploads from working
+- Fix locale mapping for id
+- Fix ReviewActivity needs to extend Authorisat
+- Fix registering in onStart will now cause an error
+- Fix protect against getBounds returning null
+- Fix regression in split window property editor mode
+- Fix database migration caused crash when upgrading from 22.0 or earlier
+- Fix ACRA tries to use TLS 1.1 this causes issues on newer Android versions
+- Fix stop Android Linkify from using substrings
+- Fix immediately fail Panoramax uploads for images without EXIF/location
+- Fix protect against null preset path
+- Fix actually save tile in onSaveInstanceState
+- Fix starting a foreground service can throw a SecutiryException, catch it
+- Fix bug fixes and performance improvements Panoramax and Mapillary layers
+- Fix disable date filter when not in use
+- Change improve tile cache locking
+- Change save crash reports locally if sending fails
+- Change reduce GPX visibility values (OSM API change)
+- Change split single lock in TaskStorage in to a read and a write lock
+- Change split StorageDelegator single lock in to a read and write lock
+- Change rename Find to Find place
+- Change don't add locale changeset tag
+- Add some documentation on the image viewer
+- Add separate snapping behaviour for creating ways vs areas
+- Add support positioning precision and dilution of precision values
+- Add display the source url for images from Panoramax and Mapillary
+- Add support adding an image link when uploading from the image viewer
+- Add support for adding links to OSM elements from the image viewer
+- Add support for a radial distance filter
+- Add support for Ramer-Douglas-Peucker simplification
+- Add support for downloading along a GPX segment
+- Add support for converting a GPX segment to an OSM way
+- Add configuration for OpenGeofiction API and OAuth2 client ids
+- Add styling for waterway=flowline
+- Add sidewalk:left and sidewalk:right and sidewalk:both
+- Add styleable colour to highlight newly created or modified ways and nodes
+- Add rendering for highway=via_ferrata
+- Update root certificates 
+- Update imagery from ELI
+- Update synonyms
+- Update tag2link
+- Update translations
+
 22.1.0:
 
 - Fix don't crash if we can't find download
