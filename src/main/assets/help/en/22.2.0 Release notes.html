@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+</head>
+<body>
+<h1 id="vespucci-222-beta-highlights">Vespucci 22.2 BETA Highlights</h1>
+<p>2026-11-19</p>
+<h3 id="locale-no-longer-added-to-changeset-tags-automatically">Locale no longer added to changeset tags automatically</h3>
+<p>With this release we stop adding a <em>locale</em> tag automatically to changesets. If you want to continue to provide this to people inspecting your edits, you can simply add it to the persistent tags in the upload dialog. The change is reflected in the updated version of our <a href="Privacy.md">privacy policy</a>.</p>
+<h3 id="updated-image-and-photo-viewer">Updated image- and photo viewer</h3>
+<p>The photo viewer now supports adding links to OSM objects from the viewer for Panoramax and Mapillary images, you will need to have one OSM Element selected in the map view for this. Uploading an image from the vier will automatically try to add a link. Further  the info modal displays the source url for Panoramax and Mapillary images and, displays positioning precision and dilution of precision values if available. See <a href="Image%20viewer.md">image- and photo viewer</a>.</p>
+<h3 id="additional-gpx-layer-functionality">Additional GPX layer functionality</h3>
+<p>Clicking on/selecting a GPX segment (note that a GPX track can consist of multiple segments) will now display a dialog that allows you to download OSM data along the segment or convert it in to an OSM way.</p>
+<p>As directly converting a GPX segment to an OSM Way is typically not a good idea, you will be asked to set filters before the operation, the <em>Jitter-Filter</em> removes small amplitude jitter, for example created by stopping for a longer time, and the Ramer-Douglas-Peucker <em>Simplification</em> will simplify the overall geometry of the segment before creating the Way.</p>
+<h3 id="changed-elements-highlight">Changed elements highlight</h3>
+<p>Newly created or modified ways and nodes are now highlighted in light blue, the colour is defined in the <a href="Styles.md">map styles</a>.</p>
+<h3 id="crash-reports-saved-locally">Crash reports saved locally</h3>
+<p>Crash reports will now be saved locally if submitting them fails (ACRA will retry these till they can be sent), and you can change the behaviour to always keep a local copy with a <a href="Advanced%20preferences.md#MISCELLANEOUS">Advanced preference</a>.</p>
+<h3 id="reminder-android-50-and-51-eol-announcement">Reminder: Android 5.0 and 5.1 EOL announcement</h3>
+<p>With next years major version 23 we will be dropping support for Android 5 and 5.1. These Android versions will be a dozen years old in 2027 and google has now dropped support for them in many of the libraries we rely on, with other words we don't really have a choice.</p>
+<h3 id="other-behaviour-changes">Other behaviour changes</h3>
+<ul>
+<li>Renamed <em>Find</em> to <em>Find place</em></li>
+<li>Add configuration for OpenGeofiction API and OAuth2 client ids</li>
+<li>Ramer-Douglas-Peucker simplification is supported for OSM Ways</li>
+<li>Separate snapping behaviour for creating ways vs areas</li>
+</ul>
+<h2 id="miscellaneous">Miscellaneous</h2>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
+<p>As a general precaution you should upload any pending changes before updating, particularly if you are upgrading from any major version that doesn't immediately precede this one.</p>
+<h1 id="known-problems">Known problems</h1>
+<ul>
+<li>The documentation is out of date.</li>
+<li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+</ul>
+
+</body>
+</html>
