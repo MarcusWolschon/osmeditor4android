@@ -282,11 +282,17 @@ public class WmsEndpointDatabaseView extends CancelableDialogFragment implements
 
     private class FilteredAdapter extends WidestItemArrayAdapter<String> {
         private final List<String>  originalObjects;
-        private final List<Integer> positionMap = new ArrayList<>();
+        private final List<Integer> positionMap;
 
         public FilteredAdapter(Context context, int resource, int textView, List<String> objects) {
             super(context, resource, textView, objects);
             originalObjects = new ArrayList<>(objects);
+            int size = originalObjects.size();
+            positionMap = new ArrayList<>();
+            // has to be initialized!
+            for (int i = 0; i < size; i++) {
+                positionMap.add(i);
+            }
         }
 
         /**
@@ -297,7 +303,7 @@ public class WmsEndpointDatabaseView extends CancelableDialogFragment implements
          */
         int getMappedPosition(int pos) {
             if (pos < 0 || pos >= positionMap.size()) {
-                throw new IllegalArgumentException("getMappedPositiion position " + pos + " out of range");
+                throw new IllegalArgumentException("getMappedPosition position " + pos + " out of range of 0 to " + (positionMap.size() - 1));
             }
             return positionMap.get(pos);
         }
