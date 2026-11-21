@@ -35,6 +35,8 @@
     <string name="help_tag_only_mode">Λειτουργία ετικέτας μόνο</string>
     <string name="help_indoor_mode">Λειτουργία εσωτερικού χώρου</string>
     <string name="help_address_mode">Λειτουργία διεύθυνσης</string>
+    <string name="help_image_viewer">Προβολέας εικόνων και φωτογραφιών</string>
+    <string name="help_upgrade">22.2 Σημειώσεις έκδοσης</string>
     <string name="help_upgrade_221">22.1 Σημειώσεις έκδοσης</string>
     <string name="help_upgrade_220">22.0 Σημειώσεις έκδοσης</string>
     <string name="help_upgrade_212">21.2 Σημειώσεις έκδοσης</string>

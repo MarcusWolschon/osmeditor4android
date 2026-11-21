@@ -367,6 +367,8 @@
   <string name="direction">Richtung</string>
   <string name="file_size">Größe</string>
   <string name="file_size_kB">%1$d kB</string>
+  <string name="positioning_precision">Positionsgenauigkeit (m)</string>
+  <string name="dilution_of_precision">Präzisionsminderung</string>
   <!--further image stuff-->
   <string name="storage_wikimedia_commons">Wikimedia Commons</string>
   <string name="storage_panoramax">Panoramax</string>
@@ -500,9 +502,15 @@
   <!--GPX track segment dialog-->
   <string name="track_segment_title">GPX Tracksegment</string>
   <string name="gpx_track">GPX Track</string>
+  <string name="gpx_track_segment_start">Startindex des Segments</string>
+  <string name="gpx_track_segment_end">Endindex des Segments</string>
+  <string name="gpx_layer_object">%1$s in %2$s</string>
   <string name="track_segment_description">GPX Tracksegment</string>
   <string name="create_osm_ways">OSM-Weg(e) erstellen…</string>
   <!--Simplification dialog-->
+  <string name="jitter_simplification_title">Filter und Vereinfachung</string>
+  <string name="simplification_title">Vereinfachungseinstellungen</string>
+  <string name="jitter_filter">Filter zur Glättung von Positionsabweichungen</string>
   <string name="simplify">Vereinfachen</string>
   <string name="tolerance">Toleranz (in Meter)</string>
   <!--Custom imagery dialogs-->
@@ -604,6 +612,7 @@
   <string name="photo_viewer_label">Fotoanzeige</string>
   <string name="mapillary_viewer_label">Mapillary-Anzeige</string>
   <string name="photo_viewer_upload">Hochladen…</string>
+  <string name="photo_viewer_add_link">Link zu Element hinzufügen</string>
   <!--API info dialog-->
   <string name="api_info_bounds">Begrenzungsrechteck</string>
   <string name="api_info_latest_date">Letztes Einfügedatum</string>
@@ -751,6 +760,7 @@
   <string name="toast_photo_indexing_started">Suche nach georeferenzierten Fotos begonnen</string>
   <string name="toast_photo_indexing_finished">Suche nach georeferenzierten Fotos beendet</string>
   <string name="toast_photo_failed">Die Aufnahme eines Fotos ist fehlgeschlagen. Ist die Geolokalisierung in der Kamera-App aktiviert?</string>
+  <string name="toast_photo_missing_exif_geolocation">Der Bilddatei fehlen die EXIF-Daten oder diese enthalten keine Geolokalisation!</string>
   <string name="toast_download_failed">Download fehlgeschlagen, zugehöriger Fehlercode: %1$d, Meldung: %2$s</string>
   <string name="toast_note_reopened">Notiz wieder geöffnet</string>
   <string name="toast_untrusted_certificate">Nicht vertrauenswürdiges Zertifikat\n%1$s</string>
@@ -931,6 +941,7 @@
   <string name="toast_panoramax_image_not_in_sequence_error">Bild-ID %1$s in der Sequenz nicht gefunden</string>
   <string name="toast_panoramax_sequence_exception">Panoramax-Sequenz kann nicht abgerufen werden\n%1$s</string>
   <string name="toast_panoramax_instance_list_error">Die Liste von Panoramax Instanzen konnte nicht geladen werden\n%1$s</string>
+  <string name="toast_unable_to_load_image">Bild laden fehlgeschlagen\n%1$s</string>
   <string name="toast_authorisation_successful">Autorisierung erfolgreich!</string>
   <string name="toast_authorisation_failed">Autorisierung fehlgeschlagen\n%1$s</string>
   <string name="toast_way_self_intersects">Das Linienobjekt schneidet sich selbst</string>
@@ -1694,6 +1705,7 @@
   <string name="pref_acra_disabled">Fehlerreport deaktiviert</string>
   <string name="pref_acra_save_locally">Fehlerberichte auch lokal speichern</string>
   <string name="pref_acra_save_locally_disabled">Behinderte</string>
+  <string name="pref_acra_save_locally_enabled">Aktiviert</string>
   <string name="config_showStats_title">Statistiken anzeigen</string>
   <string name="config_showStats_summary">Zeigt Statistiken (FPS/Knotenanzahl) in der unteren linken Ecke an.</string>
   <!--Experimental-->
@@ -1778,6 +1790,7 @@
   <string name="wikimedia_meta_licence">Lizenz</string>
   <string name="wikimedia_meta_category">Kategorie</string>
   <string name="image_upload_add_link_title">Link hinzufügen</string>
+  <string name="image_upload_add_link_message">Füge ein geeignetes Tag hinzu, um das Bild mit dem ausgewählten OSM-Element (falls vorhanden) zu verknüpfen.</string>
   <!--common terms-->
   <string name="add">Hinzufügen</string>
   <string name="edit">Bearbeiten</string>

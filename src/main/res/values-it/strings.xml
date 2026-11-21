@@ -38,7 +38,7 @@
   <string name="undoing_local_delete">..annullando l’eliminazione locale</string>
   <string name="deleting_references_on_server">…eliminando i riferimenti sul server</string>
   <string name="unable_to_download_referring_element">Impossibile scaricare l’elemento che fa riferimento a %1$s %2$d</string>
-  <string name="unable_to_download_referring_element_for_deletion">Impossibile scaricare l\'elemento riferito, impossibile eliminare</string>
+  <string name="unable_to_download_referring_element_for_deletion">Impossibile scaricare l\'elemento riferito, impossibile eliminare %1$s%2$d</string>
   <string name="unable_to_download_server_version">Impossibile scaricare la versione %1$s %2$d sul server</string>
   <string name="unexpected_conflict_type">Conflitto di tipo non previsto</string>
   <string name="missing_referenced_elements">Elementi riferiti mancanti</string>
