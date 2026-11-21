@@ -1,5 +1,10 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+22.1.5:
+
+- Fix WMS layer selection without filtering
+- Update imagery from ELI
+
 22.1.4:
 
 - Fix don't try to save a null list of photos
