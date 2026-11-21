@@ -425,6 +425,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../../help/en/22.2.0%20Release%20notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    22.2 Release notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../help/en/22.1.0%20Release%20notes/" class="md-nav__link">
         
   
@@ -1730,6 +1751,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../../help/en/Image%20viewer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Image and photo viewer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../help/en/Preferences/" class="md-nav__link">
         
   
@@ -2527,7 +2569,7 @@
   <h1>Vespucci data styling</h1>
 
 <h2 id="vespucci-data-styling">Vespucci Data Styling<a class="headerlink" href="#vespucci-data-styling" title="Permanent link">#</a></h2>
-<p><em>Documentation for Vespucci 22.1 Style file format version 0.3.3</em></p>
+<p><em>Documentation for Vespucci 22.2 Style file format version 0.3.3</em></p>
 <p>The data styling configuration is not a work of art, it was created ad hoc (in other words it is an awful hack) to allow slightly more flexible configuration of the rendering.</p>
 <h3 id="using-custom-style-files-in-vespucci">Using custom style files in Vespucci<a class="headerlink" href="#using-custom-style-files-in-vespucci" title="Permanent link">#</a></h3>
 <p>Files need to need have an unique <em>name</em> attribute and the <em>.xml</em> extension and reside in a <em>styles</em> directory in an app specific files directory (for example <em>Android/data/de.blau.android/files/styles/test.xml</em> ). Currently the legacy storage format and location continues to work: unique <em>name</em> attribute and a filename in the format <em>name</em>-profile.xml and stored in the <em>Vespucci</em> directory, this is the only location that will work for devices with Android version older than 4.4. </p>
@@ -2823,7 +2865,7 @@
 </tr>
 <tr>
 <td>viewbox</td>
-<td></td>
+<td>Colour for the viewbox background (dimmed for non-downloaded areas)</td>
 </tr>
 <tr>
 <td>way_tolerance</td>
@@ -2831,7 +2873,15 @@
 </tr>
 <tr>
 <td>way_tolerance_2</td>
-<td></td>
+<td>Same as above but less transparent for highlighting selectable ways</td>
+</tr>
+<tr>
+<td>way_tolerance_modified</td>
+<td>Styling for area around a modified or newly created way</td>
+</tr>
+<tr>
+<td>way_tolerance_modified_2</td>
+<td>Same as above but less transparent for highlighting selectable ways</td>
 </tr>
 <tr>
 <td>way</td>
@@ -2859,7 +2909,15 @@
 </tr>
 <tr>
 <td>node_tolerance_2</td>
-<td></td>
+<td>Same as above but less transparent for highlighting selectable nodes</td>
+</tr>
+<tr>
+<td>node_tolerance_modified</td>
+<td>Styling for area around a modified or newly created node</td>
+</tr>
+<tr>
+<td>node_tolerance_modified_2</td>
+<td>Same as above but less transparent for highlighting selectable nodes</td>
 </tr>
 <tr>
 <td>node_untagged</td>
@@ -3441,7 +3499,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-	    Generated for Vespucci 22.1
+	    Generated for Vespucci 22.2
     </div>
   
   
@@ -3492,7 +3550,7 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tracking", "navigation.tabs", "navigation.tabs.sticky"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": 22.1}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tracking", "navigation.tabs", "navigation.tabs.sticky"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": 22.2}</script>
     
     
       <script src="../../assets/javascripts/bundle.60a45f97.min.js"></script>
