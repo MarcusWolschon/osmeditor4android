@@ -36,7 +36,7 @@ final class MapRouletteServer {
     private static final String APIPATH = "api/v2/";
     private static final String API_KEY = "apiKey";
 
-    private static final String TASKS_FOR_BOX     = "%stasks/box/%f/%f/%f/%f?includeGeometries=true&limit=%d";
+    private static final String TASKS_FOR_BOX     = "%stasks/box/%f/%f/%f/%f?includeGeometries=true&onlyEnabled=true&limit=%d";
     private static final String CHANGE_TASK_STATE = "%stask/%d/%d";
 
     /**
