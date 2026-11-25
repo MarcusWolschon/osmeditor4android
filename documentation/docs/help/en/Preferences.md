@@ -12,6 +12,10 @@ Manage custom imagery layers not included in the standard configuration. This su
 
 See [custom imagery help](Custom%20imagery.md) for more information.
 
+## Highlight changes
+
+Highlight new and changed OSM elements. The highlight colour can be changed with a custom [data style](#data-style).
+
 ## Keep screen on
 
 Disable the Android automatic screen lock.

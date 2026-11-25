@@ -1431,6 +1431,8 @@
     <string name="config_enableOpenStreetBugs_summary">Display, edit and create notes, bugs and tasks.</string>
     <string name="config_enablePhotoLayer_title">Enable photo layer</string>
     <string name="config_enablePhotoLayer_summary">Display geo-referenced photos.</string>
+    <string name="config_highlightChanges_title">Highlight changes</string>
+    <string name="config_highlightChanges_summary">Highlight new and changed OSM elements.</string>
     <string name="config_enableKeepScreenOn_title">Keep screen on</string>
     <string name="config_enableKeepScreenOn_summary">Prevent screen from turning off to save power.</string>
     <string name="config_largeDragArea_title">Large node drag area</string>
