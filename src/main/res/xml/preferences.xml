@@ -14,6 +14,11 @@
             android:title="@string/config_customlayers_title"
             android:key="@string/config_customlayers_key"
             android:summary="@string/config_customlayers_summary" />
+         <androidx.preference.CheckBoxPreference
+            android:title="@string/config_highlightChanges_title"
+            android:key="@string/config_highlightChanges_key"
+            android:summary="@string/config_highlightChanges_summary"
+            android:defaultValue="true" />
         <androidx.preference.CheckBoxPreference
             android:title="@string/config_enableKeepScreenOn_title"
             android:key="@string/config_enableKeepScreenOn_key"

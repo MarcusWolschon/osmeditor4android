@@ -298,8 +298,9 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
     private FeatureStyle labelTextStyleSmallSelected;
 
     // other styling params
-    private int showIconsLimit;
-    private int showIconLabelZoomLimit;
+    private int     showIconsLimit;
+    private int     showIconLabelZoomLimit;
+    private boolean highlightChanges;
 
     /** cached zoom level, calculated once per onDraw pass **/
     private int zoomLevel = 0;
@@ -356,6 +357,8 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
 
     private final ThreadPoolExecutor dataThreadPoolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(DATA_THREAD_POOL_SIZE);
     private final ThreadPoolExecutor iconThreadPoolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(ICON_THREAD_POOL_SIZE);
+
+    private LayerComparator layerComparator = new LayerComparator();
 
     /**
      * Construct a new OSM data layer
@@ -495,6 +498,8 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
         tmpLocked = logic.isUiLocked();
 
         currentStyle = styles.getCurrent();
+
+        highlightChanges = prefs.highlightChanges();
 
         inNodeIconZoomRange = zoomLevel > currentStyle.getIconZoomLimit();
 
@@ -759,8 +764,6 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
             return Long.compare(w2.getBounds(box2).approxArea(), w1.getBounds(box1).approxArea());
         }
     }
-
-    private LayerComparator layerComparator = new LayerComparator();
 
     /**
      * Draw a multipolygon
@@ -1052,7 +1055,7 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
 
         // draw tolerance
         if (drawTolerance && (!filterMode || (filterMode && filteredObject))) {
-            if (!node.isUnchanged()) {
+            if (highlightChanges && !node.isUnchanged()) {
                 if (tmpClickableElements == null) {
                     drawNodeTolerance(canvas, isTagged, x, y, nodeToleranceModifiedPaint);
                 } else if (tmpClickableElements.contains(node)) {
@@ -1513,7 +1516,7 @@ public class MapOverlay<O extends OsmElement> extends NonSerializeableLayer
         FeatureStyle labelFontStyleSmall = labelTextStyleSmall;
 
         // draw way tolerance
-        if (!way.isUnchanged()) {
+        if (highlightChanges && !way.isUnchanged()) {
             if (isClickable) {
                 canvas.drawLines(linePoints, 0, pointsSize, wayToleranceModifiedPaint2);
             } else {

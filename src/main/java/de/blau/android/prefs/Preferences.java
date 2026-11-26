@@ -164,6 +164,7 @@ public class Preferences {
     private final int         minMoveWayNodesWarning;
     private final int         minMoveWayVisibleNodesWarning;
     private boolean           ignoreSubareas;
+    private boolean           highlightChanges;
 
     public static final String DEFAULT_MAP_STYLE     = "Color Round Nodes";
     public static final String DEFAULT_PEN_MAP_STYLE = "Pen Round Nodes";
@@ -365,6 +366,8 @@ public class Preferences {
         minMoveWayVisibleNodesWarning = getIntPref(R.string.config_minMoveVisibleWayNodesWarning_key, Logic.MIN_NODES_FOR_MOVE_VISIBLE_WARNING);
 
         ignoreSubareas = prefs.getBoolean(r.getString(R.string.config_ignoreSubareas_key), true);
+
+        highlightChanges = prefs.getBoolean(r.getString(R.string.config_highlightChanges_key), true);
     }
 
     /**
@@ -2411,6 +2414,25 @@ public class Preferences {
      */
     public float getSimplifyTolerance() {
         return prefs.getFloat(r.getString(R.string.config_simplify_tolerance_key), 2.0F);
+    }
+
+    /**
+     * Highlight changes in the data layer
+     * 
+     * @return true if they should be highlighted
+     */
+    public boolean highlightChanges() {
+        return highlightChanges;
+    }
+
+    /**
+     * Set if changes should be highlighted on the data layer
+     * 
+     * @param on if true highlight changes
+     */
+    public void setHighlightChanges(boolean on) {
+        highlightChanges = on;
+        prefs.edit().putBoolean(r.getString(R.string.config_highlightChanges_key), on).apply();
     }
 
     /**
