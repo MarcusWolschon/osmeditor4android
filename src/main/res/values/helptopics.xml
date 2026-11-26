@@ -117,6 +117,8 @@
         <item>@string/help_add_route_segment</item>
         <item>@string/help_image_viewer</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_221</item>
+        <item>@string/help_upgrade_220</item>
         <item>@string/help_upgrade_212</item>
         <item>@string/help_upgrade_211</item>
         <item>@string/help_upgrade_210</item>
