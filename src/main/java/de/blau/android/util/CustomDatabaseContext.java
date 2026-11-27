@@ -38,11 +38,13 @@ public class CustomDatabaseContext extends ContextWrapper {
             dbfile += ".db";
         }
 
-        File result = new File(dbfile);
+        final File result = new File(dbfile);
 
-        if (!result.getParentFile().exists()) {
+        final File parentFile = result.getParentFile();
+        // unclear when parentFile could be null and what we should do then
+        if (parentFile != null && !parentFile.exists()) {
             // noinspection ResultOfMethodCallIgnored
-            result.getParentFile().mkdirs();
+            parentFile.mkdirs();
         }
 
         if (Log.isLoggable(DEBUG_CONTEXT, Log.WARN)) {

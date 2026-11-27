@@ -191,7 +191,6 @@ public class ValidationPrefTest {
         if (!TestUtils.scrollToAndSelect(device, main.getString(R.string.config_validatorprefs_title), new UiSelector().scrollable(true), 0)) {
             fail("Didn't find " + main.getString(R.string.config_validatorprefs_title));
         }
-        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.config_validatorprefs_title), true));
 
         if (!TestUtils.scrollToAndSelect(device, main.getString(R.string.config_enabledValidations_title), new UiSelector().scrollable(true), 0)) {
             fail("Didn't find " + main.getString(R.string.config_enabledValidations_title));

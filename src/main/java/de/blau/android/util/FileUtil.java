@@ -228,7 +228,7 @@ public final class FileUtil {
                 }
                 String[] children = source.list();
                 if (children != null) {
-                    for (int i = 0; i < source.listFiles().length; i++) {
+                    for (int i = 0; i < children.length; i++) {
                         copyDirectory(new File(source, children[i]), new File(target, children[i]));
                     }
                 }
